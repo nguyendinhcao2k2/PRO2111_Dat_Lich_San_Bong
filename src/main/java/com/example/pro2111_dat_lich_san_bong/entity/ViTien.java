@@ -48,6 +48,6 @@ public class ViTien {
     private Integer trangThai;
 
     @Column(name = "tai_khoan_vi")
-    private Date taiKhoanVi;
+    private String taiKhoanVi;
 
 }
