@@ -37,7 +37,7 @@ public class LichSuChat {
     @Nationalized
     private String noiDung;
 
-    @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
+    @Column(name = "thoi_gian_tao")
     private Date thoiGianTao;
 
     @Column(name = "id_account")

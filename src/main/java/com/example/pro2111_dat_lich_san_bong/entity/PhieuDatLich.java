@@ -32,7 +32,7 @@ public class PhieuDatLich {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     protected String id;
 
-    @Column(name = "gio_bat_dau", columnDefinition = "TIMESTAMP")
+    @Column(name = "gio_bat_dau")
     private Date gioBatDau;
 
     @Column(name = "gio_ket_thuc", columnDefinition = "TIMESTAMP")

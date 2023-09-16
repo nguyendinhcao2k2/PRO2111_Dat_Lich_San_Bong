@@ -37,7 +37,7 @@ public class SanCa {
     @Column(name = "id_ca")
     private String idCa;
 
-    @Column(name = "thoi_gian_tao")
+    @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
     private Date thoiGianTao;
 
     @Column(name = "gia")

@@ -44,7 +44,7 @@ public class BienDongVi  {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
-    @Column(name = "thoi_gian")
+    @Column(name = "thoi_gian", columnDefinition = "TIMESTAMP")
     private Date thoiGian;
 
     @Column(name = "loai_bien_dong")
