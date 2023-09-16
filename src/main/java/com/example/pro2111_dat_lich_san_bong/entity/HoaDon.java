@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 /**
@@ -33,7 +34,7 @@ public class HoaDon  {
     protected String id;
 
     @Column(name = "ngay_thanh_toan", columnDefinition = "TIMESTAMP")
-    private LocalDateTime ngayThanhToan;
+    private Date ngayThanhToan;
 
     @Column(name = "don_gia")
     private double donGia;
