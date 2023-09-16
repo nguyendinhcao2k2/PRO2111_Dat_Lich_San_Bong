@@ -43,9 +43,9 @@ public class Ca {
     private Time thoiGianKetThuc;
 
     @Column(name = "gia_ca")
-    private double giaCa;
+    private Double giaCa;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
 }
