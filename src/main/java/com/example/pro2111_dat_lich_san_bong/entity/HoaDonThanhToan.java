@@ -41,7 +41,7 @@ public class HoaDonThanhToan {
 
     @Column(name = "id_thanh_toan")
     private String idThanhToan;
-    @Column(name = "thoi_gian_tao")
+    @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
     private Date thoiGianTao;
     @Column(name = "id_hoa_don")
     private String idHoaDon;

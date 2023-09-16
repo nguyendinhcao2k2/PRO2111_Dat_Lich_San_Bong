@@ -35,7 +35,7 @@ public class ViTien {
     @Column(name = "password")
     private String passWord;
 
-    @Column(name = "thoi_gian_tao")
+    @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
     private Date thoiGianTao;
 
     @Column(name = "so_tien")

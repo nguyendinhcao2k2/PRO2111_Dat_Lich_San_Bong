@@ -33,7 +33,7 @@ public class BinhLuan {
 
     @Column(name = "noi_dung_binh_luan", length = 500)
     private String noiDungBinhLuan;
-    @Column(name = "thoi_gian_binh_luan")
+    @Column(name = "thoi_gian_binh_luan", columnDefinition = "TIMESTAMP")
     private Date thoiGianBinhLuan;
     @Column(name = "id_account")
     private String idAccount;
