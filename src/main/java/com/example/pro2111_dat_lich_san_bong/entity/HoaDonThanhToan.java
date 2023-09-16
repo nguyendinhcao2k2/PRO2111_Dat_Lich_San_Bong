@@ -13,6 +13,8 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
+import java.sql.Date;
+
 /**
  * @author caodinh
  */
@@ -31,19 +33,19 @@ public class HoaDonThanhToan {
     protected String id;
 
     @Column(name = "tong_tien")
-    private double tongTien;
+    private Double tongTien;
 
     @Column(name = "ghi_chu", length = 4000)
     @Nationalized
     private String ghiChu;
 
-    @Column(name = "trang_thai")
-    private int trangThai;
-
     @Column(name = "id_thanh_toan")
     private String idThanhToan;
-
+    @Column(name = "thoi_gian_tao")
+    private Date thoiGianTao;
     @Column(name = "id_hoa_don")
     private String idHoaDon;
+    @Column(name = "trang_thai")
+    private Integer trangThai;
 
 }

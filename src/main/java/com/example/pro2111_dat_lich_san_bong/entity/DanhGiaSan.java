@@ -29,7 +29,7 @@ public class DanhGiaSan {
     protected String id;
 
     @Column(name = "so_luong_danh_gia")
-    private long soLuongDanhGia;
+    private Long soLuongDanhGia;
 
     @Column(name = "id_account")
     private String idAccount;

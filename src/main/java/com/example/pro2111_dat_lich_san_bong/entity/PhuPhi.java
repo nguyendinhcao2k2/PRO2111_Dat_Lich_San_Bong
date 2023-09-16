@@ -38,6 +38,6 @@ public class PhuPhi {
     private Double giaPhuPhi;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
 }

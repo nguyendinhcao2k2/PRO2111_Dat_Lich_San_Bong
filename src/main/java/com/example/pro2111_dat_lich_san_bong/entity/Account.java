@@ -50,7 +50,7 @@ public class Account {
     private String displayName;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
     @Column(name = "id_chuc_vu")
     private String idChucVu;

@@ -37,17 +37,17 @@ public class HoaDon  {
     private Date ngayThanhToan;
 
     @Column(name = "don_gia")
-    private double donGia;
+    private Double donGia;
 
     @Column(name = "tong_tien")
-    private double tongTien;
+    private Double tongTien;
 
     @Column(name = "ghi_chu")
     @Nationalized
     private String ghiChu;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
     @Column(name = "id_san_ca")
     private String idSanCa;

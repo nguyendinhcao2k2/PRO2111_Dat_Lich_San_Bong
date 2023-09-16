@@ -33,12 +33,12 @@ public class DoThue {
     private String tenDoThue;
 
     @Column(name = "so_luong")
-    private int soLuong;
+    private Integer soLuong;
 
     @Column(name = "don_gia")
-    private double donGia;
+    private Double donGia;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
 }
