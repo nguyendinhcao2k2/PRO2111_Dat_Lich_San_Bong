@@ -37,10 +37,10 @@ public class Ca {
     private String tenCa;
 
     @Column(columnDefinition = "time")
-    private Date thoiGianBatDau;
+    private Time thoiGianBatDau;
 
     @Column(columnDefinition = "time")
-    private Date thoiGianKetThuc;
+    private Time thoiGianKetThuc;
 
     @Column(name = "gia_ca")
     private double giaCa;

@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.sql.Timestamp;
+
 /**
  * @author caodinh
  */
@@ -30,7 +32,8 @@ public class DanhGiaSan {
 
     @Column(name = "so_luong_danh_gia")
     private Long soLuongDanhGia;
-
+    @Column(name = "thoi_gian_danh_gia", columnDefinition = "TIMESTAMP")
+    private Timestamp thoiGianDanhGia;
     @Column(name = "id_account")
     private String idAccount;
 

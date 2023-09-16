@@ -14,6 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * @author caodinh
@@ -42,7 +43,7 @@ public class HoaDonThanhToan {
     @Column(name = "id_thanh_toan")
     private String idThanhToan;
     @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
-    private Date thoiGianTao;
+    private Timestamp thoiGianTao;
     @Column(name = "id_hoa_don")
     private String idHoaDon;
     @Column(name = "trang_thai")

@@ -13,6 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -37,8 +38,8 @@ public class LichSuChat {
     @Nationalized
     private String noiDung;
 
-    @Column(name = "thoi_gian_tao")
-    private Date thoiGianTao;
+    @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
+    private Timestamp thoiGianTao;
 
     @Column(name = "id_account")
     private String idAccount;

@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -45,7 +46,7 @@ public class BienDongVi  {
     private Integer trangThai;
 
     @Column(name = "thoi_gian", columnDefinition = "TIMESTAMP")
-    private Date thoiGian;
+    private Timestamp thoiGian;
 
     @Column(name = "loai_bien_dong")
     private Integer loaiBienDong;
