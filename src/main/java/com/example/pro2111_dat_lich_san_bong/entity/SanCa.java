@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * @author caodinh
@@ -38,7 +39,7 @@ public class SanCa {
     private String idCa;
 
     @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
-    private Date thoiGianTao;
+    private Timestamp thoiGianTao;
 
     @Column(name = "gia")
     private Double gia;

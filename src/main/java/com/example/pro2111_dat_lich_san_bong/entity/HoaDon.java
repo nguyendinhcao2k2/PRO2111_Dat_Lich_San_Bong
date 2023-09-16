@@ -13,6 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -34,7 +35,7 @@ public class HoaDon  {
     protected String id;
 
     @Column(name = "ngay_thanh_toan", columnDefinition = "TIMESTAMP")
-    private Date ngayThanhToan;
+    private Timestamp ngayThanhToan;
 
     @Column(name = "don_gia")
     private Double donGia;

@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -39,10 +40,10 @@ public class MaGiamGia {
     private String tenMaGiamGia;
 
     @Column(name = "ngay_bat_dau", columnDefinition = "TIMESTAMP")
-    private Date ngayBatDau;
+    private Timestamp ngayBatDau;
 
     @Column(name = "ngay_ket_thuc", columnDefinition = "TIMESTAMP")
-    private Date ngayKetThuc;
+    private Timestamp ngayKetThuc;
 
     @Column(name = "trang_thai")
     private Integer trangThai;
