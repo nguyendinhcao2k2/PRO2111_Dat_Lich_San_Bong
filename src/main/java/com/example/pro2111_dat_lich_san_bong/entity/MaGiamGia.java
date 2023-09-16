@@ -32,7 +32,7 @@ public class MaGiamGia {
     protected String id;
 
     @Column(name = "phan_tram")
-    private int phanTram;
+    private Integer phanTram;
 
     @Column(name = "ten_ma_giam_gia")
     private String tenMaGiamGia;
@@ -44,7 +44,7 @@ public class MaGiamGia {
     private LocalDateTime ngayKetThuc;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
     @Column(name = "id_khach_hang")
     private String idKhachHang;

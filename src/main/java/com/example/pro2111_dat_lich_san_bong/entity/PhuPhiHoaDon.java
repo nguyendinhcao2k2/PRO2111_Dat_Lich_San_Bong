@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.sql.Date;
+
 /**
  * @author caodinh
  */
@@ -34,8 +36,9 @@ public class PhuPhiHoaDon {
 
     @Column(name = "id_phu_phi")
     private String idPhuPhi;
-
+    @Column(name = "thoi_gian_tao")
+    private Date thoiGianTao;
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
 }

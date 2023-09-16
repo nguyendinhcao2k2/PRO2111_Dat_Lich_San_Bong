@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.sql.Date;
+
 /**
  * @author caodinh
  */
@@ -35,13 +37,13 @@ public class SanCa {
     @Column(name = "id_ca")
     private String idCa;
 
-    @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
-    private String thoiGianTao;
+    @Column(name = "thoi_gian_tao")
+    private Date thoiGianTao;
 
     @Column(name = "gia")
-    private double gia;
+    private Double gia;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
 }

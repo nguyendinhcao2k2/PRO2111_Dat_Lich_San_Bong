@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
+import java.sql.Date;
 import java.sql.Time;
 
 /**
@@ -36,10 +37,10 @@ public class Ca {
     private String tenCa;
 
     @Column(columnDefinition = "time")
-    private Time thoiGianBatDau;
+    private Date thoiGianBatDau;
 
     @Column(columnDefinition = "time")
-    private Time thoiGianKetThuc;
+    private Date thoiGianKetThuc;
 
     @Column(name = "gia_ca")
     private double giaCa;

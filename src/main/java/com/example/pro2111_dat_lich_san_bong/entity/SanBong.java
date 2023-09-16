@@ -35,12 +35,12 @@ public class SanBong {
     private String tenSanBong;
 
     @Column(name = "gia_san")
-    private double giaSan;
+    private Double giaSan;
 
     @Column(name = "id_loai_san")
     private String idLoaiSan;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
 }

@@ -30,16 +30,16 @@ public class DichVu  {
     protected String id;
 
     @Column(name = "so_luong_do_thưe")
-    private int soLuongDoThue;
+    private Integer soLuongDoThue;
 
     @Column(name = "so_luong_nuoc_uong")
-    private int soLuongNuocUong;
+    private Integer soLuongNuocUong;
 
     @Column(name = "don_gia")
-    private double donGia;
+    private Double donGia;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
     @Column(name = "id_nuoc_uong")
     private String idNuocUong;

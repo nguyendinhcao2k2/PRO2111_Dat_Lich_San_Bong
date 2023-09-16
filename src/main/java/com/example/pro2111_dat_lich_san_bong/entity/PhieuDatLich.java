@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 /**
@@ -32,18 +33,18 @@ public class PhieuDatLich {
     protected String id;
 
     @Column(name = "gio_bat_dau", columnDefinition = "TIMESTAMP")
-    private LocalDateTime gioBatDau;
+    private Date gioBatDau;
 
     @Column(name = "gio_ket_thuc", columnDefinition = "TIMESTAMP")
-    private LocalDateTime gioKetThuc;
+    private Date gioKetThuc;
 
     @Column(name = "thoi_gian_check_in", columnDefinition = "TIMESTAMP")
-    private LocalDateTime thoiGianCheckIn;
+    private Date thoiGianCheckIn;
 
     @Column(name = "tong_tien_san_ca")
-    private double tongTienSanCa;
+    private Double tongTienSanCa;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
 }
