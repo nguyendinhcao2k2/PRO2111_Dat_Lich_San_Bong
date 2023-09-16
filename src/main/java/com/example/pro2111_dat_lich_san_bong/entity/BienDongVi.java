@@ -42,15 +42,15 @@ public class BienDongVi  {
     private String loaiTien;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
     @Column(name = "thoi_gian")
     private Date thoiGian;
 
     @Column(name = "loai_bien_dong")
-    private int loaiBienDong;
+    private Integer loaiBienDong;
 
     @Column(name = "tai_khoan_vi")
-    private double taiKhoanVi;
+    private String taiKhoanVi;
 
 }
