@@ -18,8 +18,8 @@ public class GiaoCaController {
 
 
     @GetMapping("/trang-thai-ca")
-    public ResponseEntity<BaseResponse<GiaoCa>> trangThai(@RequestParam("trangThaiGiaoCa") int trangThai) {
-        GiaoCa giaoCaCoNhanVien = giaoCaService.findGiaoCaByTrangThai(trangThai);
+    public ResponseEntity<BaseResponse<GiaoCa>> trangThaiGiaoCa(@RequestParam("trangThaiGiaoCa") Integer trangThaiGiaoCa) {
+        GiaoCa giaoCaCoNhanVien = giaoCaService.findGiaoCaByTrangThai(trangThaiGiaoCa);
         BaseResponse<GiaoCa> response = new BaseResponse<>();
         response.setContent(giaoCaCoNhanVien);
         response.setStatusCode(HttpStatus.OK);
