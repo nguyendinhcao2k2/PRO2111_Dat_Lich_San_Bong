@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -41,15 +43,15 @@ public class BienDongVi  {
     private String loaiTien;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
     @Column(name = "thoi_gian", columnDefinition = "TIMESTAMP")
-    private LocalDateTime thoiGian;
+    private Timestamp thoiGian;
 
     @Column(name = "loai_bien_dong")
-    private int loaiBienDong;
+    private Integer loaiBienDong;
 
     @Column(name = "tai_khoan_vi")
-    private double taiKhoanVi;
+    private String taiKhoanVi;
 
 }

@@ -12,6 +12,8 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -33,20 +35,20 @@ public class HoaDon  {
     protected String id;
 
     @Column(name = "ngay_thanh_toan", columnDefinition = "TIMESTAMP")
-    private LocalDateTime ngayThanhToan;
+    private Timestamp ngayThanhToan;
 
     @Column(name = "don_gia")
-    private double donGia;
+    private Double donGia;
 
     @Column(name = "tong_tien")
-    private double tongTien;
+    private Double tongTien;
 
     @Column(name = "ghi_chu")
     @Nationalized
     private String ghiChu;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
     @Column(name = "id_san_ca")
     private String idSanCa;

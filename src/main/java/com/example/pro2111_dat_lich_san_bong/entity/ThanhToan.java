@@ -33,6 +33,6 @@ public class ThanhToan {
     private String loaiHinhThanhToan;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
 }

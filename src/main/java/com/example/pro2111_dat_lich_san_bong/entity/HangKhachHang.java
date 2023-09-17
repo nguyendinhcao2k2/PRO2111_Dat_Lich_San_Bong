@@ -35,9 +35,9 @@ public class HangKhachHang {
     private String tenHang;
 
     @Column(name = "diem_tich_luy/")
-    private int diemTichLuy;
+    private Integer diemTichLuy;
 
     @Column(name = "trang_thai")
-    private int trang_thai;
+    private Integer trang_thai;
 
 }

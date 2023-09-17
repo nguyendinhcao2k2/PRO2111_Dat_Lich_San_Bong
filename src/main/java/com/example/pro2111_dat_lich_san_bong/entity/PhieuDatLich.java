@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -31,19 +34,19 @@ public class PhieuDatLich {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     protected String id;
 
-    @Column(name = "gio_bat_dau", columnDefinition = "TIMESTAMP")
-    private LocalDateTime gioBatDau;
+    @Column(name = "gio_bat_dau", columnDefinition = "time")
+    private Time gioBatDau;
 
-    @Column(name = "gio_ket_thuc", columnDefinition = "TIMESTAMP")
-    private LocalDateTime gioKetThuc;
+    @Column(name = "gio_ket_thuc", columnDefinition = "time")
+    private Time gioKetThuc;
 
     @Column(name = "thoi_gian_check_in", columnDefinition = "TIMESTAMP")
-    private LocalDateTime thoiGianCheckIn;
+    private Timestamp thoiGianCheckIn;
 
     @Column(name = "tong_tien_san_ca")
-    private double tongTienSanCa;
+    private Double tongTienSanCa;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
 }

@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.sql.Timestamp;
+
 /**
  * @author caodinh
  */
@@ -33,12 +35,18 @@ public class DoThue {
     private String tenDoThue;
 
     @Column(name = "so_luong")
-    private int soLuong;
+    private Integer soLuong;
+
+    @Column(name = "thoi_gian_muon", columnDefinition = "TIMESTAMP")
+    private Timestamp thoiGianMuon;
+
+    @Column(name = "thoi_gian_tra", columnDefinition = "TIMESTAMP")
+    private Timestamp thoiGianTra;
 
     @Column(name = "don_gia")
-    private double donGia;
+    private Double donGia;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
 }

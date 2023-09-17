@@ -35,6 +35,6 @@ public class ChucVu{
     private String tenChucVu;
 
     @Column(name = "trang_thai")
-    private int trangThai;
+    private Integer trangThai;
 
 }
