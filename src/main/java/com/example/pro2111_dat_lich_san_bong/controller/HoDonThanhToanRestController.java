@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("/*")
 @RestController
-@RequestMapping("api/v1/admin/hoa-don-thanh-toan")
+@RequestMapping("api-v1-admin/hoa-don-thanh-toan")
 public class HoDonThanhToanRestController {
     @Autowired
     private HoaDonThanhToanService hoaDonThanhToanService;
