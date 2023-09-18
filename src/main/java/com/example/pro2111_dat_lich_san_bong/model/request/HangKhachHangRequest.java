@@ -7,26 +7,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Time;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class CaRequest {
+public class HangKhachHangRequest {
 
     @NotBlank(message = "Không được để trống!")
-    private String tenCa;
+    private String tenHang;
 
     @NotNull(message = "Không được để trống!")
-    private Time thoiGianBatDau;
+    private Integer diemTichLuy;
 
     @NotNull(message = "Không được để trống!")
-    private Time thoiGianKetThuc;
-
-    @NotNull(message = "Không được để trống!")
-    private Double giaCa;
-
-    @NotNull(message = "Không được để trống!")
-    private Integer trangThai;
+    private Integer trang_thai;
 }
