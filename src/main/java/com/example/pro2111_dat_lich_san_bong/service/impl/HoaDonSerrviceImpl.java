@@ -20,7 +20,10 @@ public class HoaDonSerrviceImpl implements HoaDonService {
 
     @Override
     public HoaDon getOneHoaDon(String id) {
-        return hoaDonRepository.findById(id).get();
+        if (hoaDonRepository.existsById(id)) {
+            return hoaDonRepository.findById(id).get();
+        }
+        return null;
     }
 
     @Override
