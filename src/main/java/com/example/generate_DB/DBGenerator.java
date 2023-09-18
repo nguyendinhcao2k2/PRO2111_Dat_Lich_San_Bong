@@ -478,24 +478,28 @@ public class DBGenerator implements CommandLineRunner {
         doThue1.setSoLuong(200);
         doThue1.setDonGia(20000d);
         doThue1.setTrangThai(0); //0:CÒN ĐỒ THUÊ -- 1: HẾT ĐỒ THUÊ
+        doThue1.setId(doThueRepository.save(doThue1).getId());
 
         DoThue doThue2 = new DoThue();
         doThue2.setTenDoThue("BÓNG ĐÁ");
         doThue2.setSoLuong(200);
         doThue2.setDonGia(30000d);
         doThue2.setTrangThai(0); //0:CÒN ĐỒ THUÊ -- 1: HẾT ĐỒ THUÊ
+        doThue2.setId(doThueRepository.save(doThue2).getId());
 
         DoThue doThue3 = new DoThue();
         doThue3.setTenDoThue("GIÀY ĐÁ BÓNG");
         doThue3.setSoLuong(200);
         doThue3.setDonGia(50000d);
         doThue3.setTrangThai(0); //0:CÒN ĐỒ THUÊ -- 1: HẾT ĐỒ THUÊ
+        doThue3.setId(doThueRepository.save(doThue3).getId());
 
         DoThue doThue4 = new DoThue();
         doThue4.setTenDoThue("BẢNG THỐNG KÊ");
         doThue4.setSoLuong(200);
         doThue4.setDonGia(10000d);
         doThue4.setTrangThai(0); //0:CÒN ĐỒ THUÊ -- 1: HẾT ĐỒ THUÊ
+        doThue4.setId(doThueRepository.save(doThue4).getId());
 
         //END ĐỒ THUÊ
 
