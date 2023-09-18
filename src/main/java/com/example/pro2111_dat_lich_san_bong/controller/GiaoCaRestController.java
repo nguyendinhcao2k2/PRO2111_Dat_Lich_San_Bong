@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/giao-ca")
-public class GiaoCaController {
+public class GiaoCaRestController {
 
     @Autowired
     private IGiaoCaService giaoCaService;
