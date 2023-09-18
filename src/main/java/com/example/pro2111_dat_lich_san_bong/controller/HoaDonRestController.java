@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-@CrossOrigin("/*")
 @RestController
-@RequestMapping("api/v1/admin/hoa-don")
+@RequestMapping("api-v1-admin/hoa-don")
 public class HoaDonRestController {
     @Autowired
     private HoaDonService hoaDonService;
