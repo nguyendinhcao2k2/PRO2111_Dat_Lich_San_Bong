@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("/*")
 @RestController
-@RequestMapping("api/v1/admin/dich-vu")
+@RequestMapping("api-v1-admin/dich-vu")
 public class DichVuRestController {
     @Autowired
     private DichVuService dichVuService;
