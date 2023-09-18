@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/admin/v1/chuc-vu")
+@RequestMapping("/api-v1-admin/chuc-vu")
 public class ChucVuRestController {
 
     @Autowired

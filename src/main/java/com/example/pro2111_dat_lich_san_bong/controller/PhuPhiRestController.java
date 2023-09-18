@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin/v1/phu-phi")
+@RequestMapping("/api-v1-admin/phu-phi")
 public class PhuPhiRestController {
 
     @Autowired
