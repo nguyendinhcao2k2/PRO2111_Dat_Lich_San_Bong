@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 /**
  * @author caodinh
  */
-@Repository
 public interface HoaDonRepository extends JpaRepository<HoaDon, String> {
 }
