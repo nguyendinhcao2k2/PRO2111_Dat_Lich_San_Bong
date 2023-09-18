@@ -5,8 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("*")
-@RequestMapping("/api/camera")
+@RequestMapping("/api/v1/camera")
 public class ReadQrCodeRestController {
     @PostMapping("/check-qr-code")
     public ResponseEntity<HttpStatus> checkQrCode(@RequestBody String qrCode) {
