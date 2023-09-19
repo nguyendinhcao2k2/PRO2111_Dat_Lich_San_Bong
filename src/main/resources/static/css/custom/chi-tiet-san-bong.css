@@ -1,0 +1,55 @@
+#wrapper {
+  margin: 20px;
+  max-width: 960px;
+  margin: 0px auto;
+}
+
+.tabs {
+  border-bottom: 3px solid #ddd;
+  padding: 10px;
+}
+
+.nav-tabs {
+  display: flex;
+  list-style: none;
+  margin: 0px;
+  padding: 0;
+  border-bottom: 3px solid #ddd;
+  justify-content: flex-start;
+}
+
+.nav-tabs li {
+  margin-right: 10px;
+}
+
+.nav-tabs li a {
+  display: block;
+  padding: 6px 10px;
+  text-decoration: none;
+  position: relative;
+  font-size: 18px;
+  color: black;
+}
+
+.nav-tabs li a::after {
+  content: "";
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  bottom: -3px;
+  background: transparent;
+}
+
+.nav-tabs li.active a::after,
+.nav-tabs li:hover a::after {
+  background: #00008b;
+}
+/* style content */
+.tab-content {
+  padding: 20px 0px;
+}
+/* text title tab */
+.text-title-tab {
+  text-align: center;
+}

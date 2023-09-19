@@ -56,9 +56,6 @@ public class HoaDon  {
     @Column(name = "id_phieu_dat_lich")
     private String idPhieuDatLich;
 
-    @Column(name = "id_dich_vu")
-    private String idDichVu;
-
     @Column(name = "id_phu_phi_hoa_don")
     private String idPhuPhiHoaDon;
 
