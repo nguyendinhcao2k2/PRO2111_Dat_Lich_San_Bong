@@ -11,10 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 /**
  * @author caodinh
@@ -48,5 +46,11 @@ public class PhieuDatLich {
 
     @Column(name = "trang_thai")
     private Integer trangThai;
+
+    @Column(name = "id_dich_vu")
+    private String idDichVu;
+
+    @Column(name = "id_san_ca")
+    private String idSanCa;
 
 }
