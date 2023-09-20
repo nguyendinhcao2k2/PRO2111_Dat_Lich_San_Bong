@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+li {
+    list-style: none;
+}
+
+:root {
+    --white: #fff;
+    --blue: #562bf7;
+    --light: #f5f5f5;
+    --light-blue: #f3f0ff;
+    --grey: #eee;
+    --dark-grey: #666;
+    --black: #222;
+}
+
+.card {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 0 0 0 0;
+}
+
+.card .card-header {
+    font-weight: 500;
+}
+
+.card-header:first-child {
+    border-radius: 0rem 0rem 0 0;
+}
+
+.indicator {
+    padding: 1.5rem 0;
+    border-right: 1px solid var(--grey);
+}
+
+.indicator li {
+    display: flex;
+    align-items: center;
+    grid-gap: 0.5rem;
+    padding: 10px 2rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--black);
+    border-right: 3px solid transparent;
+}
+.indicator li i {
+    font-size: 1rem;
+}
+.indicator li:hover {
+    background: var(--light-blue);
+}
+
+.indicator li.active {
+    border-right-color: var(--blue);
+    color: var(--blue);
+    background: var(--light-blue);
+}
+
+.text-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--black);
+}
+
+/* .content {
+  padding: 1.5rem 2rem;
+} */
+
+.content li {
+    display: none;
+}
+.content li.active {
+    display: block;
+}
+.content li > h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--black);
+    /* margin-bottom: 0.75rem; */
+}
+
+ul li h1 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--black);
+}
+
+@media screen and (max-width: 576px) {
+    .wrapper {
+        flex-direction: column;
+    }
+    .indicator {
+        border-bottom: 3px solid transparent;
+    }
+}
+
+/* content card intro */
+.card-content-body {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    overflow: hidden;
+}
+
+.card-description {
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    display: flex;
+    position: absolute;
+    width: 100%;
+    gap: 0.5em;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    color: #212121;
+    height: 70%;
+    bottom: 0;
+    transform: translateY(100%);
+    transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    padding: 1rem;
+}
+
+/* Hover states */
+.card-content-body:hover .card-description {
+    /* transform: translateY(100%); */
+    transform: translateY(0);
+}
+/*  */
+.box-croll {
+    overflow-y: scroll;
+}
+/*  */
+
+/* choise shift*/
+
+#shift {
+    justify-content: center;
+}
+
+#shift label {
+    margin: 3px;
+}
+
+#shift input[type="checkbox"] {
+    display: none;
+}
+
+#shift span {
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid #008000;
+    border-radius: 3px;
+    color: black;
+}
+
+#shift input[type="checkbox"]:checked + span {
+    background-color: #008000;
+    color: #ffff;
+}
