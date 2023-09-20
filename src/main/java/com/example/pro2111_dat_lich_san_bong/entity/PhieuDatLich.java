@@ -52,5 +52,7 @@ public class PhieuDatLich {
 
     @Column(name = "id_san_ca")
     private String idSanCa;
+    @Column(name = "id_account")
+    private String idAccount;
 
 }
