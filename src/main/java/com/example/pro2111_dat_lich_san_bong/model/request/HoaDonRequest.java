@@ -1,13 +1,10 @@
 package com.example.pro2111_dat_lich_san_bong.model.request;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.annotations.Nationalized;
 
 import java.sql.Timestamp;
 
@@ -17,6 +14,10 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HoaDonRequest {
+    private String tenTaiKhoan;
+    private String tenKhachHang;
+    private String soDienThoai;
+
     @NotNull(message = "Ngày thanh toán không được null")
     private Timestamp ngayThanhToan;
 
@@ -34,11 +35,4 @@ public class HoaDonRequest {
     @NotNull(message = "Trạng thái không được null")
     private Integer trangThai;
 
-    private String idSanCa;
-
-    private String idPhieuDatLich;
-
-    private String idPhuPhiHoaDon;
-
-    private String idViTien;
 }
