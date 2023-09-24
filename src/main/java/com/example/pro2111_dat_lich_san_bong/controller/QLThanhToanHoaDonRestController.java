@@ -30,17 +30,17 @@ public class QLThanhToanHoaDonRestController {
     @Autowired
     private AccountService accountService;
     private List<HoaDon> listHoaDons = new ArrayList<>();
-    private List<HoaDonRequest> listHoaDonsRequest = new ArrayList<>();
 
+    @GetMapping("/all")
+    public ResponseEntity<List<HoaDonRequest>> getAllHoaDons() {
+        List<HoaDonRequest> listHoaDonsRequest = new ArrayList<>();
+        listHoaDons = hoaDonService.getAllHoaDons();
+        for (HoaDon hoaDon : listHoaDons) {
+            PhieuDatLich phieuDatLich = phieuDatLichService.getOnePhieuDatLich(hoaDon.getIdPhieuDatLich());
+            Account account = accountService.getOneAccount(phieuDatLich.getIdAccount());
+            listHoaDonsRequest.add(new HoaDonRequest(account.getTaiKhoan(), account.getDisplayName(), account.getSoDienThoai(), hoaDon.getNgayThanhToan(), hoaDon.getDonGia(), hoaDon.getTongTien(), hoaDon.getGhiChu(), hoaDon.getTrangThai()));
 
-//    @GetMapping("/all")
-//    public ResponseEntity<List<HoaDonRequest>> getAllHoaDons() {
-//        listHoaDons = hoaDonService.getAllHoaDons();
-//        for (HoaDon hoaDon : listHoaDons) {
-//            PhieuDatLich phieuDatLich = phieuDatLichService.getOnePhieuDatLich(hoaDon.getIdPhieuDatLich());
-//            Account account = accountService.getOneAccount(phieuDatLich.get)
-//            listHoaDonsRequest.add(new HoaDonRequest());
-//        }
-//        return ResponseEntity.ok(listHoaDonsRequest);
-//    }
+        }
+        return ResponseEntity.ok(listHoaDonsRequest);
+    }
 }
