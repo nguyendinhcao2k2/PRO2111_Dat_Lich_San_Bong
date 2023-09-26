@@ -1,15 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        /* Tạo ra một trang dài để có thể cuộn */
-        /* body {
-          height: 2000px;
-        } */
-
         .custom-modal {
             display: none;
             position: fixed;
@@ -18,6 +13,15 @@
             transform: translateX(-50%);
             background-color: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        @media (min-width: 60em) {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
         }
 
         .box-croll {
@@ -31,8 +35,8 @@
         .modal-content {
             transition: all 0.3s ease;
             /* Để tạo hiệu ứng thu nhỏ/phóng to mượt mà */
-            width: 600px;
-            max-width: 100%;
+            /* width: 600px;
+            max-width: 100%; */
         }
 
         /* The Close Button */
@@ -81,9 +85,10 @@
 </div>
 
 <script>
+    // MODAL
     const openModalBtn = document.getElementById("openModalBtn");
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    const closeModalBtn = document.getElementById("closeModalBtn");
     const resizeModalBtn = document.getElementById("resizeModalBtn");
     const modal = document.getElementById("myModal");
     const modalContent = modal.querySelector(".modal-content");
@@ -96,9 +101,9 @@
     });
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    };
+    closeModalBtn.addEventListener("click", () => {
+        modal.classList.remove("show");
+    });
 
     modalContent.addEventListener("mousedown", (e) => {
         isDragging = true;
