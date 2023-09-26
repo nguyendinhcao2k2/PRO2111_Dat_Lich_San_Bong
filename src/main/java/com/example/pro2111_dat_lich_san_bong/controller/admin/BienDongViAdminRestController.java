@@ -1,4 +1,4 @@
-package com.example.pro2111_dat_lich_san_bong.controller;
+package com.example.pro2111_dat_lich_san_bong.controller.admin;
 
 import com.example.pro2111_dat_lich_san_bong.entity.BienDongVi;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.RestApiException;
@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api-v1-admin/bien-dong-vi")
-public class BienDongViRestController {
+@RequestMapping("/api/v1/admin/bien-dong-vi")
+public class BienDongViAdminRestController {
 
     @Autowired
     private BienDongViService bienDongViService;

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Tạo ra một trang dài để có thể cuộn */
+        /* body {
+          height: 2000px;
+        } */
+
+        .custom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .box-croll {
+            overflow-y: scroll;
+        }
+
+        .custom-modal.show {
+            display: block;
+        }
+
+        .modal-content {
+            transition: all 0.3s ease;
+            /* Để tạo hiệu ứng thu nhỏ/phóng to mượt mà */
+            width: 600px;
+            max-width: 100%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            text-align: center;
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+        }
+    </style>
+</head>
+<body>
+<button id="openModalBtn">Mở Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" id="resizeModalBtn" class="custom-modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="closeModalBtn" class="close">&times;</span>
+            <h2>Danh Sách Sân Trong Trạng Thái Đặt</h2>
+        </div>
+        <div class="modal-body">
+            <p>Some text in the Modal Body</p>
+            <p>Some other text...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const openModalBtn = document.getElementById("openModalBtn");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    const resizeModalBtn = document.getElementById("resizeModalBtn");
+    const modal = document.getElementById("myModal");
+    const modalContent = modal.querySelector(".modal-content");
+    let isModalExpanded = false;
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    openModalBtn.addEventListener("click", () => {
+        modal.classList.add("show");
+    });
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    };
+
+    modalContent.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        offsetX = e.clientX - modal.getBoundingClientRect().left;
+        offsetY = e.clientY - modal.getBoundingClientRect().top;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+            modal.style.left = e.clientX - offsetX + "px";
+            modal.style.top = e.clientY - offsetY + "px";
+        }
+    });
+
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+    });
+</script>
+</body>
+</html>
