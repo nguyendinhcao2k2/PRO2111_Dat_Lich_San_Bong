@@ -1,4 +1,4 @@
-package com.example.pro2111_dat_lich_san_bong.controller;
+package com.example.pro2111_dat_lich_san_bong.controller.admin;
 
 import com.example.pro2111_dat_lich_san_bong.entity.MaGiamGia;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.RestApiException;
@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api-v1-admin/ma-giam-gia")
-public class MaGiamGiaRestController {
+@RequestMapping("/api/v1/admin/ma-giam-gia")
+public class MaGiamGiaAdminRestController {
 
     @Autowired
     private MaGiamGiaService maGiamGiaService;
