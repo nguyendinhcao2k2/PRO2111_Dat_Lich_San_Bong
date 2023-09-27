@@ -24,9 +24,9 @@ public class GiaoCa {
     private String thoiGianNhanCa;
     @Column(name = "thoi_gian_giao_ca", columnDefinition = "TIMESTAMP")
     private String thoiGianGiaoCa;
-    @Column(name = "id_nhan_vien_trong_ca")
+    @Column(name = "id_nhan_vien_trong_ca", columnDefinition = "varchar(36)")
     private String idNhanVienTrongCa;
-    @Column(name = "id_nhan_vien_ca_tiep_theo")
+    @Column(name = "id_nhan_vien_ca_tiep_theo", columnDefinition = "varchar(36)")
     private String idNhanVienCaTiepTheo;
     @Column(name = "tien_ban_dau")
     private double tienBanDau;

@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.controller;
 
 import com.example.pro2111_dat_lich_san_bong.entity.GiaoCa;
+import com.example.pro2111_dat_lich_san_bong.model.request.GiaoCaRequest;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
 import com.example.pro2111_dat_lich_san_bong.service.IGiaoCaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/giao-ca")
+@RequestMapping("/api/v1/giao-ca")
+@CrossOrigin("*")
 public class GiaoCaRestController {
 
     @Autowired
@@ -23,6 +25,16 @@ public class GiaoCaRestController {
         response.setContent(giaoCaCoNhanVien);
         response.setStatusCode(HttpStatus.OK);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/khoi-tao-ca")
+    public ResponseEntity<?> khoiTaoCaLam(@RequestBody GiaoCaRequest giaoCaRequest) {
+//        Boolean check = giaoCaService.khoiTaoCaLam(giaoCaRequest);
+//        if (check) {
+//            return ResponseEntity.ok(new BaseResponse<GiaoCaRequest>(HttpStatus.OK, giaoCaRequest));
+//        }
+//        return (ResponseEntity<?>) ResponseEntity.badRequest();
+        return ResponseEntity.ok(giaoCaRequest);
     }
 
 }
