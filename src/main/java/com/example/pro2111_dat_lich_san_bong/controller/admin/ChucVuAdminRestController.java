@@ -1,4 +1,4 @@
-package com.example.pro2111_dat_lich_san_bong.controller;
+package com.example.pro2111_dat_lich_san_bong.controller.admin;
 
 import com.example.pro2111_dat_lich_san_bong.entity.ChucVu;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.RestApiException;
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api-v1-admin/chuc-vu")
-public class ChucVuRestController {
+@RequestMapping("/api/v1/admin/chuc-vu")
+public class ChucVuAdminRestController {
 
     @Autowired
     private ChucVuService chucVuService;

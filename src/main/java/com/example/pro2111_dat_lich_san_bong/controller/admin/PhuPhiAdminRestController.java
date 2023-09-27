@@ -1,4 +1,4 @@
-package com.example.pro2111_dat_lich_san_bong.controller;
+package com.example.pro2111_dat_lich_san_bong.controller.admin;
 
 import com.example.pro2111_dat_lich_san_bong.entity.ChucVu;
 import com.example.pro2111_dat_lich_san_bong.entity.PhuPhi;
@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api-v1-admin/phu-phi")
-public class PhuPhiRestController {
+@RequestMapping("/api/v1/admin/phu-phi")
+public class PhuPhiAdminRestController {
 
     @Autowired
     private PhuPhiService phuPhiService;
