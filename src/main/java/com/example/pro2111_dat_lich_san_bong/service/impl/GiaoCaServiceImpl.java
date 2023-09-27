@@ -16,4 +16,9 @@ public class GiaoCaServiceImpl implements IGiaoCaService {
     public GiaoCa findGiaoCaByTrangThai(Integer trangThai) {
         return giaoCaRepository.findGiaoCaByTrangThai(trangThai);
     }
+
+    @Override
+    public Boolean khoiTaoCaLam(GiaoCa giaoCa) {
+        return false;
+    }
 }

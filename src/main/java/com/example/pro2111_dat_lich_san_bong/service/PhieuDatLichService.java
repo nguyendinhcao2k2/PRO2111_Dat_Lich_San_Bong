@@ -14,4 +14,6 @@ public interface PhieuDatLichService {
     Boolean updatePhieuDatLich(String id, PhieuDatLich phieuDatLich);
 
     Boolean deletePhieuDatLich(String id);
+
+    PhieuDatLich findPhieuDatLichByMaQrCode(String qrCode);
 }
