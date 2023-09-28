@@ -1,15 +1,14 @@
 package com.example.pro2111_dat_lich_san_bong.model.request;
 
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiGiaoCa;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
+
+
+import java.sql.Timestamp;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,9 +16,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 public class GiaoCaRequest {
 
-    private String thoiGianNhanCa;
-
-    private String thoiGianGiaoCa;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
+    private Timestamp thoiGianNhanCa;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
+    private Timestamp thoiGianGiaoCa;
 
     private String idNhanVienTrongCa;
 
@@ -39,7 +39,7 @@ public class GiaoCaRequest {
 
     private float tongTienMatCaTruoc;
 
-    private String thoiGianReset;
+    private Timestamp thoiGianReset;
 
     private String idAccount;
 

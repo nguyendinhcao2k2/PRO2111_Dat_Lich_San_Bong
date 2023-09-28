@@ -1,11 +1,14 @@
 package com.example.pro2111_dat_lich_san_bong.entity;
 
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiGiaoCa;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.sql.Timestamp;
 
 
 @Entity
@@ -21,9 +24,9 @@ public class GiaoCa {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "varchar(36)")
     private String id;
     @Column(name = "thoi_gian_nhan_ca", columnDefinition = "TIMESTAMP")
-    private String thoiGianNhanCa;
+    private Timestamp thoiGianNhanCa;
     @Column(name = "thoi_gian_giao_ca", columnDefinition = "TIMESTAMP")
-    private String thoiGianGiaoCa;
+    private Timestamp thoiGianGiaoCa;
     @Column(name = "id_nhan_vien_trong_ca", columnDefinition = "varchar(36)")
     private String idNhanVienTrongCa;
     @Column(name = "id_nhan_vien_ca_tiep_theo", columnDefinition = "varchar(36)")
@@ -43,12 +46,12 @@ public class GiaoCa {
     @Column(name = "tong_tien_mat_ca_truoc")
     private float tongTienMatCaTruoc;
     @Column(name = "thoi_gian_reset", columnDefinition = "TIMESTAMP")
-    private String thoiGianReset;
+    private Timestamp thoiGianReset;
     @Column(name = "id_account")
     private String idAccount;
     @Column(name = "tong_tien_mat_rut")
     private double tongTienMatRut;
     @Column(name = "trang_thai")
-    private int trangThai;
+    private TrangThaiGiaoCa trangThai;
 
 }
