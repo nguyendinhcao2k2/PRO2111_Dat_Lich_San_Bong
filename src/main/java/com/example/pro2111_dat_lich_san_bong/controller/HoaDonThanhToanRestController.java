@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api-v1-admin/hoa-don-thanh-toan")
-public class HoDonThanhToanRestController {
+@RequestMapping("api/v1/admin/hoa-don-thanh-toan")
+public class HoaDonThanhToanRestController {
     @Autowired
     private HoaDonThanhToanService hoaDonThanhToanService;
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api-v1-admin/thanh-toan")
+@RequestMapping("api/v1/admin/thanh-toan")
 public class ThanhToanRestController {
     @Autowired
     private ThanhToanService thanhToanService;
