@@ -28,12 +28,11 @@ public class GiaoCaServiceImpl implements IGiaoCaService {
     @Transactional
     public Boolean khoiTaoCaLam(GiaoCaRequest giaoCaRequest) {
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             GiaoCa giaoCa = mapper.map(giaoCaRequest, GiaoCa.class);
             giaoCaRepository.save(giaoCa);
-            System.out.println(giaoCa);
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
 
