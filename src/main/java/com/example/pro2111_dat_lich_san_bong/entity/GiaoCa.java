@@ -26,7 +26,7 @@ public class GiaoCa {
     @Column(name = "thoi_gian_nhan_ca", columnDefinition = "TIMESTAMP")
     private Timestamp thoiGianNhanCa;
     @Column(name = "thoi_gian_giao_ca", columnDefinition = "TIMESTAMP")
-    private Timestamp thoiGianGiaoCa;
+    private Timestamp thoiGianKetCa;
     @Column(name = "id_nhan_vien_trong_ca", columnDefinition = "varchar(36)")
     private String idNhanVienTrongCa;
     @Column(name = "id_nhan_vien_ca_tiep_theo", columnDefinition = "varchar(36)")
@@ -44,11 +44,9 @@ public class GiaoCa {
     @Column(columnDefinition = "nvarchar(255)",name = "ghi_chu_phat_sinh")
     private String ghiChuPhatSinh;
     @Column(name = "tong_tien_mat_ca_truoc")
-    private float tongTienMatCaTruoc;
+    private double tongTienMatCaTruoc;
     @Column(name = "thoi_gian_reset", columnDefinition = "TIMESTAMP")
     private Timestamp thoiGianReset;
-    @Column(name = "id_account")
-    private String idAccount;
     @Column(name = "tong_tien_mat_rut")
     private double tongTienMatRut;
     @Column(name = "trang_thai")

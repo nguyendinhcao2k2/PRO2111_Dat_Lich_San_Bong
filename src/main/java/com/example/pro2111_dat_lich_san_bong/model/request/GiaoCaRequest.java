@@ -19,7 +19,7 @@ public class GiaoCaRequest {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
     private Timestamp thoiGianNhanCa;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
-    private Timestamp thoiGianGiaoCa;
+    private Timestamp thoiGianKetCa;
 
     private String idNhanVienTrongCa;
 
@@ -37,11 +37,10 @@ public class GiaoCaRequest {
 
     private String ghiChuPhatSinh;
 
-    private float tongTienMatCaTruoc;
+    private double tongTienMatCaTruoc;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
     private Timestamp thoiGianReset;
-
-    private String idAccount;
 
     private double tongTienMatRut;
 
