@@ -187,29 +187,33 @@
                     <div style="background-color: rgb(18, 12, 181)">
                         <h4 style="color: aliceblue">Danh Sách Hóa Đơn</h4>
                     </div>
-                    <table class="table table-striped">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
                             <th>Tên Khách Hàng</th>
-                            <th>Tên Sân Ca</th>
                             <th>Số điện thoại</th>
-                            <th>Ngày thanh toán</th>
-                            <th>Đơn giá</th>
+                            <th>Thời Gian</th>
+                            <th>Tên Sân Ca</th>
+                            <th>Check In</th>
                             <th>Tổng tiền</th>
-                            <th>Ghi chú</th>
                             <th>Trạng thái</th>
+                            <th>Click</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <!--                        <tr th:each="phieuDatLich : ${listHoaDonPhieuDatLichRequest}">-->
-                        <!--                            <th th:text="${phieuDatLich.tenKhachHang}"></th>-->
-                        <!--&lt;!&ndash;                            <th th:text="${phieuDatLich.tenSanBong} + ' ' ${phieuDatLich.tenCa}"></th>&ndash;&gt;-->
-                        <!--&lt;!&ndash;                            <th th:text="${phieuDatLich.gioBatDau}"></th>&ndash;&gt;-->
-                        <!--                            <th th:text="${phieuDatLich.gioKetThuc}"></th>-->
-                        <!--                            <th th:text="${phieuDatLich.tongTienSanCa}"></th>-->
-                        <!--                            <th th:text="${phieuDatLich.thoiGianCheckIn}"></th>-->
-                        <!--                            <th th:text="${phieuDatLich.trangThai}"></th>-->
-                        <!--                        </tr>-->
+                        <tr th:each="phieuDatLich : ${listHoaDonPhieuDatLichRequest}">
+                            <th th:text="${phieuDatLich.tenKhachHang}"></th>
+                            <th th:text="${phieuDatLich.soDienThoai}"></th>
+                            <th th:text="${phieuDatLich.gioBatDau} + ' - ' + ${phieuDatLich.gioKetThuc}"></th>
+                            <th th:text="${phieuDatLich.tenSanBong} + ' - ' + ${phieuDatLich.tenCa}"></th>
+                            <th th:text="${phieuDatLich.thoiGianCheckIn}"></th>
+                            <th th:text="${phieuDatLich.tongTienSanCa}"></th>
+                            <th th:text="${phieuDatLich.trangThai}"></th>
+                            <td>
+                                <a th:href="@{'/api/v1/admin/quan-ly-hoa-don-thanh-toan/show-phieu-dat-lich/' + ${phieuDatLich.id}}"
+                                   class="btn btn-success">Show</a>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -370,24 +374,26 @@
                     <div style="background-color: rgb(27, 27, 174)">
                         <h4 style="color: white">Thông tin Khách hàng</h4>
                     </div>
-                    <div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Tên Khách Hàng</h6>
-                            <input type="text" class="text-dark mb-0"/>
+                    <form th:action="@{'/thanh-toan-hoa-don'}" th:object="${account}" method="post">
+                        <div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Tên Khách Hàng</h6>
+                                <input th:field="*{displayName}" class="text-dark mb-0"/>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Số Điện Thoại</h6>
+                                <input th:field="*{soDienThoai}" type="text" class="text-dark mb-0"/>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Số Dư Ví</h6>
+                                <input th:field="${viTien.soTien}" type="text" class="text-dark mb-0"/>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Số Tiền Cọc</h6>
+                                <input type="text" class="text-dark mb-0"/>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Số Điện Thoại</h6>
-                            <input type="text" class="text-dark mb-0"/>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Số Dư Ví</h6>
-                            <input type="text" class="text-dark mb-0"/>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Số Tiền Cọc</h6>
-                            <input type="text" class="text-dark mb-0"/>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <div style="margin-top: 50px">
                     <div style="background-color: rgb(27, 27, 174)">
@@ -598,7 +604,7 @@
 <script th:src="@{/static/lib/owlcarousel/owl.carousel.min.js}"></script>
 <script th:src="@{/static/lib/isotope/isotope.pkgd.min.js}"></script>
 <script th:src="@{/static/lib/lightbox/js/lightbox.min.js}"></script>
-
+<script th:src="@{/static/js/custom/quan-ly-hoa-don-phieu-dat-lich.js}"></script>
 <!-- Template Javascript -->
 <script th:src="@{/static/js/main.js}"></script>
 </body>

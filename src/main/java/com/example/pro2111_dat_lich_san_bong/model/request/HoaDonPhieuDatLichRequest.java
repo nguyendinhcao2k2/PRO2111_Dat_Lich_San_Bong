@@ -15,7 +15,9 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HoaDonPhieuDatLichRequest {
+    private String id;
     private String tenKhachHang;
+    private String soDienThoai;
     private String tenSanBong;
     private String tenCa;
     private Time gioBatDau;
