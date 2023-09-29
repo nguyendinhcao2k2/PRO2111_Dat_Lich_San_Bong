@@ -47,101 +47,12 @@
 <body>
 <div class="container-xxl bg-white p-0">
     <!-- Navbar & Hero Start -->
-    <div class="container-xxl position-relative p-0">
-        <nav
-                class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
-        >
-            <a href="" class="navbar-brand p-0">
-                <h1 class="m-0">
-                    <i
-                            class="fa-solid fa-futbol"
-                            style="color: rgb(193, 131, 131)"
-                    ></i>
-                    SÂN BÓNG<span class="fs-5">VN</span>
-                </h1>
-            </a>
-            <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarCollapse"
-            >
-                <span class="fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active"
-                    >Trang Chủ</a
-                    >
-                    <a href="about.html" class="nav-item nav-link">Về Chúng Tôi</a>
-                    <a href="service.html" class="nav-item nav-link">Dịch Vụ</a>
-                    <a href="project.html" class="nav-item nav-link">Liên Hệ</a>
-                    <div class="nav-item dropdown">
-                        <a
-                                href="#"
-                                class="nav-link dropdown-toggle"
-                                data-bs-toggle="dropdown"
-                        >Dự Án</a
-                        >
-                        <div class="dropdown-menu m-0">
-                            <a href="team.html" class="dropdown-item">Our Team</a>
-                            <a href="testimonial.html" class="dropdown-item"
-                            >Testimonial</a
-                            >
-                            <a href="404.html" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>
-                </div>
-                <butaton
-                        type="button"
-                        class="btn text-secondary ms-3"
-                        data-bs-toggle="modal"
-                        data-bs-target="#searchModal"
-                ><i class="fa fa-search"></i
-                ></butaton>
-                <a
-                        href="./login.html"
-                        class="btn btn-secondary text-light rounded-pill py-2 px-4 ms-3"
-                >Đăng Nhập</a
-                >
-            </div>
-        </nav>
-    </div>
-    <!-- Navbar & Hero End -->
-
-    <!-- Full Screen Search Start -->
-    <div class="modal fade" id="searchModal" tabindex="-1">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content" style="background: rgba(29, 29, 39, 0.7)">
-                <div class="modal-header border-0">
-                    <button
-                            type="button"
-                            class="btn bg-white btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                    ></button>
-                </div>
-                <div
-                        class="modal-body d-flex align-items-center justify-content-center"
-                >
-                    <div class="input-group" style="max-width: 600px">
-                        <input
-                                type="text"
-                                class="form-control bg-transparent border-light p-3"
-                                placeholder="Type search keyword"
-                        />
-                        <button class="btn btn-light px-4">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Full Screen Search End -->
+    <!-- Start Header -->
+    <div th:insert="~{fragments/header}"></div>
+    <!-- End Header -->
 
     <div
-            class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp"
+            class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp mt-5"
             data-wow-delay="0.1s"
     >
         <h6 class="position-relative d-inline text-primary ps-4">
@@ -628,6 +539,11 @@
             </div>
         </div>
     </div>
+
+    <!-- Start Header -->
+    <div th:insert="~{fragments/footer}"></div>
+    <!-- End Header -->
+
 
 
 </div>
