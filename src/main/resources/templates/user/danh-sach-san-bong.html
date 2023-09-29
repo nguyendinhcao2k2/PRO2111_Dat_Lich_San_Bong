@@ -1,912 +1,673 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8" />
-    <title>SÂN BÓNG VN</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="keywords" />
-    <meta content="" name="description" />
+<head>
+  <meta charset="utf-8" />
+  <title>SÂN BÓNG VN</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="" name="keywords" />
+  <meta content="" name="description" />
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet"
+  />
 
-    <!-- Icon Font Stylesheet -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
+  <!-- Icon Font Stylesheet -->
+  <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+          rel="stylesheet"
+  />
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+          rel="stylesheet"
+  />
 
-    <!-- Libraries Stylesheet -->
-    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet" />
-    <link th:href="@{/static/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
-    <link th:href="@{/static/lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
+  <!-- Libraries Stylesheet -->
+  <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet" />
+  <link th:href="@{/static/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+  <link th:href="@{/static/lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+  />
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
+  <!-- Customized Bootstrap Stylesheet -->
+  <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
 
-    <link th:href="@{/static/css/style.css}" rel="stylesheet">
-    <link th:href="@{/static/css/custom/san-bong.css}" rel="stylesheet">
+  <link th:href="@{/static/css/san-bong.css}" rel="stylesheet">
+</head>
 
-  </head>
+<body>
+<div class="container-xl bg-white  lg-8">
 
-  <body>
-    <div class="container-xxl bg-white p-0">
-      <!-- Navbar & Hero Start -->
-      <div class="container-xxl position-relative p-0">
-        <nav
-          class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
-        >
-          <a href="" class="navbar-brand p-0">
-            <h1 class="m-0">
-              <i
-                class="fa-solid fa-futbol"
-                style="color: rgb(193, 131, 131)"
-              ></i>
-              SÂN BÓNG<span class="fs-5">VN</span>
-            </h1>
-            <!-- <img src="img/logo.png" alt="Logo"> -->
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse"
-          >
-            <span class="fa fa-bars"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto py-0">
-              <a href="index.html" class="nav-item nav-link">Trang Chủ</a>
-              <a href="about.html" class="nav-item nav-link">Về Chúng Tôi</a>
-              <a href="service.html" class="nav-item nav-link">Dịch Vụ</a>
-              <a href="project.html" class="nav-item nav-link">Liên Hệ</a>
-              <div class="nav-item dropdown">
-                <a
-                  href="#"
-                  class="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  >Dự Án</a
-                >
-                <div class="dropdown-menu m-0">
-                  <a href="team.html" class="dropdown-item">Our Team</a>
-                  <a href="testimonial.html" class="dropdown-item"
-                    >Testimonial</a
-                  >
-                  <a href="404.html" class="dropdown-item">404 Page</a>
-                </div>
-              </div>
-            </div>
-            <butaton
-              type="button"
-              class="btn text-secondary ms-3"
-              data-bs-toggle="modal"
-              data-bs-target="#searchModal"
-              ><i class="fa fa-search"></i
-            ></butaton>
-            <a
-              href="./login.html"
-              class="btn btn-secondary text-light rounded-pill py-2 px-4 ms-3"
-              >Đăng Nhập</a
-            >
-          </div>
-        </nav>
+  <!-- Start Header -->
+  <div th:insert="~{fragments/header}"></div>
+  <!-- End Header -->
 
-        <div class="container-xxl py-5 bg-primary hero-header mb-5">
-          <div class="container my-5 py-5 px-lg-5">
-            <div class="row g-5 py-5">
-              <div class="col-lg-6 text-center text-lg-start">
-                <h1 class="text-white mb-4 animated zoomIn">
-                  CHƠI HẾT MÌNH, CHƠI ĐỂ TẬN HƯỞNG
-                </h1>
-                <p class="text-white pb-3 animated zoomIn">
-                  Tài năng của bạn sẽ quyết định những gì bạn có thể làm. Động
-                  lực của bạn sẽ quyết định mức độ bạn sẵn sàng làm. Thái độ của
-                  bạn sẽ quyết định bạn làm điều đó như thế nào
-                </p>
-                <a
-                  href=""
-                  class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft"
-                  >TÌM HIỂU</a
-                >
-                <a
-                  href=""
-                  class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight"
-                  >LIÊN HỆ</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Navbar & Hero End -->
+  <!-- Service Start -->
+  <div
+          class="section-title position-relative text-center mb-5 mt-5 pb-2 wow fadeInUp"
+          data-wow-delay="0.1s"
+  >
+    <h6 class="position-relative d-inline text-primary ps-4">
+      Our Services
+    </h6>
+    <h2 class="mt-2">Liên Hệ Đặt Sân</h2>
+  </div>
 
-      <!-- Full Screen Search Start -->
-      <div class="modal fade" id="searchModal" tabindex="-1">
-        <div class="modal-dialog modal-fullscreen">
-          <div class="modal-content" style="background: rgba(29, 29, 39, 0.7)">
-            <div class="modal-header border-0">
-              <button
-                type="button"
-                class="btn bg-white btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div
-              class="modal-body d-flex align-items-center justify-content-center"
-            >
-              <div class="input-group" style="max-width: 600px">
-                <input
-                  type="text"
-                  class="form-control bg-transparent border-light p-3"
-                  placeholder="Type search keyword"
-                />
-                <button class="btn btn-light px-4">
-                  <i class="bi bi-search"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Full Screen Search End -->
-
-      <!-- Service Start -->
-      <div
-        class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp"
-        data-wow-delay="0.1s"
-      >
-        <h6 class="position-relative d-inline text-primary ps-4">
-          Our Services
-        </h6>
-        <h2 class="mt-2">Liên Hệ Đặt Sân</h2>
-      </div>
-
-      <div class="container pt-3">
-        <div class="row">
-          <!-- category start -->
-          <div class="col-lg-3">
-            <div class="container">
-              <div
-                class="card"
-                style="
+  <div class="container pt-3">
+    <div class="row">
+      <!-- category start -->
+      <div class="col-lg-3">
+        <div class="container">
+          <div
+                  class="card"
+                  style="
                   background: #fff;
                   border-radius: 0 0 0 0;
                   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
                 "
-              >
-                <div class="card-header">
-                  <h4 class="mt-0">
-                    Hiển Thị <span class="text-primary">12</span> Sân
-                  </h4>
-                </div>
-                <div class="card-body">
-                  <div class="accordions">
-                    <div class="accordions-item active">
-                      <div class="accordions-header">
-                        <h3>Thuộc Tính</h3>
-                        <i class="arrow fa-solid fa-chevron-down"></i>
-                      </div>
-                      <div class="accordions-body">
-                        <div class="mt-2 mb-2 pl-2">
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="category-1"
-                            />
-                            <label class="custom-control-label" for="category-1"
-                              >Accessories</label
-                            >
-                          </div>
-                        </div>
-                        <div class="mt-2 mb-2 pl-2">
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="category-2"
-                            />
-                            <label class="custom-control-label" for="category-2"
-                              >Coats &amp; Jackets</label
-                            >
-                          </div>
-                        </div>
-                        <div class="mt-2 mb-2 pl-2">
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="category-3"
-                            />
-                            <label class="custom-control-label" for="category-3"
-                              >Hoodies &amp; Sweatshirts</label
-                            >
-                          </div>
-                        </div>
-                        <div class="mt-2 mb-2 pl-2">
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="category-4"
-                            />
-                            <label class="custom-control-label" for="category-4"
-                              >Jeans</label
-                            >
-                          </div>
-                        </div>
-                        <div class="mt-2 mb-2 pl-2">
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="category-5"
-                            />
-                            <label class="custom-control-label" for="category-5"
-                              >Shirts</label
-                            >
-                          </div>
-                        </div>
-                        <div class="mt-2 mb-2 pl-2">
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="category-6"
-                            />
-                            <label class="custom-control-label" for="category-6"
-                              >Underwear</label
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+          >
+            <div class="card-header">
+              <h4 class="mt-0">
+                Hiển Thị <span class="text-primary">12</span> Sân
+              </h4>
+            </div>
+            <div class="card-body">
+              <div class="accordions">
+                <div class="accordions-item active">
+                  <div class="accordions-header">
+                    <h3>Thuộc Tính</h3>
+                    <i class="arrow fa-solid fa-chevron-down"></i>
                   </div>
-                  <div
-                    class="divider mt-3 mb-3 border-bottom border-secondary"
-                  ></div>
-                  <div class="accordions">
-                    <div class="accordions-item active">
-                      <div class="accordions-header">
-                        <h3>Kích Thước Sân</h3>
-                        <i class="arrow fa-solid fa-chevron-down"></i>
-                      </div>
-                      <div class="accordions-body">
-                        <div class="mt-2 mb-2 pl-2">
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="filter-size-1"
-                            />
-                            <label
-                              class="custom-control-label"
-                              for="filter-size-1"
-                              >X-Small</label
-                            >
-                          </div>
-                        </div>
-                        <div class="mt-2 mb-2 pl-2">
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="filter-size-2"
-                            />
-                            <label
-                              class="custom-control-label"
-                              for="filter-size-2"
-                              >Small</label
-                            >
-                          </div>
-                        </div>
-                        <div class="mt-2 mb-2 pl-2">
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="filter-size-3"
-                            />
-                            <label
-                              class="custom-control-label"
-                              for="filter-size-3"
-                              >Medium</label
-                            >
-                          </div>
-                        </div>
-                        <div class="mt-2 mb-2 pl-2">
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="filter-size-4"
-                            />
-                            <label
-                              class="custom-control-label"
-                              for="filter-size-4"
-                              >Large</label
-                            >
-                          </div>
-                        </div>
-                        <div class="mt-2 mb-2 pl-2">
-                          <div class="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="filter-size-5"
-                            />
-                            <label
-                              class="custom-control-label"
-                              for="filter-size-5"
-                              >X-Large</label
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="divider mt-3 mb-3 border-bottom border-secondary"
-                  ></div>
-                  <div class="accordions">
-                    <div class="accordions-item active">
-                      <div class="accordions-header">
-                        <h3>Giá Thành</h3>
-                        <i class="arrow fa-solid fa-chevron-down"></i>
-                      </div>
-                      <div class="accordions-body">
-                        <div class="price-filter-control">
-                          <input
-                            type="number"
-                            class="form-control pull-left mb-2"
-                            value="50"
-                            id="price-min-control"
-                          />
-                          <input
-                            type="number"
-                            class="form-control pull-right"
-                            value="150"
-                            id="price-max-control"
-                          />
-                        </div>
+                  <div class="accordions-body">
+                    <div class="mt-2 mb-2 pl-2">
+                      <div class="custom-control custom-checkbox">
                         <input
-                          id="ex2"
-                          type="text"
-                          class="slider"
-                          value="50,150"
-                          data-slider-min="10"
-                          data-slider-max="200"
-                          data-slider-step="5"
-                          data-slider-value="[50,150]"
-                          data-value="50,150"
-                          style="display: none"
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="category-1"
                         />
+                        <label class="custom-control-label" for="category-1"
+                        >Accessories</label
+                        >
+                      </div>
+                    </div>
+                    <div class="mt-2 mb-2 pl-2">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="category-2"
+                        />
+                        <label class="custom-control-label" for="category-2"
+                        >Coats &amp; Jackets</label
+                        >
+                      </div>
+                    </div>
+                    <div class="mt-2 mb-2 pl-2">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="category-3"
+                        />
+                        <label class="custom-control-label" for="category-3"
+                        >Hoodies &amp; Sweatshirts</label
+                        >
+                      </div>
+                    </div>
+                    <div class="mt-2 mb-2 pl-2">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="category-4"
+                        />
+                        <label class="custom-control-label" for="category-4"
+                        >Jeans</label
+                        >
+                      </div>
+                    </div>
+                    <div class="mt-2 mb-2 pl-2">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="category-5"
+                        />
+                        <label class="custom-control-label" for="category-5"
+                        >Shirts</label
+                        >
+                      </div>
+                    </div>
+                    <div class="mt-2 mb-2 pl-2">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="category-6"
+                        />
+                        <label class="custom-control-label" for="category-6"
+                        >Underwear</label
+                        >
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="divider mt-2 mb-1 border-bottom border-secondary"
-                  ></div>
-                  <a
-                    href="#"
-                    class="btn d-flex justify-content-center btn-md btn-block btn-primary mt-5"
-                    >Cập Nhập Hiển Thị</a
-                  >
                 </div>
               </div>
+              <div
+                      class="divider mt-3 mb-3 border-bottom border-secondary"
+              ></div>
+              <div class="accordions">
+                <div class="accordions-item active">
+                  <div class="accordions-header">
+                    <h3>Kích Thước Sân</h3>
+                    <i class="arrow fa-solid fa-chevron-down"></i>
+                  </div>
+                  <div class="accordions-body">
+                    <div class="mt-2 mb-2 pl-2">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="filter-size-1"
+                        />
+                        <label
+                                class="custom-control-label"
+                                for="filter-size-1"
+                        >X-Small</label
+                        >
+                      </div>
+                    </div>
+                    <div class="mt-2 mb-2 pl-2">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="filter-size-2"
+                        />
+                        <label
+                                class="custom-control-label"
+                                for="filter-size-2"
+                        >Small</label
+                        >
+                      </div>
+                    </div>
+                    <div class="mt-2 mb-2 pl-2">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="filter-size-3"
+                        />
+                        <label
+                                class="custom-control-label"
+                                for="filter-size-3"
+                        >Medium</label
+                        >
+                      </div>
+                    </div>
+                    <div class="mt-2 mb-2 pl-2">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="filter-size-4"
+                        />
+                        <label
+                                class="custom-control-label"
+                                for="filter-size-4"
+                        >Large</label
+                        >
+                      </div>
+                    </div>
+                    <div class="mt-2 mb-2 pl-2">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="filter-size-5"
+                        />
+                        <label
+                                class="custom-control-label"
+                                for="filter-size-5"
+                        >X-Large</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                      class="divider mt-3 mb-3 border-bottom border-secondary"
+              ></div>
+              <div class="accordions">
+                <div class="accordions-item active">
+                  <div class="accordions-header">
+                    <h3>Giá Thành</h3>
+                    <i class="arrow fa-solid fa-chevron-down"></i>
+                  </div>
+                  <div class="accordions-body">
+                    <div class="price-filter-control">
+                      <input
+                              type="number"
+                              class="form-control pull-left mb-2"
+                              value="50"
+                              id="price-min-control"
+                      />
+                      <input
+                              type="number"
+                              class="form-control pull-right"
+                              value="150"
+                              id="price-max-control"
+                      />
+                    </div>
+                    <input
+                            id="ex2"
+                            type="text"
+                            class="slider"
+                            value="50,150"
+                            data-slider-min="10"
+                            data-slider-max="200"
+                            data-slider-step="5"
+                            data-slider-value="[50,150]"
+                            data-value="50,150"
+                            style="display: none"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                      class="divider mt-2 mb-1 border-bottom border-secondary"
+              ></div>
+              <a
+                      href="#"
+                      class="btn d-flex justify-content-center btn-md btn-block btn-primary mt-5"
+              >Cập Nhập Hiển Thị</a
+              >
             </div>
           </div>
-          <!-- end category -->
-          <!-- content start-->
-          <div class="col-lg-9">
-            <!-- top search page -->
-            <div class="container">
-              <div class="row justify-content-center mb-5">
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div
-                    class="text-center float-md-left mb-3 mt-3 mt-md-0 mb-md-0"
-                  >
-                    <label class="mr-2">Sort by:</label>
-                    <a
-                      class="btn btn-lg btn-light dropdown-toggle"
-                      href="#"
-                      role="button"
-                      id="dropdownMenuLink"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Dropdown link
-                    </a>
-                    <ul
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuLink"
-                    >
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li>
-                        <a class="dropdown-item" href="#">Another action</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#"
-                          >Something else here</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div
-                    class="text-md-left text-center float-md-left mb-3 mt-3 mt-md-0 mb-md-0"
-                  >
-                    <label class="mr-2">Hiển Thị:</label>
-                    <a
-                      class="btn btn-lg btn-light dropdown-toggle"
-                      href="#"
-                      role="button"
-                      id="dropdownMenuLink"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Dropdown link
-                    </a>
-                    <ul
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuLink"
-                    >
-                      <li>
-                        <a class="dropdown-item" href="#">12</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">24</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">30</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <!-- end top search page -->
-              <div class="row mb-3">
-                <div class="col-md-12 col-xl-12">
-                  <div class="card shadow-0 border rounded-3">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-12 col-lg-3 col-xl-4 mb-4 mb-lg-0">
-                          <div
-                            class="bg-image hover-zoom ripple rounded ripple-surface"
-                          >
-                            <img src="img/test_san.png" class="w-100" />
-                            <a href="#!">
-                              <div class="hover-overlay">
-                                <div
-                                  class="mask"
-                                  style="
-                                    background-color: rgba(253, 253, 253, 0.15);
-                                  "
-                                ></div>
-                              </div>
-                            </a>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-xl-5">
-                          <h5>Sân 1</h5>
-                          <div class="d-flex flex-row">
-                            <div class="ms-auto text-warning">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fas fa-star-half-alt"></i
-                              ><i class="far fa-star"></i>
-                            </div>
-                            <span>310</span>
-                          </div>
-                          <div class="mt-1 mb-0 text-muted small">
-                            <span>100% cotton</span>
-                            <span class="text-primary"> • </span>
-                            <span>Light weight</span>
-                            <span class="text-primary"> • </span>
-                            <span>Best finish<br /></span>
-                          </div>
-                          <div class="mb-2 text-muted small">
-                            <span>Unique design</span>
-                            <span class="text-primary"> • </span>
-                            <span>For men</span>
-                            <span class="text-primary"> • </span>
-                            <span>Casual<br /></span>
-                          </div>
-                          <p class="text-truncate mb-4 mb-md-0">xxx</p>
-                        </div>
-                        <div
-                          class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start"
-                        >
-                          <div class="d-flex flex-row align-items-center mb-1">
-                            <h4 class="mb-1 me-1">400.000 đ</h4>
-                            <span class="text-danger"><s>$20.99</s></span>
-                          </div>
-                          <h6 class="text-success">Free shipping</h6>
-                          <div class="d-flex flex-column mt-4">
-                            <button
-                              class="btn btn-primary btn-sm"
-                              type="button"
-                            >
-                              Chi Tiết
-                            </button>
-                            <button
-                              class="btn btn-outline-primary btn-sm mt-2"
-                              type="button"
-                            >
-                              Đặt Sân
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-md-12 col-xl-12">
-                  <div class="card shadow-0 border rounded-3">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-12 col-lg-3 col-xl-4 mb-4 mb-lg-0">
-                          <div
-                            class="bg-image hover-zoom ripple rounded ripple-surface"
-                          >
-                            <img src="img/test_san.png" class="w-100" />
-                            <a href="#!">
-                              <div class="hover-overlay">
-                                <div
-                                  class="mask"
-                                  style="
-                                    background-color: rgba(253, 253, 253, 0.15);
-                                  "
-                                ></div>
-                              </div>
-                            </a>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-xl-5">
-                          <h5>Quant olap shirts</h5>
-                          <div class="d-flex flex-row">
-                            <div class="ms-auto text-warning">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fas fa-star-half-alt"></i
-                              ><i class="far fa-star"></i>
-                            </div>
-                            <span>289</span>
-                          </div>
-                          <div class="mt-1 mb-0 text-muted small">
-                            <span>100% cotton</span>
-                            <span class="text-primary"> • </span>
-                            <span>Light weight</span>
-                            <span class="text-primary"> • </span>
-                            <span>Best finish<br /></span>
-                          </div>
-                          <div class="mb-2 text-muted small">
-                            <span>Unique design</span>
-                            <span class="text-primary"> • </span>
-                            <span>For men</span>
-                            <span class="text-primary"> • </span>
-                            <span>Casual<br /></span>
-                          </div>
-                          <p class="text-truncate mb-4 mb-md-0">
-                            There are many variations of passages of Lorem Ipsum
-                            available, but the majority have suffered alteration
-                            in some form, by injected humour, or randomised
-                            words which don't look even slightly believable.
-                          </p>
-                        </div>
-                        <div
-                          class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start"
-                        >
-                          <div class="d-flex flex-row align-items-center mb-1">
-                            <h4 class="mb-1 me-1">$14.99</h4>
-                            <span class="text-danger"><s>$21.99</s></span>
-                          </div>
-                          <h6 class="text-success">Wifi Free</h6>
-                          <div class="d-flex flex-column mt-4">
-                            <button
-                              class="btn btn-primary btn-sm"
-                              type="button"
-                            >
-                              Chi Tiết
-                            </button>
-                            <button
-                              class="btn btn-outline-primary btn-sm mt-2"
-                              type="button"
-                            >
-                              Đặt Sân
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12 col-xl-12">
-                  <div class="card shadow-0 border rounded-3">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-12 col-lg-3 col-xl-4 mb-4 mb-lg-0">
-                          <div
-                            class="bg-image hover-zoom ripple rounded ripple-surface"
-                          >
-                            <img src="img/test_san.png" class="w-100" />
-                            <a href="#!">
-                              <div class="hover-overlay">
-                                <div
-                                  class="mask"
-                                  style="
-                                    background-color: rgba(253, 253, 253, 0.15);
-                                  "
-                                ></div>
-                              </div>
-                            </a>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-xl-5">
-                          <h5>Quant ruybi shirts</h5>
-                          <div class="d-flex flex-row">
-                            <div class="ms-auto text-warning">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fas fa-star-half-alt"></i
-                              ><i class="far fa-star"></i>
-                            </div>
-                            <span>145</span>
-                          </div>
-                          <div class="mt-1 mb-0 text-muted small">
-                            <span>100% cotton</span>
-                            <span class="text-primary"> • </span>
-                            <span>Light weight</span>
-                            <span class="text-primary"> • </span>
-                            <span>Best finish<br /></span>
-                          </div>
-                          <div class="mb-2 text-muted small">
-                            <span>Unique design</span>
-                            <span class="text-primary"> • </span>
-                            <span>For women</span>
-                            <span class="text-primary"> • </span>
-                            <span>Casual<br /></span>
-                          </div>
-                          <p class="text-truncate mb-4 mb-md-0">
-                            There are many variations of passages of Lorem Ipsum
-                            available, but the majority have suffered alteration
-                            in some form, by injected humour, or randomised
-                            words which don't look even slightly believable.
-                          </p>
-                        </div>
-                        <div
-                          class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start"
-                        >
-                          <div class="d-flex flex-row align-items-center mb-1">
-                            <h4 class="mb-1 me-1">$17.99</h4>
-                            <span class="text-danger"><s>$25.99</s></span>
-                          </div>
-                          <h6 class="text-success">Free shipping</h6>
-                          <div class="d-flex flex-column mt-4">
-                            <button
-                              class="btn btn-primary btn-sm"
-                              type="button"
-                            >
-                              Chi Tiết
-                            </button>
-                            <button
-                              class="btn btn-outline-primary btn-sm mt-2"
-                              type="button"
-                            >
-                              Đặt Sân
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="mt-3 mb-3">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                      <a
-                        class="page-link"
+        </div>
+      </div>
+      <!-- end category -->
+      <!-- content start-->
+      <div class="col-lg-9">
+        <!-- top search page -->
+        <div class="container">
+          <div class="row justify-content-center mb-5">
+            <div class="col-12 col-md-6 col-lg-6">
+              <div
+                      class="text-center float-md-left mb-3 mt-3 mt-md-0 mb-md-0"
+              >
+                <label class="mr-2">Sort by:</label>
+                <a
+                        class="btn btn-lg btn-light dropdown-toggle"
                         href="#"
-                        tabindex="-1"
-                        aria-disabled="true"
-                        >Previous</a
-                      >
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">Next</a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-          </div>
-          <!-- end content -->
-        </div>
-      </div>
-
-      <!-- Service End -->
-
-      <!-- Footer Start -->
-      <div
-        class="container-fluid bg-primary text-light footer mt-5 pt-5 wow fadeIn"
-        data-wow-delay="0.1s"
-      >
-        <div class="container py-5 px-lg-5">
-          <div class="row g-5">
-            <div class="col-md-6 col-lg-3">
-              <h5 class="text-white mb-4">Sân Bóng VN</h5>
-              <p><i class="fa fa-map-marker-alt me-3"></i>Số 1, Trịnh Văn Bô</p>
-              <p><i class="fa fa-phone-alt me-3"></i>0356169620</p>
-              <p><i class="fa fa-envelope me-3"></i>triendoan4432@gmail.com</p>
-              <div class="d-flex pt-2">
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-youtube"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-instagram"></i
-                ></a>
-                <a class="btn btn-outline-light btn-social" href=""
-                  ><i class="fab fa-linkedin-in"></i
-                ></a>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <h5 class="text-white mb-4">Thông tin</h5>
-              <a class="btn btn-link" href="">Về Chúng Tôi</a>
-              <a class="btn btn-link" href="">Liên Hệ</a>
-              <a class="btn btn-link" href="">Dự Án</a>
-              <a class="btn btn-link" href="">Tuyển Dụng</a>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <h5 class="text-white mb-4">Dự Án Chúng Tôi</h5>
-              <div class="row g-2">
-                <div class="col-4">
-                  <img
-                    class="img-fluid"
-                    src="img/portfolio-1.jpg"
-                    alt="Image"
-                  />
-                </div>
-                <div class="col-4">
-                  <img
-                    class="img-fluid"
-                    src="img/portfolio-2.jpg"
-                    alt="Image"
-                  />
-                </div>
-                <div class="col-4">
-                  <img
-                    class="img-fluid"
-                    src="img/portfolio-3.jpg"
-                    alt="Image"
-                  />
-                </div>
-                <div class="col-4">
-                  <img
-                    class="img-fluid"
-                    src="img/portfolio-4.jpg"
-                    alt="Image"
-                  />
-                </div>
-                <div class="col-4">
-                  <img
-                    class="img-fluid"
-                    src="img/portfolio-5.jpg"
-                    alt="Image"
-                  />
-                </div>
-                <div class="col-4">
-                  <img
-                    class="img-fluid"
-                    src="img/portfolio-6.jpg"
-                    alt="Image"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-              <h5 class="text-white mb-4">Bóng Đá Việt Nam</h5>
-              <p>Vì Tương Lai Bóng Đá Việt Nam</p>
-              <div class="position-relative w-100 mt-3">
-                <input
-                  class="form-control border-0 rounded-pill w-100 ps-4 pe-5"
-                  type="text"
-                  placeholder="Your Email"
-                  style="height: 48px"
-                />
-                <button
-                  type="button"
-                  class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"
+                        role="button"
+                        id="dropdownMenuLink"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
                 >
-                  <i class="fa fa-paper-plane text-primary fs-4"></i>
-                </button>
+                  Dropdown link
+                </a>
+                <ul
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuLink"
+                >
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Another action</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                    >Something else here</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+              <div
+                      class="text-md-left text-center float-md-left mb-3 mt-3 mt-md-0 mb-md-0"
+              >
+                <label class="mr-2">Hiển Thị:</label>
+                <a
+                        class="btn btn-lg btn-light dropdown-toggle"
+                        href="#"
+                        role="button"
+                        id="dropdownMenuLink"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                >
+                  Dropdown link
+                </a>
+                <ul
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuLink"
+                >
+                  <li>
+                    <a class="dropdown-item" href="#">12</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">24</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">30</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-        </div>
-        <div class="container px-lg-5">
-          <div class="copyright">
-            <div class="row">
-              <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                <a class="border-bottom" href="#">
-                  <p>Bản Quyền Thuộc Về triendoan4432@gmail.com</p>
-                </a>
-              </div>
-              <div class="col-md-6 text-center text-md-end">
-                <div class="footer-menu">
-                  <a href=""><i class="fab fa-facebook-f"></i></a>
-                  <a href=""><i class="fab fa-youtube"></i></a>
-                  <a href=""><i class="fab fa-instagram"></i></a>
+          <!-- end top search page -->
+          <div class="row mb-3">
+            <div class="col-md-12 col-xl-12">
+              <div class="card shadow-0 border rounded-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12 col-lg-3 col-xl-4 mb-4 mb-lg-0">
+                      <div
+                              class="bg-image hover-zoom ripple rounded ripple-surface"
+                      >
+                        <img src="img/test_san.png" class="w-100" />
+                        <a href="#!">
+                          <div class="hover-overlay">
+                            <div
+                                    class="mask"
+                                    style="
+                                    background-color: rgba(253, 253, 253, 0.15);
+                                  "
+                            ></div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-5">
+                      <h5>Sân 1</h5>
+                      <div class="d-flex flex-row">
+                        <div class="ms-auto text-warning">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fas fa-star-half-alt"></i
+                          ><i class="far fa-star"></i>
+                        </div>
+                        <span>310</span>
+                      </div>
+                      <div class="mt-1 mb-0 text-muted small">
+                        <span>100% cotton</span>
+                        <span class="text-primary"> • </span>
+                        <span>Light weight</span>
+                        <span class="text-primary"> • </span>
+                        <span>Best finish<br /></span>
+                      </div>
+                      <div class="mb-2 text-muted small">
+                        <span>Unique design</span>
+                        <span class="text-primary"> • </span>
+                        <span>For men</span>
+                        <span class="text-primary"> • </span>
+                        <span>Casual<br /></span>
+                      </div>
+                      <p class="text-truncate mb-4 mb-md-0">xxx</p>
+                    </div>
+                    <div
+                            class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start"
+                    >
+                      <div class="d-flex flex-row align-items-center mb-1">
+                        <h4 class="mb-1 me-1">400.000 đ</h4>
+                        <span class="text-danger"><s>$20.99</s></span>
+                      </div>
+                      <h6 class="text-success">Free shipping</h6>
+                      <div class="d-flex flex-column mt-4">
+                        <button
+                                class="btn btn-primary btn-sm"
+                                type="button"
+                        >
+                          Chi Tiết
+                        </button>
+                        <button
+                                class="btn btn-outline-primary btn-sm mt-2"
+                                type="button"
+                        >
+                          Đặt Sân
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="row mb-3">
+            <div class="col-md-12 col-xl-12">
+              <div class="card shadow-0 border rounded-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12 col-lg-3 col-xl-4 mb-4 mb-lg-0">
+                      <div
+                              class="bg-image hover-zoom ripple rounded ripple-surface"
+                      >
+                        <img src="img/test_san.png" class="w-100" />
+                        <a href="#!">
+                          <div class="hover-overlay">
+                            <div
+                                    class="mask"
+                                    style="
+                                    background-color: rgba(253, 253, 253, 0.15);
+                                  "
+                            ></div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-5">
+                      <h5>Quant olap shirts</h5>
+                      <div class="d-flex flex-row">
+                        <div class="ms-auto text-warning">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fas fa-star-half-alt"></i
+                          ><i class="far fa-star"></i>
+                        </div>
+                        <span>289</span>
+                      </div>
+                      <div class="mt-1 mb-0 text-muted small">
+                        <span>100% cotton</span>
+                        <span class="text-primary"> • </span>
+                        <span>Light weight</span>
+                        <span class="text-primary"> • </span>
+                        <span>Best finish<br /></span>
+                      </div>
+                      <div class="mb-2 text-muted small">
+                        <span>Unique design</span>
+                        <span class="text-primary"> • </span>
+                        <span>For men</span>
+                        <span class="text-primary"> • </span>
+                        <span>Casual<br /></span>
+                      </div>
+                      <p class="text-truncate mb-4 mb-md-0">
+                        There are many variations of passages of Lorem Ipsum
+                        available, but the majority have suffered alteration
+                        in some form, by injected humour, or randomised
+                        words which don't look even slightly believable.
+                      </p>
+                    </div>
+                    <div
+                            class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start"
+                    >
+                      <div class="d-flex flex-row align-items-center mb-1">
+                        <h4 class="mb-1 me-1">$14.99</h4>
+                        <span class="text-danger"><s>$21.99</s></span>
+                      </div>
+                      <h6 class="text-success">Wifi Free</h6>
+                      <div class="d-flex flex-column mt-4">
+                        <button
+                                class="btn btn-primary btn-sm"
+                                type="button"
+                        >
+                          Chi Tiết
+                        </button>
+                        <button
+                                class="btn btn-outline-primary btn-sm mt-2"
+                                type="button"
+                        >
+                          Đặt Sân
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-xl-12">
+              <div class="card shadow-0 border rounded-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12 col-lg-3 col-xl-4 mb-4 mb-lg-0">
+                      <div
+                              class="bg-image hover-zoom ripple rounded ripple-surface"
+                      >
+                        <img src="img/test_san.png" class="w-100" />
+                        <a href="#!">
+                          <div class="hover-overlay">
+                            <div
+                                    class="mask"
+                                    style="
+                                    background-color: rgba(253, 253, 253, 0.15);
+                                  "
+                            ></div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-5">
+                      <h5>Quant ruybi shirts</h5>
+                      <div class="d-flex flex-row">
+                        <div class="ms-auto text-warning">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fas fa-star-half-alt"></i
+                          ><i class="far fa-star"></i>
+                        </div>
+                        <span>145</span>
+                      </div>
+                      <div class="mt-1 mb-0 text-muted small">
+                        <span>100% cotton</span>
+                        <span class="text-primary"> • </span>
+                        <span>Light weight</span>
+                        <span class="text-primary"> • </span>
+                        <span>Best finish<br /></span>
+                      </div>
+                      <div class="mb-2 text-muted small">
+                        <span>Unique design</span>
+                        <span class="text-primary"> • </span>
+                        <span>For women</span>
+                        <span class="text-primary"> • </span>
+                        <span>Casual<br /></span>
+                      </div>
+                      <p class="text-truncate mb-4 mb-md-0">
+                        There are many variations of passages of Lorem Ipsum
+                        available, but the majority have suffered alteration
+                        in some form, by injected humour, or randomised
+                        words which don't look even slightly believable.
+                      </p>
+                    </div>
+                    <div
+                            class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start"
+                    >
+                      <div class="d-flex flex-row align-items-center mb-1">
+                        <h4 class="mb-1 me-1">$17.99</h4>
+                        <span class="text-danger"><s>$25.99</s></span>
+                      </div>
+                      <h6 class="text-success">Free shipping</h6>
+                      <div class="d-flex flex-column mt-4">
+                        <button
+                                class="btn btn-primary btn-sm"
+                                type="button"
+                        >
+                          Chi Tiết
+                        </button>
+                        <button
+                                class="btn btn-outline-primary btn-sm mt-2"
+                                type="button"
+                        >
+                          Đặt Sân
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3 mb-3">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                  <a
+                          class="page-link"
+                          href="#"
+                          tabindex="-1"
+                          aria-disabled="true"
+                  >Previous</a
+                  >
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">Next</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
-      <!-- Footer End -->
-
-      <!-- Back to Top -->
-      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"
-        ><i class="bi bi-arrow-up"></i
-      ></a>
+      <!-- end content -->
     </div>
+  </div>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script th:src="@{/static/lib/wow/wow.min.js}"></script>
-    <script th:src="@{/static/lib/easing/easing.min.js}"></script>
-    <script th:src="@{/static/lib/waypoints/waypoints.min.js}"></script>
-    <script th:src="@{/static/lib/owlcarousel/owl.carousel.min.js}"></script>
-    <script th:src="@{/static/lib/isotope/isotope.pkgd.min.js}"></script>
-    <script th:src="@{/static/lib/lightbox/js/lightbox.min.js}"></script>
+  <!-- Service End -->
 
-    <!-- Template Javascript -->
-    <script th:src="@{/static/js/main.js}"></script>
-    <script th:src="@{/static/js/custom/danh-sach.js}"></script>
-  </body>
+  <!-- Start Header -->
+  <div th:insert="~{fragments/footer}"></div>
+  <!-- End Header -->
+</div>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"
+></script>
+<script th:src="@{/static/lib/wow/wow.min.js}"></script>
+<script th:src="@{/static/lib/easing/easing.min.js}"></script>
+<script th:src="@{/static/lib/waypoints/waypoints.min.js}"></script>
+<script th:src="@{/static/lib/owlcarousel/owl.carousel.min.js}"></script>
+<script th:src="@{/static/lib/isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/static/lib/lightbox/js/lightbox.min.js}"></script>
+
+<!-- Template Javascript -->
+<script th:src="@{/static/js/main.js}"></script>
+</body>
 </html>
