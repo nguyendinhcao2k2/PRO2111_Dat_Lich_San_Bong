@@ -69,7 +69,7 @@
                   style="background-color: rgb(27, 27, 174); border-radius: 3px"
           >
             <h4 style="color: white; text-align: center">
-              Danh Sách Hóa Đơn
+              Danh Sách Hóa Đơn Đã Thanh Toán
             </h4>
           </div>
           <div class="container mt-5">
@@ -288,156 +288,223 @@
                   style="background-color: rgb(27, 27, 174); border-radius: 3px"
           >
             <h4 style="color: white; text-align: center">
-              Dịch vụ sử dụng
+              Lịch Sử Đặt Sân
             </h4>
           </div>
-          <div class="container text-center">
-            <div class="row">
-              <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
-                <div class="card">
-                  <img
-                          src="https://cdn.tgdd.vn/Products/Images/2563/84816/bhx/thung-24-chai-nuoc-tinh-khiet-aquafina-500ml-202303302323549188.jpg"
-                          class="card-img-top"
-                          alt="Laptop"
-                  />
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3">
-                      <h5 class="mb-0" style="color: red">Tên</h5>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-3">
-                      <h6 class="mb-0">Đơn Giá</h6>
-                      <h6 class="text-dark mb-0">500.000đ</h6>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-3">
-                      <h6 class="mb-0">Số Lượng</h6>
-                      <td class="p-0 d-xl-table-cell d-none">
-                        <ul class="p-0 m-0">
-                          <li
-                                  *ngFor="let item of product.items"
-                                  class="def-number-input number-input d-flex justify-content-center"
-                          >
-                            <input
-                                    type="number"
-                                    style="height: 25px; width: 100px"
-                                    min="0"
-                            />
-                          </li>
-                        </ul>
-                      </td>
-                    </div>
-                    <div class="d-flex flex-column mt-4">
-                      <button
-                              href="chi-tiet-san-bong.html"
-                              class="btn btn-primary btn-sm"
-                              type="button"
-                              style="background-color: red"
+          <div class="container mt-5">
+            <table
+                    class="table table-borderless table-responsive card-1 p-4"
+            >
+              <thead>
+              <tr class="border-bottom">
+                <th>
+                  <span class="ml-2">Time</span>
+                </th>
+                <th>
+                  <span class="ml-2">Agent</span>
+                </th>
+                <th>
+                  <span class="ml-2">Customer</span>
+                </th>
+                <th>
+                  <span class="ml-2">Location</span>
+                </th>
+                <th>
+                  <span class="ml-4">Action</span>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="border-bottom">
+                <td>
+                  <div class="p-2">
+                    <span class="d-block font-weight-bold">Tomorrow</span>
+                    <small>2:30PM</small>
+                  </div>
+                </td>
+                <td>
+                  <div
+                          class="p-2 d-flex flex-row align-items-center mb-2"
+                  >
+                    <img
+                            src="https://i.imgur.com/ZSkeqnd.jpg"
+                            width="40"
+                            class="rounded-circle"
+                    />
+                    <div class="d-flex flex-column ml-2">
+                            <span class="d-block font-weight-bold"
+                            >Jennifer john</span
+                            >
+                      <small class="text-muted"
+                      >Jasmine Owner Reality group</small
                       >
-                        Xóa
-                      </button>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
-                <div class="card">
-                  <img
-                          src="https://cdn.tgdd.vn/Products/Images/2563/84816/bhx/thung-24-chai-nuoc-tinh-khiet-aquafina-500ml-202303302323549188.jpg"
-                          class="card-img-top"
-                          alt="Laptop"
-                  />
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3">
-                      <h5 class="mb-0" style="color: red">Tên</h5>
-                    </div>
+                </td>
+                <td>
+                  <div class="p-2">
+                    <span class="font-weight-bold">Ammy Song</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="p-2 d-flex flex-column">
+                    <span>1 City point,#2A</span>
+                    <span> Brooklyn,NY</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="p-2 icons">
+                    <i class="fa fa-phone text-danger"></i>
+                    <i class="fa fa-adjust text-danger"></i>
+                    <i class="fa fa-share"></i>
+                  </div>
+                </td>
+              </tr>
 
-                    <div class="d-flex justify-content-between mb-3">
-                      <h6 class="mb-0">Đơn Giá</h6>
-                      <h6 class="text-dark mb-0">500.000đ</h6>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-3">
-                      <h6 class="mb-0">Số Lượng</h6>
-                      <td class="p-0 d-xl-table-cell d-none">
-                        <ul class="p-0 m-0">
-                          <li
-                                  *ngFor="let item of product.items"
-                                  class="def-number-input number-input d-flex justify-content-center"
-                          >
-                            <input
-                                    type="number"
-                                    style="height: 25px; width: 100px"
-                                    min="0"
-                            />
-                          </li>
-                        </ul>
-                      </td>
-                    </div>
-                    <div class="d-flex flex-column mt-4">
-                      <button
-                              href="chi-tiet-san-bong.html"
-                              class="btn btn-primary btn-sm"
-                              type="button"
-                              style="background-color: red"
+              <tr class="border-bottom">
+                <td>
+                  <div class="p-2">
+                    <span class="d-block font-weight-bold">Tomorrow</span>
+                    <small>3:30PM</small>
+                  </div>
+                </td>
+                <td>
+                  <div
+                          class="p-2 d-flex flex-row align-items-center mb-2"
+                  >
+                    <img
+                            src="https://i.imgur.com/C4egmYM.jpg"
+                            class="rounded-circle"
+                            width="40"
+                    />
+                    <div class="d-flex flex-column ml-2">
+                            <span class="d-block font-weight-bold"
+                            >David Smith</span
+                            >
+                      <small class="text-muted"
+                      >Jasmine Owner Reality group</small
                       >
-                        Xóa
-                      </button>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
-                <div class="card">
-                  <img
-                          src="https://cdn.tgdd.vn/Products/Images/2563/84816/bhx/thung-24-chai-nuoc-tinh-khiet-aquafina-500ml-202303302323549188.jpg"
-                          class="card-img-top"
-                          alt="Laptop"
-                  />
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3">
-                      <h5 class="mb-0" style="color: red">Tên</h5>
-                    </div>
+                </td>
+                <td>
+                  <div class="p-2">
+                    <span class="font-weight-bold">David Clark</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="p-2 d-flex flex-column">
+                    <span>205 2ndst,#2A,</span>
+                    <span> Brooklyn,NY</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="p-2 icons">
+                    <i class="fa fa-phone text-danger"></i>
+                    <i class="fa fa-adjust text-danger"></i>
+                    <i class="fa fa-share"></i>
+                  </div>
+                </td>
+              </tr>
 
-                    <div class="d-flex justify-content-between mb-3">
-                      <h6 class="mb-0">Đơn Giá</h6>
-                      <h6 class="text-dark mb-0">500.000đ</h6>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-3">
-                      <h6 class="mb-0">Số Lượng</h6>
-                      <td class="p-0 d-xl-table-cell d-none">
-                        <ul class="p-0 m-0">
-                          <li
-                                  *ngFor="let item of product.items"
-                                  class="def-number-input number-input d-flex justify-content-center"
-                          >
-                            <input
-                                    type="number"
-                                    style="height: 25px; width: 100px"
-                                    min="0"
-                            />
-                          </li>
-                        </ul>
-                      </td>
-                    </div>
-                    <div class="d-flex flex-column mt-4">
-                      <button
-                              href="chi-tiet-san-bong.html"
-                              class="btn btn-primary btn-sm"
-                              type="button"
-                              style="background-color: red"
+              <tr class="border-bottom">
+                <td>
+                  <div class="p-2">
+                    <span class="d-block font-weight-bold">Tomorrow</span>
+                    <small>12:30PM</small>
+                  </div>
+                </td>
+                <td>
+                  <div
+                          class="p-2 d-flex flex-row align-items-center mb-2"
+                  >
+                    <img
+                            src="https://i.imgur.com/0LKZQYM.jpg"
+                            class="rounded-circle"
+                            width="40"
+                    />
+                    <div class="d-flex flex-column ml-2">
+                            <span class="d-block font-weight-bold"
+                            >Emmily johnson</span
+                            >
+                      <small class="text-muted"
+                      >Jasmine Owner Reality group</small
                       >
-                        Xóa
-                      </button>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
+                </td>
+                <td>
+                  <div class="p-2">
+                    <span class="font-weight-bold">Mary Kingston</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="p-2 d-flex flex-column">
+                    <span>199 Bowery,#7A</span>
+                    <span> Brooklyn,NY</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="p-2 icons">
+                    <i class="fa fa-phone text-danger"></i>
+                    <i class="fa fa-adjust text-danger"></i>
+                    <i class="fa fa-share"></i>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="border-bottom">
+                <td>
+                  <div class="p-2">
+                    <span class="d-block font-weight-bold">Tomorrow</span>
+                    <small>1:30PM</small>
+                  </div>
+                </td>
+                <td>
+                  <div
+                          class="p-2 d-flex flex-row align-items-center mb-2"
+                  >
+                    <img
+                            src="https://i.imgur.com/hczKIze.jpg"
+                            width="40"
+                            class="rounded-circle"
+                    />
+                    <div class="d-flex flex-column ml-2">
+                            <span class="d-block font-weight-bold"
+                            >Nick Jones</span
+                            >
+                      <small class="text-muted"
+                      >Jasmine Owner Reality group</small
+                      >
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="p-2">
+                    <span class="font-weight-bold">James Smith</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="p-2 d-flex flex-column">
+                    <span>123 Clinton Ave,#2A</span>
+                    <span> Brooklyn,NY</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="p-2 icons">
+                    <i class="fa fa-phone text-danger"></i>
+                    <i class="fa fa-adjust text-danger"></i>
+                    <i class="fa fa-share"></i>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
+
         </div>
       </div>
+
 
       <div class="col-4">
         <div>
@@ -451,19 +518,16 @@
           <div>
             <div class="d-flex justify-content-between mb-3">
               <h6 class="mb-0">Tên Khách Hàng</h6>
-              <input type="text" class="text-dark mb-0" />
+              <h5 type="text" class="text-dark mb-0">Cho Trien</h5>
             </div>
             <div class="d-flex justify-content-between mb-3">
               <h6 class="mb-0">Số Điện Thoại</h6>
-              <input type="text" class="text-dark mb-0" />
+              <h5 type="text" class="text-dark mb-0">Cho Trien</h5>
+
             </div>
             <div class="d-flex justify-content-between mb-3">
               <h6 class="mb-0">Số Dư Ví</h6>
-              <input type="text" class="text-dark mb-0" />
-            </div>
-            <div class="d-flex justify-content-between mb-3">
-              <h6 class="mb-0">Số Tiền Cọc</h6>
-              <input type="text" class="text-dark mb-0" />
+              <h5 type="text" class="text-dark mb-0">Cho Trien</h5>
             </div>
           </div>
         </div>
@@ -472,41 +536,9 @@
                   style="background-color: rgb(27, 27, 174); border-radius: 3px"
           >
             <h4 style="color: white; text-align: center">
-              Thông tin Khách hàng
+              Số Tiền Khách Hàng Đã Sử Dụng
             </h4>
           </div>
-          <div>
-            <div class="d-flex justify-content-between mb-3">
-              <h5 class="mb-0">Tên Ca:</h5>
-              <h5 type="text" class="text-dark mb-0">Cho Trien</h5>
-            </div>
-            <div class="d-flex justify-content-between mb-3">
-              <h5 class="mb-0">Tên Sân:</h5>
-              <h5 type="text" class="text-dark mb-0">Cho Trien</h5>
-            </div>
-            <div class="d-flex justify-content-between mb-3">
-              <h5 class="mb-0">Thời Gian Bắt Đầu:</h5>
-              <h5 type="text" class="text-dark mb-0">Cho Trien</h5>
-            </div>
-            <div class="d-flex justify-content-between mb-3">
-              <h5 class="mb-0">Thời Gian Kết Thúc:</h5>
-              <h5 type="text" class="text-dark mb-0">Cho Trien</h5>
-            </div>
-            <div class="d-flex justify-content-between mb-3">
-              <h5 class="mb-0">Ngày Đến Sân</h5>
-              <h5 type="text" class="text-dark mb-0">Cho Trien</h5>
-            </div>
-            <div
-                    style="
-                    background-color: green;
-                    height: 10px;
-                    margin-bottom: 10px;
-                  "
-            ></div>
-            <div class="d-flex justify-content-between mb-3">
-              <h5 class="mb-0">Ngày Đến Sân</h5>
-              <h5 type="text" class="text-dark mb-0">Cho Trien</h5>
-            </div>
             <div
                     style="
                     background-color: green;
@@ -524,9 +556,6 @@
               </h4>
             </div>
             <div class="d-flex flex-column mt-4">
-              <button class="btn btn-primary btn-sm" type="button">
-                Thanh Toán
-              </button>
               <button
                       class="btn btn-outline-primary btn-sm mt-2"
                       type="button"
