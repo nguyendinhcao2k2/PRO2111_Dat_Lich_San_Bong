@@ -6,6 +6,7 @@ import com.example.pro2111_dat_lich_san_bong.repository.GiaoCaRepository;
 import com.example.pro2111_dat_lich_san_bong.service.IGiaoCaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ public class GiaoCaServiceImpl implements IGiaoCaService {
     @Autowired
     GiaoCaRepository giaoCaRepository;
 
-    private ModelMapper mapper = new ModelMapper();
+
 
     @Override
     public GiaoCa findGiaoCaByTrangThai(Integer trangThai) {
@@ -26,9 +27,8 @@ public class GiaoCaServiceImpl implements IGiaoCaService {
 
     @Override
     @Transactional
-    public Boolean khoiTaoCaLam(GiaoCaRequest giaoCaRequest) {
+    public Boolean khoiTaoCaLam(GiaoCa giaoCa) {
         try {
-            GiaoCa giaoCa = mapper.map(giaoCaRequest, GiaoCa.class);
             giaoCaRepository.save(giaoCa);
             return true;
         } catch (Exception e) {
@@ -36,5 +36,14 @@ public class GiaoCaServiceImpl implements IGiaoCaService {
             return false;
         }
 
+    }
+
+    @Override
+    public GiaoCa findGiaoCaGanNhat() {
+        GiaoCa giaoCa = giaoCaRepository.findAll(Sort.by("thoiGianKetCa").descending()).get(0);
+        if (giaoCa != null) {
+            return giaoCa;
+        }
+        return null;
     }
 }

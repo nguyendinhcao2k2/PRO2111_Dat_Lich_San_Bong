@@ -17,6 +17,7 @@ public class GiaoCaRestController {
     @Autowired
     private IGiaoCaService giaoCaService;
 
+    private ModelMapper mapper = new ModelMapper();
 
     @GetMapping("/trang-thai-ca")
     public ResponseEntity<BaseResponse<GiaoCa>> trangThaiGiaoCa(@RequestParam("trangThaiGiaoCa") Integer trangThaiGiaoCa) {
@@ -30,11 +31,25 @@ public class GiaoCaRestController {
 
     @PostMapping("/khoi-tao-ca")
     public ResponseEntity<?> khoiTaoCaLam(@RequestBody GiaoCaRequest giaoCaRequest) {
-        Boolean check = giaoCaService.khoiTaoCaLam(giaoCaRequest);
+        GiaoCa giaoCa = mapper.map(giaoCaRequest, GiaoCa.class);
+        Boolean check = giaoCaService.khoiTaoCaLam(giaoCa);
         if (check) {
             return ResponseEntity.ok(new BaseResponse<GiaoCaRequest>(HttpStatus.OK, giaoCaRequest));
         }
         return ResponseEntity.ok("Khởi tạo ca làm lỗi!");
+    }
+
+    @GetMapping("/ca-gan-nhat")
+    public ResponseEntity<?> giaoCaGanNhat() {
+        GiaoCa giaoCa = giaoCaService.findGiaoCaGanNhat();
+        if (giaoCa != null) {
+            BaseResponse<GiaoCa> response = new BaseResponse<>();
+            response.setStatusCode(HttpStatus.OK);
+            response.setContent(giaoCa);
+            return ResponseEntity.ok(response);
+        }
+        return null;
+
     }
 
 }

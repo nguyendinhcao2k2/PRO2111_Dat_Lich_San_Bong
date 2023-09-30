@@ -6,5 +6,7 @@ import com.example.pro2111_dat_lich_san_bong.model.request.GiaoCaRequest;
 public interface IGiaoCaService {
     GiaoCa findGiaoCaByTrangThai(Integer trangThai);
 
-    Boolean khoiTaoCaLam(GiaoCaRequest giaoCaRequest);
+    Boolean khoiTaoCaLam(GiaoCa giaoCa);
+
+    GiaoCa findGiaoCaGanNhat();
 }
