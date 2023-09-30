@@ -34,7 +34,7 @@ public class GiaoCaRestController {
         if (check) {
             return ResponseEntity.ok(new BaseResponse<GiaoCaRequest>(HttpStatus.OK, giaoCaRequest));
         }
-        return null;
+        return ResponseEntity.ok("Khởi tạo ca làm lỗi!");
     }
 
 }

@@ -49,6 +49,8 @@ public class GiaoCa {
     private Timestamp thoiGianReset;
     @Column(name = "tong_tien_mat_rut")
     private double tongTienMatRut;
+    @Column(name = "id_account")
+    private String idAccount;
     @Column(name = "trang_thai")
     private TrangThaiGiaoCa trangThai;
 

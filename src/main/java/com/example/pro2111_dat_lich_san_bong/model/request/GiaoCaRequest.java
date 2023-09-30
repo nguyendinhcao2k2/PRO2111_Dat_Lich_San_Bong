@@ -44,5 +44,7 @@ public class GiaoCaRequest {
 
     private double tongTienMatRut;
 
+    private String idAccount;
+
     private TrangThaiGiaoCa trangThai;
 }
