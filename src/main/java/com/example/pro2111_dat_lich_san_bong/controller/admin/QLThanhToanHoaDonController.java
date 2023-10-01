@@ -51,7 +51,7 @@ public class QLThanhToanHoaDonController {
     public String viewThanhToanHoaDon(Model model) {
         List<HoaDonPhieuDatLichRequest> listHoaDonPhieuDatLichRequest = showHoaDonPhieuDatLich(model);
         model.addAttribute("listHoaDonPhieuDatLichRequest", listHoaDonPhieuDatLichRequest);
-        return "user/ql-hoa-don";
+        return "admin/ql-hoa-don-admin";
     }
 
     private List<HoaDonPhieuDatLichRequest> showHoaDonPhieuDatLich(Model model) {
@@ -77,6 +77,6 @@ public class QLThanhToanHoaDonController {
         System.out.println(account.getDisplayName());
         model.addAttribute("account", account);
         model.addAttribute("viTien", viTien);
-        return "user/ql-hoa-don";
+        return "admin/ql-hoa-don-admin";
     }
 }

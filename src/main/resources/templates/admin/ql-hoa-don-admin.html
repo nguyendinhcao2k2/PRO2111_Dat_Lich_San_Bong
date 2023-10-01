@@ -79,206 +79,44 @@
                             <thead>
                             <tr class="border-bottom">
                                 <th>
-                                    <span class="ml-2">Time</span>
+                                    <span class="ml-2">Tên Khách</span>
                                 </th>
                                 <th>
-                                    <span class="ml-2">Agent</span>
+                                    <span class="ml-2">Điện Thoại</span>
                                 </th>
                                 <th>
-                                    <span class="ml-2">Customer</span>
+                                    <span class="ml-2">Thời Gian</span>
                                 </th>
                                 <th>
-                                    <span class="ml-2">Location</span>
+                                    <span class="ml-2">Sân Ca</span>
                                 </th>
                                 <th>
-                                    <span class="ml-4">Action</span>
+                                    <span class="ml-4">Check In</span>
+                                </th>
+                                <th>
+                                    <span class="ml-4">Tổng Tiền</span>
+                                </th>
+                                <th>
+                                    <span class="ml-4">Trang Thái</span>
+                                </th>
+                                <th>
+                                    <span class="ml-4">Click</span>
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="border-bottom">
+                            <tr th:each="phieuDatLich : ${listHoaDonPhieuDatLichRequest}">
+                                <th th:text="${phieuDatLich.tenKhachHang}"></th>
+                                <th th:text="${phieuDatLich.soDienThoai}"></th>
+                                <th th:text="${phieuDatLich.gioBatDau} + ' - ' + ${phieuDatLich.gioKetThuc}"></th>
+                                <th th:text="${phieuDatLich.tenSanBong} + ' - ' + ${phieuDatLich.tenCa}"></th>
+                                <th th:text="${phieuDatLich.thoiGianCheckIn}"></th>
+                                <th th:text="${phieuDatLich.tongTienSanCa}"></th>
+                                <th th:text="${phieuDatLich.trangThai}"></th>
                                 <td>
-                                    <div class="p-2">
-                                        <span class="d-block font-weight-bold">Tomorrow</span>
-                                        <small>2:30PM</small>
-                                    </div>
+                                    <a th:href="@{'/api/v1/admin/quan-ly-hoa-don-thanh-toan/show-phieu-dat-lich/' + ${phieuDatLich.id}}"
+                                       class="btn btn-success">Show</a>
                                 </td>
-                                <td>
-                                    <div
-                                            class="p-2 d-flex flex-row align-items-center mb-2"
-                                    >
-                                        <img
-                                                src="https://i.imgur.com/ZSkeqnd.jpg"
-                                                width="40"
-                                                class="rounded-circle"
-                                        />
-                                        <div class="d-flex flex-column ml-2">
-                            <span class="d-block font-weight-bold"
-                            >Jennifer john</span
-                            >
-                                            <small class="text-muted"
-                                            >Jasmine Owner Reality group</small
-                                            >
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2">
-                                        <span class="font-weight-bold">Ammy Song</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 d-flex flex-column">
-                                        <span>1 City point,#2A</span>
-                                        <span> Brooklyn,NY</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 icons">
-                                        <i class="fa fa-phone text-danger"></i>
-                                        <i class="fa fa-adjust text-danger"></i>
-                                        <i class="fa fa-share"></i>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="border-bottom">
-                                <td>
-                                    <div class="p-2">
-                                        <span class="d-block font-weight-bold">Tomorrow</span>
-                                        <small>3:30PM</small>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div
-                                            class="p-2 d-flex flex-row align-items-center mb-2"
-                                    >
-                                        <img
-                                                src="https://i.imgur.com/C4egmYM.jpg"
-                                                class="rounded-circle"
-                                                width="40"
-                                        />
-                                        <div class="d-flex flex-column ml-2">
-                            <span class="d-block font-weight-bold"
-                            >David Smith</span
-                            >
-                                            <small class="text-muted"
-                                            >Jasmine Owner Reality group</small
-                                            >
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2">
-                                        <span class="font-weight-bold">David Clark</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 d-flex flex-column">
-                                        <span>205 2ndst,#2A,</span>
-                                        <span> Brooklyn,NY</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 icons">
-                                        <i class="fa fa-phone text-danger"></i>
-                                        <i class="fa fa-adjust text-danger"></i>
-                                        <i class="fa fa-share"></i>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="border-bottom">
-                                <td>
-                                    <div class="p-2">
-                                        <span class="d-block font-weight-bold">Tomorrow</span>
-                                        <small>12:30PM</small>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div
-                                            class="p-2 d-flex flex-row align-items-center mb-2"
-                                    >
-                                        <img
-                                                src="https://i.imgur.com/0LKZQYM.jpg"
-                                                class="rounded-circle"
-                                                width="40"
-                                        />
-                                        <div class="d-flex flex-column ml-2">
-                            <span class="d-block font-weight-bold"
-                            >Emmily johnson</span
-                            >
-                                            <small class="text-muted"
-                                            >Jasmine Owner Reality group</small
-                                            >
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2">
-                                        <span class="font-weight-bold">Mary Kingston</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 d-flex flex-column">
-                                        <span>199 Bowery,#7A</span>
-                                        <span> Brooklyn,NY</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 icons">
-                                        <i class="fa fa-phone text-danger"></i>
-                                        <i class="fa fa-adjust text-danger"></i>
-                                        <i class="fa fa-share"></i>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="border-bottom">
-                                <td>
-                                    <div class="p-2">
-                                        <span class="d-block font-weight-bold">Tomorrow</span>
-                                        <small>1:30PM</small>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div
-                                            class="p-2 d-flex flex-row align-items-center mb-2"
-                                    >
-                                        <img
-                                                src="https://i.imgur.com/hczKIze.jpg"
-                                                width="40"
-                                                class="rounded-circle"
-                                        />
-                                        <div class="d-flex flex-column ml-2">
-                            <span class="d-block font-weight-bold"
-                            >Nick Jones</span
-                            >
-                                            <small class="text-muted"
-                                            >Jasmine Owner Reality group</small
-                                            >
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2">
-                                        <span class="font-weight-bold">James Smith</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 d-flex flex-column">
-                                        <span>123 Clinton Ave,#2A</span>
-                                        <span> Brooklyn,NY</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 icons">
-                                        <i class="fa fa-phone text-danger"></i>
-                                        <i class="fa fa-adjust text-danger"></i>
-                                        <i class="fa fa-share"></i>
-                                    </div>
-                                </td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
