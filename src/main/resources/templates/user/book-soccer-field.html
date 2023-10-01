@@ -82,6 +82,7 @@
                     </div>
                 </div>
                 <!--  -->
+                <!-- DANH SÁCH SÂN  -->
                 <div class="col-xl-9">
                     <ul class="content w-100 m-0 p-0">
                         <li class="active" id="tab-content-1">
@@ -101,164 +102,394 @@
                                                 <div
                                                         class="bg-image hover-zoom ripple rounded ripple-surface"
                                                 >
-                                                    <img src="../../static/img/test_san.png" class="w-100"/>
+                                                    <img
+                                                            src="../../static/img/test_san.png"
+                                                            class="w-100"
+                                                    />
                                                     <a href="#!">
                                                         <div class="hover-overlay">
                                                             <div
                                                                     class="mask"
                                                                     style="
-                                          background-color: rgba(
-                                            253,
-                                            253,
-                                            253,
-                                            0.15
-                                          );
-                                        "
+                                      background-color: rgba(
+                                        253,
+                                        253,
+                                        253,
+                                        0.15
+                                      );
+                                    "
                                                             ></div>
                                                         </div>
                                                     </a>
+                                                    <hr style="height: 1px" />
+                                                    <div class="content-field-detail m-2">
+                                                        <h5 class="d-flex justify-content-center">
+                                                            Thông Tin Sân
+                                                        </h5>
+                                                        <h5>Loại sân : <span>7 người</span></h5>
+                                                        <h5>
+                                                            Trạng thái:
+                                                            <span class="text-success">Hoạt động</span>
+                                                            <!-- <span class="text-danger"
+                                                              >Không Hoạt Động</span
+                                                            > -->
+                                                        </h5>
+                                                    </div>
                                                 </div>
+                                                <!-- CARD Hiển THị Ca Theo Sân -->
                                                 <div class="card-description">
-                                                    <h5 class="card-title">Danh Sách Ca Theo Sân</h5>
+                                                    <h5 class="card-title" style="text-align: center">
+                                                        Danh Sách Ca Theo Sân
+                                                    </h5>
                                                     <div class="box-croll">
                                                         <div class="card-body">
-                                                            <div id="shift">
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="1"
-                                                                    />
-                                                                    <span>Ca 1: 07:15 - 09:15</span>
-                                                                </label>
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="2"
-                                                                    />
-                                                                    <span>Ca 2: 07:15 - 09:15</span>
-                                                                </label>
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="3"
-                                                                    />
-                                                                    <span>Ca 3: 07:15 - 09:15</span>
-                                                                </label>
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="4"
-                                                                    />
-                                                                    <span>Ca 4: 07:15 - 09:15</span>
-                                                                </label>
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="5"
-                                                                    />
-                                                                    <span>Ca 5: 07:15 - 09:15</span>
-                                                                </label>
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="6"
-                                                                    />
-                                                                    <span>Ca 6: 07:15 - 09:15</span>
-                                                                </label>
+                                                            <div class="row">
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 5: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class=""
+                                          >Đang Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" disabled />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 2: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class="text-danger"
+                                          >Không Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" disabled />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 3: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class="text-danger"
+                                          >Không Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" disabled />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 4: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class="text-danger"
+                                          >Không Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 5: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class="text-danger"
+                                          >Không Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 6: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class="text-danger"
+                                          >Không Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-12 mt-3 mb-4">
+                                        <div class="col-md-6 col-ms-12 mt-3 mb-4">
                                             <div class="card card-content-body">
                                                 <div
                                                         class="card-header d-flex justify-content-center"
                                                 >
-                                                    <h1>Sân 1</h1>
+                                                    <h1>Sân 2</h1>
                                                 </div>
                                                 <div
                                                         class="bg-image hover-zoom ripple rounded ripple-surface"
                                                 >
-                                                    <img src="../../static/img/test_san.png" class="w-100"/>
+                                                    <img
+                                                            src="../../static/img/test_san.png"
+                                                            class="w-100"
+                                                    />
                                                     <a href="#!">
                                                         <div class="hover-overlay">
                                                             <div
                                                                     class="mask"
                                                                     style="
-                                          background-color: rgba(
-                                            253,
-                                            253,
-                                            253,
-                                            0.15
-                                          );
-                                        "
+                                      background-color: rgba(
+                                        253,
+                                        253,
+                                        253,
+                                        0.15
+                                      );
+                                    "
                                                             ></div>
                                                         </div>
                                                     </a>
+                                                    <hr style="height: 1px" />
+                                                    <div class="content-field-detail m-2">
+                                                        <h5 class="d-flex justify-content-center">
+                                                            Thông Tin Sân
+                                                        </h5>
+                                                        <h5>Loại sân : <span>7 người</span></h5>
+                                                        <h5>
+                                                            Trạng thái:
+                                                            <span class="text-success">Hoạt động</span>
+                                                            <!-- <span class="text-danger"
+                                                              >Không Hoạt Động</span
+                                                            > -->
+                                                        </h5>
+                                                    </div>
                                                 </div>
+                                                <!-- CARD Hiển THị Ca Theo Sân -->
                                                 <div class="card-description">
-                                                    <h5 class="card-title">
+                                                    <h5 class="card-title" style="text-align: center">
                                                         Danh Sách Ca Theo Sân
                                                     </h5>
                                                     <div class="box-croll">
                                                         <div class="card-body">
-                                                            <div id="shift">
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="1"
-                                                                    />
-                                                                    <span>Ca 1: 07:15 - 09:15</span>
-                                                                </label>
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="2"
-                                                                    />
-                                                                    <span>Ca 2: 07:15 - 09:15</span>
-                                                                </label>
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="3"
-                                                                    />
-                                                                    <span>Ca 3: 07:15 - 09:15</span>
-                                                                </label>
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="4"
-                                                                    />
-                                                                    <span>Ca 4: 07:15 - 09:15</span>
-                                                                </label>
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="5"
-                                                                    />
-                                                                    <span>Ca 5: 07:15 - 09:15</span>
-                                                                </label>
-                                                                <label>
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            name="work_days"
-                                                                            value="6"
-                                                                    />
-                                                                    <span>Ca 6: 07:15 - 09:15</span>
-                                                                </label>
+                                                            <div class="row">
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 5: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class=""
+                                          >Đang Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" disabled />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 2: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class="text-danger"
+                                          >Không Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" disabled />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 3: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class="text-danger"
+                                          >Không Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" disabled />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 4: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class="text-danger"
+                                          >Không Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 5: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class="text-danger"
+                                          >Không Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
+                                                                <div
+                                                                        class="col-md-12 mt-1 d-flex justify-content-center"
+                                                                >
+                                                                    <label class="checkbox-button">
+                                                                        <input type="checkbox" />
+                                                                        <span class="button-label">
+                                          <span
+                                                  style="
+                                              font-size: 20px;
+                                              font-weight: bold;
+                                            "
+                                          >
+                                            Ca 6: <span>07:00 - 09:00</span>
+                                          </span>
+                                          <br />
+                                          Giá sân: <span>700.000 VND</span>
+                                          <br />
+                                          Trạng thái:
+                                          <span class="text-danger"
+                                          >Không Hoạt động</span
+                                          ></span
+                                                                        >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
