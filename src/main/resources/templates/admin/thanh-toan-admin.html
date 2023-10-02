@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>SÂN BÓNG VN</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="keywords" />
-    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="keywords"/>
+    <meta content="" name="description"/>
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
@@ -26,7 +26,7 @@
     />
 
     <!-- Libraries Stylesheet -->
-    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet" />
+    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet"/>
     <link th:href="@{/static/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
     <link th:href="@{/static/lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
 
@@ -65,7 +65,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-8">
+                <div class="col-9">
                     <div>
                         <div
                                 style="background-color: rgb(27, 27, 174); border-radius: 3px"
@@ -73,8 +73,8 @@
                             <h4 style="color: white; text-align: center">Thanh Toán</h4>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <div class="col-3">
+                    <div class="d-flex justify-content-between mt-3">
+                        <div class="col-3 mt-2 mb-2">
                             <div class="d-flex justify-content-between mb-3">
                                 <h6 class="mb-0">Tên Ca:</h6>
                                 <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
@@ -88,7 +88,7 @@
                                 <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-3 mt-2 mb-2">
                             <div class="d-flex justify-content-between mb-3">
                                 <h6 class="mb-0">Tên Ca:</h6>
                                 <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
@@ -102,7 +102,7 @@
                                 <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-3 mt-2 mb-2">
                             <div class="d-flex justify-content-between mb-3">
                                 <h6 class="mb-0">Tên Ca:</h6>
                                 <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
@@ -117,24 +117,160 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                            style="
-                  background-color: green;
-                  height: 10px;
-                  margin-bottom: 10px;
-                "
-                    ></div>
-                    <div
-                            class="d-flex justify-content-center mb-3"
-                            style="margin-top: 15px"
-                    >
-                        <h3 class="mb-0" style="color: red">TỔNG TIỀN:</h3>
-                        <h3 type="text" style="color: red" class="text-dark mb-0">
-                            1 Tỷ
-                        </h3>
+                    <div>
+                        <div class="mt-2 mb-5"
+                                style="background-color: rgb(27, 27, 174); border-radius: 3px"
+                        >
+                            <h4 style="color: white; text-align: center">Dịch Vụ</h4>
+                        </div>
+                    </div>
+                    <div class="container text-center mb-3">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
+                                <div class="card">
+                                    <img
+                                            src="https://cdn.tgdd.vn/Products/Images/2563/84816/bhx/thung-24-chai-nuoc-tinh-khiet-aquafina-500ml-202303302323549188.jpg"
+                                            class="card-img-top"
+                                            alt="Laptop"
+                                    />
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <h5 class="mb-0" style="color: red">Tên</h5>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <h6 class="mb-0">Đơn Giá</h6>
+                                            <h6 class="text-dark mb-0">500.000đ</h6>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <h6 class="mb-0">Số Lượng</h6>
+                                            <td class="p-0 d-xl-table-cell d-none">
+                                                <ul class="p-0 m-0">
+                                                    <li
+                                                            *ngFor="let item of product.items"
+                                                            class="def-number-input number-input d-flex justify-content-center"
+                                                    >
+                                                        <input
+                                                                type="number"
+                                                                style="height: 25px; width: 100px"
+                                                                min="0"
+                                                        />
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </div>
+                                        <div class="d-flex flex-column mt-4">
+                                            <button
+                                                    href="chi-tiet-san-bong.html"
+                                                    class="btn btn-primary btn-sm"
+                                                    type="button"
+                                                    style="background-color: red"
+                                            >
+                                                Xóa
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
+                                <div class="card">
+                                    <img
+                                            src="https://cdn.tgdd.vn/Products/Images/2563/84816/bhx/thung-24-chai-nuoc-tinh-khiet-aquafina-500ml-202303302323549188.jpg"
+                                            class="card-img-top"
+                                            alt="Laptop"
+                                    />
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <h5 class="mb-0" style="color: red">Tên</h5>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <h6 class="mb-0">Đơn Giá</h6>
+                                            <h6 class="text-dark mb-0">500.000đ</h6>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <h6 class="mb-0">Số Lượng</h6>
+                                            <td class="p-0 d-xl-table-cell d-none">
+                                                <ul class="p-0 m-0">
+                                                    <li
+                                                            *ngFor="let item of product.items"
+                                                            class="def-number-input number-input d-flex justify-content-center"
+                                                    >
+                                                        <input
+                                                                type="number"
+                                                                style="height: 25px; width: 100px"
+                                                                min="0"
+                                                        />
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </div>
+                                        <div class="d-flex flex-column mt-4">
+                                            <button
+                                                    href="chi-tiet-san-bong.html"
+                                                    class="btn btn-primary btn-sm"
+                                                    type="button"
+                                                    style="background-color: red"
+                                            >
+                                                Xóa
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
+                                <div class="card">
+                                    <img
+                                            src="https://cdn.tgdd.vn/Products/Images/2563/84816/bhx/thung-24-chai-nuoc-tinh-khiet-aquafina-500ml-202303302323549188.jpg"
+                                            class="card-img-top"
+                                            alt="Laptop"
+                                    />
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <h5 class="mb-0" style="color: red">Tên</h5>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <h6 class="mb-0">Đơn Giá</h6>
+                                            <h6 class="text-dark mb-0">500.000đ</h6>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <h6 class="mb-0">Số Lượng</h6>
+                                            <td class="p-0 d-xl-table-cell d-none">
+                                                <ul class="p-0 m-0">
+                                                    <li
+                                                            *ngFor="let item of product.items"
+                                                            class="def-number-input number-input d-flex justify-content-center"
+                                                    >
+                                                        <input
+                                                                type="number"
+                                                                style="height: 25px; width: 100px"
+                                                                min="0"
+                                                        />
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </div>
+                                        <div class="d-flex flex-column mt-4">
+                                            <button
+                                                    href="chi-tiet-san-bong.html"
+                                                    class="btn btn-primary btn-sm"
+                                                    type="button"
+                                                    style="background-color: red"
+                                            >
+                                                Xóa
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div>
                         <div
                                 style="background-color: rgb(27, 27, 174); border-radius: 3px"
@@ -169,11 +305,27 @@
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <h6 class="mb-0">Tiền Khách Đưa</h6>
-                                <input type="text" class="text-dark mb-0" />
+                                <input type="text" class="text-dark mb-0"/>
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <h6 class="mb-0">Tiền Trả Lại</h6>
-                                <input type="text" class="text-dark mb-0" />
+                                <input type="text" class="text-dark mb-0"/>
+                            </div>
+                            <div
+                                    style="
+                  background-color: green;
+                  height: 10px;
+                  margin-bottom: 10px;
+                "
+                            ></div>
+                            <div
+                                    class="d-flex justify-content-center mb-3"
+                                    style="margin-top: 15px"
+                            >
+                                <h3 class="mb-0" style="color: red">TỔNG TIỀN:</h3>
+                                <h3 type="text" style="color: red" class="text-dark mb-0">
+                                    1 Tỷ
+                                </h3>
                             </div>
                             <div class="d-flex flex-column mt-4">
                                 <button class="btn btn-primary btn-sm" type="button">
@@ -192,10 +344,11 @@
             </div>
         </div>
     </section>
+</div>
 
-    <!-- Start Header -->
-    <div th:insert="~{fragments/footer}"></div>
-    <!-- End Header -->
+<!-- Start Header -->
+<div th:insert="~{fragments/footer}"></div>
+<!-- End Header -->
 
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

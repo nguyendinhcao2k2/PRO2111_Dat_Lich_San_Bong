@@ -104,12 +104,12 @@
                       //qr code có value, phản hồi về api server
                       $.ajax({
                         type: "POST",
-                        url: "http://localhost:8081/api/camera/check-qr-code",
+                        url: "http://localhost:8081/api/v1/camera/check-qr-code",
                         data: code.data,
                         contentType: "application/json",
                         success: function (reponse) {
                           //phia server phan hoi statuscode 200 thi dung camera va tat quet qrcode
-                          if (reponse === 200) {
+                          if (reponse === "OK") {
                             shouldScanQRCode = false;
                             if (webcamStream) {
                               var tracks = webcamStream.getTracks();

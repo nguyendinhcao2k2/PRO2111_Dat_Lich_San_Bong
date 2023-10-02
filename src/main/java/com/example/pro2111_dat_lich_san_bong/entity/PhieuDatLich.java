@@ -44,6 +44,9 @@ public class PhieuDatLich {
     @Column(name = "tong_tien_san_ca")
     private Double tongTienSanCa;
 
+    @Column(name = "ma-qr-code", columnDefinition = "VARCHAR(36)")
+    private String maQrCode;
+
     @Column(name = "trang_thai")
     private Integer trangThai;
 

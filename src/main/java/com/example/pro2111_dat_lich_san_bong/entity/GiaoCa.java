@@ -1,11 +1,14 @@
 package com.example.pro2111_dat_lich_san_bong.entity;
 
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiGiaoCa;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.sql.Timestamp;
 
 
 @Entity
@@ -21,12 +24,12 @@ public class GiaoCa {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "varchar(36)")
     private String id;
     @Column(name = "thoi_gian_nhan_ca", columnDefinition = "TIMESTAMP")
-    private String thoiGianNhanCa;
-    @Column(name = "thoi_gian_giao_ca", columnDefinition = "TIMESTAMP")
-    private String thoiGianGiaoCa;
-    @Column(name = "id_nhan_vien_trong_ca")
+    private Timestamp thoiGianNhanCa;
+    @Column(name = "thoi_gian_ket_ca", columnDefinition = "TIMESTAMP")
+    private Timestamp thoiGianKetCa;
+    @Column(name = "id_nhan_vien_trong_ca", columnDefinition = "varchar(36)")
     private String idNhanVienTrongCa;
-    @Column(name = "id_nhan_vien_ca_tiep_theo")
+    @Column(name = "id_nhan_vien_ca_tiep_theo", columnDefinition = "varchar(36)")
     private String idNhanVienCaTiepTheo;
     @Column(name = "tien_ban_dau")
     private double tienBanDau;
@@ -41,14 +44,14 @@ public class GiaoCa {
     @Column(columnDefinition = "nvarchar(255)",name = "ghi_chu_phat_sinh")
     private String ghiChuPhatSinh;
     @Column(name = "tong_tien_mat_ca_truoc")
-    private float tongTienMatCaTruoc;
+    private double tongTienMatCaTruoc;
     @Column(name = "thoi_gian_reset", columnDefinition = "TIMESTAMP")
-    private String thoiGianReset;
-    @Column(name = "id_account")
-    private String idAccount;
+    private Timestamp thoiGianReset;
     @Column(name = "tong_tien_mat_rut")
     private double tongTienMatRut;
+    @Column(name = "id_account")
+    private String idAccount;
     @Column(name = "trang_thai")
-    private int trangThai;
+    private TrangThaiGiaoCa trangThai;
 
 }
