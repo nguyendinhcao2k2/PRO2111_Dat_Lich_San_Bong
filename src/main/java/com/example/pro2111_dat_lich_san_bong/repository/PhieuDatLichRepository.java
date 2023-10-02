@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author caodinh
  */
 public interface PhieuDatLichRepository extends JpaRepository<PhieuDatLich, String> {
+    PhieuDatLich findPhieuDatLichByMaQrCode(String qrCode);
 }

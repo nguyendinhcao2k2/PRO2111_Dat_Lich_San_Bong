@@ -52,4 +52,13 @@ public class PhieuDatLichServiceImpl implements PhieuDatLichService {
         }
         return false;
     }
+
+    @Override
+    public PhieuDatLich findPhieuDatLichByMaQrCode(String qrCode) {
+        PhieuDatLich phieuDatLich = phieuDatLichRepository.findPhieuDatLichByMaQrCode(qrCode);
+        if (phieuDatLich != null) {
+            return phieuDatLich;
+        }
+        return null;
+    }
 }
