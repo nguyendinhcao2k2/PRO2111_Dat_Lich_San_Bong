@@ -16,4 +16,9 @@ public class LoginController {
         return "authen/login";
     }
 
+    @GetMapping("/403")
+    public String process403() {
+        return "authen/403";
+    }
+
 }

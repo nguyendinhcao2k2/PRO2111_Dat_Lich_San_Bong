@@ -116,17 +116,17 @@ public class DBGenerator implements CommandLineRunner {
         //start chuc vu
         ChucVu adminRole = new ChucVu();
         adminRole.setTrangThai(0); //o:hoat dong
-        adminRole.setTenChucVu("ADMIN");
+        adminRole.setTenChucVu("ROLE_ADMIN");
         adminRole.setId(chucVuRepository.save(adminRole).getId());
 
         ChucVu khachHangRole = new ChucVu();
         khachHangRole.setTrangThai(0); //o:hoat dong
-        khachHangRole.setTenChucVu("USER");
+        khachHangRole.setTenChucVu("ROLE_USER");
         khachHangRole.setId(chucVuRepository.save(khachHangRole).getId());
 
         ChucVu nhanVienRole = new ChucVu();
         nhanVienRole.setTrangThai(0); //o:hoat dong
-        nhanVienRole.setTenChucVu("STAFF");
+        nhanVienRole.setTenChucVu("ROLE_STAFF");
         nhanVienRole.setId(chucVuRepository.save(nhanVienRole).getId());
         //end chuc vu
 

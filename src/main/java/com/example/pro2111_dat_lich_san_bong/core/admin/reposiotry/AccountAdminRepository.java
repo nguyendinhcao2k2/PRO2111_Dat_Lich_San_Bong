@@ -13,8 +13,8 @@ public interface AccountAdminRepository extends AccountRepository {
     @Query(value = """
         select 
         a.mat_khau as 'matKhau' ,
-        a.taiKhoan as 'taiKhoan' ,
-        c.ten_chu_vu as 'tenChucVu'
+        a.tai_khoan as 'taiKhoan' ,
+        c.ten_chuc_vu as 'tenChucVu'
         from account a join chuc_vu c on a.id_chuc_vu = c.id
     """, nativeQuery=true)
     List<AccountAdminResponse>  getALl();
