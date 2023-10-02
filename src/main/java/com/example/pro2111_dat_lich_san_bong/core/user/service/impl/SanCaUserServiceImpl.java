@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author thepvph20110
  */
@@ -19,7 +21,7 @@ public class SanCaUserServiceImpl implements SanCaUserService {
     private SanCaUserRepository sanCaUserRepository;
 
     @Override
-    public PageableObject getAllSanCa(SanCaUserRequest request) {
-        return new PageableObject(sanCaUserRepository.getAllSanCa(request));
+    public List getAllSanCa(SanCaUserRequest request) {
+        return sanCaUserRepository.getAllSanCa(request);
     }
 }
