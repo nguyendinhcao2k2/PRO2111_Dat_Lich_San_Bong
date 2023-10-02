@@ -11,7 +11,7 @@ import org.springframework.data.rest.core.config.Projection;
 @Projection(types = {Account.class, ChucVu.class})
 public interface AccountAdminResponse {
 
-    @Value("#{target.TaiKhoan}")
+    @Value("#{target.taiKhoan}")
     String getTaiKhoan();
 
     @Value("#{target.matKhau}")
