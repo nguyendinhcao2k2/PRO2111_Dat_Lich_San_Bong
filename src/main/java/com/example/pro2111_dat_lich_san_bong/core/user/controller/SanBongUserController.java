@@ -4,6 +4,7 @@ package com.example.pro2111_dat_lich_san_bong.core.user.controller;
  * @author thepvph20110
  */
 
+import com.example.pro2111_dat_lich_san_bong.core.common.base.BaseController;
 import com.example.pro2111_dat_lich_san_bong.core.common.base.PageableObject;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.request.SanCaUserRequest;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanBongUserService;
@@ -20,8 +21,8 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user/v1/san-bong")
-public class SanBongUserController {
+@RequestMapping("/api/vi/user/san-bong")
+public class SanBongUserController extends BaseController {
 
     @Autowired
     private SanBongUserService sanBongUserService;

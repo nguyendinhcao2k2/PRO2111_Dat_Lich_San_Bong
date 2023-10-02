@@ -3,6 +3,7 @@ package com.example.pro2111_dat_lich_san_bong.infrastructure.config.security;
 import com.example.pro2111_dat_lich_san_bong.core.authen.service.AccountService;
 import com.example.pro2111_dat_lich_san_bong.core.authen.service.CustomOAuth2UserService;
 import com.example.pro2111_dat_lich_san_bong.core.authen.service.UserService;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SessionConstant;
 import com.example.pro2111_dat_lich_san_bong.repository.ChucVuRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -66,19 +67,22 @@ public class SercurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors().and().csrf().disable().authorizeHttpRequests()
-                .requestMatchers("/authentication/**").permitAll()
-                .requestMatchers("/static/**").permitAll()
-                .requestMatchers("/api/v1/admin/**").hasAuthority("ROLE_ADMIN")
-                .requestMatchers("/api/v1/staff/**").hasAuthority("ROLE_STAFF")
-                .requestMatchers("/api/v1/user/**").hasAuthority("ROLE_USER")
-                .anyRequest().authenticated()
+//                .requestMatchers("/authentication/**").permitAll()
+//                .requestMatchers("/static/**").permitAll()
+//                .requestMatchers("/api/v1/admin/**").hasAuthority("ROLE_ADMIN")
+//                .requestMatchers("/api/v1/staff/**").hasAuthority("ROLE_STAFF")
+//                .requestMatchers("/api/v1/user/**").hasAuthority("ROLE_USER")
+//                .anyRequest().authenticated()
+                //set tạm
+                .anyRequest().permitAll()
+                //set tạm
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .successHandler((request, response, authentication) -> {
                     CustomAccountDetails customAccountDetails = (CustomAccountDetails) authentication.getPrincipal();
                     HttpSession session = request.getSession();
-                    session.setAttribute("account", customAccountDetails.getAccount());
+                    session.setAttribute(SessionConstant.sessionUser, customAccountDetails.getAccount());
                     redirectUrl(chucVuRepository.findById(customAccountDetails.getAccount().getIdChucVu()).get().getTenChucVu(), response);
                 })
                 .and()
