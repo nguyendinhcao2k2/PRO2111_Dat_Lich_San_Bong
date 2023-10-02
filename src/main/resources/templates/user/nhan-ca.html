@@ -16,309 +16,376 @@
 </head>
 <body>
 <main>
-    <br/>
+    <br />
     <section class="container mains" id="app">
-        <h1>Khai báo tiền đầu ca</h1>
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>Mệnh giá (VND)</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>500.000</td>
-                        <td>
-                            <input
-                                    type="number"
-                                    class="form-control"
-                                    min="0"
-                                    value="0"
-                                    @input="tinhTien($event,500000)"
-                            />
-                        </td>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    min="0"
-                                    v-bind:value="amount500k.toLocaleString('vi-VN')"
-                                    readonly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>200.000</td>
-                        <td>
-                            <input
-                                    type="number"
-                                    class="form-control"
-                                    id="amount200k"
-                                    name="amount200k"
-                                    min="0"
-                                    value="0"
-                                    @input="tinhTien($event,200000)"
-                            />
-                        </td>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="amount200k"
-                                    name="amount200k"
-                                    min="0"
-                                    v-bind:value="amount200k.toLocaleString('vi-VN')"
-                                    readonly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>100.000</td>
-                        <td>
-                            <input
-                                    type="number"
-                                    class="form-control"
-                                    id="amount100k"
-                                    name="amount100k"
-                                    min="0"
-                                    value="0"
-                                    @input="tinhTien($event,100000)"
-                            />
-                        </td>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="amount100k"
-                                    name="amount100k"
-                                    min="0"
-                                    value="0"
-                                    v-bind:value="amount100k.toLocaleString('vi-VN')"
-                                    readonly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>50.000</td>
-                        <td>
-                            <input
-                                    type="number"
-                                    class="form-control"
-                                    id="amount50k"
-                                    name="amount50k"
-                                    min="0"
-                                    value="0"
-                                    @input="tinhTien($event,50000)"
-                            />
-                        </td>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="amount50k"
-                                    name="amount50k"
-                                    min="0"
-                                    v-bind:value="amount50k.toLocaleString('vi-VN')"
-                                    @input=""
-                                    readonly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>20.000</td>
-                        <td>
-                            <input
-                                    type="number"
-                                    class="form-control"
-                                    id="amount20k"
-                                    name="amount20k"
-                                    min="0"
-                                    value="0"
-                                    @input="tinhTien($event,20000)"
-                            />
-                        </td>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="amount20k"
-                                    name="amount20k"
-                                    min="0"
-                                    v-bind:value="amount20k.toLocaleString('vi-VN')"
-                                    readonly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10.000</td>
-                        <td>
-                            <input
-                                    type="number"
-                                    class="form-control"
-                                    id="amount10k"
-                                    name="amount10k"
-                                    min="0"
-                                    value="0"
-                                    @input="tinhTien($event,10000)"
-                            />
-                        </td>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="amount10k"
-                                    name="amount10k"
-                                    min="0"
-                                    value="0"
-                                    v-bind:value="amount10k.toLocaleString('vi-VN')"
-                                    readonly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5.000</td>
-                        <td>
-                            <input
-                                    type="number"
-                                    class="form-control"
-                                    id="amount5k"
-                                    name="amount5k"
-                                    min="0"
-                                    value="0"
-                                    @input="tinhTien($event,5000)"
-                            />
-                        </td>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="amount5k"
-                                    name="amount5k"
-                                    min="0"
-                                    value="0"
-                                    v-bind:value="amount5k.toLocaleString('vi-VN')"
-                                    readonly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2.000</td>
-                        <td>
-                            <input
-                                    type="number"
-                                    class="form-control"
-                                    id="amount2k"
-                                    name="amount2k"
-                                    min="0"
-                                    value="0"
-                                    @input="tinhTien($event,2000)"
-                            />
-                        </td>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="amount2k"
-                                    name="amount2k"
-                                    min="0"
-                                    value="0"
-                                    v-bind:value="amount2k.toLocaleString('vi-VN')"
-                                    readonly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1.000</td>
-                        <td>
-                            <input
-                                    type="number"
-                                    class="form-control"
-                                    id="amount1k"
-                                    name="amount1k"
-                                    min="0"
-                                    value="0"
-                                    @input="tinhTien($event,1000)"
-                            />
-                        </td>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="amount1k"
-                                    name="amount1k"
-                                    min="0"
-                                    value="0"
-                                    v-bind:value="amount1k.toLocaleString('vi-VN')"
-                                    readonly
-                            />
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+        <div class="card border-0 m-0 p-0">
+            <div class="card-header">
+                <h1>Khai báo tiền đầu ca</h1>
             </div>
-            <div class="col-12 col-md-6">
-                <form action="/submit" method="post">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Tên nhân viên</label>
-                        <input
-                                type="text"
-                                class="form-control"
-                                readonly
-                                id="name"
-                                name="name"
-                                v-bind:value="'NGUYEN VAN A'"
-                        />
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div
+                                style="
+                    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                    box-sizing: border-box;
+                    background: #fff;
+                    border-radius: 0 0 0 0;
+                  "
+                        >
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Mệnh giá (VND)</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>500.000</td>
+                                    <td>
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                min="0"
+                                                value="0"
+                                                @input="tinhTien($event,500000)"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                min="0"
+                                                v-bind:value="amount500k.toLocaleString('vi-VN')"
+                                                readonly
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>200.000</td>
+                                    <td>
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                id="amount200k"
+                                                name="amount200k"
+                                                min="0"
+                                                value="0"
+                                                @input="tinhTien($event,200000)"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="amount200k"
+                                                name="amount200k"
+                                                min="0"
+                                                v-bind:value="amount200k.toLocaleString('vi-VN')"
+                                                readonly
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>100.000</td>
+                                    <td>
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                id="amount100k"
+                                                name="amount100k"
+                                                min="0"
+                                                value="0"
+                                                @input="tinhTien($event,100000)"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="amount100k"
+                                                name="amount100k"
+                                                min="0"
+                                                value="0"
+                                                v-bind:value="amount100k.toLocaleString('vi-VN')"
+                                                readonly
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>50.000</td>
+                                    <td>
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                id="amount50k"
+                                                name="amount50k"
+                                                min="0"
+                                                value="0"
+                                                @input="tinhTien($event,50000)"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="amount50k"
+                                                name="amount50k"
+                                                min="0"
+                                                v-bind:value="amount50k.toLocaleString('vi-VN')"
+                                                @input=""
+                                                readonly
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>20.000</td>
+                                    <td>
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                id="amount20k"
+                                                name="amount20k"
+                                                min="0"
+                                                value="0"
+                                                @input="tinhTien($event,20000)"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="amount20k"
+                                                name="amount20k"
+                                                min="0"
+                                                v-bind:value="amount20k.toLocaleString('vi-VN')"
+                                                readonly
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>10.000</td>
+                                    <td>
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                id="amount10k"
+                                                name="amount10k"
+                                                min="0"
+                                                value="0"
+                                                @input="tinhTien($event,10000)"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="amount10k"
+                                                name="amount10k"
+                                                min="0"
+                                                value="0"
+                                                v-bind:value="amount10k.toLocaleString('vi-VN')"
+                                                readonly
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5.000</td>
+                                    <td>
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                id="amount5k"
+                                                name="amount5k"
+                                                min="0"
+                                                value="0"
+                                                @input="tinhTien($event,5000)"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="amount5k"
+                                                name="amount5k"
+                                                min="0"
+                                                value="0"
+                                                v-bind:value="amount5k.toLocaleString('vi-VN')"
+                                                readonly
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2.000</td>
+                                    <td>
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                id="amount2k"
+                                                name="amount2k"
+                                                min="0"
+                                                value="0"
+                                                @input="tinhTien($event,2000)"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="amount2k"
+                                                name="amount2k"
+                                                min="0"
+                                                value="0"
+                                                v-bind:value="amount2k.toLocaleString('vi-VN')"
+                                                readonly
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1.000</td>
+                                    <td>
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                id="amount1k"
+                                                name="amount1k"
+                                                min="0"
+                                                value="0"
+                                                @input="tinhTien($event,1000)"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="amount1k"
+                                                name="amount1k"
+                                                min="0"
+                                                value="0"
+                                                v-bind:value="amount1k.toLocaleString('vi-VN')"
+                                                readonly
+                                        />
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="time" class="form-label">Giờ hiện tại</label>
-                        <input
-                                type="text"
-                                class="form-control thoiGianNhanCa"
-                                id="time"
-                                name="time"
-                                v-bind:value="currentDateTime"
-                                readonly
-                        />
-                    </div>
+                    <div class="col-12 col-md-6">
+                        <div
+                                style="
+                    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                    box-sizing: border-box;
+                    background: #fff;
+                    border-radius: 0 0 0 0;
+                    padding: 5px;
+                  "
+                        >
+                            <form action="/submit" method="post">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Tên nhân viên</label>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            readonly
+                                            id="name"
+                                            name="name"
+                                            v-bind:value="'NGUYEN VAN A'"
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="time" class="form-label">Giờ hiện tại</label>
+                                    <input
+                                            type="text"
+                                            class="form-control thoiGianNhanCa"
+                                            id="time"
+                                            name="time"
+                                            v-bind:value="currentDateTime"
+                                            readonly
+                                    />
+                                </div>
 
-                    <div class="mb-3">
-                        <label for="total_amount" class="form-label"
-                        >Tổng tiền mặt đầu ca</label
-                        >
-                        <input
-                                type="text"
-                                class="form-control priceTotal tongTienMatCaTruoc"
-                                id="total_amount"
-                                name="total_amount"
-                                v-model="tongTienTrongCa"
-                                @input="validatePrice"
-                        />
+                                <div class="mb-3">
+                                    <label for="total_amount" class="form-label"
+                                    >Tổng tiền mặt đầu ca</label
+                                    >
+                                    <input
+                                            type="text"
+                                            class="form-control priceTotal tongTienMatCaTruoc"
+                                            id="total_amount"
+                                            name="total_amount"
+                                            v-model="tongTienTrongCa"
+                                            @input="validatePrice"
+                                    />
+                                </div>
+                                <br />
+                                <div class="form-floating mb-3">
+                      <textarea
+                              class="form-control ghiChuPhatSinh"
+                              placeholder="Leave a comment here"
+                              id="floatingTextarea "
+                      ></textarea>
+                                    <label for="floatingTextarea">Ghi chú phát sinh</label>
+                                </div>
+                                <div style="text-align: center">
+                                    <button
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#huy"
+                                            type="button"
+                                            class="btn btn-labeled btn-danger"
+                                            style="
+                          padding-top: 0;
+                          padding-bottom: 0;
+                          margin-bottom: 10px;
+                        "
+                                    >
+                        <span
+                                class="btn-label"
+                                style="
+                            position: relative;
+                            left: -12px;
+                            display: inline-block;
+                            padding: 6px 12px;
+                            background: rgba(0, 0, 0, 0.15);
+                            border-radius: 3px 0 0 3px;
+                          "
+                        ><i class="fa fa-remove"></i></span
+                        >Hủy
+                                    </button>
+
+                                    <button
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#confirms"
+                                            type="button"
+                                            class="btn btn-labeled btn-success"
+                                            style="
+                          padding-top: 0;
+                          padding-bottom: 0;
+                          margin-bottom: 10px;
+                        "
+                                    >
+                        <span
+                                class="btn-label"
+                                style="
+                            position: relative;
+                            left: -12px;
+                            display: inline-block;
+                            padding: 6px 12px;
+                            background: rgba(0, 0, 0, 0.15);
+                            border-radius: 3px 0 0 3px;
+                          "
+                        ><i class="fa fa-check"></i></span
+                        >Lưu
+                                    </button>
+                                </div>
+
+                                <br />
+                            </form>
+                        </div>
                     </div>
-                    <br/>
-                    <div class="form-floating mb-3">
-              <textarea
-                      class="form-control ghiChuPhatSinh"
-                      placeholder="Leave a comment here"
-                      id="floatingTextarea "
-              ></textarea>
-                        <label for="floatingTextarea">Ghi chú phát sinh</label>
-                    </div>
-                    <div class="mb-3 confirm">
-                        <button
-                                type="button"
-                                data-bs-toggle="modal"
-                                data-bs-target="#confirms"
-                                class="btnSave"
-                        >
-                            Save
-                        </button>
-                    </div>
-                    <br/>
-                </form>
+                </div>
             </div>
         </div>
     </section>
