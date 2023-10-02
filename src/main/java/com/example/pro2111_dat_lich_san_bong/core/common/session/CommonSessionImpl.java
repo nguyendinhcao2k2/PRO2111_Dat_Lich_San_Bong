@@ -19,7 +19,7 @@ class CommonSessionImpl implements CommonSession{
 
     @Override
     public String getUserId() {
-        Account account = (Account) session.getAttribute(SessionConstant.sessionUser); // chua biết session đătj tên là gì
+        Account account = (Account) session.getAttribute(SessionConstant.sessionUser);
         return account.getId();
     }
 }
