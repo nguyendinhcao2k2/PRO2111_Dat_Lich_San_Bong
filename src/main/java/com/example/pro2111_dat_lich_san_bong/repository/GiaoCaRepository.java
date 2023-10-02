@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface GiaoCaRepository extends JpaRepository<GiaoCa, String> {
 
     GiaoCa findGiaoCaByTrangThai(Integer trangThai);
+
 }
