@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user/v1/san-bong")
@@ -35,7 +36,7 @@ public class SanBongUserController {
         PageableObject listPage = sanBongUserService.getAllSanBong(pageable);
 
         SanCaUserRequest request = new SanCaUserRequest(format.format(new Date()));
-        PageableObject listSanCa = sanCaUserService.getAllSanCa(request);
+        List listSanCa = sanCaUserService.getAllSanCa(request);
         model.addAttribute("pageSanBong",listPage);
         model.addAttribute("listSanCa",listSanCa);
         return "user/book-soccer-field";
