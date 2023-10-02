@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>SÂN BÓNG VN</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="keywords" />
-    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="keywords"/>
+    <meta content="" name="description"/>
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
@@ -26,7 +26,7 @@
     />
 
     <!-- Libraries Stylesheet -->
-    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet" />
+    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet"/>
     <link th:href="@{/static/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
     <link th:href="@{/static/lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
 
@@ -79,16 +79,19 @@
                             <thead>
                             <tr class="border-bottom">
                                 <th>
-                                    <span class="ml-2">Time</span>
+                                    <span class="ml-2">Tài Khoản</span>
                                 </th>
                                 <th>
-                                    <span class="ml-2">Agent</span>
+                                    <span class="ml-2">Điện Thoại</span>
                                 </th>
                                 <th>
-                                    <span class="ml-2">Customer</span>
+                                    <span class="ml-2">Sân Ca</span>
                                 </th>
                                 <th>
-                                    <span class="ml-2">Location</span>
+                                    <span class="ml-2">Thời Gian</span>
+                                </th>
+                                <th>
+                                    <span class="ml-4">Tổng Tiền</span>
                                 </th>
                                 <th>
                                     <span class="ml-4">Action</span>
@@ -96,187 +99,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="border-bottom">
-                                <td>
-                                    <div class="p-2">
-                                        <small>2:30PM</small>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div
-                                            class="p-2 d-flex flex-row align-items-center mb-2"
-                                    >
-                                        <img
-                                                src="https://i.imgur.com/ZSkeqnd.jpg"
-                                                width="40"
-                                                class="rounded-circle"
-                                        />
-                                        <div class="d-flex flex-column ml-2">
-                            <span class="d-block font-weight-bold"
-                            >Jennifer john</span
-                            >
-                                            <small class="text-muted"
-                                            >Jasmine Owner Reality group</small
-                                            >
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2">
-                                        <span class="font-weight-bold">Ammy Song</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 d-flex flex-column">
-                                        <span>1 City point,#2A</span>
-                                        <span> Brooklyn,NY</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 icons">
-                                        <i class="fa fa-phone text-danger"></i>
-                                        <i class="fa fa-adjust text-danger"></i>
-                                        <i class="fa fa-share"></i>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="border-bottom">
-                                <td>
-                                    <div class="p-2">
-                                        <span class="d-block font-weight-bold">Tomorrow</span>
-                                        <small>3:30PM</small>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div
-                                            class="p-2 d-flex flex-row align-items-center mb-2"
-                                    >
-                                        <img
-                                                src="https://i.imgur.com/C4egmYM.jpg"
-                                                class="rounded-circle"
-                                                width="40"
-                                        />
-                                        <div class="d-flex flex-column ml-2">
-                            <span class="d-block font-weight-bold"
-                            >David Smith</span
-                            >
-                                            <small class="text-muted"
-                                            >Jasmine Owner Reality group</small
-                                            >
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2">
-                                        <span class="font-weight-bold">David Clark</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 d-flex flex-column">
-                                        <span>205 2ndst,#2A,</span>
-                                        <span> Brooklyn,NY</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 icons">
-                                        <i class="fa fa-phone text-danger"></i>
-                                        <i class="fa fa-adjust text-danger"></i>
-                                        <i class="fa fa-share"></i>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="border-bottom">
-                                <td>
-                                    <div class="p-2">
-                                        <span class="d-block font-weight-bold">Tomorrow</span>
-                                        <small>12:30PM</small>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div
-                                            class="p-2 d-flex flex-row align-items-center mb-2"
-                                    >
-                                        <img
-                                                src="https://i.imgur.com/0LKZQYM.jpg"
-                                                class="rounded-circle"
-                                                width="40"
-                                        />
-                                        <div class="d-flex flex-column ml-2">
-                            <span class="d-block font-weight-bold"
-                            >Emmily johnson</span
-                            >
-                                            <small class="text-muted"
-                                            >Jasmine Owner Reality group</small
-                                            >
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2">
-                                        <span class="font-weight-bold">Mary Kingston</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 d-flex flex-column">
-                                        <span>199 Bowery,#7A</span>
-                                        <span> Brooklyn,NY</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 icons">
-                                        <i class="fa fa-phone text-danger"></i>
-                                        <i class="fa fa-adjust text-danger"></i>
-                                        <i class="fa fa-share"></i>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="border-bottom">
-                                <td>
-                                    <div class="p-2">
-                                        <span class="d-block font-weight-bold">Tomorrow</span>
-                                        <small>1:30PM</small>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div
-                                            class="p-2 d-flex flex-row align-items-center mb-2"
-                                    >
-                                        <img
-                                                src="https://i.imgur.com/hczKIze.jpg"
-                                                width="40"
-                                                class="rounded-circle"
-                                        />
-                                        <div class="d-flex flex-column ml-2">
-                            <span class="d-block font-weight-bold"
-                            >Nick Jones</span
-                            >
-                                            <small class="text-muted"
-                                            >Jasmine Owner Reality group</small
-                                            >
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2">
-                                        <span class="font-weight-bold">James Smith</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 d-flex flex-column">
-                                        <span>123 Clinton Ave,#2A</span>
-                                        <span> Brooklyn,NY</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="p-2 icons">
-                                        <i class="fa fa-phone text-danger"></i>
-                                        <i class="fa fa-adjust text-danger"></i>
-                                        <i class="fa fa-share"></i>
-                                    </div>
-                                </td>
+                            <tr th:each="phieuDatLich : ${listHoaDonPhieuDatLichRequest}">
+                                <th th:text="${phieuDatLich.tenKhachHang}"></th>
+                                <th th:text="${phieuDatLich.soDienThoai}"></th>
+                                <th th:text="${phieuDatLich.tenSanBong + ' : ' + phieuDatLich.tenCa}"></th>
+                                <th th:text="${phieuDatLich.gioBatDau} + ' : ' + ${phieuDatLich.gioKetThuc}"></th>
+                                <th th:text="${phieuDatLich.tongTienSanCa}"></th>
+                                <th>
+                                    <a th:href="@{'/api/v1/admin/quan-ly-hoa-don-thanh-toan/show-phieu-dat-lich/' + ${phieuDatLich.id}}" class="btn btn-success">Show Bill</a>
+                                </th>
                             </tr>
                             </tbody>
                         </table>
@@ -293,24 +124,27 @@
                             Thông tin khách hàng
                         </h4>
                     </div>
-                    <div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Tên Khách Hàng</h6>
-                            <input type="text" class="text-dark mb-0" />
+                    <br>
+                    <form th:action="@{/process-form}" th:object="${account}" method="post">
+                        <div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Tên Khách Hàng</h6>
+                                <input th:field="${account.displayName}" type="text" class="text-dark mb-0"/>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Số Điện Thoại</h6>
+                                <input th:field="${account.soDienThoai}" type="text" class="text-dark mb-0"/>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Số Dư Ví</h6>
+                                <input th:field="${viTien.soTien}" type="text" class="text-dark mb-0"/>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Số Tiền Cọc</h6>
+                                <input type="text" class="text-dark mb-0"/>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Số Điện Thoại</h6>
-                            <input type="text" class="text-dark mb-0" />
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Số Dư Ví</h6>
-                            <input type="text" class="text-dark mb-0" />
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Số Tiền Cọc</h6>
-                            <input type="text" class="text-dark mb-0" />
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <div style="margin-top: 50px">
                     <div
@@ -388,7 +222,6 @@
     <!-- Start Header -->
     <div th:insert="~{fragments/footer}"></div>
     <!-- End Header -->
-
 
 
 </div>
