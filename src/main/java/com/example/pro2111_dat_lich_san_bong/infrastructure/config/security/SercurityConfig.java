@@ -3,11 +3,13 @@ package com.example.pro2111_dat_lich_san_bong.infrastructure.config.security;
 import com.example.pro2111_dat_lich_san_bong.core.authen.service.AccountService;
 import com.example.pro2111_dat_lich_san_bong.core.authen.service.CustomOAuth2UserService;
 import com.example.pro2111_dat_lich_san_bong.core.authen.service.UserService;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.RoleConstant;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SessionConstant;
 import com.example.pro2111_dat_lich_san_bong.repository.ChucVuRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -44,6 +46,9 @@ public class SercurityConfig {
         return new AccountService();
     }
 
+    @Value("${server.port}")
+    private String port;
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -69,9 +74,9 @@ public class SercurityConfig {
                 .cors().and().csrf().disable().authorizeHttpRequests()
 //                .requestMatchers("/authentication/**").permitAll()
 //                .requestMatchers("/static/**").permitAll()
-//                .requestMatchers("/api/v1/admin/**").hasAuthority("ROLE_ADMIN")
-//                .requestMatchers("/api/v1/staff/**").hasAuthority("ROLE_STAFF")
-//                .requestMatchers("/api/v1/user/**").hasAuthority("ROLE_USER")
+//                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleConstant.roleAdmin)
+//                .requestMatchers("/api/v1/staff/**").hasAuthority(RoleConstant.roleStaff)
+//                .requestMatchers("/api/v1/user/**").hasAuthority(RoleConstant.roleUser)
 //                .anyRequest().authenticated()
                 //set tạm
                 .anyRequest().permitAll()
@@ -97,21 +102,16 @@ public class SercurityConfig {
                 .and()
                 .logout().logoutUrl("/logout")
                 .logoutSuccessUrl("/authentication/login").permitAll()
-                .invalidateHttpSession(true)
-                .and()
-                .exceptionHandling().accessDeniedPage("/authentication/403")
-                .authenticationEntryPoint((request, response, authException) -> {
-                    response.sendRedirect("http://localhost:8080/authentication/403");
-                });
+                .invalidateHttpSession(true);
         return http.build();
     }
 
     public void redirectUrl(String role, HttpServletResponse response) throws IOException {
-        if (role.equalsIgnoreCase("ROLE_ADMIN")) {
+        if (role.equalsIgnoreCase(RoleConstant.roleAdmin)) {
             response.sendRedirect("/api/v1/admin/all");
-        } else if (role.equalsIgnoreCase("ROLE_STAFF")) {
+        } else if (role.equalsIgnoreCase(RoleConstant.roleStaff)) {
             response.sendRedirect("/api/v1/staff/all");
-        } else if (role.equalsIgnoreCase("ROLE_USER")) {
+        } else if (role.equalsIgnoreCase(RoleConstant.roleUser)) {
             response.sendRedirect("/api/v1/user/all");
         }
     }
