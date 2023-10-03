@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+<!--    <style media="screen">-->
+<!--        -->
+
+<!--    </style>-->
+    <link rel="stylesheet" th:href="@{/static/css/custom/login-admin.css}">
+
+</head>
+<body>
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form  action="/product/shop-trien/login" method="post">
+    <h3>Login Admin</h3>
+
+    <label for="username">Username</label>
+    <input name="username" type="text" placeholder="Email or Phone" id="username">
+
+    <label for="password">Password</label>
+    <input name="password" type="password"  placeholder="Password" id="password">
+<!--    <h5 style="color: red; text-align: center">${thongBao}</h5>-->
+    <button>Log In</button>
+<!--    <div class="social">-->
+<!--        <div class="go"><i class="fab fa-google"></i>  Google</div>-->
+<!--        <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>-->
+<!--    </div>-->
+</form>
+</body>
+</html>
