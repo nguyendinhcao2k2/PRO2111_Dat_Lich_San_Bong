@@ -18,9 +18,7 @@ public class CustomErrorController implements ErrorController {
         Object code = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         if (code != null) {
             Integer statusCode = Integer.valueOf(code.toString());
-            if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "error/page-404";
-            } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
+            if (statusCode == HttpStatus.FORBIDDEN.value()) {
                 return "error/page-403";
             }
         }

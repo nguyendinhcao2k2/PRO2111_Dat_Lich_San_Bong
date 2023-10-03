@@ -3,6 +3,7 @@ package com.example.pro2111_dat_lich_san_bong.infrastructure.config.security;
 import com.example.pro2111_dat_lich_san_bong.core.authen.service.AccountService;
 import com.example.pro2111_dat_lich_san_bong.core.authen.service.CustomOAuth2UserService;
 import com.example.pro2111_dat_lich_san_bong.core.authen.service.UserService;
+import com.example.pro2111_dat_lich_san_bong.entity.ChucVu;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.RoleConstant;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SessionConstant;
 import com.example.pro2111_dat_lich_san_bong.repository.ChucVuRepository;
@@ -33,6 +34,9 @@ import java.io.IOException;
 public class SercurityConfig {
 
     @Autowired
+    private HttpSession session;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -46,8 +50,6 @@ public class SercurityConfig {
         return new AccountService();
     }
 
-    @Value("${server.port}")
-    private String port;
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -72,13 +74,13 @@ public class SercurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors().and().csrf().disable().authorizeHttpRequests()
-//                .requestMatchers("/authentication/**").permitAll()
+//                .requestMatchers("/authentication/**", "/error").permitAll()
 //                .requestMatchers("/static/**").permitAll()
 //                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleConstant.roleAdmin)
 //                .requestMatchers("/api/v1/staff/**").hasAuthority(RoleConstant.roleStaff)
 //                .requestMatchers("/api/v1/user/**").hasAuthority(RoleConstant.roleUser)
 //                .anyRequest().authenticated()
-                //set tạm
+//                set tạm
                 .anyRequest().permitAll()
                 //set tạm
                 .and()
@@ -86,9 +88,12 @@ public class SercurityConfig {
                 .loginPage("/login")
                 .successHandler((request, response, authentication) -> {
                     CustomAccountDetails customAccountDetails = (CustomAccountDetails) authentication.getPrincipal();
-                    HttpSession session = request.getSession();
-                    session.setAttribute(SessionConstant.sessionUser, customAccountDetails.getAccount());
-                    redirectUrl(chucVuRepository.findById(customAccountDetails.getAccount().getIdChucVu()).get().getTenChucVu(), response);
+                    ChucVu chucVu = chucVuRepository.findById(customAccountDetails.getAccount().getIdChucVu()).get();
+                    if (processAccount(chucVu.getTenChucVu(), response) == false) {
+                        HttpSession session = request.getSession();
+                        session.setAttribute(SessionConstant.sessionUser, customAccountDetails.getAccount());
+                        redirectUrl(chucVu.getTenChucVu(), response);
+                    }
                 })
                 .and()
                 .oauth2Login()
@@ -102,7 +107,11 @@ public class SercurityConfig {
                 .and()
                 .logout().logoutUrl("/logout")
                 .logoutSuccessUrl("/authentication/login").permitAll()
-                .invalidateHttpSession(true);
+                .invalidateHttpSession(true).and()
+                .exceptionHandling().accessDeniedPage("/authentication/403")
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.sendRedirect("http://localhost:8080/authentication/403");
+                });
         return http.build();
     }
 
@@ -114,6 +123,28 @@ public class SercurityConfig {
         } else if (role.equalsIgnoreCase(RoleConstant.roleUser)) {
             response.sendRedirect("/api/v1/user/all");
         }
+    }
+
+    public boolean processAccount(String role, HttpServletResponse response) throws IOException {
+        String obj = (String) session.getAttribute(SessionConstant.sessionRole);
+        if (obj != null) {
+            if (!role.equals(obj)) {
+                if (obj.equals(RoleConstant.roleUser)) {
+                    session.invalidate();
+                    response.sendRedirect("/authentication/user-login?error=true");
+                    return true;
+                } else if (obj.equals(RoleConstant.roleAdmin)) {
+                    session.invalidate();
+                    response.sendRedirect("/authentication/admin-login?error=true");
+                    return true;
+                } else if (obj.equals(RoleConstant.roleStaff)) {
+                    session.invalidate();
+                    response.sendRedirect("");
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
