@@ -3,7 +3,7 @@ $(document).ready(function () {
         event.preventDefault();
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/api/v1/staff/giao-ca/khoi-tao-ca",
+            url: "http://localhost:8081/api/v1/staff/giao-ca/khoi-tao-ca-lam",
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify({
@@ -12,7 +12,7 @@ $(document).ready(function () {
                     $(".tongTienMatCaTruoc").val().replace(/\./g, "")
                 ),
                 thoiGianNhanCa: app.currentDateTime,
-                idNhanVienTrongCa: "833db7be-c18a-46bf-a50e-c975357154da",
+                idNhanVienTrongCa: "237c8426-54ff-44b4-b6c6-411fc92322de",
                 trangThai: 0,
             }),
             success: function (response) {
