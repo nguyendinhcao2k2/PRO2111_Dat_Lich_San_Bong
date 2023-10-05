@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Webcam Example</title>
+  </head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" th:href="@{/static/css/custom/read-qrcode.css}">
+  <body>
+    <button class="start">Start Camera</button>
+    <button class="close">Close Camera</button>
+
+    <section class="camera">
+      <div class="qr">
+        <video id="webcam" autoplay></video>
+        <canvas id="canvas" style="display: none"></canvas>
+      </div>
+    </section>
+
+    <script th:src="@{/static/js/custom/read-qrcode.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
+  </body>
+</html>
