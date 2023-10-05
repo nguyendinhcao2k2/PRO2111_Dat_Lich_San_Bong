@@ -1,0 +1,26 @@
+.camera {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+}
+.qr {
+    width: 400px;
+    height: 250px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-radius: 30px; */
+}
+#webcam,
+#canvas {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+#webcam {
+    display: block;
+    margin: 0 auto;
+}

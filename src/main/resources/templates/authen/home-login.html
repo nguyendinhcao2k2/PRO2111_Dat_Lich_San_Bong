@@ -52,6 +52,8 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/static/css/custom/home-login.css}">
+
 
 </head>
 
@@ -84,15 +86,21 @@
     <div class="d-flex align-items-center justify-content-center">
         <div class="p-2 m-2   rounded-2">
             <a th:href="@{/authentication/user-login}" type="button" class="btn btn-primary justify-content-center btn-rounded ctbtn"
-                    style="background-color: #151e1d; color: white; width: 150px">
+                    >
             NGƯỜI DÙNG
         </a></div>
-        <div class="p-2 m-2  rounded-2">
-            <a th:href="@{/authentication/admin-login}"  type="button" class="btn btn-secondary justify-content-center btn-rounded ctbtn"
-                    style="background-color: #151e1d; color: white; width: 150px">
-            QUẢN LÝ
-        </a>
-        </div>
+        <div class="p-2 m-2   rounded-2 ">
+            <a th:href="@{/authentication/user-login}" type="button" class="btn btn-primary justify-content-center btn-rounded ctbtn"
+               >
+                NHÂN VIÊN
+            </a></div>
+        <div class="p-2 m-2   rounded-2 ">
+            <a th:href="@{/authentication/admin-login}" type="button" class="btn btn-primary justify-content-center btn-rounded ctbtn"
+            >
+                QUẢN LÝ
+            </a></div>
+
+
     </div>
 
 </div>
