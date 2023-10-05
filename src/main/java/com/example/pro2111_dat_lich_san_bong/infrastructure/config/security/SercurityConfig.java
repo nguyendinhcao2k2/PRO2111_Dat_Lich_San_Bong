@@ -40,10 +40,10 @@ public class SercurityConfig {
     private UserService userService;
 
     @Autowired
-    private CustomOAuth2UserService oauthUserService;
-
-    @Autowired
     private ChucVuRepository chucVuRepository;
+
+    @Value("${server.port}")
+    private String port;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -103,14 +103,14 @@ public class SercurityConfig {
                 .successHandler((request, response, authentication) -> {
                     userService.processOAuthPostLogin(response);
                 })
-                .failureUrl("/authentication/login?error=true")
                 .and()
                 .logout().logoutUrl("/logout")
-                .logoutSuccessUrl("/authentication/login").permitAll()
-                .invalidateHttpSession(true).and()
+                .logoutSuccessUrl("/authentication/home-login").permitAll()
+                .invalidateHttpSession(true)
+                .and()
                 .exceptionHandling().accessDeniedPage("/authentication/403")
                 .authenticationEntryPoint((request, response, authException) -> {
-                    response.sendRedirect("http://localhost:8080/authentication/403");
+                    response.sendRedirect("http://localhost:" + port + "/authentication/403");
                 });
         return http.build();
     }
