@@ -159,8 +159,34 @@ ul li h1 {
     cursor: not-allowed;
 }
 
+/* quá giờ  xám*/
+.checkbox-button input[type="checkbox"].qua-gio:disabled + .button-label {
+    background-color: rgb(102, 102, 101);
+    cursor: not-allowed;
+}
+/* đang trống trắng*/
+
+/* chờ nhận sân vàng*/
+.checkbox-button input[type="checkbox"].cho-nhan-san:disabled + .button-label {
+    background-color: rgb(231, 231, 77);
+    cursor: not-allowed;
+}
+/* đang sử dụng xanh */
+.checkbox-button input[type="checkbox"].dang-su-dung:disabled + .button-label {
+    background-color: #008000;
+    cursor: not-allowed;
+}
+/* chờ thanh toán xanh lục*/
+.checkbox-button
+input[type="checkbox"].cho-thanh-toan:disabled
++ .button-label {
+    background-color: rgb(44, 130, 235);
+    cursor: not-allowed;
+}
+/*  */
+
 .button-label {
-    width: max-content;
+    width: 280px;
     display: inline-block;
     padding: 10px 20px;
     cursor: pointer;
