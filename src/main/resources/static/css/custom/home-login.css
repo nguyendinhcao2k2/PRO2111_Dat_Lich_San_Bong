@@ -4,7 +4,9 @@
 
 
 .ctbtn {
-    background-color: #151e1d;
-    color: white;
+    border-radius: 15px;
+    border: #1a1d8e;
+    background-color: white;
+    color: black;
     width: 150px
 }
