@@ -62,8 +62,8 @@ $(document).ready(() => {
                                     data: code.data,
                                     contentType: "application/json",
                                     success: function (reponse) {
-                                        //phia server phan hoi statuscode 200 thi dung camera va tat quet qrcode
-                                        if (reponse === "OK") {
+                                        //   phia server phan hoi statuscode 200 thi dung camera va tat quet qrcode
+                                        if (reponse.httpStatus === "OK") {
                                             shouldScanQRCode = false;
                                             if (webcamStream) {
                                                 var tracks = webcamStream.getTracks();
@@ -72,6 +72,15 @@ $(document).ready(() => {
                                                 });
                                             }
                                             $(".camera").slideUp(1000);
+                                            return alert("Check Successfully")
+                                        } else if (reponse.httpStatus === "NOT_FOUND") {
+                                            return alert("Không tìm thấy phiếu đặt!")
+                                        } else if (reponse.httpStatus === "ALREADY_REPORTED") {
+                                            return alert("Phiếu đã được check in!", {
+                                                title: null,
+                                            })
+                                        } else {
+                                            return console.log("Server Error")
                                         }
                                     },
                                 });
