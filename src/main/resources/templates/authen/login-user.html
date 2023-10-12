@@ -50,13 +50,14 @@
 <body>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form action="#">
+        <form th:action="@{/authentication/sign-up}" method="post" th:object="${account}">
             <h1>Create Account</h1>
             <span>or use your email for registration</span>
-            <input type="text" placeholder="Name"/>
-            <input type="email" placeholder="Email"/>
-            <input type="password" placeholder="Password"/>
-            <input type="password" placeholder="RePassword"/>
+            <input type="text" th:name="account" placeholder="Account"/>
+            <input type="text" th:name="displayName" placeholder="DisplayName"/>
+            <input type="text" th:name="phoneNumber" placeholder="PhoneNumber"/>
+            <input type="password" th:name="password" placeholder="Password"/>
+            <input type="password" th:name="rePassword" placeholder="RePassword"/>
             <button>Sign Up</button>
         </form>
     </div>
@@ -64,12 +65,13 @@
         <form th:action="@{/login}" method="post">
             <h1>Sign in</h1>
             <div class="social-container">
-                <a style="background-color: red" th:href="@{/oauth2/authorization/google}" class="social"><i class="fab fa-google-plus-g" style="background-color: red;color: white"></i></a>
+                <a style="background-color: red" th:href="@{/oauth2/authorization/google}" class="social"><i
+                        class="fab fa-google-plus-g" style="background-color: red;color: white"></i></a>
             </div>
             <span>or use your account</span>
             <input type="text" th:name="username" placeholder="Username"/>
             <input type="password" th:name="password" placeholder="Password"/>
-            <a href="#">Forgot your password?</a>
+            <a th:href="@{/authentication/home-login}">Quay lại !</a>
             <div th:if="${param.error}">
                 <span style="color: red">Invalid User or Password</span>
             </div>

@@ -1,7 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.infrastructure.config.security;
 
 import com.example.pro2111_dat_lich_san_bong.core.authen.service.AccountService;
-import com.example.pro2111_dat_lich_san_bong.core.authen.service.CustomOAuth2UserService;
 import com.example.pro2111_dat_lich_san_bong.core.authen.service.UserService;
 import com.example.pro2111_dat_lich_san_bong.entity.ChucVu;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.RoleConstant;
@@ -139,7 +138,7 @@ public class SercurityConfig {
                     return true;
                 } else if (obj.equals(RoleConstant.roleStaff)) {
                     session.invalidate();
-                    response.sendRedirect("");
+                    response.sendRedirect("/authentication/staff-login?error=true");
                     return true;
                 }
             }
