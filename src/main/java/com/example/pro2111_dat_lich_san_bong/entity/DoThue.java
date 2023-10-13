@@ -37,12 +37,6 @@ public class DoThue {
     @Column(name = "so_luong")
     private Integer soLuong;
 
-    @Column(name = "thoi_gian_muon", columnDefinition = "TIMESTAMP")
-    private Timestamp thoiGianMuon;
-
-    @Column(name = "thoi_gian_tra", columnDefinition = "TIMESTAMP")
-    private Timestamp thoiGianTra;
-
     @Column(name = "don_gia")
     private Double donGia;
 
