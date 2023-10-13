@@ -13,49 +13,43 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 /**
  * @author caodinh
  */
-
 @Entity
-@Table(name = "phieu_dat_lich")
+@Table(name = "hoa_don_san_ca")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhieuDatLich {
+public class HoaDonSanCa {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
-
-    @Column(name = "gio_bat_dau", columnDefinition = "time")
-    private Time gioBatDau;
-
-    @Column(name = "gio_ket_thuc", columnDefinition = "time")
-    private Time gioKetThuc;
-
-    @Column(name = "thoi_gian_check_in", columnDefinition = "TIMESTAMP")
-    private Timestamp thoiGianCheckIn;
-
-    @Column(name = "tong_tien_san_ca")
-    private Double tongTienSanCa;
-
-    @Column(name = "ma-qr-code", columnDefinition = "VARCHAR(36)")
-    private String maQrCode;
-
+    private String id;
+    @Column(name = "ngay_den_san", columnDefinition = "TIMESTAMP")
+    private LocalDate ngayDenSan;
+    @Column(name = "thoi_giam_check_in",columnDefinition = "TIMESTAMP")
+    private Time thoiGianCheckIn;
+    @Column(name = "ghi_chu")
+    private String ghiChu;
+    @Column(name = "tong_tien")
+    private Double tongTien;
+    @Column(name = "id_dich_vu_sam_bong")
+    private String idDichVuSanBong;
+    @Column(name = "id_hoa_don")
+    private String idHoaDon;
     @Column(name = "trang_thai")
     private Integer trangThai;
-
-    @Column(name = "id_dich_vu")
-    private String idDichVu;
-
-    @Column(name = "id_san_ca")
-    private String idSanCa;
-    @Column(name = "id_account")
-    private String idAccount;
+    @Column(name = "ma_qr")
+    private String maQR;
+    @Column(name = "id_su_dung_tien_coc")
+    private String idSuDungTienCoc;
+    @Column(name = "id_phu_phi_hoa_don")
+    private String idPhuPhiHoaDon;
 
 }

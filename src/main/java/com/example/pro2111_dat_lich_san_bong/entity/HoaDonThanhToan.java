@@ -31,21 +31,16 @@ public class HoaDonThanhToan {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
-
+    private String id;
     @Column(name = "tong_tien")
     private Double tongTien;
-
     @Column(name = "ghi_chu", length = 4000)
     @Nationalized
     private String ghiChu;
-
     @Column(name = "id_thanh_toan")
     private String idThanhToan;
-    @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
-    private Timestamp thoiGianTao;
-    @Column(name = "id_hoa_don")
-    private String idHoaDon;
+    @Column(name = "id_hoa_don_san_ca")
+    private String idHoaDonSanCa;
     @Column(name = "trang_thai")
     private Integer trangThai;
 
