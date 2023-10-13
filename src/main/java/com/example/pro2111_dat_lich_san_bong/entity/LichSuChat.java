@@ -44,4 +44,10 @@ public class LichSuChat {
     @Column(name = "id_account")
     private String idAccount;
 
+    @Column(name = "id_nguoi_nhan")
+    private String idNguoiNhan;
+
+    @Column(name = "trang_thai")
+    private Integer trangThai;
+
 }

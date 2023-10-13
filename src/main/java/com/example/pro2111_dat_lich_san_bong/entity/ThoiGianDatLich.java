@@ -11,40 +11,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDate;
+
 /**
  * @author caodinh
  */
-
+@Entity
+@Table(name = "thoi_gian_dat_lich")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "dich_vu")
-public class DichVu  {
+public class ThoiGianDatLich {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
-
-    @Column(name = "so_luong_do_thưe")
-    private Integer soLuongDoThue;
-
-    @Column(name = "so_luong_nuoc_uong")
-    private Integer soLuongNuocUong;
-
-    @Column(name = "don_gia")
-    private Double donGia;
-
+    private String id;
+    @Column(name = "ngay_dat")
+    private LocalDate ngayDat;
+    @Column(name = "id_loai_san")
+    private String idLoaiSan;
+    @Column(name = "id_ca")
+    private String idCa;
+    @Column(name = "id_hoa_don")
+    private String idHoaDon;
     @Column(name = "trang_thai")
     private Integer trangThai;
-
-    @Column(name = "id_nuoc_uong")
-    private String idNuocUong;
-
-    @Column(name = "id_do_thue")
-    private String idDoThue;
 
 }

@@ -14,6 +14,7 @@ import org.hibernate.annotations.Nationalized;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -26,40 +27,30 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HoaDon  {
+public class HoaDon {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
-
-    @Column(name = "ngay_thanh_toan", columnDefinition = "TIMESTAMP")
-    private Timestamp ngayThanhToan;
-
-    @Column(name = "don_gia")
-    private Double donGia;
-
-    @Column(name = "tong_tien")
-    private Double tongTien;
-
-    @Column(name = "ghi_chu")
-    @Nationalized
-    private String ghiChu;
-
-    @Column(name = "trang_thai")
-    private Integer trangThai;
-
-    @Column(name = "id_san_ca")
-    private String idSanCa;
-
-    @Column(name = "id_phieu_dat_lich")
-    private String idPhieuDatLich;
-
-    @Column(name = "id_phu_phi_hoa_don")
-    private String idPhuPhiHoaDon;
-
+    private String id;
+    @Column(name = "id_account")
+    private String idAccount;
     @Column(name = "id_vi_tien")
     private String idViTien;
+    @Column(name = "ngay_tao",columnDefinition = "TIMESTAMP")
+    private LocalDateTime ngayTao;
+    @Column(name = "id_account_confirm")
+    private String idAccountConfirm;
+    @Column(name = "ngay_xac_nhan_dat_san",columnDefinition = "TIMESTAMP")
+    private LocalDateTime ngayXacNhanDatSan;
+    @Column(name = "so_dien_thoai_nguoi_dat")
+    private String soDienThoaiNguoiDat;
+    @Column(name = "tien_coc")
+    private Double tienCoc;
+    @Column(name = "ten_nguoi_dat")
+    private String tenNguoiDat;
+    @Column(name = "trang_thai")
+    private Integer trangThai;
 
 }

@@ -6,28 +6,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 /**
  * @author caodinh
  */
 
-@Entity
-@Table(name = "ma_giam_gia")
 @Getter
-@Builder
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MaGiamGia {
+@Entity
+@Table(name = "dich_vu_san_bong")
+public class DichVuSanBong {
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -35,25 +29,22 @@ public class MaGiamGia {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     protected String id;
 
-    @Column(name = "phan_tram")
-    private Integer phanTram;
+    @Column(name = "so_luong_do_thưe")
+    private Integer soLuongDoThue;
 
-    @Column(name = "ten_ma_giam_gia")
-    private String tenMaGiamGia;
+    @Column(name = "so_luong_nuoc_uong")
+    private Integer soLuongNuocUong;
 
-    @Column(name = "ngay_bat_dau", columnDefinition = "TIMESTAMP")
-    private Timestamp ngayBatDau;
-
-    @Column(name = "ngay_ket_thuc", columnDefinition = "TIMESTAMP")
-    private Timestamp ngayKetThuc;
+    @Column(name = "don_gia")
+    private Double donGia;
 
     @Column(name = "trang_thai")
     private Integer trangThai;
 
-    @Column(name = "id_khach_hang")
-    private String idKhachHang;
+    @Column(name = "id_nuoc_uong")
+    private String idNuocUong;
 
-    @Column(name = "id_account")
-    private String idAccount;
+    @Column(name = "id_do_thue")
+    private String idDoThue;
 
 }

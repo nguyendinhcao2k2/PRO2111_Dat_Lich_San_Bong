@@ -61,12 +61,15 @@
                 <div class="p-5 bg-white rounded shadow-lg">
                     <h3 class="mb-2 text-center pt-5">LOGIN STAFF</h3>
                     <h6 class="text-center lead">BẠN ĐANG ĐĂNG NHẬP VỚI TƯ CÁCH NHÂN VIÊN</h6>
-                    <form>
+                    <form th:action="@{/login}" method="post">
                         <label class="font-500">Username</label>
-                        <input name="" class="form-control form-control-lg mb-3" type="text">
+                        <input th:name="username" class="form-control form-control-lg mb-3" type="text">
                         <label class="font-500">Password</label>
-                        <input name="" class="form-control form-control-lg" type="password">
-                        <p class="m-0 py-4"><a href="" class="text-muted">Forget password?</a></p>
+                        <input th:name="password" class="form-control form-control-lg" type="password">
+                        <a th:href="@{/authentication/home-login}">Quay lại !</a>
+                        <div th:if="${param.error}">
+                            <span style="color: red">Invalid User or Password</span>
+                        </div>
                         <button class="btn btn-primary btn-lg w-100 shadow-lg">SIGN IN</button>
                     </form>
 
