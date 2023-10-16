@@ -42,7 +42,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/static/css/custom/login-admin.css}" rel="stylesheet">
+    <link th:href="@{/static/css/custom/login-staff.css}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
 </head>
@@ -53,15 +53,14 @@
         <div class="row">
             <div class="col-lg-6 col-12 mx-auto">
                 <div class="text-center image-size-small position-relative">
-                    <img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
-                         class="rounded-circle p-2 bg-white">
+                    <img src="https://annedece.sirv.com/Images/user-vector.jpg" class="rounded-circle p-2 bg-white">
                     <div class="icon-camera">
                         <a href="" class="text-primary"><i class="lni lni-camera"></i></a>
                     </div>
                 </div>
                 <div class="p-5 bg-white rounded shadow-lg">
-                    <h3 class="mb-2 text-center pt-5">LOGIN ADMIN</h3>
-                    <h6 class="text-center lead">BẠN ĐANG ĐĂNG NHẬP VỚI TƯ CÁCH ADMIN</h6>
+                    <h3 class="mb-2 text-center pt-5">LOGIN STAFF</h3>
+                    <h6 class="text-center lead">BẠN ĐANG ĐĂNG NHẬP VỚI TƯ CÁCH NHÂN VIÊN</h6>
                     <form th:action="@{/login}" method="post">
                         <label class="font-500">Username</label>
                         <input th:name="username" class="form-control form-control-lg mb-3" type="text">

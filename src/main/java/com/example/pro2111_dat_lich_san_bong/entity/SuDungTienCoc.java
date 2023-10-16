@@ -11,33 +11,37 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * @author caodinh
  */
+@Entity
+@Table(name = "su_dung_tien_coc")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "danh_gia_san")
-public class DanhGiaSan {
+@NoArgsConstructor
+public class SuDungTienCoc {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
-
-    @Column(name = "so_luong_danh_gia")
-    private Long soLuongDanhGia;
-    @Column(name = "thoi_gian_danh_gia", columnDefinition = "TIMESTAMP")
-    private Timestamp thoiGianDanhGia;
-    @Column(name = "id_account")
-    private String idAccount;
-
-    @Column(name = "id_san_bong")
-    private String idSanBong;
+    private String id;
+    @Column(name = "nguoi_nhan")
+    private String nguoiNhan;
+    @Column(name = "so_tien")
+    private Double soTien;
+    @Column(name = "loai_tien")
+    private String loaiTien;
+    @Column(name = "thoi_gian")
+    private LocalDateTime thoiGian;
+    @Column(name = "loai_bien_dong")
+    private Boolean loaiBienDong;
+    @Column(name = "tao_khoan_vi")
+    private String taiKhoanVi;
+    @Column(name = "trang_thai")
+    private String trangThai;
 
 }

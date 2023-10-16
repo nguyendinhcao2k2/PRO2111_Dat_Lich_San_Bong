@@ -6,54 +6,36 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 /**
  * @author caodinh
  */
-
 @Entity
-@Table(name = "bien_dong_vi")
+@Table(name = "combo")
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class BienDongVi  {
+@NoArgsConstructor
+public class Combo {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     protected String id;
-
-    @Column(name = "nguoi_nhan")
-    private Number nguoiNhan;
-
-    @Column(name = "so_tien")
-    private Double soTien;
-
-    @Column(name = "loai_tien")
-    private String loaiTien;
-
+    @Column(name = "id_san_ca")
+    private String idSanCa;
+    @Column(name = "id_hoa_don")
+    private String idHoaDon;
+    @Column(name = "so_lan_dat")
+    private Integer soLanDat;
+    @Column(name = "so_tien_giam")
+    private Integer soTienGiam;
     @Column(name = "trang_thai")
     private Integer trangThai;
-
-    @Column(name = "thoi_gian", columnDefinition = "TIMESTAMP")
-    private Timestamp thoiGian;
-
-    @Column(name = "loai_bien_dong")
-    private Integer loaiBienDong;
-
-    @Column(name = "tai_khoan_vi")
-    private String taiKhoanVi;
 
 }

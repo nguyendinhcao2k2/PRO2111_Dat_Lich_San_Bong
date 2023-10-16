@@ -10,36 +10,38 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
-
-import java.sql.Date;
-import java.sql.Timestamp;
+import org.hibernate.annotations.Nationalized;
 
 /**
  * @author caodinh
  */
-
 @Entity
-@Table(name = "binh_luan")
+@Table(name = "sys_param")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class BinhLuan {
+@NoArgsConstructor
+public class SysParam {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     protected String id;
-
-    @Column(name = "noi_dung_binh_luan", length = 500)
-    private String noiDungBinhLuan;
-    @Column(name = "thoi_gian_binh_luan", columnDefinition = "TIMESTAMP")
-    private Timestamp thoiGianBinhLuan;
-    @Column(name = "id_account")
-    private String idAccount;
-
-    @Column(name = "id_san_bong")
-    private String idSanBong;
+    @Nationalized
+    private String type;
+    @Nationalized
+    private String code;
+    @Nationalized
+    @Column(name = "chuc_nang")
+    private String chucNang;
+    @Nationalized
+    private String name;
+    @Nationalized
+    private String note;
+    @Nationalized
+    private String value;
+    @Column(name = "trang_thai")
+    private String trangThai;
 
 }

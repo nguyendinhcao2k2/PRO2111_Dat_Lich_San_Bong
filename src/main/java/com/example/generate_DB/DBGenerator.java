@@ -3,9 +3,8 @@ package com.example.generate_DB;
 import com.example.pro2111_dat_lich_san_bong.entity.Account;
 import com.example.pro2111_dat_lich_san_bong.entity.Ca;
 import com.example.pro2111_dat_lich_san_bong.entity.ChucVu;
-import com.example.pro2111_dat_lich_san_bong.entity.DichVu;
+import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.DoThue;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.LoaiSan;
 import com.example.pro2111_dat_lich_san_bong.entity.NuocUong;
 import com.example.pro2111_dat_lich_san_bong.entity.PhuPhi;
@@ -15,11 +14,8 @@ import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
 import com.example.pro2111_dat_lich_san_bong.entity.ThanhToan;
 import com.example.pro2111_dat_lich_san_bong.entity.ViTien;
 import com.example.pro2111_dat_lich_san_bong.repository.AccountRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.BienDongViRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.BinhLuanRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.CaRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.ChucVuRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.DanhGiaSanRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.DichVuRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.DoThueRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.HangKhachHangRepository;
@@ -27,9 +23,7 @@ import com.example.pro2111_dat_lich_san_bong.repository.HoaDonRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.HoaDonThanhToanRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.LichSuChatRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.LoaiSanRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.MaGiamGiaRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.NuocUongRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.PhieuDatLichRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.PhuPhiHoaDonRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.PhuPhiRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.SanBongRepository;
@@ -46,7 +40,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -61,16 +54,11 @@ public class DBGenerator implements CommandLineRunner {
 
     @Autowired
     private AccountRepository accountRepository;
-    @Autowired
-    private BienDongViRepository bienDongViRepository;
-    @Autowired
-    private BinhLuanRepository binhLuanRepository;
+
     @Autowired
     private CaRepository caRepository;
     @Autowired
     private ChucVuRepository chucVuRepository;
-    @Autowired
-    private DanhGiaSanRepository danhGiaSanRepository;
     @Autowired
     private DichVuRepository dichVuRepository;
     @Autowired
@@ -87,12 +75,9 @@ public class DBGenerator implements CommandLineRunner {
     private LichSuChatRepository lichSuChatRepository;
     @Autowired
     private LoaiSanRepository loaiSanRepository;
-    @Autowired
-    private MaGiamGiaRepository maGiamGiaRepository;
+
     @Autowired
     private NuocUongRepository nuocUongRepository;
-    @Autowired
-    private PhieuDatLichRepository phieuDatLichRepository;
     @Autowired
     private PhuPhiHoaDonRepository phuPhiHoaDonRepository;
     @Autowired
@@ -137,7 +122,6 @@ public class DBGenerator implements CommandLineRunner {
         viTienKH1.setTrangThai(0);
         viTienKH1.setThoiGianTao(Timestamp.valueOf("2023-09-17 10:09:00"));
         viTienKH1.setSoTien(200000.0);
-        viTienKH1.setPassWord("$2a$12$7gE1Gmxw86zKOsv1HE6EWu5fADdikTRzbAYrdeHNYjMwso9G3cko2");
         viTienKH1.setId(viTienRepository.save(viTienKH1).getId());
 
         ViTien viTienKH2 = new ViTien();
@@ -146,7 +130,6 @@ public class DBGenerator implements CommandLineRunner {
         viTienKH2.setTrangThai(0);
         viTienKH2.setThoiGianTao(Timestamp.valueOf("2023-09-17 10:09:00"));
         viTienKH2.setSoTien(200000.0);
-        viTienKH2.setPassWord("$2a$12$7gE1Gmxw86zKOsv1HE6EWu5fADdikTRzbAYrdeHNYjMwso9G3cko2");
         viTienKH2.setId(viTienRepository.save(viTienKH2).getId());
 
 
@@ -503,7 +486,7 @@ public class DBGenerator implements CommandLineRunner {
 
         //END ĐỒ THUÊ
 
-        DichVu dichVu1 = new DichVu();
+        DichVuSanBong dichVu1 = new DichVuSanBong();
         dichVu1.setIdDoThue(doThue1.getId());
         dichVu1.setIdNuocUong(nuocUong1.getId());
         dichVu1.setSoLuongNuocUong(5);
@@ -512,7 +495,7 @@ public class DBGenerator implements CommandLineRunner {
         dichVu1.setTrangThai(0); //1: DỊCH VỤ SẴN SÀNG
         dichVu1.setId(dichVuRepository.save(dichVu1).getId());
 
-        DichVu dichVu2 = new DichVu();
+        DichVuSanBong dichVu2 = new DichVuSanBong();
         dichVu2.setIdDoThue(doThue2.getId());
         dichVu2.setIdNuocUong(nuocUong2.getId());
         dichVu2.setSoLuongNuocUong(1);
@@ -521,7 +504,7 @@ public class DBGenerator implements CommandLineRunner {
         dichVu2.setTrangThai(0); //1: DỊCH VỤ SẴN SÀNG
         dichVu2.setId(dichVuRepository.save(dichVu2).getId());
 
-        DichVu dichVu3 = new DichVu();
+        DichVuSanBong dichVu3 = new DichVuSanBong();
         dichVu3.setIdDoThue(doThue3.getId());
         dichVu3.setIdNuocUong(nuocUong3.getId());
         dichVu3.setSoLuongNuocUong(15);
@@ -530,7 +513,7 @@ public class DBGenerator implements CommandLineRunner {
         dichVu3.setTrangThai(0); //1: DỊCH VỤ SẴN SÀNG
         dichVu3.setId(dichVuRepository.save(dichVu3).getId());
 
-        DichVu dichVu4 = new DichVu();
+        DichVuSanBong dichVu4 = new DichVuSanBong();
         dichVu4.setIdDoThue(doThue4.getId());
         dichVu4.setIdNuocUong(nuocUong4.getId());
         dichVu4.setSoLuongNuocUong(3);

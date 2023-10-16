@@ -1,10 +1,19 @@
-* {
-    background-color: rgb(80, 111, 226);
+html {
+    height: 100%;
+    width: 100%;
 }
 
+body {
+    background-image: url("/static/img/sanbong.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 
 .ctbtn {
-    background-color: #151e1d;
-    color: white;
+    border-radius: 15px;
+    border: #1a1d8e;
+    background-color: white;
+    color: black;
     width: 150px
 }
