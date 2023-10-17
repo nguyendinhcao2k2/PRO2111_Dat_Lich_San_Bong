@@ -1,9 +1,23 @@
 $(document).ready(function () {
+
+    //Get account by login
+    $.ajax({
+        url: "http://localhost:8081/api/v1/staff/account",
+        type: "GET",
+        success: function (response) {
+            if (response.statusCode === "OK") {
+                app.account = response.content.displayName;
+            }
+        }
+    });
+
+
+    //nhan ca lam viec
     $(".xacNhanCaLam").click((event) => {
         event.preventDefault();
         $.ajax({
             type: "POST",
-            url: "http://localhost:8181/api/v1/staff/giao-ca/khoi-tao-ca-lam",
+            url: "http://localhost:8081/api/v1/staff/giao-ca/khoi-tao-ca-lam",
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify({
@@ -16,7 +30,20 @@ $(document).ready(function () {
                 trangThai: 0,
             }),
             success: function (response) {
-                console.log(response);
+                if (response.statusCode === "OK") {
+                    $.ajax({
+                        type: "GET",
+                        url: "http://localhost:8081/api/v1/staff/giao-ca/view",
+                        success: function (data) {
+                            //đọc file html
+                            // document.documentElement.innerHTML = data;
+                            window.location.href = data
+                        }
+                    });
+                } else {
+                    alert("Nhận ca thất bại!")
+                }
+
             },
             error: function (e) {
                 console.log(e);
@@ -39,6 +66,7 @@ var app = new Vue({
         amount1k: 0,
         tongTien: 0,
         currentDateTime: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+        account: 'NULL',
     },
     methods: {
         validatePrice(event) {
@@ -47,7 +75,8 @@ var app = new Vue({
                 event.target.value = parseInt(event.target.value).toLocaleString(
                     "vi-VN"
                 );
-            } catch (error) {}
+            } catch (error) {
+            }
         },
         checkTrong(event) {
             if (event.target.value === "") {
