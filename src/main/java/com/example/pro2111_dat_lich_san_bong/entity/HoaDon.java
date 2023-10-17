@@ -1,5 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.entity;
 
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLuatSan;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,13 +37,11 @@ public class HoaDon {
     private String id;
     @Column(name = "id_account")
     private String idAccount;
-    @Column(name = "id_vi_tien")
-    private String idViTien;
-    @Column(name = "ngay_tao",columnDefinition = "TIMESTAMP")
+    @Column(name = "ngay_tao", columnDefinition = "TIMESTAMP")
     private LocalDateTime ngayTao;
     @Column(name = "id_account_confirm")
     private String idAccountConfirm;
-    @Column(name = "ngay_xac_nhan_dat_san",columnDefinition = "TIMESTAMP")
+    @Column(name = "ngay_xac_nhan_dat_san", columnDefinition = "TIMESTAMP")
     private LocalDateTime ngayXacNhanDatSan;
     @Column(name = "so_dien_thoai_nguoi_dat")
     private String soDienThoaiNguoiDat;
@@ -52,5 +51,7 @@ public class HoaDon {
     private String tenNguoiDat;
     @Column(name = "trang_thai")
     private Integer trangThai;
+    @Column(name = "trang_thai_luat_san")
+    private TrangThaiLuatSan trangThaiLuatSan;
 
 }
