@@ -1,0 +1,196 @@
+.container {
+    max-width: 100%;
+    font-family: sans-serif;
+    margin: 0 auto;
+    padding: 10px;
+    background: #fff;
+    /* border-radius: 0 0 0 0; */
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.body-row-col {
+    padding: 10px;
+    background: #fff;
+    border-radius: 0 0 0 0;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.header-text-body {
+    text-align: center;
+    font-size: 20px;
+}
+
+.card-type-custom {
+    max-width: 100%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 0 0 0 0;
+}
+
+label {
+    font-size: 15px;
+    color: #171717;
+}
+
+/* --------------------------------- */
+
+.modal {
+    width: 250px;
+}
+
+.modal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%; /* Đặt vị trí trỏ đến ở giữa đỉnh */
+    transform: translateX(
+            -50%
+    ); /* Dịch chuyển 50% về bên trái để chỉ trỏ vào giữa */
+}
+
+.modal-content {
+    background-color: #fff;
+    /* margin: 15% auto; */
+    /* padding: 20px; */
+    border: 1px solid #888;
+    /* width: 50%; Chiều rộng modal */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    /* position: static; */
+    border-radius: 2px; /* Góc bo tròn cho nội dung modal */
+}
+
+.close {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 40px;
+    cursor: pointer;
+    color: #888;
+}
+
+.visible {
+    display: block;
+}
+
+.date-text {
+    font-size: 18px;
+}
+
+input::placeholder {
+    color: white;
+}
+
+/* Tùy chỉnh màu nền và màu chữ cho nút "prev" */
+.fc-prev-button {
+    background-color: #008000; /* Màu nền */
+    color: #fff; /* Màu chữ */
+}
+
+/* Tùy chỉnh màu nền và màu chữ cho nút "next" */
+.fc-next-button {
+    background-color: #008000; /* Màu nền */
+    color: #fff; /* Màu chữ */
+}
+
+/* Tùy chỉnh màu nền và màu chữ cho nút "today" */
+.fc-today-button {
+    background-color: #008000; /* Màu nền */
+    color: #fff; /* Màu chữ */
+}
+
+/* Hover state cho các nút */
+.fc-prev-button:hover,
+.fc-next-button:hover,
+.fc-today-button:hover {
+    background-color: #006600; /* Màu nền khi di chuột qua */
+}
+
+/*  */
+/* choise shift*/
+/* LamNP */
+/* Ẩn checkbox mặc định */
+.checkbox-button {
+    display: inline-block;
+    background-color: #fff;
+    color: black;
+    border-radius: 0.5em;
+    border: 2px solid #008000;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    /* align-items: center; */
+}
+
+.checkbox-label strong,
+span {
+    font-size: 9px; /* Điều chỉnh độ nhỏ của chữ tùy ý */
+}
+
+.checkbox-button input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-button input[type="checkbox"]:checked + .checkbox-label {
+    background-color: #008000;
+    color: #fff;
+}
+
+.checkbox-button input[type="checkbox"]:disabled + .checkbox-label {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.checkbox-button .checkbox-label {
+    font-size: 1em;
+    line-height: 1.2;
+    padding: 1px;
+    flex: 1;
+}
+
+/* Cập nhật màu cho các trạng thái */
+.checkbox-button input[type="checkbox"].qua-gio:disabled + .checkbox-label {
+    background-color: rgb(102, 102, 101);
+    cursor: not-allowed;
+}
+
+.checkbox-button
+input[type="checkbox"].cho-nhan-san:disabled
++ .checkbox-label {
+    background-color: rgb(231, 231, 77);
+    cursor: not-allowed;
+}
+
+.checkbox-button
+input[type="checkbox"].dang-su-dung:disabled
++ .checkbox-label {
+    background-color: #008000;
+    cursor: not-allowed;
+}
+
+.checkbox-button
+input[type="checkbox"].cho-thanh-toan:disabled
++ .checkbox-label {
+    background-color: rgb(44, 130, 235);
+    cursor: not-allowed;
+}
+
+/* select option css 14/10 lamnp */
+
+.custom-select {
+    font-size: 12px; /* Điều chỉnh kích thước phông chữ */
+    height: 30px; /* Điều chỉnh chiều cao của phần tử select */
+    width: 150px; /* Điều chỉnh chiều rộng của phần tử select */
+    border-radius: 0px;
+}
