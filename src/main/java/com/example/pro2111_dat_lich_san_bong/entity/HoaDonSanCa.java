@@ -39,8 +39,6 @@ public class HoaDonSanCa {
     private String ghiChu;
     @Column(name = "tong_tien")
     private Double tongTien;
-    @Column(name = "id_dich_vu_sam_bong")
-    private String idDichVuSanBong;
     @Column(name = "id_hoa_don")
     private String idHoaDon;
     @Column(name = "id_san_ca")
@@ -49,9 +47,12 @@ public class HoaDonSanCa {
     private Integer trangThai;
     @Column(name = "ma_qr")
     private String maQR;
+    @Column(name = "ngay_thanh_toan")
+    private Timestamp ngayThanhToan;
     @Column(name = "id_su_dung_tien_coc")
     private String idSuDungTienCoc;
     @Column(name = "id_phu_phi_hoa_don")
     private String idPhuPhiHoaDon;
-
+    @Column(name = "id_giao_ca")
+    private String idGiaoCa;
 }

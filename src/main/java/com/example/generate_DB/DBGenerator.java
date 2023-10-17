@@ -11,7 +11,6 @@ import com.example.pro2111_dat_lich_san_bong.entity.PhuPhi;
 import com.example.pro2111_dat_lich_san_bong.entity.PhuPhiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.SanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.ThanhToan;
 import com.example.pro2111_dat_lich_san_bong.entity.ViTien;
 import com.example.pro2111_dat_lich_san_bong.repository.AccountRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.CaRepository;
@@ -20,7 +19,6 @@ import com.example.pro2111_dat_lich_san_bong.repository.DichVuRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.DoThueRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.HangKhachHangRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.HoaDonRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.HoaDonThanhToanRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.LichSuChatRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.LoaiSanRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.NuocUongRepository;
@@ -28,7 +26,7 @@ import com.example.pro2111_dat_lich_san_bong.repository.PhuPhiHoaDonRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.PhuPhiRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.SanBongRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.SanCaRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.ThanhToanRepository;
+import com.example.pro2111_dat_lich_san_bong.repository.HinhThucThanhToanRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.ViTienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -70,8 +68,6 @@ public class DBGenerator implements CommandLineRunner {
 
 
     @Autowired
-    private HoaDonThanhToanRepository hoaDonThanhToanRepository;
-    @Autowired
     private LichSuChatRepository lichSuChatRepository;
     @Autowired
     private LoaiSanRepository loaiSanRepository;
@@ -88,7 +84,7 @@ public class DBGenerator implements CommandLineRunner {
     @Autowired
     private SanCaRepository sanCaRepository;
     @Autowired
-    private ThanhToanRepository thanhToanRepository;
+    private HinhThucThanhToanRepository hinhThucThanhToanRepository;
     @Autowired
     private ViTienRepository viTienRepository;
 
@@ -369,32 +365,6 @@ public class DBGenerator implements CommandLineRunner {
 
         //end san ca
 
-        ThanhToan thanhToan1 = new ThanhToan();
-        thanhToan1.setLoaiHinhThanhToan("TIỀN MẶT");
-        thanhToan1.setTrangThai(0); // 0: ĐÃ THANH TOÁN
-        thanhToan1.setId(thanhToanRepository.save(thanhToan1).getId());
-
-        ThanhToan thanhToan2 = new ThanhToan();
-        thanhToan2.setLoaiHinhThanhToan("VÍ TIỀN");
-        thanhToan2.setTrangThai(0); // 0: ĐÃ THANH TOÁN
-        thanhToan2.setId(thanhToanRepository.save(thanhToan2).getId());
-
-        ThanhToan thanhToan3 = new ThanhToan();
-        thanhToan3.setLoaiHinhThanhToan("CHỜ THANH TOÁN");
-        thanhToan3.setTrangThai(1);
-        thanhToan3.setId(thanhToanRepository.save(thanhToan3).getId());
-
-        ThanhToan thanhToan4 = new ThanhToan();
-        thanhToan4.setLoaiHinhThanhToan("VÍ TIỀN");
-        thanhToan4.setTrangThai(0); // 0: ĐÃ THANH TOÁN
-        thanhToan4.setId(thanhToanRepository.save(thanhToan4).getId());
-
-        ThanhToan thanhToan5 = new ThanhToan();
-        thanhToan5.setLoaiHinhThanhToan("CHỜ THÀNH TOÁN");
-        thanhToan5.setTrangThai(1); // 1: CHỜ THANH TOÁN
-        thanhToan5.setId(thanhToanRepository.save(thanhToan5).getId());
-
-        //END THANH TOAN
 
         PhuPhi phuPhi1 = new PhuPhi();
         phuPhi1.setMaPhuPhi("PP1");

@@ -47,4 +47,7 @@ public class DichVuSanBong {
     @Column(name = "id_do_thue")
     private String idDoThue;
 
+    @Column(name = "id_hoa_don_san_ca")
+    private String idHoaDonSanCa;
+
 }

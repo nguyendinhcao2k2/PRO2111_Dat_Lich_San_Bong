@@ -17,12 +17,12 @@ import java.time.LocalDateTime;
  * @author caodinh
  */
 @Entity
-@Table(name = "su_dung_tien_coc")
+@Table(name = "lich_su_vi_tien")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SuDungTienCoc {
+public class LichSuViTien {
 
     @Id
     @GeneratedValue(generator = "uuid2")

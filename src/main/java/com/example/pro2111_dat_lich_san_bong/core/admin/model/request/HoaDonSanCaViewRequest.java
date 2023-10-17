@@ -20,7 +20,6 @@ public class HoaDonSanCaViewRequest {
     private String id;
     private String sanCa;
     private String hoaDon;
-    private String dichVuSanBong;
     private String tenSanBong;
     private String tenCa;
     private LocalDate ngayDenSan;
