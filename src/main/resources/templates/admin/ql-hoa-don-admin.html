@@ -50,16 +50,13 @@
     <!-- Start Header -->
     <div th:insert="~{fragments/header}"></div>
     <!-- End Header -->
-
+    <br>
     <div
-            class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp mt-5"
-            data-wow-delay="0.1s"
+            class="section-title" style="text-align: center"
     >
-        <h6 class="position-relative d-inline text-primary ps-4">
-            Our Services
-        </h6>
-        <h2 class="mt-2">Quản Lý Hóa Đơn</h2>
+        <h3 class="mt-2">Quản Lý Hóa Đơn</h3>
     </div>
+    <br>
 
     <div class="container">
         <div class="row">
@@ -74,12 +71,15 @@
                     </div>
                     <div class="container mt-5">
                         <table
-                                class="table table-borderless table-responsive card-1 p-4"
+                                id="tableId" class="table table-hover table-borderless table-responsive card-1 p-4"
                         >
                             <thead>
                             <tr class="border-bottom">
                                 <th>
-                                    <span class="ml-2">Tài Khoản</span>
+                                    <span class="ml-2">_</span>
+                                </th>
+                                <th>
+                                    <span class="ml-2">Tên Khách</span>
                                 </th>
                                 <th>
                                     <span class="ml-2">Điện Thoại</span>
@@ -88,26 +88,26 @@
                                     <span class="ml-2">Sân Ca</span>
                                 </th>
                                 <th>
-                                    <span class="ml-2">Thời Gian</span>
+                                    <span class="ml-2">Check In</span>
                                 </th>
                                 <th>
                                     <span class="ml-4">Tổng Tiền</span>
                                 </th>
                                 <th>
-                                    <span class="ml-4">Action</span>
+                                    <span class="ml-4">Trạng Thái</span>
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="phieuDatLich : ${listHoaDonPhieuDatLichRequest}">
-                                <th th:text="${phieuDatLich.tenKhachHang}"></th>
-                                <th th:text="${phieuDatLich.soDienThoai}"></th>
-                                <th th:text="${phieuDatLich.tenSanBong + ' : ' + phieuDatLich.tenCa}"></th>
-                                <th th:text="${phieuDatLich.gioBatDau} + ' : ' + ${phieuDatLich.gioKetThuc}"></th>
-                                <th th:text="${phieuDatLich.tongTienSanCa}"></th>
-                                <th>
-                                    <a th:href="@{'/api/v1/admin/quan-ly-hoa-don-thanh-toan/show-phieu-dat-lich/' + ${phieuDatLich.id}}" class="btn btn-success">Show Bill</a>
-                                </th>
+                            <tr class="table-tr" th:each="hoaDonSanCa, index : ${pageHoaDonSanCaViewRequest}">
+                                <th class="hidden" th:text="${hoaDonSanCa.id}" style="display: none"></th>
+                                <th th:text="${index.count}"></th>
+                                <th th:text="${hoaDonSanCa.tenKhachHang}"></th>
+                                <th th:text="${hoaDonSanCa.soDienThoai}"></th>
+                                <th th:text="${hoaDonSanCa.tenSanBong + ' : ' + hoaDonSanCa.tenCa}"></th>
+                                <th th:text="${hoaDonSanCa.thoiGianCheckIn}"></th>
+                                <th th:text="${hoaDonSanCa.tongTien}"></th>
+                                <th th:text="${hoaDonSanCa.trangThai == 1 ?'CHƯA THANH TOÁN':'ĐÃ THANH TOÁN'}"></th>
                             </tr>
                             </tbody>
                         </table>
@@ -125,19 +125,15 @@
                         </h4>
                     </div>
                     <br>
-                    <form th:action="@{/process-form}" th:object="${account}" method="post">
+                    <form action="/test1" method="get">
                         <div>
                             <div class="d-flex justify-content-between mb-3">
-                                <h6 class="mb-0">Tên Khách Hàng</h6>
-                                <input th:field="${account.displayName}" type="text" class="text-dark mb-0"/>
+                                <h6 th:field="${hoaDonSanCaViewRequest.tenKhachHang}" class="mb-0">Tên Khách Hàng</h6>
+                                <input type="text" class="text-dark mb-0"/>
                             </div>
                             <div class="d-flex justify-content-between mb-3">
-                                <h6 class="mb-0">Số Điện Thoại</h6>
-                                <input th:field="${account.soDienThoai}" type="text" class="text-dark mb-0"/>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3">
-                                <h6 class="mb-0">Số Dư Ví</h6>
-                                <input th:field="${viTien.soTien}" type="text" class="text-dark mb-0"/>
+                                <h6 th:field="${hoaDonSanCaViewRequest.soDienThoai}" class="mb-0">Số Điện Thoại</h6>
+                                <input type="text" class="text-dark mb-0"/>
                             </div>
                             <div class="d-flex justify-content-between mb-3">
                                 <h6 class="mb-0">Số Tiền Cọc</h6>
@@ -155,33 +151,32 @@
                         </h4>
                     </div>
                     <div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Tên Ca:</h6>
-                            <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
+                        <form>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Tên Ca:</h6>
+                                <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Tên Sân:</h6>
+                                <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Thời Gian Bắt Đầu:</h6>
+                                <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Thời Gian Kết Thúc:</h6>
+                                <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6 class="mb-0">Ngày Đến Sân</h6>
+                                <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
+                            </div>
+                        </form>
+
+                        <div style="background-color: green;height: 10px;margin-bottom: 10px;">
+
                         </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Tên Sân:</h6>
-                            <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Thời Gian Bắt Đầu:</h6>
-                            <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Thời Gian Kết Thúc:</h6>
-                            <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6 class="mb-0">Ngày Đến Sân</h6>
-                            <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
-                        </div>
-                        <div
-                                style="
-                    background-color: green;
-                    height: 10px;
-                    margin-bottom: 10px;
-                  "
-                        ></div>
                         <div class="d-flex justify-content-between mb-3">
                             <h6 class="mb-0">Ngày Đến Sân</h6>
                             <h6 type="text" class="text-dark mb-0">Cho Trien</h6>
@@ -218,12 +213,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Start Header -->
-    <div th:insert="~{fragments/footer}"></div>
-    <!-- End Header -->
-
-
 </div>
 
 <!-- JavaScript Libraries -->
@@ -238,5 +227,6 @@
 
 <!-- Template Javascript -->
 <script th:src="@{/static/js/main.js}"></script>
+<script th:src="@{/static/js/custom/view-ql-hoa-don-admin.js}"></script>
 </body>
 </html>

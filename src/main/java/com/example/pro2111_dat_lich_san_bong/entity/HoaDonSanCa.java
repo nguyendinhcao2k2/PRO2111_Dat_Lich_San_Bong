@@ -33,7 +33,7 @@ public class HoaDonSanCa {
     private String id;
     @Column(name = "ngay_den_san", columnDefinition = "TIMESTAMP")
     private LocalDate ngayDenSan;
-    @Column(name = "thoi_giam_check_in",columnDefinition = "TIMESTAMP")
+    @Column(name = "thoi_giam_check_in", columnDefinition = "TIMESTAMP")
     private Time thoiGianCheckIn;
     @Column(name = "ghi_chu")
     private String ghiChu;
@@ -43,6 +43,8 @@ public class HoaDonSanCa {
     private String idDichVuSanBong;
     @Column(name = "id_hoa_don")
     private String idHoaDon;
+    @Column(name = "id_san_ca")
+    private String idSanCa;
     @Column(name = "trang_thai")
     private Integer trangThai;
     @Column(name = "ma_qr")
