@@ -29,19 +29,13 @@ public class DoThue {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
+    private String id;
 
     @Column(name = "ten_do_thue", length = 400)
     private String tenDoThue;
 
     @Column(name = "so_luong")
     private Integer soLuong;
-
-    @Column(name = "thoi_gian_muon", columnDefinition = "TIMESTAMP")
-    private Timestamp thoiGianMuon;
-
-    @Column(name = "thoi_gian_tra", columnDefinition = "TIMESTAMP")
-    private Timestamp thoiGianTra;
 
     @Column(name = "don_gia")
     private Double donGia;

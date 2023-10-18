@@ -15,7 +15,7 @@ public interface AccountAdminResponse {
     String getTaiKhoan();
 
     @Value("#{target.matKhau}")
-     String getMatKhau();
+    String getMatKhau();
 
     @Value("#{target.tenChucVu}")
     String getTenChucVu();

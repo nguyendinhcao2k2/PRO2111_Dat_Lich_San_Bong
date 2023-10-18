@@ -33,9 +33,6 @@ public class ViTien {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     protected String id;
 
-    @Column(name = "password")
-    private String passWord;
-
     @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
     private Timestamp thoiGianTao;
 

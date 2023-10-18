@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-class CommonSessionImpl implements CommonSession{
+ public class CommonSessionImpl implements CommonSession{
 
     @Autowired
     private HttpSession session;
