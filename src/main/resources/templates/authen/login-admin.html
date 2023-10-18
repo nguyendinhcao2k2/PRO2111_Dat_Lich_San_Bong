@@ -53,7 +53,8 @@
         <div class="row">
             <div class="col-lg-6 col-12 mx-auto">
                 <div class="text-center image-size-small position-relative">
-                    <img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png" class="rounded-circle p-2 bg-white">
+                    <img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
+                         class="rounded-circle p-2 bg-white">
                     <div class="icon-camera">
                         <a href="" class="text-primary"><i class="lni lni-camera"></i></a>
                     </div>
@@ -61,12 +62,15 @@
                 <div class="p-5 bg-white rounded shadow-lg">
                     <h3 class="mb-2 text-center pt-5">LOGIN ADMIN</h3>
                     <h6 class="text-center lead">BẠN ĐANG ĐĂNG NHẬP VỚI TƯ CÁCH ADMIN</h6>
-                    <form>
+                    <form th:action="@{/login}" method="post">
                         <label class="font-500">Username</label>
-                        <input name="" class="form-control form-control-lg mb-3" type="text">
+                        <input th:name="username" class="form-control form-control-lg mb-3" type="text">
                         <label class="font-500">Password</label>
-                        <input name="" class="form-control form-control-lg" type="password">
-                        <p class="m-0 py-4"><a href="" class="text-muted">Forget password?</a></p>
+                        <input th:name="password" class="form-control form-control-lg" type="password">
+                        <a th:href="@{/authentication/home-login}">Quay lại !</a>
+                        <div th:if="${param.error}">
+                            <span style="color: red">Invalid User or Password</span>
+                        </div>
                         <button class="btn btn-primary btn-lg w-100 shadow-lg">SIGN IN</button>
                     </form>
 

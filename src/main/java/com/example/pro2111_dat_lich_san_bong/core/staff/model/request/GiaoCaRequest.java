@@ -16,6 +16,7 @@ import java.sql.Timestamp;
 @Setter
 public class GiaoCaRequest {
 
+    private String id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
     private Timestamp thoiGianNhanCa;
 
