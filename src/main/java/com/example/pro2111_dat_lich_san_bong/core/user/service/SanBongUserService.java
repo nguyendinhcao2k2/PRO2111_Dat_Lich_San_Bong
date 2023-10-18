@@ -2,7 +2,6 @@ package com.example.pro2111_dat_lich_san_bong.core.user.service;
 
 import com.example.pro2111_dat_lich_san_bong.core.common.base.PageableObject;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.SanBongUserResponse;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -12,5 +11,5 @@ import java.util.List;
  */
 public interface SanBongUserService {
 
-    PageableObject getAllSanBong(Pageable page);
+    PageableObject<SanBongUserResponse> getAllSanBong(Pageable page);
 }

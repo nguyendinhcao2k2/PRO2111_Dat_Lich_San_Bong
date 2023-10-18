@@ -7,7 +7,8 @@ import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
-import java.util.Timer;
+import java.sql.Time;
+
 
 /**
  * @author thepvph20110
@@ -19,7 +20,7 @@ public interface SanCaUserResponse extends BaseIdTemplate {
     @Value("#{target.idSanBong}")
     String getIdSanBong();
 
-    @Value("#{target.Gia}")
+    @Value("#{target.gia}")
     String getGia();
 
     @Value("#{target.trangThai}")
@@ -29,8 +30,8 @@ public interface SanCaUserResponse extends BaseIdTemplate {
     String getTenCa();
 
     @Value("#{target.thoiGianBatDau}")
-    Timer getThoiGianBatDau();
+    Time getThoiGianBatDau();
 
     @Value("#{target.thoiGianKetThuc}")
-    Timer getThoiGianKetThuc();
+    Time getThoiGianKetThuc();
 }
