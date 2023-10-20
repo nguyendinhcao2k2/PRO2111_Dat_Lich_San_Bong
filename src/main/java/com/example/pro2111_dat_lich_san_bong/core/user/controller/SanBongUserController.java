@@ -7,6 +7,7 @@ package com.example.pro2111_dat_lich_san_bong.core.user.controller;
 import com.example.pro2111_dat_lich_san_bong.core.common.base.BaseController;
 import com.example.pro2111_dat_lich_san_bong.core.common.base.PageableObject;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.request.SanCaUserRequest;
+import com.example.pro2111_dat_lich_san_bong.core.user.model.response.SanBongUserResponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanBongUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanCaUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +35,15 @@ public class SanBongUserController extends BaseController {
 
     @GetMapping("/page-san-bong")
     public String getAllSanBong(Model model, Pageable pageable){
-        PageableObject listPage = sanBongUserService.getAllSanBong(pageable);
-
-        SanCaUserRequest request = new SanCaUserRequest(format.format(new Date()));
-        List listSanCa = sanCaUserService.getAllSanCa(request);
-        model.addAttribute("pageSanBong",listPage);
-        model.addAttribute("listSanCa",listSanCa);
+       try {
+           PageableObject<SanBongUserResponse> listPage = sanBongUserService.getAllSanBong(pageable);
+           SanCaUserRequest request = new SanCaUserRequest(format.format(new Date()));
+           List listSanCa = sanCaUserService.getAllSanCa(request);
+           model.addAttribute("pageSanBong",listPage);
+           model.addAttribute("listSanCa",listSanCa);
+       }catch (Exception e){
+           e.printStackTrace();
+       }
         return "user/book-soccer-field";
     }
 

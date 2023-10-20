@@ -1,7 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.infrastructure.constant;
 
 /**
- * @author phongtt35
+ * @author thepvph20110
  */
 public final class PaginationConstant {
 

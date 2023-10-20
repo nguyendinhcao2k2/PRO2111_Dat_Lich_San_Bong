@@ -22,8 +22,8 @@ public class SanBongUserServiceImpl implements SanBongUserService {
 
 
     @Override
-    public PageableObject getAllSanBong(Pageable page) {
+    public PageableObject<SanBongUserResponse> getAllSanBong(Pageable page) {
         Page respo = sanBongUserRepository.getAllSanBong(page);
-        return new PageableObject(respo);
+        return new PageableObject<SanBongUserResponse>(respo);
     }
 }
