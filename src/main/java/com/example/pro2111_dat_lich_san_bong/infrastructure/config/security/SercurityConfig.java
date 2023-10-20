@@ -118,7 +118,8 @@ public class SercurityConfig {
         if (role.equalsIgnoreCase(RoleConstant.roleAdmin)) {
             response.sendRedirect("/api/v1/admin/all");
         } else if (role.equalsIgnoreCase(RoleConstant.roleStaff)) {
-            response.sendRedirect("/api/v1/staff/all");
+            //auto source /api/v1/staff/all
+            response.sendRedirect("api/v1/staff/account/display");
         } else if (role.equalsIgnoreCase(RoleConstant.roleUser)) {
             response.sendRedirect("/api/v1/user/all");
         }

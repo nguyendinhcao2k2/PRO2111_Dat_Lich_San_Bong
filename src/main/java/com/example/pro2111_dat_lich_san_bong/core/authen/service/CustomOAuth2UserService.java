@@ -2,13 +2,12 @@ package com.example.pro2111_dat_lich_san_bong.core.authen.service;
 
 import com.example.pro2111_dat_lich_san_bong.core.authen.repo.AccountRepository;
 import com.example.pro2111_dat_lich_san_bong.entity.Account;
-import com.example.pro2111_dat_lich_san_bong.entity.ViTien;
+import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.security.CustomOAuth2User;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SessionConstant;
 import com.example.pro2111_dat_lich_san_bong.repository.ChucVuRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.ViTienRepository;
 import jakarta.servlet.http.HttpSession;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -49,8 +48,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             newAccount.setImage(customUser.getPicture());
             newAccount.setIdChucVu(chucVuRepository.findByTenChucVu("ROLE_USER").getId());
             newAccount.setTrangThai(0);
-            ViTien viTien = viTienRepository.save(new ViTien(null, Timestamp.valueOf("2023-09-17 10:09:00"), Double.valueOf(0), "VND", 0, null));
-            newAccount.setIdViTien(viTien.getId());
+            ViTienCoc viTienCoc = viTienRepository.save(new ViTienCoc(null, Timestamp.valueOf("2023-09-17 10:09:00"), Double.valueOf(0), "VND", 0, null));
+            newAccount.setIdViTienCoc(viTienCoc.getId());
             customUser.setRole(chucVuRepository.findById(accountRepository.save(newAccount).getIdChucVu()).get().getTenChucVu());
             session.setAttribute(SessionConstant.sessionUser, newAccount);
         } else {
