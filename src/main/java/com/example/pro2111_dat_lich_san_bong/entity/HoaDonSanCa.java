@@ -1,10 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,10 +46,8 @@ public class HoaDonSanCa {
     private String maQR;
     @Column(name = "ngay_thanh_toan")
     private Timestamp ngayThanhToan;
-    @Column(name = "id_su_dung_tien_coc")
-    private String idSuDungTienCoc;
-    @Column(name = "id_phu_phi_hoa_don")
-    private String idPhuPhiHoaDon;
+    @Column(name = "id_lich_su_vi_tien")
+    private String idLichSuViTien;
     @Column(name = "id_giao_ca")
     private String idGiaoCa;
 }

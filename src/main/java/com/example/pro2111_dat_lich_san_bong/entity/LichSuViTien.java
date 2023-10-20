@@ -1,5 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.entity;
 
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLoaiBienDong;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,9 +39,11 @@ public class LichSuViTien {
     @Column(name = "thoi_gian")
     private LocalDateTime thoiGian;
     @Column(name = "loai_bien_dong")
-    private Boolean loaiBienDong;
+    private TrangThaiLoaiBienDong loaiBienDong;
     @Column(name = "tao_khoan_vi")
     private String taiKhoanVi;
+    @Column(name = "id_vi_tien_coc")
+    private String idViTienCoc;
     @Column(name = "trang_thai")
     private String trangThai;
 

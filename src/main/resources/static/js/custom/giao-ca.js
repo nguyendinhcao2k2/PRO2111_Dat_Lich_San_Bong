@@ -1,67 +1,157 @@
 $(document).ready(() => {
-    // get all nhan vien
+    //get all giao ca
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/api/v1/staff/account/find-by-roles",
-        success: function (response) {
-            if(response.statusCode ==="OK"){
-                app.danhSachNhanVien = response.content
+        url: "http://localhost:8081/api/v1/staff/giao-ca",
+        success: (response) => {
+            console.log(response);
+            if (response.statusCode === 'OK') {
+                app.giaoCaStaff.id = response.content.id,
+                    app.giaoCaStaff.thoiGianNhanCa = app.formatDate(response.content.thoiGianNhanCa),
+                    app.giaoCaStaff.thoiGianHienTai = app.formatDate(response.content.thoiGianHienTai),
+                    app.giaoCaStaff.accountResponse = response.content.accountResponse,
+                    app.giaoCaStaff.tienBanDau = app.curenlyNumber(response.content.tienBanDau),
+                    app.giaoCaStaff.tongHoaDonDaThanhToan = response.content.tongHoaDonDaThanhToan,
+                    app.giaoCaStaff.tongHoaDonChuaThanhToan = response.content.tongHoaDonChuaThanhToan,
+                    app.giaoCaStaff.tienPhatSinh = response.content.tienPhatSinh,
+                    app.giaoCaStaff.ghiChuPhatSinh = response.content.ghiChuPhatSinh,
+                    app.giaoCaStaff.accountResponseList = response.content.accountResponseList,
+                    app.giaoCaStaff.tongTienMatTrongCa = response.content.tongTienMatTrongCa,
+                    app.total = app.curenlyNumber(response.content.tongTienMatTrongCa),
+                    app.giaoCaStaff.tongTienThuTrongCa = app.curenlyNumber(response.content.tongTienThuTrongCa),
+                    app.giaoCaStaff.tongTientThanhToanBangTienMat = app.curenlyNumber(response.content.tongTientThanhToanBangTienMat),
+                    app.giaoCaStaff.tongTientThanhToanBangChuyenKhoan = app.curenlyNumber(response.content.tongTientThanhToanBangChuyenKhoan),
+                    app.giaoCaStaff.displayName = response.content.accountResponse.displayName,
+                    app.giaoCaStaff.soDienThoai = response.content.accountResponse.soDienThoai,
+                    app.giaoCaStaff.tongTienTrongCa = app.curenlyNumber(parseFloat(app.repleaPriceDouble(app.total)))
             }
         },
-        error: function (error) {
+        error: (error) => {
             console.log(error);
         }
     });
-    //get nhan vien ca hien tai
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8081/api/v1/staff/giao-ca/by-status-account",
-        success: function (response) {
-            if(response.statusCode ==="OK"){
-                app.nhanVienCaHienTai.id = response.content.id,
-                    app.nhanVienCaHienTai.thoiGianNhanCa = moment(response.content.thoiGianNhanCa).format("HH:mm:ss DD-MM-YYYY"),
-                    app.nhanVienCaHienTai.idNhanVienTrongCa = response.content.idNhanVienTrongCa
-                app.nhanVienCaHienTai.tienBanDau = (response.content.tienBanDau).toLocaleString("vi-VN")
-                console.log(response)
-                // get account by id
-                $.ajax({
-                    type: "GET",
-                    url: "http://localhost:8081/api/v1/staff/account/by-id/" + app.nhanVienCaHienTai.idNhanVienTrongCa,
-                    success: function (response) {
-                        if(response.statusCode ==="OK"){
-                            app.nhanVienCaHienTai.nameNhanVienTrongCa = response.content.displayName
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
+
+    //ket ca
+    $(".confirm").click(() => {
+        if ($("#tienPhatSinh").val() != 0 && $(".ghiChuPhatSinh").val() == "") {
+            document.title = "Thông báo!";
+            alert("Vui lòng nhập tiền phát sinh")
+        } else {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "http://localhost:8081/api/v1/staff/giao-ca/ket-ca",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    thoiGianKetCa: app.formatDateTimeStamps($("#NowTime").val()),
+                    tienPhatSinh: $("#tienPhatSinh").val() == 0 ? $("#tienPhatSinh").val() : app.repleaPriceDouble($("#tienPhatSinh").val()),
+                    ghiChuPhatSinh: $(".ghiChuPhatSinh").val() == "" ? null : $(".ghiChuPhatSinh").val(),
+                    idNhanVienCaTiepTheo: $("#nhanVienNhanCaTiepTheo").val(),
+                    tongTienMat: $("#tongTienMatTrongCa").val() == 0 ? $("#tongTienMatTrongCa").val() : app.repleaPriceDouble($("#tongTienMatTrongCa").val()),
+                    tongTienTrongCa: app.repleaPriceDouble(app.giaoCaStaff.tongTienTrongCa),
+                }),
+                success: (response) => {
+                    var confirm = false;
+                    if (response.statusCode === 'OK') {
+                        Swal.fire({
+                            title: 'Bàn giao ca thành công!',
+                            text: 'Hẹn gặp lại!',
+                            icon: 'success',
+                            confirmButtonText: 'OKE'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                confirm = true;
+                                window.location.href = "/authentication/staff-login";
+                            }
+                        });
+                        setTimeout(() => {
+                            if (!confirm) {
+                                window.location.href = "/authentication/staff-login";
+                            }
+                        }, 4000);
+                        return;
                     }
-                });
-            }
-
-        },
-        error: function (error) {
-            console.log(error);
+                    return alert("Lỗi!");
+                },
+                error: (error) => {
+                    console.log(error)
+                }
+            });
         }
-    });
 
+    });
 });
+
 var app = new Vue({
     el: "#app",
     data: {
-        danhSachNhanVien: null,
-        nhanVienCaHienTai: {
+        giaoCaStaff: {
             id: null,
             thoiGianNhanCa: null,
-            // thoiGianKetCa: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
-            thoiGianKetCa: moment(new Date()).format("HH:mm:ss DD-MM-YYYY"),
-            idNhanVienTrongCa: null,
-            nameNhanVienTrongCa: null,
-            tienBanDau: null,
-            tongTienMat: null,
-            tongTienKhac: null,
-            tongTienTrongCa: null,
-            tienPhatSinh: null,
-
+            thoiGianHienTai: null,
+            accountResponse: null,
+            tienBanDau: 0,
+            tongHoaDonDaThanhToan: 0,
+            tongHoaDonChuaThanhToan: 0,
+            tienPhatSinh: 0,
+            ghiChuPhatSinh: null,
+            accountResponseList: null,
+            tongTienMatTrongCa: 0,
+            tongTienThuTrongCa: 0,
+            tongTientThanhToanBangTienMat: 0,
+            tongTientThanhToanBangChuyenKhoan: 0,
+            soDienThoai: null,
+            displayName: null,
+            tongTienTrongCa: 0,
+        },
+        isDisable: true,
+        total: 0,
+    },
+    methods: {
+        checkValid(event) {
+            this.checkTrong(event);
+            event.target.value = parseInt(event.target.value).toLocaleString(
+                "vi-VN"
+            );
+            if (event.target.value === "" || event.target.value == 0) {
+                this.total = this.curenlyNumber(app.giaoCaStaff.tongTienMatTrongCa);
+                this.giaoCaStaff.tongTienTrongCa = this.curenlyNumber(parseFloat(this.repleaPriceDouble(this.total)) + parseFloat(this.repleaPriceDouble(this.giaoCaStaff.tienBanDau)));
+                this.isDisable = true;
+            } else {
+                this.giaoCaStaff.tongTienTrongCa = this.curenlyNumber(parseFloat(this.repleaPriceDouble(this.giaoCaStaff.tongTienThuTrongCa)) + parseFloat(this.repleaPriceDouble(this.giaoCaStaff.tienBanDau)) - parseFloat(event.target.value.replace(/\./g, "")));
+                var price = parseFloat(this.giaoCaStaff.tongTienMatTrongCa) - parseFloat(event.target.value.replace(/\./g, ""));
+                if (price < 0) {
+                    alert("Không đủ tiền!");
+                    return event.target.value = event.target.value.slice(0, -1);
+                }
+                this.total = this.curenlyNumber(price);
+                this.isDisable = false;
+            }
+        },
+        checkTrong(event) {
+            if (event.target.value === "") {
+                return (event.target.value = 0);
+            }
+            const regex = /^[0-9]+$/;
+            if (!regex.test(event.target.value)) {
+                return (event.target.value = event.target.value.replace(
+                    /\D/g,
+                    ""
+                ));
+            }
+        },
+        curenlyNumber(number) {
+            return number.toLocaleString("vi-VN");
+        },
+        formatDate(date) {
+            return moment(date).format("HH:mm:ss DD-MM-YYYY");
+        },
+        formatDateTimeStamps(date) {
+            return moment(date, "HH:mm:ss DD-MM-YYYY").format("YYYY-MM-DD HH:mm:ss");
+        },
+        repleaPriceDouble(price) {
+            return price.replace(/\./g, "");
         }
-    }
+    },
+
 });
