@@ -67,6 +67,7 @@
                         <label class="font-500">Password</label>
                         <input th:name="password" class="form-control form-control-lg" type="password">
                         <a th:href="@{/authentication/home-login}">Quay lại !</a>
+                        <p th:text="${thongBao}"></p>
                         <div th:if="${param.error}">
                             <span style="color: red">Invalid User or Password</span>
                         </div>

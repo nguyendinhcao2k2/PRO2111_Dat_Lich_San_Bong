@@ -11,7 +11,7 @@ import com.example.pro2111_dat_lich_san_bong.entity.PhuPhi;
 import com.example.pro2111_dat_lich_san_bong.entity.PhuPhiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.SanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.ViTien;
+import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
 import com.example.pro2111_dat_lich_san_bong.repository.AccountRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.CaRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.ChucVuRepository;
@@ -112,21 +112,21 @@ public class DBGenerator implements CommandLineRunner {
         //end chuc vu
 
         //start vi tien
-        ViTien viTienKH1 = new ViTien();
-        viTienKH1.setTaiKhoanVi("004444444444");
-        viTienKH1.setLoaiTien("VND");
-        viTienKH1.setTrangThai(0);
-        viTienKH1.setThoiGianTao(Timestamp.valueOf("2023-09-17 10:09:00"));
-        viTienKH1.setSoTien(200000.0);
-        viTienKH1.setId(viTienRepository.save(viTienKH1).getId());
+        ViTienCoc viTienCocKH1 = new ViTienCoc();
+        viTienCocKH1.setTaiKhoanVi("004444444444");
+        viTienCocKH1.setLoaiTien("VND");
+        viTienCocKH1.setTrangThai(0);
+        viTienCocKH1.setThoiGianTao(Timestamp.valueOf("2023-09-17 10:09:00"));
+        viTienCocKH1.setSoTien(200000.0);
+        viTienCocKH1.setId(viTienRepository.save(viTienCocKH1).getId());
 
-        ViTien viTienKH2 = new ViTien();
-        viTienKH2.setTaiKhoanVi("007777777777");
-        viTienKH2.setLoaiTien("VND");
-        viTienKH2.setTrangThai(0);
-        viTienKH2.setThoiGianTao(Timestamp.valueOf("2023-09-17 10:09:00"));
-        viTienKH2.setSoTien(200000.0);
-        viTienKH2.setId(viTienRepository.save(viTienKH2).getId());
+        ViTienCoc viTienCocKH2 = new ViTienCoc();
+        viTienCocKH2.setTaiKhoanVi("007777777777");
+        viTienCocKH2.setLoaiTien("VND");
+        viTienCocKH2.setTrangThai(0);
+        viTienCocKH2.setThoiGianTao(Timestamp.valueOf("2023-09-17 10:09:00"));
+        viTienCocKH2.setSoTien(200000.0);
+        viTienCocKH2.setId(viTienRepository.save(viTienCocKH2).getId());
 
 
         //end vi tien
@@ -140,7 +140,7 @@ public class DBGenerator implements CommandLineRunner {
         kh1.setMatKhau("$2a$12$7gE1Gmxw86zKOsv1HE6EWu5fADdikTRzbAYrdeHNYjMwso9G3cko2"); // pass: 1111
         kh1.setTrangThai(0); //trang thái 0: hoạt động
         kh1.setIdChucVu(khachHangRole.getId());
-        kh1.setIdViTien(viTienKH1.getId());
+        kh1.setIdViTienCoc(viTienCocKH1.getId());
         kh1.setTaiKhoan("account1");
         kh1.setId(accountRepository.save(kh1).getId());
 
@@ -152,7 +152,7 @@ public class DBGenerator implements CommandLineRunner {
         kh2.setMatKhau("$2a$12$7gE1Gmxw86zKOsv1HE6EWu5fADdikTRzbAYrdeHNYjMwso9G3cko2"); // pass: 1111
         kh2.setTrangThai(0); //trang thái 0: hoạt động
         kh2.setIdChucVu(khachHangRole.getId());
-        kh2.setIdViTien(viTienKH2.getId());
+        kh2.setIdViTienCoc(viTienCocKH2.getId());
         kh2.setTaiKhoan("account2");
         kh2.setId(accountRepository.save(kh2).getId());
 

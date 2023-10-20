@@ -22,8 +22,8 @@ public class HinhThucThanhToan {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     private String id;
-    @Column(name = "id_hoa_don")
-    private String idHoaDon;
+    @Column(name = "id_hoa_don_san_ca")
+    private String idHoaDonSanCa;
     @Column(name = "hinh_thuc_thanh_toan")
     private LoaiHinhThanhToan loaiHinhThanhToan;
     @Column(name = "trang_thai")

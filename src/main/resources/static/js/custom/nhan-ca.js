@@ -37,7 +37,24 @@ $(document).ready(function () {
                         success: function (data) {
                             //đọc file html
                             // document.documentElement.innerHTML = data;
-                            window.location.href = data
+                            var confirm = false;
+                            Swal.fire({
+                                title: 'Nhận ca thành công!',
+                                text: 'Xin chào!',
+                                icon: 'success',
+                                confirmButtonText: 'OKE'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    confirm = true;
+                                    window.location.href = data;
+                                }
+                            });
+                            setTimeout(() => {
+                                if (!confirm) {
+                                    window.location.href = data;
+                                }
+                            }, 3000);
+                            return;
                         }
                     });
                 } else {

@@ -49,6 +49,8 @@ public class HoaDon {
     private Double tienCoc;
     @Column(name = "ten_nguoi_dat")
     private String tenNguoiDat;
+    @Column(name = "id_luat_san_bong")
+    private String idLuatSanBong;
     @Column(name = "trang_thai")
     private Integer trangThai;
     @Column(name = "trang_thai_luat_san")
