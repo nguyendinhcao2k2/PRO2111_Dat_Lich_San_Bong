@@ -16,7 +16,7 @@ public interface SanBongUserRepository extends SanBongRepository {
         sb.gia_san as 'giaSan',sb.trang_thai as 'trangThai',
         ls.ten_loai_san as'tenLoaiSan'\s
         from san_bong sb\s
-        join loai_san ls on sb.id_loai_san = ls.id
+        join loai_san ls on sb.id_loai_san = ls.id order by sb.ten_san_bong asc
     """,countQuery = """
         select  count(*)
         from san_bong sb
