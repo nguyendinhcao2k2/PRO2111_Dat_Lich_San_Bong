@@ -1,0 +1,1607 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>SÂN BÓNG VN</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link rel="website icon" type="png" href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
+
+    <!-- Mobiscroll JS and CSS Includes -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!--    End mobiscroll-->
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+    />
+    <!--    -->
+    <!-- CSS    -->
+    <link rel="stylesheet" th:href="@{/static/css/calendar/mobiscroll.jquery.min.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/staff/nhan-vien-dat-lich.css}"/>
+
+    <!--    -->
+    <!-- Quan Trọng  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--  -->
+    <title>Document</title>
+</head>
+<style></style>
+<body>
+
+    <!-- Start Header -->
+    <div th:insert="~{fragments/header}"></div>
+    <!-- End Header -->
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(29, 29, 39, 0.7)">
+                <div class="modal-header border-0">
+                    <button
+                            type="button"
+                            class="btn bg-white btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                    ></button>
+                </div>
+                <div
+                        class="modal-body d-flex align-items-center justify-content-center"
+                >
+                    <div class="input-group" style="max-width: 600px">
+                        <input
+                                type="text"
+                                class="form-control bg-transparent border-light p-3"
+                                placeholder="Type search keyword"
+                        />
+                        <button class="btn btn-light px-4">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+    <section class="">
+    <div class="border-0">
+        <div class="dat-lich-header-staff">
+            <div class="body-row-col">
+                <!-- Filter đang làm dở -->
+                <div class="row">
+                    <div class="col-md-12 mt-2">
+                        <div class="col-auto">
+                            <div class="input-group">
+                                <button
+                                        type="button"
+                                        class="btn btn-primary position-relative"
+                                        style="border-radius: 5px"
+                                >
+                                    Inbox
+                                    <span
+                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                    >
+                        99+
+                      </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Filter -->
+                <!-- Nav tab -->
+                <div class="wrapper">
+                    <div class="tabs">
+                        <ul class="nav-tabs">
+                            <li class="active">
+                                <a href="#menu_1"
+                                ><i class="fas fa-calendar-day fa-lg me-2"></i>Chọn Một
+                                    Ngày</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#menu_2"
+                                ><i class="far fa-calendar-alt fa-lg me-2"></i>Chọn Nhiều
+                                    Ngày</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#menu_3"
+                                ><i class="fas fa-cogs fa-fw me-2"></i>Tab 3</a
+                                >
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="menu_1" class="tab-content-item">
+                                <div class="body-row-col mt-1">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row g-3 align-items-center">
+                                                <!-- Sân filter -->
+                                                <div class="col-auto">
+                                                    <label
+                                                            for="select-san-staff"
+                                                            class="col-form-label label-filter-staff"
+                                                    >Sân :
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-3 col-sm-auto">
+                                                    <select
+                                                            id="select-san-staff"
+                                                            class="form-select"
+                                                            style="border-radius: 5px"
+                                                    >
+                                                        <option selected value="0">Tất cả</option>
+                                                        <option value="1">Sân 1</option>
+                                                        <option value="2">Sân 2</option>
+                                                        <option value="3">Sân 3</option>
+                                                    </select>
+                                                </div>
+                                                <!--Loại Sân  -->
+                                                <div class="col-auto">
+                                                    <label
+                                                            for="select-loai-san-staff"
+                                                            class="col-form-label label-filter-staff"
+                                                    >Loại sân :
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-3 col-sm-auto">
+                                                    <select
+                                                            id="select-loai-san-staff"
+                                                            class="form-select"
+                                                            style="border-radius: 5px"
+                                                    >
+                                                        <option selected value="0">Tất cả</option>
+                                                        <option value="1">Sân 5</option>
+                                                        <option value="2">Sân 7</option>
+                                                        <option value="3">Sân 12</option>
+                                                    </select>
+                                                </div>
+                                                <!-- Ngày -->
+                                                <div class="col-auto">
+                                                    <label
+                                                            for="select-loai-san-staff "
+                                                            class="col-form-label label-filter-staff"
+                                                    >Ngày :
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-3 col-sm-auto">
+                                                    <input
+                                                            id="date-header-search-staff"
+                                                            type="date"
+                                                            class="form-control"
+                                                            style="border-radius: 5px"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 d-flex justify-content-end">
+                                            <!-- Button Hiển thị Check box -->
+                                            <button
+                                                    type="button"
+                                                    id="showCheckboxButton"
+                                                    class="button-header-check-box"
+                                            >
+                                                <span class="button-icon-text-check">Chọn Sân</span>
+                                                <span class="button-icon-check">
+                              <i class="far fa-check-square fa-lg"></i>
+                            </span>
+                                            </button>
+                                            <!-- End Button hiển thị check box -->
+                                            <!-- Button Modal Điền Thông tin -->
+                                            <div>
+                                                <button
+                                                        type="button"
+                                                        class="button-header"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalInfo"
+                                                >
+                                                    <span class="button__text">Thông Tin</span>
+                                                    <span class="button__icon">
+                                <i class="fas fa-info"></i>
+                              </span>
+                                                </button>
+                                                <!-- Modal  -->
+                                                <div class="modal" id="modalInfo">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Đặt Sân</h5>
+                                                                <button
+                                                                        type="button"
+                                                                        class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                ></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 col-sm-auto">
+                                                                        <form>
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label required"
+                                                                                >Họ và tên</label
+                                                                                >
+                                                                                <input
+                                                                                        type="text"
+                                                                                        class="form-control"
+                                                                                />
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label required"
+                                                                                >Email</label
+                                                                                >
+                                                                                <input
+                                                                                        type="email"
+                                                                                        class="form-control"
+                                                                                />
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label required"
+                                                                                >Số điện thoại</label
+                                                                                >
+                                                                                <input
+                                                                                        type="text"
+                                                                                        class="form-control"
+                                                                                />
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label required"
+                                                                                >Ghi chú</label
+                                                                                >
+                                                                                <textarea
+                                                                                        class="form-control"
+                                                                                ></textarea>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-sm-auto">
+                                                                        <table
+                                                                                class="table table-bordered table-hover"
+                                                                                style="color: black"
+                                                                        >
+                                                                            <thead>
+                                                                            <tr>
+                                                                                <th>Ca</th>
+                                                                                <th>Ngày</th>
+                                                                                <th>Thao tác</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            <tr>
+                                                                                <td>ca 1</td>
+                                                                                <td>20-10-2023</td>
+                                                                                <td>đổi xóa</td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button
+                                                                        type="submit"
+                                                                        class="btn btn-primary"
+                                                                >
+                                                                    Gửi
+                                                                    <i class="fas fa-check fa-lg"></i>
+                                                                </button>
+                                                                <button
+                                                                        type="button"
+                                                                        class="btn btn-danger"
+                                                                        data-bs-dismiss="modal"
+                                                                >
+                                                                    Đóng
+                                                                    <i class="fas fa-times fa-lg"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Modal  -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Content Sân Ca -->
+                                <div class="content-san">
+                                    <div class="">
+                                        <div class="ten-san mt-4">
+                                            <h4 class="text-dark">Sân 1</h4>
+                                        </div>
+                                        <div class="body-san">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <div
+                                                            class="card card-san"
+                                                            style="width: 100%; border-radius: 0px"
+                                                    >
+                                                        <!-- Header card -->
+                                                        <div
+                                                                class="card-header"
+                                                                style="background: #ffff"
+                                                        >
+                                                            <div
+                                                                    class="card-title d-flex justify-content-end"
+                                                            >
+                                                                <div class="btn-group">
+                                                                    <button
+                                                                            type="button"
+                                                                            class="btn dropdown-toggle"
+                                                                            data-bs-toggle="dropdown"
+                                                                            aria-expanded="false"
+                                                                            style="box-shadow: none"
+                                                                    >
+                                                                        <label
+                                                                                style="
+                                            color: black;
+                                            font-size: 18px;
+                                            font-weight: bold;
+                                          "
+                                                                        >Ca 1</label
+                                                                        >
+                                                                    </button>
+                                                                    <ul
+                                                                            class="dropdown-menu dropdown-menu-end"
+                                                                    >
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 1
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 2
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 3
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                    class="card-subtitle d-flex justify-content-end"
+                                                            >
+                                                                <label
+                                                                        style="
+                                        color: black;
+                                        font-size: 18px;
+                                        font-weight: bold;
+                                      "
+                                                                >Loại sân : 7</label
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <!-- Check box  -->
+                                                        <div
+                                                                id="checkboxContainer"
+                                                                style="
+                                    display: none;
+                                    position: absolute;
+                                    top: 10px;
+                                    left: 10px;
+                                  "
+                                                        >
+                                                            <input
+                                                                    type="checkbox"
+                                                                    style="
+                                      width: 20px;
+                                      height: 20px;
+                                      margin-right: 5px;
+                                    "
+                                                                    id="myCheckbox"
+                                                            />
+                                                        </div>
+                                                        <!--  -->
+                                                        <div class="card-body m-1">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-dark badge-icon">
+                                        <i
+                                                class="far fa-calendar-check fa-lg icon-content"
+                                        ></i
+                                        ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >21-10-2023</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-dark badge-icon"
+                                      ><i
+                                              class="fas fa-clock fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >
+                                                                        09:00 - 12:00</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-12 mt-1">
+                                      <span class="badge bg-dark badge-icon"
+                                      ><i
+                                              class="fas fa-dollar-sign fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >600.000 VND</label
+                                                                    >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                                class="card-footer border-0"
+                                                                style="background-color: #ffff"
+                                                        >
+                                  <span
+                                          class="badge rounded-pill bg-secondary badge-status"
+                                  >Đang chờ nhận sân</span
+                                  >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div
+                                                            class="card card-san"
+                                                            style="width: 100%; border-radius: 0px"
+                                                    >
+                                                        <div
+                                                                class="card-header"
+                                                                style="background: #ffff"
+                                                        >
+                                                            <div
+                                                                    class="card-title d-flex justify-content-end"
+                                                            >
+                                                                <div class="btn-group">
+                                                                    <button
+                                                                            type="button"
+                                                                            class="btn dropdown-toggle"
+                                                                            data-bs-toggle="dropdown"
+                                                                            aria-expanded="false"
+                                                                            style="box-shadow: none"
+                                                                    >
+                                                                        <label
+                                                                                style="
+                                            color: black;
+                                            font-size: 18px;
+                                            font-weight: bold;
+                                          "
+                                                                        >Ca 2</label
+                                                                        >
+                                                                    </button>
+                                                                    <ul
+                                                                            class="dropdown-menu dropdown-menu-end"
+                                                                    >
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 1
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 2
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 3
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                    class="card-subtitle d-flex justify-content-end"
+                                                            >
+                                                                <label
+                                                                        style="
+                                        color: black;
+                                        font-size: 18px;
+                                        font-weight: bold;
+                                      "
+                                                                >Loại sân : 7</label
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <!-- Check box  -->
+                                                        <div
+                                                                id="checkboxContainer"
+                                                                style="
+                                    display: none;
+                                    position: absolute;
+                                    top: 10px;
+                                    left: 10px;
+                                  "
+                                                        >
+                                                            <input
+                                                                    type="checkbox"
+                                                                    style="
+                                      width: 20px;
+                                      height: 20px;
+                                      margin-right: 5px;
+                                    "
+                                                                    id="myCheckbox"
+                                                            />
+                                                        </div>
+                                                        <!--  -->
+                                                        <div class="card-body m-1">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-primary badge-icon">
+                                        <i
+                                                class="far fa-calendar-check fa-lg icon-content"
+                                        ></i
+                                        ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >21-10-2023</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-primary badge-icon"
+                                      ><i
+                                              class="fas fa-clock fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >
+                                                                        09:00 - 12:00</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-12 mt-1">
+                                      <span class="badge bg-primary badge-icon"
+                                      ><i
+                                              class="fas fa-dollar-sign fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >600.000 VND</label
+                                                                    >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                                class="card-footer border-0"
+                                                                style="background-color: #ffff"
+                                                        >
+                                  <span
+                                          class="badge rounded-pill bg-secondary badge-status"
+                                  >Đang chờ nhận sân</span
+                                  >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div
+                                                            class="card card-san"
+                                                            style="width: 100%; border-radius: 0px"
+                                                    >
+                                                        <div
+                                                                class="card-header"
+                                                                style="background: #ffff"
+                                                        >
+                                                            <div
+                                                                    class="card-title d-flex justify-content-end"
+                                                            >
+                                                                <div class="btn-group">
+                                                                    <button
+                                                                            type="button"
+                                                                            class="btn dropdown-toggle"
+                                                                            data-bs-toggle="dropdown"
+                                                                            aria-expanded="false"
+                                                                            style="box-shadow: none"
+                                                                    >
+                                                                        <label
+                                                                                style="
+                                            color: black;
+                                            font-size: 18px;
+                                            font-weight: bold;
+                                          "
+                                                                        >Ca 3</label
+                                                                        >
+                                                                    </button>
+                                                                    <ul
+                                                                            class="dropdown-menu dropdown-menu-end"
+                                                                    >
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 1
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 2
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 3
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                    class="card-subtitle d-flex justify-content-end"
+                                                            >
+                                                                <label
+                                                                        style="
+                                        color: black;
+                                        font-size: 18px;
+                                        font-weight: bold;
+                                      "
+                                                                >Loại sân : 7</label
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <!-- Check box  -->
+                                                        <div
+                                                                id="checkboxContainer"
+                                                                style="
+                                    display: none;
+                                    position: absolute;
+                                    top: 10px;
+                                    left: 10px;
+                                  "
+                                                        >
+                                                            <input
+                                                                    type="checkbox"
+                                                                    style="
+                                      width: 20px;
+                                      height: 20px;
+                                      margin-right: 5px;
+                                    "
+                                                                    id="myCheckbox"
+                                                            />
+                                                        </div>
+                                                        <!--  -->
+                                                        <div class="card-body m-1">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-primary badge-icon">
+                                        <i
+                                                class="far fa-calendar-check fa-lg icon-content"
+                                        ></i
+                                        ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >21-10-2023</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-primary badge-icon"
+                                      ><i
+                                              class="fas fa-clock fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >
+                                                                        09:00 - 12:00</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-12 mt-1">
+                                      <span class="badge bg-primary badge-icon"
+                                      ><i
+                                              class="fas fa-dollar-sign fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >600.000 VND</label
+                                                                    >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                                class="card-footer border-0"
+                                                                style="background-color: #ffff"
+                                                        >
+                                  <span
+                                          class="badge rounded-pill bg-danger badge-status"
+                                  >Quá giờ</span
+                                  >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div
+                                                            class="card card-san"
+                                                            style="width: 100%; border-radius: 0px"
+                                                    >
+                                                        <div
+                                                                class="card-header"
+                                                                style="background: #ffff"
+                                                        >
+                                                            <div
+                                                                    class="card-title d-flex justify-content-end"
+                                                            >
+                                                                <div class="btn-group">
+                                                                    <button
+                                                                            type="button"
+                                                                            class="btn dropdown-toggle"
+                                                                            data-bs-toggle="dropdown"
+                                                                            aria-expanded="false"
+                                                                            style="box-shadow: none"
+                                                                    >
+                                                                        <label
+                                                                                style="
+                                            color: black;
+                                            font-size: 18px;
+                                            font-weight: bold;
+                                          "
+                                                                        >Ca 4</label
+                                                                        >
+                                                                    </button>
+                                                                    <ul
+                                                                            class="dropdown-menu dropdown-menu-end"
+                                                                    >
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 1
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 2
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 3
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                    class="card-subtitle d-flex justify-content-end"
+                                                            >
+                                                                <label
+                                                                        style="
+                                        color: black;
+                                        font-size: 18px;
+                                        font-weight: bold;
+                                      "
+                                                                >Loại sân : 7</label
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <!-- Check box  -->
+                                                        <div
+                                                                id="checkboxContainer"
+                                                                style="
+                                    display: none;
+                                    position: absolute;
+                                    top: 10px;
+                                    left: 10px;
+                                  "
+                                                        >
+                                                            <input
+                                                                    type="checkbox"
+                                                                    style="
+                                      width: 20px;
+                                      height: 20px;
+                                      margin-right: 5px;
+                                    "
+                                                                    id="myCheckbox"
+                                                            />
+                                                        </div>
+                                                        <div class="card-body m-1">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-primary badge-icon">
+                                        <i
+                                                class="far fa-calendar-check fa-lg icon-content"
+                                        ></i
+                                        ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >21-10-2023</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-primary badge-icon"
+                                      ><i
+                                              class="fas fa-clock fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >
+                                                                        09:00 - 12:00</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-12 mt-1">
+                                      <span class="badge bg-primary badge-icon"
+                                      ><i
+                                              class="fas fa-dollar-sign fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >600.000 VND</label
+                                                                    >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                                class="card-footer border-0"
+                                                                style="background-color: #ffff"
+                                                        >
+                                  <span
+                                          class="badge rounded-pill bg-info badge-status"
+                                  >Chờ thanh toán</span
+                                  >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div
+                                                            class="card card-san"
+                                                            style="width: 100%; border-radius: 0px"
+                                                    >
+                                                        <div
+                                                                class="card-header"
+                                                                style="background: #ffff"
+                                                        >
+                                                            <div
+                                                                    class="card-title d-flex justify-content-end"
+                                                            >
+                                                                <div class="btn-group">
+                                                                    <button
+                                                                            type="button"
+                                                                            class="btn dropdown-toggle"
+                                                                            data-bs-toggle="dropdown"
+                                                                            aria-expanded="false"
+                                                                            style="box-shadow: none"
+                                                                    >
+                                                                        <label
+                                                                                style="
+                                            color: black;
+                                            font-size: 18px;
+                                            font-weight: bold;
+                                          "
+                                                                        >Ca 5</label
+                                                                        >
+                                                                    </button>
+                                                                    <ul
+                                                                            class="dropdown-menu dropdown-menu-end"
+                                                                    >
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 1
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 2
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 3
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                    class="card-subtitle d-flex justify-content-end"
+                                                            >
+                                                                <label
+                                                                        style="
+                                        color: black;
+                                        font-size: 18px;
+                                        font-weight: bold;
+                                      "
+                                                                >Loại sân : 7</label
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <!-- Check box  -->
+                                                        <div
+                                                                id="checkboxContainer"
+                                                                style="
+                                    display: none;
+                                    position: absolute;
+                                    top: 10px;
+                                    left: 10px;
+                                  "
+                                                        >
+                                                            <input
+                                                                    type="checkbox"
+                                                                    style="
+                                      width: 20px;
+                                      height: 20px;
+                                      margin-right: 5px;
+                                    "
+                                                                    id="myCheckbox"
+                                                            />
+                                                        </div>
+                                                        <div class="card-body m-1">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-primary badge-icon">
+                                        <i
+                                                class="far fa-calendar-check fa-lg icon-content"
+                                        ></i
+                                        ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >21-10-2023</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-primary badge-icon"
+                                      ><i
+                                              class="fas fa-clock fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >
+                                                                        09:00 - 12:00</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-12 mt-1">
+                                      <span class="badge bg-primary badge-icon"
+                                      ><i
+                                              class="fas fa-dollar-sign fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >600.000 VND</label
+                                                                    >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                                class="card-footer border-0"
+                                                                style="background-color: #ffff"
+                                                        >
+                                  <span
+                                          class="badge rounded-pill bg-primary badge-status"
+                                  >Đang trống</span
+                                  >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div
+                                                            class="card card-san"
+                                                            style="width: 100%; border-radius: 0px"
+                                                    >
+                                                        <div
+                                                                class="card-header"
+                                                                style="background: #ffff"
+                                                        >
+                                                            <div
+                                                                    class="card-title d-flex justify-content-end"
+                                                            >
+                                                                <div class="btn-group">
+                                                                    <button
+                                                                            type="button"
+                                                                            class="btn dropdown-toggle"
+                                                                            data-bs-toggle="dropdown"
+                                                                            aria-expanded="false"
+                                                                            style="box-shadow: none"
+                                                                    >
+                                                                        <label
+                                                                                style="
+                                            color: black;
+                                            font-size: 18px;
+                                            font-weight: bold;
+                                          "
+                                                                        >Ca 6</label
+                                                                        >
+                                                                    </button>
+                                                                    <ul
+                                                                            class="dropdown-menu dropdown-menu-end"
+                                                                    >
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 1
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 2
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="dropdown-item">
+                                                                                Check In 3
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                    class="card-subtitle d-flex justify-content-end"
+                                                            >
+                                                                <label
+                                                                        style="
+                                        color: black;
+                                        font-size: 18px;
+                                        font-weight: bold;
+                                      "
+                                                                >Loại sân : 7</label
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <!-- Check box  -->
+                                                        <div
+                                                                id="checkboxContainer"
+                                                                style="
+                                    display: none;
+                                    position: absolute;
+                                    top: 10px;
+                                    left: 10px;
+                                  "
+                                                        >
+                                                            <input
+                                                                    type="checkbox"
+                                                                    style="
+                                      width: 20px;
+                                      height: 20px;
+                                      margin-right: 5px;
+                                    "
+                                                                    id="myCheckbox"
+                                                            />
+                                                        </div>
+                                                        <div class="card-body m-1">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-primary badge-icon">
+                                        <i
+                                                class="far fa-calendar-check fa-lg icon-content"
+                                        ></i
+                                        ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >21-10-2023</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-6">
+                                      <span class="badge bg-primary badge-icon"
+                                      ><i
+                                              class="fas fa-clock fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >
+                                                                        09:00 - 12:00</label
+                                                                    >
+                                                                </div>
+                                                                <div class="col-md-12 mt-1">
+                                      <span class="badge bg-primary badge-icon"
+                                      ><i
+                                              class="fas fa-dollar-sign fa-lg icon-content"
+                                      ></i
+                                      ></span>
+                                                                    <label
+                                                                            style="color: black; font-size: 18px"
+                                                                    >600.000 VND</label
+                                                                    >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                                class="card-footer border-0"
+                                                                style="background-color: #ffff"
+                                                        >
+                                  <span
+                                          class="badge rounded-pill bg-success badge-status"
+                                  >Đang hoạt động</span
+                                  >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menu_2" class="tab-content-item">
+                                <div class="card border-0 m-0">
+                                    <div class="dat-lich-header-customer">
+                                        <div class="body-row-col mt-0">
+                                            <div class="row">
+                                                <div class="col-md-6"></div>
+                                                <div class="col-md-6">
+                                                    <div class="d-flex justify-content-end">
+                                                        <div>
+                                                            <select class="select-loai-san">
+                                                                <option selected value="0">
+                                                                    Chọn loại sân
+                                                                </option>
+                                                                <option value="1">Sân 5</option>
+                                                                <option value="2">Sân 7</option>
+                                                                <option value="3">Sân 12</option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- modal info điền thông tin -->
+                                                        <div>
+                                                            <button
+                                                                    type="button"
+                                                                    class="button-header"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalInfo"
+                                                            >
+                                                                <span class="button__text">Thông Tin</span>
+                                                                <span class="button__icon">
+                                      <i class="fas fa-info"></i>
+                                    </span>
+                                                            </button>
+                                                            <!--  -->
+                                                            <div class="modal" id="modalInfo">
+                                                                <div class="modal-dialog modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title">Đặt Sân</h5>
+                                                                            <button
+                                                                                    type="button"
+                                                                                    class="btn-close"
+                                                                                    data-bs-dismiss="modal"
+                                                                            ></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6 col-sm-auto">
+                                                                                    <form>
+                                                                                        <div class="mb-3">
+                                                                                            <label
+                                                                                                    class="form-label required"
+                                                                                            >Họ và tên</label
+                                                                                            >
+                                                                                            <input
+                                                                                                    type="text"
+                                                                                                    class="form-control"
+                                                                                            />
+                                                                                        </div>
+                                                                                        <div class="mb-3">
+                                                                                            <label
+                                                                                                    class="form-label required"
+                                                                                            >Email</label
+                                                                                            >
+                                                                                            <input
+                                                                                                    type="email"
+                                                                                                    class="form-control"
+                                                                                            />
+                                                                                        </div>
+                                                                                        <div class="mb-3">
+                                                                                            <label
+                                                                                                    class="form-label required"
+                                                                                            >Số điện thoại</label
+                                                                                            >
+                                                                                            <input
+                                                                                                    type="text"
+                                                                                                    class="form-control"
+                                                                                            />
+                                                                                        </div>
+                                                                                        <div class="mb-3">
+                                                                                            <label
+                                                                                                    class="form-label required"
+                                                                                            >Ghi chú</label
+                                                                                            >
+                                                                                            <textarea
+                                                                                                    class="form-control"
+                                                                                            ></textarea>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-auto">
+                                                                                    <table
+                                                                                            class="table table-bordered table-hover"
+                                                                                            style="color: black"
+                                                                                    >
+                                                                                        <thead>
+                                                                                        <tr>
+                                                                                            <th>Ca</th>
+                                                                                            <th>Ngày</th>
+                                                                                            <th>Thao tác</th>
+                                                                                        </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                        <tr>
+                                                                                            <td>ca 1</td>
+                                                                                            <td>20-10-2023</td>
+                                                                                            <td>đổi xóa</td>
+                                                                                        </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button
+                                                                                    type="submit"
+                                                                                    class="btn btn-primary"
+                                                                            >
+                                                                                Gửi
+                                                                                <i class="fas fa-check fa-lg"></i>
+                                                                            </button>
+                                                                            <button
+                                                                                    type="button"
+                                                                                    class="btn btn-danger"
+                                                                                    data-bs-dismiss="modal"
+                                                                            >
+                                                                                Đóng
+                                                                                <i class="fas fa-times fa-lg"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--  -->
+                                        <div class="card-body p-0">
+                                            <div class="row">
+                                                <div
+                                                        class="col-12 col-sm-12 col-md-2 p-1"
+                                                        style="border-right: #171717 1px"
+                                                >
+                                                    <div class="demo-multiple-select">
+                                                        <div class="mbsc-form-group">
+                                                            <div class="mbsc-form-group-title">
+                                                                <h5 class="text-center">Chọn Ngày</h5>
+                                                            </div>
+                                                            <div>
+                                                                <div class="mbsc-form-group">
+                                                                    <div
+                                                                            id="demo-single-select-date"
+                                                                            class="datePicker"
+                                                                    ></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--  -->
+                                                <div class="col-12 col-sm-12 col-md-7 p-1">
+                                                    <div class="body-row-col">
+                                                        <div>
+                                                            <div id="calendar"></div>
+                                                            <div id="myModal1" class="modal">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header m-1">
+                                                                            <h6 class="modal-title">
+                                                                                Lựa Chọn Ca
+                                                                            </h6>
+                                                                            <span class="close" id="closeModal1"
+                                                                            >&times;</span
+                                                                            >
+                                                                        </div>
+                                                                        <div
+                                                                                class="modal-body"
+                                                                                style="
+                                            max-height: 300px;
+                                            overflow-y: auto;
+                                          "
+                                                                        >
+                                                                            <!-- ca -->
+                                                                            <div class="row">
+                                                                                <div class="col-md-6 col-12 mt-1">
+                                                                                    <label class="checkbox-button">
+                                                                                        <input
+                                                                                                type="checkbox"
+                                                                                                class="custom-checkbox"
+                                                                                        />
+                                                                                        <span class="checkbox-label">
+                                                  <strong>Ca 1:</strong>
+                                                  <span>07:00 - 09:00</span
+                                                  ><br />
+                                                  <strong>Giá ca:</strong>
+                                                  <span>700.000 VND</span><br />
+                                                  <strong
+                                                  >Trạng thái ca:</strong
+                                                  >
+                                                  <span>Đang trống</span>
+                                                  <div class="m-1">
+                                                    <input
+                                                            type="number"
+                                                            value="1"
+                                                            min="1"
+                                                    />
+                                                  </div>
+                                                </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-12 mt-1">
+                                                                                    <label class="checkbox-button">
+                                                                                        <input
+                                                                                                type="checkbox"
+                                                                                                class="custom-checkbox"
+                                                                                        />
+                                                                                        <span class="checkbox-label">
+                                                  <strong>Ca 2:</strong>
+                                                  <span>09:00 - 11:00</span
+                                                  ><br />
+                                                  <strong>Giá ca:</strong>
+                                                  <span>700.000 VND</span><br />
+                                                  <strong
+                                                  >Trạng thái ca:</strong
+                                                  >
+                                                  <span>Chờ nhận sân</span>
+                                                  <div class="m-1">
+                                                    <input
+                                                            type="number"
+                                                            value="1"
+                                                            min="1"
+                                                    />
+                                                  </div>
+                                                </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-12 mt-1">
+                                                                                    <label class="checkbox-button">
+                                                                                        <input
+                                                                                                type="checkbox"
+                                                                                                class="custom-checkbox"
+                                                                                        />
+                                                                                        <span class="checkbox-label">
+                                                  <strong>Ca 3:</strong>
+                                                  <span>13:00 - 15:00</span
+                                                  ><br />
+                                                  <strong>Giá ca:</strong>
+                                                  <span>700.000 VND</span><br />
+                                                  <strong
+                                                  >Trạng thái ca:</strong
+                                                  >
+                                                  <span>Đang sử dụng</span>
+                                                  <div class="m-1">
+                                                    <input
+                                                            type="number"
+                                                            value="1"
+                                                            min="1"
+                                                    />
+                                                  </div>
+                                                </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-12 mt-1">
+                                                                                    <label class="checkbox-button">
+                                                                                        <input
+                                                                                                type="checkbox"
+                                                                                                class="custom-checkbox"
+                                                                                        />
+                                                                                        <span class="checkbox-label">
+                                                  <strong>Ca 4:</strong>
+                                                  <span>15:00 - 17:00</span
+                                                  ><br />
+                                                  <strong>Giá ca:</strong>
+                                                  <span>700.000 VND</span><br />
+                                                  <strong
+                                                  >Trạng thái ca:</strong
+                                                  >
+                                                  <span>Quá giờ</span>
+                                                  <div class="m-1">
+                                                    <input
+                                                            type="number"
+                                                            value="1"
+                                                            min="1"
+                                                    />
+                                                  </div>
+                                                </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-12 mt-1">
+                                                                                    <label class="checkbox-button">
+                                                                                        <input
+                                                                                                type="checkbox"
+                                                                                                class="custom-checkbox"
+                                                                                        />
+                                                                                        <span class="checkbox-label">
+                                                  <strong>Ca 5:</strong>
+                                                  <span>17:00 - 19:00</span
+                                                  ><br />
+                                                  <strong>Giá ca:</strong>
+                                                  <span>700.000 VND</span><br />
+                                                  <strong
+                                                  >Trạng thái ca:</strong
+                                                  >
+                                                  <span>Chờ thanh toán</span>
+                                                  <div class="m-1">
+                                                    <input
+                                                            type="number"
+                                                            value="1"
+                                                            min="1"
+                                                    />
+                                                  </div>
+                                                </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-12 mt-1">
+                                                                                    <label class="checkbox-button">
+                                                                                        <input
+                                                                                                type="checkbox"
+                                                                                                class="custom-checkbox"
+                                                                                        />
+                                                                                        <span class="checkbox-label">
+                                                  <strong>Ca 6:</strong>
+                                                  <span>20:00 - 21:00</span
+                                                  ><br />
+                                                  <strong>Giá ca:</strong>
+                                                  <span>700.000 VND</span><br />
+                                                  <strong
+                                                  >Trạng thái ca:</strong
+                                                  >
+                                                  <span>Chờ nhận sân</span>
+                                                  <div class="m-1">
+                                                    <input
+                                                            type="number"
+                                                            value="1"
+                                                            min="1"
+                                                    />
+                                                  </div>
+                                                </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- end ca -->
+                                                                            <!-- ngày -->
+                                                                            <div>
+                                                                                <div class="header m-1">
+                                                                                    <h6 class="modal-title">
+                                                                                        Đặt Lịch
+                                                                                    </h6>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div>
+                                                                                            <select
+                                                                                                    class="select-type-date"
+                                                                                                    name="tinhTrang"
+                                                                                                    id="dateSelect"
+                                                                                            >
+                                                                                                <option value="0" selected>
+                                                                                                    Theo ngày
+                                                                                                </option>
+                                                                                                <option value="1">
+                                                                                                    Nhiều ngày
+                                                                                                </option>
+                                                                                                <option value="2">
+                                                                                                    Theo tuần
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-8">
+                                                                                        <div
+                                                                                                class="mbsc-form-group m-0 p-0"
+                                                                                        >
+                                                                                            <div
+                                                                                                    id="demo-multi-day"
+                                                                                            ></div>
+                                                                                            <div
+                                                                                                    id="demo-range-selection"
+                                                                                            ></div>
+                                                                                            <div
+                                                                                                    id="demo-week-select"
+                                                                                            ></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- end ngày -->
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <div
+                                                                                    class="d-flex flex-row-reverse bd-highlight"
+                                                                            >
+                                                                                <div class="p-1 bd-highlight">
+                                                                                    <button
+                                                                                            type="button"
+                                                                                            class="btn btn-success"
+                                                                                            id="luuCaCellDay"
+                                                                                    >
+                                                                                        <i
+                                                                                                class="far fa-save fa-lg m-1"
+                                                                                                style="color: #f2f2f3"
+                                                                                        ></i>
+                                                                                        Lưu Ca
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="p-1 bd-highlight">
+                                                                                    <button
+                                                                                            type="button"
+                                                                                            class="btn btn-danger"
+                                                                                            onclick="closeModal1()"
+                                                                                    >
+                                                                                        <i
+                                                                                                class="fas fa-times fa-lg m-1"
+                                                                                                style="color: #f5f5f5"
+                                                                                        ></i>
+                                                                                        Hủy
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-3 p-1">
+                                                    <div class="body-row-col">
+                                                        <div class="header-text-body">
+                                                            <h5>Sự Kiện</h5>
+                                                            <hr />
+                                                        </div>
+                                                        <div>
+                                                            <table
+                                                                    class="table table-bordered table-hover click-event-fullcalendar"
+                                                                    style="color: black"
+                                                            >
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Thông tin ca</th>
+                                                                    <th>Thao tác</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menu_3" class="tab-content-item"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Nav tab -->
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Start Footer -->
+<div th:insert="~{fragments/footer}"></div>
+    <!-- End Footer -->
+<!-- mobiscroll -->
+<!-- mobiscroll -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script th:src="@{/static/js/lib/mobiscroll.jquery.min.js}"></script>
+
+<!-- END mobiscroll -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/vi.js"></script>
+<!-- Modal new 20/10/2023 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<!--  -->
+<!--  -->
+<script th:src="@{/static/js/calendar/calendar-custom-book.js}"></script>
+<script th:src="@{/static/js/staff/nhan-vien-dat-lich.js}"></script>
+</body>
+</html>
