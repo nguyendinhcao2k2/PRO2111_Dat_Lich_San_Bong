@@ -113,7 +113,7 @@
 }
 .mbsc-flex-1-1 {
   -moz-box-flex: 1;
-  flex: 1 1 auto;
+  /*flex: 1 1 auto;*/
 }
 .mbsc-flex-1-0 {
   -moz-box-flex: 1;
@@ -7140,7 +7140,7 @@ mbsc-datetime {
   width: 100%;
 }
 .mbsc-datepicker-inline {
-  height: 100%;
+  /*height: 100%;*/
 }
 .mbsc-datepicker .mbsc-calendar {
   -moz-box-sizing: border-box;
