@@ -290,6 +290,7 @@ public class DBGenerator implements CommandLineRunner {
         san1Ca1.setThoiGianDat(localDateTime);
         san1Ca1.setGia(sanBong1.getGiaSan() + ca1.getGiaCa());
         san1Ca1.setId(getIdSanCa(sanBong1, ca1, dateId));
+        san1Ca1.setUserId(kh1.getId());
         sanCaRepository.save(san1Ca1);
 
         SanCa san1Ca2 = new SanCa();
@@ -299,6 +300,7 @@ public class DBGenerator implements CommandLineRunner {
         san1Ca2.setThoiGianDat(localDateTime);
         san1Ca2.setGia(sanBong1.getGiaSan() + ca2.getGiaCa());
         san1Ca2.setId(getIdSanCa(sanBong1, ca2, dateId));
+        san1Ca2.setUserId(kh1.getId());
         sanCaRepository.save(san1Ca2).getId();
 
         SanCa san2Ca1 = new SanCa();
@@ -308,6 +310,7 @@ public class DBGenerator implements CommandLineRunner {
         san2Ca1.setThoiGianDat(localDateTime);
         san2Ca1.setGia(sanBong2.getGiaSan() + ca1.getGiaCa());
         san2Ca1.setId(getIdSanCa(sanBong2, ca1, dateId));
+        san2Ca1.setUserId(kh1.getId());
         sanCaRepository.save(san2Ca1).getId();
 
         SanCa san2Ca2 = new SanCa();
@@ -317,6 +320,7 @@ public class DBGenerator implements CommandLineRunner {
         san2Ca2.setThoiGianDat(localDateTime);
         san2Ca2.setGia(sanBong2.getGiaSan() + ca2.getGiaCa());
         san2Ca2.setId(getIdSanCa(sanBong2, ca2, dateId));
+        san2Ca2.setUserId(kh1.getId());
         sanCaRepository.save(san2Ca2).getId();
 
         //end san ca
