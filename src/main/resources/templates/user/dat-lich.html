@@ -498,7 +498,6 @@
 
 <!-- Template Javascript -->
 <script th:src="@{/static/js/main.js}"></script>
-<!--    <script th:src="@{/static/js/calendar/calendar-custom-book.js}"></script>-->
 <script th:src="@{/static/js/lib/mobiscroll.jquery.min.js}"></script>
 <script>
     // Biến lưu trữ đối tượng lịch để sử dụng trong openModal
@@ -651,7 +650,7 @@
             });
     });
 
-    // LAMNP 17/10/2023
+    // LAMNP 17/10/2023, 20/10/2023 UPDATE
     // ADD sự kiện click vào cell day có ca hiển thị sang thông tin
     // Hàm để hiển thị các sự kiện trong bảng
     function displayEventsInTable(events) {
@@ -704,28 +703,36 @@
     }
 
 
+    // LAMNP 20/10/2023 UPDATE TABLE
     // Hàm để thêm thông tin ca vào bảng
-    function addToTable(caInfo, timeStart, timeEnd,dateVietnam) {
-        var rowInfo = tableBody.insertRow(); // Dòng cho thông tin
-
+    function addToTable(caInfo, timeStart, timeEnd, dateVietnam) {
+        // Create a row for the event information
+        var rowInfo = tableBody.insertRow();
         var cell1 = rowInfo.insertCell(0);
-        var cell2 = rowInfo.insertCell(1); // Ô cho nút Sửa và Xóa
         cell1.style.whiteSpace = "pre-line"; // Đặt white-space để hiển thị dòng mới
-        cell1.textContent = caInfo + ": " + timeStart + " - " + timeEnd + "\n Ngày: " + dateVietnam;
+        cell1.textContent =
+            caInfo +
+            ": " +
+            timeStart +
+            " - " +
+            timeEnd +
+            "\n Ngày: " +
+            dateVietnam;
 
         // Sử dụng insertAdjacentHTML để thêm mã HTML
+        var cell2 = rowInfo.insertCell(1);
         cell2.insertAdjacentHTML(
             "beforeend",
             `
-            <div class="d-flex flex-column">
-              <button class="btn btn-danger btn-sm xoa-san-button" type="button">
-                Xóa
-              </button>
-              <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" type="button">
-                Đổi sân
-              </button>
-            </div>
-          `
+        <div class="d-flex flex-column">
+          <button class="btn btn-danger btn-sm xoa-san-button" type="button">
+            Xóa
+          </button>
+          <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" type="button">
+            Đổi sân
+          </button>
+        </div>
+      `
         );
 
         // Lấy các nút Chi Tiết và Đặt Sân bằng class
@@ -735,16 +742,14 @@
         // Thêm xử lý sự kiện cho nút Chi Tiết
         chiTietButton.addEventListener("click", function () {
             // Thực hiện xử lý khi nút Chi Tiết được nhấn
-            alert("Chi Tiết: " + caInfo);
+            // Ví dụ: Hiển thị thông tin chi tiết
         });
 
         // Thêm xử lý sự kiện cho nút Đặt Sân
         datSanButton.addEventListener("click", function () {
-            // Thực hiện xử lý khi nút Đặt Sân được nhấn
-            alert("Đặt Sân: " + caInfo);
+
         });
     }
-
     //  LAMNP
     //  SET UP CALENDAR MOBISCROLL
     mobiscroll.setOptions({
