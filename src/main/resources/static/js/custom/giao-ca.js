@@ -23,7 +23,7 @@ $(document).ready(() => {
                     app.giaoCaStaff.tongTientThanhToanBangChuyenKhoan = app.curenlyNumber(response.content.tongTientThanhToanBangChuyenKhoan),
                     app.giaoCaStaff.displayName = response.content.accountResponse.displayName,
                     app.giaoCaStaff.soDienThoai = response.content.accountResponse.soDienThoai,
-                    app.giaoCaStaff.tongTienTrongCa = app.curenlyNumber(parseFloat(app.repleaPriceDouble(app.total)))
+                    app.giaoCaStaff.tongTienTrongCa = app.curenlyNumber(parseFloat(app.repleaPriceDouble(app.total)) + parseFloat(response.content.tongTientThanhToanBangChuyenKhoan))
             }
         },
         error: (error) => {
