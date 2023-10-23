@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author caodinh
@@ -30,7 +31,7 @@ public class ThoiGianDatLich {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     private String id;
     @Column(name = "ngay_dat")
-    private LocalDate ngayDat;
+    private LocalDateTime ngayDat;
     @Column(name = "id_loai_san")
     private String idLoaiSan;
     @Column(name = "id_ca")

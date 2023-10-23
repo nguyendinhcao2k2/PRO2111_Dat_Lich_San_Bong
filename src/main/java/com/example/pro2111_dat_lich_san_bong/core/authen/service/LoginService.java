@@ -4,6 +4,7 @@ import com.example.pro2111_dat_lich_san_bong.core.authen.dto.request.AccountRequ
 import com.example.pro2111_dat_lich_san_bong.core.authen.repo.AccountRepository;
 import com.example.pro2111_dat_lich_san_bong.entity.Account;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.RoleConstant;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.RestApiException;
 import com.example.pro2111_dat_lich_san_bong.repository.ChucVuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,33 +26,11 @@ public class LoginService {
     private PasswordEncoder passwordEncoder;
 
 
-    public boolean signUp(AccountRequest accountRequest) {
-        if (accountRequest.getAccount().isBlank()) {
-            return false;
-        }
+    public void signUp(AccountRequest accountRequest) {
         Account account1 = accountRepository.findByUsername(accountRequest.getAccount());
         if (account1 != null) {
-            return false;
+          throw new RestApiException("Tên Tài Khoản đã tồn tại");
         }
-        if (accountRequest.getDisplayName().isBlank()) {
-            return false;
-        }
-        String regex = "0\\d{9}";
-        if (accountRequest.getPhoneNumber().isBlank()) {
-            return false;
-        } else if (!accountRequest.getPhoneNumber().matches(regex)) {
-            return false;
-        }
-        if (accountRequest.getPassword().isBlank()) {
-            return false;
-        }
-        if (accountRequest.getRePassword().isBlank()) {
-            return false;
-        }
-        if (!accountRequest.getPassword().equals(accountRequest.getRePassword())) {
-            return false;
-        }
-
         Account account = new Account();
         account.setDisplayName(accountRequest.getDisplayName());
         account.setIdChucVu(chucVuRepository.findByTenChucVu(RoleConstant.roleUser).getId());
@@ -60,7 +39,6 @@ public class LoginService {
         account.setTaiKhoan(accountRequest.getAccount());
         account.setTrangThai(0);
         accountRepository.save(account);
-        return true;
     }
 
 }

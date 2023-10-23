@@ -1,11 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>SÂN BÓNG VN</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link rel="website icon" type="png" href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
-    <meta content="" name="keywords" />
-    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link rel="website icon" type="png"
+          href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
+    <meta content="" name="keywords"/>
+    <meta content="" name="description"/>
     <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
 
     <!-- Mobiscroll JS and CSS Includes -->
@@ -14,27 +15,20 @@
             rel="stylesheet"
     />
     <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-    />
-    <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
             rel="stylesheet"
     />
     <!--    End mobiscroll-->
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
     />
     <!--    -->
     <!-- CSS    -->
-    <link rel="stylesheet" th:href="@{/static/css/calendar/mobiscroll.jquery.min.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/calendar/mobiscroll.jquery.min.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/staff/nhan-vien-dat-lich.css}"/>
 
     <!--    -->
@@ -47,51 +41,40 @@
 <style></style>
 <body>
 
-    <!-- Start Header -->
-    <div th:insert="~{fragments/header-admin}"></div>
-    <!-- End Header -->
-    <!-- Full Screen Search Start -->
-    <div class="modal fade" id="searchModal" tabindex="-1">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content" style="background: rgba(29, 29, 39, 0.7)">
-                <div class="modal-header border-0">
-                    <button
-                            type="button"
-                            class="btn bg-white btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                    ></button>
-                </div>
-                <div
-                        class="modal-body d-flex align-items-center justify-content-center"
-                >
-                    <div class="input-group" style="max-width: 600px">
-                        <input
-                                type="text"
-                                class="form-control bg-transparent border-light p-3"
-                                placeholder="Type search keyword"
-                        />
-                        <button class="btn btn-light px-4">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
+<!-- Start Header -->
+<div th:insert="~{fragments/header}"></div>
+<!-- End Header -->
+<!-- Full Screen Search Start -->
+<div class="modal fade" id="searchModal" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content" style="background: rgba(29, 29, 39, 0.7)">
+            <div class="modal-header border-0">
+                <button
+                        type="button"
+                        class="btn bg-white btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div
+                    class="modal-body d-flex align-items-center justify-content-center"
+            >
+                <div class="input-group" style="max-width: 600px">
+                    <input
+                            type="text"
+                            class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword"
+                    />
+                    <button class="btn btn-light px-4">
+                        <i class="bi bi-search"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Full Screen Search End -->
-    <!-- Service Start -->
-    <div
-            class="section-title position-relative text-center pb-2 wow fadeInUp mt-5"
-            data-wow-delay="0.1s"
-    >
-        <h6 class="position-relative d-inline text-primary ps-4">
-            NHÂN VIÊN
-        </h6>
-        <h2 class="mt-2">MÀN HÌNH NHẬN SÂN</h2>
-    </div>
-<!--    -->
-    <section class="">
+</div>
+<!-- Full Screen Search End -->
+<section class="">
     <div class="border-0">
         <div class="dat-lich-header-staff">
             <div class="body-row-col">
@@ -182,7 +165,7 @@
                                                         <option selected value="0">Tất cả</option>
                                                         <option value="1">Sân 5</option>
                                                         <option value="2">Sân 7</option>
-                                                        <option value="3">Sân 12</option>
+                                                        <option value="3">Sân 11</option>
                                                     </select>
                                                 </div>
                                                 <!-- Ngày -->
@@ -282,6 +265,7 @@
                                                                             </div>
                                                                         </form>
                                                                     </div>
+                                                                    <!--                                                                    day la san ca-->
                                                                     <div class="col-md-6 col-sm-auto">
                                                                         <table
                                                                                 class="table table-bordered table-hover"
@@ -331,813 +315,9 @@
                                     </div>
                                 </div>
                                 <!-- Content Sân Ca -->
-                                <div class="content-san">
-                                    <div class="">
-                                        <div class="ten-san mt-4">
-                                            <h4 class="text-dark">Sân 1</h4>
-                                        </div>
-                                        <div class="body-san">
-                                            <div class="row g-0">
-                                                <div class="col-md-4">
-                                                    <div
-                                                            class="card card-san"
-                                                            style="width: 100%; border-radius: 0px"
-                                                    >
-                                                        <!-- Header card -->
-                                                        <div
-                                                                class="card-header"
-                                                                style="background: #ffff"
-                                                        >
-                                                            <div
-                                                                    class="card-title d-flex justify-content-end"
-                                                            >
-                                                                <div class="btn-group">
-                                                                    <button
-                                                                            type="button"
-                                                                            class="btn dropdown-toggle"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false"
-                                                                            style="box-shadow: none"
-                                                                    >
-                                                                        <label
-                                                                                style="
-                                            color: black;
-                                            font-size: 18px;
-                                            font-weight: bold;
-                                          "
-                                                                        >Ca 1</label
-                                                                        >
-                                                                    </button>
-                                                                    <ul
-                                                                            class="dropdown-menu dropdown-menu-end"
-                                                                    >
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 1
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 2
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 3
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                    class="card-subtitle d-flex justify-content-end"
-                                                            >
-                                                                <label
-                                                                        style="
-                                        color: black;
-                                        font-size: 18px;
-                                        font-weight: bold;
-                                      "
-                                                                >Loại sân : 7</label
-                                                                >
-                                                            </div>
-                                                        </div>
-                                                        <!-- Check box  -->
-                                                        <div
-                                                                id="checkboxContainer"
-                                                                style="
-                                    display: none;
-                                    position: absolute;
-                                    top: 10px;
-                                    left: 10px;
-                                  "
-                                                        >
-                                                            <input
-                                                                    type="checkbox"
-                                                                    style="
-                                      width: 20px;
-                                      height: 20px;
-                                      margin-right: 5px;
-                                    "
-                                                                    id="myCheckbox"
-                                                            />
-                                                        </div>
-                                                        <!--  -->
-                                                        <div class="card-body m-1">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon">
-                                        <i
-                                                class="far fa-calendar-check fa-lg icon-content"
-                                        ></i
-                                        ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >21-10-2023</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-clock fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >
-                                                                        09:00 - 12:00</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-12 mt-1">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-dollar-sign fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >600.000 VND</label
-                                                                    >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                                class="card-footer border-0"
-                                                                style="background-color: #ffff"
-                                                        >
-                                  <span
-                                          class="badge rounded-pill bg-secondary badge-status"
-                                  >Đang chờ nhận sân</span
-                                  >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div
-                                                            class="card card-san"
-                                                            style="width: 100%; border-radius: 0px"
-                                                    >
-                                                        <div
-                                                                class="card-header"
-                                                                style="background: #ffff"
-                                                        >
-                                                            <div
-                                                                    class="card-title d-flex justify-content-end"
-                                                            >
-                                                                <div class="btn-group">
-                                                                    <button
-                                                                            type="button"
-                                                                            class="btn dropdown-toggle"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false"
-                                                                            style="box-shadow: none"
-                                                                    >
-                                                                        <label
-                                                                                style="
-                                            color: black;
-                                            font-size: 18px;
-                                            font-weight: bold;
-                                          "
-                                                                        >Ca 2</label
-                                                                        >
-                                                                    </button>
-                                                                    <ul
-                                                                            class="dropdown-menu dropdown-menu-end"
-                                                                    >
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 1
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 2
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 3
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                    class="card-subtitle d-flex justify-content-end"
-                                                            >
-                                                                <label
-                                                                        style="
-                                        color: black;
-                                        font-size: 18px;
-                                        font-weight: bold;
-                                      "
-                                                                >Loại sân : 7</label
-                                                                >
-                                                            </div>
-                                                        </div>
-                                                        <!-- Check box  -->
-                                                        <div
-                                                                id="checkboxContainer"
-                                                                style="
-                                    display: none;
-                                    position: absolute;
-                                    top: 10px;
-                                    left: 10px;
-                                  "
-                                                        >
-                                                            <input
-                                                                    type="checkbox"
-                                                                    style="
-                                      width: 20px;
-                                      height: 20px;
-                                      margin-right: 5px;
-                                    "
-                                                                    id="myCheckbox"
-                                                            />
-                                                        </div>
-                                                        <!--  -->
-                                                        <div class="card-body m-1">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon">
-                                        <i
-                                                class="far fa-calendar-check fa-lg icon-content"
-                                        ></i
-                                        ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >21-10-2023</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-clock fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >
-                                                                        09:00 - 12:00</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-12 mt-1">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-dollar-sign fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >600.000 VND</label
-                                                                    >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                                class="card-footer border-0"
-                                                                style="background-color: #ffff"
-                                                        >
-                                  <span
-                                          class="badge rounded-pill bg-secondary badge-status"
-                                  >Đang chờ nhận sân</span
-                                  >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div
-                                                            class="card card-san"
-                                                            style="width: 100%; border-radius: 0px"
-                                                    >
-                                                        <div
-                                                                class="card-header"
-                                                                style="background: #ffff"
-                                                        >
-                                                            <div
-                                                                    class="card-title d-flex justify-content-end"
-                                                            >
-                                                                <div class="btn-group">
-                                                                    <button
-                                                                            type="button"
-                                                                            class="btn dropdown-toggle"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false"
-                                                                            style="box-shadow: none"
-                                                                    >
-                                                                        <label
-                                                                                style="
-                                            color: black;
-                                            font-size: 18px;
-                                            font-weight: bold;
-                                          "
-                                                                        >Ca 3</label
-                                                                        >
-                                                                    </button>
-                                                                    <ul
-                                                                            class="dropdown-menu dropdown-menu-end"
-                                                                    >
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 1
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 2
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 3
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                    class="card-subtitle d-flex justify-content-end"
-                                                            >
-                                                                <label
-                                                                        style="
-                                        color: black;
-                                        font-size: 18px;
-                                        font-weight: bold;
-                                      "
-                                                                >Loại sân : 7</label
-                                                                >
-                                                            </div>
-                                                        </div>
-                                                        <!-- Check box  -->
-                                                        <div
-                                                                id="checkboxContainer"
-                                                                style="
-                                    display: none;
-                                    position: absolute;
-                                    top: 10px;
-                                    left: 10px;
-                                  "
-                                                        >
-                                                            <input
-                                                                    type="checkbox"
-                                                                    style="
-                                      width: 20px;
-                                      height: 20px;
-                                      margin-right: 5px;
-                                    "
-                                                                    id="myCheckbox"
-                                                            />
-                                                        </div>
-                                                        <!--  -->
-                                                        <div class="card-body m-1">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon">
-                                        <i
-                                                class="far fa-calendar-check fa-lg icon-content"
-                                        ></i
-                                        ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >21-10-2023</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-clock fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >
-                                                                        09:00 - 12:00</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-12 mt-1">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-dollar-sign fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >600.000 VND</label
-                                                                    >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                                class="card-footer border-0"
-                                                                style="background-color: #ffff"
-                                                        >
-                                  <span
-                                          class="badge rounded-pill bg-danger badge-status"
-                                  >Quá giờ</span
-                                  >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div
-                                                            class="card card-san"
-                                                            style="width: 100%; border-radius: 0px"
-                                                    >
-                                                        <div
-                                                                class="card-header"
-                                                                style="background: #ffff"
-                                                        >
-                                                            <div
-                                                                    class="card-title d-flex justify-content-end"
-                                                            >
-                                                                <div class="btn-group">
-                                                                    <button
-                                                                            type="button"
-                                                                            class="btn dropdown-toggle"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false"
-                                                                            style="box-shadow: none"
-                                                                    >
-                                                                        <label
-                                                                                style="
-                                            color: black;
-                                            font-size: 18px;
-                                            font-weight: bold;
-                                          "
-                                                                        >Ca 4</label
-                                                                        >
-                                                                    </button>
-                                                                    <ul
-                                                                            class="dropdown-menu dropdown-menu-end"
-                                                                    >
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 1
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 2
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 3
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                    class="card-subtitle d-flex justify-content-end"
-                                                            >
-                                                                <label
-                                                                        style="
-                                        color: black;
-                                        font-size: 18px;
-                                        font-weight: bold;
-                                      "
-                                                                >Loại sân : 7</label
-                                                                >
-                                                            </div>
-                                                        </div>
-                                                        <!-- Check box  -->
-                                                        <div
-                                                                id="checkboxContainer"
-                                                                style="
-                                    display: none;
-                                    position: absolute;
-                                    top: 10px;
-                                    left: 10px;
-                                  "
-                                                        >
-                                                            <input
-                                                                    type="checkbox"
-                                                                    style="
-                                      width: 20px;
-                                      height: 20px;
-                                      margin-right: 5px;
-                                    "
-                                                                    id="myCheckbox"
-                                                            />
-                                                        </div>
-                                                        <div class="card-body m-1">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon">
-                                        <i
-                                                class="far fa-calendar-check fa-lg icon-content"
-                                        ></i
-                                        ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >21-10-2023</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-clock fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >
-                                                                        09:00 - 12:00</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-12 mt-1">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-dollar-sign fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >600.000 VND</label
-                                                                    >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                                class="card-footer border-0"
-                                                                style="background-color: #ffff"
-                                                        >
-                                  <span
-                                          class="badge rounded-pill bg-info badge-status"
-                                  >Chờ thanh toán</span
-                                  >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div
-                                                            class="card card-san"
-                                                            style="width: 100%; border-radius: 0px"
-                                                    >
-                                                        <div
-                                                                class="card-header"
-                                                                style="background: #ffff"
-                                                        >
-                                                            <div
-                                                                    class="card-title d-flex justify-content-end"
-                                                            >
-                                                                <div class="btn-group">
-                                                                    <button
-                                                                            type="button"
-                                                                            class="btn dropdown-toggle"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false"
-                                                                            style="box-shadow: none"
-                                                                    >
-                                                                        <label
-                                                                                style="
-                                            color: black;
-                                            font-size: 18px;
-                                            font-weight: bold;
-                                          "
-                                                                        >Ca 5</label
-                                                                        >
-                                                                    </button>
-                                                                    <ul
-                                                                            class="dropdown-menu dropdown-menu-end"
-                                                                    >
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 1
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 2
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 3
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                    class="card-subtitle d-flex justify-content-end"
-                                                            >
-                                                                <label
-                                                                        style="
-                                        color: black;
-                                        font-size: 18px;
-                                        font-weight: bold;
-                                      "
-                                                                >Loại sân : 7</label
-                                                                >
-                                                            </div>
-                                                        </div>
-                                                        <!-- Check box  -->
-                                                        <div
-                                                                id="checkboxContainer"
-                                                                style="
-                                    display: none;
-                                    position: absolute;
-                                    top: 10px;
-                                    left: 10px;
-                                  "
-                                                        >
-                                                            <input
-                                                                    type="checkbox"
-                                                                    style="
-                                      width: 20px;
-                                      height: 20px;
-                                      margin-right: 5px;
-                                    "
-                                                                    id="myCheckbox"
-                                                            />
-                                                        </div>
-                                                        <div class="card-body m-1">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon">
-                                        <i
-                                                class="far fa-calendar-check fa-lg icon-content"
-                                        ></i
-                                        ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >21-10-2023</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-clock fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >
-                                                                        09:00 - 12:00</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-12 mt-1">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-dollar-sign fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >600.000 VND</label
-                                                                    >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                                class="card-footer border-0"
-                                                                style="background-color: #ffff"
-                                                        >
-                                  <span
-                                          class="badge rounded-pill bg-primary badge-status"
-                                  >Đang trống</span
-                                  >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div
-                                                            class="card card-san"
-                                                            style="width: 100%; border-radius: 0px"
-                                                    >
-                                                        <div
-                                                                class="card-header"
-                                                                style="background: #ffff"
-                                                        >
-                                                            <div
-                                                                    class="card-title d-flex justify-content-end"
-                                                            >
-                                                                <div class="btn-group">
-                                                                    <button
-                                                                            type="button"
-                                                                            class="btn dropdown-toggle"
-                                                                            data-bs-toggle="dropdown"
-                                                                            aria-expanded="false"
-                                                                            style="box-shadow: none"
-                                                                    >
-                                                                        <label
-                                                                                style="
-                                            color: black;
-                                            font-size: 18px;
-                                            font-weight: bold;
-                                          "
-                                                                        >Ca 6</label
-                                                                        >
-                                                                    </button>
-                                                                    <ul
-                                                                            class="dropdown-menu dropdown-menu-end"
-                                                                    >
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 1
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 2
-                                                                            </a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="#" class="dropdown-item">
-                                                                                Check In 3
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                    class="card-subtitle d-flex justify-content-end"
-                                                            >
-                                                                <label
-                                                                        style="
-                                        color: black;
-                                        font-size: 18px;
-                                        font-weight: bold;
-                                      "
-                                                                >Loại sân : 7</label
-                                                                >
-                                                            </div>
-                                                        </div>
-                                                        <!-- Check box  -->
-                                                        <div
-                                                                id="checkboxContainer"
-                                                                style="
-                                    display: none;
-                                    position: absolute;
-                                    top: 10px;
-                                    left: 10px;
-                                  "
-                                                        >
-                                                            <input
-                                                                    type="checkbox"
-                                                                    style="
-                                      width: 20px;
-                                      height: 20px;
-                                      margin-right: 5px;
-                                    "
-                                                                    id="myCheckbox"
-                                                            />
-                                                        </div>
-                                                        <div class="card-body m-1">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon">
-                                        <i
-                                                class="far fa-calendar-check fa-lg icon-content"
-                                        ></i
-                                        ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >21-10-2023</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-6">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-clock fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >
-                                                                        09:00 - 12:00</label
-                                                                    >
-                                                                </div>
-                                                                <div class="col-md-12 mt-1">
-                                      <span class="badge bg-primary badge-icon"
-                                      ><i
-                                              class="fas fa-dollar-sign fa-lg icon-content"
-                                      ></i
-                                      ></span>
-                                                                    <label
-                                                                            style="color: black; font-size: 18px"
-                                                                    >600.000 VND</label
-                                                                    >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                                class="card-footer border-0"
-                                                                style="background-color: #ffff"
-                                                        >
-                                  <span
-                                          class="badge rounded-pill bg-success badge-status"
-                                  >Đang hoạt động</span
-                                  >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
+                                <!--   END Content San Ca  -->
                             </div>
                             <div id="menu_2" class="tab-content-item">
                                 <div class="card border-0 m-0">
@@ -1333,9 +513,9 @@
                                                                                         <span class="checkbox-label">
                                                   <strong>Ca 1:</strong>
                                                   <span>07:00 - 09:00</span
-                                                  ><br />
+                                                  ><br/>
                                                   <strong>Giá ca:</strong>
-                                                  <span>700.000 VND</span><br />
+                                                  <span>700.000 VND</span><br/>
                                                   <strong
                                                   >Trạng thái ca:</strong
                                                   >
@@ -1359,9 +539,9 @@
                                                                                         <span class="checkbox-label">
                                                   <strong>Ca 2:</strong>
                                                   <span>09:00 - 11:00</span
-                                                  ><br />
+                                                  ><br/>
                                                   <strong>Giá ca:</strong>
-                                                  <span>700.000 VND</span><br />
+                                                  <span>700.000 VND</span><br/>
                                                   <strong
                                                   >Trạng thái ca:</strong
                                                   >
@@ -1385,9 +565,9 @@
                                                                                         <span class="checkbox-label">
                                                   <strong>Ca 3:</strong>
                                                   <span>13:00 - 15:00</span
-                                                  ><br />
+                                                  ><br/>
                                                   <strong>Giá ca:</strong>
-                                                  <span>700.000 VND</span><br />
+                                                  <span>700.000 VND</span><br/>
                                                   <strong
                                                   >Trạng thái ca:</strong
                                                   >
@@ -1411,9 +591,9 @@
                                                                                         <span class="checkbox-label">
                                                   <strong>Ca 4:</strong>
                                                   <span>15:00 - 17:00</span
-                                                  ><br />
+                                                  ><br/>
                                                   <strong>Giá ca:</strong>
-                                                  <span>700.000 VND</span><br />
+                                                  <span>700.000 VND</span><br/>
                                                   <strong
                                                   >Trạng thái ca:</strong
                                                   >
@@ -1437,9 +617,9 @@
                                                                                         <span class="checkbox-label">
                                                   <strong>Ca 5:</strong>
                                                   <span>17:00 - 19:00</span
-                                                  ><br />
+                                                  ><br/>
                                                   <strong>Giá ca:</strong>
-                                                  <span>700.000 VND</span><br />
+                                                  <span>700.000 VND</span><br/>
                                                   <strong
                                                   >Trạng thái ca:</strong
                                                   >
@@ -1463,9 +643,9 @@
                                                                                         <span class="checkbox-label">
                                                   <strong>Ca 6:</strong>
                                                   <span>20:00 - 21:00</span
-                                                  ><br />
+                                                  ><br/>
                                                   <strong>Giá ca:</strong>
-                                                  <span>700.000 VND</span><br />
+                                                  <span>700.000 VND</span><br/>
                                                   <strong
                                                   >Trạng thái ca:</strong
                                                   >
@@ -1497,7 +677,8 @@
                                                                                                     name="tinhTrang"
                                                                                                     id="dateSelect"
                                                                                             >
-                                                                                                <option value="0" selected>
+                                                                                                <option value="0"
+                                                                                                        selected>
                                                                                                     Theo ngày
                                                                                                 </option>
                                                                                                 <option value="1">
@@ -1570,7 +751,7 @@
                                                     <div class="body-row-col">
                                                         <div class="header-text-body">
                                                             <h5>Sự Kiện</h5>
-                                                            <hr />
+                                                            <hr/>
                                                         </div>
                                                         <div>
                                                             <table
@@ -1602,9 +783,9 @@
         </div>
     </div>
 </section>
-    <!-- Start Footer -->
+<!-- Start Footer -->
 <div th:insert="~{fragments/footer}"></div>
-    <!-- End Footer -->
+<!-- End Footer -->
 <!-- mobiscroll -->
 <!-- mobiscroll -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -1617,9 +798,8 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/vi.js"></script>
 <!-- Modal new 20/10/2023 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<!--  -->
-<!--  -->
 <script th:src="@{/static/js/calendar/calendar-custom-book.js}"></script>
 <script th:src="@{/static/js/staff/nhan-vien-dat-lich.js}"></script>
+<script th:src="@{/static/js/staff/dat-lich.js}"></script>
 </body>
 </html>
