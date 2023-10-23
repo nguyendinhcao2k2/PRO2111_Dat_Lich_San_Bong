@@ -39,6 +39,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -279,54 +280,43 @@ public class DBGenerator implements CommandLineRunner {
         sanBong7.setId(sanBongRepository.save(sanBong7).getId());
 
         //end san bong
-        Date dateNow = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
-        String dateString = format.format(dateNow);
-        // Chuyển đổi chuỗi thành Date
-        Date parsedDate = format.parse(dateString);
-
-        // Lấy giá trị ngày tháng
-        Integer year = parsedDate.getYear() + 1900;
-        Integer month = parsedDate.getMonth() + 1;
-        Integer day = parsedDate.getDate();
-
-        //format cộng chuỗi (ngày+tháng+năm)
-        String dateId = day.toString()+month.toString()+year.toString();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String dateId = localDateTime.getDayOfMonth() + String.valueOf(localDateTime.getMonthValue()) + localDateTime.getYear();
 
         SanCa san1Ca1 = new SanCa();
         san1Ca1.setIdSanBong(sanBong1.getId());
         san1Ca1.setIdCa(ca1.getId());
         san1Ca1.setTrangThai(TrangThaiSanCa.CHO_NHAN_SAN.ordinal()); //0 chờ nhận sân
-        san1Ca1.setThoiGianTao(Timestamp.valueOf(format.format(dateNow)));
+        san1Ca1.setThoiGianDat(localDateTime);
         san1Ca1.setGia(sanBong1.getGiaSan() + ca1.getGiaCa());
-        san1Ca1.setId(getIdSanCa(sanBong1,ca1,dateId));
+        san1Ca1.setId(getIdSanCa(sanBong1, ca1, dateId));
         sanCaRepository.save(san1Ca1);
 
         SanCa san1Ca2 = new SanCa();
         san1Ca2.setIdSanBong(sanBong1.getId());
         san1Ca2.setIdCa(ca2.getId());
         san1Ca2.setTrangThai(TrangThaiSanCa.CHO_NHAN_SAN.ordinal()); //0 chờ nhận sân
-        san1Ca2.setThoiGianTao(Timestamp.valueOf(format.format(dateNow)));
+        san1Ca2.setThoiGianDat(localDateTime);
         san1Ca2.setGia(sanBong1.getGiaSan() + ca2.getGiaCa());
-        san1Ca2.setId(getIdSanCa(sanBong1,ca2,dateId));
+        san1Ca2.setId(getIdSanCa(sanBong1, ca2, dateId));
         sanCaRepository.save(san1Ca2).getId();
 
         SanCa san2Ca1 = new SanCa();
         san2Ca1.setIdSanBong(sanBong2.getId());
         san2Ca1.setIdCa(ca1.getId());
         san2Ca1.setTrangThai(TrangThaiSanCa.DANG_DA.ordinal());
-        san2Ca1.setThoiGianTao(Timestamp.valueOf(format.format(dateNow)));
+        san2Ca1.setThoiGianDat(localDateTime);
         san2Ca1.setGia(sanBong2.getGiaSan() + ca1.getGiaCa());
-        san2Ca1.setId(getIdSanCa(sanBong2,ca1,dateId));
+        san2Ca1.setId(getIdSanCa(sanBong2, ca1, dateId));
         sanCaRepository.save(san2Ca1).getId();
 
         SanCa san2Ca2 = new SanCa();
         san2Ca2.setIdSanBong(sanBong2.getId());
         san2Ca2.setIdCa(ca2.getId());
         san2Ca2.setTrangThai(TrangThaiSanCa.CHO_NHAN_SAN.ordinal()); //0 chờ nhận sân
-        san2Ca2.setThoiGianTao(Timestamp.valueOf(format.format(dateNow)));
+        san2Ca2.setThoiGianDat(localDateTime);
         san2Ca2.setGia(sanBong2.getGiaSan() + ca2.getGiaCa());
-        san2Ca2.setId(getIdSanCa(sanBong2,ca2,dateId));
+        san2Ca2.setId(getIdSanCa(sanBong2, ca2, dateId));
         sanCaRepository.save(san2Ca2).getId();
 
         //end san ca
@@ -481,8 +471,8 @@ public class DBGenerator implements CommandLineRunner {
         // END PHỤ PHÍ HÓA ĐƠN
     }
 
-    private String getIdSanCa(SanBong sanBong ,Ca ca,String dateId){
-        return sanBong.getId()+'+'+ca.getId()+sanBong.getIdLoaiSan()+dateId;
+    private String getIdSanCa(SanBong sanBong, Ca ca, String dateId) {
+        return sanBong.getId() + '+' + ca.getId() + sanBong.getIdLoaiSan() + "+" + dateId;
     }
 
     public static void main(String[] args) {

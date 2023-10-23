@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface IDatSanStaffService {
 
-    List<LoadSanBongRespose> loadSanBong();
+    List<LoadSanBongRespose> loadSanBong(String date);
 }

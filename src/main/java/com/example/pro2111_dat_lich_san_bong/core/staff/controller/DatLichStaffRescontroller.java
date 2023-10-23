@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author caodinh
@@ -20,7 +23,7 @@ public class DatLichStaffRescontroller {
     private IDatSanStaffService iDatSanStaffService;
 
     @GetMapping("/load-san-bong")
-    public ResponseEntity<List<LoadSanBongRespose>> loadSanBong() {
-        return ResponseEntity.ok(iDatSanStaffService.loadSanBong());
+    public ResponseEntity<List<LoadSanBongRespose>> loadSanBong(@RequestParam(value = "date", defaultValue = "") String date) {
+        return ResponseEntity.ok(iDatSanStaffService.loadSanBong(date));
     }
 }

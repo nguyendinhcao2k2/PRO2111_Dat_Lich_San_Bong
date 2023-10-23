@@ -16,6 +16,8 @@ import lombok.ToString;
 @ToString
 public class LoadCaResponse {
 
+    private String idResponse;
+
     private String idCa;
 
     private String tenCa;
@@ -24,10 +26,12 @@ public class LoadCaResponse {
 
     private String thoiGianKetthuc;
 
+    private String date;
+
     private String loaiSan;
 
     private double gia;
 
-    private String trangThai;
+    private Integer trangThai;
 
 }

@@ -1,7 +1,5 @@
 package com.example.pro2111_dat_lich_san_bong.core.staff.model.response;
 
-import com.example.pro2111_dat_lich_san_bong.entity.Account;
-import com.example.pro2111_dat_lich_san_bong.entity.ChucVu;
 import com.example.pro2111_dat_lich_san_bong.entity.LoaiSan;
 import com.example.pro2111_dat_lich_san_bong.entity.SanBong;
 import org.springframework.beans.factory.annotation.Value;
