@@ -15,10 +15,12 @@ public class PageableObject<T> {
     private List<T> data;
     private long totalPages;
     private int currentPage;
+    private int pageSize;
 
     public PageableObject(Page<T> page) {
         this.data = page.getContent();
         this.totalPages = page.getTotalPages();
         this.currentPage = page.getNumber();
+        this.pageSize = page.getSize();
     }
 }

@@ -5,6 +5,7 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.KetCaReque
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.KhoiTaoCaRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.AccountResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.GiaoCaResponse;
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.QuanLyGiaoCaResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.GiaoCaStaffReponsitory;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IAccountStaffService;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IGiaoCaStaffService;
@@ -16,8 +17,12 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -124,6 +129,8 @@ public class GiaoCaStaffServiceImpl implements IGiaoCaStaffService {
             giaoCa.setTongTienKhac(ketCaRequest.getTongTienKhac());
             giaoCa.setTongTienMat(ketCaRequest.getTongTienMat());
             giaoCa.setTongTienTrongCa(ketCaRequest.getTongTienTrongCa());
+            giaoCa.setTongTienMatRut(ketCaRequest.getTongTienMatRut());
+            giaoCa.setThoiGianReset(ketCaRequest.getThoiGianReset());
             giaoCa.setTrangThai(TrangThaiGiaoCa.KET_THUC_CA);
             _giaoCaStaffReponsitory.saveAndFlush(giaoCa);
             return true;
@@ -144,6 +151,48 @@ public class GiaoCaStaffServiceImpl implements IGiaoCaStaffService {
             };
             return _modelMapper.map(giaoCaList, token.getType());
         } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Page<QuanLyGiaoCaResponse> findAllGiaoCaByStatus(Pageable pageable, TrangThaiGiaoCa status) {
+        try {
+            Page<QuanLyGiaoCaResponse> findAll = _giaoCaStaffReponsitory.findAllGiaoCaByStatus(pageable, status);
+            return findAll;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Page<QuanLyGiaoCaResponse> searchByName(Pageable pageable, String name) {
+        try {
+            return _giaoCaStaffReponsitory.searchByName(pageable, name);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Page<QuanLyGiaoCaResponse> giaoCaCoTienRut(Pageable pageable) {
+        try {
+            return _giaoCaStaffReponsitory.giaoCaCoTienRut(pageable);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Page<QuanLyGiaoCaResponse> giaoCaByThoiGianNhanCa(Pageable pageable, Date time) {
+        try {
+            return _giaoCaStaffReponsitory.giaoCaByThoiGianNhanCa(pageable, time);
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
