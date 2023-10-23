@@ -47,4 +47,7 @@ public class SanCa {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
+    @Column(name = "user_id")
+    private String userId;
+
 }
