@@ -14,6 +14,13 @@
             rel="stylesheet"
     />
     <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
             rel="stylesheet"
     />
@@ -41,7 +48,7 @@
 <body>
 
     <!-- Start Header -->
-    <div th:insert="~{fragments/header}"></div>
+    <div th:insert="~{fragments/header-admin}"></div>
     <!-- End Header -->
     <!-- Full Screen Search Start -->
     <div class="modal fade" id="searchModal" tabindex="-1">
@@ -73,6 +80,17 @@
         </div>
     </div>
     <!-- Full Screen Search End -->
+    <!-- Service Start -->
+    <div
+            class="section-title position-relative text-center pb-2 wow fadeInUp mt-5"
+            data-wow-delay="0.1s"
+    >
+        <h6 class="position-relative d-inline text-primary ps-4">
+            NHÂN VIÊN
+        </h6>
+        <h2 class="mt-2">MÀN HÌNH NHẬN SÂN</h2>
+    </div>
+<!--    -->
     <section class="">
     <div class="border-0">
         <div class="dat-lich-header-staff">
@@ -170,7 +188,7 @@
                                                 <!-- Ngày -->
                                                 <div class="col-auto">
                                                     <label
-                                                            for="select-loai-san-staff "
+                                                            for="select-loai-san-staff"
                                                             class="col-form-label label-filter-staff"
                                                     >Ngày :
                                                     </label>
@@ -408,7 +426,7 @@
                                                         <div class="card-body m-1">
                                                             <div class="row">
                                                                 <div class="col-md-6">
-                                      <span class="badge bg-dark badge-icon">
+                                      <span class="badge bg-primary badge-icon">
                                         <i
                                                 class="far fa-calendar-check fa-lg icon-content"
                                         ></i
@@ -419,7 +437,7 @@
                                                                     >
                                                                 </div>
                                                                 <div class="col-md-6">
-                                      <span class="badge bg-dark badge-icon"
+                                      <span class="badge bg-primary badge-icon"
                                       ><i
                                               class="fas fa-clock fa-lg icon-content"
                                       ></i
@@ -431,7 +449,7 @@
                                                                     >
                                                                 </div>
                                                                 <div class="col-md-12 mt-1">
-                                      <span class="badge bg-dark badge-icon"
+                                      <span class="badge bg-primary badge-icon"
                                       ><i
                                               class="fas fa-dollar-sign fa-lg icon-content"
                                       ></i
