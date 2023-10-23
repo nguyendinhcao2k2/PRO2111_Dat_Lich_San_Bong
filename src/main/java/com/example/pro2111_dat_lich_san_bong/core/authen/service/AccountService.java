@@ -1,16 +1,13 @@
 package com.example.pro2111_dat_lich_san_bong.core.authen.service;
 
-import com.example.pro2111_dat_lich_san_bong.core.authen.dto.request.AccountRequest;
 import com.example.pro2111_dat_lich_san_bong.core.authen.repo.AccountRepository;
 import com.example.pro2111_dat_lich_san_bong.entity.Account;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.security.CustomAccountDetails;
-import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.RoleConstant;
 import com.example.pro2111_dat_lich_san_bong.repository.ChucVuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author caodinh

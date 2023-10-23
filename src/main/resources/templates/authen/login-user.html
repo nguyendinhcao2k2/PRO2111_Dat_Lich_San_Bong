@@ -50,15 +50,20 @@
 <body>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form th:action="@{/authentication/sign-up}" method="post" th:object="${account}">
+        <form>
             <h1>Create Account</h1>
             <span>or use your email for registration</span>
-            <input type="text" th:name="account" placeholder="Account"/>
-            <input type="text" th:name="displayName" placeholder="DisplayName"/>
-            <input type="text" th:name="phoneNumber" placeholder="PhoneNumber"/>
-            <input type="password" th:name="password" placeholder="Password"/>
-            <input type="password" th:name="rePassword" placeholder="RePassword"/>
-            <button>Sign Up</button>
+            <input type="text" th:id="account" placeholder="Account"/>
+            <span style="color: red" th:id="account_error"></span>
+            <input type="text" th:id="display_name" placeholder="DisplayName"/>
+            <span style="color: red" th:id="display_name_error"></span>
+            <input type="text" th:id="phone_number" placeholder="PhoneNumber"/>
+            <span style="color: red" th:id="phone_number_error"></span>
+            <input type="password" th:id="password" placeholder="Password"/>
+            <span style="color: red" th:id="password_error"></span>
+            <input type="password" th:id="re_password" placeholder="RePassword"/>
+            <span style="color: red" th:id="re_password_error"></span>
+            <button th:attr="onclick=|signUp()|">Sign Up</button>
         </form>
     </div>
     <div class="form-container sign-in-container">
@@ -101,6 +106,8 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:src="@{/static/js/custom/login.js}"></script>
+<script th:src="@{/static/js/authen/sign-up.js}"></script>
 </body>
 </html>
