@@ -214,16 +214,19 @@ public class DBGenerator implements CommandLineRunner {
 
         LoaiSan loaiSan1 = new LoaiSan();
         loaiSan1.setTenLoaiSan("Sân 5");
+        loaiSan1.setGiaSan(250000.0);
         loaiSan1.setMoTa("Sân giành cho mỗi đội 5 người ");
         loaiSan1.setId(loaiSanRepository.save(loaiSan1).getId());
 
         LoaiSan loaiSan2 = new LoaiSan();
         loaiSan2.setTenLoaiSan("Sân 7");
+        loaiSan2.setGiaSan(300000.0);
         loaiSan2.setMoTa("Sân giành cho mỗi đội 7 người ");
         loaiSan2.setId(loaiSanRepository.save(loaiSan2).getId());
 
         LoaiSan loaiSan3 = new LoaiSan();
         loaiSan3.setTenLoaiSan("Sân 11");
+        loaiSan3.setGiaSan(350000.0);
         loaiSan3.setMoTa("Sân giành cho mỗi đội 11 người ");
         loaiSan3.setId(loaiSanRepository.save(loaiSan3).getId());
 
@@ -232,49 +235,49 @@ public class DBGenerator implements CommandLineRunner {
         //San bong start
         SanBong sanBong1 = new SanBong();
         sanBong1.setTenSanBong("Sân 1");
-        sanBong1.setGiaSan(100000.0);
+        sanBong1.setGiaSan(loaiSan1.getGiaSan());
         sanBong1.setIdLoaiSan(loaiSan1.getId());
         sanBong1.setTrangThai(0);
         sanBong1.setId(sanBongRepository.save(sanBong1).getId());
 
         SanBong sanBong2 = new SanBong();
         sanBong2.setTenSanBong("Sân 2");
-        sanBong2.setGiaSan(100000.0);
+        sanBong2.setGiaSan(loaiSan2.getGiaSan());
         sanBong2.setIdLoaiSan(loaiSan2.getId());
         sanBong2.setTrangThai(0);
         sanBong2.setId(sanBongRepository.save(sanBong2).getId());
 
         SanBong sanBong3 = new SanBong();
         sanBong3.setTenSanBong("Sân 3");
-        sanBong3.setGiaSan(250000.0);
+        sanBong3.setGiaSan(loaiSan2.getGiaSan());
         sanBong3.setIdLoaiSan(loaiSan2.getId());
         sanBong3.setTrangThai(0);
         sanBong3.setId(sanBongRepository.save(sanBong3).getId());
 
         SanBong sanBong4 = new SanBong();
         sanBong4.setTenSanBong("Sân 4");
-        sanBong4.setGiaSan(250000.0);
+        sanBong4.setGiaSan(loaiSan2.getGiaSan());
         sanBong4.setIdLoaiSan(loaiSan2.getId());
         sanBong4.setTrangThai(0);
         sanBong4.setId(sanBongRepository.save(sanBong4).getId());
 
         SanBong sanBong5 = new SanBong();
         sanBong5.setTenSanBong("Sân 5");
-        sanBong5.setGiaSan(250000.0);
+        sanBong5.setGiaSan(loaiSan2.getGiaSan());
         sanBong5.setIdLoaiSan(loaiSan2.getId());
         sanBong5.setTrangThai(0);
         sanBong5.setId(sanBongRepository.save(sanBong5).getId());
 
         SanBong sanBong6 = new SanBong();
         sanBong6.setTenSanBong("Sân 6");
-        sanBong6.setGiaSan(250000.0);
+        sanBong6.setGiaSan(loaiSan2.getGiaSan());
         sanBong6.setIdLoaiSan(loaiSan2.getId());
         sanBong6.setTrangThai(0);
         sanBong6.setId(sanBongRepository.save(sanBong6).getId());
 
         SanBong sanBong7 = new SanBong();
         sanBong7.setTenSanBong("Sân 7");
-        sanBong7.setGiaSan(500000.0);
+        sanBong7.setGiaSan(loaiSan3.getGiaSan());
         sanBong7.setIdLoaiSan(loaiSan3.getId());
         sanBong7.setTrangThai(0);
         sanBong7.setId(sanBongRepository.save(sanBong7).getId());
@@ -290,6 +293,7 @@ public class DBGenerator implements CommandLineRunner {
         san1Ca1.setThoiGianDat(localDateTime);
         san1Ca1.setGia(sanBong1.getGiaSan() + ca1.getGiaCa());
         san1Ca1.setId(getIdSanCa(sanBong1, ca1, dateId));
+        san1Ca1.setUserId(kh1.getId());
         sanCaRepository.save(san1Ca1);
 
         SanCa san1Ca2 = new SanCa();
@@ -299,6 +303,7 @@ public class DBGenerator implements CommandLineRunner {
         san1Ca2.setThoiGianDat(localDateTime);
         san1Ca2.setGia(sanBong1.getGiaSan() + ca2.getGiaCa());
         san1Ca2.setId(getIdSanCa(sanBong1, ca2, dateId));
+        san1Ca2.setUserId(kh1.getId());
         sanCaRepository.save(san1Ca2).getId();
 
         SanCa san2Ca1 = new SanCa();
@@ -308,6 +313,7 @@ public class DBGenerator implements CommandLineRunner {
         san2Ca1.setThoiGianDat(localDateTime);
         san2Ca1.setGia(sanBong2.getGiaSan() + ca1.getGiaCa());
         san2Ca1.setId(getIdSanCa(sanBong2, ca1, dateId));
+        san2Ca1.setUserId(kh1.getId());
         sanCaRepository.save(san2Ca1).getId();
 
         SanCa san2Ca2 = new SanCa();
@@ -317,6 +323,7 @@ public class DBGenerator implements CommandLineRunner {
         san2Ca2.setThoiGianDat(localDateTime);
         san2Ca2.setGia(sanBong2.getGiaSan() + ca2.getGiaCa());
         san2Ca2.setId(getIdSanCa(sanBong2, ca2, dateId));
+        san2Ca2.setUserId(kh1.getId());
         sanCaRepository.save(san2Ca2).getId();
 
         //end san ca
