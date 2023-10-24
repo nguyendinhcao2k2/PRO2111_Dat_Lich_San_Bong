@@ -214,7 +214,7 @@
                                                 </button>
                                                 <!-- Modal  -->
                                                 <div class="modal" id="modalInfo">
-                                                    <div class="modal-dialog modal-lg">
+                                                    <div class="modal-dialog modal-xl">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title">Đặt Sân</h5>
@@ -226,7 +226,7 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="row">
-                                                                    <div class="col-md-6 col-sm-auto">
+                                                                    <div class="col-md-4 col-sm-auto">
                                                                         <form>
                                                                             <div class="mb-3">
                                                                                 <label class="form-label required"
@@ -266,24 +266,23 @@
                                                                         </form>
                                                                     </div>
                                                                     <!--                                                                    day la san ca-->
-                                                                    <div class="col-md-6 col-sm-auto">
+                                                                    <div class="col-md-8 col-sm-auto">
                                                                         <table
                                                                                 class="table table-bordered table-hover"
                                                                                 style="color: black"
                                                                         >
                                                                             <thead>
                                                                             <tr>
-                                                                                <th>Ca</th>
+                                                                                <th>Sân Bóng</th>
                                                                                 <th>Ngày</th>
+                                                                                <th>Ca</th>
+                                                                                <th>Thời Gian</th>
+                                                                                <th>Giá</th>
                                                                                 <th>Thao tác</th>
                                                                             </tr>
                                                                             </thead>
-                                                                            <tbody>
-                                                                            <tr>
-                                                                                <td>ca 1</td>
-                                                                                <td>20-10-2023</td>
-                                                                                <td>đổi xóa</td>
-                                                                            </tr>
+                                                                            <tbody id="idTable">
+
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
@@ -343,7 +342,7 @@
                                                                     type="button"
                                                                     class="button-header"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#modalInfo"
+                                                                    data-bs-target="#modalThongTin"
                                                             >
                                                                 <span class="button__text">Thông Tin</span>
                                                                 <span class="button__icon">
@@ -351,7 +350,7 @@
                                     </span>
                                                             </button>
                                                             <!--  -->
-                                                            <div class="modal" id="modalInfo">
+                                                            <div class="modal" id="modalThongTin">
                                                                 <div class="modal-dialog modal-lg">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -414,16 +413,22 @@
                                                                                     >
                                                                                         <thead>
                                                                                         <tr>
-                                                                                            <th>Ca</th>
+                                                                                            <th>Sân Bóng</th>
                                                                                             <th>Ngày</th>
+                                                                                            <th>Ca</th>
+                                                                                            <th>Thời Gian</th>
+                                                                                            <th>Giá</th>
                                                                                             <th>Thao tác</th>
                                                                                         </tr>
                                                                                         </thead>
                                                                                         <tbody>
                                                                                         <tr>
-                                                                                            <td>ca 1</td>
+                                                                                            <td>Sân 1</td>
                                                                                             <td>20-10-2023</td>
-                                                                                            <td>đổi xóa</td>
+                                                                                            <td>Ca 2</td>
+                                                                                            <td>10:00:00 - 12:30:00</td>
+                                                                                            <td>500000 VND</td>
+                                                                                            <td><button class="btn-danger">Xóa</button></td>
                                                                                         </tr>
                                                                                         </tbody>
                                                                                     </table>
