@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SÂN BÓNG ĐỒNG ĐẾ</title>
+    <link rel="website icon" type="png" href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
+    <link
+            href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Quan Trọng -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--  -->
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+            rel="stylesheet"
+    />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- Icon Font Stylesheet -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous"
+    />
+    <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+            integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+            crossorigin="anonymous"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/dist/bootstrap-icons.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!--    <script th:src="@{/js/manager.js}"></script>-->
+    <!--    <link th:href="@{/css/theme.css}" rel="stylesheet" />-->
+</head>
+<body>
+<header th:insert="~{fragments/header-admin}"></header>
+<br />
+<div class="container mt-4 formThongBao" >
+    <div class="fixed-form">
+        <h4></h4>
+        <form></form>
+    </div>
+</div>
+<div class="mt-4">
+    <!-- Thành phần nav tabs -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a
+                    class="nav-link active"
+                    id="tab1-tab"
+                    data-bs-toggle="tab"
+                    href="#tab1"
+                    role="tab"
+                    aria-controls="tab1"
+                    aria-selected="true"
+            >SAVE PRODUCT</a
+            >
+        </li>
+        <li class="nav-item" role="presentation">
+            <a
+                    class="nav-link"
+                    id="tab2-tab"
+                    data-bs-toggle="tab"
+                    href="#tab2"
+                    role="tab"
+                    aria-controls="tab2"
+                    aria-selected="false"
+            >DANH SÁCH PRODUCT</a
+            >
+        </li>
+    </ul>
+
+    <!-- Thành phần tab content -->
+    <div class="tab-content" id="myTabContent">
+        <!-- Tab 1 -->
+        <div
+                class="tab-pane fade show active"
+                id="tab1"
+                role="tabpanel"
+                aria-labelledby="tab1-tab"
+        >
+            <br />
+            <form
+                    method="post"
+                    action="/admin/add"
+                    class="container"
+                    enctype="multipart/form-data"
+            >
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-group flex-nowrap">
+                            <input ng-model="detail.id" type="hidden" />
+                            <span class="input-group-text" id="addon-wrapping"
+                            >Tên sản phẩm</span
+                            >
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="tenSanPham"
+                                    required
+                                    placeholder="Tên sản phẩm"
+                                    aria-describedby="addon-wrapping"
+                            />
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-11">
+                                Nhà sản xuất
+                                <select
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                        name="selectNSX"
+                                >
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <button
+                                        type="button"
+                                        class="btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#nhaSanXuat"
+                                        style="border: solid 1px red; margin-top: 20px"
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-11">
+                                Màu sắc
+                                <select
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                        name="selectMS"
+                                >
+                                    <option>1</option>
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <button
+                                        class="btn"
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#mauSac"
+                                        style="border: solid 1px red; margin-top: 20px"
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
+                        <br />
+                        Size
+                        <select
+                                class="form-select"
+                                aria-label="Default select example"
+                                name="size"
+                                id="size"
+                        >
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="41">42</option>
+                            <option value="43">43</option>
+                        </select>
+                        <br />
+                        <div class="input-group flex-nowrap">
+                            <input ng-model="detail.id" type="hidden" />
+                            <span class="input-group-text" id="addon-wrapping">Ảnh</span>
+                            <input
+                                    type="file"
+                                    class="form-control"
+                                    name="image"
+                                    required
+                                    placeholder="Tên sản phẩm"
+                                    aria-describedby="addon-wrapping"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Năm bảo hành</span
+                  >
+                            <input
+                                    min="0"
+                                    type="number"
+                                    class="form-control"
+                                    placeholder="Năm bảo hành"
+                                    name="namBH"
+                                    aria-describedby="addon-wrapping"
+                            />
+                        </div>
+                        <br />
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Số lượng tồn</span
+                  >
+                            <input
+                                    min="0"
+                                    type="number"
+                                    class="form-control"
+                                    required
+                                    placeholder="Số lượng"
+                                    name="soLuong"
+                                    aria-describedby="addon-wrapping"
+                            />
+                        </div>
+                        <br />
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Giá nhập</span
+                  >
+                            <input
+                                    min="1"
+                                    type="number"
+                                    class="form-control"
+                                    required
+                                    placeholder="Giá nhập"
+                                    name="giaNhap"
+                                    aria-describedby="addon-wrapping"
+                            />
+                        </div>
+                        <br />
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Giá bán</span
+                  >
+                            <input
+                                    min="1"
+                                    type="number"
+                                    class="form-control"
+                                    required
+                                    placeholder="Giá bán"
+                                    name="giaBan"
+                                    aria-describedby="addon-wrapping"
+                            />
+                        </div>
+                        <br />
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Voucher</span
+                  >
+                            <input
+                                    min="0"
+                                    type="number"
+                                    class="form-control"
+                                    required
+                                    placeholder="voucher %"
+                                    name="voucher"
+                                    aria-describedby="addon-wrapping"
+                            />
+                            <span class="input-group-text" id="addon-wrapping">%</span>
+                        </div>
+                        <br />
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Mô tả</span
+                  >
+                            <textarea
+                                    type="text"
+                                    class="form-control"
+                                    required
+                                    placeholder="Mô tả"
+                                    name="moTa"
+                                    aria-describedby="addon-wrapping"
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                <button
+                        type="submit"
+                        onclick="return confirm('BẠN CÓ CHẮC CHẮN THỰC HIỆN!')"
+                        class="btn btn-success"
+                >
+                    SAVE
+                </button>
+            </form>
+            <!-- Modal NSSX -->
+            <div
+                    class="modal fade"
+                    id="nhaSanXuat"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                THÊM NSX
+                            </h1>
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group flex-nowrap">
+                                <input
+                                        type="text"
+                                        id="tenNSX"
+                                        name="tenNSX"
+                                        class="form-control"
+                                        required
+                                        placeholder="Tên nhà sản xuất"
+                                        aria-label="Username"
+                                        aria-describedby="addon-wrapping"
+                                />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-primary btnSaveNsx">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal NSSX -->
+            <!-- Modal MAUSAC -->
+            <div
+                    class="modal fade"
+                    id="mauSac"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                Modal title
+                            </h1>
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group flex-nowrap">
+                                <input
+                                        type="text"
+                                        id="tenMS"
+                                        name="tenMS"
+                                        class="form-control"
+                                        required
+                                        placeholder="Tên màu sắc"
+                                        aria-label="Username"
+                                        aria-describedby="addon-wrapping"
+                                />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-primary btnSaveMs">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal MAUSAC -->
+        </div>
+        <!-- Tab 2 -->
+        <div
+                class="tab-pane fade"
+                id="tab2"
+                role="tabpanel"
+                aria-labelledby="tab2-tab"
+        >
+            <br />
+            <br />
+            <table class="table table-header table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">TÊN CA</th>
+                    <th scope="col">THỜI GIAN BẮT ĐẦU</th>
+                    <th scope="col">THỜI GIAN KẾT THÚC</th>
+                    <th scope="col">GÍA CA</th>
+                    <th scope="col">TRẠNG THÁI</th>
+                    <th scope="col">ACTION</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="ca : ${listCas}">
+                    <td th:text="*{ca.id}"></td>
+                    <td th:text="*{ca.tenCa}"></td>
+                    <td th:text="*{ca.thoiGianBatDau}"></td>
+                    <td th:text="*{ca.thoiGianKetThuc}"></td>
+                    <td th:text="*{ca.giaCa}"></td>
+                    <td th:text="*{ca.trangThai}"></td>
+                    <td>
+                        <button
+                                style="background-color: white; border: 1px solid red"
+                                class="deletebtn btn btn-primary"
+                                onclick="return confirm('BẠN CÓ CHẮC CHẮN THỰC HIỆN!')"
+                        >
+                            <i
+                                    class="fa fa-trash"
+                                    style="color: red"
+                                    aria-hidden="true"
+                            ></i>
+                        </button>
+                        <button
+                                type="button"
+                                style="background-color: white; border: 1px solid green"
+                                class="btn btn-primary detailbtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#detail"
+                        >
+                            <i
+                                    class="fa fa-eye"
+                                    style="color: green"
+                                    aria-hidden="true"
+                            ></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Modal -->
+            <div
+                    class="modal fade"
+                    id="detail"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <form
+                            method="post"
+                            action="/admin/update"
+                            class="modal-content"
+                            enctype="multipart/form-data"
+                    >
+                        <div class="modal-header">
+                            <h1 style="text-align: center">UPDATE</h1>
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <!--                detail-->
+                            <section>
+                                <input
+                                        type="hidden"
+                                        class="form-control"
+                                        id="idCTSP"
+                                        name="idCTSP"
+                                        aria-describedby="addon-wrapping"
+                                />
+                                <br />
+                                <div class="input-group flex-nowrap">
+                                    <input ng-model="detail.id" type="hidden" />
+                                    <span class="input-group-text" id="addon-wrapping"
+                                    >Ảnh</span
+                                    >
+                                    <input
+                                            type="file"
+                                            class="form-control"
+                                            name="image"
+                                            required
+                                            placeholder="Tên sản phẩm"
+                                            aria-describedby="addon-wrapping"
+                                    />
+                                </div>
+                                <br />
+                                <div class="input-group flex-nowrap">
+                                    <input ng-model="detail.id" type="hidden" />
+                                    <span class="input-group-text" id="addon-wrapping"
+                                    >Tên sản phẩm</span
+                                    >
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="tenSanPham"
+                                            name="tenSanPham"
+                                            required
+                                            placeholder="Tên sản phẩm"
+                                            aria-describedby="addon-wrapping"
+                                    />
+                                </div>
+                                <br />
+                                Nhà sản xuất
+                                <select
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                        id="selectNSX"
+                                        name="selectNSX"
+                                ></select>
+                                <br />
+                                Màu sắc
+                                <select
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                        id="selectMS"
+                                        name="selectMS"
+                                ></select>
+                                <br />
+                                Size
+                                <select
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                        name="size"
+                                        id="size"
+                                >
+                                    <option value="35">35</option>
+                                    <option value="36">36</option>
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+                                    <option value="41">41</option>
+                                    <option value="41">42</option>
+                                    <option value="43">43</option>
+                                </select>
+                                <br />
+                                <div class="input-group flex-nowrap">
+                      <span class="input-group-text" id="addon-wrapping"
+                      >Năm bảo hành</span
+                      >
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            placeholder="Năm bảo hành"
+                                            id="namBH"
+                                            name="namBH"
+                                            aria-describedby="addon-wrapping"
+                                    />
+                                </div>
+                                <br />
+                                <div class="input-group flex-nowrap">
+                      <span class="input-group-text" id="addon-wrapping"
+                      >Số lượng tồn</span
+                      >
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            required
+                                            placeholder="Số lượng"
+                                            id="soLuong"
+                                            name="soLuong"
+                                            aria-describedby="addon-wrapping"
+                                    />
+                                </div>
+                                <br />
+                                <div class="input-group flex-nowrap">
+                      <span class="input-group-text" id="addon-wrapping"
+                      >Giá nhập</span
+                      >
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            required
+                                            placeholder="Giá nhập"
+                                            id="giaNhap"
+                                            name="giaNhap"
+                                            aria-describedby="addon-wrapping"
+                                    />
+                                </div>
+                                <br />
+                                <div class="input-group flex-nowrap">
+                      <span class="input-group-text" id="addon-wrapping"
+                      >Giá bán</span
+                      >
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            required
+                                            placeholder="Giá bán"
+                                            id="giaBan"
+                                            name="giaBan"
+                                            aria-describedby="addon-wrapping"
+                                    />
+                                </div>
+                                <br />
+                                <div class="input-group flex-nowrap">
+                      <span class="input-group-text" id="addon-wrapping"
+                      >Voucher</span
+                      >
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            required
+                                            placeholder="voucher %"
+                                            id="voucher"
+                                            name="voucher"
+                                            aria-describedby="addon-wrapping"
+                                    />
+                                    <span class="input-group-text" id="addon-wrapping"
+                                    >%</span
+                                    >
+                                </div>
+                                <br />
+                                <div class="input-group flex-nowrap">
+                      <span class="input-group-text" id="addon-wrapping"
+                      >Mô tả</span
+                      >
+                                    <textarea
+                                            type="text"
+                                            class="form-control"
+                                            required
+                                            placeholder="Mô tả"
+                                            name="moTa"
+                                            id="moTa"
+                                            aria-describedby="addon-wrapping"
+                                    ></textarea>
+                                </div>
+
+                                <!-- detail -->
+                            </section>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    onclick="return confirm('BẠN CÓ CHẮC CHẮN THỰC HIỆN!')"
+                            >
+                                UPDATE
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br />
+            <!--            <select class="row">-->
+            <!--                <div class="col-6">-->
+            <!--                    -->
+            <!--                </div>-->
+            <!--                <div class="col-6"></div>-->
+            <!--            </select>-->
+
+            <select id="select" class="select">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<br />
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"
+></script>
+</body>
+</html>

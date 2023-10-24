@@ -1,11 +1,8 @@
-package com.example.pro2111_dat_lich_san_bong.core.admin.controller;
+package com.example.pro2111_dat_lich_san_bong.core.staff.controller;
 
 import com.example.pro2111_dat_lich_san_bong.core.admin.model.request.HoaDonSanCaViewRequest;
 import com.example.pro2111_dat_lich_san_bong.core.admin.reposiotry.HoaDonSanCaAdminRepository;
-import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
+import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.HoaDonSanCaStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.DichVuRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.HoaDonRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.SanCaRepository;
@@ -17,19 +14,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @CrossOrigin("/*")
 @Controller
-@RequestMapping("/api/v1/admin/thanh-toan-hoa-don")
-public class ThanhToanHoaDonController {
+@RequestMapping("/api/v1/staff/thanh-toan-hoa-don")
+public class ThanhToanHoaDonStaffController {
     @Autowired
-    private HoaDonSanCaAdminRepository hoaDonSanCaAdminRepository;
+    private HoaDonSanCaStaffRepository hoaDonSanCaStaffRepository;
     @Autowired
     private SanCaRepository sanCaRepository;
     @Autowired
@@ -49,7 +42,7 @@ public class ThanhToanHoaDonController {
             page = 1;
         }
         Pageable pageable = PageRequest.of(page - 1, 10);
-        pageHoaDonSanCaViewRequest = hoaDonSanCaAdminRepository.findHoaDonSanCa(pageable);
+        pageHoaDonSanCaViewRequest = hoaDonSanCaStaffRepository.findHoaDonSanCa(pageable);
         model.addAttribute("pageHoaDonSanCaViewRequest", pageHoaDonSanCaViewRequest);
         return pageHoaDonSanCaViewRequest;
     }
