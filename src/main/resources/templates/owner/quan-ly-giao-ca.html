@@ -1,9 +1,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>SÂN BÓNG ĐỒNG ĐẾ</title>
-    <link rel="website icon" type="png" href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
+    <link rel="website icon" type="png"
+          href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
     <link
             href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css"
             rel="stylesheet"
@@ -27,11 +28,11 @@
     />
     <!-- Quan Trọng -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
     <!--  -->
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
@@ -47,11 +48,11 @@
             rel="stylesheet"
     />
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
     <!--  -->
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
@@ -68,8 +69,8 @@
     />
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
@@ -91,15 +92,15 @@
             referrerpolicy="no-referrer"
     />
     <!-- Libraries Stylesheet -->
-    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet" />
+    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet"/>
     <link th:href="@{/static/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
     <link th:href="@{/static/lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
@@ -139,170 +140,131 @@
     <!--    <script th:src="@{/js/manager.js}"></script>-->
     <!--    <link th:href="@{/css/theme.css}" rel="stylesheet" />-->
     <link th:href="@{/static/css/owner/quan-ly-giao-ca.css}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
 </head>
 
 
-
 <body>
 <header th:insert="~{fragments/header-thanh-toan}"></header>
+<section id="app">
+    <div class="s009">
 
-<div class="s009">
-
-    <form>
-        <div class="inner-form">
-            <div class="basic-search">
-                <div class="input-field">
-                    <input id="search" type="text" placeholder="Tìm kiếm theo tên" />
-                    <div class="icon-wrap">
-                        <svg
-                                class="svg-inline--fa fa-search fa-w-16"
-                                fill="#ccc"
-                                aria-hidden="true"
-                                data-prefix="fas"
-                                data-icon="search"
-                                role="img"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512"
-                        >
-                            <path
-                                    d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
-                            ></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="advance-search">
-                <div class="row">
+        <form>
+            <div class="inner-form">
+                <div class="basic-search">
                     <div class="input-field">
-                        <div class="input-select">
-                            <h5 style="font-family: Tahoma; font-weight: 600">
-                                Tìm kiếm theo khoảng ngày
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="input-field">
-                        <input type="date" style="width: 250px"/>
-                    </div>
-                    <div class="input-field">
-                        <input type="date" style="width: 250px"/>
-                    </div>
-<!--                    <div-->
-<!--                            id="datepicker"-->
-<!--                            class="input-group date"-->
-<!--                            data-date-format="dd-mm-yyyy"-->
-<!--                            style="width: 200px"-->
-<!--                    >-->
-<!--                        <input class="form-control" type="text" readonly />-->
-<!--                        <span class="input-group-addon">-->
-<!--                </span>-->
-<!--                    </div>-->
-<!--                    <div-->
-<!--                            style="width: 200px"-->
-
-<!--                            id="datepicker2"-->
-<!--                            class="input-group date"-->
-<!--                            data-date-format="dd-mm-yyyy"-->
-<!--                    >-->
-<!--                        <input class="form-control" type="text" readonly />-->
-<!--                        <span class="input-group-addon">-->
-<!--                </span>-->
-<!--                    </div>-->
-                </div>
-                <div class="row third">
-                    <div class="input-field">
-                        <div class="result-count"></div>
-                        <div class="group-btn">
-                            <button class="btn-delete" id="delete">RESET</button>
-                            <button class="btn-search">SEARCH</button>
+                        <input id="search" type="text" placeholder="Tìm kiếm theo tên"/>
+                        <div class="icon-wrap searchIcon" style="cursor: pointer">
+                            <svg
+                                    class="svg-inline--fa fa-search fa-w-16"
+                                    fill="#ccc"
+                                    aria-hidden="true"
+                                    data-prefix="fas"
+                                    data-icon="search"
+                                    role="img"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512"
+                            >
+                                <path
+                                        d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+                                ></path>
+                            </svg>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </form>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h5 class="card-title m-b-0">Danh Sách Giao Ca</h5>
-                </div>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Country</th>
-                            <th scope="col">Browser</th>
-                            <th scope="col">Platform(s)</th>
-                            <th scope="col">Engine version</th>
-                        </tr>
-                        </thead>
-                        <tbody class="customtable">
-                        <tr>
-                            <td>India</td>
-                            <td>Chrome OS</td>
-                            <td>MAC OS</td>
-                            <td>76</td>
-                        </tr>
-                        <tr>
-                            <td>USA</td>
-                            <td>Internet Explorer</td>
-                            <td>Win 2010</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td>UK</td>
-                            <td>Safari</td>
-                            <td>Mac OS</td>
-                            <td>16</td>
-                        </tr>
-                        <tr>
-                            <td>UAE</td>
-                            <td>Google Chrome</td>
-                            <td>Win 2013</td>
-                            <td>76.12</td>
-                        </tr>
-                        <tr>
-                            <td>Canada</td>
-                            <td>Internet Explorer</td>
-                            <td>Win 2010</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td>Turkey</td>
-                            <td>Internet Explorer 8</td>
-                            <td>Win 2010</td>
-                            <td>8</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-center"> <!-- Center horizontally -->
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item active"  aria-current="page"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                <div class="advance-search">
+                    <div class="row">
+                        <div class="input-field">
+                            <div class="input-select">
+                                <label class="container">
+                                    <input type="checkbox" class="checkBoxKiemTra">
+                                    <div class="checkmark"></div>
+                                    Giao ca có rút tiền
+                                </label>
+                            </div>
+                        </div>
+                        <div style="font-size: 15px">
+                           Tìm kiếm theo ngày nhận ca
+                        </div>
+                        <div class="input-field">
+                            <input type="date" class="timeNC" style="width: 250px"/>
+                        </div>
                     </div>
 
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="card-title m-b-0">Danh Sách Giao Ca</h3>
+                    </div>
+                    <h1 class="noContent hidden" style="text-align: center;color: red">Không có dữ liệu!</h1>
+                    <div class="table-responsive readTable hide">
+                        <table class="table">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Nhân Viên</th>
+                                <th scope="col">Thời gian nhận ca</th>
+                                <th scope="col">Thời gian kết ca</th>
+                                <th scope="col">Tiền ban đầu</th>
+                                <th scope="col">Tiền phát sinh</th>
+                                <th scope="col">Tiền mặt</th>
+                                <th scope="col">Tiền chuyển khoản</th>
+                                <th scope="col">Tổng tiền trong ca</th>
+                                <th scope="col">Ghi chú phát sinh</th>
+                                <th scope="col">Tiền đã rút</th>
+                                <th scope="col">Thời gian rút</th>
+                            </tr>
+                            </thead>
+                            <tbody class="customtable" v-for="items in giaoCaOwner">
+                            <tr>
+                                <td>{{items.displayNameNhanVienTrongCa}}</td>
+                                <td>{{items.thoiGianNhanCa}}</td>
+                                <td>{{items.thoiGianKetCa}}</td>
+                                <td>{{items.tienBanDau}}</td>
+                                <td>{{items.tienPhatSinh}}</td>
+                                <td>{{items.tongTienMat}}</td>
+                                <td>{{items.tongTienKhac}}</td>
+                                <td>{{items.tongTienTrongCa}}</td>
+                                <td>{{items.ghiChuPhatSinh}}</td>
+                                <td>{{items.tongTienMatRut}}</td>
+                                <td>{{items.thoiGianReset}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center"> <!-- Center horizontally -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link previousPage" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item " aria-current="page"><a class="page-link" href="#">{{displaycurrentPage}}
+                                        /
+                                        {{totalPages}} trang</a></li>
+                                    <li class="page-item nextPage">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
 
 <!-- Bootstrap core JavaScript-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -339,24 +301,7 @@
         crossorigin="anonymous"
 ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<script>
-    $(function () {
-        $("#datepicker")
-            .datepicker({
-                autoclose: true,
-                todayHighlight: true,
-            })
-            .datepicker("update", new Date());
-    });
-    $(function () {
-        $("#datepicker2")
-            .datepicker({
-                autoclose: true,
-                todayHighlight: true,
-            })
-            .datepicker("update", new Date());
-    });
-</script>
+<script th:src="@{/static/js/owner/quan-ly-giao-ca.js}"></script>
 </body>
 
 

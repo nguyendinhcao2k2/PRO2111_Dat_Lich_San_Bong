@@ -38,6 +38,9 @@ public class LoaiSan {
     @Nationalized
     private String moTa;
 
+    @Column(name = "gia_san")
+    private Double giaSan;
+
     @Column(name = "trang_thai")
     private Integer trangThai;
 
