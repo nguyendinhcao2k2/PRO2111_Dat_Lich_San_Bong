@@ -41,7 +41,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             localDateTime = LocalDateTime.parse(date, formatter);
         }
-        Map<String, Integer> checkSanCa = addDataToHashMap(localDateTime);
+        Map<String, SanCaStaffResponse> checkSanCa = addDataToHashMap(localDateTime);
         List<LoadSanBongRespose> loadSanBongResposeList = new ArrayList<>();
         List<CaStaffResponse> caStaffResponses = caStaffRepository.getCa();
         for (SanBongStaffResponse sanBongStaffResponse : sanBongStaffRepository.getAllSanBong()) {
@@ -61,8 +61,9 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
                 loadCaResponse.setLoaiSan(sanBongStaffResponse.getTenLoaiSan());
                 loadCaResponse.setGia(caStaffResponse.getGiaCa() + sanBongStaffResponse.getGiaSan());
                 loadCaResponse.setDate(localDateTime.toLocalDate().toString());
-                checkTimeSanCa(checkSanCa, sanBongStaffResponse.getIdSanBong() + loadCaResponse.getThoiGianBatDau(), loadCaResponse);
-                loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
+                if (!checkTimeSanCa(checkSanCa, sanBongStaffResponse.getIdSanBong() + loadCaResponse.getThoiGianBatDau(), loadCaResponse)) {
+                    loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
+                }
                 loadCaResponses.add(loadCaResponse);
             }
             loadSanBongRespose.setLoadCaResponses(loadCaResponses);
@@ -71,22 +72,22 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         return loadSanBongResposeList;
     }
 
-    public Map<String, Integer> addDataToHashMap(LocalDateTime localDateTime) {
-        System.out.println(localDateTime.toString());
-        Map<String, Integer> hashMap = new HashMap<>();
+    public Map<String, SanCaStaffResponse> addDataToHashMap(LocalDateTime localDateTime) {
+        Map<String, SanCaStaffResponse> hashMap = new HashMap<>();
         LocalDateTime from = localDateTime.withHour(0).withMinute(0).withSecond(0);
         LocalDateTime to = localDateTime.withHour(23).withMinute(59).withSecond(59).withNano(999);
         List<SanCaStaffResponse> caStaffResponses = sanCaStaffRepository.findAllByDate(from, to);
-        caStaffResponses.stream().forEach(cf -> hashMap.put(cf.getIdSanBong() + cf.getThoiGianBatDau(), cf.getTrangThai()));
+        caStaffResponses.stream().forEach(cf -> hashMap.put(cf.getIdSanBong() + cf.getThoiGianBatDau(), cf));
         return hashMap;
     }
 
-    public boolean checkTimeSanCa(Map<String, Integer> hashMap, String checkString, LoadCaResponse loadCaResponse) {
+    public boolean checkTimeSanCa(Map<String, SanCaStaffResponse> hashMap, String checkString, LoadCaResponse loadCaResponse) {
         if (hashMap.containsKey(checkString)) {
-            loadCaResponse.setTrangThai(hashMap.get(checkString));
+            SanCaStaffResponse sanCaStaffResponse = hashMap.get(checkString);
+            loadCaResponse.setTrangThai(sanCaStaffResponse.getTrangThai());
+            loadCaResponse.setIdResponse(sanCaStaffResponse.getIdSanCa());
             return true;
         }
-        loadCaResponse.setTrangThai(null);
         return false;
     }
 }

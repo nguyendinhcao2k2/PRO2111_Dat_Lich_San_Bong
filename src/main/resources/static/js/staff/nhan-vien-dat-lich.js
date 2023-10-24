@@ -8,7 +8,7 @@ showCheckboxButton.addEventListener("click", function () {
     // Lấy tất cả các thẻ card
     const cards = document.querySelectorAll(".card-san");
     // Lặp qua tất cả các thẻ card
-    debugger;
+    // debugger;
     cards.forEach(function (card) {
         // Lấy trạng thái từ mỗi card
         const status = card.querySelector(".badge-status").textContent;

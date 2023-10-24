@@ -14,6 +14,9 @@ import java.sql.Time;
 @Projection(types = {SanBong.class, SanCa.class})
 public interface SanCaStaffResponse {
 
+    @Value("#{target.idSanCa}")
+    String getIdSanCa();
+
     @Value("#{target.thoiGianBatDau}")
     Time getThoiGianBatDau();
     @Value("#{target.idSanBong}")
