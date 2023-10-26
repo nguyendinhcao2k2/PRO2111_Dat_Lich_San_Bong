@@ -48,4 +48,7 @@ public class ViTienCoc {
     @Column(name = "tai_khoan_vi")
     private String taiKhoanVi;
 
+    @Column(name = "id_hoa_don")
+    private String idHoaDon;
+
 }

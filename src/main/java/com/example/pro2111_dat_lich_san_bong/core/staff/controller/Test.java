@@ -11,4 +11,13 @@ public class Test {
     public String test() {
         return "owner/quan-ly-giao-ca";
     }
+    @GetMapping("/dat-lich")
+    public String TK() {
+        return "utill/phieu-dat-lich";
+    }
+
+    @GetMapping("/thong-ke")
+    public String thongKe() {
+        return "owner/thong-ke";
+    }
 }

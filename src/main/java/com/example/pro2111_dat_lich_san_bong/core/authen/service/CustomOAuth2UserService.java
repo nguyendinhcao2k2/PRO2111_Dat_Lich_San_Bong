@@ -48,8 +48,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             newAccount.setImage(customUser.getPicture());
             newAccount.setIdChucVu(chucVuRepository.findByTenChucVu("ROLE_USER").getId());
             newAccount.setTrangThai(0);
-            ViTienCoc viTienCoc = viTienRepository.save(new ViTienCoc(null, Timestamp.valueOf("2023-09-17 10:09:00"), Double.valueOf(0), "VND", 0, null));
-            newAccount.setIdViTienCoc(viTienCoc.getId());
+            ViTienCoc viTienCoc = viTienRepository.save(new ViTienCoc(null, Timestamp.valueOf("2023-09-17 10:09:00"), Double.valueOf(0), "VND", 0, null,null));
             customUser.setRole(chucVuRepository.findById(accountRepository.save(newAccount).getIdChucVu()).get().getTenChucVu());
             session.setAttribute(SessionConstant.sessionUser, newAccount);
         } else {

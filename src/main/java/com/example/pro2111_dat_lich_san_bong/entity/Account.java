@@ -58,7 +58,5 @@ public class Account {
     @Column(name = "id_hang_khach_hang")
     private String idHangKhachHang;
 
-    @Column(name = "id_vi_tien_coc")
-    private String idViTienCoc;
 
 }
