@@ -1,4 +1,13 @@
 $(document).ready(() => {
+    $(".checkBoxGiaoCa").change((event) => {
+        if (event.target.checked) {
+            app.isReset = false;
+            app.isBanGiaoCa = true;
+        } else {
+            app.isReset = true;
+            app.isBanGiaoCa = false;
+        }
+    });
     //get all giao ca
     $.ajax({
         type: "GET",
@@ -23,7 +32,7 @@ $(document).ready(() => {
                     app.giaoCaStaff.tongTientThanhToanBangChuyenKhoan = app.curenlyNumber(response.content.tongTientThanhToanBangChuyenKhoan),
                     app.giaoCaStaff.displayName = response.content.accountResponse.displayName,
                     app.giaoCaStaff.soDienThoai = response.content.accountResponse.soDienThoai,
-                    app.giaoCaStaff.tongTienTrongCa = app.curenlyNumber(parseFloat(app.repleaPriceDouble(app.total)))
+                    app.giaoCaStaff.tongTienTrongCa = app.curenlyNumber(parseFloat(app.repleaPriceDouble(app.total)) + parseFloat(response.content.tongTientThanhToanBangChuyenKhoan))
             }
         },
         error: (error) => {
@@ -49,12 +58,65 @@ $(document).ready(() => {
                     idNhanVienCaTiepTheo: $("#nhanVienNhanCaTiepTheo").val(),
                     tongTienMat: $("#tongTienMatTrongCa").val() == 0 ? $("#tongTienMatTrongCa").val() : app.repleaPriceDouble($("#tongTienMatTrongCa").val()),
                     tongTienTrongCa: app.repleaPriceDouble(app.giaoCaStaff.tongTienTrongCa),
+                    tongTienKhac:  $(".tienChuyenKhoan").val() == 0 ? $(".tienChuyenKhoan").val() : app.repleaPriceDouble($(".tienChuyenKhoan").val()),
                 }),
                 success: (response) => {
                     var confirm = false;
                     if (response.statusCode === 'OK') {
                         Swal.fire({
                             title: 'Bàn giao ca thành công!',
+                            text: 'Hẹn gặp lại!',
+                            icon: 'success',
+                            confirmButtonText: 'OKE'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                confirm = true;
+                                window.location.href = "/authentication/staff-login";
+                            }
+                        });
+                        setTimeout(() => {
+                            if (!confirm) {
+                                window.location.href = "/authentication/staff-login";
+                            }
+                        }, 4000);
+                        return;
+                    }
+                    return alert("Lỗi!");
+                },
+                error: (error) => {
+                    console.log(error)
+                }
+            });
+        }
+
+    });
+    //reset và kết ca
+    $(".resetCa").click(() => {
+        if ($("#tienPhatSinh").val() != 0 && $(".ghiChuPhatSinh").val() == "") {
+            document.title = "Thông báo!";
+            alert("Vui lòng nhập tiền phát sinh")
+        } else {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "http://localhost:8081/api/v1/staff/giao-ca/ket-ca",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    thoiGianKetCa: app.formatDateTimeStamps($("#NowTime").val()),
+                    tienPhatSinh: $("#tienPhatSinh").val() == 0 ? $("#tienPhatSinh").val() : app.repleaPriceDouble($("#tienPhatSinh").val()),
+                    ghiChuPhatSinh: $(".ghiChuPhatSinh").val() == "" ? null : $(".ghiChuPhatSinh").val(),
+                    idNhanVienCaTiepTheo: $("#nhanVienNhanCaTiepTheo").val(),
+                    tongTienMat: $("#tongTienMatTrongCa").val() == 0 ? $("#tongTienMatTrongCa").val() : app.repleaPriceDouble($("#tongTienMatTrongCa").val()),
+                    tongTienTrongCa: app.repleaPriceDouble(app.giaoCaStaff.tongTienTrongCa),
+                    thoiGianReset: app.formatDateTimeStamps($("#NowTime").val()),
+                    tongTienMatRut: $("#tienMatRut").val() == 0 ? $("#tienMatRut").val() : app.repleaPriceDouble($("#tienMatRut").val()),
+                    tongTienKhac:  $(".tienChuyenKhoan").val() == 0 ? $(".tienChuyenKhoan").val() : app.repleaPriceDouble($(".tienChuyenKhoan").val()),
+                }),
+                success: (response) => {
+                    var confirm = false;
+                    if (response.statusCode === 'OK') {
+                        Swal.fire({
+                            title: 'Rút tiền và Bàn giao ca thành công!',
                             text: 'Hẹn gặp lại!',
                             icon: 'success',
                             confirmButtonText: 'OKE'
@@ -106,6 +168,8 @@ var app = new Vue({
         },
         isDisable: true,
         total: 0,
+        isReset: true,
+        isBanGiaoCa: false,
     },
     methods: {
         checkValid(event) {
@@ -118,12 +182,14 @@ var app = new Vue({
                 this.giaoCaStaff.tongTienTrongCa = this.curenlyNumber(parseFloat(this.repleaPriceDouble(this.total)) + parseFloat(this.repleaPriceDouble(this.giaoCaStaff.tienBanDau)));
                 this.isDisable = true;
             } else {
-                this.giaoCaStaff.tongTienTrongCa = this.curenlyNumber(parseFloat(this.repleaPriceDouble(this.giaoCaStaff.tongTienThuTrongCa)) + parseFloat(this.repleaPriceDouble(this.giaoCaStaff.tienBanDau)) - parseFloat(event.target.value.replace(/\./g, "")));
                 var price = parseFloat(this.giaoCaStaff.tongTienMatTrongCa) - parseFloat(event.target.value.replace(/\./g, ""));
                 if (price < 0) {
                     alert("Không đủ tiền!");
-                    return event.target.value = event.target.value.slice(0, -1);
+                    return event.target.value = parseInt(this.repleaPriceDouble(event.target.value.slice(0, -1))).toLocaleString(
+                        "vi-VN"
+                    );
                 }
+                this.giaoCaStaff.tongTienTrongCa = this.curenlyNumber(parseFloat(this.repleaPriceDouble(this.giaoCaStaff.tongTienThuTrongCa)) + parseFloat(this.repleaPriceDouble(this.giaoCaStaff.tienBanDau)) - parseFloat(event.target.value.replace(/\./g, "")));
                 this.total = this.curenlyNumber(price);
                 this.isDisable = false;
             }
@@ -151,6 +217,19 @@ var app = new Vue({
         },
         repleaPriceDouble(price) {
             return price.replace(/\./g, "");
+        },
+        checkPriceReset(event) {
+            this.checkTrong(event);
+            event.target.value = parseInt(event.target.value).toLocaleString(
+                "vi-VN"
+            );
+            if (parseInt(this.repleaPriceDouble(event.target.value)) > parseInt(this.repleaPriceDouble(this.total))) {
+                alert('Tiền mặt hiện tại chỉ có ' + this.total + ' VND');
+                return event.target.value = parseInt(this.repleaPriceDouble(event.target.value.slice(0, -1))).toLocaleString(
+                    "vi-VN"
+                );
+                ;
+            }
         }
     },
 

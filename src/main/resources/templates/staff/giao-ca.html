@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="website icon" type="png" href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
+    <link rel="website icon" type="png"
+          href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
 
     <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet"/>
     <link
@@ -180,7 +181,9 @@
                                         >Nhân viên nhận ca</label
                                         >
                                         <select id="nhanVienNhanCaTiepTheo" class="form-select">
-                                            <option v-for="items in giaoCaStaff.accountResponseList" v-bind:value="items.id" selected="">{{items.displayName}}</option>
+                                            <option v-for="items in giaoCaStaff.accountResponseList"
+                                                    v-bind:value="items.id" selected="">{{items.displayName}}
+                                            </option>
                                         </select>
                                     </div>
                                     <hr>
@@ -242,48 +245,30 @@
                                         >
                                         <input
                                                 type="text"
-                                                class="form-control"
+                                                class="form-control tienChuyenKhoan"
                                                 id="Address"
                                                 disabled
                                                 v-bind:value="giaoCaStaff.tongTientThanhToanBangChuyenKhoan"
                                         />
                                     </div>
                                     <hr>
+                                    <input type="checkbox" class="checkBoxGiaoCa" > Rút tiền và bàn giao ca
+                                    <br>
                                     <div style="text-align: center">
-                                        <button
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#confirms"
-                                                type="button"
-                                                class="btn btn-labeled btn-danger"
-                                                style="
-                          padding-top: 0;
-                          padding-bottom: 0;
-                          margin-bottom: 10px;
-                        ">Hủy <span class="btn-label" style="
-                            position: relative;
-                            right: -12px;
-                            display: inline-block;
-                            padding: 6px 12px;
-                            background: rgba(0, 0, 0, 0.15);
-                            border-radius: 3px 0 0 3px;
-                          ">
-                                            <i class="fa fa-remove"></i>
-                        </span>
-                            </button>
-
                                         <button
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#banGiaoCaModal"
                                                 type="button"
+                                                :hidden="isBanGiaoCa"
                                                 class="btn btn-labeled btn-success ban-giao-ca"
                                                 style="
                           padding-top: 0;
                           padding-bottom: 0;
                           margin-bottom: 10px;
                         "> Bàn giao ca
-                            <span
-                            class="btn-label"
-                            style="
+                                            <span
+                                                    class="btn-label"
+                                                    style="
                             position: relative;
                             right: -12px;
                             display: inline-block;
@@ -291,6 +276,28 @@
                             background: rgba(0, 0, 0, 0.15);
                             border-radius: 3px 0 0 3px;
                           "><i class="fa fa-check"></i></span>
+                                        </button>
+                                        <button
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#resetModal"
+                                                type="button"
+                                                :hidden="isReset"
+                                                class="btn btn-labeled btn-danger resetModal "
+                                                style="
+                          padding-top: 0;
+                          padding-bottom: 0;
+                          margin-bottom: 10px;
+                        ">Reset <span class="btn-label" style="
+                            position: relative;
+                            right: -12px;
+                            display: inline-block;
+                            padding: 6px 12px;
+                            background: rgba(0, 0, 0, 0.15);
+                            border-radius: 3px 0 0 3px;
+                          ">
+                                            <i class="fa fa-refresh"></i>
+
+                                                   </span>
                                         </button>
                                     </div>
                                 </form>
@@ -319,7 +326,7 @@
                                 aria-label="Close"
                         ></button>
                     </div>
-                    <div class="modal-body">Bạn có chắc chắn bàn giao  ca làm việc này?</div>
+                    <div class="modal-body">Bạn có chắc chắn bàn giao ca làm việc này?</div>
                     <div class="modal-footer border-0">
                         <button
                                 type="button"
@@ -329,6 +336,50 @@
                             Thoát
                         </button>
                         <button type="button" class="btn btn-primary confirm">
+                            Xác nhận
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal end -->
+        <!-- Modal Reset start-->
+        <div
+                class="modal fade"
+                id="resetModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nhập số tiền mặt bạn muốn rút</h1>
+                        <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <input
+                            type="text"
+                            value="0"
+                            min="0"
+                            class="form-control"
+                            id="tienMatRut"
+                            @input="checkPriceReset"
+                    /></div>
+                    <div class="modal-footer border-0">
+                        <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                        >
+                            Thoát
+                        </button>
+                        <button type="button" class="btn btn-primary resetCa">
                             Xác nhận
                         </button>
                     </div>
