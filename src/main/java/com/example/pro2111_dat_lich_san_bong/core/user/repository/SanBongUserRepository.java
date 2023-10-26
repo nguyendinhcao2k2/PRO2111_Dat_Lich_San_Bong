@@ -23,4 +23,11 @@ public interface SanBongUserRepository extends SanBongRepository {
         join loai_san ls on sb.id_loai_san = ls.id
     """,nativeQuery = true)
     Page<SanBongUserResponse> getAllSanBong(Pageable page);
+
+    @Query(value = """
+        select count(*)
+        from san_bong sb
+        where sb.trang_thai = 0
+    """,nativeQuery = true)
+    Integer countSanBong();
 }

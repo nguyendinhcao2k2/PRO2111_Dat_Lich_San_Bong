@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.service.impl;
 
 import com.example.pro2111_dat_lich_san_bong.core.common.base.PageableObject;
+import com.example.pro2111_dat_lich_san_bong.core.user.model.request.EventRequest;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.request.SanCaUserRequest;
 import com.example.pro2111_dat_lich_san_bong.core.user.repository.SanCaUserRepository;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanCaUserService;
@@ -21,7 +22,7 @@ public class SanCaUserServiceImpl implements SanCaUserService {
     private SanCaUserRepository sanCaUserRepository;
 
     @Override
-    public List getAllSanCa(SanCaUserRequest request) {
+    public List getAllSanCa(EventRequest request) {
         return sanCaUserRepository.getAllSanCa(request);
     }
 }
