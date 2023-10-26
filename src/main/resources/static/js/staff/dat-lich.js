@@ -145,19 +145,19 @@ $(document).ready(function () {
                             <div class="card-body m-1">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <span class="badge bg-dark badge-icon">
+                                        <span class="badge bg-primary badge-icon">
                                             <i class="far fa-calendar-check fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <span class="badge bg-dark badge-icon">
+                                        <span class="badge bg-primary badge-icon">
                                             <i class="fas fa-clock fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
                                     </div>
                                     <div class="col-md-12 mt-1">
-                                        <span class="badge bg-dark badge-icon">
+                                        <span class="badge bg-primary badge-icon">
                                             <i class="fas fa-dollar-sign fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-gia" style="color: black; font-size: 18px">${ca.gia} VND</label>
@@ -319,19 +319,19 @@ window.onload = function () {
                             <div class="card-body m-1">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <span class="badge bg-dark badge-icon">
+                                        <span class="badge bg-primary badge-icon">
                                             <i class="far fa-calendar-check fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <span class="badge bg-dark badge-icon">
+                                        <span class="badge bg-primary badge-icon">
                                             <i class="fas fa-clock fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
                                     </div>
                                     <div class="col-md-12 mt-1">
-                                        <span class="badge bg-dark badge-icon">
+                                        <span class="badge bg-primary badge-icon">
                                             <i class="fas fa-dollar-sign fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-gia" style="color: black; font-size: 18px">${ca.gia} VND</label>

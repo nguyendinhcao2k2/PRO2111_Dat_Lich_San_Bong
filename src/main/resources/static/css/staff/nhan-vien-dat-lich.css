@@ -1,9 +1,9 @@
-h1 {
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
+/*h1 {*/
+/*    text-align: center;*/
+/*    font-size: 25px;*/
+/*    font-weight: bold;*/
+/*    text-transform: uppercase;*/
+/*}*/
 
 .body-row-col {
     padding: 5px;
@@ -35,7 +35,7 @@ h1 {
 #select-loai-san-staff,
 #date-header-search-staff {
     color: black;
-    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
