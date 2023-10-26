@@ -29,4 +29,9 @@ import org.springframework.stereotype.Component;
         ChucVu chucVu = (ChucVu) session.getAttribute(SessionConstant.sessionRole);
         return chucVu.getTenChucVu();
     }
+
+    @Override
+    public Account getEntityAcount() {
+        return (Account) session.getAttribute(SessionConstant.sessionUser);
+    }
 }
