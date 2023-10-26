@@ -233,33 +233,40 @@
                                                                                 >Họ và tên</label
                                                                                 >
                                                                                 <input
+                                                                                        th:id="hoTenInput"
                                                                                         type="text"
                                                                                         class="form-control"
                                                                                 />
+                                                                                <span th:id="errorHoten" style="color: red"></span>
                                                                             </div>
                                                                             <div class="mb-3">
                                                                                 <label class="form-label required"
                                                                                 >Email</label
                                                                                 >
                                                                                 <input
+                                                                                        th:id="emailInput"
                                                                                         type="email"
                                                                                         class="form-control"
                                                                                 />
+                                                                                <span th:id="errorEmail" style="color: red"></span>
                                                                             </div>
                                                                             <div class="mb-3">
                                                                                 <label class="form-label required"
                                                                                 >Số điện thoại</label
                                                                                 >
                                                                                 <input
+                                                                                        th:id="soDienThoaiInput"
                                                                                         type="text"
                                                                                         class="form-control"
                                                                                 />
+                                                                                <span th:id="errorSoDienThoai" style="color: red"></span>
                                                                             </div>
                                                                             <div class="mb-3">
                                                                                 <label class="form-label required"
                                                                                 >Ghi chú</label
                                                                                 >
                                                                                 <textarea
+                                                                                        th:id="ghiChuInput"
                                                                                         class="form-control"
                                                                                 ></textarea>
                                                                             </div>
@@ -290,10 +297,11 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button
+                                                                        th:onclick="|datSan()|"
                                                                         type="submit"
                                                                         class="btn btn-primary"
                                                                 >
-                                                                    Gửi
+                                                                    Đặt Sân
                                                                     <i class="fas fa-check fa-lg"></i>
                                                                 </button>
                                                                 <button
