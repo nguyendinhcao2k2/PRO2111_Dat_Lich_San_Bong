@@ -67,6 +67,10 @@ $(document).ready(function () {
                                 trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
                                       </div>`
+                            } else if (ca.trangThai === 4) {
+                                trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-danger badge-status">Hết giờ đặt</span>
+                                      </div>`
                             }
 
                             const card = `<div class="col-md-4 mb-4">
@@ -197,6 +201,7 @@ window.onload = function () {
     if (month < 10) {
         month = '0' + month;
     }
+    date = year + "-" + month + "-" + day;
     let tt = JSON.parse(localStorage.getItem("thongTin"));
     if (tt !== null) {
         genDataTable(tt)
@@ -235,6 +240,10 @@ window.onload = function () {
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                      </div>`
+                    } else if (ca.trangThai === 4) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                     }
 
@@ -409,21 +418,6 @@ function genDataTable(tt) {
 }
 
 function setSelectedCheckBox(date) {
-    if (date === undefined) {
-        let currentDate = new Date();
-        let year = currentDate.getFullYear();
-        let month = currentDate.getMonth() + 1;
-        let day = currentDate.getDate();
-        if (day < 10) {
-            day = '0' + day;
-        }
-
-        if (month < 10) {
-            month = '0' + month;
-        }
-        date = year + "-" + month + "-" + day
-    }
-    console.log(date);
     let tt = JSON.parse(localStorage.getItem("thongTin"));
     if (tt) {
         for (let i = 0; i < tt.length; i++) {
@@ -435,17 +429,95 @@ function setSelectedCheckBox(date) {
     }
 }
 
+function removeSelectedCheckBox(tt) {
+    if (tt.ngay === date.trim()) {
+        let checkBox = document.getElementById(tt.cbId);
+        checkBox.checked = false;
+    }
+}
+
 function deleteRow(id) {
     let tt = JSON.parse(localStorage.getItem("thongTin"));
-    if (tt) {
-        for (let i = 0; i < tt.length; i++) {
-            if (tt[0].cbId + "-" + tt[i].ngay === id) {
-                tt.splice(i, 1);
-                genDataTable(tt);
-                localStorage.setItem("thongTin", JSON.stringify(tt));
-                setSelectedCheckBox(date);
-                break;
+    for (let i = 0; i < tt.length; i++) {
+        if (tt[i].cbId + "-" + tt[i].ngay === id) {
+            removeSelectedCheckBox(tt[i]);
+            tt.splice(i, 1);
+            genDataTable(tt);
+            localStorage.setItem("thongTin", JSON.stringify(tt));
+            break;
+        }
+    }
+}
+
+function datSan() {
+    let hoTen = $("#hoTenInput").val();
+    let emailSend = $("#emailInput").val();
+    let sdt = $("#soDienThoaiInput").val();
+    let ghiChuSend = $("#ghiChuInput").val();
+
+    //Error field
+    let hoTenError = $("#errorHoten");
+    let emailError = $("#errorEmail");
+    let soDienThoaiError = $("#errorSoDienThoai");
+
+    let check = true;
+
+    if (hoTen === '') {
+        hoTenError.text("Họ tên không được để trống");
+        check = false;
+    } else if (hoTen.length < 6) {
+        hoTenError.text("Họ tên phải trên 5 ký tự");
+        check = false;
+    } else {
+        hoTenError.text("");
+    }
+
+    if (emailSend === '') {
+        emailError.text("Email không được để trống");
+        check = false;
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailSend)) {
+        emailError.text("Email không đúng định dạng");
+        check = false;
+    } else {
+        emailError.text("");
+    }
+
+    if (sdt === '') {
+        soDienThoaiError.text("Số điện thoại không được để trống");
+        check = false;
+    } else if (!/^[0]\d{9}$/.test(sdt)) {
+        soDienThoaiError.text("Số điện thoại phải đúng định dạng");
+        check = false;
+    } else {
+        soDienThoaiError.text("");
+    }
+
+    if (check) {
+        let tt = JSON.parse(localStorage.getItem("thongTin"));
+        if (tt.length === 0 || tt === null) {
+            alert("Vui lòng chọn sân bóng");
+        } else {
+            let thongTin = JSON.parse(localStorage.getItem("thongTin"));
+            let dataSend = {
+                hoVaTen : hoTen,
+                soDienThoai : sdt,
+                email : emailSend,
+                ghiChu : ghiChuSend,
+                thongTinLichDatRequests : thongTin
             }
+            $.ajax({
+                url: apiUrl + "/dat-lich",
+                type: "POST",
+                data: JSON.stringify(dataSend),
+                contentType: "application/json",
+                success: function(data) {
+                   alert(data.content);
+                },
+                error: function(error) {
+                    // Xử lý lỗi
+                    console.error("Lỗi: " + error);
+                }
+            });
         }
     }
 }
