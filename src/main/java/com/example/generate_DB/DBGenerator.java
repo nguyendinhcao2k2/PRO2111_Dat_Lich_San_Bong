@@ -142,7 +142,6 @@ public class DBGenerator implements CommandLineRunner {
         kh1.setMatKhau("$2a$12$7gE1Gmxw86zKOsv1HE6EWu5fADdikTRzbAYrdeHNYjMwso9G3cko2"); // pass: 1111
         kh1.setTrangThai(0); //trang thái 0: hoạt động
         kh1.setIdChucVu(khachHangRole.getId());
-        kh1.setIdViTienCoc(viTienCocKH1.getId());
         kh1.setTaiKhoan("account1");
         kh1.setId(accountRepository.save(kh1).getId());
 
@@ -154,7 +153,6 @@ public class DBGenerator implements CommandLineRunner {
         kh2.setMatKhau("$2a$12$7gE1Gmxw86zKOsv1HE6EWu5fADdikTRzbAYrdeHNYjMwso9G3cko2"); // pass: 1111
         kh2.setTrangThai(0); //trang thái 0: hoạt động
         kh2.setIdChucVu(khachHangRole.getId());
-        kh2.setIdViTienCoc(viTienCocKH2.getId());
         kh2.setTaiKhoan("account2");
         kh2.setId(accountRepository.save(kh2).getId());
 

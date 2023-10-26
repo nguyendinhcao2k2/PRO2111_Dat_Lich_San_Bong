@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" th:href="@{/static/css/utill/phieu-dat-lich.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<div class="page">
+    <div class="boarding-pass full">
+        <div id="nav-toggle"><div></div></div>
+        <header>
+            <p
+                    style="
+              font-family: Verdana, Geneva, Tahoma, sans-serif;
+              font-size: 20px;
+              font-weight: bold;
+            "
+            >
+                PHIẾU ĐẶT LỊCH
+            </p>
+        </header>
+        <div class="hero">
+            <p class="departure">
+                <strong style="font-size: 20px">07:00:00</strong>
+                <span>Bắt đầu</span>
+            </p>
+            <p class="destination">
+                <strong style="font-size: 20px">09:00:00</strong>
+                <span>Kết thúc</span>
+            </p>
+        </div>
+        <div class="boardcard">
+            <div class="card">
+                <div class="front">
+                    <div class="flight-info">
+                        <div class="row">
+                            <p class="col-50">
+                                <label>Người đặt</label>
+                                <span>Đặng Văn Sỹ</span>
+                            </p>
+                            <p class="col-50">
+                                <label>Thời gian đặt</label>
+                                <span>24/10/2023</span>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="col-50">
+                                <label>Ngày check-in</label>
+                                <span>25/10/2023</span>
+                            </p>
+                            <p class="col-50 gate">
+                                <label>Giá tiền</label>
+                                <span>500.000 VND</span>
+                            </p>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="scanner">
+                        <div class="qrcode" id="qrcode"></div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <p style="text-align: center; font-size: 12px">
+                            Sân bóng Đồng Đế kính chào!
+                        </p>
+                    </div>
+                    <p class="hotline">Liên hệ? Call 0369 569 225</p>
+                </div>
+                <div class="back">
+                    <p>Lưu ý:</p>
+                    <ul>
+                        <li>Đến đúng giờ</li>
+                        <li>Mang theo tiền</li>
+                        <li>Bảo quản đồ cá nhân</li>
+                        <li>Hủy lịch => Mất tiền cọc</li>
+                    </ul>
+                    <p class="disclaimer">
+                        Địa chỉ: Số 1 Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội
+                    </p>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <div class="row">
+                        <p style="text-align: center; font-size: 12px">
+                            Sân bóng Đồng Đế kính chào!
+                        </p>
+                    </div>
+                    <p class="hotline">Liên hệ? Call 0369 569 225</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+<script th:src="@{/static/js/utill/phieu-dat-lich.js}"></script>
+</body>
+</html>
