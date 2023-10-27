@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin("/*")
 @Controller
-@RequestMapping("/api/v1/staff/thanh-toan-hoa-don")
+@RequestMapping("/api/v1/staff")
 public class ThanhToanHoaDonStaffController {
     @Autowired
     private HoaDonSanCaStaffRepository hoaDonSanCaStaffRepository;
@@ -30,13 +30,13 @@ public class ThanhToanHoaDonStaffController {
     @Autowired
     private DichVuRepository dichVuRepository;
 
-    @GetMapping("/page-hoa-don")
+    @GetMapping("/view-hoa-don")
     public String viewThanhToanHoaDon(Model model, @RequestParam(defaultValue = "1") int page) {
 //        showHoaDonSanCa(model, page);
         return "staff/danh-sach-hoa-don";
     }
 
-    private Page<HoaDonSanCaViewRequest> showHoaDonSanCa(Model model, @RequestParam(defaultValue = "1") int page) {
+/*    private Page<HoaDonSanCaViewRequest> showHoaDonSanCa(Model model, @RequestParam(defaultValue = "1") int page) {
         Page<HoaDonSanCaViewRequest> pageHoaDonSanCaViewRequest;
         if (page < 1) {
             page = 1;
@@ -45,7 +45,7 @@ public class ThanhToanHoaDonStaffController {
         pageHoaDonSanCaViewRequest = hoaDonSanCaStaffRepository.findHoaDonSanCa(pageable);
         model.addAttribute("pageHoaDonSanCaViewRequest", pageHoaDonSanCaViewRequest);
         return pageHoaDonSanCaViewRequest;
-    }
+    }*/
 
 //    @GetMapping("/{id}")
 //    public String showThanhToanHoaDon(Model model, @PathVariable(name = "id") String id, @RequestParam(defaultValue = "1") int page) {
