@@ -1,6 +1,5 @@
 package com.example.pro2111_dat_lich_san_bong.entity;
 
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiDichVu;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,7 +39,7 @@ public class DichVuSanBong {
     private Double donGia;
 
     @Column(name = "trang_thai")
-    private TrangThaiDichVu trangThai;
+    private Integer trangThai;
 
     @Column(name = "id_nuoc_uong")
     private String idNuocUong;

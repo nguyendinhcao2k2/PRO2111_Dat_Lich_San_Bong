@@ -1,6 +1,5 @@
 package com.example.pro2111_dat_lich_san_bong.entity;
 
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiPhuPhiHoaDon;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,6 +38,6 @@ public class PhuPhiHoaDon {
     @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
     private Timestamp thoiGianTao;
     @Column(name = "trang_thai")
-    private TrangThaiPhuPhiHoaDon trangThai;
+    private Integer trangThai;
 
 }
