@@ -16,8 +16,8 @@ var tableBody = document.querySelector(".click-event-fullcalendar tbody");
 var currentSelectedDate = ""; // Initialize a variable to store the currently selected date
 // Config FullCalendar
 document.addEventListener("DOMContentLoaded", function () {
-    var calendarEl = document.getElementById("calendar");
 
+    var calendarEl = document.getElementById("calendar");
     calendar = new FullCalendar.Calendar(calendarEl, {
         selectable: true,
         headerToolbar: {
@@ -136,6 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
             lastClickedDate = info.date;
         },
     });
+
 
     // Full calendar rendar
     calendar.render();

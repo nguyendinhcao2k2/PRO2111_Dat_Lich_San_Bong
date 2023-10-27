@@ -53,8 +53,76 @@
     <link th:href="@{/static/css/calendar/mobiscroll.jquery.min.css}" rel="stylesheet">
     <style>
 
+        /* table container */
+
+        scrollable-table {
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .scrollable-table thead {
+            background-color: #f7f7f7;
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .scrollable-table tbody {
+            display: block;
+            max-height: 550px; /* Điều chỉnh chiều cao tối đa bạn muốn */
+            overflow-y: auto;
+            table-layout: fixed;
+        }
+
+        .scrollable-table tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            border-spacing: 1; /* Loại bỏ khoảng trống giữa các ô của dòng */
+        }
+
+        .scrollable-table tbody td {
+            /* border: 1px solid #000; */
+            padding: 8px;
+        }
+
+        .event-class{
+            background-color: #009578; /* Example color */
+            color: #fff;
+        }
+
+        .event-class-0 {
+            background-color: #8b166a; /* Example color */
+            color: #fff;
+        }
         .event-class-1 {
-            background-color: #FF5733; /* Example color */
+            background-color: #2c92e6; /* Example color */
+            color: #fff;
+        }
+
+        .mbsc-material.mbsc-calendar-today, .mbsc-material.mbsc-calendar-week-nr{
+            color: #2124B1;
+            background-color: rgba(255,220,40,.15) !important;
+        }
+        .mbsc-material.mbsc-selected .mbsc-calendar-cell-text{
+            background: rgba(188,232,241,.3);
+            border-color:#1a73e8;
+            color: #2124B1;
+        }
+        .fc .fc-highlight{
+            border-color:#1a73e8;
+        }
+
+        .event-tooltip {
+            z-index: 7; /* Đặt giá trị z-index cao hơn */
+            color: #fff !important;
+            border: 1px solid #2124B1 !important;
+            border-radius:12px ;
+        }
+        .event-tooltip {
+            pointer-events: none; /* Không tương tác với con chuột */
         }
     </style>
 </head>
@@ -111,11 +179,9 @@
                         <div class="col-md-6">
                             <div class="d-flex justify-content-end">
                                 <div>
-                                    <select class="select-loai-san">
-                                        <option selected value="0">Chọn loại sân</option>
-                                        <option value="1">Sân 5</option>
-                                        <option value="2">Sân 7</option>
-                                        <option value="3">Sân 12</option>
+                                    <select class="select-loai-san" id="selectLoaiSan" onchange="resetEventByIdLoaiSan(this.value);">
+                                        <option th:each="loaiSan : ${listLoaiSan}" th:selected="${loaiSan.tenLoaiSan == 'Sân 7'}"
+                                                th:value="${loaiSan.id}" th:text="${loaiSan.tenLoaiSan}"></option>
                                     </select>
                                 </div>
                                 <!-- modal info điền thông tin -->
@@ -123,16 +189,15 @@
                                     <button
                                             type="button"
                                             class="button-header"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#modalInfo"
+                                            onclick="showModalInfo()"
                                     >
                                         <span class="button__text">Thông Tin</span>
                                         <span class="button__icon">
-                        <i class="fas fa-info"></i>
-                      </span>
+                                            <i class="fas fa-info"></i>
+                                        </span>
                                     </button>
-                                    <!--  -->
-                                    <div class="modal" id="modalInfo">
+                                    <!-- modal điền thông tin sân  -->
+                                    <div class="modal " id="modalInfo">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -145,7 +210,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="row">
-                                                        <div class="col-md-6 col-sm-auto">
+                                                        <div class="col-md-5 col-sm-auto">
                                                             <form>
                                                                 <div class="mb-3">
                                                                     <label class="form-label required"
@@ -173,7 +238,7 @@
                                                                 </div>
                                                             </form>
                                                         </div>
-                                                        <div class="col-md-6 col-sm-auto">
+                                                        <div class="col-md-7 col-sm-auto scrollable-table">
                                                             <table
                                                                     class="table table-bordered table-hover"
                                                                     style="color: black"
@@ -185,22 +250,19 @@
                                                                     <th>Thao tác</th>
                                                                 </tr>
                                                                 </thead>
-                                                                <tbody>
-                                                                <tr>
-                                                                    <td>ca 1</td>
-                                                                    <td>20-10-2023</td>
-                                                                    <td>đổi xóa</td>
-                                                                </tr>
+                                                                <tbody id="listEventNew" style="max-height: 300px; overflow-y: auto;">
+                                                                    <tr>
+                                                                        <td>ca 1</td>
+                                                                        <td>20-10-2023</td>
+                                                                        <td>đổi xóa</td>
+                                                                    </tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success">
-                                                        Gửi
-                                                        <i class="fas fa-check fa-lg"></i>
-                                                    </button>
+
                                                     <button
                                                             type="button"
                                                             class="btn btn-danger"
@@ -209,6 +271,10 @@
                                                         Đóng
                                                         <i class="fas fa-times fa-lg"></i>
                                                     </button>
+                                                    <button type="submit" class="btn btn-success">
+                                                    Gửi
+                                                    <i class="fas fa-check fa-lg"></i>
+                                                </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -259,27 +325,28 @@
                                                         style="max-height: 300px; overflow-y: auto"
                                                 >
                                                     <!-- ca -->
-                                                    <div class="row">
-                                                        <div class="col-md-6 col-12 mt-1">
+                                                    <div class="row" id="list">
+                                                        <div class="col-md-4 col-12 mt-1">
                                                             <label class="checkbox-button">
                                                                 <input
                                                                         type="checkbox"
                                                                         class="custom-checkbox"
                                                                 />
                                                                 <span class="checkbox-label">
-                                  <strong>Ca 1:</strong>
-                                  <span>07:00 - 09:00</span><br />
-                                  <strong>Giá ca:</strong>
-                                  <span>700.000 VND</span><br />
-                                  <strong>Trạng thái ca:</strong>
-                                  <span>Đang trống</span>
-                                  <div class="m-1">
-                                    <input type="number" value="1" min="1" />
-                                  </div>
-                                </span>
-                                  </label>
-                                  </div>
-                                  <div class="col-md-6 col-12 mt-1">
+                                                                  <strong>Ca 1:</strong>
+                                                                  <span>07:00 - 09:00</span><br />
+                                                                  <strong>Giá ca:</strong>
+                                                                  <span>700.000 VND</span><br />
+                                                                  <strong>Trạng thái ca:</strong>
+                                                                  <span>Đang trống</span>
+                                                                  <div class="m-1">
+                                                                    <input type="number" value="1" min="1" th:attr="max=${countNumber}"
+                                                                           oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
+                                                                  </div>
+                                                                    </span>
+                                                                      </label>
+                                                                      </div>
+                                  <div class="col-md-4 col-12 mt-1">
                                   <label class="checkbox-button">
                                       <input
                                           type="checkbox"
@@ -293,12 +360,13 @@
                                       <strong>Trạng thái ca:</strong>
                                       <span>Chờ nhận sân</span>
                                       <div class="m-1">
-                                            <input type="number" value="1" min="1" />
+                                            <input type="number" value="1" min="1" th:attr="max=${countNumber}"
+                                                   oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
                                       </div>
                                     </span>
                                         </label>
                                     </div>
-                                    <div class="col-md-6 col-12 mt-1">
+                                    <div class="col-md-4 col-12 mt-1">
                                         <label class="checkbox-button">
                                             <input
                                                     type="checkbox"
@@ -312,12 +380,13 @@
                                   <strong>Trạng thái ca:</strong>
                                   <span>Đang sử dụng</span>
                                   <div class="m-1">
-                                    <input type="number" value="1" min="1" />
+                                    <input type="number" value="1" min="1" th:attr="max=${countNumber}"
+                                           oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
                                   </div>
                                 </span>
                                                             </label>
                                                         </div>
-                                                        <div class="col-md-6 col-12 mt-1">
+                                                        <div class="col-md-4 col-12 mt-1">
                                                             <label class="checkbox-button">
                                                                 <input
                                                                         type="checkbox"
@@ -331,12 +400,13 @@
                                   <strong>Trạng thái ca:</strong>
                                   <span>Quá giờ</span>
                                   <div class="m-1">
-                                    <input type="number" value="1" min="1" />
+                                    <input type="number" value="1" min="1" th:attr="max=${countNumber}"
+                                           oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
                                   </div>
                                 </span>
                                                             </label>
                                                         </div>
-                                                        <div class="col-md-6 col-12 mt-1">
+                                                        <div class="col-md-4 col-12 mt-1">
                                                             <label class="checkbox-button">
                                                                 <input
                                                                         type="checkbox"
@@ -350,12 +420,13 @@
                                   <strong>Trạng thái ca:</strong>
                                   <span>Chờ thanh toán</span>
                                   <div class="m-1">
-                                    <input type="number" value="1" min="1" />
+                                   <input type="number" value="1" min="1" th:attr="max=${countNumber}"
+                                          oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
                                   </div>
                                 </span>
                                                             </label>
                                                         </div>
-                                                        <div class="col-md-6 col-12 mt-1">
+                                                        <div class="col-md-4 col-12 mt-1">
                                                             <label class="checkbox-button">
                                                                 <input
                                                                         type="checkbox"
@@ -369,7 +440,8 @@
                                   <strong>Trạng thái ca:</strong>
                                   <span>Chờ nhận sân</span>
                                   <div class="m-1">
-                                    <input type="number" value="1" min="1" />
+                                   <input type="number" value="1" min="1" th:attr="max=${countNumber}"
+                                          oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
                                   </div>
                                 </span>
                                                             </label>
@@ -512,18 +584,135 @@
     var mobiscrollInstanceMultiSelectDate;
     var mobiscrollInstanceSelectWeek;
     var mobiscrollInstanceSelectRangeDay;
+    var countSanBong = parseInt([[${countNumber}]]);
+    var timeoutId;
     // Lấy ra table của
     var tableBody = document.querySelector("table.click-event-fullcalendar tbody");
     // Config FullCalendar
     document.addEventListener("DOMContentLoaded", function () {
-        var calendarEl = document.getElementById("calendar");
 
+        var calendarEl = document.getElementById("calendar");
+        var selectedValue = $("#selectLoaiSan").val();
         calendar = new FullCalendar.Calendar(calendarEl, {
             selectable: true,
             headerToolbar: {
                 left: "prev,next,today",
                 center: "title",
                 right: "dayGridMonth,timeGridWeek,timeGridDay",
+            },
+            events: {
+                url: "/api/vi/user/all-event?idLoaiSan="+selectedValue, // The URL to fetch your events from
+                method: "GET",
+                success: function (data) {
+                    var eventDefaul = [];
+
+                    for (var i = 0; i < data.length; i++) {
+                        var sanBong = data[i];
+
+                        // Parse the thoiGianDat value into a Date object
+                        var thoiGianDat = new Date(sanBong.thoiGianDat);
+
+                        var event = {
+                            id:generateEventId(),
+                            title: sanBong.tenCa,
+                            start: new Date(
+                                thoiGianDat.getFullYear(),
+                                thoiGianDat.getMonth(),
+                                thoiGianDat.getDate(),
+                                parseInt(sanBong.thoiGianBatDau.split(":")[0]), // Giờ bắt đầu
+                                parseInt(sanBong.thoiGianBatDau.split(":")[1]) // Phút bắt đầu
+                            ),
+                            end: new Date(
+                                thoiGianDat.getFullYear(),
+                                thoiGianDat.getMonth(),
+                                thoiGianDat.getDate(),
+                                parseInt(sanBong.thoiGianKetThuc.split(":")[0]), // Giờ kết thúc
+                                parseInt(sanBong.thoiGianKetThuc.split(":")[1]) // Phút kết thúc
+                            ),
+                            allDay: false,
+                            className: 'event-class-'+sanBong.trangThai,
+                            extendedProps: {
+                                trangThai: 'ORD',
+                                classCustom: 'event-class-'+sanBong.trangThai,
+                                giaSan:sanBong.gia,
+                            },
+                           /* editable: true,
+                            idSanBong: sanBong.idSanBong,
+                            gia: sanBong.gia,
+                            trangThai: sanBong.trangThai,*/
+                        };
+
+                        eventDefaul.push(event);
+                    }
+
+                    // Add the events to the calendar
+                    return eventDefaul;
+                },
+            },
+            eventMouseEnter: function (info) {
+
+                timeoutId = setTimeout(function () {
+                    // Thực hiện hành động khi con trỏ chuột di chuyển qua một sự kiện
+                    var event = info.event; // Lấy thông tin sự kiện
+
+                    const startTimeVietnam = event.start.toLocaleTimeString("en-US", {
+                        timeZone: "Asia/Ho_Chi_Minh",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    });
+                    const endTimeVietnam = event.end.toLocaleTimeString("en-US", {
+                        timeZone: "Asia/Ho_Chi_Minh",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    });
+
+                    // Lấy ra ngày từ sự kiện
+                    const dateVietnam = event.start.toLocaleDateString("en-US", {
+                        timeZone: "Asia/Ho_Chi_Minh",
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                    });
+
+                    // Chuyển định dạng ngày tháng năm thành "dd - MM - yyyy"
+                    const dateParts = dateVietnam.split("/");
+                    const formattedDate =
+                        dateParts[1] + "-" + dateParts[0] + "-" + dateParts[2];
+
+                    var tooltipHTML = '<div style="z-index: 7" class=" event-tooltip '+event.extendedProps.classCustom+'">';
+                    tooltipHTML += '<h3 style="color: #fff">' + event.title +'('+formattedDate+')'+ '</h3>'; // Tiêu đề sự kiện
+                    tooltipHTML += '<p>' + 'Thời gian bắt đầu: ' + startTimeVietnam + '</p>'; // Ngày bắt đầu
+                    tooltipHTML += '<p>' + 'Thời gian kết thúc: ' + endTimeVietnam + '</p>'; // Ngày kết thúc
+                    tooltipHTML += '<p>' + 'Giá sân: ' + event.extendedProps.giaSan + '</p>'; // Mô tả
+
+
+                    tooltipHTML += '</div>';
+
+                    // Hiển thị tooltip
+                    var tooltipElement = document.createElement('div');
+                    tooltipElement.innerHTML = tooltipHTML;
+                    tooltipElement.style.position = 'absolute';
+                    tooltipElement.style.left = info.jsEvent.pageX +'px'; // Điều chỉnh khoảng cách bên phải
+                    tooltipElement.style.top = info.jsEvent.pageY - tooltipElement.offsetHeight / 2 + 'px'; // Hiển thị bên phải
+
+                    document.body.appendChild(tooltipElement);
+                }, 1500);
+
+            },
+            eventMouseLeave: function () {
+                // Thực hiện hành động khi con trỏ chuột rời khỏi sự kiện
+                clearTimeout(timeoutId);
+                var tooltips = document.getElementsByClassName('event-tooltip');
+                while (tooltips[0]) {
+                    tooltips[0].parentNode.removeChild(tooltips[0]);
+                }
+            },
+            eventDragStart: function () {
+                // Ẩn và xóa tooltip khi bắt đầu kéo sự kiện
+                var tooltips = document.getElementsByClassName('event-tooltip');
+                while (tooltips[0]) {
+                    tooltips[0].parentNode.removeChild(tooltips[0]);
+                }
             },
             // Set the locale to Vietnamese
             locale: "vi",
@@ -571,7 +760,6 @@
                     // Hiển thị các sự kiện trong bảng
                     displayEventsInTable(eventsForSelectedDate);
 
-                    console.log(eventsForSelectedDate);
                     //check
                     console.log("hiện thị ca đã chọn -Click count: " + clickCount);
                     // Click 1 lần đóng modal
@@ -618,7 +806,10 @@
                     modal.style.maxHeight = "auto";
 
                     // Hiển thị modal
-                    modal.classList.add("visible");
+                    /*modal.classList.add("visible");*/
+
+                    addDataAndShowModal(modal,selectedValue);
+
 
                     // Đặt sự kiện để đóng modal khi người dùng click vào nút đóng (X)
                     document
@@ -649,7 +840,38 @@
                 }
             });
     });
-
+   function addDataAndShowModal(modal,idLoaiSan) {
+       $.ajax({
+           type: "GET",
+           contentType: "application/json",
+           url: "/api/v1/user/ca/get-all-ca?idLoaiSan="+idLoaiSan,
+           dataType: 'json',
+           success: function (responseData) {
+               $("#list").html(responseData.map(function (item) {
+                   return ` <div class="col-md-4 col-12 mt-1">
+                                <label class="checkbox-button">
+                                    <input type="checkbox" class="custom-checkbox"/>
+                                    <span class="checkbox-label">
+                                      <strong>${item.tenCa+' :'}</strong>
+                                      <span>${item.thoiGianBatDau +' - '+item.thoiGianKetThuc }</span><br />
+                                      <strong>Giá ca:</strong>
+                                      <span>${item.giaSanCa+' VND'} </span><br />
+                                      <div class="m-1">
+                                          <input type="number" value="1" min="1" max="`+countSanBong+`"
+                                               oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
+                                      </div>
+                                    </span>
+                                </label>
+                           </div>`
+                    }
+               ));
+               modal.classList.add("visible");
+           },
+           error: function (e) {
+               console.log("ERROR : ", e);
+           }
+       });
+   }
     // LAMNP 17/10/2023, 20/10/2023 UPDATE
     // ADD sự kiện click vào cell day có ca hiển thị sang thông tin
     // Hàm để hiển thị các sự kiện trong bảng
@@ -688,7 +910,8 @@
                 event.title,
                 startTimeVietnam,
                 endTimeVietnam,
-                formattedDate
+                formattedDate,
+                event.id
             );
         });
     }
@@ -705,7 +928,7 @@
 
     // LAMNP 20/10/2023 UPDATE TABLE
     // Hàm để thêm thông tin ca vào bảng
-    function addToTable(caInfo, timeStart, timeEnd, dateVietnam) {
+    function addToTable(caInfo, timeStart, timeEnd, dateVietnam,eventId) {
         // Create a row for the event information
         var rowInfo = tableBody.insertRow();
         var cell1 = rowInfo.insertCell(0);
@@ -725,7 +948,7 @@
             "beforeend",
             `
         <div class="d-flex flex-column">
-          <button class="btn btn-danger btn-sm xoa-san-button" type="button">
+          <button class="btn btn-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
             Xóa
           </button>
           <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" type="button">
@@ -795,7 +1018,7 @@
                     var ketThuc = parts[1];
 
                     //
-                    debugger
+
                     if (caNameElement) {
                         // Lấy nội dung của phần tử `<strong>` (trong trường hợp này, "Ca 6")
                         var caName = caNameElement.textContent.split(":")[0];
@@ -815,6 +1038,7 @@
                                 var year = date.getFullYear();
                                 // Tạo đối tượng sự kiện cho ngày này
                                 var event = {
+                                    id:generateEventId(),
                                     title: caName,
                                     start: new Date(
                                         year,
@@ -831,8 +1055,13 @@
                                         parseInt(ketThuc.split(":")[1]) // Phút kết thúc
                                     ),
                                     allDay: false, // Đặt thành false nếu bạn muốn sự kiện có thời gian cụ thể
-                                    className: 'event-class-1',
+                                    className: 'event-class',
                                     editable: true,
+                                    extendedProps: {
+                                        trangThai: 'NEW',
+                                        classCustom:'event-class',
+                                        giaSan:giaCa
+                                    },
                                 };
                                 var element = parseInt(inputElement.value);
                                 console.log(element);
@@ -860,6 +1089,7 @@
 
                                 // Tạo đối tượng sự kiện cho ngày này
                                 var event = {
+                                    id:generateEventId(),
                                     title: caName,
                                     start: new Date(
                                         year,
@@ -876,6 +1106,13 @@
                                         ketThuc.split(":")[1]
                                     ), // Thêm giờ kết thúc và phút kết thúc
                                     allDay: false, // Đặt thành false nếu bạn muốn sự kiện có thời gian cụ thể
+                                    className: 'event-class',
+                                    editable: true,
+                                    extendedProps: {
+                                        trangThai: 'NEW',
+                                        classCustom:'event-class',
+                                        giaSan:giaCa
+                                    },
                                 };
                                 var element = parseInt(inputElement.value);
 
@@ -903,6 +1140,7 @@
 
                                 // Tạo đối tượng sự kiện cho ngày này
                                 var event = {
+                                    id:generateEventId(),
                                     title: caName,
                                     start: new Date(
                                         year,
@@ -919,6 +1157,13 @@
                                         ketThuc.split(":")[1]
                                     ), // Thêm giờ kết thúc và phút kết thúc
                                     allDay: false, // Đặt thành false nếu bạn muốn sự kiện có thời gian cụ thể
+                                    className: 'event-class',
+                                    editable: true,
+                                    extendedProps: {
+                                        trangThai: 'NEW',
+                                        classCustom:'event-class',
+                                        giaSan:giaCa
+                                    },
                                 };
                                 var element = parseInt(inputElement.value);
                                 console.log(element);
@@ -1059,7 +1304,219 @@
         modal.classList.remove("visible");
     }
 
+    function checkMaxValue(inputElement) {
+
+        var countNumber = parseInt([[${countNumber}]]);
+        var inputValue = parseInt(inputElement.value);
+
+         if (inputValue > countNumber) {
+            inputElement.value = countNumber;
+        }else {
+             inputElement.value = inputElement.value ;
+         }
+    }
+    function checkValue(inputElement) {
+        var inputValue = parseInt(inputElement.value);
+
+        if (isNaN(inputValue) || inputValue < 1) {
+            inputElement.value = 1;
+        }
+    }
+    function showModalInfo() {
+
+        var eventNew = getEventNew();
+        if( eventNew.length > 0){
+            $("#listEventNew").html(eventNew.map(function (item) {
+                const startTimeVietnam = item.start.toLocaleTimeString("en-US", {
+                    timeZone: "Asia/Ho_Chi_Minh",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                });
+                const endTimeVietnam = item.end.toLocaleTimeString("en-US", {
+                    timeZone: "Asia/Ho_Chi_Minh",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                });
+
+                // Lấy ra ngày từ sự kiện
+                const dateVietnam = item.start.toLocaleDateString("en-US", {
+                    timeZone: "Asia/Ho_Chi_Minh",
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                });
+
+                // Chuyển định dạng ngày tháng năm thành "dd - MM - yyyy"
+                const dateParts = dateVietnam.split("/");
+                const formattedDate =
+                    dateParts[1] + "-" + dateParts[0] + "-" + dateParts[2];
+
+                return `
+                        <tr>
+                            <td>${item.title+'('+startTimeVietnam+' - '+endTimeVietnam +')'}</td>
+                            <td>${formattedDate}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm xoa-san-button" onclick="deleteEventById('${item.id}')">Xóa</button>
+                            </td>
+                        </tr>
+                        `;
+            }));
+            $('#modalInfo').modal('show');
+        }else {
+            alert('vui lòng chọn ca')
+        }
+
+    }
+
+    function getEventNew() {
+
+        var eventsClickShowEvent = calendar.getEvents();
+
+        // Lọc sự kiện cho ngày được click
+        var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+            event
+        ) {
+            return event.extendedProps.trangThai === 'NEW';
+        });
+        return eventsForSelectedDate;
+    }
+
+    // Hàm để tạo ID ngẫu nhiên
+    function generateEventId() {
+        // Sử dụng timestamp và một số ngẫu nhiên để tạo ID độc đáo
+        return 'event_' + new Date().getTime() + '_' + Math.floor(Math.random() * 1000);
+    }
+
+    // Hàm để lấy danh sách sự kiện dựa trên ID loại sân
+    function findEventByLoaiSan(idLoaiSan) {
+        return fetch("/api/vi/user/all-event?idLoaiSan=" + idLoaiSan, {
+            method: "GET",
+        })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Lỗi khi lấy dữ liệu');
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                var eventDefaul = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    var sanBong = data[i];
+
+                    // Parse dữ liệu và tạo sự kiện
+                    var thoiGianDat = new Date(sanBong.thoiGianDat);
+                    var event = {
+                        id: generateEventId(),
+                        title: sanBong.tenCa,
+                        start: new Date(
+                            thoiGianDat.getFullYear(),
+                            thoiGianDat.getMonth(),
+                            thoiGianDat.getDate(),
+                            parseInt(sanBong.thoiGianBatDau.split(":")[0]),
+                            parseInt(sanBong.thoiGianBatDau.split(":")[1])
+                        ),
+                        end: new Date(
+                            thoiGianDat.getFullYear(),
+                            thoiGianDat.getMonth(),
+                            thoiGianDat.getDate(),
+                            parseInt(sanBong.thoiGianKetThuc.split(":")[0]),
+                            parseInt(sanBong.thoiGianKetThuc.split(":")[1])
+                        ),
+                        allDay: false,
+                        className: 'event-class-' + sanBong.trangThai,
+                        extendedProps: {
+                            trangThai: 'ORD',
+                            classCustom: 'event-class-' + sanBong.trangThai,
+                            giaSan: sanBong.gia,
+                        },
+                    };
+
+                    eventDefaul.push(event);
+                }
+
+                return eventDefaul;
+            });
+    }
+    function resetEventByIdLoaiSan(idLoaiSan) {
+        calendar.getEvents().forEach(function (event) {
+            event.remove();
+        });
+
+        findEventByLoaiSan(idLoaiSan)
+            .then(function (events) {
+                calendar.addEventSource(events);
+                calendar.render();
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    }
+
+    function deleteEventById(eventId) {
+
+        var event = calendar.getEventById(eventId); // Lấy sự kiện dựa trên eventId
+        if (event) {
+            event.remove(); // Xóa sự kiện
+            var eventNew = getEventNew();
+            if( eventNew.length > 0){
+                $("#listEventNew").html(eventNew.map(function (item) {
+                    const startTimeVietnam = item.start.toLocaleTimeString("en-US", {
+                        timeZone: "Asia/Ho_Chi_Minh",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    });
+                    const endTimeVietnam = item.end.toLocaleTimeString("en-US", {
+                        timeZone: "Asia/Ho_Chi_Minh",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    });
+
+                    // Lấy ra ngày từ sự kiện
+                    const dateVietnam = item.start.toLocaleDateString("en-US", {
+                        timeZone: "Asia/Ho_Chi_Minh",
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                    });
+
+                    // Chuyển định dạng ngày tháng năm thành "dd - MM - yyyy"
+                    const dateParts = dateVietnam.split("/");
+                    const formattedDate =
+                        dateParts[1] + "-" + dateParts[0] + "-" + dateParts[2];
+
+                    return `
+                        <tr>
+                            <td>${item.title+'('+startTimeVietnam+' - '+endTimeVietnam +')'}</td>
+                            <td>${formattedDate}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm xoa-san-button" onclick="deleteEventById('${item.id}')">Xóa</button>
+                            </td>
+                        </tr>
+                        `;
+                }));
+
+            }else {
+                $('#modalInfo').modal('hide');
+            }
+            var selectDateClickShowEvent = event.start;
+            var eventsClickShowEvent = calendar.getEvents();
+
+            // Lọc sự kiện cho ngày được click
+            var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+                event
+            ) {
+                return isSameDay(event.start, selectDateClickShowEvent);
+            });
+            // Hiển thị các sự kiện trong bảng
+            displayEventsInTable(eventsForSelectedDate);
+        }
+    }
+
+
 </script>
+
+
 
 </body>
 </html>

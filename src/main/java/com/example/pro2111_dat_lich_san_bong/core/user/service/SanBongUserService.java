@@ -12,4 +12,6 @@ import java.util.List;
 public interface SanBongUserService {
 
     PageableObject<SanBongUserResponse> getAllSanBong(Pageable page);
+
+    Integer countSanBong();
 }

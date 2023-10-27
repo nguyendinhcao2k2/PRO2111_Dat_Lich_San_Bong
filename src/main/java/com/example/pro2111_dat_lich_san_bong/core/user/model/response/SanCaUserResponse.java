@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 
 
 /**
@@ -34,4 +35,7 @@ public interface SanCaUserResponse extends BaseIdTemplate {
 
     @Value("#{target.thoiGianKetThuc}")
     Time getThoiGianKetThuc();
+
+    @Value("#{target.thoiGianDat}")
+    Timestamp getThoiGianDat();
 }

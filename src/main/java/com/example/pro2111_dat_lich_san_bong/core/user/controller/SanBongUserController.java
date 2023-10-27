@@ -38,9 +38,7 @@ public class SanBongUserController extends BaseController {
        try {
            PageableObject<SanBongUserResponse> listPage = sanBongUserService.getAllSanBong(pageable);
            SanCaUserRequest request = new SanCaUserRequest(format.format(new Date()));
-           List listSanCa = sanCaUserService.getAllSanCa(request);
            model.addAttribute("pageSanBong",listPage);
-           model.addAttribute("listSanCa",listSanCa);
        }catch (Exception e){
            e.printStackTrace();
        }

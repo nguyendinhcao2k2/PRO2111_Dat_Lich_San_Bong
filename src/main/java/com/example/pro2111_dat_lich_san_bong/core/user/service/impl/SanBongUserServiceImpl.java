@@ -26,4 +26,9 @@ public class SanBongUserServiceImpl implements SanBongUserService {
         Page respo = sanBongUserRepository.getAllSanBong(page);
         return new PageableObject<SanBongUserResponse>(respo);
     }
+
+    @Override
+    public Integer countSanBong() {
+        return sanBongUserRepository.countSanBong();
+    }
 }
