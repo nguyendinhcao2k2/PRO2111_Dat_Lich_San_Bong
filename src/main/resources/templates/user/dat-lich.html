@@ -910,7 +910,8 @@
                 event.title,
                 startTimeVietnam,
                 endTimeVietnam,
-                formattedDate
+                formattedDate,
+                event.id
             );
         });
     }
@@ -927,7 +928,7 @@
 
     // LAMNP 20/10/2023 UPDATE TABLE
     // Hàm để thêm thông tin ca vào bảng
-    function addToTable(caInfo, timeStart, timeEnd, dateVietnam) {
+    function addToTable(caInfo, timeStart, timeEnd, dateVietnam,eventId) {
         // Create a row for the event information
         var rowInfo = tableBody.insertRow();
         var cell1 = rowInfo.insertCell(0);
@@ -947,7 +948,7 @@
             "beforeend",
             `
         <div class="d-flex flex-column">
-          <button class="btn btn-danger btn-sm xoa-san-button" type="button">
+          <button class="btn btn-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
             Xóa
           </button>
           <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" type="button">
@@ -1322,7 +1323,7 @@
         }
     }
     function showModalInfo() {
-        debugger
+
         var eventNew = getEventNew();
         if( eventNew.length > 0){
             $("#listEventNew").html(eventNew.map(function (item) {
@@ -1354,7 +1355,9 @@
                         <tr>
                             <td>${item.title+'('+startTimeVietnam+' - '+endTimeVietnam +')'}</td>
                             <td>${formattedDate}</td>
-                            <td>xóa</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm xoa-san-button" onclick="deleteEventById('${item.id}')">Xóa</button>
+                            </td>
                         </tr>
                         `;
             }));
@@ -1449,6 +1452,67 @@
                 console.error(error);
             });
     }
+
+    function deleteEventById(eventId) {
+
+        var event = calendar.getEventById(eventId); // Lấy sự kiện dựa trên eventId
+        if (event) {
+            event.remove(); // Xóa sự kiện
+            var eventNew = getEventNew();
+            if( eventNew.length > 0){
+                $("#listEventNew").html(eventNew.map(function (item) {
+                    const startTimeVietnam = item.start.toLocaleTimeString("en-US", {
+                        timeZone: "Asia/Ho_Chi_Minh",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    });
+                    const endTimeVietnam = item.end.toLocaleTimeString("en-US", {
+                        timeZone: "Asia/Ho_Chi_Minh",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    });
+
+                    // Lấy ra ngày từ sự kiện
+                    const dateVietnam = item.start.toLocaleDateString("en-US", {
+                        timeZone: "Asia/Ho_Chi_Minh",
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                    });
+
+                    // Chuyển định dạng ngày tháng năm thành "dd - MM - yyyy"
+                    const dateParts = dateVietnam.split("/");
+                    const formattedDate =
+                        dateParts[1] + "-" + dateParts[0] + "-" + dateParts[2];
+
+                    return `
+                        <tr>
+                            <td>${item.title+'('+startTimeVietnam+' - '+endTimeVietnam +')'}</td>
+                            <td>${formattedDate}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm xoa-san-button" onclick="deleteEventById('${item.id}')">Xóa</button>
+                            </td>
+                        </tr>
+                        `;
+                }));
+
+            }else {
+                $('#modalInfo').modal('hide');
+            }
+            var selectDateClickShowEvent = event.start;
+            var eventsClickShowEvent = calendar.getEvents();
+
+            // Lọc sự kiện cho ngày được click
+            var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+                event
+            ) {
+                return isSameDay(event.start, selectDateClickShowEvent);
+            });
+            // Hiển thị các sự kiện trong bảng
+            displayEventsInTable(eventsForSelectedDate);
+        }
+    }
+
 
 </script>
 
