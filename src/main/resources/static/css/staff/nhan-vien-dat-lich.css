@@ -1,9 +1,3 @@
-/*h1 {*/
-/*    text-align: center;*/
-/*    font-size: 25px;*/
-/*    font-weight: bold;*/
-/*    text-transform: uppercase;*/
-/*}*/
 
 .body-row-col {
     padding: 5px;
@@ -27,8 +21,8 @@
 /* LAMNP 21/10/2023 */
 .col-auto > .label-filter-staff {
     color: black;
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 16px;
+    /*font-weight: bold;*/
 }
 
 #select-san-staff,
@@ -39,19 +33,13 @@
     cursor: pointer;
 }
 
-.input-group-staff .input-header-search-staff {
-    color: black;
-    font-size: 15px;
-    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.input-group-staff .icon-header-search-staff {
-    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
+/*.input-group-staff .input-header-search-staff {*/
+/*    color: black;*/
+/*    font-size: 15px;*/
+/*    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);*/
+/*    border-top-right-radius: 5px;*/
+/*    border-bottom-right-radius: 5px;*/
+/*}*/
 
 .icon-content {
     width: 1em;
@@ -99,7 +87,7 @@
     text-decoration: none;
     position: relative;
     font-size: 16px;
-    color: black;
+    /*color: black;*/
 }
 
 .nav-tabs li a::after {
@@ -160,6 +148,17 @@ input::placeholder {
     background: #f7941e;
     color: #fff;
 }
+
+#modal-filter .modal-header {
+    background: #f7941e;
+    color: #fff;
+}
+
+
+#modalThongTin .modal-header {
+    background: #f7941e;
+    color: #fff;
+}
 /*  */
 /* choise shift*/
 /* LamNP */
@@ -188,15 +187,15 @@ span {
     display: none;
 }
 
-.checkbox-button input[type="checkbox"]:checked + .checkbox-label {
-    background-color: #008000;
-    color: #fff;
-}
+/*.checkbox-button input[type="checkbox"]:checked + .checkbox-label {*/
+/*    background-color: #008000;*/
+/*    color: #fff;*/
+/*}*/
 
-.checkbox-button input[type="checkbox"]:disabled + .checkbox-label {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
+/*.checkbox-button input[type="checkbox"]:disabled + .checkbox-label {*/
+/*    background-color: #ccc;*/
+/*    cursor: not-allowed;*/
+/*}*/
 
 .checkbox-button .checkbox-label {
     font-size: 1em;
@@ -293,7 +292,7 @@ input[type="checkbox"].cho-thanh-toan:disabled
 }
 
 /* Hiển thị thông tin  */
-.button-header {
+.button-header{
     margin-left: 1em;
     margin-right: 1em;
     display: flex;
@@ -307,11 +306,12 @@ input[type="checkbox"].cho-thanh-toan:disabled
     cursor: pointer;
 }
 
-.button-header:hover {
+.button-header:hover{
     background: #f7941e;
 }
 
-.button-header:active {
+.button-header:active
+{
     background: #f7941e;
 }
 
@@ -332,7 +332,7 @@ input[type="checkbox"].cho-thanh-toan:disabled
 }
 
 /* Button hiển thị check box  */
-.button-header-check-box {
+.button-header-check-box, .button-header-filter  {
     margin-left: 1em;
     margin-right: 1em;
     display: flex;
@@ -346,16 +346,20 @@ input[type="checkbox"].cho-thanh-toan:disabled
     cursor: pointer;
 }
 
-.button-header-check-box:hover {
+.button-header-check-box:hover  ,
+.button-header-filter:hover{
     background: #008168;
 }
 
-.button-header-check-box:active {
+.button-header-check-box:active,
+.button-header-filter:active{
     background: #006e58;
 }
 
 .button-icon-text-check,
-.button-icon-check {
+.button-icon-check,
+.button-icon-header,
+.button-icon-text-filter {
     font-family: "Quicksand", sans-serif;
     font-size: 15px;
     display: inline-flex;
@@ -365,7 +369,8 @@ input[type="checkbox"].cho-thanh-toan:disabled
     height: 100%;
 }
 
-.button-icon-check {
+.button-icon-check,
+.button-icon-header{
     font-size: 1em;
     background: rgba(0, 0, 0, 0.08);
 }
@@ -432,4 +437,44 @@ input[type="checkbox"].cho-thanh-toan:disabled
 
 .fc-daygrid-day-frame .fc-scrollgrid-sync-inner {
     background-color: #1a73e8;
+}
+
+/* table form coppy for giao ca  */
+.form-label {
+    font-size: 16px;
+    color: black;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: black;
+}
+.mb-3 {
+    margin-bottom: 15px;
+}
+
+.mains {
+    /* border: 1px solid black; */
+    padding: 10px 20px;
+    /* box-shadow: 0 0 20px #c5c5c5; */
+    /* transform: translateY(5px); */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    color: black;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+table th {
+    text-align: center;
 }
