@@ -104,7 +104,231 @@
                             <div id="menu_1" class="tab-content-item">
                                 <div class="body-row-col mt-1">
                                     <div class="row m-2">
-                                        <div class="col-md-6"></div>
+                                    <!--danh sách chờ -->
+                                        <div class="col-md-6">
+                                            <!-- Danh sách các ca sân -->
+                                            <button
+                                                    type="button"
+                                                    class="button-danh-sach"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modal-danh-sach-dat-san"
+                                            >
+                            <span class="button-icon-danh-sach">
+                              <i class="fas fa-list-alt fa-lg"></i>
+                            </span>
+                                            </button>
+                                            <!-- modal -->
+                                            <div
+                                                    class="modal fade"
+                                                    id="modal-danh-sach-dat-san"
+                                                    data-bs-backdrop="static"
+                                                    data-bs-keyboard="false"
+                                                    tabindex="-1"
+                                                    aria-labelledby="staticBackdropLabel"
+                                                    aria-hidden="true"
+                                            >
+                                                <div class="modal-dialog modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5
+                                                                    class="modal-title"
+                                                                    id="staticBackdropLabel"
+                                                            >
+                                                                Danh sách chờ xác nhận
+                                                            </h5>
+                                                            <button
+                                                                    type="button"
+                                                                    class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                            ></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="filter-danh-sach-cho">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <!-- Tìm kiếm -->
+                                                                        <form>
+                                                                            <div
+                                                                                    class="row g-3 align-items-center"
+                                                                            >
+                                                                                <!-- <div class="col-auto">
+                                                                                  <label
+                                                                                    for="input-search-danh-sach-cho"
+                                                                                    class="col-form-label label-danh-sach"
+                                                                                    >Tìm Kiếm :
+                                                                                  </label>
+                                                                                </div> -->
+                                                                                <div class="col-md-4 col-sm-auto">
+                                                                                    <div class="input-group">
+                                                <span
+                                                        class="input-group-text"
+                                                        style="
+                                                    border-bottom-left-radius: 5px;
+                                                    border-top-left-radius: 5px;
+                                                  "
+                                                >
+                                                  <i
+                                                          class="fas fa-search fa-lg"
+                                                  ></i>
+                                                </span>
+                                                                                        <input
+                                                                                                id="input-search-danh-sach-cho"
+                                                                                                style="color: black"
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                placeholder="Tên, số điện thoại khách"
+                                                                                        />
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!--Trạng thái  -->
+                                                                                <div class="col-auto">
+                                                                                    <label
+                                                                                            for="select-trang-thai-danh-sach-cho"
+                                                                                            class="col-form-label label-danh-sach"
+                                                                                    >Trạng thái :
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-2 col-sm-auto">
+                                                                                    <select
+                                                                                            id="select-trang-thai-danh-sach-cho"
+                                                                                            class="form-select"
+                                                                                    >
+                                                                                        <option selected value="0">
+                                                                                            Tất cả
+                                                                                        </option>
+                                                                                        <option value="1">
+                                                                                            thanh toán
+                                                                                        </option>
+                                                                                        <option value="2">...</option>
+                                                                                        <option value="3">...</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- Ca -->
+                                                                                <div class="col-auto">
+                                                                                    <label
+                                                                                            for="select-ca-danh-sach-cho"
+                                                                                            class="col-form-label label-danh-sach"
+                                                                                    >Ca :
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-2 col-sm-auto">
+                                                                                    <select
+                                                                                            id="select-ca-danh-sach-cho"
+                                                                                            class="form-select"
+                                                                                    >
+                                                                                        <option selected value="0">
+                                                                                            Ca 1
+                                                                                        </option>
+                                                                                        <option value="1">Ca 2</option>
+                                                                                        <option value="2">Ca 1</option>
+                                                                                        <option value="3">Ca 1</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- Sân -->
+                                                                                <div class="col-auto">
+                                                                                    <label
+                                                                                            for="select-san-danh-sach-cho"
+                                                                                            class="col-form-label label-danh-sach"
+                                                                                    >Sân :
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-2 col-sm-auto">
+                                                                                    <select
+                                                                                            id="select-san-danh-sach-cho"
+                                                                                            class="form-select"
+                                                                                    >
+                                                                                        <option selected value="0">
+                                                                                            Sân 1
+                                                                                        </option>
+                                                                                        <option value="1">Sân 2</option>
+                                                                                        <option value="2">Ca 1</option>
+                                                                                        <option value="3">Ca 1</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- Ngày -->
+                                                                                <div class="col-auto">
+                                                                                    <label
+                                                                                            for="select-date-danh-sach-cho"
+                                                                                            class="col-form-label label-danh-sach"
+                                                                                    >Ngày :
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-2 col-sm-auto">
+                                                                                    <input
+                                                                                            id="select-date-danh-sach-cho"
+                                                                                            type="date"
+                                                                                            class="form-control"
+                                                                                    />
+                                                                                </div>
+                                                                                <div class="col-auto">
+                                                                                    <button
+                                                                                            type="button"
+                                                                                            class="btn btn-labeled btn-success"
+                                                                                    >
+                                                                                        Tìm kiếm
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="table-responsive">
+                                                                <table
+                                                                        class="table table-striped table-hover fixed_header"
+                                                                >
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>STT</th>
+                                                                        <th>Tên khách hàng</th>
+                                                                        <th>Số điện thoại</th>
+                                                                        <th>Ngày</th>
+                                                                        <th>Ca</th>
+                                                                        <th>Sân</th>
+                                                                        <th>Trạng thái</th>
+                                                                        <th>Tổng tiền</th>
+                                                                        <th>Tiền cọc</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td>5</td>
+                                                                        <td>Nguyễn Cao Đần</td>
+                                                                        <td>0999999999</td>
+                                                                        <td>29-10-2023</td>
+                                                                        <td>Ca 1</td>
+                                                                        <td>Sân 3</td>
+                                                                        <td>Chờ cọc</td>
+                                                                        <td>800.000 VND</td>
+                                                                        <td>70.000 VND</td>
+                                                                        <td>
+                                                                            <div class="d-flex flex-column">
+                                                                                <button
+                                                                                        class="btn btn-success btn-sm"
+                                                                                        type="button"
+                                                                                >
+                                                                                    Xác nhận
+                                                                                </button>
+                                                                                <button
+                                                                                        class="btn btn-outline-danger btn-sm mt-2"
+                                                                                        type="button"
+                                                                                >
+                                                                                    Hủy
+                                                                                </button>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-md-6 d-flex justify-content-end">
                                         <div class="row g-1">
                                             <!--FILTER-->
@@ -156,7 +380,7 @@
                                                                 <form>
                                                                     <div class="col-md-12">
                                                                         <div
-                                                                                class="row g-3 align-items-center"
+                                                                                class="row g-2 align-items-center"
                                                                         >
                                                                             <!-- Sân filter -->
                                                                             <div class="col-auto">
@@ -227,14 +451,14 @@
                                                             <div class="modal-footer">
                                                                 <button
                                                                         type="submit"
-                                                                        class="btn btn-primary"
+                                                                        class="btn btn-success btn-labeled"
                                                                 >
                                                                     Tìm Kiếm
                                                                     <i class="fas fa-check fa-lg"></i>
                                                                 </button>
                                                                 <button
                                                                         type="button"
-                                                                        class="btn btn-danger"
+                                                                        class="btn btn-danger btn-labeled"
                                                                         data-bs-dismiss="modal"
                                                                 >
                                                                     Hủy
@@ -366,14 +590,14 @@
                                                                     <button
                                                                             th:onclick="|datSan()|"
                                                                             type="submit"
-                                                                            class="btn btn-primary"
+                                                                            class="btn btn-success btn-labeled"
                                                                     >
                                                                         Đặt Sân
                                                                         <i class="fas fa-check fa-lg"></i>
                                                                     </button>
                                                                     <button
                                                                             type="button"
-                                                                            class="btn btn-danger"
+                                                                            class="btn btn-danger btn-labeled"
                                                                             data-bs-dismiss="modal"
                                                                     >
                                                                         Đóng
@@ -502,7 +726,7 @@
                                                                                             <td>Ca 2</td>
                                                                                             <td>10:00:00 - 12:30:00</td>
                                                                                             <td>500000 VND</td>
-                                                                                            <td><button class="btn-danger">Xóa</button></td>
+                                                                                            <td><button class="btn btn-danger btn-labeled">Xóa</button></td>
                                                                                         </tr>
                                                                                         </tbody>
                                                                                     </table>
@@ -512,14 +736,14 @@
                                                                         <div class="modal-footer">
                                                                             <button
                                                                                     type="submit"
-                                                                                    class="btn btn-primary"
+                                                                                    class="btn btn-success btn-labeled"
                                                                             >
                                                                                 Gửi
                                                                                 <i class="fas fa-check fa-lg"></i>
                                                                             </button>
                                                                             <button
                                                                                     type="button"
-                                                                                    class="btn btn-danger"
+                                                                                    class="btn btn-danger btn-labeled"
                                                                                     data-bs-dismiss="modal"
                                                                             >
                                                                                 Đóng
