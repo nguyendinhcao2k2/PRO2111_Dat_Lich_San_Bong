@@ -1,4 +1,12 @@
 
+/* desgin button */
+.btn-labeled {
+    /* padding-top: 0;
+    padding-bottom: 0; */
+    border-radius: 5px;
+}
+
+
 .body-row-col {
     padding: 5px;
     background: #fff;
@@ -19,6 +27,44 @@
 }
 
 /* LAMNP 21/10/2023 */
+
+.label-danh-sach {
+    color: black;
+    font-size: 15px;
+}
+
+/* chú ý */
+.form-control {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.form-select {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: black;
+}
+
+#select-date-danh-sach-cho,
+#select-trang-thai-danh-sach-cho,
+#select-ca-danh-sach-cho,
+#select-san-danh-sach-cho {
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+/* input riêng ko đổ viền khi click */
+#input-search-danh-sach-cho {
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/*end danh sách chờ  */
 .col-auto > .label-filter-staff {
     color: black;
     font-size: 16px;
@@ -33,13 +79,7 @@
     cursor: pointer;
 }
 
-/*.input-group-staff .input-header-search-staff {*/
-/*    color: black;*/
-/*    font-size: 15px;*/
-/*    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);*/
-/*    border-top-right-radius: 5px;*/
-/*    border-bottom-right-radius: 5px;*/
-/*}*/
+
 
 .icon-content {
     width: 1em;
@@ -374,6 +414,46 @@ input[type="checkbox"].cho-thanh-toan:disabled
     font-size: 1em;
     background: rgba(0, 0, 0, 0.08);
 }
+
+/* button danh sách chờ */
+.button-danh-sach {
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    height: 2.5em;
+    padding: 0;
+    background: #2124b1;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.button-icon-danh-sach {
+    font-family: "Quicksand", sans-serif;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    color: #fff;
+    height: 100%;
+}
+
+.button-danh-sach:hover {
+    background: #2124b1;
+}
+
+.button-danh-sach:active {
+    background: #2124b1;
+}
+
+#modal-danh-sach-dat-san .modal-header {
+    background: #f7941e;
+    color: #fff;
+}
+/* end danh sách chờ */
+
 /* Css calendar */
 /* CSS chung cho nút và văn bản */
 .fc-button,
@@ -445,13 +525,6 @@ input[type="checkbox"].cho-thanh-toan:disabled
     color: black;
 }
 
-.form-control {
-    width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    color: black;
-}
 .mb-3 {
     margin-bottom: 15px;
 }
