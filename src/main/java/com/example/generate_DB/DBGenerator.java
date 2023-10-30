@@ -215,18 +215,21 @@ public class DBGenerator implements CommandLineRunner {
         loaiSan1.setTenLoaiSan("Sân 5");
         loaiSan1.setGiaSan(250000.0);
         loaiSan1.setMoTa("Sân giành cho mỗi đội 5 người ");
+        loaiSan1.setTrangThai(0);
         loaiSan1.setId(loaiSanRepository.save(loaiSan1).getId());
 
         LoaiSan loaiSan2 = new LoaiSan();
         loaiSan2.setTenLoaiSan("Sân 7");
         loaiSan2.setGiaSan(300000.0);
         loaiSan2.setMoTa("Sân giành cho mỗi đội 7 người ");
+        loaiSan1.setTrangThai(0);
         loaiSan2.setId(loaiSanRepository.save(loaiSan2).getId());
 
         LoaiSan loaiSan3 = new LoaiSan();
         loaiSan3.setTenLoaiSan("Sân 11");
         loaiSan3.setGiaSan(350000.0);
         loaiSan3.setMoTa("Sân giành cho mỗi đội 11 người ");
+        loaiSan1.setTrangThai(0);
         loaiSan3.setId(loaiSanRepository.save(loaiSan3).getId());
 
         //Loai san end
