@@ -737,6 +737,13 @@ function openModalDanhSachCho() {
                                       >
                                                        Xác nhận
                                       </button>
+                                       <button
+                                             onclick="detailDanhSach('${dt.idHoaDon}')"
+                                             class="btn btn-primary btn-sm"
+                                             type="button"
+                                      >
+                                                       Xem chi tiết
+                                      </button>
                                       <button
                                              onclick="deleteHoaDon('${dt.idHoaDon}')"
                                              class="btn btn-outline-danger btn-sm mt-2"
@@ -770,4 +777,8 @@ function deleteHoaDon(idHoaDon) {
             console.log(e)
         }
     });
+}
+
+function detailDanhSach(idHoaDon){
+
 }
