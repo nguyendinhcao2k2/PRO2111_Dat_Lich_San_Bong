@@ -385,14 +385,14 @@
                                                                             <!-- Sân filter -->
                                                                             <div class="col-auto">
                                                                                 <label
-                                                                                        for="select-san-staff"
+                                                                                        for="select-san-st"
                                                                                         class="col-form-label label-filter-staff"
                                                                                 >Sân :
                                                                                 </label>
                                                                             </div>
                                                                             <div class="col-md-3 col-sm-auto">
                                                                                 <select
-                                                                                        id="select-san-staff"
+                                                                                        id="select-san-st"
                                                                                         class="form-select"
                                                                                         style="border-radius: 5px"
                                                                                 >
@@ -404,34 +404,9 @@
                                                                                     <option value="3">Sân 3</option>
                                                                                 </select>
                                                                             </div>
-                                                                            <!--Loại Sân  -->
-                                                                            <div class="col-auto">
-                                                                                <label
-                                                                                        for="select-loai-san-staff"
-                                                                                        class="col-form-label label-filter-staff"
-                                                                                >Loại sân :
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="col-md-3 col-sm-auto">
-                                                                                <select
-                                                                                        id="select-loai-san-staff"
-                                                                                        class="form-select"
-                                                                                        style="border-radius: 5px"
-                                                                                >
-                                                                                    <option selected value="0">
-                                                                                        Tất cả
-                                                                                    </option>
-                                                                                    <option value="1">Sân 5</option>
-                                                                                    <option value="2">Sân 7</option>
-                                                                                    <option value="3">
-                                                                                        Sân 12
-                                                                                    </option>
-                                                                                </select>
-                                                                            </div>
                                                                             <!-- Ngày -->
                                                                             <div class="col-auto">
                                                                                 <label
-                                                                                        for="select-loai-san-staff"
                                                                                         class="col-form-label label-filter-staff"
                                                                                 >Ngày :
                                                                                 </label>
@@ -450,6 +425,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button
+                                                                        th:onclick="|filterSanBong()|"
                                                                         type="submit"
                                                                         class="btn btn-success btn-labeled"
                                                                 >

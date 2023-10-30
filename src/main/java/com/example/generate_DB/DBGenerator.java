@@ -39,6 +39,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -289,6 +290,7 @@ public class DBGenerator implements CommandLineRunner {
         san1Ca1.setIdCa(ca1.getId());
         san1Ca1.setTrangThai(TrangThaiSanCa.CHO_NHAN_SAN.ordinal()); //0 chờ nhận sân
         san1Ca1.setThoiGianDat(localDateTime);
+        san1Ca1.setNgayDenSan(LocalDate.now());
         san1Ca1.setGia(sanBong1.getGiaSan() + ca1.getGiaCa());
         san1Ca1.setId(getIdSanCa(sanBong1, ca1, dateId));
         san1Ca1.setUserId(kh1.getId());
@@ -299,6 +301,7 @@ public class DBGenerator implements CommandLineRunner {
         san1Ca2.setIdCa(ca2.getId());
         san1Ca2.setTrangThai(TrangThaiSanCa.CHO_NHAN_SAN.ordinal()); //0 chờ nhận sân
         san1Ca2.setThoiGianDat(localDateTime);
+        san1Ca2.setNgayDenSan(LocalDate.now());
         san1Ca2.setGia(sanBong1.getGiaSan() + ca2.getGiaCa());
         san1Ca2.setId(getIdSanCa(sanBong1, ca2, dateId));
         san1Ca2.setUserId(kh1.getId());
@@ -309,6 +312,7 @@ public class DBGenerator implements CommandLineRunner {
         san2Ca1.setIdCa(ca1.getId());
         san2Ca1.setTrangThai(TrangThaiSanCa.DANG_DA.ordinal());
         san2Ca1.setThoiGianDat(localDateTime);
+        san2Ca1.setNgayDenSan(LocalDate.now());
         san2Ca1.setGia(sanBong2.getGiaSan() + ca1.getGiaCa());
         san2Ca1.setId(getIdSanCa(sanBong2, ca1, dateId));
         san2Ca1.setUserId(kh1.getId());
@@ -319,6 +323,7 @@ public class DBGenerator implements CommandLineRunner {
         san2Ca2.setIdCa(ca2.getId());
         san2Ca2.setTrangThai(TrangThaiSanCa.CHO_NHAN_SAN.ordinal()); //0 chờ nhận sân
         san2Ca2.setThoiGianDat(localDateTime);
+        san2Ca2.setNgayDenSan(LocalDate.now());
         san2Ca2.setGia(sanBong2.getGiaSan() + ca2.getGiaCa());
         san2Ca2.setId(getIdSanCa(sanBong2, ca2, dateId));
         san2Ca2.setUserId(kh1.getId());
