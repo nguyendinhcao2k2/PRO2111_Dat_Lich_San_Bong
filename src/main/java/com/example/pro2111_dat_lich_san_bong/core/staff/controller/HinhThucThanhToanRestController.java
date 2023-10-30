@@ -22,7 +22,7 @@ public class HinhThucThanhToanRestController {
     @Autowired
     private HinhThucThanhToanRepository repository;
 
-    @GetMapping("get-all")
+    @GetMapping("/get-all")
     public ResponseEntity<List<HinhThucThanhToan>> getAll() {
         List<HinhThucThanhToan> listHinhThucThanhToan = repository.findAll();
         return ResponseEntity.ok(listHinhThucThanhToan);

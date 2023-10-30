@@ -1,0 +1,40 @@
+package com.example.pro2111_dat_lich_san_bong.core.staff.model.request;
+
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
+public class HoaDonThanhToanRequest {
+    private String id;
+    private String idDichVuSanBong;
+    private String idAccount;
+    private Double tienCoc;
+    private String tenKhachHang;
+    private String soDienThoai;
+    private String tenSanBong;
+    private String tenLoaiSan;
+    private String tenCa;
+    private Time thoiGianBatDau;
+    private Time thoiGianKetThuc;
+    private LocalDate ngayDenSan;
+    private Time thoiGianCheckIn;
+    private LocalDateTime ngayDatLich;
+    private Double tongTienSanCa;
+    private Double tongTienDichVu;
+    private Double tongTienThanhToan;
+    private Integer trangThai;
+}
