@@ -104,15 +104,14 @@
                             <div id="menu_1" class="tab-content-item">
                                 <div class="body-row-col mt-1">
                                     <div class="row m-2">
-                                    <!--danh sách chờ -->
+                                        <!--danh sách chờ -->
                                         <div class="col-md-6">
                                             <!-- Danh sách các ca sân -->
                                             <button
+                                                    th:onclick="|openModalDanhSachCho()|"
                                                     type="button"
                                                     class="button-danh-sach"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#modal-danh-sach-dat-san"
-                                            >
+                                                    data-bs-toggle="modal">
                             <span class="button-icon-danh-sach">
                               <i class="fas fa-list-alt fa-lg"></i>
                             </span>
@@ -132,7 +131,6 @@
                                                         <div class="modal-header">
                                                             <h5
                                                                     class="modal-title"
-                                                                    id="staticBackdropLabel"
                                                             >
                                                                 Danh sách chờ xác nhận
                                                             </h5>
@@ -181,71 +179,6 @@
                                                                                         />
                                                                                     </div>
                                                                                 </div>
-                                                                                <!--Trạng thái  -->
-                                                                                <div class="col-auto">
-                                                                                    <label
-                                                                                            for="select-trang-thai-danh-sach-cho"
-                                                                                            class="col-form-label label-danh-sach"
-                                                                                    >Trạng thái :
-                                                                                    </label>
-                                                                                </div>
-                                                                                <div class="col-md-2 col-sm-auto">
-                                                                                    <select
-                                                                                            id="select-trang-thai-danh-sach-cho"
-                                                                                            class="form-select"
-                                                                                    >
-                                                                                        <option selected value="0">
-                                                                                            Tất cả
-                                                                                        </option>
-                                                                                        <option value="1">
-                                                                                            thanh toán
-                                                                                        </option>
-                                                                                        <option value="2">...</option>
-                                                                                        <option value="3">...</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                                <!-- Ca -->
-                                                                                <div class="col-auto">
-                                                                                    <label
-                                                                                            for="select-ca-danh-sach-cho"
-                                                                                            class="col-form-label label-danh-sach"
-                                                                                    >Ca :
-                                                                                    </label>
-                                                                                </div>
-                                                                                <div class="col-md-2 col-sm-auto">
-                                                                                    <select
-                                                                                            id="select-ca-danh-sach-cho"
-                                                                                            class="form-select"
-                                                                                    >
-                                                                                        <option selected value="0">
-                                                                                            Ca 1
-                                                                                        </option>
-                                                                                        <option value="1">Ca 2</option>
-                                                                                        <option value="2">Ca 1</option>
-                                                                                        <option value="3">Ca 1</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                                <!-- Sân -->
-                                                                                <div class="col-auto">
-                                                                                    <label
-                                                                                            for="select-san-danh-sach-cho"
-                                                                                            class="col-form-label label-danh-sach"
-                                                                                    >Sân :
-                                                                                    </label>
-                                                                                </div>
-                                                                                <div class="col-md-2 col-sm-auto">
-                                                                                    <select
-                                                                                            id="select-san-danh-sach-cho"
-                                                                                            class="form-select"
-                                                                                    >
-                                                                                        <option selected value="0">
-                                                                                            Sân 1
-                                                                                        </option>
-                                                                                        <option value="1">Sân 2</option>
-                                                                                        <option value="2">Ca 1</option>
-                                                                                        <option value="3">Ca 1</option>
-                                                                                    </select>
-                                                                                </div>
                                                                                 <!-- Ngày -->
                                                                                 <div class="col-auto">
                                                                                     <label
@@ -283,43 +216,15 @@
                                                                         <th>STT</th>
                                                                         <th>Tên khách hàng</th>
                                                                         <th>Số điện thoại</th>
+                                                                        <th>Email</th>
                                                                         <th>Ngày</th>
-                                                                        <th>Ca</th>
-                                                                        <th>Sân</th>
-                                                                        <th>Trạng thái</th>
                                                                         <th>Tổng tiền</th>
                                                                         <th>Tiền cọc</th>
+                                                                        <th>Mã tiền cọc</th>
                                                                         <th>Action</th>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td>5</td>
-                                                                        <td>Nguyễn Cao Đần</td>
-                                                                        <td>0999999999</td>
-                                                                        <td>29-10-2023</td>
-                                                                        <td>Ca 1</td>
-                                                                        <td>Sân 3</td>
-                                                                        <td>Chờ cọc</td>
-                                                                        <td>800.000 VND</td>
-                                                                        <td>70.000 VND</td>
-                                                                        <td>
-                                                                            <div class="d-flex flex-column">
-                                                                                <button
-                                                                                        class="btn btn-success btn-sm"
-                                                                                        type="button"
-                                                                                >
-                                                                                    Xác nhận
-                                                                                </button>
-                                                                                <button
-                                                                                        class="btn btn-outline-danger btn-sm mt-2"
-                                                                                        type="button"
-                                                                                >
-                                                                                    Hủy
-                                                                                </button>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
+                                                                    <tbody th:id="tableXacNhan">
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -330,245 +235,106 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 d-flex justify-content-end">
-                                        <div class="row g-1">
-                                            <!--FILTER-->
-                                            <div
-                                                    class="col-md-auto col-sm-auto m-1 d-flex justify-content-end"
-                                            >
-                                                <!--BUTTON-->
-                                                <button
-                                                        type="button"
-                                                        class="button-header-filter"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modal-filter"
+                                            <div class="row g-1">
+                                                <!--FILTER-->
+                                                <div
+                                                        class="col-md-auto col-sm-auto m-1 d-flex justify-content-end"
                                                 >
+                                                    <!--BUTTON-->
+                                                    <button
+                                                            type="button"
+                                                            class="button-header-filter"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modal-filter"
+                                                    >
                                                     <span class="button-icon-text-filter">
                                                         Filter
                                                     </span>
-                                                    <span class="button-icon-header">
+                                                        <span class="button-icon-header">
                                                       <i class="fas fa-filter fa-lg"></i>
                                                     </span>
-                                                </button>
-                                                <!--BUTTO END -->
-                                                <!--MODAL FILTER-->
-                                                <div
-                                                        class="modal fade"
-                                                        id="modal-filter"
-                                                        data-bs-backdrop="static"
-                                                        data-bs-keyboard="false"
-                                                        tabindex="-1"
-                                                        aria-labelledby="staticBackdropLabel"
-                                                        aria-hidden="true"
-                                                >
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5
-                                                                        class="modal-title"
-                                                                        id="staticBackdropLabel"
-                                                                >
-                                                                    Tìm kiếm
-                                                                </h5>
-                                                                <button
-                                                                        type="button"
-                                                                        class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"
-                                                                ></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form>
-                                                                    <div class="col-md-12">
-                                                                        <div
-                                                                                class="row g-2 align-items-center"
-                                                                        >
-                                                                            <!-- Sân filter -->
-                                                                            <div class="col-auto">
-                                                                                <label
-                                                                                        for="select-san-st"
-                                                                                        class="col-form-label label-filter-staff"
-                                                                                >Sân :
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="col-md-3 col-sm-auto">
-                                                                                <select
-                                                                                        id="select-san-st"
-                                                                                        class="form-select"
-                                                                                        style="border-radius: 5px"
-                                                                                >
-                                                                                    <option selected value="0">
-                                                                                        Tất cả
-                                                                                    </option>
-                                                                                    <option value="1">Sân 1</option>
-                                                                                    <option value="2">Sân 2</option>
-                                                                                    <option value="3">Sân 3</option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <!-- Ngày -->
-                                                                            <div class="col-auto">
-                                                                                <label
-                                                                                        class="col-form-label label-filter-staff"
-                                                                                >Ngày :
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="col-md-3 col-sm-auto">
-                                                                                <input
-                                                                                        id="date-header-search-staff"
-                                                                                        type="date"
-                                                                                        class="form-control"
-                                                                                        style="border-radius: 5px"
-                                                                                />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button
-                                                                        th:onclick="|filterSanBong()|"
-                                                                        type="submit"
-                                                                        class="btn btn-success btn-labeled"
-                                                                >
-                                                                    Tìm Kiếm
-                                                                    <i class="fas fa-check fa-lg"></i>
-                                                                </button>
-                                                                <button
-                                                                        type="button"
-                                                                        class="btn btn-danger btn-labeled"
-                                                                        data-bs-dismiss="modal"
-                                                                >
-                                                                    Hủy
-                                                                    <i class="fas fa-times fa-lg"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- MODAL FILTER-->
-                                            </div>
-                                            <!--END FILTER-->
-                                            <!--CHECK BOX-->
-                                            <div
-                                                    class="col-md-auto col-sm-auto m-1 d-flex justify-content-end"
-                                            >
-                                                <button
-                                                        type="button"
-                                                        id="showCheckboxButton"
-                                                        class="button-header-check-box"
-                                                >
-                                                    <span class="button-icon-text-check">Chọn Sân</span>
-                                                    <span class="button-icon-check">
-                              <i class="far fa-check-square fa-lg"></i>
-                            </span>
-                                                </button>
-                                            </div>
-                                            <!--CHECK BOX END-->
-                                            <!--THÔNG TIN-->
-                                            <div
-                                                    class="col-md-auto col-sm-auto m-1 d-flex justify-content-end"
-                                            >
-                                                <div>
-                                                    <button
-                                                            type="button"
-                                                            class="button-header"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalInfo"
-                                                    >
-                                                        <span class="button__text">Thông Tin</span>
-                                                        <span class="button__icon">
-                                <i class="fas fa-info"></i>
-                              </span>
                                                     </button>
-                                                    <!-- Modal  -->
-                                                    <div class="modal" id="modalInfo">
-                                                        <div class="modal-dialog modal-xl">
+                                                    <!--BUTTO END -->
+                                                    <!--MODAL FILTER-->
+                                                    <div
+                                                            class="modal fade"
+                                                            id="modal-filter"
+                                                            data-bs-backdrop="static"
+                                                            data-bs-keyboard="false"
+                                                            tabindex="-1"
+                                                            aria-labelledby="staticBackdropLabel"
+                                                            aria-hidden="true"
+                                                    >
+                                                        <div class="modal-dialog modal-lg">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title">Đặt Sân</h5>
+                                                                    <h5
+                                                                            class="modal-title"
+                                                                            id="staticBackdropLabel"
+                                                                    >
+                                                                        Tìm kiếm
+                                                                    </h5>
                                                                     <button
                                                                             type="button"
                                                                             class="btn-close"
                                                                             data-bs-dismiss="modal"
+                                                                            aria-label="Close"
                                                                     ></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-md-4 col-sm-auto">
-                                                                            <form>
-                                                                                <div class="mb-3">
-                                                                                    <label class="form-label required"
-                                                                                    >Họ và tên</label
-                                                                                    >
-                                                                                    <input
-                                                                                            th:id="hoTenInput"
-                                                                                            type="text"
-                                                                                            class="form-control"
-                                                                                    />
-                                                                                    <span th:id="errorHoten" style="color: red"></span>
-                                                                                </div>
-                                                                                <div class="mb-3">
-                                                                                    <label class="form-label required"
-                                                                                    >Email</label
-                                                                                    >
-                                                                                    <input
-                                                                                            th:id="emailInput"
-                                                                                            type="email"
-                                                                                            class="form-control"
-                                                                                    />
-                                                                                    <span th:id="errorEmail" style="color: red"></span>
-                                                                                </div>
-                                                                                <div class="mb-3">
-                                                                                    <label class="form-label required"
-                                                                                    >Số điện thoại</label
-                                                                                    >
-                                                                                    <input
-                                                                                            th:id="soDienThoaiInput"
-                                                                                            type="text"
-                                                                                            class="form-control"
-                                                                                    />
-                                                                                    <span th:id="errorSoDienThoai" style="color: red"></span>
-                                                                                </div>
-                                                                                <div class="mb-3">
-                                                                                    <label class="form-label required"
-                                                                                    >Ghi chú</label
-                                                                                    >
-                                                                                    <textarea
-                                                                                            th:id="ghiChuInput"
-                                                                                            class="form-control"
-                                                                                    ></textarea>
-                                                                                </div>
-                                                                            </form>
-                                                                        </div>
-                                                                        <!--                                                                    day la san ca-->
-                                                                        <div class="col-md-8 col-sm-auto">
-                                                                            <table
-                                                                                    class="table table-bordered table-hover"
-                                                                                    style="color: black"
+                                                                    <form>
+                                                                        <div class="col-md-12">
+                                                                            <div
+                                                                                    class="row g-2 align-items-center"
                                                                             >
-                                                                                <thead>
-                                                                                <tr>
-                                                                                    <th>Sân Bóng</th>
-                                                                                    <th>Ngày</th>
-                                                                                    <th>Ca</th>
-                                                                                    <th>Thời Gian</th>
-                                                                                    <th>Giá</th>
-                                                                                    <th>Thao tác</th>
-                                                                                </tr>
-                                                                                </thead>
-                                                                                <tbody id="idTable">
-
-                                                                                </tbody>
-                                                                            </table>
+                                                                                <!-- Sân filter -->
+                                                                                <div class="col-auto">
+                                                                                    <label
+                                                                                            for="select-san-st"
+                                                                                            class="col-form-label label-filter-staff"
+                                                                                    >Sân :
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-3 col-sm-auto">
+                                                                                    <select
+                                                                                            id="select-san-st"
+                                                                                            class="form-select"
+                                                                                            style="border-radius: 5px"
+                                                                                    >
+                                                                                        <option selected value="0">
+                                                                                            Tất cả
+                                                                                        </option>
+                                                                                        <option value="1">Sân 1</option>
+                                                                                        <option value="2">Sân 2</option>
+                                                                                        <option value="3">Sân 3</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- Ngày -->
+                                                                                <div class="col-auto">
+                                                                                    <label
+                                                                                            class="col-form-label label-filter-staff"
+                                                                                    >Ngày :
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-3 col-sm-auto">
+                                                                                    <input
+                                                                                            id="date-header-search-staff"
+                                                                                            type="date"
+                                                                                            class="form-control"
+                                                                                            style="border-radius: 5px"
+                                                                                    />
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </form>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button
-                                                                            th:onclick="|datSan()|"
+                                                                            th:onclick="|filterSanBong()|"
                                                                             type="submit"
                                                                             class="btn btn-success btn-labeled"
                                                                     >
-                                                                        Đặt Sân
+                                                                        Tìm Kiếm
                                                                         <i class="fas fa-check fa-lg"></i>
                                                                     </button>
                                                                     <button
@@ -576,18 +342,160 @@
                                                                             class="btn btn-danger btn-labeled"
                                                                             data-bs-dismiss="modal"
                                                                     >
-                                                                        Đóng
+                                                                        Hủy
                                                                         <i class="fas fa-times fa-lg"></i>
                                                                     </button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- End Modal  -->
+                                                    <!-- MODAL FILTER-->
                                                 </div>
+                                                <!--END FILTER-->
+                                                <!--CHECK BOX-->
+                                                <div
+                                                        class="col-md-auto col-sm-auto m-1 d-flex justify-content-end"
+                                                >
+                                                    <button
+                                                            type="button"
+                                                            id="showCheckboxButton"
+                                                            class="button-header-check-box"
+                                                    >
+                                                        <span class="button-icon-text-check">Chọn Sân</span>
+                                                        <span class="button-icon-check">
+                              <i class="far fa-check-square fa-lg"></i>
+                            </span>
+                                                    </button>
+                                                </div>
+                                                <!--CHECK BOX END-->
+                                                <!--THÔNG TIN-->
+                                                <div
+                                                        class="col-md-auto col-sm-auto m-1 d-flex justify-content-end"
+                                                >
+                                                    <div>
+                                                        <button
+                                                                type="button"
+                                                                class="button-header"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalInfo"
+                                                        >
+                                                            <span class="button__text">Thông Tin</span>
+                                                            <span class="button__icon">
+                                <i class="fas fa-info"></i>
+                              </span>
+                                                        </button>
+                                                        <!-- Modal  -->
+                                                        <div class="modal" id="modalInfo">
+                                                            <div class="modal-dialog modal-xl">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Đặt Sân</h5>
+                                                                        <button
+                                                                                type="button"
+                                                                                class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                        ></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-4 col-sm-auto">
+                                                                                <form>
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label required"
+                                                                                        >Họ và tên</label
+                                                                                        >
+                                                                                        <input
+                                                                                                th:id="hoTenInput"
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                        />
+                                                                                        <span th:id="errorHoten"
+                                                                                              style="color: red"></span>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label required"
+                                                                                        >Email</label
+                                                                                        >
+                                                                                        <input
+                                                                                                th:id="emailInput"
+                                                                                                type="email"
+                                                                                                class="form-control"
+                                                                                        />
+                                                                                        <span th:id="errorEmail"
+                                                                                              style="color: red"></span>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label required"
+                                                                                        >Số điện thoại</label
+                                                                                        >
+                                                                                        <input
+                                                                                                th:id="soDienThoaiInput"
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                        />
+                                                                                        <span th:id="errorSoDienThoai"
+                                                                                              style="color: red"></span>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label required"
+                                                                                        >Ghi chú</label
+                                                                                        >
+                                                                                        <textarea
+                                                                                                th:id="ghiChuInput"
+                                                                                                class="form-control"
+                                                                                        ></textarea>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <!--                                                                    day la san ca-->
+                                                                            <div class="col-md-8 col-sm-auto">
+                                                                                <table
+                                                                                        class="table table-bordered table-hover"
+                                                                                        style="color: black"
+                                                                                >
+                                                                                    <thead>
+                                                                                    <tr>
+                                                                                        <th>Sân Bóng</th>
+                                                                                        <th>Ngày</th>
+                                                                                        <th>Ca</th>
+                                                                                        <th>Thời Gian</th>
+                                                                                        <th>Giá</th>
+                                                                                        <th>Thao tác</th>
+                                                                                    </tr>
+                                                                                    </thead>
+                                                                                    <tbody id="idTable">
+
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button
+                                                                                th:onclick="|datSan()|"
+                                                                                type="submit"
+                                                                                class="btn btn-success btn-labeled"
+                                                                        >
+                                                                            Đặt Sân
+                                                                            <i class="fas fa-check fa-lg"></i>
+                                                                        </button>
+                                                                        <button
+                                                                                type="button"
+                                                                                class="btn btn-danger btn-labeled"
+                                                                                data-bs-dismiss="modal"
+                                                                        >
+                                                                            Đóng
+                                                                            <i class="fas fa-times fa-lg"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Modal  -->
+                                                    </div>
+                                                </div>
+                                                <!--END THÔNG TIN-->
                                             </div>
-                                            <!--END THÔNG TIN-->
-                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -702,7 +610,11 @@
                                                                                             <td>Ca 2</td>
                                                                                             <td>10:00:00 - 12:30:00</td>
                                                                                             <td>500000 VND</td>
-                                                                                            <td><button class="btn btn-danger btn-labeled">Xóa</button></td>
+                                                                                            <td>
+                                                                                                <button class="btn btn-danger btn-labeled">
+                                                                                                    Xóa
+                                                                                                </button>
+                                                                                            </td>
                                                                                         </tr>
                                                                                         </tbody>
                                                                                     </table>

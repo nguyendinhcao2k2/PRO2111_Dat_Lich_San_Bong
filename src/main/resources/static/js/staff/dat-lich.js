@@ -708,3 +708,66 @@ function datSan() {
         }
     }
 }
+
+function openModalDanhSachCho() {
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: apiUrl + "/show-danh-sach-cho",
+        success: function (responseData) {
+            $('#tableXacNhan').empty();
+            console.log(responseData)
+            let tr = ``;
+            responseData.forEach((dt) => {
+                let dataRow = `<tr>
+                            <td>${dt.stt}</td>
+                            <td>${dt.tenNguoiDat}</td>
+                            <td>${dt.soDienThoaiNguoiDat}</td>
+                            <td>${dt.email}</td>
+                            <td>${dt.ngay}</td>
+                            <td>${dt.tongTien} VND</td>
+                            <td>${dt.tienCoc} VND</td>
+                            <td>${dt.maTienCoc}</td>
+                            <td>
+                                 <div class="d-flex flex-column">
+                                      <button
+                                             onclick="confirmHoaDon('${dt.idHoaDon}')"
+                                             class="btn btn-success btn-sm"
+                                             type="button"
+                                      >
+                                                       Xác nhận
+                                      </button>
+                                      <button
+                                             onclick="deleteHoaDon('${dt.idHoaDon}')"
+                                             class="btn btn-outline-danger btn-sm mt-2"
+                                             type="button"
+                                      >
+                                                          Hủy
+                                      </button>
+                                      </div>
+                                       </td>
+                       </tr>`;
+                tr += dataRow;
+            });
+            $('#tableXacNhan').append(tr);
+        },
+        error: function (e) {
+            alert("Có lỗi !!")
+        }
+    })
+    $('#modal-danh-sach-dat-san').modal('show')
+}
+
+function deleteHoaDon(idHoaDon) {
+    $.ajax({
+        type: "DELETE",
+        contentType: "application/json",
+        url: apiUrl + "/delete-hoa-don?idHoaDon=" + idHoaDon,
+        success: function () {
+            openModalDanhSachCho()
+        },
+        error: function (e) {
+            console.log(e)
+        }
+    });
+}

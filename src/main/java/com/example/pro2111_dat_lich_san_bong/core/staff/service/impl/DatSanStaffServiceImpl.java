@@ -4,6 +4,7 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.FilterSanB
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThongTinLichDatRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThongTinNguoiDatRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.CaStaffResponse;
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.HoaDonStaffResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LoadCaResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LoadSanBongRespose;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.SanBongStaffResponse;
@@ -24,9 +25,10 @@ import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.RestApiException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -40,6 +42,7 @@ import java.util.Map;
  * @author caodinh
  */
 @Service
+@Transactional
 public class DatSanStaffServiceImpl implements IDatSanStaffService {
 
     @Autowired
@@ -179,6 +182,21 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         return true;
     }
 
+    @Override
+    public List<HoaDonStaffResponse> getHoaDonByTrangThai() {
+        return hoaDonStaffRepository.getHoaDonByTrangThai();
+    }
+
+    @Override
+    public void huySanBong(String idHoaDon) {
+        List<String> idSanCas = hoaDonSanCaStaffRepository.findIdSanCaByIdHoaDon(idHoaDon);
+        if (idSanCas.size() > 0) {
+            sanCaStaffRepository.deleteAllById(idSanCas);
+        }
+        hoaDonSanCaStaffRepository.deleteByIdHoaDon(idHoaDon);
+        hoaDonStaffRepository.deleteById(idHoaDon);
+    }
+
     public void checkDatLich(List<ThongTinLichDatRequest> thongTinLichDatRequests) {
         Map<String, String> map = new HashMap<>();
         for (SanCaStaffResponse sanCaStaffResponse : sanCaStaffRepository.findAllSanCa()) {
@@ -199,7 +217,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         for (SanCa sanCa : sanCas) {
             HoaDonSanCa hoaDonSanCa = new HoaDonSanCa();
             hoaDonSanCa.setIdHoaDon(idHoaDon);
-            hoaDonSanCa.setTongTien(sanCa.getGia());
+            hoaDonSanCa.setTienSan(sanCa.getGia());
             hoaDonSanCa.setIdSanCa(sanCa.getId());
             hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal());
             hoaDonSanCas.add(hoaDonSanCa);
@@ -213,12 +231,35 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         }
     }
 
+    public  String generateRandomString() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder randomString = new StringBuilder(9);
+        SecureRandom random = new SecureRandom();
+
+        for (int i = 0; i < 9; i++) {
+            int randomIndex = random.nextInt(characters.length());
+            char randomChar = characters.charAt(randomIndex);
+            randomString.append(randomChar);
+        }
+
+        return randomString.toString();
+    }
+
     private String createHoaDon(ThongTinNguoiDatRequest thongTinNguoiDatRequest) {
         HoaDon hoaDon = new HoaDon();
+        double tongTien = 0;
+        for (ThongTinLichDatRequest thongTinLichDatRequest : thongTinNguoiDatRequest.getThongTinLichDatRequests()) {
+            tongTien += Double.parseDouble(thongTinLichDatRequest.getPrice());
+        }
         hoaDon.setNgayTao(LocalDateTime.now());
+        hoaDon.setEmail(thongTinNguoiDatRequest.getEmail());
         hoaDon.setSoDienThoaiNguoiDat(thongTinNguoiDatRequest.getSoDienThoai());
         hoaDon.setTenNguoiDat(thongTinNguoiDatRequest.getHoVaTen());
         hoaDon.setTrangThai(TrangThaiHoaDon.CHUA_THANH_TOAN.ordinal());
+        hoaDon.setTongTien(tongTien);
+        hoaDon.setTienCoc(tongTien * 0.2);
+        String maTienCoc = generateRandomString();
+        hoaDon.setMaTienCoc(maTienCoc);
         try {
             return hoaDonStaffRepository.save(hoaDon).getId();
         } catch (Exception e) {
