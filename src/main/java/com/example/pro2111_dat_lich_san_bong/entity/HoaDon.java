@@ -47,6 +47,12 @@ public class HoaDon {
     private String soDienThoaiNguoiDat;
     @Column(name = "tien_coc")
     private Double tienCoc;
+    @Column(name = "ma_tien_coc")
+    private String maTienCoc;
+    @Column(name = "tong_tien")
+    private Double tongTien;
+    @Column(name = "email")
+    private String email;
     @Column(name = "ten_nguoi_dat")
     private String tenNguoiDat;
     @Column(name = "id_luat_san_bong")

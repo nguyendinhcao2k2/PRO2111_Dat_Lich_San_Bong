@@ -1,79 +1,58 @@
 const apiUrl = "http://localhost:8081/api/v1/staff";
 let date;
+let reloadDate;
 
-$(document).ready(function () {
-    let currentDate = new Date();
-
-    let tt = JSON.parse(localStorage.getItem("thongTin"));
-    if (tt !== null) {
-        genDataTable(tt)
+function reloadSanBong() {
+    let dataObject = {
+        date: reloadDate,
+        sanBong: 'all'
     }
-    $("#date-header-search-staff").on("change", function () {
-        let selectedDate = new Date($(this).val());
-        selectedDate.setHours(0, 0, 0, 0);
-        currentDate.setHours(0, 0, 0, 0);
-
-        if (selectedDate < currentDate) {
-            alert("Vui lòng chọn ngày hiện tại hoặc trước ngày hiện tại.");
-        } else {
-            let year = selectedDate.getFullYear();
-            let month = selectedDate.getMonth() + 1;
-            let day = selectedDate.getDate();
-
-            if (day < 10) {
-                day = '0' + day;
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: apiUrl + "/search-san-bong",
+        data: JSON.stringify(dataObject),
+        success: function (responseData) {
+            if ($(".content-san").length !== 0) {
+                $(".content-san").remove();
             }
+            const menu1 = $("#menu_1");
+            let data = responseData;
+            data.forEach((sanBong, index) => {
+                const contentSan = $(`<div class='content-san'></div>`);
+                const blank = $(`<div id="san-content-${index}"></div>`);
+                const tenSan = `<div class='ten-san mt-4'><h4 class='text-dark'>${sanBong.tenSanBong}</h4></div>`;
+                const bodySan = $("<div class='body-san row'></div>");
 
-            if (month < 10) {
-                month = '0' + month;
-            }
-            let formattedDate = year + "-" + month + "-" + day + " " + "00" + ":" + "00" + ":" + "01";
-            date = year + "-" + month + "-" + day;
-            $.ajax({
-                type: "GET",
-                contentType: "application/json",
-                url: apiUrl + "/load-san-bong?date=" + formattedDate,
-                success: function (responseData) {
-                    if ($(".content-san").length !== 0) {
-                        $(".content-san").remove();
-                    }
-                    const menu1 = $("#menu_1");
-                    let data = responseData;
-                    data.forEach((sanBong, index) => {
-                        const contentSan = $(`<div class='content-san'></div>`);
-                        const blank = $(`<div id="san-content-${index}"></div>`);
-                        const tenSan = `<div class='ten-san mt-4'><h4 class='text-dark'>${sanBong.tenSanBong}</h4></div>`;
-                        const bodySan = $("<div class='body-san row'></div>");
-
-                        sanBong.loadCaResponses.forEach((ca, i) => {
-                            let trangThai = ``;
-                            if (ca.trangThai === null) {
-                                trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                sanBong.loadCaResponses.forEach((ca, i) => {
+                    let trangThai = ``;
+                    if (ca.trangThai === null) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-primary badge-status" >Đang trống</span>
                                       </div>`;
-                            } else if (ca.trangThai === 0) {
-                                trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                    } else if (ca.trangThai === 0) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-secondary badge-status">Đang chờ nhận sân</span>
                                       </div>`
-                            } else if (ca.trangThai === 1) {
-                                trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                    } else if (ca.trangThai === 1) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-success badge-status">Đang hoạt động</span>
                                       </div>`
-                            } else if (ca.trangThai === 2) {
-                                trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                    } else if (ca.trangThai === 2) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-info badge-status">Chờ thanh toán</span>
                                       </div>`
-                            } else if (ca.trangThai === 3) {
-                                trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                    } else if (ca.trangThai === 3) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
                                       </div>`
-                            } else if (ca.trangThai === 4) {
-                                trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                    } else if (ca.trangThai === 4) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Hết giờ đặt</span>
                                       </div>`
-                            }
+                    }
 
-                            const card = `<div class="col-md-4 mb-4">
+                    const card = `<div class="col-md-4 mb-4">
                         <div
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
@@ -171,23 +150,223 @@ $(document).ready(function () {
                         </div>
                     </div>`;
 
-                            bodySan.append(card);
-                        });
+                    bodySan.append(card);
+                });
 
-                        blank.append(tenSan);
-                        blank.append(bodySan);
-                        contentSan.append(blank);
-                        menu1.append(contentSan);
-                    });
-                    setSelectedCheckBox(date);
-                },
-                error: function (e) {
-                    console.log("ERROR : ", e);
-                }
+                blank.append(tenSan);
+                blank.append(bodySan);
+                contentSan.append(blank);
+                menu1.append(contentSan);
             });
+            setSelectedCheckBox(date);
+            $("#modal-filter").modal('hide');
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
         }
     });
-});
+};
+
+function filterSanBong() {
+    let currentDate = new Date();
+    let formattedDate = '';
+
+    let tt = JSON.parse(localStorage.getItem("thongTin"));
+    if (tt !== null) {
+        genDataTable(tt)
+    }
+    let selectedValue = $("#select-san-st").val();
+    let selectedDateText = $('#date-header-search-staff').val();
+    let selectedDate = new Date(selectedDateText);
+    if (isNaN(selectedDate.getDate())) {
+        formattedDate = 'none';
+    } else {
+        selectedDate.setHours(0, 0, 0, 0);
+        currentDate.setHours(0, 0, 0, 0);
+        if (selectedDate < currentDate) {
+            alert("Vui lòng chọn ngày hiện tại hoặc trước ngày hiện tại.");
+            return;
+        }
+        let year = selectedDate.getFullYear();
+        let month = selectedDate.getMonth() + 1;
+        let day = selectedDate.getDate();
+
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        if (month < 10) {
+            month = '0' + month;
+        }
+        formattedDate = year + "-" + month + "-" + day + " " + "00" + ":" + "00" + ":" + "01";
+        reloadDate = year + "-" + month + "-" + day + " " + "00" + ":" + "00" + ":" + "01";
+        date = year + "-" + month + "-" + day;
+    }
+
+    let dataObject = {
+        date: formattedDate,
+        sanBong: selectedValue
+    }
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: apiUrl + "/search-san-bong",
+        data: JSON.stringify(dataObject),
+        success: function (responseData) {
+            if ($(".content-san").length !== 0) {
+                $(".content-san").remove();
+            }
+            const menu1 = $("#menu_1");
+            let data = responseData;
+            data.forEach((sanBong, index) => {
+                const contentSan = $(`<div class='content-san'></div>`);
+                const blank = $(`<div id="san-content-${index}"></div>`);
+                const tenSan = `<div class='ten-san mt-4'><h4 class='text-dark'>${sanBong.tenSanBong}</h4></div>`;
+                const bodySan = $("<div class='body-san row'></div>");
+
+                sanBong.loadCaResponses.forEach((ca, i) => {
+                    let trangThai = ``;
+                    if (ca.trangThai === null) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-primary badge-status" >Đang trống</span>
+                                      </div>`;
+                    } else if (ca.trangThai === 0) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-secondary badge-status">Đang chờ nhận sân</span>
+                                      </div>`
+                    } else if (ca.trangThai === 1) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-success badge-status">Đang hoạt động</span>
+                                      </div>`
+                    } else if (ca.trangThai === 2) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-info badge-status">Chờ thanh toán</span>
+                                      </div>`
+                    } else if (ca.trangThai === 3) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                      </div>`
+                    } else if (ca.trangThai === 4) {
+                        trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-danger badge-status">Hết giờ đặt</span>
+                                      </div>`
+                    }
+
+                    const card = `<div class="col-md-4 mb-4">
+                        <div
+                            class="card card-san"
+                            id="content-san-${index}-card-san-${i}"
+                            style="width: 100%; border-radius: 0px"
+                        >
+                            <!-- Header card -->
+                            <div
+                                class="card-header"
+                                style="background: #ffff"
+                            >
+                                <div
+                                    class="card-title d-flex justify-content-end"
+                                >
+                                    <div class="btn-group">
+                                        <button
+                                            type="button"
+                                            class="btn dropdown-toggle"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                            style="box-shadow: none"
+                                        >
+                                            <label id="label-ca"
+                                                style="color: black; font-size: 18px; font-weight: bold;"
+                                            >${ca.tenCa}</label>
+                                        </button>
+                                        <ul
+                                            class="dropdown-menu dropdown-menu-end"
+                                        >
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Check In 1
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Check In 2
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Check In 3
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div
+                                    class="card-subtitle d-flex justify-content-end"
+                                >
+                                    <label
+                                        style="color: black; font-size: 18px; font-weight: bold;"
+                                    >Loại sân : ${ca.loaiSan}</label>
+                                </div>
+                            </div>
+                            <!-- Check box -->
+                            <div
+                                id="checkboxContainer"
+                                style="display: none; position: absolute; top: 10px; left: 10px;"
+                            >
+                                <input
+                                    value="${ca.idResponse}"
+                                    type="checkbox"
+                                    style="width: 20px; height: 20px; margin-right: 5px;"
+                                    id="checkbox-sb-${index}-ca-${i}"
+                                    onclick="checkBoxFunction('san-content-${index}','content-san-${index}-card-san-${i}','checkbox-sb-${index}-ca-${i}')"
+                                />
+                            </div>
+                            <!-- Card body -->
+                            <div class="card-body m-1">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="badge bg-primary badge-icon">
+                                            <i class="far fa-calendar-check fa-lg icon-content"></i>
+                                        </span>
+                                        <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="badge bg-primary badge-icon">
+                                            <i class="fas fa-clock fa-lg icon-content"></i>
+                                        </span>
+                                        <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                    </div>
+                                    <div class="col-md-12 mt-1">
+                                        <span class="badge bg-primary badge-icon">
+                                            <i class="fas fa-dollar-sign fa-lg icon-content"></i>
+                                        </span>
+                                        <label id="label-gia" style="color: black; font-size: 18px">${ca.gia} VND</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Trạng thái -->
+                            <div class="card-footer border-0" style="background-color: #ffff">
+                                ${trangThai}
+                            </div>
+                        </div>
+                    </div>`;
+
+                    bodySan.append(card);
+                });
+
+                blank.append(tenSan);
+                blank.append(bodySan);
+                contentSan.append(blank);
+                menu1.append(contentSan);
+            });
+            setSelectedCheckBox(date);
+            $("#modal-filter").modal('hide');
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+        }
+    });
+
+};
 
 window.onload = function () {
     let currentDate = new Date();
@@ -202,6 +381,7 @@ window.onload = function () {
         month = '0' + month;
     }
     date = year + "-" + month + "-" + day;
+    reloadDate = year + "-" + month + "-" + day + " " + "00" + ":" + "00" + ":" + "01";
     let tt = JSON.parse(localStorage.getItem("thongTin"));
     if (tt !== null) {
         genDataTable(tt)
@@ -211,7 +391,9 @@ window.onload = function () {
         contentType: "application/json",
         url: apiUrl + "/load-san-bong",
         success: function (responseData) {
+            const selectBox = $('#select-san-st').empty();
             const menu1 = $("#menu_1");
+            let option = `<option value="all">Tất Cả</option>`;
             let data = responseData;
             data.forEach((sanBong, index) => {
                 const contentSan = $(`<div class='content-san'></div>`);
@@ -347,12 +529,13 @@ window.onload = function () {
 
                     bodySan.append(card);
                 });
-
+                option += `<option value="${sanBong.idSanBong}">${sanBong.tenSanBong}</option>`
                 blank.append(tenSan);
                 blank.append(bodySan);
                 contentSan.append(blank);
                 menu1.append(contentSan);
             });
+            selectBox.append(option);
             setSelectedCheckBox(year + "-" + month + "-" + day);
         },
         error: function (e) {
@@ -499,25 +682,103 @@ function datSan() {
         } else {
             let thongTin = JSON.parse(localStorage.getItem("thongTin"));
             let dataSend = {
-                hoVaTen : hoTen,
-                soDienThoai : sdt,
-                email : emailSend,
-                ghiChu : ghiChuSend,
-                thongTinLichDatRequests : thongTin
+                hoVaTen: hoTen,
+                soDienThoai: sdt,
+                email: emailSend,
+                ghiChu: ghiChuSend,
+                thongTinLichDatRequests: thongTin
             }
             $.ajax({
                 url: apiUrl + "/dat-lich",
                 type: "POST",
                 data: JSON.stringify(dataSend),
                 contentType: "application/json",
-                success: function(data) {
-                   alert(data.content);
+                success: function (data) {
+                    localStorage.setItem("thongTin", JSON.stringify([]));
+                    alert(data.content);
+                    $('#modalInfo').modal('hide');
+                    reloadSanBong();
+                    $('#idTable').empty();
                 },
-                error: function(error) {
-                    // Xử lý lỗi
-                    console.error("Lỗi: " + error);
+                error: function (error) {
+                    alert(error.responseJSON.message);
+                    $('#modalInfo').modal('hide');
                 }
             });
         }
     }
+}
+
+function openModalDanhSachCho() {
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: apiUrl + "/show-danh-sach-cho",
+        success: function (responseData) {
+            $('#tableXacNhan').empty();
+            console.log(responseData)
+            let tr = ``;
+            responseData.forEach((dt) => {
+                let dataRow = `<tr>
+                            <td>${dt.stt}</td>
+                            <td>${dt.tenNguoiDat}</td>
+                            <td>${dt.soDienThoaiNguoiDat}</td>
+                            <td>${dt.email}</td>
+                            <td>${dt.ngay}</td>
+                            <td>${dt.tongTien} VND</td>
+                            <td>${dt.tienCoc} VND</td>
+                            <td>${dt.maTienCoc}</td>
+                            <td>
+                                 <div class="d-flex flex-column">
+                                      <button
+                                             onclick="confirmHoaDon('${dt.idHoaDon}')"
+                                             class="btn btn-success btn-sm"
+                                             type="button"
+                                      >
+                                                       Xác nhận
+                                      </button>
+                                       <button
+                                             onclick="detailDanhSach('${dt.idHoaDon}')"
+                                             class="btn btn-primary btn-sm"
+                                             type="button"
+                                      >
+                                                       Xem chi tiết
+                                      </button>
+                                      <button
+                                             onclick="deleteHoaDon('${dt.idHoaDon}')"
+                                             class="btn btn-outline-danger btn-sm mt-2"
+                                             type="button"
+                                      >
+                                                          Hủy
+                                      </button>
+                                      </div>
+                                       </td>
+                       </tr>`;
+                tr += dataRow;
+            });
+            $('#tableXacNhan').append(tr);
+        },
+        error: function (e) {
+            alert("Có lỗi !!")
+        }
+    })
+    $('#modal-danh-sach-dat-san').modal('show')
+}
+
+function deleteHoaDon(idHoaDon) {
+    $.ajax({
+        type: "DELETE",
+        contentType: "application/json",
+        url: apiUrl + "/delete-hoa-don?idHoaDon=" + idHoaDon,
+        success: function () {
+            openModalDanhSachCho()
+        },
+        error: function (e) {
+            console.log(e)
+        }
+    });
+}
+
+function detailDanhSach(idHoaDon){
+
 }

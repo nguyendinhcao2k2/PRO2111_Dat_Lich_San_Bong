@@ -13,6 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -41,6 +42,9 @@ public class SanCa {
 
     @Column(name = "thoi_gian_dat", columnDefinition = "TIMESTAMP")
     private LocalDateTime thoiGianDat;
+
+    @Column(name = "ngay_den_san", columnDefinition = "TIMESTAMP")
+    private LocalDate ngayDenSan;
 
     @Column(name = "gia")
     private Double gia;
