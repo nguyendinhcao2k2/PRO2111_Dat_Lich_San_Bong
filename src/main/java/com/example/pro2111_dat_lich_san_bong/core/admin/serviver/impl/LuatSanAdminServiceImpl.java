@@ -45,7 +45,9 @@ public class LuatSanAdminServiceImpl implements LuatSanAdminService {
 
     @Override
     public void createLuatSan(LuatSanRequest luatSanRequest) {
-        luatSanAdminRepository.save(mapperLuatSan(luatSanRequest));
+        LuatSan luatSan = mapperLuatSan(luatSanRequest);
+        luatSan.setTrangThai(0);
+        luatSanAdminRepository.save(luatSan);
     }
 
     @Override

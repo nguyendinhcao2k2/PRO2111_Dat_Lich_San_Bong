@@ -1,6 +1,8 @@
 package com.example.pro2111_dat_lich_san_bong.core.admin.model.request;
 
-
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,15 +13,23 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LuatSanRequest {
+public class AccountStaffResquest {
 
-    private String id;
     @NotNull(message = "Not null")
-    private String thongTin;
+    @NotBlank
+    @Email(message = "Email Error")
+    private String email;
+
     @NotNull(message = "Not null")
-    private String idHoaDon;
+    @NotBlank
+    private String taiKhoan;
+
     @NotNull(message = "Not null")
-    private Integer soLanDat;
+    @NotBlank
+    private String matKhau;
+
     @NotNull(message = "Not null")
-    private Integer soTienGiam;
+    @NotBlank
+    private String displayName;
+
 }

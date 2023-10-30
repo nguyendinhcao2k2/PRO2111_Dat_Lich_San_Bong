@@ -43,13 +43,13 @@ public class LuatSanAdminRestController {
     }
 
     @PostMapping("/save")
-    public BaseResponse<?> save(@RequestBody @Valid LuatSanRequest luatSanRequest) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public BaseResponse<?> save(@RequestBody @Valid LuatSanRequest luatSanRequest)  {
         luatSanAdminService.createLuatSan(luatSanRequest);
         return new BaseResponse<>(HttpStatus.OK, "Ok");
     }
 
     @PutMapping("/update")
-    public BaseResponse<?> update(@RequestBody @Valid LuatSanRequest luatSanRequest) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public BaseResponse<?> update(@RequestBody @Valid LuatSanRequest luatSanRequest)  {
         luatSanAdminService.update(luatSanRequest);
         return new BaseResponse<>(HttpStatus.OK, "Ok");
     }
