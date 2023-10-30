@@ -15,7 +15,7 @@ public interface HoaDonSanCaAdminRepository extends JpaRepository<HoaDonSanCa, S
     Page<HoaDonSanCa> findByTrangThaiEquals(Integer trangThai, Pageable pageable);
 
     @Query("SELECT new com.example.pro2111_dat_lich_san_bong.core.admin.model.request.HoaDonSanCaViewRequest" +
-            "(hdsc.id, sc.id, hd.id, sb.tenSanBong, c.tenCa, hdsc.ngayDenSan, hdsc.thoiGianCheckIn, hd.tenNguoiDat, hd.soDienThoaiNguoiDat, hdsc.maQR, hdsc.tongTien, hdsc.trangThai) " +
+            "(hdsc.id, sc.id, hd.id, sb.tenSanBong, c.tenCa, hdsc.ngayDenSan, hdsc.thoiGianCheckIn, hd.tenNguoiDat, hd.soDienThoaiNguoiDat, hdsc.maQR, hdsc.tienSan, hdsc.trangThai) " +
             "FROM HoaDonSanCa hdsc " +
             "JOIN SanCa sc ON hdsc.idSanCa = sc.id " +
 //            "JOIN DichVuSanBong dvsb ON hdsc.idDichVuSanBong = dvsb.id " +
@@ -27,7 +27,7 @@ public interface HoaDonSanCaAdminRepository extends JpaRepository<HoaDonSanCa, S
 
     @Query("SELECT new com.example.pro2111_dat_lich_san_bong.core.admin.model.request.HoaDonSanCaViewRequest" +
 //            "(hdsc.id, sc.id, hd.id, dvsb.id, sb.tenSanBong, c.tenCa, hdsc.ngayDenSan, hdsc.thoiGianCheckIn, hd.tenNguoiDat, hd.soDienThoaiNguoiDat, hdsc.maQR, hdsc.tongTien, hdsc.trangThai) " +
-            "(hdsc.id, sc.id, hd.id, sb.tenSanBong, c.tenCa, hdsc.ngayDenSan, hdsc.thoiGianCheckIn, hd.tenNguoiDat, hd.soDienThoaiNguoiDat, hdsc.maQR, hdsc.tongTien, hdsc.trangThai) " +
+            "(hdsc.id, sc.id, hd.id, sb.tenSanBong, c.tenCa, hdsc.ngayDenSan, hdsc.thoiGianCheckIn, hd.tenNguoiDat, hd.soDienThoaiNguoiDat, hdsc.maQR, hdsc.tienSan, hdsc.trangThai) " +
             "FROM HoaDonSanCa hdsc " +
             "JOIN SanCa sc ON hdsc.idSanCa = sc.id " +
 //            "JOIN DichVuSanBong dvsb ON hdsc.idDichVuSanBong = dvsb.id " +

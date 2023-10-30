@@ -5,6 +5,7 @@ import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,7 +15,11 @@ import java.util.List;
 public interface SanCaStaffRepository extends JpaRepository<SanCa, String> {
 
     @Query(value = "SELECT sc.id as idSanCa,c.thoi_gian_bat_dau as thoiGianBatDau,sb.id as idSanBong,sc.trang_thai as trangThai FROM san_ca as sc inner join san_bong as sb" +
-            " on sc.id_san_bong = sb.id inner join ca as c on c.id = sc.id_ca where sc.thoi_gian_dat " +
-            " between ?1 and ?2", nativeQuery = true)
-    List<SanCaStaffResponse> findAllByDate(LocalDateTime from, LocalDateTime to);
+            " on sc.id_san_bong = sb.id inner join ca as c on c.id = sc.id_ca where sc.ngay_den_san " +
+            " = ?1", nativeQuery = true)
+    List<SanCaStaffResponse> findAllByDate(LocalDate localDate);
+
+    @Query(value = "SELECT sc.id as idSanCa,c.thoi_gian_bat_dau as thoiGianBatDau,sb.id as idSanBong,sc.trang_thai as trangThai FROM san_ca as sc inner join san_bong as sb" +
+            " on sc.id_san_bong = sb.id inner join ca as c on c.id = sc.id_ca ", nativeQuery = true)
+    List<SanCaStaffResponse> findAllSanCa();
 }

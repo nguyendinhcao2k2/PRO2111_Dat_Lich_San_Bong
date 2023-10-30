@@ -6,5 +6,6 @@ package com.example.pro2111_dat_lich_san_bong.enumstatus;
  */
 public enum TrangThaiHoaDon {
     CHUA_THANH_TOAN,
+    DA_COC,
     DA_THANH_TOAN
 }
