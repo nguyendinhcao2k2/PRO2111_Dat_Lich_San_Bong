@@ -551,3 +551,7 @@ table td {
 table th {
     text-align: center;
 }
+/*Header bottton chi tiết*/
+.border-bottom {
+    border-bottom: 1px solid #dee2e6 !important;
+}
