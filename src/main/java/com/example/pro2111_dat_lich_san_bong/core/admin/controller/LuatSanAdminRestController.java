@@ -36,7 +36,7 @@ public class LuatSanAdminRestController {
 
     @GetMapping("/get-luat-san")
     public ResponseEntity<?> getLuatSan(Optional<Integer>  size, Optional<Integer> page) {
-        Pageable pageable = PageRequest.of(page.orElse(1), size.orElse(5));
+        Pageable pageable = PageRequest.of(page.orElse(0), size.orElse(5));
         Page<LuatSanResponse> luatSanResponse = luatSanAdminService.getAll(pageable);
         PageableObject<LuatSanResponse> pageableObject = new PageableObject<LuatSanResponse>(luatSanResponse);
         return ResponseEntity.ok(new BaseResponse<Object>(HttpStatus.OK, pageableObject));
