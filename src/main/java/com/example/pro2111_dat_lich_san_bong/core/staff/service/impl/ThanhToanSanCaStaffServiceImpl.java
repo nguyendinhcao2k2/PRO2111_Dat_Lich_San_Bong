@@ -2,15 +2,14 @@ package com.example.pro2111_dat_lich_san_bong.core.staff.service.impl;
 
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.HoaDonSanCaStaffRepository;
-import com.example.pro2111_dat_lich_san_bong.core.staff.service.ThanhToanStaffService;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
+import com.example.pro2111_dat_lich_san_bong.core.staff.service.IThanhToanSanCaStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ThanhToanStaffServiceImpl implements ThanhToanStaffService {
+public class ThanhToanSanCaStaffServiceImpl implements IThanhToanSanCaStaffService {
     @Autowired
     private HoaDonSanCaStaffRepository hoaDonSanCaStaffRepository;
 

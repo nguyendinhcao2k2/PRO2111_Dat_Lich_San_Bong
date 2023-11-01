@@ -415,7 +415,7 @@
             $("input[name='tenKhachHang']").val(hoaDonThanhToan.tenKhachHang);
             $("input[name='tienSanBong']").val(hoaDonThanhToan.tongTienSanCa);
             $("input[name='tienDichVu']").val(hoaDonThanhToan.tongTienDichVu);
-            $("span[name='tongThanhToan']").text(hoaDonThanhToan.tongTienThanhToan);
+            $("span[name='tongThanhToan']").text(parseFloat(hoaDonThanhToan.tongTienSanCa) + parseFloat(hoaDonThanhToan.tongTienDichVu) - parseFloat(hoaDonThanhToan.tienCoc));
         });
     });
 

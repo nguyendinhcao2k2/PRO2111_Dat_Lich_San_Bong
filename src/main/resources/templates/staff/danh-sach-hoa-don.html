@@ -275,7 +275,7 @@
                     row.dataset.thoiGianKetThuc = item.thoiGianKetThuc;
                     row.dataset.tongTienSanCa = item.tongTienSanCa;
                     row.dataset.tongTienDichVu = item.tongTienDichVu;
-                    row.dataset.tongTienThanhToan = item.tongTienThanhToan;
+                    row.dataset.tongTienThanhToan = item.tongTienSanCa + item.tongTienDichVu;
 
 
                     //ô dữ liệu và thêm dữ liệu vào
@@ -290,7 +290,7 @@
                     var cell5 = document.createElement('td');
                     cell5.textContent = item.ngayDatLich;
                     var cell6 = document.createElement('td');
-                    cell6.textContent = item.tongTienThanhToan;
+                    cell6.textContent = item.tongTienDichVu + item.tongTienSanCa;
                     var cell7 = document.createElement('td');
                     //trạng thái và hiển thị 'true' nếu trạng thái là 1
                     cell7.textContent = item.trangThai === 1 ? 'CHƯA THANH TOÁN' : 'ĐÃ THANH TOÁN';
@@ -315,7 +315,7 @@
                         $('#thoiGianDa').val(this.dataset.thoiGianBatDau + ' - ' + this.dataset.thoiGianKetThuc);
                         $('#tienSan').val(this.dataset.tongTienSanCa);
                         $('#tienDichVu').val(this.dataset.tongTienDichVu);
-                        $('#tongThanhToan').text(this.dataset.tongTienThanhToan);
+                        $('#tongThanhToan').text(parseFloat(this.dataset.tongTienSanCa) + parseFloat(this.dataset.tongTienDichVu));
                     });
 
                     tableBody.append(row);
