@@ -741,6 +741,9 @@ function openModalDanhSachCho() {
                                              onclick="detailDanhSach('${dt.idHoaDon}')"
                                              class="btn btn-primary btn-sm"
                                              type="button"
+                                             data-bs-toggle="offcanvas"
+                                             data-bs-target="#offcanvasRightDanhSachCho"
+                                             aria-controls="offcanvasRight"
                                       >
                                                        Xem chi tiết
                                       </button>
@@ -751,8 +754,125 @@ function openModalDanhSachCho() {
                                       >
                                                           Hủy
                                       </button>
+                                 </div>
+                            </td>
+                                     <div
+                                      class="offcanvas offcanvas-end"
+                                      tabindex="-1"
+                                      id="offcanvasRightDanhSachCho"
+                                      aria-labelledby="offcanvasRightLabel"
+                                    >
+                                      <div
+                                        class="offcanvas-header border-bottom"
+                                      >
+                                        <h5 id="offcanvasRightLabel">
+                                          Chi Tiết
+                                        </h5>
+                                        <button
+                                          type="button"
+                                          class="btn-close text-reset"
+                                          data-bs-dismiss="offcanvas"
+                                          aria-label="Close"
+                                        ></button>
                                       </div>
-                                       </td>
+                                      <div class="offcanvas-body">
+                                        <form>
+                                          <div class="mb-3">
+                                            <label
+                                              for="tenKhachHang"
+                                              class="form-label"
+                                              >Tên khách hàng</label
+                                            >
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              readonly
+                                              id="tenKhachHang"
+                                              name="tenKhachHang"
+                                              value=""
+                                            />
+                                          </div>
+
+                                          <div class="mb-3">
+                                            <label
+                                              for="soDienThoai"
+                                              class="form-label"
+                                              >Số điện thoại</label
+                                            >
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              id="soDienThoai"
+                                              name="soDienThoai"
+                                              value=""
+                                              readonly
+                                            />
+                                          </div>
+
+                                          <div class="mb-3">
+                                            <label
+                                              for="email"
+                                              class="form-label"
+                                              >Email</label
+                                            >
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              id="email"
+                                              name="email"
+                                              value=""
+                                              readonly
+                                            />
+                                          </div>
+
+                                          <div class="mb-3">
+                                            <label for="ngay" class="form-label"
+                                              >Ngày</label
+                                            >
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              id="ngay"
+                                              name="ngay"
+                                              value=""
+                                              readonly
+                                            />
+                                          </div>
+
+                                          <div class="mb-3">
+                                            <label
+                                              for="tongTien"
+                                              class="form-label"
+                                              >Tổng tiền</label
+                                            >
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              id="tongTien"
+                                              name="tongTien"
+                                              value=""
+                                              readonly
+                                            />
+                                          </div>
+
+                                          <div class="mb-3">
+                                            <label
+                                              for="tienCoc"
+                                              class="form-label"
+                                              >Tiền cọc</label
+                                            >
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              id="tienCoc"
+                                              name="tienCoc"
+                                              value=""
+                                              readonly
+                                            />
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
                        </tr>`;
                 tr += dataRow;
             });
