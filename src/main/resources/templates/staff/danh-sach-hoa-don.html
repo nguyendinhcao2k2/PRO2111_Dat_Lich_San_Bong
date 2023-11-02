@@ -17,44 +17,25 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
             rel="stylesheet"
     />
-    <!-- Quan Trọng -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!--  -->
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
-            rel="stylesheet"
-    />
 
-    <!-- Icon Font Stylesheet -->
+    <!-- BOOTSTRAP -->
     <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
             rel="stylesheet"
     />
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-            rel="stylesheet"
-    />
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
+    <!-- BOOTSTRAP -->
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
     />
-    <!-- Icon Font Stylesheet -->
-    <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-            rel="stylesheet"
-    />
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-            rel="stylesheet"
-    />
+    <!-- Google -->
+
+    <!-- Icon Font AWESOME Bắt buộc có hai bản 5.10 và 6.2 -->
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
@@ -62,35 +43,15 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
     />
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-            crossorigin="anonymous"
-    />
+    <!-- table icon -->
     <link
             rel="stylesheet"
-            href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-            integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-            crossorigin="anonymous"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/dist/bootstrap-icons.min.css"
-    />
+    <!-- table icon -->
+    <link rel="stylesheet" th:href="@{/static/css/staff/danh-sach-hoa-don-staff.css}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <link
-            rel="canonical"
-            href="https://getbootstrap.com/docs/5.0/examples/grid/"
-    />
-
-    <!-- Add Bootstrap CSS link -->
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-    />
-    <!-- <link href="./grid.css" /> -->
-    <script src="../../static/js/staff/danh-sach-hoa-don.js"></script>
     <style>
         .selected-row {
             background-color: #d3d3d3;
@@ -101,130 +62,523 @@
 <body>
 <header th:insert="~{fragments/header-admin}"></header>
 
-<div>
-    <div class="row">
-        <div class="col-12 mt-4">
-            <div
-                    class="card p-3"
-                    style="background-color: rgba(40, 38, 38, 0.196)"
-            >
-                <p class="mb-0 fw-bold h5 text-center">Hóa Đơn Đặt Lịch</p>
+<div class="table-wrapper">
+    <div class="table-title">
+        <!--    row 1-->
+        <div class="row">
+            <div class="col-md-4">
+                <h2 style="color: #fff">Hóa Đơn Đặt Lịch</h2>
+            </div>
+            <div class="col-md-8">
+                <a href="#" class="btn btn-primary btn-refresh"
+                ><i class="material-icons">&#xE863;</i>
+                    <span>Refresh List</span></a
+                >
+                <a href="#" class="btn btn-secondary btn-export-excel"
+                ><i class="material-icons">&#xE24D;</i>
+                    <span>Export to Excel</span></a
+                >
             </div>
         </div>
     </div>
+
+<!--    row2 -->
     <div class="row">
-        <div class="col-md-9">
-            <div class="card p-3">
-                <div class="card-body border p-0">
-                    <div class="container mt-5">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="myTable">
-                                <tbody id="myTableBody">
-                                <!-- Nội dung cập nhật bằng JavaScript -->
-                                </tbody>
-                            </table>
-                            <div class="d-flex justify-content-center"> <!-- Center horizontally -->
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+<!--        col chung cho table, thông tin, và list servie của từng hóa đơn-->
+        <div class="col-md-12">
+            <div class="row">
+<!--                BEGIN COL-MD-9 Table, List--->
+                <div class="col-md-9">
+                    <div class="row">
+                        <!-- col-md-12 TABLE -->
+                        <div class="col-md-12">
+                            <!-- ADD BODY ROW COL BÊN NGOÀI UPDATE THÊM HEADER THẺ DIV table table-striped table-hover -->
+                            <div class="body-row-col">
+                                <div class="header-row-col header-border mb-3">
+                                    <h1>Danh sách hóa đơn</h1>
+                                </div>
+                                <div class="table-responsive ">
+                                    <table
+                                            class="table table-striped table-hover"
+                                            id="myTable"
+                                    >
+                                        <tbody id="myTableBody">
+                                        <!-- Nội dung cập nhật bằng JavaScript -->
+                                        </tbody>
+                                    </table>
+                                    <!-- LAMNP UPDATE PHÂN TRANG, HIỂN THỊ SỐ BẢN GHI 02/11 -->
+                                    <div class="clearfix">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="hint-text">
+                                                    <p style="color: #333">
+                                                        Hiển thị <b>5</b> / <b>25</b> bản ghi.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 d-flex justify-content-end">
+                                                <nav aria-label="Page navigation">
+                                                    <ul class="pagination">
+                                                        <li class="page-item">
+                                                            <a
+                                                                    class="page-link"
+                                                                    href="#"
+                                                                    aria-label="Previous"
+                                                            >
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="page-item active">
+                                                            <a class="page-link" href="#">1</a>
+                                                        </li>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#">2</a>
+                                                        </li>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#">3</a>
+                                                        </li>
+                                                        <li class="page-item">
+                                                            <a
+                                                                    class="page-link"
+                                                                    href="#"
+                                                                    aria-label="Next"
+                                                            >
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END UPDATE PHAN TRANG -->
+                                </div>
+                            </div>
+                            <!-- END body-row-col  -->
+                        </div>
+                        <!-- END col-md-12  -->
+                        <!-- col-md-12 DỊCH VỤ SỬ DỤNG -->
+                        <div class="col-md-12 mt-4 mb-2">
+                            <div class="body-row-col">
+                                <div class="row">
+                                    <div class="col-md-4 d-flex justify-content-start">
+                                        <div class="header-row-col">
+                                            <h1 class="">Dịch vụ sử dụng</h1>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="row g-2 align-items-center">
+                                            <div class="col-md-6"></div>
+                                            <div class="col-md-3 col-sm-auto">
+                                                <select
+                                                        id="select-san-staff"
+                                                        class="form-select"
+                                                        style="border-radius: 5px"
+                                                >
+                                                    <option selected value="0">Tất cả</option>
+                                                    <option value="1">Nước Uống</option>
+                                                    <option value="2">Bóng</option>
+                                                    <option value="3">Áo đấu</option>
+                                                </select>
+                                            </div>
+                                            <!-- BUTTON ADD DỊCH VỤ -->
+                                            <div
+                                                    class="col-md-3 col-sm-auto d-flex justify-content-end"
+                                            >
+                                                <button
+                                                        id=""
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalAddDichVuHoaDon"
+                                                        type="button"
+                                                        class="btn btn-secondary btn-labeled-sm"
+                                                >
+                                                    <i
+                                                            class="fas fa-plus fa-lg"
+                                                            style="color: #f0f2f4"
+                                                    ></i>
+                                                </button>
+                                                <!-- MODAL ADD DỊCH VỤ -->
+                                                <div
+                                                        class="modal fade"
+                                                        id="modalAddDichVuHoaDon"
+                                                        data-bs-backdrop="static"
+                                                        data-bs-keyboard="false"
+                                                        tabindex="-1"
+                                                        aria-labelledby="staticBackdropLabel"
+                                                        aria-hidden="true"
+                                                >
+                                                    <div class="modal-dialog modal-xl">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5
+                                                                        class="modal-title"
+                                                                        id="staticBackdropLabel"
+                                                                >
+                                                                    Thêm dịch vụ
+                                                                </h5>
+                                                                <button
+                                                                        type="button"
+                                                                        class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"
+                                                                ></button>
+                                                            </div>
+                                                            <!-- BODY -->
+                                                            <div class="modal-body m-0">
+                                                                <div class="body-row-col">
+                                                                    <div class="row">
+                                                                        <div class="col-md-9">
+                                                                            <form>
+                                                                                <div
+                                                                                        class="row g-2 align-items-center"
+                                                                                >
+                                                                                    <!-- Sân filter -->
+                                                                                    <div class="col-auto">
+                                                                                        <label
+                                                                                                for="search-list-service"
+                                                                                                class="col-form-label label-filter-list-order"
+                                                                                        >Tìm Kiếm :
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div class="col-md-3 col-sm-auto">
+                                                                                        <input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                id="search-list-service"
+                                                                                                placeholder="Tìm kiếm tên dịch vụ..."
+                                                                                        />
+                                                                                    </div>
+
+                                                                                    <!--Loại Sân  -->
+                                                                                    <div class="col-auto">
+                                                                                        <label
+                                                                                                for="select-service-list-order"
+                                                                                                class="col-form-label label-filter-list-order"
+                                                                                        >Dịch vụ :
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div class="col-md-3 col-sm-auto">
+                                                                                        <select
+                                                                                                id="select-service-list-order"
+                                                                                                class="form-select"
+                                                                                                style="border-radius: 5px"
+                                                                                        >
+                                                                                            <option selected value="0">
+                                                                                                Tất cả
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Nước
+                                                                                            </option>
+                                                                                            <option value="2">Áo</option>
+                                                                                            <option value="3">
+                                                                                                Bóng
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <!-- BUTTON TÌM KIẾM -->
+                                                                                    <div class="col-auto">
+                                                                                        <button
+                                                                                                type="submit"
+                                                                                                class="btn btn-success btn-labeled-sm"
+                                                                                        >
+                                                                                            Tìm Kiếm
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                        <!-- BUTTON CHECK BOX -->
+                                                                        <div class="col-md-3">
+                                                                            <div
+                                                                                    class="d-flex justify-content-end"
+                                                                            >
+                                                                                <button
+                                                                                        type="button"
+                                                                                        id="showCheckboxButtonList"
+                                                                                        class="button-header-check-box"
+                                                                                >
+                                                                                  <span
+                                                                                          class="button-icon-check-list"
+                                                                                  >
+                                                                                    <i
+                                                                                            class="far fa-check-square fa-lg"
+                                                                                    ></i>
+                                                                                  </span>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--  -->
+                                                                <div class="row mt-3 scrollable-content">
+                                                                    <div class="col-md-3 col-sm-3 col-4">
+                                                                        <div class="card card-product">
+                                                                            <!-- Check box  -->
+                                                                            <div
+                                                                                    id="checkboxContainerList"
+                                                                                    style="
+                                                                                              display: none;
+                                                                                              position: absolute;
+                                                                                              top: 10px;
+                                                                                              left: 10px;
+                                                                                            "
+                                                                            >
+                                                                                <input
+                                                                                        type="checkbox"
+                                                                                        style="
+                                                                                                width: 20px;
+                                                                                                height: 20px;
+                                                                                                margin-right: 5px;
+                                                                                              "
+                                                                                        id="checkBoxListService"
+                                                                                />
+                                                                            </div>
+                                                                            <!--  -->
+                                                                            <img
+                                                                                    th:src="@{/static/img/Sting-strawberry-drink-soft1.jpg}"
+                                                                                    class="card-img-top"
+                                                                                    alt="..."
+                                                                            />
+                                                                            <div class="card-body">
+                                                                                <h5 class="card-title text-center">
+                                                                                    Nước Sting
+                                                                                </h5>
+                                                                                <div
+                                                                                        class="form-group form-group-list-service-order"
+                                                                                >
+                                                                                    <label
+                                                                                            class="form-label"
+                                                                                            for="quantity"
+                                                                                    >Số lượng</label
+                                                                                    >
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="card-footer bg-white">
+                                                                                <div
+                                                                                        class="d-grid gap-2 d-md-flex justify-content-md-end"
+                                                                                >
+                                                                                    <button
+                                                                                            class="btn btn-success btn-labeled-sm"
+                                                                                    >
+                                                                                        Thêm
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- END BODY -->
+                                                            <div class="modal-footer">
+                                                                <button
+                                                                        type="button"
+                                                                        class="btn btn-danger btn-labeled-sm"
+                                                                        data-bs-dismiss="modal"
+                                                                >
+                                                                    Hủy
+                                                                </button>
+                                                                <button
+                                                                        type="button"
+                                                                        class="btn btn-primary btn-labeled-sm"
+                                                                >
+                                                                    Xác Nhận
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--  -->
+                                            </div>
+                                            <!-- END BUTTON ADD DỊCH VỤ -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="body-dich-vu header-border-content-dich-vu">
+                                    <div class="row mt-3 scrollable-content">
+                                        <div class="col-md-3 col-sm-3 col-4">
+                                            <div class="card card-product">
+                                                <img
+                                                        th:src="@{/static/img/Sting-strawberry-drink-soft1.jpg}"
+                                                        class="card-img-top"
+                                                        alt="..."
+                                                />
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-center">Nước Sting</h5>
+                                                    <div
+                                                            class="form-group form-group-list-service-order"
+                                                    >
+                                                        <label class="form-label" for="quantity"
+                                                        >Số lượng :
+                                                        </label>
+                                                        <input
+                                                                min="1"
+                                                                value="1"
+                                                                type="number"
+                                                                class="form-control"
+                                                                id="quantity"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer bg-white">
+                                                    <div
+                                                            class="d-grid gap-2 d-md-flex justify-content-md-end"
+                                                    >
+                                                        <button class="btn btn-danger btn-labeled-sm">
+                                                            Xóa
+                                                        </button>
+                                                        <button class="btn btn-success btn-labeled-sm">
+                                                            Cập Nhập
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <!-- END col-md-12 -->
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card p-3">
-                <div class="card-body border p-0">
-                    <div class="info-display">
-                        <form method="GET">
-                            <div class="mb-3">
-                                <label for="tenKhachHang">Tên Khách Hàng</label>
-                                <input type="text" class="form-control" id="tenKhachHang" readonly>
+<!--                END COL-MD-9 Table, List-->
+<!--               BEGIN COL-MD-3 Hiển THị thông tin-->
+                <div class="col-md-3">
+                    <div class="body-row-col">
+                        <div class="info-display">
+                            <div class="header-border">
+                                <h1>Thông tin</h1>
                             </div>
-                            <div class="mb-3">
-                                <label for="soDienThoai">Số Điện Thoại</label>
-                                <input type="text" class="form-control" id="soDienThoai" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="tenSan">Tên Sân Ca</label>
-                                <input type="text" class="form-control" id="tenSan" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="thoiGianDa">Thời Gian Đá</label>
-                                <input type="text" class="form-control" id="thoiGianDa" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="tienSan">Tiền Sân</label>
-                                <input type="text" class="form-control" id="tienSan" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="tienDichVu">Tiền Dịch Vụ</label>
-                                <input type="text" class="form-control" id="tienDichVu" readonly>
-                            </div>
-                            <div
-                                    class="card p-3"
-                                    style="background-color: rgba(70, 64, 64, 0.196)"
-                            >
-                                <p class="mb-0 fw-bold h5 text-center">
-                                    Thanh Toán
-                                </p>
-                            </div>
-                            <div class="col-xs-12 mt-5 mb-3">
-                                <div class="">
+                            <form method="GET">
+                                <div class="mb-3">
+                                    <label for="tenKhachHang" class="form-label"
+                                    >Tên Khách Hàng</label
+                                    >
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="tenKhachHang"
+                                            readonly
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="soDienThoai" class="form-label"
+                                    >Số Điện Thoại</label
+                                    >
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="soDienThoai"
+                                            readonly
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tenSan" class="form-label">Tên Sân Ca</label>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="tenSan"
+                                            readonly
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="thoiGianDa" class="form-label"
+                                    >Thời Gian Đá</label
+                                    >
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="thoiGianDa"
+                                            readonly
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tienSan" class="form-label">Tiền Sân</label>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="tienSan"
+                                            readonly
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tienDichVu" class="form-label"
+                                    >Tiền Dịch Vụ</label
+                                    >
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="tienDichVu"
+                                            readonly
+                                    />
+                                </div>
+
+                                <!-- TỔNG TIỀN NEW -->
+                                <div class="col-md-12 border-bottom">
                                     <h4
                                             style="
-                        font-family: Tahoma;
-                        font-weight: 500;
-                        text-align: center;
-                        color: rgb(215, 92, 92);
-                      "
+                                                  font-family: Tahoma;
+                                                  font-weight: 500;
+                                                  text-align: center;
+                                                  color: rgb(215, 92, 92);
+                                                "
                                     >
-                                        Tổng Thanh Toán: <span id="tongThanhToan">0</span></h4>
+                                        Tổng Tiền: <span id="tongThanhToan">0</span>
                                     </h4>
                                 </div>
-                                <br>
-                            </div>
-                            <div class="form-group">
-                                <hr/>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12 text-center">
+
+                                <!-- BUTTON NEW 2/11 -->
+                                <div
+                                        class="mt-2 d-grid gap-2 d-md-block d-flex justify-content-center text-center"
+                                >
+                                    <button
+                                            type="button "
+                                            class="m-2 btn btn-danger btn-labeled"
+                                    >
+                                        Hủy
+                                        <span class="btn-label">
+                          <i class="fa fa-remove"></i>
+                        </span>
+                                    </button>
                                     <button
                                             type="submit"
                                             id="submitBtn"
-                                            class="btn btn-danger"
-                                            style="border-radius: 10px"
+                                            class="m-2 btn btn-success btn-labeled"
                                     >
-                                        THÊM DỊCH VỤ HOẶC THANH TOÁN
+                                        Thanh Toán
+                                        <span class="btn-label"
+                                        ><i class="fas fa-money-bill fa-lg"></i
+                                        ></span>
                                     </button>
-                                    <br>
                                 </div>
-                                <br>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-
                 </div>
+<!--                END Hiển thị thông tin-->
             </div>
         </div>
     </div>
 </div>
 <script>
+
+    // show check box
+    const showCheckboxButtonList = document.getElementById(
+        "showCheckboxButtonList"
+    );
+    const checkboxContainerList = document.getElementById(
+        "checkboxContainerList"
+    );
+
+    showCheckboxButtonList.addEventListener("click", function () {
+        // Toggle the display of the checkbox container
+        if (checkboxContainerList.style.display === "none") {
+            checkboxContainerList.style.display = "block";
+        } else {
+            checkboxContainerList.style.display = "none";
+        }
+    });
+    //
+
     $(document).ready(function () {
         var getId;
         $.get("/api/v1/staff/thanh-toan/get-all", function (data) {
@@ -232,9 +586,10 @@
 
             // Tạo phần <thead> và các thẻ tiêu đề
             var thead = document.createElement('thead');
-            thead.className = 'table-light';
+            // LAMNP NOTE KHÔNG CẦN TABLE-LIGHT
+            // thead.className = 'table-light';
             var headerRow = document.createElement('tr');
-            var headers = ['TÊN KHÁCH', 'ĐIỆN THOẠI', 'TÊN SÂN CA', 'THỜI GIAN ĐÁ', 'NGÀY ĐẶT LỊCH', 'TỔNG TIỀN', 'TRẠNG THÁI'];
+            var headers = ['Tên khách', 'Số điện thoại', 'Sân ca', 'Thời gian ', 'Ngày đặt lịch', 'Tổng tiền', 'Trạng thái'];
             for (var i = 0; i < headers.length; i++) {
                 var th = document.createElement('th');
                 th.scope = 'col';
@@ -390,6 +745,9 @@
 </script>
 <!-- Add Bootstrap JS and jQuery links -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+<!-- UPDATE 2/11/023 -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
