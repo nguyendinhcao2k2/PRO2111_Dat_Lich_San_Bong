@@ -741,9 +741,8 @@ function openModalDanhSachCho() {
                                              onclick="detailDanhSach('${dt.idHoaDon}')"
                                              class="btn btn-primary btn-sm"
                                              type="button"
-                                             data-bs-toggle="offcanvas"
-                                             data-bs-target="#offcanvasRightDanhSachCho"
-                                             aria-controls="offcanvasRight"
+                                             data-bs-toggle="modal"
+                                             data-bs-target="#modal-chi-tiet-danh-sach"
                                       >
                                                        Xem chi tiết
                                       </button>
@@ -756,123 +755,147 @@ function openModalDanhSachCho() {
                                       </button>
                                  </div>
                             </td>
-                                     <div
-                                      class="offcanvas offcanvas-end"
+                            <!-- LAMNP UPDATE NGÀY 2.11 Cho Thằng Chó Cao  -->
+                                    <div
+                                      class="modal fade"
+                                      id="modal-chi-tiet-danh-sach"
+                                      data-bs-backdrop="static"
+                                      data-bs-keyboard="false"
                                       tabindex="-1"
-                                      id="offcanvasRightDanhSachCho"
-                                      aria-labelledby="offcanvasRightLabel"
+                                      aria-labelledby="staticBackdropLabel"
+                                      aria-hidden="true"
                                     >
-                                      <div
-                                        class="offcanvas-header border-bottom"
-                                      >
-                                        <h5 id="offcanvasRightLabel">
-                                          Chi Tiết
-                                        </h5>
-                                        <button
-                                          type="button"
-                                          class="btn-close text-reset"
-                                          data-bs-dismiss="offcanvas"
-                                          aria-label="Close"
-                                        ></button>
-                                      </div>
-                                      <div class="offcanvas-body">
-                                        <form>
-                                          <div class="mb-3">
-                                            <label
-                                              for="tenKhachHang"
-                                              class="form-label"
-                                              >Tên khách hàng</label
+                                      <div class="modal-dialog modal-xl">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5
+                                              class="modal-title"
+                                              id="staticBackdropLabel"
                                             >
-                                            <input
-                                              type="text"
-                                              class="form-control"
-                                              readonly
-                                              id="tenKhachHang"
-                                              name="tenKhachHang"
-                                              value=""
-                                            />
+                                              Chi tiết chờ nhận sân
+                                            </h5>
+                                            <button
+                                              type="button"
+                                              class="btn-close"
+                                              data-bs-dismiss="modal"
+                                              aria-label="Close"
+                                            ></button>
                                           </div>
+                                          <div class="modal-body">
+                                            <div class="row">
+                                              <div class="col-md-6">
+                                                <div class="mb-3">
+                                                  <label
+                                                    for="tenKhachHang"
+                                                    class="form-label"
+                                                    >Tên khách hàng</label
+                                                  >
+                                                  <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    readonly
+                                                    id="tenKhachHang"
+                                                    name="tenKhachHang"
+                                                    value=""
+                                                  />
+                                                </div>
 
-                                          <div class="mb-3">
-                                            <label
-                                              for="soDienThoai"
-                                              class="form-label"
-                                              >Số điện thoại</label
-                                            >
-                                            <input
-                                              type="text"
-                                              class="form-control"
-                                              id="soDienThoai"
-                                              name="soDienThoai"
-                                              value=""
-                                              readonly
-                                            />
-                                          </div>
+                                                <div class="mb-3">
+                                                  <label
+                                                    for="soDienThoai"
+                                                    class="form-label"
+                                                    >Số điện thoại</label
+                                                  >
+                                                  <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="soDienThoai"
+                                                    name="soDienThoai"
+                                                    value=""
+                                                    readonly
+                                                  />
+                                                </div>
+                                                <div class="mb-3">
+                                                  <label
+                                                    for="email"
+                                                    class="form-label"
+                                                    >Email</label
+                                                  >
+                                                  <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="email"
+                                                    name="email"
+                                                    value=""
+                                                    readonly
+                                                  />
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="mb-3">
+                                                  <label
+                                                    for="ngay"
+                                                    class="form-label"
+                                                    >Ngày</label
+                                                  >
+                                                  <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="ngay"
+                                                    name="ngay"
+                                                    value=""
+                                                    readonly
+                                                  />
+                                                </div>
 
-                                          <div class="mb-3">
-                                            <label
-                                              for="email"
-                                              class="form-label"
-                                              >Email</label
-                                            >
-                                            <input
-                                              type="text"
-                                              class="form-control"
-                                              id="email"
-                                              name="email"
-                                              value=""
-                                              readonly
-                                            />
-                                          </div>
+                                                <div class="mb-3">
+                                                  <label
+                                                    for="tongTien"
+                                                    class="form-label"
+                                                    >Tổng tiền</label
+                                                  >
+                                                  <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="tongTien"
+                                                    name="tongTien"
+                                                    value=""
+                                                    readonly
+                                                  />
+                                                </div>
 
-                                          <div class="mb-3">
-                                            <label for="ngay" class="form-label"
-                                              >Ngày</label
-                                            >
-                                            <input
-                                              type="text"
-                                              class="form-control"
-                                              id="ngay"
-                                              name="ngay"
-                                              value=""
-                                              readonly
-                                            />
+                                                <div class="mb-3">
+                                                  <label
+                                                    for="tienCoc"
+                                                    class="form-label"
+                                                    >Tiền cọc</label
+                                                  >
+                                                  <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="tienCoc"
+                                                    name="tienCoc"
+                                                    value=""
+                                                    readonly
+                                                  />
+                                                </div>
+                                              </div>
+                                            </div>
                                           </div>
-
-                                          <div class="mb-3">
-                                            <label
-                                              for="tongTien"
-                                              class="form-label"
-                                              >Tổng tiền</label
+                                          <div class="modal-footer">
+                                            <button
+                                              type="button"
+                                              class="btn btn-danger btn-labeled"
+                                              data-bs-dismiss="modal"
                                             >
-                                            <input
-                                              type="text"
-                                              class="form-control"
-                                              id="tongTien"
-                                              name="tongTien"
-                                              value=""
-                                              readonly
-                                            />
+                                              Đóng
+                                              <i class="fas fa-times fa-lg"></i>
+                                            </button>
                                           </div>
-
-                                          <div class="mb-3">
-                                            <label
-                                              for="tienCoc"
-                                              class="form-label"
-                                              >Tiền cọc</label
-                                            >
-                                            <input
-                                              type="text"
-                                              class="form-control"
-                                              id="tienCoc"
-                                              name="tienCoc"
-                                              value=""
-                                              readonly
-                                            />
-                                          </div>
-                                        </form>
+                                        </div>
                                       </div>
                                     </div>
+                                    <!--  -->
                        </tr>`;
                 tr += dataRow;
             });
