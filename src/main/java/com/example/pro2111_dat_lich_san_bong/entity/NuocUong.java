@@ -31,7 +31,8 @@ public class NuocUong {
 
     @Column(name = "ten_nuoc_uong", length = 400)
     private String tenNuocUong;
-
+    @Column(name = "image")
+    private String image;
     @Column(name = "so_luong")
     private Integer soLuong;
 
