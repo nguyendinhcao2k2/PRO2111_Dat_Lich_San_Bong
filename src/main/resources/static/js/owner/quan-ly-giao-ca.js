@@ -1,33 +1,17 @@
-// $(function () {
-//     $("#datepicker")
-//         .datepicker({
-//             autoclose: true,
-//             todayHighlight: true,
-//         })
-//         .datepicker("update", new Date());
-// });
-// $(function () {
-//     $("#datepicker2")
-//         .datepicker({
-//             autoclose: true,
-//             todayHighlight: true,
-//         })
-//         .datepicker("update", new Date());
-// });
 $(document).ready(function () {
     getData();
 
     function getData() {
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/api/v1/staff/giao-ca/owners",
+            url: "http://localhost:8081/api/v1/admin/giao-ca/owners",
             success: function (data) {
-                console.log(data.content.data)
                 if (data.content.data.length == 0) {
-                    $(".noContent").removeClass("hidden");
+                    $(".noContent").prop("hidden", false);
                 } else {
-                    $(".readTable").removeClass("hide");
+                    $(".readTable").prop("hidden", false);
                     readData(data);
+                    app.lengthListSearch = 0;
                 }
             },
             error: (error) => {
@@ -36,30 +20,47 @@ $(document).ready(function () {
         });
     };
 
+
     //check box giao ca co tien
     $(".checkBoxKiemTra").change((event) => {
-        if (event.target.checked) {
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:8081/api/v1/staff/giao-ca/rut-tien",
-                success: function (data) {
-                    console.log(data.content.data)
-                    if (data.content.data.length == 0) {
-                        $(".noContent").removeClass("hidden");
-                    } else {
-                        $(".readTable").removeClass("hide");
-                        readData(data);
-                        app.lengthListSearch = 2;
-                    }
-                },
-                error: (error) => {
-                    console.log(error)
-                }
-            });
+        locByCheckBox(event, "Không có dữ liệu mong muốn!");
+    });
+
+    function locByCheckBox(event, message) {
+        var url = null;
+        if (parseInt(event.target.value) === 1) {
+            url = "http://localhost:8081/api/v1/admin/giao-ca/rut-tien";
+        } else if (parseInt(event.target.value) === 2) {
+            url = "http://localhost:8081/api/v1/admin/giao-ca/sort-by-nhan-ca-asc";
+        } else if (parseInt(event.target.value) === 3) {
+            url = "http://localhost:8081/api/v1/admin/giao-ca/sort-by-nhan-ca-desc";
         } else {
             getData();
         }
-    });
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (data) {
+                console.log(data.content.data)
+                if (data.content.data.length == 0) {
+                    alert(message);
+                } else {
+                    readData(data);
+                    if (parseInt(event.target.value) === 1) {
+                        app.lengthListSearch = 2;
+                    } else if (parseInt(event.target.value) === 2) {
+                        app.lengthListSearch = 4;
+                    } else {
+                        app.lengthListSearch = 5;
+                    }
+
+                }
+            },
+            error: (error) => {
+                console.log(error)
+            }
+        });
+    }
 
     //next
     $(".nextPage").click(() => {
@@ -80,13 +81,19 @@ $(document).ready(function () {
     });
 
     function pagingTione(value) {
-        var url = "http://localhost:8081/api/v1/staff/giao-ca/owners?page=" + value;
-        if (app.lengthListSearch === 1) {
-            url = "http://localhost:8081/api/v1/staff/giao-ca/search?page=" + value + "&name=" + nameSearch;
+        var url = "http://localhost:8081/api/v1/admin/giao-ca/owners?page=" + value;
+        if (app.lengthListSearch === 0) {
+            url;
+        } else if (app.lengthListSearch === 1) {
+            url = "http://localhost:8081/api/v1/admin/giao-ca/search?page=" + value + "&name=" + nameSearch;
         } else if (app.lengthListSearch == 2) {
-            url = "http://localhost:8081/api/v1/staff/giao-ca/rut-tien?page=" + value;
+            url = "http://localhost:8081/api/v1/admin/giao-ca/rut-tien?page=" + value;
         } else if (app.lengthListSearch == 3) {
-            url = "http://localhost:8081/api/v1/staff/giao-ca/by-time?page=" + value + "&time=" + timeSearch;
+            url = "http://localhost:8081/api/v1/admin/giao-ca/by-time?page=" + value + "&time=" + timeSearch;
+        } else if (app.lengthListSearch == 4) {
+            url = "http://localhost:8081/api/v1/admin/giao-ca/sort-by-nhan-ca-asc?page=" + value;
+        }else{
+            url = "http://localhost:8081/api/v1/admin/giao-ca/sort-by-nhan-ca-desc?page=" + value;
         }
         $.ajax({
             type: "GET",
@@ -106,7 +113,7 @@ $(document).ready(function () {
         timeSearch = event.target.value;
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/api/v1/staff/giao-ca/by-time?time=" + timeSearch,
+            url: "http://localhost:8081/api/v1/admin/giao-ca/by-time?time=" + timeSearch,
             success: function (data) {
                 if (data.content.data.length == 0) {
                     alert("Không có dữ liệu!")
@@ -121,16 +128,21 @@ $(document).ready(function () {
             }
         });
     });
+
     //search by name
+    $(".searchName").on("input", function () {
+        timKiemByName($(this).val());
+    });
     var nameSearch = null;
-    $(".searchIcon").click(() => {
-        nameSearch = $("#search").val();
+
+    function timKiemByName(data) {
+        nameSearch = data;
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/api/v1/staff/giao-ca/search?name=" + ($("#search").val()),
+            url: "http://localhost:8081/api/v1/admin/giao-ca/search?name=" + (nameSearch),
             success: function (data) {
                 if (data.content.data.length == 0) {
-                    alert("Không có dữ liệu!")
+                    getData();
                 } else {
                     readData(data);
                     app.lengthListSearch = 1;
@@ -141,7 +153,7 @@ $(document).ready(function () {
                 console.log(error)
             }
         });
-    });
+    };
 });
 
 // base read data
@@ -157,6 +169,7 @@ function readData(data) {
 function formatData(data) {
     return data.map((item) => {
         return {
+            id: item.id,
             displayNameNhanVienTrongCa: item.displayNameNhanVienTrongCa,
             displayNameNhanVienCaTiepTheo: item.displayNameNhanVienCaTiepTheo,
             thoiGianNhanCa: formatDate(item.thoiGianNhanCa),
@@ -196,6 +209,28 @@ var app = new Vue({
         isDisabled: true,
         lengthListSearch: 0,
     },
-    methods: {},
+    methods: {
+        findGiaoCaByid(items) {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8081/api/v1/admin/giao-ca/by-id/" + items,
+                success: function (data) {
+                    $(".tenNVCT").val(data.content.displayNameNhanVienTrongCa);
+                    $(".thoiGianNhanCaCT").val(formatDate(data.content.thoiGianNhanCa));
+                    $(".thoiGianKetCaCT").val(formatDate(data.content.thoiGianKetCa));
+                    $(".tienBanDauCT").val(curenlyNumber(data.content.tienBanDau));
+                    $(".tienPhatSinhCT").val(curenlyNumber(data.content.tienPhatSinh));
+                    $(".tongTienMatTrongCaCT").val(curenlyNumber(data.content.tongTienMat));
+                    $(".tongTienChuyenKhoanCT").val(curenlyNumber(data.content.tongTienKhac));
+                    $(".tongTienTrongCaCT").val(curenlyNumber(data.content.tongTienTrongCa));
+                    $(".tongTienMatRutCT").val(curenlyNumber(data.content.tongTienMatRut));
+                    $(".ghiChuPhatSinhCT").val(data.content.ghiChuPhatSinh);
+                },
+                error: (error) => {
+                    console.log(error)
+                }
+            });
+        },
+    },
     computed: {}
 });
