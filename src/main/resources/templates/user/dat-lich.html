@@ -79,6 +79,14 @@
             /* border: 1px solid #000; */
             padding: 8px;
         }
+        .event-class-1{
+            background-color: #7cd28f; /* Example color */
+            color: #fff;
+        }
+        .event-class-0{
+            background-color: #6f42c1; /* Example color */
+            color: #fff;
+        }
 
         /*LAMNP UPDATE 28/10*/
         .event-class{
@@ -88,7 +96,6 @@
 
         /* Đảm bảo tooltip có z-index cao hơn */
         .event-tooltip {
-            background-color: #009578;
             position: relative;
             z-index: 9999;
             border: 1px solid #ccc;
@@ -233,19 +240,22 @@
                                                                     <label class="form-label required"
                                                                     >Họ và tên</label
                                                                     >
-                                                                    <input type="text" class="form-control" />
+                                                                    <input type="text" id="hoVaTen" class="form-control" />
+                                                                    <span id="hoVaTen_erro" class="text-danger"></span>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label class="form-label required"
                                                                     >Email</label
                                                                     >
-                                                                    <input type="email" class="form-control" />
+                                                                    <input type="email" id="mail" class="form-control" />
+                                                                    <span id="mail_erro" class="text-danger"></span>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label class="form-label required"
                                                                     >Số điện thoại</label
                                                                     >
-                                                                    <input type="text" class="form-control" />
+                                                                    <input type="text" id="sdt" class="form-control" />
+                                                                    <span id="sdt_erro" class="text-danger"></span>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label class="form-label required"
@@ -259,6 +269,7 @@
                                                             <table
                                                                     class="table table-bordered table-hover"
                                                                     style="color: black"
+                                                                    id="myTable"
                                                             >
                                                                 <thead>
                                                                 <tr>
@@ -288,7 +299,7 @@
                                                         Đóng
                                                         <i class="fas fa-times fa-lg"></i>
                                                     </button>
-                                                    <button type="submit" class="btn btn-success">
+                                                    <button type="submit" class="btn btn-success" onclick="getFormLichDat()">
                                                     Gửi
                                                     <i class="fas fa-check fa-lg"></i>
                                                 </button>
@@ -870,7 +881,7 @@
                $("#list").html(responseData.map(function (item) {
                    return ` <div class="col-md-4 col-12 mt-1">
                                 <label class="checkbox-button">
-                                    <input type="checkbox" class="custom-checkbox"/>
+                                    <input type="checkbox" class="custom-checkbox" value="${item.id}"/>
                                     <span class="checkbox-label">
                                       <strong>${item.tenCa+' :'}</strong>
                                       <span>${item.thoiGianBatDau +' - '+item.thoiGianKetThuc }</span><br />
@@ -1015,6 +1026,7 @@
                 var checkboxButton = checkbox.parentElement;
 
                 if (checkbox.checked) {
+                    var checkboxValue = checkbox.value;
                     var inputElement = checkboxButton.querySelector(
                         "input[type='number']"
                     );
@@ -1080,7 +1092,8 @@
                                     extendedProps: {
                                         trangThai: 'NEW',
                                         classCustom:'event-class',
-                                        giaSan:giaCa
+                                        giaSan:giaCa,
+                                        idSanCa:checkboxValue
                                     },
                                 };
                                 var element = parseInt(inputElement.value);
@@ -1131,7 +1144,8 @@
                                     extendedProps: {
                                         trangThai: 'NEW',
                                         classCustom:'event-class',
-                                        giaSan:giaCa
+                                        giaSan:giaCa,
+                                        idSanCa:checkboxValue
                                     },
                                 };
                                 var element = parseInt(inputElement.value);
@@ -1182,7 +1196,8 @@
                                     extendedProps: {
                                         trangThai: 'NEW',
                                         classCustom:'event-class',
-                                        giaSan:giaCa
+                                        giaSan:giaCa,
+                                        idSanCa:checkboxValue
                                     },
                                 };
                                 var element = parseInt(inputElement.value);
@@ -1374,7 +1389,7 @@
                     dateParts[1] + "-" + dateParts[0] + "-" + dateParts[2];
 
                 return `
-                        <tr>
+                        <tr data-id="${item.extendedProps.idSanCa}">
                             <td>${item.title+'('+startTimeVietnam+' - '+endTimeVietnam +')'}</td>
                             <td>${formattedDate}</td>
                             <td>
@@ -1509,7 +1524,7 @@
                         dateParts[1] + "-" + dateParts[0] + "-" + dateParts[2];
 
                     return `
-                        <tr>
+                        <tr data-id="${item.extendedProps.idSanCa}">
                             <td>${item.title+'('+startTimeVietnam+' - '+endTimeVietnam +')'}</td>
                             <td>${formattedDate}</td>
                             <td>
@@ -1534,6 +1549,74 @@
             // Hiển thị các sự kiện trong bảng
             displayEventsInTable(eventsForSelectedDate);
         }
+    }
+    function getFormLichDat() {
+        debugger
+        var selectedValue = $("#selectLoaiSan").val();
+        var hoVaTen= $('#hoVaTen').val();
+        var sdt =$('#sdt').val();
+        var mail = $('#mail').val();
+        var check = false;
+
+        if(hoVaTen.trim() ==''){
+            $('#hoVaTen_erro').text("Vui lòng nhập họ và tên");
+            check = true;
+        }
+        if(sdt.trim() ==''){
+            $('#sdt_erro').text("Vui lòng nhập số điện thoại");
+            check = true;
+        }
+        if(mail.trim() ==''){
+            $('#mail_erro').text("Vui lòng nhập email");
+            check = true;
+        }
+
+        if(check){
+            return;
+        }
+
+        // Lấy danh sách các hàng (tr) trong bảng
+        var rows = document.querySelectorAll("#myTable tbody tr");
+
+        var tableData = [];
+
+        // Bắt đầu từ hàng thứ 1 (hàng đầu tiên là tiêu đề)
+        rows.forEach(function(row) {
+            debugger
+            var idCa = row.getAttribute("data-id");
+            var cells = row.querySelectorAll("td");
+
+            var dataObject = {};
+
+            dataObject.ngayDa = cells[1].textContent;
+            dataObject.idCa = idCa;
+
+            tableData.push(dataObject);
+        });
+
+
+        var formDatLich = {
+            hoVaTen: hoVaTen,
+            email: mail,
+            sdt: sdt,
+            idLoaiSan : selectedValue,
+            danhSachCaDatRequests:tableData
+        }
+
+        $.ajax({
+            url: "/api/v1/user/dat-lich/form-dat-lich",
+            type: "POST",
+            data: JSON.stringify(formDatLich),
+            contentType: "application/json",
+            success: function (data) {
+                $('#modalInfo').modal('hide');
+                alert(data.content);
+            },
+            error: function (error) {
+                $('#modalInfo').modal('hide');
+                alert(error.responseJSON.message);
+            }
+        });
     }
 
 
