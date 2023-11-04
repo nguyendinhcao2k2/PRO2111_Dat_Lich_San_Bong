@@ -1,13 +1,19 @@
 package com.example.pro2111_dat_lich_san_bong.core.admin.serviver.impl;
 
 import com.example.pro2111_dat_lich_san_bong.core.admin.model.request.AccountStaffResquest;
+import com.example.pro2111_dat_lich_san_bong.core.admin.model.response.AccountStaffRespone;
+import com.example.pro2111_dat_lich_san_bong.core.admin.model.response.SanBongAdminRespone;
 import com.example.pro2111_dat_lich_san_bong.core.admin.reposiotry.AccountStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.admin.reposiotry.ChucVuStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.AccountStaffService;
 import com.example.pro2111_dat_lich_san_bong.entity.Account;
 import com.example.pro2111_dat_lich_san_bong.entity.ChucVu;
+import com.example.pro2111_dat_lich_san_bong.entity.SanBong;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +32,20 @@ public class AccountCreateStaffServiceImpl implements AccountStaffService {
     private BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     };
+
+    @Override
+    public Page<AccountStaffRespone> getAll(Pageable pageable) {
+        try {
+            Page<Account> listAccount = accountStaffRepository.getAllByStaff(pageable);
+            TypeToken<Page<AccountStaffRespone>> token = new TypeToken<Page<AccountStaffRespone>>() {
+            };
+            return modelMapper.map(listAccount, token.getType());
+        } catch (
+                Exception e
+        ) {
+            return null;
+        }
+    }
 
     @Override
     public void createrAccountStaff(AccountStaffResquest accountStaffResquest) {
