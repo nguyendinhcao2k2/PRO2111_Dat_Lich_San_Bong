@@ -98,7 +98,11 @@
       >
         <h4 class="position-relative d-inline text-primary ps-4">CHÀO MỪNG BẠN ĐẾN VỚI SÂN BÓNG ĐỒNG ĐẾ</h4>
       </div>
+
       <div class="mt-5 mb-5 justify-content-center text-center">
+        <div>
+          <button type="button" class="btn mb-5" id="showRulesButton" data-bs-toggle="button" style="font-weight: bold; color:#2124B1; font-family: Roboto,sans-serif; ">Xem nội quy</button>
+        </div>
         <button style="
                     display: inline-block;
                     outline: none;
@@ -117,84 +121,82 @@
                     font-weight: 700;
                     text-align: center;
                     padding: 17px 48px;
-                    color: #fff;
-                    background-color: #1ED760;
+                    color: white;
+                    background-color: #2124B1;
                     height: 48px;
                     :hover{
                         transform: scale(1.04);
                         background-color: #21e065;
                     }
-                "> <a href="#">Đặt Sân Ngay <i class="fas fa-arrow-right"></i></a></button>
+                "> <a href="#" style="color: white;">Đặt Sân Ngay <i class="fas fa-arrow-right"></i></a></button>
+
+      </div>
+      <div id="rulesModal" style="display: none;">
+        <div class="container-lg mt-2">
+          <h2 class="text-center justify-content-center mb-5">Nội quy sân bóng Đồng Đế</h2>
+          <p>Cảm ơn quý khách đã tin tưởng và sử dụng hệ thống sân bóng của chúng tôi. Chúng tôi rất vinh hạnh khi được phục vụ quý khách</p>
+          <p>Để đảm bảo quý khách có thể đặt sân và sử dụng dịch vụ tại sân bóng của chúng tôi một cách an toàn và tốt nhất. </p>
+          <p>Sân bóng Đồng Đế chúng tôi chuyên cung cấp các dịch vụ thể thao liên quan tới bóng đá. Sân bóng của chúng tôi đạt chuẩn FIFA mang lại sự an toàn khi thi đấu</p>
+          <p>Website "Đặt lịch sân bóng Đồng Đế" của chúng tôi hoạt động 24/24 quý khách có thể chọn giờ và đặt sân bất cứ thời gian nào</p>
+          <h6 class="text-center justify-content-center mt-5 mb-5">Tuy nhiên chúng tôi có 1 số lưu ý cho quý khách như sau:</h6>
+          <p>1. Sau khi đặt sân trên hệ thống của chúng tôi, quý khách có 15 phút từ sau khi đặt sân để chuyển tiền cọc tới số tài khoản sân.
+            Số tiền cọc sẽ tương đương 20% số tiền sân ( Không bao gồm dịch vụ ). Sau khi quý khách đã chuyển tiền. Hệ thống sẽ gửi thông báo
+            đến quý khách để xác nhận quý khách đã đặt lịch thành công.
+            Nhân viên chúng tôi sẽ liên hệ quý khách ngay sau khi khách hàng đặt sân ( Thời gian từ 7h - 23h hàng ngày ). Sau thời gian trên
+            nếu quý khách đặt sân sẽ phải chờ vào khoảng thời gian nhân viên hoạt động để xác nhận sân đã được đặt.</p>
+          <p>2. Dịch vụ của chúng tôi sẽ hỗ trợ quý khách đổi lịch sân trong khoảng thời gian trước 2 ngày lịch đặt của quý khách.
+            Chúng tôi sẽ hủy sân nếu quý khách cố ý đổi gần ngày thi đấu. Trừ một số trường hợp đặc biệt.
+          </p>
+          <p>3. Khi đến sân quý khách vui lòng cung cấp mã QR để nhận sân. Nếu người đặt sân không có mặt tại đó quý khách vui lòng cung cấp số điện thoại người đặt để nhận sân.
+            Mọi quyết định sẽ được đưa ra ngay thời điểm, và quyết định của chủ sân sẽ là quyết định cuối cùng</p>
+          <p>4. Nếu quý khách có nhu cầu đặt sân gấp. Chúng tôi khuyến cáo quý khách nên liên hệ tới số 0356169620 để đặt sân trực tiếp
+            thông qua nhân viên trực tại sân. </p>
+          <p>5. Nếu quý khách đã đặt cọc và tự ý hủy sân. Số tiền quý khách đã cọc sẽ không được thanh toán lại trong mọi trường hợp.
+          </p>
+          <p>6. Mọi sự việc tại sân quyết định của chủ sân là quyết định cuối cùng nhất</p>
+          <p>7. LƯU Ý:  Chúng tôi khuyến cáo quý khách đặt sân trên website của chúng tôi để có thể nắm được các thông tin về các ca, số sân trống
+            dễ dàng phục vụ cho quý khách</p>
+        </div>
+        <button type="button" class="btn mb-5 align-items-end" id="closeRulesButton" data-bs-toggle="button" style="color: red; float: right;">
+          Thu gọn
+        </button>
       </div>
 
 
       <div
-        class="bg-primary testimonial py-5 my-5 wow fadeInUp"
-        data-wow-delay="0.1s"
+              class="bg-primary newsletter my-5 wow fadeInUp"
+              data-wow-delay="0.1s"
       >
-        <div class=" py-5 px-lg-5">
-          <div class="owl-carousel testimonial-carousel">
-            <div
-              class="testimonial-item bg-transparent border rounded text-white p-4"
-            >
-              <i class="fa fa-quote-left fa-2x mb-3"></i>
-              <p>
-                Một trải nghiệm tuyệt vời, quá xuất sắc, hệ thống của các bạn giúp tôi tiết kiệm thời gian rất nhiều
-              </p>
-              <div class="d-flex align-items-center">
-                <img
-                  class="img-fluid flex-shrink-0 rounded-circle"
-                  src="https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg"
-                  style="width: 50px; height: 50px"
+        <div class=" px-lg-5">
+          <div class="row align-items-center" style="height: 250px">
+            <div class="col-12 col-md-6">
+              <h3 class="text-white">Liên Hệ Quảng Cáo</h3>
+              <small class="text-white"
+              >Cùng nhau phát triển, cùng nhau tạo giá trị</small
+              >
+              <div class="position-relative w-100 mt-3">
+                <input
+                        class="form-control border-0 rounded-pill w-100 ps-4 pe-5"
+                        type="text"
+                        placeholder="Enter Your Email"
+                        style="height: 48px"
                 />
-                <div class="ps-3">
-                  <h6 class="text-white mb-1">Client Name</h6>
-                  <small>Profession</small>
-                </div>
+                <button
+                        type="button"
+                        class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"
+                >
+                  <i class="fa fa-paper-plane text-primary fs-4"></i>
+                </button>
               </div>
             </div>
-            <div
-              class="testimonial-item bg-transparent border rounded text-white p-4"
-            >
-              <i class="fa fa-quote-left fa-2x mb-3"></i>
-              <p>
-                Sân bóng rất đẹp, tôi thực sự ấn tượng với phong cách làm việc của các bạn
-              </p>
-              <div class="d-flex align-items-center">
-                <img
-                  class="img-fluid flex-shrink-0 rounded-circle"
-                  src="https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg"
-                  style="width: 50px; height: 50px"
-                />
-                <div class="ps-3">
-                  <h6 class="text-white mb-1">Client Name</h6>
-                  <small>Profession</small>
-                </div>
-              </div>
-            </div>
-            <div
-              class="testimonial-item bg-transparent border rounded text-white p-4"
-            >
-              <i class="fa fa-quote-left fa-2x mb-3"></i>
-              <p>
-                Sân bóng của các bạn rất tốt, tôi rất ấn tượng với hệ thống đặt lịch. Các bạn thật chuyên nghiệp
-              </p>
-              <div class="d-flex align-items-center">
-                <img
-                  class="img-fluid flex-shrink-0 rounded-circle"
-                  src="https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg"
-                  style="width: 50px; height: 50px"
-                />
-                <div class="ps-3">
-                  <h6 class="text-white mb-1">Client Name</h6>
-                  <small>Profession</small>
-                </div>
-              </div>
+            <div class="col-md-6 text-center mb-n5 d-none d-md-block">
+
             </div>
           </div>
         </div>
       </div>
-      <!-- Testimonial End -->
+
+      <!-- Newsletter End -->
 
       <!-- Team Start -->
       <div class=" py-5">
@@ -206,7 +208,7 @@
             <h6 class="position-relative d-inline text-primary ps-4">
               Our Team
             </h6>
-            <h2 class="mt-2">Thành Viên Công Ty</h2>
+            <h2 class="mt-2">Thành Viên SD-107</h2>
           </div>
           <div class="row g-4">
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -310,45 +312,76 @@
       </div>
       <!-- Team End -->
 
-      <!-- Newsletter Start -->
-      <div
-        class="bg-primary newsletter my-5 wow fadeInUp"
-        data-wow-delay="0.1s"
-      >
-        <div class=" px-lg-5">
-          <div class="row align-items-center" style="height: 250px">
-            <div class="col-12 col-md-6">
-              <h3 class="text-white">Liên Hệ Quảng Cáo</h3>
-              <small class="text-white"
-                >Cùng nhau phát triển, cùng nhau tạo giá trị</small
-              >
-              <div class="position-relative w-100 mt-3">
-                <input
-                  class="form-control border-0 rounded-pill w-100 ps-4 pe-5"
-                  type="text"
-                  placeholder="Enter Your Email"
-                  style="height: 48px"
-                />
-                <button
-                  type="button"
-                  class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"
-                >
-                  <i class="fa fa-paper-plane text-primary fs-4"></i>
-                </button>
-              </div>
-            </div>
-            <div class="col-md-6 text-center mb-n5 d-none d-md-block">
-              <img
-                class="img-fluid mt-5"
-                style="height: 250px"
-                src="img/newsletter.png"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+<!--      <div-->
+<!--              class="bg-primary testimonial py-5 my-5 wow fadeInUp"-->
+<!--              data-wow-delay="0.1s"-->
+<!--      >-->
+<!--        <div class=" py-5 px-lg-5">-->
+<!--          <div class="owl-carousel testimonial-carousel">-->
+<!--            <div-->
+<!--                    class="testimonial-item bg-transparent border rounded text-white p-4"-->
+<!--            >-->
+<!--              <i class="fa fa-quote-left fa-2x mb-3"></i>-->
+<!--              <p>-->
+<!--                Một trải nghiệm tuyệt vời, quá xuất sắc, hệ thống của các bạn giúp tôi tiết kiệm thời gian rất nhiều-->
+<!--              </p>-->
+<!--              <div class="d-flex align-items-center">-->
+<!--                <img-->
+<!--                        class="img-fluid flex-shrink-0 rounded-circle"-->
+<!--                        src="https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg"-->
+<!--                        style="width: 50px; height: 50px"-->
+<!--                />-->
+<!--                <div class="ps-3">-->
+<!--                  <h6 class="text-white mb-1">Client Name</h6>-->
+<!--                  <small>Profession</small>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div-->
+<!--                    class="testimonial-item bg-transparent border rounded text-white p-4"-->
+<!--            >-->
+<!--              <i class="fa fa-quote-left fa-2x mb-3"></i>-->
+<!--              <p>-->
+<!--                Sân bóng rất đẹp, tôi thực sự ấn tượng với phong cách làm việc của các bạn-->
+<!--              </p>-->
+<!--              <div class="d-flex align-items-center">-->
+<!--                <img-->
+<!--                        class="img-fluid flex-shrink-0 rounded-circle"-->
+<!--                        src="https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg"-->
+<!--                        style="width: 50px; height: 50px"-->
+<!--                />-->
+<!--                <div class="ps-3">-->
+<!--                  <h6 class="text-white mb-1">Client Name</h6>-->
+<!--                  <small>Profession</small>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div-->
+<!--                    class="testimonial-item bg-transparent border rounded text-white p-4"-->
+<!--            >-->
+<!--              <i class="fa fa-quote-left fa-2x mb-3"></i>-->
+<!--              <p>-->
+<!--                Sân bóng của các bạn rất tốt, tôi rất ấn tượng với hệ thống đặt lịch. Các bạn thật chuyên nghiệp-->
+<!--              </p>-->
+<!--              <div class="d-flex align-items-center">-->
+<!--                <img-->
+<!--                        class="img-fluid flex-shrink-0 rounded-circle"-->
+<!--                        src="https://png.pngtree.com/png-vector/20190805/ourlarge/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_1650938.jpg"-->
+<!--                        style="width: 50px; height: 50px"-->
+<!--                />-->
+<!--                <div class="ps-3">-->
+<!--                  <h6 class="text-white mb-1">Client Name</h6>-->
+<!--                  <small>Profession</small>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      &lt;!&ndash; Testimonial End &ndash;&gt;-->
 
-      <!-- Newsletter End -->
+      <!-- Newsletter Start -->
+
 
       <!-- Start Footer -->
       <div th:insert="~{fragments/footer}"></div>
@@ -357,9 +390,22 @@
     </div>
 
     <!-- JavaScript Libraries -->
+    <script>
+      $(document).ready(function () {
+        $("#showRulesButton").click(function () {
+          // Hiển thị bảng nội quy khi nút được nhấn
+          $("#rulesModal").show();
+        });
+
+        // Đóng bảng nội quy khi người dùng nhấn nút đóng
+        $("#closeRulesButton").click(function () {
+          $("#rulesModal").hide();
+        });
+      });
+    </script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script th:src="@{/static/lib/wow/wow.min.js}"></script>
+<!--    <script th:src="@{/static/lib/wow/wow.min.js}"></script>-->
     <script th:src="@{/static/lib/easing/easing.min.js}"></script>
     <script th:src="@{/static/lib/waypoints/waypoints.min.js}"></script>
     <script th:src="@{/static/lib/owlcarousel/owl.carousel.min.js}"></script>
