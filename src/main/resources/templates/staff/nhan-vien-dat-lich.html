@@ -179,23 +179,9 @@
                                                                                         />
                                                                                     </div>
                                                                                 </div>
-                                                                                <!-- Ngày -->
-                                                                                <div class="col-auto">
-                                                                                    <label
-                                                                                            for="select-date-danh-sach-cho"
-                                                                                            class="col-form-label label-danh-sach"
-                                                                                    >Ngày :
-                                                                                    </label>
-                                                                                </div>
-                                                                                <div class="col-md-2 col-sm-auto">
-                                                                                    <input
-                                                                                            id="select-date-danh-sach-cho"
-                                                                                            type="date"
-                                                                                            class="form-control"
-                                                                                    />
-                                                                                </div>
                                                                                 <div class="col-auto">
                                                                                     <button
+                                                                                            th:onclick="|searchDanhSachCho()|"
                                                                                             type="button"
                                                                                             class="btn btn-labeled btn-success"
                                                                                     >
@@ -208,6 +194,52 @@
                                                                 </div>
                                                             </div>
                                                             <div class="table-responsive">
+                                                                <!-- LAMNP UPDATE NGÀY 2.11 Cho Thằng Chó Cao  -->
+                                                                <div
+                                                                        class="modal fade"
+                                                                        id="modal-chi-tiet-danh-sach"
+                                                                        data-bs-backdrop="static"
+                                                                        data-bs-keyboard="false"
+                                                                        tabindex="-1"
+                                                                        aria-labelledby="staticBackdropLabel"
+                                                                        aria-hidden="true"
+                                                                >
+                                                                    <div class="modal-dialog modal-xl">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5
+                                                                                        class="modal-title"
+                                                                                        id="staticBackdropLabel"
+                                                                                >
+                                                                                    Chi tiết chờ nhận sân
+                                                                                </h5>
+                                                                                <button
+                                                                                        type="button"
+                                                                                        class="btn-close"
+                                                                                        data-bs-dismiss="modal"
+
+                                                                                ></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button
+                                                                                        type="button"
+                                                                                        class="btn btn-danger btn-labeled"
+                                                                                        data-bs-dismiss="modal"
+                                                                                >
+                                                                                    Đóng
+                                                                                    <i class="fas fa-times fa-lg"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--  -->
                                                                 <table
                                                                         class="table table-striped table-hover fixed_header"
                                                                 >
@@ -270,7 +302,6 @@
                                                                 <div class="modal-header">
                                                                     <h5
                                                                             class="modal-title"
-                                                                            id="staticBackdropLabel"
                                                                     >
                                                                         Tìm kiếm
                                                                     </h5>

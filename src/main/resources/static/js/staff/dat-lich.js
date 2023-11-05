@@ -716,7 +716,6 @@ function openModalDanhSachCho() {
         url: apiUrl + "/show-danh-sach-cho",
         success: function (responseData) {
             $('#tableXacNhan').empty();
-            console.log(responseData)
             let tr = ``;
             responseData.forEach((dt) => {
                 let dataRow = `<tr>
@@ -732,14 +731,14 @@ function openModalDanhSachCho() {
                                  <div class="d-flex flex-column">
                                       <button
                                              onclick="confirmHoaDon('${dt.idHoaDon}')"
-                                             class="btn btn-success btn-sm"
+                                             class="btn btn-success btn-sm mt-2"
                                              type="button"
                                       >
                                                        Xác nhận
                                       </button>
                                        <button
                                              onclick="detailDanhSach('${dt.idHoaDon}')"
-                                             class="btn btn-primary btn-sm"
+                                             class="btn btn-primary btn-sm mt-2"
                                              type="button"
                                              data-bs-toggle="modal"
                                              data-bs-target="#modal-chi-tiet-danh-sach"
@@ -754,148 +753,7 @@ function openModalDanhSachCho() {
                                                           Hủy
                                       </button>
                                  </div>
-                            </td>
-                            <!-- LAMNP UPDATE NGÀY 2.11 Cho Thằng Chó Cao  -->
-                                    <div
-                                      class="modal fade"
-                                      id="modal-chi-tiet-danh-sach"
-                                      data-bs-backdrop="static"
-                                      data-bs-keyboard="false"
-                                      tabindex="-1"
-                                      aria-labelledby="staticBackdropLabel"
-                                      aria-hidden="true"
-                                    >
-                                      <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h5
-                                              class="modal-title"
-                                              id="staticBackdropLabel"
-                                            >
-                                              Chi tiết chờ nhận sân
-                                            </h5>
-                                            <button
-                                              type="button"
-                                              class="btn-close"
-                                              data-bs-dismiss="modal"
-                                              aria-label="Close"
-                                            ></button>
-                                          </div>
-                                          <div class="modal-body">
-                                            <div class="row">
-                                              <div class="col-md-6">
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="tenKhachHang"
-                                                    class="form-label"
-                                                    >Tên khách hàng</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    readonly
-                                                    id="tenKhachHang"
-                                                    name="tenKhachHang"
-                                                    value=""
-                                                  />
-                                                </div>
-
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="soDienThoai"
-                                                    class="form-label"
-                                                    >Số điện thoại</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="soDienThoai"
-                                                    name="soDienThoai"
-                                                    value=""
-                                                    readonly
-                                                  />
-                                                </div>
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="email"
-                                                    class="form-label"
-                                                    >Email</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="email"
-                                                    name="email"
-                                                    value=""
-                                                    readonly
-                                                  />
-                                                </div>
-                                              </div>
-                                              <div class="col-md-6">
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="ngay"
-                                                    class="form-label"
-                                                    >Ngày</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="ngay"
-                                                    name="ngay"
-                                                    value=""
-                                                    readonly
-                                                  />
-                                                </div>
-
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="tongTien"
-                                                    class="form-label"
-                                                    >Tổng tiền</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="tongTien"
-                                                    name="tongTien"
-                                                    value=""
-                                                    readonly
-                                                  />
-                                                </div>
-
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="tienCoc"
-                                                    class="form-label"
-                                                    >Tiền cọc</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="tienCoc"
-                                                    name="tienCoc"
-                                                    value=""
-                                                    readonly
-                                                  />
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button
-                                              type="button"
-                                              class="btn btn-danger btn-labeled"
-                                              data-bs-dismiss="modal"
-                                            >
-                                              Đóng
-                                              <i class="fas fa-times fa-lg"></i>
-                                            </button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <!--  -->
+                            </td>                       
                        </tr>`;
                 tr += dataRow;
             });
@@ -922,6 +780,75 @@ function deleteHoaDon(idHoaDon) {
     });
 }
 
-function detailDanhSach(idHoaDon){
+function detailDanhSach(idHoaDon) {
+    // $('#modal-danh-sach-dat-san').modal('hide')
+    $('#modal-chi-tiet-danh-sach').modal('show')
+}
 
+function closeModalChiTiet() {
+    $('#modal-chi-tiet-danh-sach').modal('hide')
+    $('#modal-danh-sach-dat-san').modal('show')
+}
+
+function searchDanhSachCho() {
+    let text = $('#input-search-danh-sach-cho').val();
+
+    let formData = {
+        textString: text,
+    }
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: apiUrl + "/filter-lich-dat",
+        data: JSON.stringify(formData),
+        success: function (responseData) {
+            $('#tableXacNhan').empty();
+            let tr = ``;
+            responseData.forEach((dt) => {
+                let dataRow = `<tr>
+                            <td>${dt.stt}</td>
+                            <td>${dt.tenNguoiDat}</td>
+                            <td>${dt.soDienThoaiNguoiDat}</td>
+                            <td>${dt.email}</td>
+                            <td>${dt.ngay}</td>
+                            <td>${dt.tongTien} VND</td>
+                            <td>${dt.tienCoc} VND</td>
+                            <td>${dt.maTienCoc}</td>
+                            <td>
+                                 <div class="d-flex flex-column">
+                                      <button
+                                             onclick="confirmHoaDon('${dt.idHoaDon}')"
+                                             class="btn btn-success btn-sm mt-2"
+                                             type="button"
+                                      >
+                                                       Xác nhận
+                                      </button>
+                                       <button
+                                             onclick="detailDanhSach('${dt.idHoaDon}')"
+                                             class="btn btn-primary btn-sm mt-2"
+                                             type="button"
+                                             data-bs-toggle="modal"
+                                             data-bs-target="#modal-chi-tiet-danh-sach"
+                                      >
+                                                       Xem chi tiết
+                                      </button>
+                                      <button
+                                             onclick="deleteHoaDon('${dt.idHoaDon}')"
+                                             class="btn btn-outline-danger btn-sm mt-2"
+                                             type="button"
+                                      >
+                                                          Hủy
+                                      </button>
+                                 </div>
+                            </td>                       
+                       </tr>`;
+                tr += dataRow;
+            });
+            $('#tableXacNhan').append(tr);
+        },
+        error: function (e) {
+            alert("Có lỗi !!")
+        }
+    })
 }
