@@ -12,7 +12,7 @@ public interface DichVuSanBongStaffRepository extends JpaRepository<DichVuSanBon
     List<DichVuSanBong> findAllByIdHoaDonSanCaAndTrangThai(String idHoaDonSanCa, int trangThai);
 
     @Query(value = "SELECT new com.example.pro2111_dat_lich_san_bong.core.staff.model.request.DichVuSanBongRequest" +
-            "(dv.idHoaDonSanCa, dv.idNuocUong, dv.idDoThue, SUM(dv.soLuongDoThue), SUM(dv.soLuongNuocUong))" +
+            "(dv.idHoaDonSanCa, dv.idNuocUong, dv.idDoThue, nu.image, dt.image, nu.tenNuocUong, dt.tenDoThue, nu.donGia, dt.donGia, SUM(dv.donGia), SUM(dv.soLuongDoThue), SUM(dv.soLuongNuocUong))" +
             "FROM DichVuSanBong dv " +
             "JOIN DoThue dt ON dt.id = dv.idDoThue " +
             "JOIN NuocUong nu ON nu.id = dv.idNuocUong " +

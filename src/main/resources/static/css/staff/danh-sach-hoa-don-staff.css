@@ -240,3 +240,13 @@ table.table tr td {
     vertical-align: middle;
     color: #2f2f2f;
 }
+.price {
+    background-color: #F44336; /* Màu nền của nhãn */
+    color: #fff; /* Màu văn bản của nhãn */
+    border-bottom-left-radius: 10px; /* Bo góc trái trên */
+    border-top-right-radius: 10px; /* Bo góc phải trên */
+    padding: 5px 10px; /* Khoảng cách bên trong nhãn */
+    position: absolute;
+    top: 0;
+    right: 0;
+}

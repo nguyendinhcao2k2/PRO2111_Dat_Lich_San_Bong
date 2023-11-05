@@ -6,6 +6,7 @@ import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,14 +17,16 @@ import java.util.List;
 public class DichVuSanBongStaffRestController {
     @Autowired
     private DichVuSanBongStaffRepository dichVuSanBongStaffService;
+
     @GetMapping("/get-by-id/{id}")
     public ResponseEntity<List<DichVuSanBong>> getAllDichVuSanBongs() {
         List<DichVuSanBong> listDichVuSanBongs = dichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai("1", 0);
         return ResponseEntity.ok(listDichVuSanBongs);
     }
-    @GetMapping("/get-hoa-don-san-ca/{id}")
-    public ResponseEntity<List<DichVuSanBongRequest>> getAllDichVuSanBongRequests() {
-        List<DichVuSanBongRequest> listDichVuSanBongs = dichVuSanBongStaffService.dichVuSanBongSuDungByHoaDonSanCas("1", 0);
+
+    @GetMapping("/dich-vu-thanh-toan/{id}")
+    public ResponseEntity<List<DichVuSanBongRequest>> getAllDichVuSanBongRequests(@PathVariable("id") String id) {
+        List<DichVuSanBongRequest> listDichVuSanBongs = dichVuSanBongStaffService.dichVuSanBongSuDungByHoaDonSanCas(id, 0);
         return ResponseEntity.ok(listDichVuSanBongs);
     }
 }

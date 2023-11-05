@@ -404,7 +404,7 @@
         var parts = currentURL.split('/');
         var id = parts[parts.length - 1];
 
-        $.get("/api/v1/staff/thanh-toan/thanh-toan-hoa-don/" + id, function (response) {
+        $.get("/api/v1/staff/thanh-toan-hoa-don/" + id, function (response) {
             var hoaDonThanhToan = response;
             $("input[name='tenSanBong']").val(hoaDonThanhToan.tenSanBong + ' - ' + hoaDonThanhToan.tenLoaiSan);
             $("input[name='tienCoc']").val(hoaDonThanhToan.tienCoc);

@@ -24,11 +24,12 @@
             rel="stylesheet"
     />
     <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
     <!-- BOOTSTRAP -->
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
@@ -82,12 +83,12 @@
         </div>
     </div>
 
-<!--    row2 -->
+    <!--    row2 -->
     <div class="row">
-<!--        col chung cho table, thông tin, và list servie của từng hóa đơn-->
+        <!--        col chung cho table, thông tin, và list servie của từng hóa đơn-->
         <div class="col-md-12">
             <div class="row">
-<!--                BEGIN COL-MD-9 Table, List--->
+                <!--                BEGIN COL-MD-9 Table, List--->
                 <div class="col-md-9">
                     <div class="row">
                         <!-- col-md-12 TABLE -->
@@ -269,7 +270,8 @@
                                                                                             <option value="1">
                                                                                                 Nước
                                                                                             </option>
-                                                                                            <option value="2">Áo</option>
+                                                                                            <option value="2">Áo
+                                                                                            </option>
                                                                                             <option value="3">
                                                                                                 Bóng
                                                                                             </option>
@@ -348,7 +350,6 @@
                                                                                 >
                                                                                     <label
                                                                                             class="form-label"
-                                                                                            for="quantity"
                                                                                     >Số lượng</label
                                                                                     >
                                                                                 </div>
@@ -394,45 +395,11 @@
                                     </div>
                                 </div>
                                 <div class="body-dich-vu header-border-content-dich-vu">
-                                    <div class="row mt-3 scrollable-content">
-                                        <div class="col-md-3 col-sm-3 col-4">
-                                            <div class="card card-product">
-                                                <img
-                                                        th:src="@{/static/img/Sting-strawberry-drink-soft1.jpg}"
-                                                        class="card-img-top"
-                                                        alt="..."
-                                                />
-                                                <div class="card-body">
-                                                    <h5 class="card-title text-center">Nước Sting</h5>
-                                                    <div
-                                                            class="form-group form-group-list-service-order"
-                                                    >
-                                                        <label class="form-label" for="quantity"
-                                                        >Số lượng :
-                                                        </label>
-                                                        <input
-                                                                min="1"
-                                                                value="1"
-                                                                type="number"
-                                                                class="form-control"
-                                                                id="quantity"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div class="card-footer bg-white">
-                                                    <div
-                                                            class="d-grid gap-2 d-md-flex justify-content-md-end"
-                                                    >
-                                                        <button class="btn btn-danger btn-labeled-sm">
-                                                            Xóa
-                                                        </button>
-                                                        <button class="btn btn-success btn-labeled-sm">
-                                                            Cập Nhập
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="row mt-3 scrollable-content" id="dataContainer">
+                                    </div>
+                                    <hr>
+                                    <div class="row mt-3 scrollable-content" id="dataDoThue">
+
                                     </div>
                                 </div>
                             </div>
@@ -440,8 +407,8 @@
                         <!-- END col-md-12 -->
                     </div>
                 </div>
-<!--                END COL-MD-9 Table, List-->
-<!--               BEGIN COL-MD-3 Hiển THị thông tin-->
+                <!--                END COL-MD-9 Table, List-->
+                <!--               BEGIN COL-MD-3 Hiển THị thông tin-->
                 <div class="col-md-3">
                     <div class="body-row-col">
                         <div class="info-display">
@@ -554,7 +521,7 @@
                         </div>
                     </div>
                 </div>
-<!--                END Hiển thị thông tin-->
+                <!--                END Hiển thị thông tin-->
             </div>
         </div>
     </div>
@@ -581,15 +548,13 @@
 
     $(document).ready(function () {
         var getId;
-        $.get("/api/v1/staff/thanh-toan/get-all", function (data) {
+        $.get("/api/v1/staff/get-all-thanh-toan", function (data) {
             var table = $("#myTable");
-
+            var totalTongTienDichVu = 0
             // Tạo phần <thead> và các thẻ tiêu đề
             var thead = document.createElement('thead');
-            // LAMNP NOTE KHÔNG CẦN TABLE-LIGHT
-            // thead.className = 'table-light';
             var headerRow = document.createElement('tr');
-            var headers = ['Tên khách', 'Số điện thoại', 'Sân ca', 'Thời gian ', 'Ngày đặt lịch', 'Tổng tiền', 'Trạng thái'];
+            var headers = ['Tên khách', 'Số điện thoại', 'Sân ca', 'Thời gian ', 'Ngày đặt lịch', 'Trạng thái'];
             for (var i = 0; i < headers.length; i++) {
                 var th = document.createElement('th');
                 th.scope = 'col';
@@ -597,7 +562,6 @@
                 headerRow.appendChild(th);
             }
             thead.appendChild(headerRow);
-
             //<thead> vào bảng
             table.prepend(thead);
 
@@ -615,6 +579,7 @@
                 tableBody.empty();
                 var startIndex = (currentPage - 1) * pageSize;
                 var endIndex = Math.min(startIndex + pageSize, data.length);
+                var tienDichVu = 0;
 
                 for (var i = startIndex; i < endIndex; i++) {
                     var item = data[i];
@@ -629,8 +594,7 @@
                     row.dataset.thoiGianBatDau = item.thoiGianBatDau;
                     row.dataset.thoiGianKetThuc = item.thoiGianKetThuc;
                     row.dataset.tongTienSanCa = item.tongTienSanCa;
-                    row.dataset.tongTienDichVu = item.tongTienDichVu;
-                    row.dataset.tongTienThanhToan = item.tongTienSanCa + item.tongTienDichVu;
+                    row.dataset.tongTienThanhToan = item.tongTienSanCa;
 
 
                     //ô dữ liệu và thêm dữ liệu vào
@@ -643,12 +607,10 @@
                     var cell4 = document.createElement('td');
                     cell4.textContent = item.thoiGianBatDau + " - " + item.thoiGianKetThuc;
                     var cell5 = document.createElement('td');
-                    cell5.textContent = item.ngayDatLich;
+                    cell5.textContent = formatDate(item.ngayDatLich);
                     var cell6 = document.createElement('td');
-                    cell6.textContent = item.tongTienDichVu + item.tongTienSanCa;
-                    var cell7 = document.createElement('td');
                     //trạng thái và hiển thị 'true' nếu trạng thái là 1
-                    cell7.textContent = item.trangThai === 1 ? 'CHƯA THANH TOÁN' : 'ĐÃ THANH TOÁN';
+                    cell6.textContent = item.trangThai === 1 ? 'CHƯA THANH TOÁN' : 'ĐÃ THANH TOÁN';
 
                     //các ô vào hàng
                     row.appendChild(cell1);
@@ -657,39 +619,108 @@
                     row.appendChild(cell4);
                     row.appendChild(cell5);
                     row.appendChild(cell6);
-                    row.appendChild(cell7);
 
-                    //sự kiện khi nhấp vào hàng
                     row.addEventListener('click', function () {
                         tableBody.find('tr').removeClass('selected-row');
                         $(this).addClass('selected-row');
                         getId = this.dataset.id;
+                        $.ajax({
+                            url: '/api/v1/staff/dich-vu-san-bong/dich-vu-thanh-toan/' + getId,
+                            method: 'GET',
+                            success: function (apiResponse) {
+                                if (apiResponse && Array.isArray(apiResponse)) {
+                                    $('#dataContainer').empty();
+                                    $('#dataDoThue').empty();
+                                    apiResponse.forEach(function (item) {
+                                        //Nuoc Uong
+                                        var imageNuocUong = item.imageNuocUong;
+                                        var giaNuocUong = item.giaNuocUong;
+                                        var soLuongNuocUong = item.soLuongNuocUong;
+                                        var tenNuocUong = item.tenNuocUong;
+                                        totalTongTienDichVu += item.tongTien;
+
+
+                                        // Tạo chuỗi HTML cho thẻ <div class="card card-product"> cho từng đối tượng
+                                        var htmlContent = '<div class="col-md-3 col-sm-3 col-4">';
+                                        htmlContent += '<div class="card card-product">';
+                                        htmlContent += '<img src="/static/img/' + imageNuocUong + '" class="card-img-top" alt="..." />';
+                                        htmlContent += '<div class="card-body">';
+                                        htmlContent += '<h5 class="card-title text-center">' + tenNuocUong + '</h5>';
+                                        htmlContent += '<span class="price" type="number">Giá Tiền: ' + giaNuocUong + '</span>';
+                                        htmlContent += '<div class="form-group form-group-list-service-order">';
+                                        htmlContent += '<label class="form-label" for="quantity">Số lượng :</label>';
+                                        htmlContent += '<input min="1" value="' + soLuongNuocUong + '" type="number" class="form-control" id="quantity" />';
+                                        htmlContent += '</div>';
+                                        htmlContent += '</div>';
+                                        htmlContent += '<div class="card-footer bg-white">';
+                                        htmlContent += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+                                        htmlContent += '<button class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                                        htmlContent += '<button class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
+                                        htmlContent += '</div>';
+                                        htmlContent += '</div>';
+                                        htmlContent += '</div>';
+                                        htmlContent += '</div>';
+                                        //Do Thue
+                                        var imageDoThue = item.imageDoThue;
+                                        var giaDoThue = item.giaDoThue;
+                                        var tenDoThue = item.tenDoThue;
+                                        var soLuongDoThue = item.soLuongDoThue;
+
+                                        var htmldoThue = '<div class="col-md-3 col-sm-3 col-4">';
+                                        htmldoThue += '<div class="card card-product">';
+                                        htmldoThue += '<img src="/static/img/' + imageDoThue + '" class="card-img-top" alt="..." />';
+                                        htmldoThue += '<div class="card-body">';
+                                        htmldoThue += '<h5 class="card-title text-center">' + tenDoThue + '</h5>';
+                                        htmldoThue += '<span class="price" type="number">Giá Tiền: ' + giaDoThue + '</span>';
+                                        htmldoThue += '<div class="form-group form-group-list-service-order">';
+                                        htmldoThue += '<label class="form-label" for="quantity">Số lượng :</label>';
+                                        htmldoThue += '<input min="1" value="' + soLuongDoThue + '" type="number" class="form-control" id="quantity" />';
+                                        htmldoThue += '</div>';
+                                        htmldoThue += '</div>';
+                                        htmldoThue += '<div class="card-footer bg-white">';
+                                        htmldoThue += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+                                        htmldoThue += '<button class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                                        htmldoThue += '<button class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
+                                        htmldoThue += '</div>';
+                                        htmldoThue += '</div>';
+                                        htmldoThue += '</div>';
+                                        htmldoThue += '</div>';
+
+                                        // Sử dụng jQuery để cập nhật nội dung phần tử <div> có ID "dataContainer"
+                                        $('#dataContainer').append(htmlContent); // Sử dụng .append() để thêm thẻ cho từng đối tượng
+                                        $('#dataDoThue').append(htmldoThue);
+                                    });
+                                }
+                                $('#tienDichVu').val(totalTongTienDichVu);
+                            },
+                            error: function (error) {
+                                console.error('API Request Failed:', error);
+                            }
+                        });
+                        $('#tongThanhToan').text(parseFloat(this.dataset.tongTienSanCa) + parseFloat(totalTongTienDichVu));
                         $('#tenKhachHang').val(this.dataset.tenKhachHang);
                         $('#soDienThoai').val(this.dataset.soDienThoai);
                         $('#tenSan').val(this.dataset.tenSanBong + ' - ' + this.dataset.tenCa + ' - ' + this.dataset.tenLoaiSan);
                         $('#thoiGianDa').val(this.dataset.thoiGianBatDau + ' - ' + this.dataset.thoiGianKetThuc);
                         $('#tienSan').val(this.dataset.tongTienSanCa);
-                        $('#tienDichVu').val(this.dataset.tongTienDichVu);
-                        $('#tongThanhToan').text(parseFloat(this.dataset.tongTienSanCa) + parseFloat(this.dataset.tongTienDichVu));
+                        totalTongTienDichVu = 0;
                     });
-
                     tableBody.append(row);
                 }
 
                 updatePagination();
             }
+
             $('#submitBtn').on('click', function (e) {
                 e.preventDefault();
-
-                // lấy giá trị id từ nơi bạn lưu trữ nó
                 var id = getId;
 
-                // tạo URL bằng cách thêm id vào đường dẫn
                 var url = "/api/v1/staff/thanh-toan/get-one/" + id;
 
                 // chuyển hướng trình duyệt đến URL mới
                 window.location.href = url;
             });
+
             // hàm để cập nhật phân trang
             function updatePagination() {
                 var pagination = $(".pagination");
@@ -742,6 +773,16 @@
         });
     });
 
+    function formatDate(inputDateString) {
+        var date = new Date(inputDateString);
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var formattedDate = day + '/' + month + '/' + year;
+
+        return formattedDate;
+    }
 </script>
 <!-- Add Bootstrap JS and jQuery links -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
