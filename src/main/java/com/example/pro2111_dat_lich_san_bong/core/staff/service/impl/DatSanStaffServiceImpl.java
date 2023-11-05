@@ -1,5 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.core.staff.service.impl;
 
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.FilterLichDatRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.FilterSanBongRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThongTinLichDatRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThongTinNguoiDatRequest;
@@ -197,6 +198,11 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         hoaDonStaffRepository.deleteById(idHoaDon);
     }
 
+    @Override
+    public List<HoaDonStaffResponse> filterHoaDon(FilterLichDatRequest filterLichDatRequest) {
+        return hoaDonStaffRepository.filterHoaDon("%" + filterLichDatRequest.getTextString() + "%");
+    }
+
     public void checkDatLich(List<ThongTinLichDatRequest> thongTinLichDatRequests) {
         Map<String, String> map = new HashMap<>();
         for (SanCaStaffResponse sanCaStaffResponse : sanCaStaffRepository.findAllSanCa()) {
@@ -231,7 +237,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         }
     }
 
-    public  String generateRandomString() {
+    public String generateRandomString() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder randomString = new StringBuilder(9);
         SecureRandom random = new SecureRandom();
@@ -255,7 +261,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         hoaDon.setEmail(thongTinNguoiDatRequest.getEmail());
         hoaDon.setSoDienThoaiNguoiDat(thongTinNguoiDatRequest.getSoDienThoai());
         hoaDon.setTenNguoiDat(thongTinNguoiDatRequest.getHoVaTen());
-        hoaDon.setTrangThai(TrangThaiHoaDon.CHUA_THANH_TOAN.ordinal());
+        hoaDon.setTrangThai(TrangThaiHoaDon.MOI_TAO.ordinal());
         hoaDon.setTongTien(tongTien);
         hoaDon.setTienCoc(tongTien * 0.2);
         String maTienCoc = generateRandomString();
