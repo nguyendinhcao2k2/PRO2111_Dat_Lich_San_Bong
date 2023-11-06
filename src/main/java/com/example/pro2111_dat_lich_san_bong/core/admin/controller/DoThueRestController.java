@@ -2,11 +2,14 @@ package com.example.pro2111_dat_lich_san_bong.core.admin.controller;
 
 import com.example.pro2111_dat_lich_san_bong.core.admin.model.request.DoThueRequest;
 import com.example.pro2111_dat_lich_san_bong.core.admin.model.request.NuocUongRequest;
+import com.example.pro2111_dat_lich_san_bong.core.admin.model.response.DoThueResponse;
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.DoThueService;
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.NuocUongService;
+import com.example.pro2111_dat_lich_san_bong.core.common.base.PageableObject;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +37,10 @@ public class DoThueRestController {
     private DoThueService doThueService;
 
     @GetMapping("/get-do-THUE")
-    public BaseResponse<?> getNuocUong(@RequestParam("size") Integer size, @RequestParam("page") Integer page) {
-        return new BaseResponse<>(HttpStatus.OK, doThueService.getDoThuePagaeble(page, size).getContent());
+    public BaseResponse<?> getNuocUong(@RequestParam(value = "size", defaultValue = "10") Integer size, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+        Page<DoThueResponse> doThueResponses = doThueService.getDoThuePagaeble(page, size);
+        PageableObject<DoThueResponse> pageableObject = new PageableObject<DoThueResponse>(doThueResponses);
+        return new BaseResponse<>(HttpStatus.OK, pageableObject);
     }
 
     @PostMapping("/save")
