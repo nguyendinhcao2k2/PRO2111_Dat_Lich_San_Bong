@@ -1,7 +1,9 @@
 package com.example.pro2111_dat_lich_san_bong.core.staff.controller;
 
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.DichVuSanBongRequest;
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.DoThueNuocUongDichVuRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.DichVuSanBongStaffRepository;
+import com.example.pro2111_dat_lich_san_bong.core.staff.service.IDichVuSanBongStaffService;
 import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,7 @@ import java.util.List;
 @RequestMapping("/api/v1/staff/dich-vu-san-bong")
 public class DichVuSanBongStaffRestController {
     @Autowired
-    private DichVuSanBongStaffRepository dichVuSanBongStaffService;
+    private IDichVuSanBongStaffService dichVuSanBongStaffService;
 
     @GetMapping("/get-by-id/{id}")
     public ResponseEntity<List<DichVuSanBong>> getAllDichVuSanBongs() {
@@ -28,5 +30,11 @@ public class DichVuSanBongStaffRestController {
     public ResponseEntity<List<DichVuSanBongRequest>> getAllDichVuSanBongRequests(@PathVariable("id") String id) {
         List<DichVuSanBongRequest> listDichVuSanBongs = dichVuSanBongStaffService.dichVuSanBongSuDungByHoaDonSanCas(id, 0);
         return ResponseEntity.ok(listDichVuSanBongs);
+    }
+
+    @GetMapping("/danh-sach-dich-vu")
+    public ResponseEntity<List<DoThueNuocUongDichVuRequest>> getAllDoThueNuocUongDichVuRequest() {
+        List<DoThueNuocUongDichVuRequest> listDoThueNuocUongDichVuRequest = dichVuSanBongStaffService.getAllDoThueNuocUongDichVuRequest(0);
+        return ResponseEntity.ok(listDoThueNuocUongDichVuRequest);
     }
 }
