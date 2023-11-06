@@ -88,25 +88,41 @@ function arrayMonth() {
 };
 
 function callAPIThongKeNam(url) {
+    var sumYear = 0;
+    var sumDay = 0;
     $.ajax({
         type: "GET",
         url: url,
         success: (response) => {
             console.log(response)
             response.content.thongKeTheoNamAdminResponses.forEach((elem) => {
-                checkThang(elem.monthName, elem.totalPrice);
+                checkThang(elem.monthName, elem.totalPrice === null ? 0 : elem.totalPrice);
+                sumYear += elem.totalPrice === null ? 0 : elem.totalPrice;
             });
+            tongDoanhThuCanam(".sumYear", sumYear);
             response.content.thongKeTheoCaAdminResponses.forEach((items) => {
                 checkCaInDay(items.caName, items.totalPrice === null ? 0 : items.totalPrice);
+                sumDay += items.totalPrice === null ? 0 : items.totalPrice;
             });
             thongKePriceFollowYear(array);
             thongKePriceFollowDay(arrayCaInDay);
+            tongDoanhThuCanam(".sumDay", sumDay);
         },
         error: (error) => {
             console.log(error);
         }
     });
 };
+
+function curenlyNumber(number) {
+    return number.toLocaleString("vi-VN");
+};
+
+function tongDoanhThuCanam(valueClass, price) {
+    $(valueClass).text("Tổng doanh thu: " + curenlyNumber(price) +" VND")
+    return;
+};
+
 
 function checkThang(valueThang, valuePrice) {
     arrayMonth();

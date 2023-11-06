@@ -20,7 +20,7 @@ public interface ThongKeAdminReponsitory extends HoaDonSanCaReponsitory {
     List<ThongKeTheoNamAdminResponse> sumTongTienByMonthAndYear(@Param("year") Integer year);
 
     @Query(value = """
-                select sum(hdsc.tong_tien) as TongTien
+                select sum(hdsc.tien_san) as TongTien
                 from hoa_don_san_ca hdsc
                 where DAY(hdsc.ngay_thanh_toan)= :ngay
                 and month(hdsc.ngay_thanh_toan)=:thang

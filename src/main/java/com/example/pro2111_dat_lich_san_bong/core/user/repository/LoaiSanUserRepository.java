@@ -14,11 +14,13 @@ import java.util.List;
 public interface LoaiSanUserRepository extends LoaiSanRepository {
 
     @Query(value = """
-        select ls.id,ls.mo_ta,
-        ls.ten_loai_san,ls.trang_thai
-        ,ls.gia_san
-        from loai_san ls
-        where ls.trang_thai = 0
-    """,nativeQuery = true)
+                select ls.id,ls.mo_ta,
+                ls.ten_loai_san,ls.trang_thai
+                ,ls.gia_san
+                from loai_san ls
+                where ls.trang_thai = 0
+            """, nativeQuery = true)
     List<LoaiSan> getAllLoaiSan();
+
+    LoaiSan findFirstByTenLoaiSan(String tenLS);
 }
