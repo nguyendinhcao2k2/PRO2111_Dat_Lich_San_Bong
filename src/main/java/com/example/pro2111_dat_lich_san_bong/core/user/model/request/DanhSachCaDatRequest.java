@@ -16,5 +16,5 @@ public class DanhSachCaDatRequest {
 
     private String idCa;
     private String ngayDa;
-
+    private String giaSan;
 }

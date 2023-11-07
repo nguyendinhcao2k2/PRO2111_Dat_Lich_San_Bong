@@ -38,6 +38,10 @@ public class ThoiGianDatLich {
     private String idCa;
     @Column(name = "id_hoa_don")
     private String idHoaDon;
+
+    @Column(name = "gia_dat_lich")
+    private Double giaDatLich;
+
     @Column(name = "trang_thai")
     private Integer trangThai;
 
