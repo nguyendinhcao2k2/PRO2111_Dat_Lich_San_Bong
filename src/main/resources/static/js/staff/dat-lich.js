@@ -52,7 +52,7 @@ function reloadSanBong() {
                                       </div>`
                     }
 
-                    const card = `<div class="col-md-4 mb-4">
+                    const card = `<div class="col-md-2 mb-2">
                         <div
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
@@ -123,19 +123,19 @@ function reloadSanBong() {
                             <!-- Card body -->
                             <div class="card-body m-1">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 mt-2">
                                         <span class="badge bg-primary badge-icon">
                                             <i class="far fa-calendar-check fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 mt-2">
                                         <span class="badge bg-primary badge-icon">
                                             <i class="fas fa-clock fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
                                     </div>
-                                    <div class="col-md-12 mt-1">
+                                    <div class="col-md-12 mt-2">
                                         <span class="badge bg-primary badge-icon">
                                             <i class="fas fa-dollar-sign fa-lg icon-content"></i>
                                         </span>
@@ -252,8 +252,8 @@ function filterSanBong() {
                                       </div>`
                     }
 
-                    const card = `<div class="col-md-4 mb-4">
-                        <div
+                    const card = `<div class="col-md- mb-2">
+                        <div2
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
                             style="width: 100%; border-radius: 0px"
@@ -323,19 +323,19 @@ function filterSanBong() {
                             <!-- Card body -->
                             <div class="card-body m-1">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 mt-2">
                                         <span class="badge bg-primary badge-icon">
                                             <i class="far fa-calendar-check fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 mt-2">
                                         <span class="badge bg-primary badge-icon">
                                             <i class="fas fa-clock fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
                                     </div>
-                                    <div class="col-md-12 mt-1">
+                                    <div class="col-md-12 mt-2">
                                         <span class="badge bg-primary badge-icon">
                                             <i class="fas fa-dollar-sign fa-lg icon-content"></i>
                                         </span>
@@ -347,7 +347,7 @@ function filterSanBong() {
                             <div class="card-footer border-0" style="background-color: #ffff">
                                 ${trangThai}
                             </div>
-                        </div>
+                        </div2>
                     </div>`;
 
                     bodySan.append(card);
@@ -429,7 +429,7 @@ window.onload = function () {
                                       </div>`
                     }
 
-                    const card = `<div class="col-md-4 mb-4">
+                    const card = `<div class="col-md-2 mb-2">
                         <div
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
@@ -500,19 +500,19 @@ window.onload = function () {
                             <!-- Card body -->
                             <div class="card-body m-1">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 mt-2">
                                         <span class="badge bg-primary badge-icon">
                                             <i class="far fa-calendar-check fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 mt-2">
                                         <span class="badge bg-primary badge-icon">
                                             <i class="fas fa-clock fa-lg icon-content"></i>
                                         </span>
                                         <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
                                     </div>
-                                    <div class="col-md-12 mt-1">
+                                    <div class="col-md-12 mt-2">
                                         <span class="badge bg-primary badge-icon">
                                             <i class="fas fa-dollar-sign fa-lg icon-content"></i>
                                         </span>
