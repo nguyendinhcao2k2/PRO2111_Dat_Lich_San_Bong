@@ -62,7 +62,7 @@
 
         .scrollable-table tbody {
             display: block;
-            max-height: 550px; /* Điều chỉnh chiều cao tối đa bạn muốn */
+            max-height: 250px !important; /* Điều chỉnh chiều cao tối đa bạn muốn */
             overflow-y: auto;
             table-layout: fixed;
         }
@@ -79,14 +79,23 @@
             /* border: 1px solid #000; */
             padding: 8px;
         }
+        /*màu của trạng thái của sân ca và đặt lịch*/
         .event-class-1{
             background-color: #7cd28f; /* Example color */
             color: #fff;
         }
         .event-class-0{
+            /* 0 là trạng thái chờ nhận sân*/
             background-color: #6f42c1; /* Example color */
             color: #fff;
         }
+
+        .event-class-99{
+            /* 99 là trạng thái chờ xác nhận*/
+            background-color: #fbc12d; /* Example color */
+            color: #fff;
+        }
+        /*màu của trạng thái của sân ca và đặt lịch*/
 
         /*LAMNP UPDATE 28/10*/
         .event-class{
@@ -275,15 +284,12 @@
                                                                 <tr>
                                                                     <th>Ca</th>
                                                                     <th>Ngày</th>
+                                                                    <th>Giá sân</th>
                                                                     <th>Thao tác</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody id="listEventNew" style="max-height: 300px; overflow-y: auto;">
-                                                                    <tr>
-                                                                        <td>ca 1</td>
-                                                                        <td>20-10-2023</td>
-                                                                        <td>đổi xóa</td>
-                                                                    </tr>
+
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -354,126 +360,7 @@
                                                 >
                                                     <!-- ca -->
                                                     <div class="row" id="list">
-                                                        <div class="col-md-4 col-12 mt-1">
-                                                            <label class="checkbox-button">
-                                                                <input
-                                                                        type="checkbox"
-                                                                        class="custom-checkbox"
-                                                                />
-                                                                <span class="checkbox-label">
-                                                                  <strong>Ca 1:</strong>
-                                                                  <span>07:00 - 09:00</span><br />
-                                                                  <strong>Giá ca:</strong>
-                                                                  <span>700.000 VND</span><br />
-                                                                  <strong>Trạng thái ca:</strong>
-                                                                  <span>Đang trống</span>
-                                                                  <div class="m-1">
-                                                                    <input class="input-so-luong" type="number" value="1" min="1" th:attr="max=${countNumber}"
-                                                                           oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
-                                                                  </div>
-                                                                    </span>
-                                                                      </label>
-                                                                      </div>
-                                  <div class="col-md-4 col-12 mt-1">
-                                  <label class="checkbox-button">
-                                      <input
-                                          type="checkbox"
-                                         class="custom-checkbox"
-                                     />
-                                     <span class="checkbox-label">
-                                      <strong>Ca 2:</strong>
-                                      <span>09:00 - 11:00</span><br />
-                                      <strong>Giá ca:</strong>
-                                      <span>700.000 VND</span><br />
-                                      <strong>Trạng thái ca:</strong>
-                                      <span>Chờ nhận sân</span>
-                                      <div class="m-1">
-                                            <input type="number" value="1" min="1" th:attr="max=${countNumber}"
-                                                   oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
-                                      </div>
-                                    </span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-4 col-12 mt-1">
-                                        <label class="checkbox-button">
-                                            <input
-                                                    type="checkbox"
-                                                    class="custom-checkbox"
-                                            />
-                                            <span class="checkbox-label">
-                                  <strong>Ca 3:</strong>
-                                  <span>13:00 - 15:00</span><br />
-                                  <strong>Giá ca:</strong>
-                                  <span>700.000 VND</span><br />
-                                  <strong>Trạng thái ca:</strong>
-                                  <span>Đang sử dụng</span>
-                                  <div class="m-1">
-                                    <input type="number" value="1" min="1" th:attr="max=${countNumber}"
-                                           oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
-                                  </div>
-                                </span>
-                                                            </label>
-                                                        </div>
-                                                        <div class="col-md-4 col-12 mt-1">
-                                                            <label class="checkbox-button">
-                                                                <input
-                                                                        type="checkbox"
-                                                                        class="custom-checkbox"
-                                                                />
-                                                                <span class="checkbox-label">
-                                  <strong>Ca 4:</strong>
-                                  <span>15:00 - 17:00</span><br />
-                                  <strong>Giá ca:</strong>
-                                  <span>700.000 VND</span><br />
-                                  <strong>Trạng thái ca:</strong>
-                                  <span>Quá giờ</span>
-                                  <div class="m-1">
-                                    <input type="number" value="1" min="1" th:attr="max=${countNumber}"
-                                           oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
-                                  </div>
-                                </span>
-                                                            </label>
-                                                        </div>
-                                                        <div class="col-md-4 col-12 mt-1">
-                                                            <label class="checkbox-button">
-                                                                <input
-                                                                        type="checkbox"
-                                                                        class="custom-checkbox"
-                                                                />
-                                                                <span class="checkbox-label">
-                                  <strong>Ca 5:</strong>
-                                  <span>17:00 - 19:00</span><br />
-                                  <strong>Giá ca:</strong>
-                                  <span>700.000 VND</span><br />
-                                  <strong>Trạng thái ca:</strong>
-                                  <span>Chờ thanh toán</span>
-                                  <div class="m-1">
-                                   <input type="number" value="1" min="1" th:attr="max=${countNumber}"
-                                          oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
-                                  </div>
-                                </span>
-                                                            </label>
-                                                        </div>
-                                                        <div class="col-md-4 col-12 mt-1">
-                                                            <label class="checkbox-button">
-                                                                <input
-                                                                        type="checkbox"
-                                                                        class="custom-checkbox"
-                                                                />
-                                                                <span class="checkbox-label">
-                                  <strong>Ca 6:</strong>
-                                  <span>20:00 - 21:00</span><br />
-                                  <strong>Giá ca:</strong>
-                                  <span>700.000 VND</span><br />
-                                  <strong>Trạng thái ca:</strong>
-                                  <span>Chờ nhận sân</span>
-                                  <div class="m-1">
-                                   <input type="number" value="1" min="1" th:attr="max=${countNumber}"
-                                          oninput="checkMaxValue(this)" onblur="checkValue(this)"/>
-                                  </div>
-                                </span>
-                                                            </label>
-                                                        </div>
+
                                                     </div>
                                                     <!-- end ca -->
                                                     <!-- ngày -->
@@ -621,6 +508,8 @@
 
         var calendarEl = document.getElementById("calendar");
         var selectedValue = $("#selectLoaiSan").val();
+        var dateViewStart = "";
+        var dateViewEnd ="";
         calendar = new FullCalendar.Calendar(calendarEl, {
             selectable: true,
             headerToolbar: {
@@ -628,8 +517,14 @@
                 center: "title",
                 right: "dayGridMonth,timeGridWeek,timeGridDay",
             },
+            /*datesSet: function (info) {
+                dateViewStart = info.start;
+                dateViewEnd = info.end;
+                console.log(formatDate(dateViewStart));
+                console.log(formatDate(dateViewEnd));
+            },*/
             events: {
-                url: "/api/vi/user/all-event?idLoaiSan="+selectedValue, // The URL to fetch your events from
+                url: "/api/vi/user/all-event?idLoaiSan="+selectedValue,
                 method: "GET",
                 success: function (data) {
                     var eventDefaul = [];
@@ -942,7 +837,8 @@
                 startTimeVietnam,
                 endTimeVietnam,
                 formattedDate,
-                event.id
+                event.id,
+                event.extendedProps.trangThai
             );
         });
     }
@@ -959,7 +855,7 @@
 
     // LAMNP 20/10/2023 UPDATE TABLE
     // Hàm để thêm thông tin ca vào bảng
-    function addToTable(caInfo, timeStart, timeEnd, dateVietnam,eventId) {
+    function addToTable(caInfo, timeStart, timeEnd, dateVietnam,eventId,statusEvent) {
         // Create a row for the event information
         var rowInfo = tableBody.insertRow();
         var cell1 = rowInfo.insertCell(0);
@@ -975,19 +871,33 @@
 
         // Sử dụng insertAdjacentHTML để thêm mã HTML
         var cell2 = rowInfo.insertCell(1);
-        cell2.insertAdjacentHTML(
-            "beforeend",
-            `
-        <div class="d-flex flex-column">
-          <button class="btn btn-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
-            Xóa
-          </button>
-          <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" type="button">
-            Đổi sân
-          </button>
-        </div>
-      `
-        );
+        if(statusEvent === 'NEW'){
+            cell2.insertAdjacentHTML(
+                "beforeend",
+                `
+                    <div class="d-flex flex-column">
+                      <button class="btn btn-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
+                        Xóa
+                      </button>
+                    </div>
+                  `
+                );
+        }else {
+            cell2.insertAdjacentHTML(
+                "beforeend",
+                `
+                    <div class="d-flex flex-column">
+                      <button class="btn btn-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
+                        Hủy lịch
+                      </button>
+                      <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" type="button">
+                        Đổi sân
+                      </button>
+                    </div>
+                  `
+            );
+        }
+
 
         // Lấy các nút Chi Tiết và Đặt Sân bằng class
         var chiTietButton = cell2.querySelector(".xoa-san-button");
@@ -1208,6 +1118,8 @@
 
                             });
                         }
+
+
                         closeModal1();
                     }
                 }
@@ -1215,6 +1127,18 @@
             calendar.addEventSource(events);
             // Thêm sự kiện vào FullCalendar
             calendar.render(); // Cập nhật lịch sau khi thêm sự kiện
+
+            var selectDateClickShowEvent = lastClickedDate;
+            var eventsClickShowEvent = calendar.getEvents();
+
+            // Lọc sự kiện cho ngày được click
+            var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+                event
+            ) {
+                return isSameDay(event.start, selectDateClickShowEvent);
+            });
+            // Hiển thị các sự kiện trong bảng
+            displayEventsInTable(eventsForSelectedDate);
         });
 
     $(function () {
@@ -1362,8 +1286,29 @@
     function showModalInfo() {
 
         var eventNew = getEventNew();
+
+
+
         if( eventNew.length > 0){
-            $("#listEventNew").html(eventNew.map(function (item) {
+            $("#listEventNew").html('');
+
+            
+
+            const addNewRow = `
+                        <tr>
+                            <td>New ca</td>
+                            <td>New sân</td>
+                            <td>New giá</td>
+                            <td class="rowOrd">
+                                <button class="btn btn-primary btn-sm add-row">Thêm</button>
+                            </td>
+                        </tr>
+                    `;
+
+            // Thêm dòng đầu tiên vào #listEventNew
+            $("#listEventNew").prepend(addNewRow);
+
+            $("#listEventNew").append(eventNew.map(function (item) {
                 const startTimeVietnam = item.start.toLocaleTimeString("en-US", {
                     timeZone: "Asia/Ho_Chi_Minh",
                     hour: "2-digit",
@@ -1392,6 +1337,7 @@
                         <tr data-id="${item.extendedProps.idSanCa}">
                             <td>${item.title+'('+startTimeVietnam+' - '+endTimeVietnam +')'}</td>
                             <td>${formattedDate}</td>
+                             <td>${item.extendedProps.giaSan}</td>
                             <td>
                                 <button class="btn btn-danger btn-sm xoa-san-button" onclick="deleteEventById('${item.id}')">Xóa</button>
                             </td>
@@ -1527,6 +1473,7 @@
                         <tr data-id="${item.extendedProps.idSanCa}">
                             <td>${item.title+'('+startTimeVietnam+' - '+endTimeVietnam +')'}</td>
                             <td>${formattedDate}</td>
+                            <td>${item.extendedProps.giaSan}</td>
                             <td>
                                 <button class="btn btn-danger btn-sm xoa-san-button" onclick="deleteEventById('${item.id}')">Xóa</button>
                             </td>
@@ -1551,7 +1498,7 @@
         }
     }
     function getFormLichDat() {
-        debugger
+
         var selectedValue = $("#selectLoaiSan").val();
         var hoVaTen= $('#hoVaTen').val();
         var sdt =$('#sdt').val();
@@ -1589,6 +1536,7 @@
             var dataObject = {};
 
             dataObject.ngayDa = cells[1].textContent;
+            dataObject.giaSan = cutMoney(cells[2].textContent);
             dataObject.idCa = idCa;
 
             tableData.push(dataObject);
@@ -1611,6 +1559,7 @@
             success: function (data) {
                 $('#modalInfo').modal('hide');
                 alert(data.content);
+                resetEventByIdLoaiSan(selectedValue);
             },
             error: function (error) {
                 $('#modalInfo').modal('hide');
@@ -1619,6 +1568,44 @@
         });
     }
 
+    function cutMoney(chuoi) {
+        var soTien = chuoi.match(/\d+(\.\d+)?/);
+        if (soTien !== null) {
+            // Lấy số tiền từ mảng kết quả
+            var soTienTimThay = soTien[0];
+            console.log(soTienTimThay); // In ra số tiền
+            return soTienTimThay;
+        } else {
+
+            console.log("Không tìm thấy số tiền trong chuỗi.");
+            return 0;
+        }
+    }
+    function formatDate(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        return (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
+    }
+
+    $(document).ready(function() {
+        $(document).on("click", ".add-row", function() {
+            debugger
+            var newRow = $("<tr style='background-color: #fbc12d'>");
+            newRow.append("<td>New Ca 1</td>");
+            newRow.append("<td>New Ngày1</td>");
+            newRow.append("<td>New Giá sân1</td>");
+            newRow.append('<td class="rowOrd"><button class="btn btn-primary btn-sm add-row">Thêm</button></td>');
+            // Thêm dòng mới vào đầu bảng
+
+            // Xóa nút "Thêm" ở hàng trước đó
+            $(this).closest("tr").prev().find(".add-row").remove();
+            $("#listEventNew").prepend(newRow);
+            // Thêm nút "Xóa" vào hàng vừa xóa nút "Thêm"
+            var deleteButton = '<button class="btn btn-danger btn-sm xoa-san-button" onclick="deleteEventById(\'newItem\')">Xóa</button>';
+            $(this).closest("tr").find(".rowOrd").html(deleteButton);
+        });
+    });
 
 </script>
 

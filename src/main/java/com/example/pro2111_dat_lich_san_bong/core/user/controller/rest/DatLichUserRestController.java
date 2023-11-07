@@ -56,11 +56,12 @@ public class DatLichUserRestController extends BaseController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             for (DanhSachCaDatRequest danhSachCaDatRequest : request.getDanhSachCaDatRequests()) {
                 ThoiGianDatLich thoiGianDatLich = new ThoiGianDatLich();
-                thoiGianDatLich.setTrangThai(TrangThaiThoiGianDL.MOI_TAO.ordinal());
+                thoiGianDatLich.setTrangThai(TrangThaiThoiGianDL.CHO_XAC_NHAN.ordinal());
                 thoiGianDatLich.setNgayDat(LocalDateTime.now());
                 thoiGianDatLich.setIdCa(danhSachCaDatRequest.getIdCa());
                 thoiGianDatLich.setIdHoaDon(hoaDonSave.getId());
                 thoiGianDatLich.setIdLoaiSan(request.getIdLoaiSan());
+                thoiGianDatLich.setGiaDatLich(Double.valueOf(danhSachCaDatRequest.getGiaSan()));
 
                 LocalDate ngayDaLocalDate = LocalDate.parse(danhSachCaDatRequest.getNgayDa(), formatter);
 

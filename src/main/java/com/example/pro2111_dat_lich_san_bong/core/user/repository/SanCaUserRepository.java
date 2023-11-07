@@ -30,4 +30,6 @@ public interface SanCaUserRepository extends SanCaRepository {
         order by c.ten_ca asc
     """,nativeQuery = true)
     List<SanCaUserResponse> getAllSanCa(@Param("request") EventRequest request);
+
+
 }
