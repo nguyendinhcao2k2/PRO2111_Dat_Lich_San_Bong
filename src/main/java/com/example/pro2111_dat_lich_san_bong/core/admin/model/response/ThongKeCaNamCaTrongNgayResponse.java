@@ -14,4 +14,5 @@ import java.util.List;
 public class ThongKeCaNamCaTrongNgayResponse {
     private List<ThongKeTheoNamAdminResponse> thongKeTheoNamAdminResponses;
     private List<ThongKeTheoCaAdminResponse> thongKeTheoCaAdminResponses;
+    private List<ThongKeTheoCaAdminResponse> thongKeNgayHomNay;
 }
