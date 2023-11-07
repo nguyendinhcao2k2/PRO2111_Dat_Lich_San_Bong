@@ -393,6 +393,7 @@ window.onload = function () {
         success: function (responseData) {
             const selectBox = $('#select-san-st').empty();
             const menu1 = $("#menu_1");
+            const wrapDiv = $(`<div class='wrap-div'></div>`);
             let option = `<option value="all">Tất Cả</option>`;
             let data = responseData;
             data.forEach((sanBong, index) => {
@@ -533,7 +534,8 @@ window.onload = function () {
                 blank.append(tenSan);
                 blank.append(bodySan);
                 contentSan.append(blank);
-                menu1.append(contentSan);
+                wrapDiv.append(contentSan)
+                menu1.append(wrapDiv);
             });
             selectBox.append(option);
             setSelectedCheckBox(year + "-" + month + "-" + day);
