@@ -81,15 +81,20 @@
 
 
 
-.icon-content {
-    width: 1em;
-    height: 1em;
-    font-size: 1em;
-}
+/*.icon-content {*/
+/*    width: 1em;*/
+/*    height: 1em;*/
+/*    font-size: 1em;*/
+/*}*/
 
 .badge-icon {
     font-size: 1em;
-    border-radius: 25px;
+    border-radius: 30px;
+    height: 35px;
+    width: 35px;
+    display: flex; /* Thêm display: flex */
+    align-items: center; /* Thêm align-items: center */
+    justify-content: center; /* Để canh icon theo chiều ngang giữa */
 }
 
 .badge-status {
@@ -554,4 +559,37 @@ table th {
 /*Header bottton chi tiết*/
 .border-bottom {
     border-bottom: 1px solid #dee2e6 !important;
+}
+
+/* SCROLL CONtent San */
+.wrap-div {
+    max-height: 500px; /* Điều chỉnh chiều cao tối đa của content-san theo mong muốn */
+    overflow: auto; /* Khi nội dung vượt quá chiều cao tối đa, thanh cuộn sẽ xuất hiện */
+}
+
+/*.card-san{*/
+/*    margin-top: 6px;*/
+/*    width: 100%;*/
+/*    margin-left: 5px;*/
+/*    margin-right: 5px;*/
+/*    overflow: hidden;*/
+/*}*/
+
+.row > *{
+    padding-right: 1px !important;
+}
+
+.span-text-button-status {
+    margin: 10px;
+    font-size: 16px;
+    color: #171717;
+}
+
+.button-boder-status{
+    border-radius: 30px;
+    width: 40px; /* Đặt chiều rộng và cao tùy ý */
+    height: 40px;
+    display: flex; /* Thêm display: flex */
+    align-items: center; /* Thêm align-items: center */
+    justify-content: center; /* Để canh icon theo chiều ngang giữa */
 }
