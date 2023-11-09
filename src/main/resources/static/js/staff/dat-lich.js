@@ -19,6 +19,7 @@ function reloadSanBong() {
             const menu1 = $("#menu_1");
             let data = responseData;
             data.forEach((sanBong, index) => {
+                const wrapDiv = $(`<div class='wrap-div'></div>`);
                 const contentSan = $(`<div class='content-san'></div>`);
                 const blank = $(`<div id="san-content-${index}"></div>`);
                 const tenSan = `<div class='ten-san mt-4'><h4 class='text-dark'>${sanBong.tenSanBong}</h4></div>`;
@@ -52,7 +53,7 @@ function reloadSanBong() {
                                       </div>`
                     }
 
-                    const card = `<div class="col-md-4 mb-4">
+                    const card = `<div class="col-md-2 mb-2">
                         <div
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
@@ -103,7 +104,7 @@ function reloadSanBong() {
                                     class="card-subtitle d-flex justify-content-end"
                                 >
                                     <label
-                                        style="color: black; font-size: 18px; font-weight: bold;"
+                                        style="color: black; font-size: 18px"
                                     >Loại sân : ${ca.loaiSan}</label>
                                 </div>
                             </div>
@@ -123,23 +124,29 @@ function reloadSanBong() {
                             <!-- Card body -->
                             <div class="card-body m-1">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="far fa-calendar-check fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                             <span class="badge bg-primary badge-icon">
+                                                <i class="far fa-calendar-check fa-lg icon-content"></i>
+                                            </span>
+                                             <label id="label-date" style="color: black; font-size: 18px; margin-left: 5px">${ca.date}</label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-clock fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                    <div class="col-md-12 mt-2">
+                                         <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-clock fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-thoi-gian" style="color: black; font-size: 18px; margin-left: 5px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-1">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-dollar-sign fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-gia" style="color: black; font-size: 18px">${ca.gia} VND</label>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-dollar-sign fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -156,6 +163,7 @@ function reloadSanBong() {
                 blank.append(tenSan);
                 blank.append(bodySan);
                 contentSan.append(blank);
+                wrapDiv.append(contentSan)
                 menu1.append(contentSan);
             });
             setSelectedCheckBox(date);
@@ -219,6 +227,7 @@ function filterSanBong() {
             const menu1 = $("#menu_1");
             let data = responseData;
             data.forEach((sanBong, index) => {
+                const wrapDiv = $(`<div class='wrap-div'></div>`);
                 const contentSan = $(`<div class='content-san'></div>`);
                 const blank = $(`<div id="san-content-${index}"></div>`);
                 const tenSan = `<div class='ten-san mt-4'><h4 class='text-dark'>${sanBong.tenSanBong}</h4></div>`;
@@ -252,8 +261,8 @@ function filterSanBong() {
                                       </div>`
                     }
 
-                    const card = `<div class="col-md-4 mb-4">
-                        <div
+                    const card = `<div class="col-md- mb-2">
+                        <div2
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
                             style="width: 100%; border-radius: 0px"
@@ -303,7 +312,7 @@ function filterSanBong() {
                                     class="card-subtitle d-flex justify-content-end"
                                 >
                                     <label
-                                        style="color: black; font-size: 18px; font-weight: bold;"
+                                        style="color: black; font-size: 18px"
                                     >Loại sân : ${ca.loaiSan}</label>
                                 </div>
                             </div>
@@ -323,23 +332,29 @@ function filterSanBong() {
                             <!-- Card body -->
                             <div class="card-body m-1">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="far fa-calendar-check fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                             <span class="badge bg-primary badge-icon">
+                                                <i class="far fa-calendar-check fa-lg icon-content"></i>
+                                            </span>
+                                             <label id="label-date" style="color: black; font-size: 18px; margin-left: 5px">${ca.date}</label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-clock fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                    <div class="col-md-12 mt-2">
+                                          <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-clock fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-thoi-gian" style="color: black; font-size: 18px; margin-left: 5px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-1">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-dollar-sign fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-gia" style="color: black; font-size: 18px">${ca.gia} VND</label>
+                                    <div class="col-md-12 mt-2">
+                                       <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-dollar-sign fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -347,7 +362,7 @@ function filterSanBong() {
                             <div class="card-footer border-0" style="background-color: #ffff">
                                 ${trangThai}
                             </div>
-                        </div>
+                        </div2>
                     </div>`;
 
                     bodySan.append(card);
@@ -356,6 +371,7 @@ function filterSanBong() {
                 blank.append(tenSan);
                 blank.append(bodySan);
                 contentSan.append(blank);
+                wrapDiv.append(contentSan);
                 menu1.append(contentSan);
             });
             setSelectedCheckBox(date);
@@ -430,7 +446,7 @@ window.onload = function () {
                                       </div>`
                     }
 
-                    const card = `<div class="col-md-4 mb-4">
+                    const card = `<div class="col-md-2 mb-2">
                         <div
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
@@ -481,7 +497,7 @@ window.onload = function () {
                                     class="card-subtitle d-flex justify-content-end"
                                 >
                                     <label
-                                        style="color: black; font-size: 18px; font-weight: bold;"
+                                        style="color: black; font-size: 18px"
                                     >Loại sân : ${ca.loaiSan}</label>
                                 </div>
                             </div>
@@ -501,23 +517,29 @@ window.onload = function () {
                             <!-- Card body -->
                             <div class="card-body m-1">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="far fa-calendar-check fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                             <span class="badge bg-primary badge-icon ">
+                                                <i class="far fa-calendar-check fa-lg icon-content"></i>
+                                            </span>
+                                             <label id="label-date" style="color: black; font-size: 18px; margin-left: 5px">${ca.date}</label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-clock fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                    <div class="col-md-12 mt-2">
+                                         <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-clock fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-thoi-gian" style="color: black; font-size: 18px; margin-left: 5px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-1">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-dollar-sign fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-gia" style="color: black; font-size: 18px">${ca.gia} VND</label>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-dollar-sign fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
