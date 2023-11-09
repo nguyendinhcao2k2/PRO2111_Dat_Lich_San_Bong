@@ -16,10 +16,16 @@ function reloadSanBong() {
             if ($(".content-san").length !== 0) {
                 $(".content-san").remove();
             }
+            const wrapDiv = $(`<div class='wrap-div'></div>`);
+            let emptyField = 0;
+            let waitingField = 0;
+            let waitingForPayField = 0;
+            let workingField = 0;
+            let outOfTimeField = 0;
+            let allField = 0;
             const menu1 = $("#menu_1");
             let data = responseData;
             data.forEach((sanBong, index) => {
-                const wrapDiv = $(`<div class='wrap-div'></div>`);
                 const contentSan = $(`<div class='content-san'></div>`);
                 const blank = $(`<div id="san-content-${index}"></div>`);
                 const tenSan = `<div class='ten-san mt-4'><h4 class='text-dark'>${sanBong.tenSanBong}</h4></div>`;
@@ -31,27 +37,33 @@ function reloadSanBong() {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-primary badge-status" >Đang trống</span>
                                       </div>`;
+                        emptyField++;
                     } else if (ca.trangThai === 0) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-secondary badge-status">Đang chờ nhận sân</span>
                                       </div>`
+                        waitingField++;
                     } else if (ca.trangThai === 1) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-success badge-status">Đang hoạt động</span>
                                       </div>`
+                        workingField++;
                     } else if (ca.trangThai === 2) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-info badge-status">Chờ thanh toán</span>
                                       </div>`
+                        waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
                                       </div>`
+                        outOfTimeField++;
                     } else if (ca.trangThai === 4) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Hết giờ đặt</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                     }
+                    allField++;
 
                     const card = `<div class="col-md-2 mb-2">
                         <div
@@ -168,6 +180,12 @@ function reloadSanBong() {
             });
             setSelectedCheckBox(date);
             $("#modal-filter").modal('hide');
+            $('#all-san-bong').text(allField)
+            $('#empty-san-bong').text(emptyField)
+            $('#waiting-san-bong').text(waitingField)
+            $('#wait-for-pay').text(waitingForPayField)
+            $('#is-active').text(workingField)
+            $('#out-of-time').text(outOfTimeField)
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -221,13 +239,19 @@ function filterSanBong() {
         url: apiUrl + "/search-san-bong",
         data: JSON.stringify(dataObject),
         success: function (responseData) {
+            let emptyField = 0;
+            let waitingField = 0;
+            let waitingForPayField = 0;
+            let workingField = 0;
+            let outOfTimeField = 0;
+            let allField = 0;
             if ($(".content-san").length !== 0) {
                 $(".content-san").remove();
             }
             const menu1 = $("#menu_1");
+            const wrapDiv = $(`<div class='wrap-div'></div>`);
             let data = responseData;
             data.forEach((sanBong, index) => {
-                const wrapDiv = $(`<div class='wrap-div'></div>`);
                 const contentSan = $(`<div class='content-san'></div>`);
                 const blank = $(`<div id="san-content-${index}"></div>`);
                 const tenSan = `<div class='ten-san mt-4'><h4 class='text-dark'>${sanBong.tenSanBong}</h4></div>`;
@@ -239,27 +263,33 @@ function filterSanBong() {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-primary badge-status" >Đang trống</span>
                                       </div>`;
+                        emptyField++;
                     } else if (ca.trangThai === 0) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-secondary badge-status">Đang chờ nhận sân</span>
                                       </div>`
+                        waitingField++;
                     } else if (ca.trangThai === 1) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-success badge-status">Đang hoạt động</span>
                                       </div>`
+                        workingField++;
                     } else if (ca.trangThai === 2) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-info badge-status">Chờ thanh toán</span>
                                       </div>`
+                        waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
                                       </div>`
+                        outOfTimeField++;
                     } else if (ca.trangThai === 4) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Hết giờ đặt</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                     }
+                    allField++;
 
                     const card = `<div class="col-md- mb-2">
                         <div2
@@ -376,6 +406,12 @@ function filterSanBong() {
             });
             setSelectedCheckBox(date);
             $("#modal-filter").modal('hide');
+            $('#all-san-bong').text(allField)
+            $('#empty-san-bong').text(emptyField)
+            $('#waiting-san-bong').text(waitingField)
+            $('#wait-for-pay').text(waitingForPayField)
+            $('#is-active').text(workingField)
+            $('#out-of-time').text(outOfTimeField)
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -407,6 +443,12 @@ window.onload = function () {
         contentType: "application/json",
         url: apiUrl + "/load-san-bong",
         success: function (responseData) {
+            let emptyField = 0;
+            let waitingField = 0;
+            let waitingForPayField = 0;
+            let workingField = 0;
+            let outOfTimeField = 0;
+            let allField = 0;
             const selectBox = $('#select-san-st').empty();
             const menu1 = $("#menu_1");
             const wrapDiv = $(`<div class='wrap-div'></div>`);
@@ -424,28 +466,33 @@ window.onload = function () {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-primary badge-status" >Đang trống</span>
                                       </div>`;
+                        emptyField++;
                     } else if (ca.trangThai === 0) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-secondary badge-status">Đang chờ nhận sân</span>
                                       </div>`
+                        waitingField++;
                     } else if (ca.trangThai === 1) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-success badge-status">Đang hoạt động</span>
                                       </div>`
+                        workingField++;
                     } else if (ca.trangThai === 2) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-info badge-status">Chờ thanh toán</span>
                                       </div>`
+                        waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
                                       </div>`
+                        outOfTimeField++;
                     } else if (ca.trangThai === 4) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                     }
-
+                    allField++;
                     const card = `<div class="col-md-2 mb-2">
                         <div
                             class="card card-san"
@@ -561,6 +608,12 @@ window.onload = function () {
             });
             selectBox.append(option);
             setSelectedCheckBox(year + "-" + month + "-" + day);
+            $('#all-san-bong').text(allField)
+            $('#empty-san-bong').text(emptyField)
+            $('#waiting-san-bong').text(waitingField)
+            $('#wait-for-pay').text(waitingForPayField)
+            $('#is-active').text(workingField)
+            $('#out-of-time').text(outOfTimeField)
         },
         error: function (e) {
             console.log("ERROR : ", e);
