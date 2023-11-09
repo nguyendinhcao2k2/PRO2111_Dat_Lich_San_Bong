@@ -162,48 +162,48 @@ public class DBGenerator implements CommandLineRunner {
         Ca ca1 = new Ca();
         ca1.setTenCa("Ca 1");
         ca1.setGiaCa(200000.0);
-        ca1.setThoiGianBatDau(Time.valueOf("07:00:00"));
-        ca1.setThoiGianKetThuc(Time.valueOf("09:30:00"));
+        ca1.setThoiGianBatDau(Time.valueOf("06:00:00"));
+        ca1.setThoiGianKetThuc(Time.valueOf("08:30:00"));
         ca1.setTrangThai(0);
         ca1.setId(caRepository.save(ca1).getId());
 
         Ca ca2 = new Ca();
         ca2.setTenCa("Ca 2");
         ca2.setGiaCa(200000.0);
-        ca2.setThoiGianBatDau(Time.valueOf("10:00:00"));
-        ca2.setThoiGianKetThuc(Time.valueOf("12:30:00"));
+        ca2.setThoiGianBatDau(Time.valueOf("9:00:00"));
+        ca2.setThoiGianKetThuc(Time.valueOf("11:30:00"));
         ca2.setTrangThai(0);
         ca2.setId(caRepository.save(ca2).getId());
 
         Ca ca3 = new Ca();
         ca3.setTenCa("Ca 3");
         ca3.setGiaCa(200000.0);
-        ca3.setThoiGianBatDau(Time.valueOf("13:00:00"));
-        ca3.setThoiGianKetThuc(Time.valueOf("15:30:00"));
+        ca3.setThoiGianBatDau(Time.valueOf("12:00:00"));
+        ca3.setThoiGianKetThuc(Time.valueOf("14:30:00"));
         ca3.setTrangThai(0);
         ca3.setId(caRepository.save(ca3).getId());
 
         Ca ca4 = new Ca();
         ca4.setTenCa("Ca 4");
         ca4.setGiaCa(150000.0);
-        ca4.setThoiGianBatDau(Time.valueOf("16:00:00"));
-        ca4.setThoiGianKetThuc(Time.valueOf("18:30:00"));
+        ca4.setThoiGianBatDau(Time.valueOf("15:00:00"));
+        ca4.setThoiGianKetThuc(Time.valueOf("17:30:00"));
         ca4.setTrangThai(0);
         ca4.setId(caRepository.save(ca4).getId());
 
         Ca ca5 = new Ca();
         ca5.setTenCa("Ca 5");
         ca5.setGiaCa(150000.0);
-        ca5.setThoiGianBatDau(Time.valueOf("19:00:00"));
-        ca5.setThoiGianKetThuc(Time.valueOf("21:30:00"));
+        ca5.setThoiGianBatDau(Time.valueOf("18:00:00"));
+        ca5.setThoiGianKetThuc(Time.valueOf("20:30:00"));
         ca5.setTrangThai(0);
         ca5.setId(caRepository.save(ca5).getId());
 
         Ca ca6 = new Ca();
         ca6.setTenCa("Ca 6");
         ca6.setGiaCa(150000.0);
-        ca6.setThoiGianBatDau(Time.valueOf("22:00:00"));
-        ca6.setThoiGianKetThuc(Time.valueOf("24:00:00"));
+        ca6.setThoiGianBatDau(Time.valueOf("21:00:00"));
+        ca6.setThoiGianKetThuc(Time.valueOf("23:30:00"));
         ca6.setTrangThai(0);
         ca6.setId(caRepository.save(ca6).getId());
 
@@ -222,14 +222,14 @@ public class DBGenerator implements CommandLineRunner {
         loaiSan2.setTenLoaiSan("Sân 7");
         loaiSan2.setGiaSan(300000.0);
         loaiSan2.setMoTa("Sân giành cho mỗi đội 7 người ");
-        loaiSan1.setTrangThai(0);
+        loaiSan2.setTrangThai(0);
         loaiSan2.setId(loaiSanRepository.save(loaiSan2).getId());
 
         LoaiSan loaiSan3 = new LoaiSan();
         loaiSan3.setTenLoaiSan("Sân 11");
         loaiSan3.setGiaSan(350000.0);
         loaiSan3.setMoTa("Sân giành cho mỗi đội 11 người ");
-        loaiSan1.setTrangThai(0);
+        loaiSan3.setTrangThai(0);
         loaiSan3.setId(loaiSanRepository.save(loaiSan3).getId());
 
         //Loai san end

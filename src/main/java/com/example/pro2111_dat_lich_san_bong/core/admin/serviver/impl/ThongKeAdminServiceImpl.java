@@ -34,4 +34,64 @@ public class ThongKeAdminServiceImpl implements ThongKeAdminService {
             return null;
         }
     }
+
+    @Override
+    public List findThongKeDoThueTheoNam(Integer year) {
+        try {
+            return thongKeAdminReponsitory.findThongKeDoThueTheoNam(year);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List findThongKeDoThueTheoThangTrongNam(Integer year, Integer month) {
+        try {
+            return thongKeAdminReponsitory.findThongKeDoThueTheoThangTrongNam(year, month);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List findThongKeDoThueTheoNgay(Integer year, Integer month, Integer day) {
+        try {
+            return thongKeAdminReponsitory.findThongKeDoThueTheoNgay(year, month, day);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List findThongKeNuocUongTheoNam(Integer year) {
+        try {
+            return thongKeAdminReponsitory.findThongKeNuocUongTheoNam(year);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List findThongKeNuocUongTheoThangTrongNam(Integer year, Integer month) {
+        try {
+            return thongKeAdminReponsitory.findThongKeNuocUongTheoThangTrongNam(year, month);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List findThongKeNuocUongTheoNgay(Integer year, Integer month, Integer day) {
+        try {
+            return thongKeAdminReponsitory.findThongKeNuocUongTheoNgay(year, month, day);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
