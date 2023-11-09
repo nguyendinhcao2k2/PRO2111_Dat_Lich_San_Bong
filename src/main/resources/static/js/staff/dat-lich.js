@@ -291,7 +291,7 @@ function filterSanBong() {
                     }
                     allField++;
 
-                    const card = `<div class="col-md- mb-2">
+                    const card = `<div class="col-md-2 mb-2">
                         <div2
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
@@ -402,7 +402,7 @@ function filterSanBong() {
                 blank.append(bodySan);
                 contentSan.append(blank);
                 wrapDiv.append(contentSan);
-                menu1.append(contentSan);
+                menu1.append(wrapDiv);
             });
             setSelectedCheckBox(date);
             $("#modal-filter").modal('hide');
