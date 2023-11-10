@@ -27,7 +27,7 @@ public class LuatSan {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     protected String id;
-    @Column(name = "thongTin")
+    @Column(name = "thongTin",columnDefinition = "LONGTEXT")
     private String thongTin;
     @Column(name = "id_hoa_don")
     private String idHoaDon;

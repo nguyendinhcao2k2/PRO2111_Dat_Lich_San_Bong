@@ -30,6 +30,10 @@ public class AccountStaffResquest {
 
     @NotNull(message = "Not null")
     @NotBlank
+    private String soDienThoai;
+
+    @NotNull(message = "Not null")
+    @NotBlank
     private String displayName;
 
 }

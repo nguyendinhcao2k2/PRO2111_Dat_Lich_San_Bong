@@ -13,43 +13,42 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/api/v1/admin/luat-san")
+@CrossOrigin("*")
 public class LuatSanAdminRestController {
 
     @Autowired
     private LuatSanAdminService luatSanAdminService;
 
-    @GetMapping("/get-luat-san")
-    public ResponseEntity<?> getLuatSan(Optional<Integer>  size, Optional<Integer> page) {
-        Pageable pageable = PageRequest.of(page.orElse(0), size.orElse(5));
-        Page<LuatSanResponse> luatSanResponse = luatSanAdminService.getAll(pageable);
-        PageableObject<LuatSanResponse> pageableObject = new PageableObject<LuatSanResponse>(luatSanResponse);
-        return ResponseEntity.ok(new BaseResponse<Object>(HttpStatus.OK, pageableObject));
+    @GetMapping("/find-all")
+    public ResponseEntity<?> getLuatSan() {
+        List<LuatSanResponse> luatSanResponse = luatSanAdminService.getAll();
+        return ResponseEntity.ok(new BaseResponse<Object>(HttpStatus.OK, luatSanResponse));
     }
 
-    @PostMapping("/save")
-    public BaseResponse<?> save(@RequestBody @Valid LuatSanRequest luatSanRequest)  {
+    @GetMapping("/find-by/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id") String id) {
+        LuatSanResponse luatSanResponse = luatSanAdminService.findById(id);
+        return ResponseEntity.ok(new BaseResponse<Object>(HttpStatus.OK, luatSanResponse));
+    }
+
+    @PostMapping("/create")
+    public BaseResponse<?> save(@RequestBody LuatSanRequest luatSanRequest) {
         luatSanAdminService.createLuatSan(luatSanRequest);
         return new BaseResponse<>(HttpStatus.OK, "Ok");
     }
 
     @PutMapping("/update")
-    public BaseResponse<?> update(@RequestBody @Valid LuatSanRequest luatSanRequest)  {
+    public BaseResponse<?> update(@RequestBody  LuatSanRequest luatSanRequest) {
         luatSanAdminService.update(luatSanRequest);
         return new BaseResponse<>(HttpStatus.OK, "Ok");
     }

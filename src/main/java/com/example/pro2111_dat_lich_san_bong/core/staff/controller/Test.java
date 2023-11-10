@@ -20,4 +20,9 @@ public class Test {
     public String thongKe() {
         return "owner/thong-ke";
     }
+
+    @GetMapping("/manager")
+    public String account(){
+        return "owner/manager-admin";
+    }
 }

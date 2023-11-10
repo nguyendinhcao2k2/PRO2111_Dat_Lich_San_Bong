@@ -15,17 +15,12 @@ public class SanBongAdminUpdateRequets {
 
     private String id;
 
-    @NotNull(message = "Not null")
-    @NotBlank
     private String tenSanBong;
 
-    @NotNull(message = "Not null")
     private Double giaSan;
 
-    @NotNull(message = "Not null")
-    @NotBlank
     private String idLoaiSan;
 
-    @NotNull(message = "Not null")
+
     private Integer trangThai;
 }

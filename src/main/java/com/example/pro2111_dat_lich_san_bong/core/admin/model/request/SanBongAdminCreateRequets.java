@@ -13,15 +13,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SanBongAdminCreateRequets {
 
-    @NotNull(message = "Not null")
-    @NotBlank
+
     private String tenSanBong;
 
-    @NotNull(message = "Not null")
     private Double giaSan;
 
-    @NotNull(message = "Not null")
-    @NotBlank
     private String idLoaiSan;
+
+    private Integer trangThai;
 
 }

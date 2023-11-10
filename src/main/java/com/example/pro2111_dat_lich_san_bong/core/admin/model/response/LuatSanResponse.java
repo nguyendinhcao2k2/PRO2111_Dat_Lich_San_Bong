@@ -14,8 +14,5 @@ public class LuatSanResponse {
 
     private String id;
     private String thongTin;
-    private String idHoaDon;
-    private Integer soLanDat;
-    private Integer soTienGiam;
     private Integer trangThai;
 }
