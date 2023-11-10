@@ -304,7 +304,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
             sanCa.setIdSanBong(stringParts[0]);
             sanCa.setThoiGianDat(LocalDateTime.now());
             sanCa.setNgayDenSan(localDate);
-            sanCa.setTrangThai(TrangThaiSanCa.CHO_THANH_TOAN.ordinal());
+            sanCa.setTrangThai(TrangThaiSanCa.CHO_NHAN_SAN.ordinal());
             sanCa.setGia(Double.parseDouble(thongTinLichDatRequest.getPrice()));
             sanCa.setId(sanCa.getIdSanBong() + "+" + sanCa.getIdCa() + "+" + stringParts[2] + "+" + getTime(localDate));
             sanCas.add(sanCa);

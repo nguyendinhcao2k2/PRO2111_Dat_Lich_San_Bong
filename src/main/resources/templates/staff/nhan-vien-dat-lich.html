@@ -14,6 +14,14 @@
             href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css"
             rel="stylesheet"
     />
+    <!-- Icon Font AWESOME Bắt buộc có hai bản 5.10 và 6.2 -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
     <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
             rel="stylesheet"
@@ -103,7 +111,160 @@
                         <div class="tab-content">
                             <div id="menu_1" class="tab-content-item">
                                 <div class="body-row-col mt-1">
-                                    <div class="row m-2">
+
+                                    <!-- list field search butto -->
+                                    <div class="row mt-2 d-flex justify-content-end">
+                                        <div class="col-md-10">
+                                            <div class="row g-1  align-items-center">
+                                                <!-- tất cả -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2">
+                                                    <div style="display: flex; align-items: center">
+                                                        <button
+                                                                th:onclick="|filterTrangThai('all')|"
+                                                                type="button"
+                                                                class="btn position-relative button-boder-status"
+                                                                style="background-color: #111111;"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-border-all fa-lg"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="all-san-bong"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                                            </span>
+                                                        </button>
+                                                        <span class="span-text-button-status"
+                                                        >Tất cả</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <!-- đang trống -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2">
+                                                    <div style="display: flex; align-items: center">
+                                                        <button
+                                                                th:onclick="|filterTrangThai(null)|"
+                                                                type="button"
+                                                                class="btn btn-primary position-relative button-boder-status"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-check fa-lg"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="empty-san-bong"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                                          </span>
+                                                        </button>
+                                                        <span class="span-text-button-status"
+                                                        >Đang trống</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <!-- chờ nhận sân -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2">
+                                                    <div style="display: flex; align-items: center">
+                                                        <button
+                                                                th:onclick="|filterTrangThai(0)|"
+                                                                type="button"
+                                                                class="btn btn-secondary position-relative button-boder-status"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-clock fa-lg"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="waiting-san-bong"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                                          </span>
+                                                        </button>
+                                                        <span class="span-text-button-status"
+                                                        >Chờ nhận sân</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <!-- chờ thanh toán -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2">
+                                                    <div style="display: flex; align-items: center">
+                                                        <button
+                                                                th:onclick="|filterTrangThai(2)|"
+                                                                type="button"
+                                                                class="btn btn-info position-relative button-boder-status"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-file-invoice-dollar fa-lg"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="wait-for-pay"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                                          </span>
+                                                        </button>
+                                                        <span class="span-text-button-status"
+                                                        >Chờ thanh toán</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <!-- đang hoạt động -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2">
+                                                    <div style="display: flex; align-items: center">
+                                                        <button
+                                                                th:onclick="|filterTrangThai(1)|"
+                                                                type="button"
+                                                                class="btn btn-success position-relative button-boder-status"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-futbol fa-lg"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="is-active"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                  </span>
+                                                        </button>
+                                                        <span class="span-text-button-status"
+                                                        >Đang hoạt động</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <!-- quá giờ -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2">
+                                                    <div style="display: flex; align-items: center">
+                                                        <button
+                                                                type="button"
+                                                                class="btn btn-danger position-relative button-boder-status"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-hourglass-end"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="out-of-time"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                    <span
+                                            class="visually-hidden"
+                                            style="color: #171717"
+                                    >unread messages</span
+                                    >
+                                  </span>
+                                                        </button>
+                                                        <span
+                                                                class="span-text-button-status"
+                                                        >Quá giờ</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END  -->
+                                    <div class="row m-1">
                                         <!--danh sách chờ -->
                                         <div class="col-md-6">
                                             <!-- Danh sách các ca sân -->
@@ -112,9 +273,9 @@
                                                     type="button"
                                                     class="button-danh-sach"
                                                     data-bs-toggle="modal">
-                            <span class="button-icon-danh-sach">
-                              <i class="fas fa-list-alt fa-lg"></i>
-                            </span>
+                                                <span class="button-icon-danh-sach">
+                                                  <i class="fas fa-list-alt fa-lg"></i>
+                                                </span>
                                             </button>
                                             <!-- modal -->
                                             <div
@@ -159,17 +320,17 @@
                                                                                 </div> -->
                                                                                 <div class="col-md-4 col-sm-auto">
                                                                                     <div class="input-group">
-                                                <span
-                                                        class="input-group-text"
-                                                        style="
-                                                    border-bottom-left-radius: 5px;
-                                                    border-top-left-radius: 5px;
-                                                  "
-                                                >
-                                                  <i
-                                                          class="fas fa-search fa-lg"
-                                                  ></i>
-                                                </span>
+                                                                                            <span
+                                                                                                    class="input-group-text"
+                                                                                                    style="
+                                                                                                border-bottom-left-radius: 5px;
+                                                                                                border-top-left-radius: 5px;
+                                                                                              "
+                                                                                            >
+                                                                                              <i
+                                                                                                      class="fas fa-search fa-lg"
+                                                                                              ></i>
+                                                                                            </span>
                                                                                         <input
                                                                                                 id="input-search-danh-sach-cho"
                                                                                                 style="color: black"
@@ -266,6 +427,7 @@
                                                 </div>
                                             </div>
                                         </div>
+<!--                                        -->
                                         <div class="col-md-6 d-flex justify-content-end">
                                             <div class="row g-1">
                                                 <!--FILTER-->

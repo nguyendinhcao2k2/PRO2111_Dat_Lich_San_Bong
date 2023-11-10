@@ -18,11 +18,21 @@
             rel="stylesheet"
     />
 
-    <!-- BOOTSTRAP -->
+
+    <!-- Icon Font AWESOME Bắt buộc có hai bản 5.10 và 6.2 -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
     <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
             rel="stylesheet"
     />
+
+    <!-- BOOTSTRAP -->
     <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
     <!-- BOOTSTRAP -->
 
@@ -35,14 +45,7 @@
     />
     <!-- Google -->
 
-    <!-- Icon Font AWESOME Bắt buộc có hai bản 5.10 và 6.2 -->
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-    />
+
     <!-- table icon -->
     <link
             rel="stylesheet"
@@ -70,14 +73,14 @@
                 <h2 style="color: #fff">Hóa Đơn Đặt Lịch</h2>
             </div>
             <div class="col-md-8">
-                <a href="#" class="btn btn-primary btn-refresh"
-                ><i class="material-icons">&#xE863;</i>
-                    <span>Refresh List</span></a
-                >
-                <a href="#" class="btn btn-secondary btn-export-excel"
-                ><i class="material-icons">&#xE24D;</i>
-                    <span>Export to Excel</span></a
-                >
+<!--                <a href="#" class="btn btn-primary btn-refresh"-->
+<!--                ><i class="material-icons">&#xE863;</i>-->
+<!--                    <span>Refresh List</span></a-->
+<!--                >-->
+<!--                <a href="#" class="btn btn-secondary btn-export-excel"-->
+<!--                ><i class="material-icons">&#xE24D;</i>-->
+<!--                    <span>Export to Excel</span></a-->
+<!--                >-->
             </div>
         </div>
     </div>
@@ -94,9 +97,39 @@
                         <div class="col-md-12">
                             <!-- ADD BODY ROW COL BÊN NGOÀI UPDATE THÊM HEADER THẺ DIV table table-striped table-hover -->
                             <div class="body-row-col">
-                                <div class="header-row-col header-border mb-3">
-                                    <h1>Danh sách hóa đơn</h1>
+                                <div class="row header-border">
+                                    <div class="col-md-8">
+                                        <div class="header-row-col">
+                                            <h1>Danh Sách hóa đơn</h1>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-flex justify-content-end">
+                                        <div class="input-group mb-3">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Tìm kiếm theo tên, số điện thoại..."
+                                                    aria-label="Recipient's username"
+                                                    aria-describedby="button-addon2"
+                                            />
+                                            <button
+                                                    class="btn btn-success btn-outline-success"
+                                                    type="button"
+                                                    id="button-addon2"
+                                                    style="
+                              border-top-right-radius: 5px;
+                              border-bottom-right-radius: 5px;
+                            "
+                                            >
+                                                <i
+                                                        class="fas fa-search fa-lg"
+                                                        style="color: #ffffff"
+                                                ></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="table-responsive ">
                                     <table
                                             class="table table-striped table-hover"
