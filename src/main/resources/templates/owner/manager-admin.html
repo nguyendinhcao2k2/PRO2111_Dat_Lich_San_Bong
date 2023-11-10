@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SÂN BÓNG ĐỒNG ĐẾ</title>
+    <link
+            rel="website icon"
+            type="png"
+            href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!--  -->
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+            rel="stylesheet"
+    />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- Icon Font Stylesheet -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous"
+    />
+    <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+            integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+            crossorigin="anonymous"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/dist/bootstrap-icons.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <!-- Add Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <link
+            href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+            rel="stylesheet"
+    />
+    <!-- Add Quill library -->
+    <style>
+        .col-md-4 {
+            flex: 0 0 33.3333%;
+        }
+
+        .col-md-1 {
+            flex: 0 0 8.3333%;
+        }
+
+        .col-md-3 {
+            flex: 0 0 25%;
+        }
+
+        select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .pagination {
+            display: inline-flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-item {
+            list-style: none;
+            padding: 0 10px;
+        }
+
+        .page-link {
+            color: #333;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+        }
+
+        .page-link:hover {
+            color: #000;
+            background-color: #eee;
+        }
+        /* trinh soan thao */
+        #editor-container .ql-editor {
+            font-size: 16px; /* Đặt kích thước chữ mặc định */
+        }
+
+        #editor-container .ql-editor:focus {
+            font-size: 20px; /* Đặt kích thước chữ khi trình soạn thảo được tập trung (focus) */
+        }
+        /* trinh soan thao */
+    </style>
+</head>
+<body>
+<header th:insert="~{fragments/header-admin}"></header>
+<br />
+<div class="container-fluid mt-4 formThongBao">
+    <div class="fixed-form">
+        <h4></h4>
+        <form></form>
+    </div>
+</div>
+<div class="mt-4">
+    <!-- Thành phần nav tabs -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a
+                    class="nav-link "
+                    id="tab1-tab"
+                    data-bs-toggle="tab"
+                    href="#tab1"
+                    role="tab"
+                    aria-controls="tab1"
+                    aria-selected="true"
+            >QUẢN LÍ TÀI KHOẢN NHÂN VIÊN</a
+            >
+        </li>
+        <li class="nav-item" role="presentation">
+            <a
+                    class="nav-link "
+                    id="tab2-tab"
+                    data-bs-toggle="tab"
+                    href="#tab2"
+                    role="tab"
+                    aria-controls="tab2"
+                    aria-selected="false"
+            >QUẢN LÍ SÂN BÓNG</a
+            >
+        </li>
+        <li class="nav-item" role="presentation">
+            <a
+                    class="nav-link active"
+                    id="tab3-tab"
+                    data-bs-toggle="tab"
+                    href="#tab3"
+                    role="tab"
+                    aria-controls="tab3"
+                    aria-selected="false"
+            >QUẢN LÍ LUẬT SÂN</a
+            >
+        </li>
+    </ul>
+
+    <!-- Thành phần tab content -->
+    <div class="tab-content" id="myTabContent">
+        <!-- Tab 1 -->
+        <div
+                class="tab-pane fade  tabAccount"
+                id="tab1"
+                role="tabpanel"
+                aria-labelledby="tab1-tab"
+        >
+            <br />
+            <div class="input-group flex-nowrap container">
+            <span
+                    class="input-group-text"
+                    id="addon-wrapping"
+                    style="cursor: pointer"
+                    @click="search"
+            ><i class="fa fa-search" aria-hidden="true"></i
+            ></span>
+                <input
+                        type="email"
+                        class="form-control"
+                        name="tenSanPham"
+                        required
+                        placeholder="Nhập số điện thoại"
+                        aria-describedby="addon-wrapping"
+                        v-model="searchSDT"
+                        @input="search"
+                />
+            </div>
+            <br />
+            <form class="container" @submit.prevent="confirmSave">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Email</span
+                  >
+                            <input
+                                    type="email"
+                                    class="form-control"
+                                    name="tenSanPham"
+                                    required
+                                    placeholder="Email"
+                                    aria-describedby="addon-wrapping"
+                                    v-model="account.email"
+                            />
+                        </div>
+                        <br />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >UserName</span
+                  >
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="tenSanPham"
+                                    required
+                                    placeholder="Tài khoản"
+                                    aria-describedby="addon-wrapping"
+                                    v-model="account.taiKhoan"
+                            />
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Mật Khẩu</span
+                  >
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="tenSanPham"
+                                    required
+                                    placeholder="Mật Khẩu"
+                                    aria-describedby="addon-wrapping"
+                                    v-model="account.matKhau"
+                            />
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Số điện thoại</span
+                  >
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="tenSanPham"
+                                    required
+                                    placeholder="Số điện thoại"
+                                    aria-describedby="addon-wrapping"
+                                    v-model="account.soDienThoai"
+                            />
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">SAVE</button>
+            </form>
+            <br />
+            <table class="table table-header table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Tên hiện thị</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Thao tác</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr v-for="(items,index) in arrayAccount">
+                    <td>{{index +1}}</td>
+                    <td>{{items.taiKhoan}}</td>
+                    <td>{{items.email}}</td>
+                    <td>
+                        {{items.soDienThoai ==null?"Chưa cập nhật":items.soDienThoai}}
+                    </td>
+                    <td>{{items.displayName}}</td>
+                    <td>
+                        <span v-if="items.image === null">Chưa cập nhật</span>
+                        <img
+                                v-else
+                                :src="`http://localhost:8081/static/img/${items.image}`"
+                                style="width: 50px; height: 50px"
+                        />
+                    </td>
+                    <td>
+                        <button
+                                style="background-color: white; border: 1px solid red"
+                                class="deletebtn btn btn-primary"
+                                @click="confirmDeleteById(items.id)"
+                        >
+                            <i
+                                    class="fa fa-trash"
+                                    style="color: red"
+                                    aria-hidden="true"
+                            ></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br />
+            <div class="row" style="display: flex; margin: 0 auto">
+                <div class="col-md-4"></div>
+                <div class="col-md-1">
+                    <select class="pageSizeSelect">
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item previousPage">
+                                <a class="page-link" style="cursor: pointer">Previous</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link">{{curentPage +1}}/{{totalPage}}</a>
+                            </li>
+                            <li class="page-item nextPage">
+                                <a class="page-link" style="cursor: pointer">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Tab 2 -->
+        <div
+                class="tab-pane fade  tabLoaiSan"
+                id="tab2"
+                role="tabpanel"
+                aria-labelledby="tab2-tab"
+        >
+            <br />
+            <div class="input-group flex-nowrap container">
+            <span
+                    class="input-group-text"
+                    id="addon-wrapping"
+                    style="cursor: pointer"
+                    @click="searchByTenSanBong"
+            ><i class="fa fa-search" aria-hidden="true"></i
+            ></span>
+                <input
+                        type="email"
+                        class="form-control"
+                        name="tenSanPham"
+                        required
+                        placeholder="Tìm kiếm tên sân bóng..."
+                        aria-describedby="addon-wrapping"
+                        v-model="searchModelTenSB"
+                        @input="searchByTenSanBong"
+                />
+            </div>
+            <br />
+            <form class="container" @submit.prevent="confirmSanBongSave">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text" id="addon-wrapping">Tên</span>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="tenSanPham"
+                                    required
+                                    placeholder="Tên sân bóng"
+                                    aria-describedby="addon-wrapping"
+                                    v-model="sanBong.tenSanBong"
+                            />
+                        </div>
+                        <br />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="input-group flex-nowrap">
+                      <span class="input-group-text" id="addon-wrapping"
+                      >Loại sân</span
+                      >
+                                    <select
+                                            class="form-select selectLoaiSan"
+                                            aria-label="Default select example"
+                                            required
+                                            v-model="sanBong.loaiSan"
+                                    >
+                                        <option
+                                                v-for="items in arrLoaiSan"
+                                                v-bind:value="items.id"
+                                                selected
+                                        >
+                                            {{items.tenLoaiSan}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <button
+                                        type="button"
+                                        class="btn btn-outline-danger"
+                                        @click="themNhanh"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalLoaiSan"
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                    </div>
+                    <div class="col-md-6 radioTrangThai">
+                        <div class="form-check form-check-inline">
+                            <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="inlineRadioOptions"
+                                    id="inlineRadio1"
+                                    value="0"
+                                    checked
+                                    v-model="sanBong.trangThai"
+                            />
+                            <label class="form-check-label" for="inlineRadio1"
+                            >Bình thường</label
+                            >
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="inlineRadioOptions"
+                                    id="inlineRadio2"
+                                    value="1"
+                                    v-model="sanBong.trangThai"
+                            />
+                            <label class="form-check-label" for="inlineRadio2"
+                            >Sửa chữa</label
+                            >
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">SAVE</button>
+            </form>
+            <!-- Modal loai san start-->
+            <div
+                    class="modal fade detailModal"
+                    id="modalLoaiSan"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                Thêm nhanh loại sân
+                            </h1>
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
+                        </div>
+                        <form @submit.prevent="confirmCreateLS">
+                            <div class="modal-body">
+                                <input type="text" hidden v-model="loaiSan.id" />
+                                <div class="input-group mb-3">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Tên loại sân"
+                                            required
+                                            aria-describedby="basic-addon1"
+                                            v-model="loaiSan.tenLoaiSan"
+                                    />
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Giá loại sân"
+                                            required
+                                            aria-describedby="basic-addon1"
+                                            @input="validationPriceLS"
+                                            v-model="loaiSan.giaSan"
+                                            min="0"
+                                    />
+                                </div>
+                                Danh sách loại sân
+                                <table class="table table-bordered table-header">
+                                    <tr>
+                                        <th>Tên</th>
+                                        <th>Giá</th>
+                                        <th>Acction</th>
+                                    </tr>
+                                    <tr v-for="items in arrLoaiSan">
+                                        <td>{{items.tenLoaiSan}}</td>
+                                        <td>{{items.giaSan}}</td>
+                                        <td>
+                                            <button
+                                                    style="
+                              background-color: white;
+                              border: 1px solid red;
+                            "
+                                                    type="button"
+                                                    class="deletebtn btn btn-primary"
+                                                    @click="confirmDeleteLoaiSan(items.id)"
+                                            >
+                                                <i
+                                                        class="fa fa-trash"
+                                                        style="color: red"
+                                                        aria-hidden="true"
+                                                ></i>
+                                            </button>
+                                            <button
+                                                    style="
+                              background-color: white;
+                              border: 1px solid red;
+                            "
+                                                    type="button"
+                                                    class="deletebtn btn btn-primary"
+                                                    @click="detailLoaiSan(items.id)"
+                                            >
+                                                <i class="fa fa-wrench" aria-hidden="true"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                >
+                                    Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- modal end -->
+            <br />
+            <table class="table table-header table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Loại sân</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Thao tác</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr v-for="(items,index) in arrSanBong">
+                    <td>{{index+1}}</td>
+                    <td>{{items.tenSanBong}}</td>
+                    <td>{{findByIdLoaiSan(items.idLoaiSan).tenLoaiSan}}</td>
+                    <td>{{currenNumber(items.giaSan)}}</td>
+                    <td>
+                        {{parseInt(items.trangThai) == 0?"Bình thường":"Sửa chữa"}}
+                    </td>
+                    <td>
+                        <button
+                                style="background-color: white; border: 1px solid red"
+                                class="deletebtn btn btn-primary"
+                                @click="confirmDeleteSanBong(items.id)"
+                        >
+                            <i
+                                    class="fa fa-trash"
+                                    style="color: red"
+                                    aria-hidden="true"
+                            ></i>
+                        </button>
+                        <button
+                                type="button"
+                                style="background-color: white; border: 1px solid red"
+                                class="deletebtn btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#detailSanBong"
+                                @click="detailSanBong(items.id)"
+                        >
+                            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Modal update start -->
+            <div
+                    class="modal fade"
+                    id="detailSanBong"
+                    data-bs-backdrop="static"
+                    data-bs-keyboard="false"
+                    tabindex="-1"
+                    aria-labelledby="staticBackdropLabel"
+                    aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form @submit.prevent="confirmUpdate">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                    CẬP NHẬT SÂN BÓNG
+                                </h1>
+                                <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                ></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="input-group flex-nowrap">
+                                    <input type="text" v-model="sanBongUpdate.id" hidden />
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            name="tenSanPham"
+                                            required
+                                            placeholder="Tên sân bóng"
+                                            aria-describedby="addon-wrapping"
+                                            v-model="sanBongUpdate.tenSanBong"
+                                    />
+                                </div>
+                                <br />
+                                <div class="input-group flex-nowrap">
+                      <span class="input-group-text" id="addon-wrapping"
+                      >Loại sân</span
+                      >
+                                    <select
+                                            class="form-select selectLoaiSan"
+                                            aria-label="Default select example"
+                                            required
+                                            v-model="sanBongUpdate.loaiSan"
+                                    >
+                                        <option
+                                                v-for="items in arrLoaiSan"
+                                                v-bind:value="items.id"
+                                                selected
+                                        >
+                                            {{items.tenLoaiSan}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <br />
+                                <div class="form-check form-check-inline">
+                                    <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="inlineRadioOptions"
+                                            id="inlineRadio1"
+                                            value="0"
+                                            checked
+                                            v-model="sanBongUpdate.trangThai"
+                                    />
+                                    <label class="form-check-label" for="inlineRadio1"
+                                    >Bình thường</label
+                                    >
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="inlineRadioOptions"
+                                            id="inlineRadio2"
+                                            value="1"
+                                            v-model="sanBongUpdate.trangThai"
+                                    />
+                                    <label class="form-check-label" for="inlineRadio2"
+                                    >Sửa chữa</label
+                                    >
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                >
+                                    Close
+                                </button>
+                                <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                        @click="confirmUpdate"
+                                >
+                                    Cập nhật
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal update end -->
+            <br />
+            <div class="row" style="display: flex; margin: 0 auto">
+                <div class="col-md-4"></div>
+                <div class="col-md-1">
+                    <select class="pageSizeSelect">
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item previousPageSB">
+                                <a class="page-link" style="cursor: pointer">Previous</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link">{{currentPageSB+1}}/{{totalPageSB}}</a>
+                            </li>
+                            <li class="page-item nextPageSB">
+                                <a class="page-link" style="cursor: pointer">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- tab 2 end -->
+        <!-- Tab 3  -->
+        <div
+                class="tab-pane fade show active tabLuatSan"
+                id="tab3"
+                role="tabpanel"
+                aria-labelledby="tab3-tab"
+        >
+            <section class="container">
+                <br />
+                <div class="row">
+                    <div class="col-3">
+                        <p
+                                style="text-transform: uppercase; font-size: 20px; color: red"
+                        >
+                            Các loại Thao tác
+                        </p>
+                    </div>
+                    <div class="col-5">
+                        <button
+                                type="button"
+                                class="btn btn-outline-success btnCreateLuatSan"
+                                hidden
+                        >
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>
+
+                        <button
+                                type="button"
+                                class="btn btn-outline-info btnUpdateLuatSan"
+                                hidden
+                        >
+                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                        </button>
+                        <button
+                                type="button"
+                                class="btn btn-outline-danger btnDeleteLuatSan"
+                                hidden
+                        >
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <hr />
+                <div id="editor-container"></div>
+                <hr />
+                <div class="row">
+                    <div class="col-3">
+                        <p style="text-transform: uppercase; font-size: 20px">
+                            Thông tin luật sân
+                        </p>
+                    </div>
+                    <div class="col-1">
+                        <button
+                                type="button"
+                                class="btn btn-outline-secondary btnDetailLuatSan"
+                                hidden
+                        >
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <br />
+                <div class="thongTinLuatSan" id="thongTinLuatSan"></div>
+            </section>
+        </div>
+        <!-- Tab 3  -->
+    </div>
+</div>
+<script th:src="@{/static/js/owner/account-staff.js}"></script>
+<script th:src="@{/static/js/owner/san-bong-admin.js}"></script>
+<script th:src="@{/static/js/owner/luat-san-admin.js}"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"
+></script>
+</body>
+</html>

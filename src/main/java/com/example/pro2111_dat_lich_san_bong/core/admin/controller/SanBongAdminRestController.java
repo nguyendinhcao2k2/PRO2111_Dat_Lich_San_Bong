@@ -12,51 +12,75 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/admin/san-bong")
+@CrossOrigin("*")
 public class SanBongAdminRestController {
 
     @Autowired
     private SanBongAdminService sanBongAdminService;
 
-    @GetMapping("/find-all")
-    public ResponseEntity<?> getLoaiSan(Optional<Integer> size, Optional<Integer> page) {
-        Pageable pageable = PageRequest.of(page.orElse(0), size.orElse(5));
-        Page<SanBongAdminRespone> sanBongAdminRespones = sanBongAdminService.getAll(pageable);
-        PageableObject<SanBongAdminRespone> pageableObject = new PageableObject<SanBongAdminRespone>(sanBongAdminRespones);
-        return ResponseEntity.ok(new BaseResponse<Object>(HttpStatus.OK, pageableObject));
+    private PageRequest pageRequest(Optional<Integer> size, Optional<Integer> page) {
+        return PageRequest.of(page.orElse(0), size.orElse(5), Sort.by("tenSanBong").ascending());
     }
 
-    @PostMapping("/save")
-    public BaseResponse<?> save(@RequestBody @Valid SanBongAdminCreateRequets sanBongAdminCreateRequets)  {
+    @GetMapping("/find-all")
+    public ResponseEntity<?> getLoaiSan(@RequestParam("pageSize") Optional<Integer> size, @RequestParam("page") Optional<Integer> page) {
         try {
+            Page<SanBongAdminRespone> sanBongAdminRespones = sanBongAdminService.getAll(pageRequest(size, page));
+            PageableObject<SanBongAdminRespone> pageableObject = new PageableObject<SanBongAdminRespone>(sanBongAdminRespones);
+            return ResponseEntity.ok(new BaseResponse<Object>(HttpStatus.OK, pageableObject));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(new BaseResponse<Object>(HttpStatus.BAD_REQUEST, "Error"));
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> seachByName(@RequestParam("pageSize") Optional<Integer> size,
+                                         @RequestParam("page") Optional<Integer> page,
+                                         @RequestParam("name") String tenSanBong) {
+        try {
+            Page<SanBongAdminRespone> sanBongAdminRespones = sanBongAdminService.findAllByTenSanBongContains(tenSanBong, pageRequest(size, page));
+            PageableObject<SanBongAdminRespone> pageableObject = new PageableObject<SanBongAdminRespone>(sanBongAdminRespones);
+            return ResponseEntity.ok(new BaseResponse<Object>(HttpStatus.OK, pageableObject));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(new BaseResponse<Object>(HttpStatus.BAD_REQUEST, "Error"));
+        }
+    }
+
+    @PostMapping("/create")
+    public BaseResponse<?> save(@RequestBody SanBongAdminCreateRequets sanBongAdminCreateRequets) {
+        try {
+            if (sanBongAdminService.findFirstByTenSanBong(sanBongAdminCreateRequets.getTenSanBong()) != null) {
+                return new BaseResponse<>(HttpStatus.ACCEPTED, "Đã tồn tại");
+            }
             sanBongAdminService.create(sanBongAdminCreateRequets);
             return new BaseResponse<>(HttpStatus.OK, "Ok");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error");
         }
     }
 
     @PutMapping("/update")
-    public BaseResponse<?> update(@RequestBody @Valid SanBongAdminUpdateRequets sanBongAdminUpdateRequets)  {
+    public BaseResponse<?> update(@RequestBody @Valid SanBongAdminUpdateRequets sanBongAdminUpdateRequets) {
         try {
+//            if (sanBongAdminService.findFirstByTenSanBong(sanBongAdminUpdateRequets.getTenSanBong()) != null) {
+//                return new BaseResponse<>(HttpStatus.ACCEPTED, "Đã tồn tại");
+//            }
             sanBongAdminService.update(sanBongAdminUpdateRequets);
             return new BaseResponse<>(HttpStatus.OK, "Ok");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error");
         }
@@ -67,9 +91,20 @@ public class SanBongAdminRestController {
         try {
             sanBongAdminService.delete(id);
             return new BaseResponse<>(HttpStatus.OK, "Ok");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error");
+        }
+    }
+
+    @GetMapping("/find-by/{id}")
+    public ResponseEntity<?> findById(@PathVariable("id") String id) {
+        try {
+            SanBongAdminRespone sanBongAdminRespone = sanBongAdminService.findByID(id);
+            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, sanBongAdminRespone));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error"));
         }
     }
 }

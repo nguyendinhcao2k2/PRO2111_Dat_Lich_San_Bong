@@ -12,12 +12,13 @@ import java.util.List;
 public interface LuatSanAdminService {
 
 
-
-    Page<LuatSanResponse> getAll(Pageable pageable);
+    List<LuatSanResponse> getAll();
 
     void createLuatSan(LuatSanRequest luatSanRequest);
 
     void delete(String id);
 
-    void update( LuatSanRequest luatSanRequest);
+    void update(LuatSanRequest luatSanRequest);
+
+    LuatSanResponse findById(String id);
 }

@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.core.admin.model.request;
 
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,12 +15,6 @@ import lombok.Setter;
 public class LuatSanRequest {
 
     private String id;
-    @NotNull(message = "Not null")
+    @Column(columnDefinition = "NVARCHAR(255")
     private String thongTin;
-    @NotNull(message = "Not null")
-    private String idHoaDon;
-    @NotNull(message = "Not null")
-    private Integer soLanDat;
-    @NotNull(message = "Not null")
-    private Integer soTienGiam;
 }
