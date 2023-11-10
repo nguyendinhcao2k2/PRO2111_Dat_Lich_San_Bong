@@ -26,10 +26,12 @@ function callApiLuatSan() {
                 $(".btnCreateLuatSan").prop("hidden", false);
                 $(".btnDeleteLuatSan").prop("hidden", true);
                 $(".btnDetailLuatSan").prop("hidden", true);
+                $(".btnUpdateLuatSan").prop("hidden", true);
             } else {
                 $(".btnCreateLuatSan").prop("hidden", true);
                 $(".btnDeleteLuatSan").prop("hidden", false);
                 $(".btnDetailLuatSan").prop("hidden", false);
+                $(".btnUpdateLuatSan").prop("hidden", true);
                 $(".thongTinLuatSan").html(response.content[0].thongTin);
                 tab3.idLuatSan = response.content[0].id;
             }
