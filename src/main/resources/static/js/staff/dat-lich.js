@@ -62,6 +62,7 @@ function reloadSanBong() {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
+                        outOfTimeField++;
                     }
                     allField++;
 
@@ -288,6 +289,7 @@ function filterSanBong() {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
+                        outOfTimeField++;
                     }
                     allField++;
 
@@ -491,6 +493,7 @@ window.onload = function () {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
+                        outOfTimeField++;
                     }
                     allField++;
                     const card = `<div class="col-md-2 mb-2">
@@ -928,4 +931,192 @@ function searchDanhSachCho() {
             alert("Có lỗi !!")
         }
     })
+}
+
+function filterTrangThai(param) {
+    if (param === 'all') {
+        reloadSanBong();
+    } else {
+        callApiFilter(param)
+    }
+}
+
+function callApiFilter(param) {
+    let dataObject = {
+        date: reloadDate,
+        sanBong: 'all'
+    }
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: apiUrl + "/search-san-bong",
+        data: JSON.stringify(dataObject),
+        success: function (responseData) {
+            if ($(".content-san").length !== 0) {
+                $(".content-san").remove();
+            }
+            let check = 0;
+            const wrapDiv = $(`<div class='wrap-div'></div>`);
+            const menu1 = $("#menu_1");
+            let data = responseData;
+            data.forEach((sanBong, index) => {
+                const contentSan = $(`<div class='content-san'></div>`);
+                const blank = $(`<div id="san-content-${index}"></div>`);
+                const tenSan = `<div class='ten-san mt-4'><h4 class='text-dark'>${sanBong.tenSanBong}</h4></div>`;
+                const bodySan = $("<div class='body-san row'></div>");
+
+                sanBong.loadCaResponses.forEach((ca, i) => {
+                    if (ca.trangThai === param) {
+                        check++;
+                        let trangThai = ``;
+                        if (ca.trangThai === null) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-primary badge-status" >Đang trống</span>
+                                      </div>`;
+                        } else if (ca.trangThai === 0) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-secondary badge-status">Đang chờ nhận sân</span>
+                                      </div>`
+                        } else if (ca.trangThai === 1) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-success badge-status">Đang hoạt động</span>
+                                      </div>`
+                        } else if (ca.trangThai === 2) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-info badge-status">Chờ thanh toán</span>
+                                      </div>`
+                        } else if (ca.trangThai === 3) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                      </div>`
+                        } else if (ca.trangThai === 4) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
+                                      </div>`
+                        }
+                        const card = `<div class="col-md-2 mb-2">
+                        <div
+                            class="card card-san"
+                            id="content-san-${index}-card-san-${i}"
+                            style="width: 100%; border-radius: 0px"
+                        >
+                            <!-- Header card -->
+                            <div
+                                class="card-header"
+                                style="background: #ffff"
+                            >
+                                <div
+                                    class="card-title d-flex justify-content-end"
+                                >
+                                    <div class="btn-group">
+                                        <button
+                                            type="button"
+                                            class="btn dropdown-toggle"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                            style="box-shadow: none"
+                                        >
+                                            <label id="label-ca"
+                                                style="color: black; font-size: 18px; font-weight: bold;"
+                                            >${ca.tenCa}</label>
+                                        </button>
+                                        <ul
+                                            class="dropdown-menu dropdown-menu-end"
+                                        >
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Check In 1
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Check In 2
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Check In 3
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div
+                                    class="card-subtitle d-flex justify-content-end"
+                                >
+                                    <label
+                                        style="color: black; font-size: 18px"
+                                    >Loại sân : ${ca.loaiSan}</label>
+                                </div>
+                            </div>
+                            <!-- Check box -->
+                            <div
+                                id="checkboxContainer"
+                                style="display: none; position: absolute; top: 10px; left: 10px;"
+                            >
+                                <input
+                                    value="${ca.idResponse}"
+                                    type="checkbox"
+                                    style="width: 20px; height: 20px; margin-right: 5px;"
+                                    id="checkbox-sb-${index}-ca-${i}"
+                                    onclick="checkBoxFunction('san-content-${index}','content-san-${index}-card-san-${i}','checkbox-sb-${index}-ca-${i}')"
+                                />
+                            </div>
+                            <!-- Card body -->
+                            <div class="card-body m-1">
+                                <div class="row">
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                             <span class="badge bg-primary badge-icon">
+                                                <i class="far fa-calendar-check fa-lg icon-content"></i>
+                                            </span>
+                                             <label id="label-date" style="color: black; font-size: 18px; margin-left: 5px">${ca.date}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-2">
+                                         <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-clock fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-thoi-gian" style="color: black; font-size: 18px; margin-left: 5px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                         </div>
+                                    </div>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-dollar-sign fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Trạng thái -->
+                            <div class="card-footer border-0" style="background-color: #ffff">
+                                ${trangThai}
+                            </div>
+                        </div>
+                    </div>`;
+
+                        bodySan.append(card);
+                    }
+                });
+
+                if (check > 0) {
+                    blank.append(tenSan);
+                    blank.append(bodySan);
+                    contentSan.append(blank);
+                    wrapDiv.append(contentSan)
+                    menu1.append(contentSan);
+                }
+                check = 0;
+            });
+            setSelectedCheckBox(date);
+            $("#modal-filter").modal('hide');
+
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+        }
+    });
 }
