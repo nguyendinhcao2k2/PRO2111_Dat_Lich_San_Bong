@@ -5,6 +5,8 @@ import com.example.pro2111_dat_lich_san_bong.repository.SanBongRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 /**
  * @author thepvph20110
  */
@@ -27,7 +29,7 @@ public interface SanBongUserRepository extends SanBongRepository {
     @Query(value = """
         select count(*)
         from san_bong sb
-        where sb.trang_thai = 0
+        where sb.trang_thai = 0 and sb.id_loai_san= :req
     """,nativeQuery = true)
-    Integer countSanBong();
+    Integer countSanBong(@Param("req")String idLoaiSan);
 }
