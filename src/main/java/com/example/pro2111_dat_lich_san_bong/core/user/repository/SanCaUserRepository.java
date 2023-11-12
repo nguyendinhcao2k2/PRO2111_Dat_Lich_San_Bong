@@ -31,5 +31,13 @@ public interface SanCaUserRepository extends SanCaRepository {
     """,nativeQuery = true)
     List<SanCaUserResponse> getAllSanCa(@Param("request") EventRequest request);
 
+    @Query(value = """
+        SELECT COUNT(*)
+        FROM san_ca
+        WHERE SUBSTRING(id, INSTR(id, "+") + 1) =:request
+    """,nativeQuery = true)
+    int getAllSanCa(@Param("request") String textCheck);
+
+
 
 }

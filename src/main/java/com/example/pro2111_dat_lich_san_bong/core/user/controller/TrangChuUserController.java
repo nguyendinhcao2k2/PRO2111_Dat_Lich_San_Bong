@@ -38,9 +38,7 @@ public class TrangChuUserController extends BaseController {
 
     @GetMapping("/danh-sach-lich-dat")
     public String getAllListLichDat(Model model) {
-       Integer countNumber=  sanBongUserService.countSanBong();
        List<LoaiSan> loaiSanList = loaiSanUserService.getAllLoaiSan();
-       model.addAttribute("countNumber",countNumber);
        model.addAttribute("listLoaiSan",loaiSanList);
         return "/user/dat-lich";
     }
