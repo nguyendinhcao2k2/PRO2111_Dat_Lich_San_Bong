@@ -29,14 +29,15 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/admin/giao-ca")
+@CrossOrigin("*")
 public class GiaoCaAdminRestController {
 
     @Autowired
     private GiaoCaAdminService giaoCaAdminService;
 
 
-    private Pageable basePageable(Optional<Integer> page, Optional<Integer> pageSize) {
-        return PageRequest.of(page.orElse(0), pageSize.orElse(10));
+    private Pageable basePageable(Optional<Integer> page, Optional<Integer> pageSize, Sort sort) {
+        return PageRequest.of(page.orElse(0), pageSize.orElse(2), sort);
     }
 
     private ResponseEntity<?> baseRepon(Page<QuanLyGiaoCaResponse> giaoCaResponsePage) {
@@ -45,26 +46,39 @@ public class GiaoCaAdminRestController {
     }
 
     @GetMapping("/owners")
-    public ResponseEntity<?> ownersGiaoCa(Optional<Integer> page, Optional<Integer> pageSize) {
-        return baseRepon(giaoCaAdminService.findAllGiaoCaByStatus(basePageable(page, pageSize), TrangThaiGiaoCa.KET_THUC_CA));
+    public ResponseEntity<?> ownersGiaoCa(Optional<Integer> page, Optional<Integer> pageSize, @RequestParam(value = "sort",defaultValue = "desc") String sort) {
+        if (sort.equals("asc")) {
+            return baseRepon(giaoCaAdminService.findAllGiaoCaByStatus(basePageable(page, pageSize, Sort.by("thoiGianNhanCa").ascending()), TrangThaiGiaoCa.KET_THUC_CA));
+        }
+        return baseRepon(giaoCaAdminService.findAllGiaoCaByStatus(basePageable(page, pageSize, Sort.by("thoiGianNhanCa").descending()), TrangThaiGiaoCa.KET_THUC_CA));
     }
 
     @GetMapping("search")
-    public ResponseEntity<?> searchGiaoCa(Optional<Integer> page, Optional<Integer> pageSize, @RequestParam("name") String name) {
-        Page<QuanLyGiaoCaResponse> giaoCaResponsePage = giaoCaAdminService.searchByName(basePageable(page, pageSize), name);
+    public ResponseEntity<?> searchGiaoCa(Optional<Integer> page, Optional<Integer> pageSize, @RequestParam("name") String name, @RequestParam(value = "sort",defaultValue = "desc") String sort) {
+        if (sort.equals("asc")) {
+            Page<QuanLyGiaoCaResponse> giaoCaResponsePage = giaoCaAdminService.searchByName(basePageable(page, pageSize, Sort.by("thoiGianNhanCa").ascending()), name);
+            return baseRepon(giaoCaResponsePage);
+        }
+        Page<QuanLyGiaoCaResponse> giaoCaResponsePage = giaoCaAdminService.searchByName(basePageable(page, pageSize, Sort.by("thoiGianNhanCa").descending()), name);
         return baseRepon(giaoCaResponsePage);
     }
 
     @GetMapping("rut-tien")
-    public ResponseEntity<?> giaoCaCoTienRut(Optional<Integer> page, Optional<Integer> pageSize) {
-        return baseRepon(giaoCaAdminService.giaoCaCoTienRut(basePageable(page, pageSize)));
+    public ResponseEntity<?> giaoCaCoTienRut(Optional<Integer> page, Optional<Integer> pageSize, @RequestParam(value = "sort",defaultValue = "desc") String sort) {
+        if (sort.equals("asc")) {
+            return baseRepon(giaoCaAdminService.giaoCaCoTienRut(basePageable(page, pageSize, Sort.by("thoiGianNhanCa").ascending())));
+        }
+        return baseRepon(giaoCaAdminService.giaoCaCoTienRut(basePageable(page, pageSize, Sort.by("thoiGianNhanCa").descending())));
     }
 
     @GetMapping("by-time")
-    public ResponseEntity<?> giaoCaByThoiGianNhanCa(Optional<Integer> page, Optional<Integer> pageSize, @RequestParam("time") String time) throws ParseException {
+    public ResponseEntity<?> giaoCaByThoiGianNhanCa(Optional<Integer> page, Optional<Integer> pageSize, @RequestParam("time") String time, @RequestParam(value = "sort",defaultValue = "desc") String sort) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Page<QuanLyGiaoCaResponse> giaoCaResponsePage = giaoCaAdminService.giaoCaByThoiGianNhanCa(basePageable(page, pageSize), simpleDateFormat.parse(time));
-        System.out.println(time);
+        if (sort.equals("asc")) {
+            Page<QuanLyGiaoCaResponse> giaoCaResponsePage = giaoCaAdminService.giaoCaByThoiGianNhanCa(basePageable(page, pageSize, Sort.by("thoiGianNhanCa").ascending()), simpleDateFormat.parse(time));
+            return baseRepon(giaoCaResponsePage);
+        }
+        Page<QuanLyGiaoCaResponse> giaoCaResponsePage = giaoCaAdminService.giaoCaByThoiGianNhanCa(basePageable(page, pageSize, Sort.by("thoiGianNhanCa").descending()), simpleDateFormat.parse(time));
         return baseRepon(giaoCaResponsePage);
     }
 
@@ -82,14 +96,14 @@ public class GiaoCaAdminRestController {
     @GetMapping("sort-by-nhan-ca-asc")
     public ResponseEntity<?> sortByNhanCa(Optional<Integer> page, Optional<Integer> pageSize) {
         Sort sort = Sort.by("thoiGianNhanCa").ascending();
-        Pageable pageable = PageRequest.of(page.orElse(0), pageSize.orElse(10), sort);
+        Pageable pageable = PageRequest.of(page.orElse(0), pageSize.orElse(2), sort);
         return baseRepon(giaoCaAdminService.findAllGiaoCaByStatus(pageable, TrangThaiGiaoCa.KET_THUC_CA));
     }
 
     @GetMapping("sort-by-nhan-ca-desc")
     public ResponseEntity<?> sortByKetCa(Optional<Integer> page, Optional<Integer> pageSize) {
         Sort sort = Sort.by("thoiGianNhanCa").descending();
-        Pageable pageable = PageRequest.of(page.orElse(0), pageSize.orElse(10), sort);
+        Pageable pageable = PageRequest.of(page.orElse(0), pageSize.orElse(2), sort);
         return baseRepon(giaoCaAdminService.findAllGiaoCaByStatus(pageable, TrangThaiGiaoCa.KET_THUC_CA));
     }
 
@@ -107,9 +121,9 @@ public class GiaoCaAdminRestController {
             List<QuanLyGiaoCaResponse> list = giaoCaAdminService.findAllGiaoCaAndOrderByTimeNhanCa();
             GiaoCaExportExcel giaoCaExportExcel = new GiaoCaExportExcel(list);
             giaoCaExportExcel.export(response);
-            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK,"Successfully exported"));
-        }catch (Exception e) {
-            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.BAD_REQUEST,"Not exported"));
+            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, "Successfully exported"));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.BAD_REQUEST, "Not exported"));
         }
 
 
