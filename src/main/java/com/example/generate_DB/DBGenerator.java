@@ -41,6 +41,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -286,7 +287,8 @@ public class DBGenerator implements CommandLineRunner {
 
         //end san bong
         LocalDateTime localDateTime = LocalDateTime.now();
-        String dateId = localDateTime.getDayOfMonth() + String.valueOf(localDateTime.getMonthValue()) + localDateTime.getYear();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMuuuu");
+        String dateId = localDateTime.format(formatter);
 
         SanCa san1Ca1 = new SanCa();
         san1Ca1.setIdSanBong(sanBong1.getId());
@@ -485,7 +487,7 @@ public class DBGenerator implements CommandLineRunner {
     }
 
     private String getIdSanCa(SanBong sanBong, Ca ca, String dateId) {
-        return sanBong.getId() + '+' + ca.getId() + sanBong.getIdLoaiSan() + "+" + dateId;
+        return sanBong.getId() + '+' + ca.getId() +"+"+ sanBong.getIdLoaiSan() + "+" + dateId;
     }
 
     public static void main(String[] args) {
