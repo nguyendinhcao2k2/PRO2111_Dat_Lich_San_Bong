@@ -13,15 +13,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LoaiSanAdminRequets {
 
-    @NotNull(message = "Not null")
     private String tenLoaiSan;
 
-    @NotNull(message = "Not null")
     private String moTa;
 
-    @NotNull(message = "Not null")
     private Double giaSan;
 
-    @NotNull(message = "Not null")
-    private Integer trangThai;
 }

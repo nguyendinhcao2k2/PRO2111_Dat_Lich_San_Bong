@@ -12,9 +12,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AccountStaffRespone {
 
+    private String id;
+
     private String email;
 
     private String taiKhoan;
+
+    private String soDienThoai;
 
     private String matKhau;
 

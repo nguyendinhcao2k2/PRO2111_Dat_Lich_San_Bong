@@ -16,6 +16,13 @@ function reloadSanBong() {
             if ($(".content-san").length !== 0) {
                 $(".content-san").remove();
             }
+            const wrapDiv = $(`<div class='wrap-div'></div>`);
+            let emptyField = 0;
+            let waitingField = 0;
+            let waitingForPayField = 0;
+            let workingField = 0;
+            let outOfTimeField = 0;
+            let allField = 0;
             const menu1 = $("#menu_1");
             let data = responseData;
             data.forEach((sanBong, index) => {
@@ -30,29 +37,36 @@ function reloadSanBong() {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-primary badge-status" >Đang trống</span>
                                       </div>`;
+                        emptyField++;
                     } else if (ca.trangThai === 0) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-secondary badge-status">Đang chờ nhận sân</span>
                                       </div>`
+                        waitingField++;
                     } else if (ca.trangThai === 1) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-success badge-status">Đang hoạt động</span>
                                       </div>`
+                        workingField++;
                     } else if (ca.trangThai === 2) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-info badge-status">Chờ thanh toán</span>
                                       </div>`
+                        waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
                                       </div>`
+                        outOfTimeField++;
                     } else if (ca.trangThai === 4) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Hết giờ đặt</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
+                        outOfTimeField++;
                     }
+                    allField++;
 
-                    const card = `<div class="col-md-4 mb-4">
+                    const card = `<div class="col-md-2 mb-2">
                         <div
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
@@ -103,7 +117,7 @@ function reloadSanBong() {
                                     class="card-subtitle d-flex justify-content-end"
                                 >
                                     <label
-                                        style="color: black; font-size: 18px; font-weight: bold;"
+                                        style="color: black; font-size: 18px"
                                     >Loại sân : ${ca.loaiSan}</label>
                                 </div>
                             </div>
@@ -123,23 +137,29 @@ function reloadSanBong() {
                             <!-- Card body -->
                             <div class="card-body m-1">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="far fa-calendar-check fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                             <span class="badge bg-primary badge-icon">
+                                                <i class="far fa-calendar-check fa-lg icon-content"></i>
+                                            </span>
+                                             <label id="label-date" style="color: black; font-size: 18px; margin-left: 5px">${ca.date}</label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-clock fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                    <div class="col-md-12 mt-2">
+                                         <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-clock fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-thoi-gian" style="color: black; font-size: 18px; margin-left: 5px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-1">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-dollar-sign fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-gia" style="color: black; font-size: 18px">${ca.gia} VND</label>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-dollar-sign fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -156,10 +176,17 @@ function reloadSanBong() {
                 blank.append(tenSan);
                 blank.append(bodySan);
                 contentSan.append(blank);
+                wrapDiv.append(contentSan)
                 menu1.append(contentSan);
             });
             setSelectedCheckBox(date);
             $("#modal-filter").modal('hide');
+            $('#all-san-bong').text(allField)
+            $('#empty-san-bong').text(emptyField)
+            $('#waiting-san-bong').text(waitingField)
+            $('#wait-for-pay').text(waitingForPayField)
+            $('#is-active').text(workingField)
+            $('#out-of-time').text(outOfTimeField)
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -213,10 +240,17 @@ function filterSanBong() {
         url: apiUrl + "/search-san-bong",
         data: JSON.stringify(dataObject),
         success: function (responseData) {
+            let emptyField = 0;
+            let waitingField = 0;
+            let waitingForPayField = 0;
+            let workingField = 0;
+            let outOfTimeField = 0;
+            let allField = 0;
             if ($(".content-san").length !== 0) {
                 $(".content-san").remove();
             }
             const menu1 = $("#menu_1");
+            const wrapDiv = $(`<div class='wrap-div'></div>`);
             let data = responseData;
             data.forEach((sanBong, index) => {
                 const contentSan = $(`<div class='content-san'></div>`);
@@ -230,30 +264,37 @@ function filterSanBong() {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-primary badge-status" >Đang trống</span>
                                       </div>`;
+                        emptyField++;
                     } else if (ca.trangThai === 0) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-secondary badge-status">Đang chờ nhận sân</span>
                                       </div>`
+                        waitingField++;
                     } else if (ca.trangThai === 1) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-success badge-status">Đang hoạt động</span>
                                       </div>`
+                        workingField++;
                     } else if (ca.trangThai === 2) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-info badge-status">Chờ thanh toán</span>
                                       </div>`
+                        waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
                                       </div>`
+                        outOfTimeField++;
                     } else if (ca.trangThai === 4) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Hết giờ đặt</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
+                        outOfTimeField++;
                     }
+                    allField++;
 
-                    const card = `<div class="col-md-4 mb-4">
-                        <div
+                    const card = `<div class="col-md-2 mb-2">
+                        <div2
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
                             style="width: 100%; border-radius: 0px"
@@ -303,7 +344,7 @@ function filterSanBong() {
                                     class="card-subtitle d-flex justify-content-end"
                                 >
                                     <label
-                                        style="color: black; font-size: 18px; font-weight: bold;"
+                                        style="color: black; font-size: 18px"
                                     >Loại sân : ${ca.loaiSan}</label>
                                 </div>
                             </div>
@@ -323,23 +364,29 @@ function filterSanBong() {
                             <!-- Card body -->
                             <div class="card-body m-1">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="far fa-calendar-check fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                             <span class="badge bg-primary badge-icon">
+                                                <i class="far fa-calendar-check fa-lg icon-content"></i>
+                                            </span>
+                                             <label id="label-date" style="color: black; font-size: 18px; margin-left: 5px">${ca.date}</label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-clock fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                    <div class="col-md-12 mt-2">
+                                          <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-clock fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-thoi-gian" style="color: black; font-size: 18px; margin-left: 5px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-1">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-dollar-sign fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-gia" style="color: black; font-size: 18px">${ca.gia} VND</label>
+                                    <div class="col-md-12 mt-2">
+                                       <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-dollar-sign fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -347,7 +394,7 @@ function filterSanBong() {
                             <div class="card-footer border-0" style="background-color: #ffff">
                                 ${trangThai}
                             </div>
-                        </div>
+                        </div2>
                     </div>`;
 
                     bodySan.append(card);
@@ -356,10 +403,17 @@ function filterSanBong() {
                 blank.append(tenSan);
                 blank.append(bodySan);
                 contentSan.append(blank);
-                menu1.append(contentSan);
+                wrapDiv.append(contentSan);
+                menu1.append(wrapDiv);
             });
             setSelectedCheckBox(date);
             $("#modal-filter").modal('hide');
+            $('#all-san-bong').text(allField)
+            $('#empty-san-bong').text(emptyField)
+            $('#waiting-san-bong').text(waitingField)
+            $('#wait-for-pay').text(waitingForPayField)
+            $('#is-active').text(workingField)
+            $('#out-of-time').text(outOfTimeField)
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -391,8 +445,15 @@ window.onload = function () {
         contentType: "application/json",
         url: apiUrl + "/load-san-bong",
         success: function (responseData) {
+            let emptyField = 0;
+            let waitingField = 0;
+            let waitingForPayField = 0;
+            let workingField = 0;
+            let outOfTimeField = 0;
+            let allField = 0;
             const selectBox = $('#select-san-st').empty();
             const menu1 = $("#menu_1");
+            const wrapDiv = $(`<div class='wrap-div'></div>`);
             let option = `<option value="all">Tất Cả</option>`;
             let data = responseData;
             data.forEach((sanBong, index) => {
@@ -407,29 +468,35 @@ window.onload = function () {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-primary badge-status" >Đang trống</span>
                                       </div>`;
+                        emptyField++;
                     } else if (ca.trangThai === 0) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-secondary badge-status">Đang chờ nhận sân</span>
                                       </div>`
+                        waitingField++;
                     } else if (ca.trangThai === 1) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-success badge-status">Đang hoạt động</span>
                                       </div>`
+                        workingField++;
                     } else if (ca.trangThai === 2) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-info badge-status">Chờ thanh toán</span>
                                       </div>`
+                        waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
                                       </div>`
+                        outOfTimeField++;
                     } else if (ca.trangThai === 4) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
                                         <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
+                        outOfTimeField++;
                     }
-
-                    const card = `<div class="col-md-4 mb-4">
+                    allField++;
+                    const card = `<div class="col-md-2 mb-2">
                         <div
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
@@ -480,7 +547,7 @@ window.onload = function () {
                                     class="card-subtitle d-flex justify-content-end"
                                 >
                                     <label
-                                        style="color: black; font-size: 18px; font-weight: bold;"
+                                        style="color: black; font-size: 18px"
                                     >Loại sân : ${ca.loaiSan}</label>
                                 </div>
                             </div>
@@ -500,23 +567,29 @@ window.onload = function () {
                             <!-- Card body -->
                             <div class="card-body m-1">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="far fa-calendar-check fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-date" style="color: black; font-size: 18px">${ca.date}</label>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                             <span class="badge bg-primary badge-icon ">
+                                                <i class="far fa-calendar-check fa-lg icon-content"></i>
+                                            </span>
+                                             <label id="label-date" style="color: black; font-size: 18px; margin-left: 5px">${ca.date}</label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-clock fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-thoi-gian" style="color: black; font-size: 18px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                    <div class="col-md-12 mt-2">
+                                         <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-clock fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-thoi-gian" style="color: black; font-size: 18px; margin-left: 5px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-1">
-                                        <span class="badge bg-primary badge-icon">
-                                            <i class="fas fa-dollar-sign fa-lg icon-content"></i>
-                                        </span>
-                                        <label id="label-gia" style="color: black; font-size: 18px">${ca.gia} VND</label>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-dollar-sign fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -533,10 +606,17 @@ window.onload = function () {
                 blank.append(tenSan);
                 blank.append(bodySan);
                 contentSan.append(blank);
-                menu1.append(contentSan);
+                wrapDiv.append(contentSan)
+                menu1.append(wrapDiv);
             });
             selectBox.append(option);
             setSelectedCheckBox(year + "-" + month + "-" + day);
+            $('#all-san-bong').text(allField)
+            $('#empty-san-bong').text(emptyField)
+            $('#waiting-san-bong').text(waitingField)
+            $('#wait-for-pay').text(waitingForPayField)
+            $('#is-active').text(workingField)
+            $('#out-of-time').text(outOfTimeField)
         },
         error: function (e) {
             console.log("ERROR : ", e);
@@ -716,7 +796,6 @@ function openModalDanhSachCho() {
         url: apiUrl + "/show-danh-sach-cho",
         success: function (responseData) {
             $('#tableXacNhan').empty();
-            console.log(responseData)
             let tr = ``;
             responseData.forEach((dt) => {
                 let dataRow = `<tr>
@@ -732,14 +811,14 @@ function openModalDanhSachCho() {
                                  <div class="d-flex flex-column">
                                       <button
                                              onclick="confirmHoaDon('${dt.idHoaDon}')"
-                                             class="btn btn-success btn-sm"
+                                             class="btn btn-success btn-sm mt-2"
                                              type="button"
                                       >
                                                        Xác nhận
                                       </button>
                                        <button
                                              onclick="detailDanhSach('${dt.idHoaDon}')"
-                                             class="btn btn-primary btn-sm"
+                                             class="btn btn-primary btn-sm mt-2"
                                              type="button"
                                              data-bs-toggle="modal"
                                              data-bs-target="#modal-chi-tiet-danh-sach"
@@ -754,148 +833,7 @@ function openModalDanhSachCho() {
                                                           Hủy
                                       </button>
                                  </div>
-                            </td>
-                            <!-- LAMNP UPDATE NGÀY 2.11 Cho Thằng Chó Cao  -->
-                                    <div
-                                      class="modal fade"
-                                      id="modal-chi-tiet-danh-sach"
-                                      data-bs-backdrop="static"
-                                      data-bs-keyboard="false"
-                                      tabindex="-1"
-                                      aria-labelledby="staticBackdropLabel"
-                                      aria-hidden="true"
-                                    >
-                                      <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h5
-                                              class="modal-title"
-                                              id="staticBackdropLabel"
-                                            >
-                                              Chi tiết chờ nhận sân
-                                            </h5>
-                                            <button
-                                              type="button"
-                                              class="btn-close"
-                                              data-bs-dismiss="modal"
-                                              aria-label="Close"
-                                            ></button>
-                                          </div>
-                                          <div class="modal-body">
-                                            <div class="row">
-                                              <div class="col-md-6">
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="tenKhachHang"
-                                                    class="form-label"
-                                                    >Tên khách hàng</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    readonly
-                                                    id="tenKhachHang"
-                                                    name="tenKhachHang"
-                                                    value=""
-                                                  />
-                                                </div>
-
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="soDienThoai"
-                                                    class="form-label"
-                                                    >Số điện thoại</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="soDienThoai"
-                                                    name="soDienThoai"
-                                                    value=""
-                                                    readonly
-                                                  />
-                                                </div>
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="email"
-                                                    class="form-label"
-                                                    >Email</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="email"
-                                                    name="email"
-                                                    value=""
-                                                    readonly
-                                                  />
-                                                </div>
-                                              </div>
-                                              <div class="col-md-6">
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="ngay"
-                                                    class="form-label"
-                                                    >Ngày</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="ngay"
-                                                    name="ngay"
-                                                    value=""
-                                                    readonly
-                                                  />
-                                                </div>
-
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="tongTien"
-                                                    class="form-label"
-                                                    >Tổng tiền</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="tongTien"
-                                                    name="tongTien"
-                                                    value=""
-                                                    readonly
-                                                  />
-                                                </div>
-
-                                                <div class="mb-3">
-                                                  <label
-                                                    for="tienCoc"
-                                                    class="form-label"
-                                                    >Tiền cọc</label
-                                                  >
-                                                  <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="tienCoc"
-                                                    name="tienCoc"
-                                                    value=""
-                                                    readonly
-                                                  />
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button
-                                              type="button"
-                                              class="btn btn-danger btn-labeled"
-                                              data-bs-dismiss="modal"
-                                            >
-                                              Đóng
-                                              <i class="fas fa-times fa-lg"></i>
-                                            </button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <!--  -->
+                            </td>                       
                        </tr>`;
                 tr += dataRow;
             });
@@ -922,6 +860,263 @@ function deleteHoaDon(idHoaDon) {
     });
 }
 
-function detailDanhSach(idHoaDon){
+function detailDanhSach(idHoaDon) {
+    // $('#modal-danh-sach-dat-san').modal('hide')
+    $('#modal-chi-tiet-danh-sach').modal('show')
+}
 
+function closeModalChiTiet() {
+    $('#modal-chi-tiet-danh-sach').modal('hide')
+    $('#modal-danh-sach-dat-san').modal('show')
+}
+
+function searchDanhSachCho() {
+    let text = $('#input-search-danh-sach-cho').val();
+
+    let formData = {
+        textString: text,
+    }
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: apiUrl + "/filter-lich-dat",
+        data: JSON.stringify(formData),
+        success: function (responseData) {
+            $('#tableXacNhan').empty();
+            let tr = ``;
+            responseData.forEach((dt) => {
+                let dataRow = `<tr>
+                            <td>${dt.stt}</td>
+                            <td>${dt.tenNguoiDat}</td>
+                            <td>${dt.soDienThoaiNguoiDat}</td>
+                            <td>${dt.email}</td>
+                            <td>${dt.ngay}</td>
+                            <td>${dt.tongTien} VND</td>
+                            <td>${dt.tienCoc} VND</td>
+                            <td>${dt.maTienCoc}</td>
+                            <td>
+                                 <div class="d-flex flex-column">
+                                      <button
+                                             onclick="confirmHoaDon('${dt.idHoaDon}')"
+                                             class="btn btn-success btn-sm mt-2"
+                                             type="button"
+                                      >
+                                                       Xác nhận
+                                      </button>
+                                       <button
+                                             onclick="detailDanhSach('${dt.idHoaDon}')"
+                                             class="btn btn-primary btn-sm mt-2"
+                                             type="button"
+                                             data-bs-toggle="modal"
+                                             data-bs-target="#modal-chi-tiet-danh-sach"
+                                      >
+                                                       Xem chi tiết
+                                      </button>
+                                      <button
+                                             onclick="deleteHoaDon('${dt.idHoaDon}')"
+                                             class="btn btn-outline-danger btn-sm mt-2"
+                                             type="button"
+                                      >
+                                                          Hủy
+                                      </button>
+                                 </div>
+                            </td>                       
+                       </tr>`;
+                tr += dataRow;
+            });
+            $('#tableXacNhan').append(tr);
+        },
+        error: function (e) {
+            alert("Có lỗi !!")
+        }
+    })
+}
+
+function filterTrangThai(param) {
+    if (param === 'all') {
+        reloadSanBong();
+    } else {
+        callApiFilter(param)
+    }
+}
+
+function callApiFilter(param) {
+    let dataObject = {
+        date: reloadDate,
+        sanBong: 'all'
+    }
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: apiUrl + "/search-san-bong",
+        data: JSON.stringify(dataObject),
+        success: function (responseData) {
+            if ($(".content-san").length !== 0) {
+                $(".content-san").remove();
+            }
+            let check = 0;
+            const wrapDiv = $(`<div class='wrap-div'></div>`);
+            const menu1 = $("#menu_1");
+            let data = responseData;
+            data.forEach((sanBong, index) => {
+                const contentSan = $(`<div class='content-san'></div>`);
+                const blank = $(`<div id="san-content-${index}"></div>`);
+                const tenSan = `<div class='ten-san mt-4'><h4 class='text-dark'>${sanBong.tenSanBong}</h4></div>`;
+                const bodySan = $("<div class='body-san row'></div>");
+
+                sanBong.loadCaResponses.forEach((ca, i) => {
+                    if (ca.trangThai === param) {
+                        check++;
+                        let trangThai = ``;
+                        if (ca.trangThai === null) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-primary badge-status" >Đang trống</span>
+                                      </div>`;
+                        } else if (ca.trangThai === 0) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-secondary badge-status">Đang chờ nhận sân</span>
+                                      </div>`
+                        } else if (ca.trangThai === 1) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-success badge-status">Đang hoạt động</span>
+                                      </div>`
+                        } else if (ca.trangThai === 2) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-info badge-status">Chờ thanh toán</span>
+                                      </div>`
+                        } else if (ca.trangThai === 3) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                      </div>`
+                        } else if (ca.trangThai === 4) {
+                            trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
+                                      </div>`
+                        }
+                        const card = `<div class="col-md-2 mb-2">
+                        <div
+                            class="card card-san"
+                            id="content-san-${index}-card-san-${i}"
+                            style="width: 100%; border-radius: 0px"
+                        >
+                            <!-- Header card -->
+                            <div
+                                class="card-header"
+                                style="background: #ffff"
+                            >
+                                <div
+                                    class="card-title d-flex justify-content-end"
+                                >
+                                    <div class="btn-group">
+                                        <button
+                                            type="button"
+                                            class="btn dropdown-toggle"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                            style="box-shadow: none"
+                                        >
+                                            <label id="label-ca"
+                                                style="color: black; font-size: 18px; font-weight: bold;"
+                                            >${ca.tenCa}</label>
+                                        </button>
+                                        <ul
+                                            class="dropdown-menu dropdown-menu-end"
+                                        >
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Check In 1
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Check In 2
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Check In 3
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div
+                                    class="card-subtitle d-flex justify-content-end"
+                                >
+                                    <label
+                                        style="color: black; font-size: 18px"
+                                    >Loại sân : ${ca.loaiSan}</label>
+                                </div>
+                            </div>
+                            <!-- Check box -->
+                            <div
+                                id="checkboxContainer"
+                                style="display: none; position: absolute; top: 10px; left: 10px;"
+                            >
+                                <input
+                                    value="${ca.idResponse}"
+                                    type="checkbox"
+                                    style="width: 20px; height: 20px; margin-right: 5px;"
+                                    id="checkbox-sb-${index}-ca-${i}"
+                                    onclick="checkBoxFunction('san-content-${index}','content-san-${index}-card-san-${i}','checkbox-sb-${index}-ca-${i}')"
+                                />
+                            </div>
+                            <!-- Card body -->
+                            <div class="card-body m-1">
+                                <div class="row">
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                             <span class="badge bg-primary badge-icon">
+                                                <i class="far fa-calendar-check fa-lg icon-content"></i>
+                                            </span>
+                                             <label id="label-date" style="color: black; font-size: 18px; margin-left: 5px">${ca.date}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-2">
+                                         <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-clock fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-thoi-gian" style="color: black; font-size: 18px; margin-left: 5px">${ca.thoiGianBatDau} - ${ca.thoiGianKetthuc}</label>
+                                         </div>
+                                    </div>
+                                    <div class="col-md-12 mt-2">
+                                        <div style="display: flex; align-items: center">
+                                            <span class="badge bg-primary badge-icon">
+                                                <i class="fas fa-dollar-sign fa-lg icon-content"></i>
+                                            </span>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Trạng thái -->
+                            <div class="card-footer border-0" style="background-color: #ffff">
+                                ${trangThai}
+                            </div>
+                        </div>
+                    </div>`;
+
+                        bodySan.append(card);
+                    }
+                });
+
+                if (check > 0) {
+                    blank.append(tenSan);
+                    blank.append(bodySan);
+                    contentSan.append(blank);
+                    wrapDiv.append(contentSan)
+                    menu1.append(contentSan);
+                }
+                check = 0;
+            });
+            setSelectedCheckBox(date);
+            $("#modal-filter").modal('hide');
+
+        },
+        error: function (e) {
+            console.log("ERROR : ", e);
+        }
+    });
 }

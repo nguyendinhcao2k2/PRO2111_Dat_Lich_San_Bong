@@ -30,10 +30,10 @@ public class LuatSanAdminServiceImpl implements LuatSanAdminService {
     }
 
     @Override
-    public Page<LuatSanResponse> getAll(Pageable pageable) {
+    public List<LuatSanResponse> getAll() {
         try {
-            Page<LuatSan> listLuatSan = luatSanAdminRepository.findAll(pageable);
-            TypeToken<Page<LuatSanResponse>> token = new TypeToken<Page<LuatSanResponse>>() {
+            List<LuatSan> listLuatSan = luatSanAdminRepository.findAll();
+            TypeToken<List<LuatSanResponse>> token = new TypeToken<>() {
             };
             return modelMapper.map(listLuatSan, token.getType());
         } catch (
@@ -56,7 +56,20 @@ public class LuatSanAdminServiceImpl implements LuatSanAdminService {
     }
 
     @Override
-    public void update( LuatSanRequest luatSanRequest) {
+    public void update(LuatSanRequest luatSanRequest) {
         luatSanAdminRepository.saveAndFlush(mapperLuatSan(luatSanRequest));
+    }
+
+    @Override
+    public LuatSanResponse findById(String id) {
+        try {
+            if (luatSanAdminRepository.existsById(id)) {
+                return modelMapper.map(luatSanAdminRepository.findById(id).get(), LuatSanResponse.class);
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

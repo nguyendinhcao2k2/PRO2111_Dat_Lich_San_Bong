@@ -11,8 +11,10 @@ import com.example.pro2111_dat_lich_san_bong.entity.PhuPhi;
 import com.example.pro2111_dat_lich_san_bong.entity.PhuPhiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.SanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
+import com.example.pro2111_dat_lich_san_bong.entity.SysParam;
 import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.repository.AccountRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.CaRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.ChucVuRepository;
@@ -25,6 +27,7 @@ import com.example.pro2111_dat_lich_san_bong.repository.LoaiSanRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.NuocUongRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.PhuPhiHoaDonRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.PhuPhiRepository;
+import com.example.pro2111_dat_lich_san_bong.repository.SYSParamRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.SanBongRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.SanCaRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.HinhThucThanhToanRepository;
@@ -41,6 +44,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -91,11 +95,25 @@ public class DBGenerator implements CommandLineRunner {
     @Autowired
     private ViTienRepository viTienRepository;
 
+    @Autowired
+    private SYSParamRepository sysParamRepository;
+
     private final boolean IS_RELEASE = false;
 
     @Override
     public void run(String... args) throws Exception {
 
+        //start bảng sys_param cấu hình phần mền
+        SysParam param1 = new SysParam();
+        param1.setCode(SYSParamCodeConstant.PHAN_TRAM_GIA_TIEN_COC);
+        param1.setTrangThai(0); //đang hoạt động
+        param1.setName("phần trăm số tiền cọc");
+        param1.setValue("50");
+        param1.setNote("giá trị (cột value) để tính phần trăm của tiền cần cọc bằng cách: tiền coc = tiền sân ca*(value/100)");
+        param1.setType("%"); //đơn vị của value
+        param1.setId(sysParamRepository.save(param1).getId());
+
+        //end bảng sys_param cấu hình phần mền
 
         //start chuc vu
         ChucVu adminRole = new ChucVu();
@@ -162,48 +180,48 @@ public class DBGenerator implements CommandLineRunner {
         Ca ca1 = new Ca();
         ca1.setTenCa("Ca 1");
         ca1.setGiaCa(200000.0);
-        ca1.setThoiGianBatDau(Time.valueOf("07:00:00"));
-        ca1.setThoiGianKetThuc(Time.valueOf("09:30:00"));
+        ca1.setThoiGianBatDau(Time.valueOf("06:00:00"));
+        ca1.setThoiGianKetThuc(Time.valueOf("08:30:00"));
         ca1.setTrangThai(0);
         ca1.setId(caRepository.save(ca1).getId());
 
         Ca ca2 = new Ca();
         ca2.setTenCa("Ca 2");
         ca2.setGiaCa(200000.0);
-        ca2.setThoiGianBatDau(Time.valueOf("10:00:00"));
-        ca2.setThoiGianKetThuc(Time.valueOf("12:30:00"));
+        ca2.setThoiGianBatDau(Time.valueOf("9:00:00"));
+        ca2.setThoiGianKetThuc(Time.valueOf("11:30:00"));
         ca2.setTrangThai(0);
         ca2.setId(caRepository.save(ca2).getId());
 
         Ca ca3 = new Ca();
         ca3.setTenCa("Ca 3");
         ca3.setGiaCa(200000.0);
-        ca3.setThoiGianBatDau(Time.valueOf("13:00:00"));
-        ca3.setThoiGianKetThuc(Time.valueOf("15:30:00"));
+        ca3.setThoiGianBatDau(Time.valueOf("12:00:00"));
+        ca3.setThoiGianKetThuc(Time.valueOf("14:30:00"));
         ca3.setTrangThai(0);
         ca3.setId(caRepository.save(ca3).getId());
 
         Ca ca4 = new Ca();
         ca4.setTenCa("Ca 4");
         ca4.setGiaCa(150000.0);
-        ca4.setThoiGianBatDau(Time.valueOf("16:00:00"));
-        ca4.setThoiGianKetThuc(Time.valueOf("18:30:00"));
+        ca4.setThoiGianBatDau(Time.valueOf("15:00:00"));
+        ca4.setThoiGianKetThuc(Time.valueOf("17:30:00"));
         ca4.setTrangThai(0);
         ca4.setId(caRepository.save(ca4).getId());
 
         Ca ca5 = new Ca();
         ca5.setTenCa("Ca 5");
         ca5.setGiaCa(150000.0);
-        ca5.setThoiGianBatDau(Time.valueOf("19:00:00"));
-        ca5.setThoiGianKetThuc(Time.valueOf("21:30:00"));
+        ca5.setThoiGianBatDau(Time.valueOf("18:00:00"));
+        ca5.setThoiGianKetThuc(Time.valueOf("20:30:00"));
         ca5.setTrangThai(0);
         ca5.setId(caRepository.save(ca5).getId());
 
         Ca ca6 = new Ca();
         ca6.setTenCa("Ca 6");
         ca6.setGiaCa(150000.0);
-        ca6.setThoiGianBatDau(Time.valueOf("22:00:00"));
-        ca6.setThoiGianKetThuc(Time.valueOf("24:00:00"));
+        ca6.setThoiGianBatDau(Time.valueOf("21:00:00"));
+        ca6.setThoiGianKetThuc(Time.valueOf("23:30:00"));
         ca6.setTrangThai(0);
         ca6.setId(caRepository.save(ca6).getId());
 
@@ -222,14 +240,14 @@ public class DBGenerator implements CommandLineRunner {
         loaiSan2.setTenLoaiSan("Sân 7");
         loaiSan2.setGiaSan(300000.0);
         loaiSan2.setMoTa("Sân giành cho mỗi đội 7 người ");
-        loaiSan1.setTrangThai(0);
+        loaiSan2.setTrangThai(0);
         loaiSan2.setId(loaiSanRepository.save(loaiSan2).getId());
 
         LoaiSan loaiSan3 = new LoaiSan();
         loaiSan3.setTenLoaiSan("Sân 11");
         loaiSan3.setGiaSan(350000.0);
         loaiSan3.setMoTa("Sân giành cho mỗi đội 11 người ");
-        loaiSan1.setTrangThai(0);
+        loaiSan3.setTrangThai(0);
         loaiSan3.setId(loaiSanRepository.save(loaiSan3).getId());
 
         //Loai san end
@@ -286,7 +304,8 @@ public class DBGenerator implements CommandLineRunner {
 
         //end san bong
         LocalDateTime localDateTime = LocalDateTime.now();
-        String dateId = localDateTime.getDayOfMonth() + String.valueOf(localDateTime.getMonthValue()) + localDateTime.getYear();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMuuuu");
+        String dateId = localDateTime.format(formatter);
 
         SanCa san1Ca1 = new SanCa();
         san1Ca1.setIdSanBong(sanBong1.getId());
@@ -485,7 +504,7 @@ public class DBGenerator implements CommandLineRunner {
     }
 
     private String getIdSanCa(SanBong sanBong, Ca ca, String dateId) {
-        return sanBong.getId() + '+' + ca.getId() + sanBong.getIdLoaiSan() + "+" + dateId;
+        return sanBong.getId() + '+' + ca.getId() +"+"+ sanBong.getIdLoaiSan() + "+" + dateId;
     }
 
     public static void main(String[] args) {

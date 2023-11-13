@@ -26,5 +26,7 @@ public interface CaUserResponse extends BaseIdTemplate {
     @Value("#{target.thoiGianKetThuc}")
     Time getThoiGianKetThuc();
 
+    @Value("#{target.countSanBong}")
+    Integer getCountSanBong();
 
 }

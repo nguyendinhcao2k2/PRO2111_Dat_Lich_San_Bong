@@ -1,5 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.core.staff.controller;
 
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.FilterLichDatRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.FilterSanBongRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThongTinLichDatRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThongTinNguoiDatRequest;
@@ -36,6 +37,11 @@ public class DatLichStaffRescontroller {
     @GetMapping("/load-san-bong")
     public ResponseEntity<List<LoadSanBongRespose>> loadSanBong() {
         return ResponseEntity.ok(iDatSanStaffService.loadSanBong());
+    }
+
+    @PostMapping("/filter-lich-dat")
+    public ResponseEntity<List<HoaDonStaffResponse>> filterLichDat(@RequestBody FilterLichDatRequest filterLichDatRequest) {
+        return ResponseEntity.ok(iDatSanStaffService.filterHoaDon(filterLichDatRequest));
     }
 
     @PostMapping("/search-san-bong")

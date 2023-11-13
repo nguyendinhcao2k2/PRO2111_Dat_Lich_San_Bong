@@ -5,23 +5,19 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.KetCaReque
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.KhoiTaoCaRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.AccountResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.GiaoCaResponse;
-import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.QuanLyGiaoCaResponse;
+import com.example.pro2111_dat_lich_san_bong.core.admin.model.response.QuanLyGiaoCaResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.GiaoCaStaffReponsitory;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IAccountStaffService;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IGiaoCaStaffService;
 import com.example.pro2111_dat_lich_san_bong.entity.GiaoCa;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.LoaiHinhThanhToan;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiGiaoCa;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -155,45 +151,5 @@ public class GiaoCaStaffServiceImpl implements IGiaoCaStaffService {
         }
     }
 
-    @Override
-    public Page<QuanLyGiaoCaResponse> findAllGiaoCaByStatus(Pageable pageable, TrangThaiGiaoCa status) {
-        try {
-            Page<QuanLyGiaoCaResponse> findAll = _giaoCaStaffReponsitory.findAllGiaoCaByStatus(pageable, status);
-            return findAll;
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
-    public Page<QuanLyGiaoCaResponse> searchByName(Pageable pageable, String name) {
-        try {
-            return _giaoCaStaffReponsitory.searchByName(pageable, name);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
-    public Page<QuanLyGiaoCaResponse> giaoCaCoTienRut(Pageable pageable) {
-        try {
-            return _giaoCaStaffReponsitory.giaoCaCoTienRut(pageable);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
-    public Page<QuanLyGiaoCaResponse> giaoCaByThoiGianNhanCa(Pageable pageable, Date time) {
-        try {
-            return _giaoCaStaffReponsitory.giaoCaByThoiGianNhanCa(pageable, time);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

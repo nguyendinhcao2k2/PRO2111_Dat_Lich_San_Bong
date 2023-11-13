@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Bootstrap demo</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Roboto:300,400");
+
+    .contenido {
+        margin: 30px auto;
+        max-height: 100%;
+        max-width: 245px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgb(202, 202, 204);
+
+        border-radius: 2px;
+    }
+
+    .details {
+        padding: 26px;
+        background: white;
+        border-top: 1px dashed #c3c3c3;
+    }
+
+    .tinfo {
+        font-size: 0.5em;
+        font-weight: 300;
+        color: #c3c3c3;
+        font-family: "Roboto", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 7px 0;
+    }
+
+    .tdata {
+        font-size: 0.7em;
+        font-weight: 400;
+        font-family: "Roboto", sans-serif;
+        letter-spacing: 0.5px;
+        margin: 7px 0;
+    }
+
+    .name {
+        font-size: 1.3em;
+        font-weight: 300;
+    }
+
+    a {
+        text-decoration: none;
+        color: #55c9e6;
+        font-weight: 400;
+        font-family: "Roboto", sans-serif;
+        letter-spacing: 0.7px;
+        font-size: 0.7em;
+    }
+
+    .hqr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        margin: 0px auto;
+    }
+
+    .left-one {
+        background-repeat: no-repeat;
+        background-image: radial-gradient(
+                circle at 0 96%,
+                rgba(0, 0, 0, 0) 0.2em,
+                gray 0.3em,
+                white 0.1em
+        );
+    }
+
+    .right-one {
+        background-repeat: no-repeat;
+        background-image: radial-gradient(
+                circle at 100% 96%,
+                rgba(0, 0, 0, 0) 0.2em,
+                gray 0.3em,
+                white 0.1em
+        );
+    }
+
+    .column {
+        display: table-cell;
+        padding: 10px 0px;
+    }
+</style>
+<body>
+<!-- start -->
+<div class="contenido" >
+    <div class="ticket">
+        <div style="text-transform: uppercase; text-align: center">
+            Phiếu đặt lịch Sân bóng đồng đế
+        </div>
+        <div class="hqr">
+            <div class="column left-one"></div>
+
+            <div class="column right-one"></div>
+        </div>
+
+        <div class="details">
+            <div class="tinfo">người đặt</div>
+            <div class="tdata name" th:text="${nguoiDat}"></div>
+            <div class="tinfo">số điện thoại</div>
+            <div class="tdata" th:text="${sdt}"></div>
+            <div class="tinfo">thời gian đặt</div>
+            <div class="tdata" th:text="${timeDat}"></div>
+            <div class="masinfo">
+                <div class="left">
+                    <div class="tinfo">Thời gian</div>
+                    <div class="tdata nesp">
+                        <ul th:each="items : ${thoiGian}">
+                            <li th:text="${items}"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"
+></script>
+</body>
+</html>

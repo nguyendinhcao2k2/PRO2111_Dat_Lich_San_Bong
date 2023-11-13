@@ -39,13 +39,14 @@
     <link th:href="@{/static/css/owner/quan-ly-giao-ca.css}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
 
 </head>
 
 
 <body>
 <header th:insert="~{fragments/header-thanh-toan}"></header>
-<section class="">
+<section class="" id="app">
     <div class="card border-0 m-0 p-1">
         <div class="card-header" style="border-radius: 0 0 0 0">
             <h1 class="text-header-man">Quản Lý Giao Ca</h1>
@@ -65,12 +66,18 @@
                             <div class="col-md-4 col-sm-auto">
                                 <div class="input-group">
                                   <span class="input-group-text">
-                                    <i class="fas fa-search fa-lg"></i>
+                                    <lord-icon
+                                            src="https://cdn.lordicon.com/ybaojceo.json"
+                                            trigger="in"
+                                            delay="1500"
+                                            state="in-reveal"
+                                            style="width:20px;height:20px">
+</lord-icon>
                                   </span>
                                     <input
                                             id="search "
                                             type="text"
-                                            class="form-control input-search-giao-ca-admin"
+                                            class="form-control input-search-giao-ca-admin searchName"
                                             placeholder="Tìm kiếm theo tên nhân viên..."
                                     />
                                 </div>
@@ -80,19 +87,19 @@
                                 <label
                                         for="select-status-admin"
                                         class="col-form-label label-filter"
-                                >Trạng thái :
+                                >Lọc:
                                 </label>
                             </div>
                             <div class="col-md-2 col-sm-auto">
                                 <select
                                         id="select-status-admin"
-                                        class="form-select"
+                                        class="form-select checkBoxKiemTra"
                                         style="border-radius: 5px"
                                 >
                                     <option selected value="0">Tất cả</option>
                                     <option value="1">Giao ca có rú tiền</option>
-                                    <option value="2">...</option>
-                                    <option value="3">...</option>
+                                    <option value="2">Thời gian giảm dần </option>
+                                    <option value="3">Thời gian tăng dần</option>
                                 </select>
                             </div>
                             <!-- Ngày -->
@@ -121,11 +128,11 @@
                 <div class="header-table-giao-ca">
                     <h5 class="header-text-body">Danh sách giao ca</h5>
                 </div>
-                <div class="alert alert-danger noContent" role="alert">
+                <div class="alert alert-danger noContent " hidden role="alert">
                     <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-auto">
+                <div class="row readTable" hidden>
+                    <div class="col-md-12 col-sm-auto " >
                         <div
                                 style="
                     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -139,21 +146,23 @@
                                 <tr>
                                     <th scope="col">STT</th>
                                     <th scope="col">Tên Nhân Viên</th>
-                                    <th scope="col">Thời gian nhận ca</th>
+                                    <th scope="col">Thời gian nhận ca </th>
                                     <th scope="col">Thời gian kết ca</th>
                                     <th scope="col">Thao tác</th>
                                 </tr>
                                 </thead>
-                                <tbody v-for="items in giaoCaOwner">
+                                <tbody v-for="(items,index) in giaoCaOwner"  :key="index">
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{index}}</td>
+                                    <td hidden class="valueId">{{items.id}}</td>
                                     <td>{{items.displayNameNhanVienTrongCa}}</td>
                                     <td>{{items.thoiGianNhanCa}}</td>
                                     <td>{{items.thoiGianKetCa}}</td>
                                     <td>
                                         <button
-                                                class="btn btn-primary"
+                                                class="btn btn-primary thongTinCT"
                                                 type="button"
+                                                @click="findGiaoCaByid(items.id)"
                                                 data-bs-toggle="offcanvas"
                                                 data-bs-target="#offcanvasRight"
                                                 aria-controls="offcanvasRight"
@@ -166,40 +175,42 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                <!--  -->
-                <!--  -->
-                <div class="row mt-2">
-                    <div class="d-flex justify-content-center">
-                        <!-- Center horizontally -->
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a
-                                            class="page-link previousPage"
-                                            href="#"
-                                            aria-label="Previous"
-                                    >
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item" aria-current="page">
-                                    <a class="page-link" href="#"
-                                    >{{displaycurrentPage}} / {{totalPages}} trang</a
-                                    >
-                                </li>
-                                <li class="page-item nextPage">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                    <!--  -->
+                    <!--  -->
+                    <div class="row mt-2">
+                        <div class="d-flex justify-content-center">
+                            <!-- Center horizontally -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a
+                                                class="page-link previousPage"
+                                                href="#"
+                                                aria-label="Previous"
+                                        >
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" aria-current="page">
+                                        <a class="page-link" href="#"
+                                        >{{displaycurrentPage}} / {{totalPages}} trang</a
+                                        >
+                                    </li>
+                                    <li class="page-item nextPage">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+
 </section>
 
 <div
@@ -225,45 +236,44 @@
                 <label for="name" class="form-label">Tên nhân viên</label>
                 <input
                         type="text"
-                        class="form-control"
+                        class="form-control tenNVCT"
                         readonly
                         id="name"
                         name="name"
                 />
             </div>
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label for="time" class="form-label">Thời gian nhận ca</label>
+                    <input
+                            type="text"
+                            class="form-control thoiGianNhanCaCT"
+                            id="time"
+                            name="time"
+                            readonly
+                    />
+                </div>
 
-            <div class="mb-3">
-                <label for="time" class="form-label">Thời gian nhận ca</label>
-                <input
-                        type="text"
-                        class="form-control thoiGianNhanCa"
-                        id="time"
-                        name="time"
-                        value="{{items.thoiGianNhanCa}}"
-                        readonly
-                />
+                <div class=" col-6 mb-3">
+                    <label for="time" class="form-label">Thời gian kết ca</label>
+                    <input
+                            type="text"
+                            class="form-control thoiGianKetCaCT"
+                            id="time"
+                            name="time"
+                            readonly
+                    />
             </div>
 
-            <div class="mb-3">
-                <label for="time" class="form-label">Thời gian kết ca</label>
-                <input
-                        type="text"
-                        class="form-control thoiGianNhanCa"
-                        id="time"
-                        name="time"
-                        value="{{items.thoiGianKetCa}}"
-                        readonly
-                />
             </div>
 
             <div class="mb-3">
                 <label for="time" class="form-label">Tiền ban đầu</label>
                 <input
                         type="text"
-                        class="form-control thoiGianNhanCa"
+                        class="form-control tienBanDauCT"
                         id="time"
                         name="time"
-                        value="{{items.tienBanDau}}"
                         readonly
                 />
             </div>
@@ -272,10 +282,9 @@
                 <label for="time" class="form-label">Tiền phát sinh</label>
                 <input
                         type="text"
-                        class="form-control thoiGianNhanCa"
+                        class="form-control tienPhatSinhCT"
                         id="time"
                         name="time"
-                        value="{{items.tienPhatSinh}}"
                         readonly
                 />
             </div>
@@ -284,11 +293,9 @@
                 <label for="total_amount" class="form-label">Tiền mặt</label>
                 <input
                         type="text"
-                        class="form-control priceTotal tongTienMatCaTruoc"
+                        class="form-control priceTotal tongTienMatTrongCaCT"
                         id="total_amount"
                         name="total_amount"
-                        v-model="tongTienTrongCa"
-                        value="{{items.tongTienMat}}"
                         readonly
                 />
             </div>
@@ -299,11 +306,9 @@
                 >
                 <input
                         type="text"
-                        class="form-control priceTotal tongTienMatCaTruoc"
+                        class="form-control priceTotal tongTienChuyenKhoanCT"
                         id="total_amount"
                         name="total_amount"
-                        v-model="tongTienTrongCa"
-                        value="{{items.tongTienKhac}}"
                         readonly
                 />
             </div>
@@ -314,11 +319,9 @@
                 >
                 <input
                         type="text"
-                        class="form-control priceTotal tongTienMatCaTruoc"
+                        class="form-control priceTotal tongTienTrongCaCT"
                         id="total_amount"
                         name="total_amount"
-                        v-model="tongTienTrongCa"
-                        value="{{items.tongTienTrongCa}}"
                         readonly
                 />
             </div>
@@ -327,11 +330,9 @@
                 <label for="total_amount" class="form-label">Tiền đã rút</label>
                 <input
                         type="text"
-                        class="form-control priceTotal tongTienMatCaTruoc"
+                        class="form-control priceTotal tongTienMatRutCT"
                         id="total_amount"
                         name="total_amount"
-                        v-model="tongTienTrongCa"
-                        value="{{items.tongTienMatRut}}"
                         readonly
                 />
             </div>
@@ -341,9 +342,9 @@
                 >Ghi chú phát sinh</label
                 >
                 <textarea
-                        class="form-control ghiChuPhatSinh"
-                        placeholder="{{items.ghiChuPhatSinh}}"
+                        class="form-control ghiChuPhatSinhCT"
                         id="floatingTextarea "
+                        readonly
                 ></textarea>
             </div>
         </form>
