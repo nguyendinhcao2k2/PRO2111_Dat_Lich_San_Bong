@@ -42,6 +42,6 @@ public class SysParam {
     @Nationalized
     private String value;
     @Column(name = "trang_thai")
-    private String trangThai;
+    private Integer trangThai;
 
 }
