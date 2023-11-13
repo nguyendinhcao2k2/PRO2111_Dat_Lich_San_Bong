@@ -40,7 +40,7 @@ function createMultipleToasts(toastsArray) {
                                   <strong style="color: #ffffff; font-size: 17px" class="me-auto">${headerText}</strong>
                                   <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
-                                <div class="toast-body" style="color: black; font-size: 14px;background-color: #ffffff;border-radius: 12px ">
+                                <div class="toast-body" style="color: black; font-size: 14px;background-color: #ffffff;border-radius:0px 0px 12px 12px ">
                                   ${bodyText}
                                 </div>
                               `;
