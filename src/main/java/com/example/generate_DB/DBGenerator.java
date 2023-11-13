@@ -11,8 +11,10 @@ import com.example.pro2111_dat_lich_san_bong.entity.PhuPhi;
 import com.example.pro2111_dat_lich_san_bong.entity.PhuPhiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.SanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
+import com.example.pro2111_dat_lich_san_bong.entity.SysParam;
 import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.repository.AccountRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.CaRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.ChucVuRepository;
@@ -25,6 +27,7 @@ import com.example.pro2111_dat_lich_san_bong.repository.LoaiSanRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.NuocUongRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.PhuPhiHoaDonRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.PhuPhiRepository;
+import com.example.pro2111_dat_lich_san_bong.repository.SYSParamRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.SanBongRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.SanCaRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.HinhThucThanhToanRepository;
@@ -92,11 +95,25 @@ public class DBGenerator implements CommandLineRunner {
     @Autowired
     private ViTienRepository viTienRepository;
 
+    @Autowired
+    private SYSParamRepository sysParamRepository;
+
     private final boolean IS_RELEASE = false;
 
     @Override
     public void run(String... args) throws Exception {
 
+        //start bảng sys_param cấu hình phần mền
+        SysParam param1 = new SysParam();
+        param1.setCode(SYSParamCodeConstant.PHAN_TRAM_GIA_TIEN_COC);
+        param1.setTrangThai(0); //đang hoạt động
+        param1.setName("phần trăm số tiền cọc");
+        param1.setValue("50");
+        param1.setNote("giá trị (cột value) để tính phần trăm của tiền cần cọc bằng cách: tiền coc = tiền sân ca*(value/100)");
+        param1.setType("%"); //đơn vị của value
+        param1.setId(sysParamRepository.save(param1).getId());
+
+        //end bảng sys_param cấu hình phần mền
 
         //start chuc vu
         ChucVu adminRole = new ChucVu();
