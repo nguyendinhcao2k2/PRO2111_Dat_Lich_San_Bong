@@ -95,8 +95,37 @@
                         <div class="col-md-12">
                             <!-- ADD BODY ROW COL BÊN NGOÀI UPDATE THÊM HEADER THẺ DIV table table-striped table-hover -->
                             <div class="body-row-col">
-                                <div class="header-row-col header-border mb-3">
-                                    <h1>Danh sách hóa đơn</h1>
+                                <div class="row header-border">
+                                    <div class="col-md-8">
+                                        <div class="header-row-col">
+                                            <h1>Danh Sách hóa đơn</h1>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-flex justify-content-end">
+                                        <div class="input-group mb-3">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Tìm kiếm theo tên, số điện thoại..."
+                                                    aria-label="Recipient's username"
+                                                    aria-describedby="button-addon2"
+                                            />
+                                            <button
+                                                    class="btn btn-success btn-outline-success"
+                                                    type="button"
+                                                    id="button-addon2"
+                                                    style="
+                              border-top-right-radius: 5px;
+                              border-bottom-right-radius: 5px;
+                            "
+                                            >
+                                                <i
+                                                        class="fas fa-search fa-lg"
+                                                        style="color: #ffffff"
+                                                ></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="table-responsive ">
                                     <table
@@ -539,7 +568,7 @@
                                                     <button
                                                             class="btn btn-success btn-outline-success"
                                                             type="button"
-                                                            id="button-addon2"
+                                                            id="button-addon5"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#modalThemPhuPhi"
                                                             style="
