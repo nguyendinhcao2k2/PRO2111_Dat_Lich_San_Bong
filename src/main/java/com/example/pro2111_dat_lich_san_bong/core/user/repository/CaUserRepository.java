@@ -19,11 +19,26 @@ public interface CaUserRepository extends CaRepository {
                         c.ten_ca as 'tenCa',
                         c.thoi_gian_bat_dau as 'thoiGianBatDau',
                         c.thoi_gian_ket_thuc as 'thoiGianKetThuc',
-                        c.gia_ca + (select ls.gia_san from loai_san ls where ls.id =:idLoaiSan ) as 'giaSanCa'
+                        c.gia_ca + (select ls.gia_san from loai_san ls where ls.id =:idLoaiSan ) as 'giaSanCa',
+                        (select count(*)from san_bong sb where sb.trang_thai = 0 and sb.id_loai_san= :idLoaiSan) as 'countSanBong'
                 FROM ca c
                 order by c.ten_ca asc
             """, nativeQuery = true)
     List<CaUserResponse> getAllCaByIdLoaiSan(@Param("idLoaiSan") String idLoaiSan);
+
+    @Query(value = """
+                SELECT
+                        c.id,
+                        c.ten_ca as 'tenCa',
+                        c.thoi_gian_bat_dau as 'thoiGianBatDau',
+                        c.thoi_gian_ket_thuc as 'thoiGianKetThuc',
+                        c.gia_ca + (select ls.gia_san from loai_san ls where ls.id =:idLoaiSan ) as 'giaSanCa',
+                        (select count(*)from san_bong sb where sb.trang_thai = 0 and sb.id_loai_san= :idLoaiSan) as 'countSanBong'
+                FROM ca c
+                where c.id =:req
+                order by c.ten_ca asc
+            """, nativeQuery = true)
+    CaUserResponse getCaByIdCa(@Param("req")String idCa ,@Param("idLoaiSan") String idLoaiSan );
 
     Ca findFirstByTenCa(String tenCa);
 }

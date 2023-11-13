@@ -13,5 +13,5 @@ public interface SanBongUserService {
 
     PageableObject<SanBongUserResponse> getAllSanBong(Pageable page);
 
-    Integer countSanBong();
+    Integer countSanBong(String idLoaiSan);
 }

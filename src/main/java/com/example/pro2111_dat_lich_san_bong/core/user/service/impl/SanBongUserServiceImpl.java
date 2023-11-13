@@ -28,7 +28,7 @@ public class SanBongUserServiceImpl implements SanBongUserService {
     }
 
     @Override
-    public Integer countSanBong() {
-        return sanBongUserRepository.countSanBong();
+    public Integer countSanBong(String idLoaiSan) {
+        return sanBongUserRepository.countSanBong(idLoaiSan);
     }
 }

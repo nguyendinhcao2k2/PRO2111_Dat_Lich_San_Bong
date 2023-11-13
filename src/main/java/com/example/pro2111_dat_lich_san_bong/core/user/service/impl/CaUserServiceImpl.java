@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.service.impl;
 
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.CaDoiLichUserResponse;
+import com.example.pro2111_dat_lich_san_bong.core.user.model.response.CaUserResponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.repository.CaUserRepository;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.CaUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.Ca;
@@ -28,6 +29,11 @@ public class CaUserServiceImpl implements CaUserService {
     @Override
     public List getAllCaByIdLoaiSan(String idLoaiSan) {
         return caUserRepository.getAllCaByIdLoaiSan(idLoaiSan);
+    }
+
+    @Override
+    public CaUserResponse getCaByIdCa(String idCa, String idLoaiSan) {
+        return caUserRepository.getCaByIdCa(idCa,idLoaiSan);
     }
 
     @Override
