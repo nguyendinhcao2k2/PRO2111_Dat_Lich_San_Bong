@@ -29,7 +29,7 @@ public class DichVuSanBong {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     protected String id;
 
-    @Column(name = "so_luong_do_thưe")
+    @Column(name = "so_luong_do_thue")
     private Integer soLuongDoThue;
 
     @Column(name = "so_luong_nuoc_uong")

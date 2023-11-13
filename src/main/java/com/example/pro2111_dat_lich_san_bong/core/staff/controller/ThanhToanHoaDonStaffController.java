@@ -18,7 +18,7 @@ public class ThanhToanHoaDonStaffController {
         return "staff/danh-sach-hoa-don";
     }
 
-    @GetMapping("/get-one/{id}")
+    @GetMapping("/thanh-toan-hoa-don/{id}")
     public String getOneThanhToanHoaDon() {
         return "staff/thanh-toan-staff";
     }

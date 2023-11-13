@@ -12,4 +12,5 @@ public interface IDichVuSanBongStaffService {
     List<DichVuSanBong> findAllByIdHoaDonSanCaAndTrangThai(String idHoaDonSanCa, int trangThai);
 
     List<DoThueNuocUongDichVuRequest> getAllDoThueNuocUongDichVuRequest(int trangThai);
+
 }

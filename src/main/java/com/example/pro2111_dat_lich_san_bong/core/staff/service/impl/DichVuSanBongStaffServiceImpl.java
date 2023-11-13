@@ -56,6 +56,7 @@ public class DichVuSanBongStaffServiceImpl implements IDichVuSanBongStaffService
                 listDoThueNuocUongDichVuRequests.add(request);
             }
         }
+
         for (DoThue doThue : listDoThues) {
             if (doThue.getTrangThai() == 0) {
                 DoThueNuocUongDichVuRequest request = new DoThueNuocUongDichVuRequest();
@@ -71,7 +72,6 @@ public class DichVuSanBongStaffServiceImpl implements IDichVuSanBongStaffService
         System.out.println(listDoThueNuocUongDichVuRequests.size());
         return listDoThueNuocUongDichVuRequests;
     }
-
 
 
 }

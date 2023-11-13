@@ -42,6 +42,7 @@
     <!-- table icon -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link th:href="@{/static/css/staff/thanh-toan-staff.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/static/css/staff/danh-sach-hoa-don-staff.css}"/>
 </head>
 <body>
 <header th:insert="~{fragments/header-admin}"></header>
@@ -433,107 +434,194 @@
             </div>
 
             <div class="col-md-7">
-                <div class="body-row-col">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1>Dịch vụ sử dụng</h1>
-                        </div>
-                        <hr />
-
-                        <div class="table-responsive" id="tableScroll">
-                            <table class="table tableFixHead">
-                                <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Ảnh</th>
-                                    <th>Tên dịch vụ</th>
-                                    <th>Số lượng</th>
-                                    <th>Đơn giá</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>5</td>
-                                    <td>
-                                        <img
-                                                th:src="@{/static/img/Sting-strawberry-drink-soft1.jpg}"
-                                                class="card-img-top"
-                                                alt="..."
-                                        />
-                                    </td>
-                                    <td>Nguyễn Cao Đần</td>
-                                    <td>
-                                        <input
-                                                style="width: 100px"
-                                                type="number"
-                                                min="1"
-                                                value="1"
-                                                class="form-control"
-                                        />
-                                    </td>
-                                    <td>29-10-2023</td>
-                                    <td>Ca 1</td>
-                                    <td>
-                                        <div class="d-grid gap-2 d-md-block">
-                                            <a href="#"
-                                            ><i
-                                                    class="fas fa-pen fa-lg"
-                                                    style="color: #009578"
-                                            ></i>
-                                            </a>
-                                            <a href="#" role="button" class="m-2"
-                                            ><i
-                                                    class="fas fa-trash-alt fa-lg"
-                                                    style="color: #e60a0a"
-                                            ></i
-                                            ></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <!-- LAMNP UPDATE PHÂN TRANG, HIỂN THỊ SỐ BẢN GHI 02/11 -->
-                            <div class="clearfix">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="hint-text">
-                                            <p style="color: #333">
-                                                Hiển thị <b>5</b> / <b>25</b> dịch vụ
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 d-flex justify-content-end">
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination">
-                                                <li class="page-item">
-                                                    <a
-                                                            class="page-link"
-                                                            href="#"
-                                                            aria-label="Previous"
-                                                    >
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                    </a>
-                                                </li>
-                                                <li class="page-item active">
-                                                    <a class="page-link" href="#">1</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#">2</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#">3</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
+                <div class="col-md-12 mt-4 mb-2">
+                    <div class="body-row-col">
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-start">
+                                <div class="header-row-col">
+                                    <h1 class="">Dịch vụ sử dụng</h1>
                                 </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-3 col-sm-auto">
+                                        <select
+                                                id="select-san-staff"
+                                                class="form-select"
+                                                style="border-radius: 5px"
+                                        >
+                                            <option selected value="0">Tất cả</option>
+                                            <option value="1">Nước Uống</option>
+                                            <option value="2">Bóng</option>
+                                            <option value="3">Áo đấu</option>
+                                        </select>
+                                    </div>
+                                    <!-- BUTTON ADD DỊCH VỤ -->
+                                    <div
+                                            class="col-md-3 col-sm-auto d-flex justify-content-end"
+                                    >
+                                        <button
+                                                id="addDichVu"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalAddDichVuHoaDon"
+                                                type="button"
+                                                class="btn btn-secondary btn-labeled-sm"
+                                        >
+                                            <i
+                                                    class="fas fa-plus fa-lg"
+                                                    style="color: #f0f2f4"
+                                            ></i>
+                                        </button>
+                                        <!-- MODAL ADD DỊCH VỤ -->
+                                        <div
+                                                class="modal fade"
+                                                id="modalAddDichVuHoaDon"
+                                                data-bs-backdrop="static"
+                                                data-bs-keyboard="false"
+                                                tabindex="-1"
+                                                aria-labelledby="staticBackdropLabel"
+                                                aria-hidden="true"
+                                        >
+                                            <div class="modal-dialog modal-xl">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5
+                                                                class="modal-title"
+                                                        >
+                                                            Thêm dịch vụ
+                                                        </h5>
+                                                        <button
+                                                                type="button"
+                                                                class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"
+                                                        ></button>
+                                                    </div>
+                                                    <!-- BODY DICH VU-->
+                                                    <div class="modal-body m-0">
+                                                        <div class="body-row-col">
+                                                            <div class="row">
+                                                                <div class="col-md-9">
+                                                                    <form>
+                                                                        <div
+                                                                                class="row g-2 align-items-center"
+                                                                        >
+                                                                            <!-- Sân filter -->
+                                                                            <div class="col-auto">
+                                                                                <label
+                                                                                        for="search-list-service"
+                                                                                        class="col-form-label label-filter-list-order"
+                                                                                >Tìm Kiếm :
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-md-3 col-sm-auto">
+                                                                                <input
+                                                                                        type="text"
+                                                                                        class="form-control"
+                                                                                        id="search-list-service"
+                                                                                        placeholder="Tìm kiếm tên dịch vụ..."
+                                                                                />
+                                                                            </div>
+
+                                                                            <!--Loại Sân  -->
+                                                                            <div class="col-auto">
+                                                                                <label
+                                                                                        for="select-service-list-order"
+                                                                                        class="col-form-label label-filter-list-order"
+                                                                                >Dịch vụ :
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-md-3 col-sm-auto">
+                                                                                <select
+                                                                                        id="select-service-list-order"
+                                                                                        class="form-select"
+                                                                                        style="border-radius: 5px"
+                                                                                >
+                                                                                    <option selected value="0">
+                                                                                        Tất cả
+                                                                                    </option>
+                                                                                    <option value="1">
+                                                                                        Nước
+                                                                                    </option>
+                                                                                    <option value="2">Áo
+                                                                                    </option>
+                                                                                    <option value="3">
+                                                                                        Bóng
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <!-- BUTTON TÌM KIẾM -->
+                                                                            <div class="col-auto">
+                                                                                <button
+                                                                                        type="submit"
+                                                                                        class="btn btn-success btn-labeled-sm"
+                                                                                >
+                                                                                    Tìm Kiếm
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <!-- BUTTON CHECK BOX -->
+                                                                <div class="col-md-3">
+                                                                    <div
+                                                                            class="d-flex justify-content-end"
+                                                                    >
+                                                                        <button
+                                                                                type="button"
+                                                                                id="showCheckboxButtonList"
+                                                                                class="button-header-check-box"
+                                                                        >
+                                                                                  <span
+                                                                                          class="button-icon-check-list"
+                                                                                  >
+                                                                                    <i
+                                                                                            class="far fa-check-square fa-lg"
+                                                                                    ></i>
+                                                                                  </span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--  -->
+                                                        <div class="row mt-3 scrollable-content"
+                                                             id="dataDichVuDoThueNuocUong">
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- END BODY -->
+                                                    <div class="modal-footer">
+                                                        <button
+                                                                type="button"
+                                                                class="btn btn-danger btn-labeled-sm"
+                                                                data-bs-dismiss="modal"
+                                                        >
+                                                            Hủy
+                                                        </button>
+                                                        <button
+                                                                type="button"
+                                                                class="btn btn-primary btn-labeled-sm"
+                                                        >
+                                                            Xác Nhận
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--  -->
+                                    </div>
+                                    <!-- END BUTTON ADD DỊCH VỤ -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="body-dich-vu header-border-content-dich-vu">
+                            <div class="row mt-3 scrollable-content" id="dataContainer">
+                            </div>
+                            <hr>
+                            <div class="row mt-3 scrollable-content" id="dataDoThue">
+
                             </div>
                         </div>
                     </div>
@@ -562,6 +650,157 @@
             $("input[name='tienSanBong']").val(hoaDonThanhToan.tongTienSanCa);
             $("input[name='tienDichVu']").val(hoaDonThanhToan.tongTienDichVu);
             $("span[name='tongThanhToan']").text(parseFloat(hoaDonThanhToan.tongTienSanCa) + parseFloat(hoaDonThanhToan.tongTienDichVu) - parseFloat(hoaDonThanhToan.tienCoc));
+        });
+
+        var tongTienDichVu = 0;
+        $.ajax({
+            url: '/api/v1/staff/dich-vu-san-bong/dich-vu-thanh-toan/' + id,
+            method: 'GET',
+            success: function (apiResponse) {
+                $('#dataContainer').empty();
+                $('#dataDoThue').empty();
+                apiResponse.forEach(function (item) {
+                    var idNuocUong = item.idNuocUong;
+                    if (idNuocUong != null && idNuocUong != '') {
+                        var imageNuocUong = item.imageNuocUong;
+                        var tenNuocUong = item.tenNuocUong;
+                        var giaNuocUong = item.giaNuocUong;
+                        var soLuongNuocUong = item.soLuongNuocUong;
+                        tongTienDichVu += (soLuongNuocUong * giaNuocUong);
+
+                        var htmlContent = '<div class="col-md-3 col-sm-3 col-4">';
+                        htmlContent += '<div class="card card-product">';
+                        htmlContent += '<img src="/static/img/' + imageNuocUong + '" class="card-img-top" alt="..." />';
+                        htmlContent += '<div class="card-body">';
+                        htmlContent += '<h5 class="card-title text-center">' + tenNuocUong + '</h5>';
+                        htmlContent += '<span class="price" type="number">' + giaNuocUong + ' VNĐ</span>';
+                        htmlContent += '<div class="form-group form-group-list-service-order">';
+                        htmlContent += '<label class="form-label" for="quantity">Số Lượng :</label>';
+                        htmlContent += '<input min="1" value="' + soLuongNuocUong + '" type="number" class="soluong" id="quantity" />';
+                        htmlContent += '</div>';
+                        htmlContent += '</div>';
+                        htmlContent += '<div class="card-footer bg-white">';
+                        htmlContent += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+                        htmlContent += '<button class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                        htmlContent += '<button class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
+                        htmlContent += '</div>';
+                        htmlContent += '</div>';
+                        htmlContent += '</div>';
+                        htmlContent += '</div>';
+                        $('#dataContainer').append(htmlContent);
+                    }
+                    var idDoThue = item.idDoThue;
+                    console.log(idDoThue);
+                    if (idDoThue != null && idDoThue != '') {
+                        var imageDoThue = item.imageDoThue;
+                        var giaDoThue = item.giaDoThue;
+                        var tenDoThue = item.tenDoThue;
+                        var soLuongDoThue = item.soLuongDoThue;
+                        tongTienDichVu += (soLuongDoThue * giaDoThue);
+
+                        var htmldoThue = '<div class="col-md-3 col-sm-3 col-4">';
+                        htmldoThue += '<div class="card card-product">';
+                        htmldoThue += '<img src="/static/img/' + imageDoThue + '" class="card-img-top" alt="..." />';
+                        htmldoThue += '<div class="card-body">';
+                        htmldoThue += '<h5 class="card-title text-center">' + tenDoThue + '</h5>';
+                        htmldoThue += '<span class="price" type="number">' + giaDoThue + ' VNĐ</span>';
+                        htmldoThue += '<div class="form-group form-group-list-service-order">';
+                        htmldoThue += '<label class="form-label" for="quantity">Số Lượng :</label>';
+                        htmldoThue += '<input min="1" value="' + soLuongDoThue + '" type="number" class="soluong" id="quantity" />';
+                        htmldoThue += '</div>';
+                        htmldoThue += '</div>';
+                        htmldoThue += '<div class="card-footer bg-white">';
+                        htmldoThue += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+                        htmldoThue += '<button class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                        htmldoThue += '<button class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
+                        htmldoThue += '</div>';
+                        htmldoThue += '</div>';
+                        htmldoThue += '</div>';
+                        htmldoThue += '</div>';
+
+                        $('#dataDoThue').append(htmldoThue);
+                    }
+
+
+                });
+                //
+                // $('#tienDichVu').val(tongTienDichVu);
+                // $('#tongThanhToan').text((tongTienDichVu + item.tongTienSanCa) + ' . VNĐ');
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
+        });
+        $('#addDichVu').on('click', function () {
+            $.ajax({
+                url: '/api/v1/staff/dich-vu-san-bong/danh-sach-dich-vu',
+                method: 'GET',
+                success: function (apiResponse) {
+                    console.log(apiResponse);
+                    if (apiResponse && Array.isArray(apiResponse)) {
+                        $('#dataDichVuDoThueNuocUong').empty();
+                        apiResponse.forEach(function (item) {
+                            //Nuoc Uong
+                            var id = item.id;
+                            var image = item.image;
+                            var gia = item.donGia;
+                            var soLuong = item.soLuong;
+                            var tenDichVu = item.tenDichVu;
+                            var trangThai = item.trangThai;
+
+                            // Tạo chuỗi HTML cho thẻ <div class="card card-product"> cho từng đối tượng
+                            var htmlContent2 = '<div class="col-md-3 col-sm-3 col-4">';
+                            htmlContent2 += '<div class="card card-product">';
+                            htmlContent2 += '<div id="checkboxContainerList" style="display: none; position: absolute; top: 10px; left: 10px">';
+                            htmlContent2 += '<input type="checkbox" style="width: 20px; height: 20px; margin-right: 5px" id="checkBoxListService"/>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '<img src="/static/img/' + image + '" class="card-img-top" alt="..." />';
+                            htmlContent2 += '<div class="card-body">';
+                            htmlContent2 += '<h5 class="card-title text-center">' + tenDichVu + '</h5>';
+                            htmlContent2 += '<span class="price" type="number">' + gia + ' VNĐ</span>';
+                            htmlContent2 += '<div class="form-group form-group-list-service-order">';
+                            htmlContent2 += '<label class="form-label" for="quantity">Kho Còn : ' + soLuong + '</label>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '<div class="card-footer bg-white">';
+                            htmlContent2 += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+                            htmlContent2 += '<input min="1" value="1" type="number" class="soluong" id="quantity" />';
+                            htmlContent2 += '<button id="addDichVuHoaDon" type="button" class="btn btn-success btn-labeled-sm" data-id="' + id + '" data-trang-thai="' + trangThai + '">Thêm</button>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+
+                            $('#dataDichVuDoThueNuocUong').append(htmlContent2);
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.error('API Request Failed:', error);
+                }
+            });
+        });
+        $(document).on('click', '#addDichVuHoaDon', function () {
+            var card = $(this).closest('.card-product');
+            var soLuong = card.find('.soluong').val();
+            var idDichVuSuDung = $(this).data('id');
+            var trangThaiDichVu = $(this).data('trang-thai');
+            console.log(idDichVuSuDung + '  -  ' + soLuong);
+            $.ajax({
+                url: '/api/v1/staff/dich-vu-san-bong/them-dich-vu-hoa-don/' + id,
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    soLuong: soLuong,
+                    id: idDichVuSuDung,
+                    trangThai : trangThaiDichVu
+                }),
+                success: function (response) {
+                },
+                error: function (error) {
+                    console.error('API Request Failed:', error);
+                }
+            });
         });
     });
 
