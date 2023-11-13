@@ -7,18 +7,18 @@
 // bg-success: thành công(xanh), bg-danger: báo lỗi(đỏ), bg-warning: cảnh báo(vàng)
 
 function createMultipleToasts(toastsArray) {
+
     // Create a new toast container
     const toastContainer = document.createElement("div");
     toastContainer.setAttribute("aria-live", "polite");
     toastContainer.setAttribute("aria-atomic", "true");
-    toastContainer.className = "position-relative";
+    toastContainer.className = "position-relative position-absolute top-0 end-0 p-3 position-fixed";
     toastContainer.style.zIndex = "9999";
 
     // Create an inner container for the toasts
     const toastInnerContainer = document.createElement("div");
     toastInnerContainer.className =
-        "toast-container position-absolute top-0 end-0 p-3";
-
+        "toast-container ";
     // Append the inner container to the main container
     toastContainer.appendChild(toastInnerContainer);
 
@@ -40,7 +40,7 @@ function createMultipleToasts(toastsArray) {
                                   <strong style="color: #ffffff; font-size: 17px" class="me-auto">${headerText}</strong>
                                   <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
-                                <div class="toast-body" style="color: black; font-size: 14px">
+                                <div class="toast-body" style="color: black; font-size: 14px;background-color: #ffffff;border-radius: 12px ">
                                   ${bodyText}
                                 </div>
                               `;
