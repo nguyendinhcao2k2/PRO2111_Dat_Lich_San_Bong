@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 @Builder
 public class HoaDonThanhToanRequest {
     private String id;
-    private String idDichVuSanBong;
     private String idAccount;
     private Double tienCoc;
     private String tenKhachHang;
@@ -34,7 +33,5 @@ public class HoaDonThanhToanRequest {
     private Time thoiGianCheckIn;
     private LocalDateTime ngayDatLich;
     private Double tongTienSanCa;
-    private Double tongTienDichVu;
-    private Double tongTienThanhToan;
     private Integer trangThai;
 }

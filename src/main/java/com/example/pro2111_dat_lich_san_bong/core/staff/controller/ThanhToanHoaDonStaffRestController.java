@@ -13,14 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/staff/thanh-toan")
+@RequestMapping("/api/v1/staff")
 public class ThanhToanHoaDonStaffRestController {
 
     @Autowired
     private ThanhToanSanCaStaffServiceImpl thanhToanStaffService;
 
 
-    @GetMapping("/get-all")
+    @GetMapping("/get-all-thanh-toan")
     public ResponseEntity<List<HoaDonThanhToanRequest>> getAllHoaDonThanhToans() {
         List<HoaDonThanhToanRequest> listHoaDonThanhToans = thanhToanStaffService.getAllHoaDonSanCas(1);
         return ResponseEntity.ok(listHoaDonThanhToans);
