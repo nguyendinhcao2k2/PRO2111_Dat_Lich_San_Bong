@@ -32,6 +32,16 @@ public class DoThueServiceImpl implements DoThueService {
     private DoThueAdminRepository doThueAdminRepository;
 
     @Override
+    public List<DoThue> findAll() {
+        try {
+            return doThueAdminRepository.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public Page<DoThueResponse> getDoThuePagaeble(int page, int size) {
         return doThueAdminRepository.findAllDoThue(PageRequest.of(page, size));
     }
