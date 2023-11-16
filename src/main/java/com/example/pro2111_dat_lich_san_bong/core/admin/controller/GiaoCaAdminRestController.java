@@ -37,7 +37,7 @@ public class GiaoCaAdminRestController {
 
 
     private Pageable basePageable(Optional<Integer> page, Optional<Integer> pageSize, Sort sort) {
-        return PageRequest.of(page.orElse(0), pageSize.orElse(2), sort);
+        return PageRequest.of(page.orElse(0), pageSize.orElse(10), sort);
     }
 
     private ResponseEntity<?> baseRepon(Page<QuanLyGiaoCaResponse> giaoCaResponsePage) {

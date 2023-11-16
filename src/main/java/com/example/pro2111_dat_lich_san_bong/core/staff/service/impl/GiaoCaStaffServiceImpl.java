@@ -59,8 +59,11 @@ public class GiaoCaStaffServiceImpl implements IGiaoCaStaffService {
     public GiaoCaResponse findGiaoCaByTrangThai(TrangThaiGiaoCa trangThaiGiaoCa) {
         try {
             GiaoCa giaoCa = _giaoCaStaffReponsitory.findGiaoCaByTrangThai(trangThaiGiaoCa);
-            GiaoCaResponse response = _modelMapper.map(giaoCa, GiaoCaResponse.class);
-            return response;
+            if (giaoCa != null) {
+                GiaoCaResponse response = _modelMapper.map(giaoCa, GiaoCaResponse.class);
+                return response;
+            }
+           return null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -71,8 +74,11 @@ public class GiaoCaStaffServiceImpl implements IGiaoCaStaffService {
     public GiaoCaResponse findFirstByOrderByThoiGianNhanCaDesc() {
         try {
             GiaoCa giaoCa = _giaoCaStaffReponsitory.findFirstByOrderByThoiGianNhanCaDesc();
-            GiaoCaResponse result = _modelMapper.map(giaoCa, GiaoCaResponse.class);
-            return result;
+            if (giaoCa != null) {
+                GiaoCaResponse result = _modelMapper.map(giaoCa, GiaoCaResponse.class);
+                return result;
+            }
+            return null;
         } catch (Exception e) {
             return null;
         }
@@ -83,8 +89,11 @@ public class GiaoCaStaffServiceImpl implements IGiaoCaStaffService {
     public GiaoCaResponse findGiaoCaByTrangThaiAndIdAccount(TrangThaiGiaoCa trangThaiGiaoCa, String idAccount) {
         try {
             GiaoCa giaoCa = _giaoCaStaffReponsitory.findGiaoCaByTrangThaiAndIdAccount(trangThaiGiaoCa, idAccount);
-            GiaoCaResponse giaoCaResponse = _modelMapper.map(giaoCa, GiaoCaResponse.class);
-            return giaoCaResponse;
+            if (giaoCa != null) {
+                GiaoCaResponse giaoCaResponse = _modelMapper.map(giaoCa, GiaoCaResponse.class);
+                return giaoCaResponse;
+            }
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
