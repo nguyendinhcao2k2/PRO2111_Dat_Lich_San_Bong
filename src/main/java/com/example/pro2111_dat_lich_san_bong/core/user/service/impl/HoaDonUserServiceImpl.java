@@ -34,5 +34,10 @@ public class HoaDonUserServiceImpl implements HoaDonUserService {
         }
     }
 
+    @Override
+    public HoaDon findHoaDonById(String idHoaDon) {
+        return hoaDonUserRepository.findById(idHoaDon).get();
+    }
+
 
 }

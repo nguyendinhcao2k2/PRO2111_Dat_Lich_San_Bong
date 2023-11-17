@@ -31,4 +31,9 @@ public class SanBongUserServiceImpl implements SanBongUserService {
     public Integer countSanBong(String idLoaiSan) {
         return sanBongUserRepository.countSanBong(idLoaiSan);
     }
+
+    @Override
+    public List getALlSanBongByIdLoaiSan(String idLoaiSan) {
+        return sanBongUserRepository.findAllByIdLoaiSan(idLoaiSan);
+    }
 }

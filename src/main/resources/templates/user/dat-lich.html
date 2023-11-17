@@ -70,10 +70,10 @@
 
         .scrollable-table tbody tr {
             display: table;
-            width: 100%;T
+            width: 100%;
             table-layout: fixed;
             border-collapse: collapse;
-            border-spacing: 1; /* Loại bỏ khoảng trống giữa các ô của dòng */
+
         }
 
         .scrollable-table tbody td {
@@ -271,7 +271,7 @@
                                                                     <label class="form-label required"
                                                                     >Ghi chú</label
                                                                     >
-                                                                    <textarea class="form-control"></textarea>
+                                                                    <textarea class="form-control" id="remark"></textarea>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -293,21 +293,37 @@
 
                                                                 </tbody>
                                                             </table>
-                                                            <div>
-                                                                <div class="row g-3">
-                                                                    <div class="col">
-                                                                        <h5
+                                                            <div class="card text-bg-light p-2">
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-6 col-sm-6">
+                                                                        <h4
                                                                         >
-                                                                            Tổng tiền:
-                                                                        </h5>
+                                                                            Tổng tiền sân:
+                                                                        </h4>
                                                                     </div>
-                                                                    <div class="col-6">
-                                                                        <h5
-                                                                                class=" text-center"
+                                                                    <div class="col-6 col-md-6 col-sm-6">
+                                                                        <h4
+                                                                                class=" text-center text-primary"
+                                                                            id="id_tongTien"
                                                                         >
                                                                             600000 VND
-                                                                        </h5>
+                                                                        </h4>
                                                                     </div>
+                                                                    <div class="col-6 col-md-6 col-sm-6">
+                                                                        <h4
+                                                                        >
+                                                                            Tổng tiền cọc:
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-6 col-sm-6">
+                                                                        <h4
+                                                                                class=" text-center text-primary"
+                                                                            id="id_tienCoc"
+                                                                        >
+                                                                            600000 VND
+                                                                        </h4>
+                                                                    </div>
+
                                                                 </div>
                                                             </div>
 
@@ -524,6 +540,8 @@
     var mobiscrollInstanceSelectWeek;
     var mobiscrollInstanceSelectRangeDay;
     /*var countSanBong = parseInt([[${countNumber}]]);*/
+
+    var thamSoTienCoc = parseInt([[${thamSoTienCoc}]]);
     var timeoutId;
     var selectedValue = $("#selectLoaiSan").val();
     // Lấy ra table của
@@ -719,31 +737,25 @@
                     data: JSON.stringify(listCheck),
                     contentType: "application/json",
                     success: function (data) {
-                        debugger
-                        eventsForSelectedDate.forEach(event => {
-                            debugger
+                        for (const event of eventsForSelectedDate) {
+
                             const foundData = data.find(EExist => event.id === EExist.id);
                             if (foundData) {
-                                event.setProp('className', 'event-class-full');
-                                event.setExtendedProp('trangThai', 'NEW-FULL');
-                                event.setExtendedProp('classCustom', 'event-class-full');
-
+                                calendar.getEventById(event.id).setProp('classNames', 'event-class-full');
+                                calendar.getEventById(event.id).setExtendedProp('trangThai', 'NEW-FULL');
+                                calendar.getEventById(event.id).setExtendedProp('classCustom', 'event-class-full');
                             } else {
-                                event.setProp('className', 'event-class');
-                                event.setExtendedProp('trangThai', 'NEW');
-                                event.setExtendedProp('classCustom', 'event-class');
-
+                                calendar.getEventById(event.id).setProp('classNames', 'event-class');
+                                calendar.getEventById(event.id).setExtendedProp('trangThai', 'NEW');
+                                calendar.getEventById(event.id).setExtendedProp('classCustom', 'event-class');
                             }
-
-                        });
-                        //chưa đúng khi kéo event.setProp('className', 'event-class'); ch
-
-                        calendar.refetchEvents();
+                        }
                     },
                     error: function (error) {
 
                     }
                 });
+
 
             },
             //  Config cho click vào cell day hiển thị modal
@@ -974,12 +986,24 @@
                     </div>
                   `
                 );
-        }else {
+        }else if(statusEvent === 'NEW-FULL'){
             cell2.insertAdjacentHTML(
                 "beforeend",
                 `
                     <div class="d-flex flex-column">
-                      <button class="btn btn-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
+                      <button class="btn btn-warning btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
+                        Xóa
+                      </button>
+                    </div>
+                  `
+            );
+        }
+        else {
+            cell2.insertAdjacentHTML(
+                "beforeend",
+                `
+                    <div class="d-flex flex-column">
+                      <button class="btn btn-outline-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
                         Hủy lịch
                       </button>
                       <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" type="button">
@@ -1307,30 +1331,30 @@
                         // Thêm sự kiện vào FullCalendar
                         calendar.render();
                         createMultipleToasts(toastsArray);
+
+
                     }else {
-                        // đang không ăn khi truyền events vào list khác
+
                         calendar.addEventSource(events);
                         // Thêm sự kiện vào FullCalendar
                         calendar.render(); // Cập nhật lịch sau khi thêm sự kiện
                     }
-                },
+                    var selectDateClickShowEvent = lastClickedDate;
+                    var eventsClickShowEvent = calendar.getEvents();
+
+                    // Lọc sự kiện cho ngày được click
+                    var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+                        event
+                    ) {
+                        return isSameDay(event.start, selectDateClickShowEvent);
+                    });
+                    // Hiển thị các sự kiện trong bảng
+                    displayEventsInTable(eventsForSelectedDate);                },
                 error: function (error) {
 
                 }
             });
 
-
-            var selectDateClickShowEvent = lastClickedDate;
-            var eventsClickShowEvent = calendar.getEvents();
-
-            // Lọc sự kiện cho ngày được click
-            var eventsForSelectedDate = eventsClickShowEvent.filter(function (
-                event
-            ) {
-                return isSameDay(event.start, selectDateClickShowEvent);
-            });
-            // Hiển thị các sự kiện trong bảng
-            displayEventsInTable(eventsForSelectedDate);
         });
 
     $(function () {
@@ -1587,17 +1611,70 @@
             }else {
                 $('#modalInfo').modal('hide');
             }
-            var selectDateClickShowEvent = event.start;
-            var eventsClickShowEvent = calendar.getEvents();
 
-            // Lọc sự kiện cho ngày được click
+            var listCheck = [];
+            var eventsClickShowEvent = calendar.getEvents();
             var eventsForSelectedDate = eventsClickShowEvent.filter(function (
                 event
             ) {
-                return isSameDay(event.start, selectDateClickShowEvent);
+                return event.extendedProps.trangThai === 'NEW' ||event.extendedProps.trangThai === 'NEW-FULL' ;
             });
-            // Hiển thị các sự kiện trong bảng
-            displayEventsInTable(eventsForSelectedDate);
+
+            eventsForSelectedDate.forEach(value => {
+
+                var objectCheck = {};
+                objectCheck.id= value.id;
+                objectCheck.idLoaiSan = selectedValue;
+                objectCheck.idCa= value.extendedProps.idSanCa;
+                // Lấy ngày từ thời gian bắt đầu của sự kiện
+                const eventStart = new Date(value.start); // Chuyển đổi sang kiểu Date
+
+                const year = eventStart.getFullYear();
+                const month = eventStart.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0, cần cộng thêm 1
+                const day = eventStart.getDate();
+
+                const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+
+                objectCheck.ngayDat = formattedDate;
+
+                listCheck.unshift(objectCheck);
+            })
+
+            $.ajax({
+                url: "/api/v1/user/san-ca/check-list-san-ca",
+                type: "POST",
+                data: JSON.stringify(listCheck),
+                contentType: "application/json",
+                success: function (data) {
+                    for (const event of eventsForSelectedDate) {
+
+                        const foundData = data.find(EExist => event.id === EExist.id);
+                        if (foundData) {
+                            calendar.getEventById(event.id).setProp('classNames', 'event-class-full');
+                            calendar.getEventById(event.id).setExtendedProp('trangThai', 'NEW-FULL');
+                            calendar.getEventById(event.id).setExtendedProp('classCustom', 'event-class-full');
+                        } else {
+                            calendar.getEventById(event.id).setProp('classNames', 'event-class');
+                            calendar.getEventById(event.id).setExtendedProp('trangThai', 'NEW');
+                            calendar.getEventById(event.id).setExtendedProp('classCustom', 'event-class');
+                        }
+                    }
+                    var selectDateClickShowEvent = event.start;
+                    var eventsClickShowEvent = calendar.getEvents();
+
+                    // Lọc sự kiện cho ngày được click
+                    var eventsForSelectedDate2 = eventsClickShowEvent.filter(function (
+                        event
+                    ) {
+                        return isSameDay(event.start, selectDateClickShowEvent);
+                    });
+                    // Hiển thị các sự kiện trong bảng
+                    displayEventsInTable(eventsForSelectedDate2);
+                },
+                error: function (error) {
+
+                }
+            });
         }
     }
     function getFormLichDat() {
@@ -1606,6 +1683,7 @@
         var hoVaTen= $('#hoVaTen').val();
         var sdt =$('#sdt').val();
         var mail = $('#mail').val();
+        var remark = $('#remark').val();
         var check = false;
 
         if(hoVaTen.trim() ==''){
@@ -1631,25 +1709,31 @@
         var tableData = [];
 
         // Bắt đầu từ hàng thứ 1 (hàng đầu tiên là tiêu đề)
-        rows.forEach(function(row) {
-            debugger
-            var idCa = row.getAttribute("data-id");
-            var cells = row.querySelectorAll("td");
+        rows.forEach(function(row,index) {
+            if (index !== 0) {
 
-            var dataObject = {};
+                var idCa = row.getAttribute("data-id");
+                var cells = row.querySelectorAll("td");
 
-            dataObject.ngayDa = cells[1].textContent;
-            dataObject.giaSan = cutMoney(cells[2].textContent);
-            dataObject.idCa = idCa;
+                var dataObject = {};
 
-            tableData.push(dataObject);
+                dataObject.ngayDa = cells[1].textContent;
+                dataObject.giaSan = cutMoney(cells[2].textContent);
+                dataObject.idCa = idCa;
+
+                tableData.push(dataObject);
+            }
         });
 
+        debugger
+        var tongTienSan = $('#id_tongTien').text();
 
         var formDatLich = {
             hoVaTen: hoVaTen,
             email: mail,
+            tongTienSan: cutMoney(tongTienSan),
             sdt: sdt,
+            ghiChu:remark,
             idLoaiSan : selectedValue,
             danhSachCaDatRequests:tableData
         }
@@ -1660,9 +1744,22 @@
             data: JSON.stringify(formDatLich),
             contentType: "application/json",
             success: function (data) {
+                debugger
                 $('#modalInfo').modal('hide');
-                alert(data.content);
-                resetEventByIdLoaiSan(selectedValue);
+                /*alert(data.content);
+                resetEventByIdLoaiSan(selectedValue);*/
+                if(data.statusCode == 'OK'){
+                    // Tạo form ẩn
+                    var form = $('<form action="/api/v1/user/thanh-toan/create-payment" method="post"></form>');
+                    form.append('<input type="hidden" name="HDrequest" value=\'' + JSON.stringify(data.content) + '\' />');
+                    $('body').append(form);
+
+                    // Submit form để chuyển hướng
+                    form.submit();
+                }else {
+                    alert(data.content);
+                }
+
             },
             error: function (error) {
                 $('#modalInfo').modal('hide');
@@ -1861,6 +1958,8 @@
             }
         });
 
+        var tongTien = 0;
+
 
         $("#listEventNew").append(eventNew.map(function (item) {
             const startTimeVietnam = item.start.toLocaleTimeString("en-US", {
@@ -1881,7 +1980,7 @@
                 month: "2-digit",
                 year: "numeric",
             });
-
+            tongTien= tongTien + Number(item.extendedProps.giaSan.replace('.0 VND',''));
             // Chuyển định dạng ngày tháng năm thành "dd - MM - yyyy"
             const dateParts = dateVietnam.split("/");
             const formattedDate =
@@ -1898,6 +1997,8 @@
                         </tr>
                         `;
         }));
+        $('#id_tongTien').text(tongTien+" VND");
+        $('#id_tienCoc').text(tongTien*(thamSoTienCoc/100)+" VND");
     }
 
     function formatTime(inputTime) {

@@ -16,5 +16,6 @@ public interface HoaDonUserService {
 
     List<HoaDonUserResponse> findHoaDonByChoXacNhanAndAccHT(String idAccount);
 
+    HoaDon findHoaDonById(String idHoaDon);
 
 }

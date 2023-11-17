@@ -134,7 +134,7 @@ public class DBGenerator implements CommandLineRunner {
 
         //start vi tien
         ViTienCoc viTienCocKH1 = new ViTienCoc();
-        viTienCocKH1.setTaiKhoanVi("004444444444");
+        viTienCocKH1.setSoGiaoDich("004444444444");
         viTienCocKH1.setLoaiTien("VND");
         viTienCocKH1.setTrangThai(0);
         viTienCocKH1.setThoiGianTao(Timestamp.valueOf("2023-09-17 10:09:00"));
@@ -142,7 +142,7 @@ public class DBGenerator implements CommandLineRunner {
         viTienCocKH1.setId(viTienRepository.save(viTienCocKH1).getId());
 
         ViTienCoc viTienCocKH2 = new ViTienCoc();
-        viTienCocKH2.setTaiKhoanVi("007777777777");
+        viTienCocKH2.setSoGiaoDich("007777777777");
         viTienCocKH2.setLoaiTien("VND");
         viTienCocKH2.setTrangThai(0);
         viTienCocKH2.setThoiGianTao(Timestamp.valueOf("2023-09-17 10:09:00"));
