@@ -1,6 +1,9 @@
 $(document).ready(function () {
     getData();
-
+    sortByThoiGianNhanCa();
+    $(".giaCaExport").click(()=>{
+        window.location.href="http://localhost:8081/api/v1/admin/giao-ca/export";
+    });
     function getData() {
         $.ajax({
             type: "GET",
@@ -15,11 +18,10 @@ $(document).ready(function () {
                 }
             },
             error: (error) => {
-                console.log(error)
-            }
+                console.log(error);
+            },
         });
-    };
-
+    }
 
     //check box giao ca co tien
     $(".checkBoxKiemTra").change((event) => {
@@ -27,48 +29,84 @@ $(document).ready(function () {
     });
 
     function locByCheckBox(event, message) {
-        var url = null;
         if (parseInt(event.target.value) === 1) {
-            url = "http://localhost:8081/api/v1/admin/giao-ca/rut-tien";
-        } else if (parseInt(event.target.value) === 2) {
-            url = "http://localhost:8081/api/v1/admin/giao-ca/sort-by-nhan-ca-asc";
-        } else if (parseInt(event.target.value) === 3) {
-            url = "http://localhost:8081/api/v1/admin/giao-ca/sort-by-nhan-ca-desc";
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8081/api/v1/admin/giao-ca/rut-tien",
+                success: function (data) {
+                    console.log(data.content.data);
+                    if (data.content.data.length == 0) {
+                        alert(message);
+                    } else {
+                        readData(data);
+                        if (parseInt(event.target.value) === 1) {
+                            app.lengthListSearch = 2;
+                        }
+                    }
+                },
+                error: (error) => {
+                    console.log(error);
+                },
+            });
         } else {
             getData();
         }
+    }
+    var sortName = null;
+    function sortByThoiGianNhanCa() {
+        $(".thoiGianNhanCaTangDan").click(() => {
+            $(".thoiGianNhanCaGiamDan").prop("hidden", false);
+            $(".thoiGianNhanCaTangDan").prop("hidden", true);
+            orderBy("asc");
+            sortName = "asc";
+        });
+        $(".thoiGianNhanCaGiamDan").click(() => {
+            $(".thoiGianNhanCaGiamDan").prop("hidden", true);
+            $(".thoiGianNhanCaTangDan").prop("hidden", false);
+            //   getData();
+            orderBy("desc");
+            sortName = "desc";
+        });
+    }
+    function orderBy(value) {
+        var url = "http://localhost:8081/api/v1/admin/giao-ca/owners?sort=" + value;
+        if (app.lengthListSearch === 0) {
+            url;
+        } else if (app.lengthListSearch === 1) {
+            url =
+                "http://localhost:8081/api/v1/admin/giao-ca/search?sort=" +
+                value +
+                "&name=" +
+                nameSearch;
+        } else if (app.lengthListSearch == 2) {
+            url = "http://localhost:8081/api/v1/admin/giao-ca/rut-tien?sort=" + value;
+        } else if (app.lengthListSearch == 3) {
+            url =
+                "http://localhost:8081/api/v1/admin/giao-ca/by-time?sort=" +
+                value +
+                "&time=" +
+                timeSearch;
+        }
+
         $.ajax({
             type: "GET",
             url: url,
             success: function (data) {
-                console.log(data.content.data)
-                if (data.content.data.length == 0) {
-                    alert(message);
-                } else {
-                    readData(data);
-                    if (parseInt(event.target.value) === 1) {
-                        app.lengthListSearch = 2;
-                    } else if (parseInt(event.target.value) === 2) {
-                        app.lengthListSearch = 4;
-                    } else {
-                        app.lengthListSearch = 5;
-                    }
-
-                }
+                readData(data);
+                console.log(data);
             },
             error: (error) => {
-                console.log(error)
-            }
+                console.log(error);
+            },
         });
     }
-
     //next
     $(".nextPage").click(() => {
         if (parseInt(app.displaycurrentPage) == parseInt(app.totalPages)) {
             return;
         } else {
             $(".noContent").hide();
-            pagingTione((app.currentPage + 1));
+            pagingTione(app.currentPage + 1);
         }
     });
     //previoust
@@ -76,24 +114,48 @@ $(document).ready(function () {
         if (parseInt(app.displaycurrentPage) == 1) {
             return;
         } else {
-            pagingTione((app.currentPage - 1))
+            pagingTione(app.currentPage - 1);
         }
     });
 
     function pagingTione(value) {
-        var url = "http://localhost:8081/api/v1/admin/giao-ca/owners?page=" + value;
+        var url =
+            "http://localhost:8081/api/v1/admin/giao-ca/owners?page=" +
+            value +
+            "&sort=" +
+            sortName;
         if (app.lengthListSearch === 0) {
             url;
         } else if (app.lengthListSearch === 1) {
-            url = "http://localhost:8081/api/v1/admin/giao-ca/search?page=" + value + "&name=" + nameSearch;
+            url =
+                "http://localhost:8081/api/v1/admin/giao-ca/search?page=" +
+                value +
+                "&name=" +
+                nameSearch +
+                "&sort=" +
+                sortName;
         } else if (app.lengthListSearch == 2) {
-            url = "http://localhost:8081/api/v1/admin/giao-ca/rut-tien?page=" + value;
+            url =
+                "http://localhost:8081/api/v1/admin/giao-ca/rut-tien?page=" +
+                value +
+                "&sort=" +
+                sortName;
         } else if (app.lengthListSearch == 3) {
-            url = "http://localhost:8081/api/v1/admin/giao-ca/by-time?page=" + value + "&time=" + timeSearch;
+            url =
+                "http://localhost:8081/api/v1/admin/giao-ca/by-time?page=" +
+                value +
+                "&time=" +
+                timeSearch +
+                "&sort=" +
+                sortName;
         } else if (app.lengthListSearch == 4) {
-            url = "http://localhost:8081/api/v1/admin/giao-ca/sort-by-nhan-ca-asc?page=" + value;
-        }else{
-            url = "http://localhost:8081/api/v1/admin/giao-ca/sort-by-nhan-ca-desc?page=" + value;
+            url =
+                "http://localhost:8081/api/v1/admin/giao-ca/sort-by-nhan-ca-asc?page=" +
+                value;
+        } else {
+            url =
+                "http://localhost:8081/api/v1/admin/giao-ca/sort-by-nhan-ca-desc?page=" +
+                value;
         }
         $.ajax({
             type: "GET",
@@ -102,8 +164,8 @@ $(document).ready(function () {
                 readData(data);
             },
             error: (error) => {
-                console.log(error)
-            }
+                console.log(error);
+            },
         });
     }
 
@@ -113,19 +175,19 @@ $(document).ready(function () {
         timeSearch = event.target.value;
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/api/v1/admin/giao-ca/by-time?time=" + timeSearch,
+            url:
+                "http://localhost:8081/api/v1/admin/giao-ca/by-time?time=" + timeSearch,
             success: function (data) {
                 if (data.content.data.length == 0) {
-                    alert("Không có dữ liệu!")
+                    alert("Không có dữ liệu!");
                 } else {
                     readData(data);
                     app.lengthListSearch = 3;
                 }
-
             },
             error: (error) => {
-                console.log(error)
-            }
+                console.log(error);
+            },
         });
     });
 
@@ -139,7 +201,8 @@ $(document).ready(function () {
         nameSearch = data;
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/api/v1/admin/giao-ca/search?name=" + (nameSearch),
+            url:
+                "http://localhost:8081/api/v1/admin/giao-ca/search?name=" + nameSearch,
             success: function (data) {
                 if (data.content.data.length == 0) {
                     getData();
@@ -147,13 +210,12 @@ $(document).ready(function () {
                     readData(data);
                     app.lengthListSearch = 1;
                 }
-
             },
             error: (error) => {
-                console.log(error)
-            }
+                console.log(error);
+            },
         });
-    };
+    }
 });
 
 // base read data
@@ -179,24 +241,25 @@ function formatData(data) {
             tienPhatSinh: curenlyNumber(item.tienPhatSinh),
             ghiChuPhatSinh: item.ghiChuPhatSinh,
             tongTienMatRut: curenlyNumber(item.tongTienMatRut),
-            thoiGianReset: item.thoiGianReset == null ? "Null" : formatDate(item.thoiGianReset),
+            thoiGianReset:
+                item.thoiGianReset == null ? "Null" : formatDate(item.thoiGianReset),
             tongTienMat: curenlyNumber(item.tongTienMat),
             tongTienKhac: curenlyNumber(item.tongTienKhac),
-        }
-    })
-};
+        };
+    });
+}
 
 function formatDate(date) {
     return moment(date).format("HH:mm:ss DD-MM-YYYY");
-};
+}
 
 function curenlyNumber(number) {
     return number.toLocaleString("vi-VN");
-};
+}
 
 function formatDateTimeStamps(date) {
     return moment(date, "DD-MM-YYYY").format("YYYY-MM-DD");
-};
+}
 
 var app = new Vue({
     el: "#app",
@@ -220,17 +283,25 @@ var app = new Vue({
                     $(".thoiGianKetCaCT").val(formatDate(data.content.thoiGianKetCa));
                     $(".tienBanDauCT").val(curenlyNumber(data.content.tienBanDau));
                     $(".tienPhatSinhCT").val(curenlyNumber(data.content.tienPhatSinh));
-                    $(".tongTienMatTrongCaCT").val(curenlyNumber(data.content.tongTienMat));
-                    $(".tongTienChuyenKhoanCT").val(curenlyNumber(data.content.tongTienKhac));
-                    $(".tongTienTrongCaCT").val(curenlyNumber(data.content.tongTienTrongCa));
-                    $(".tongTienMatRutCT").val(curenlyNumber(data.content.tongTienMatRut));
+                    $(".tongTienMatTrongCaCT").val(
+                        curenlyNumber(data.content.tongTienMat)
+                    );
+                    $(".tongTienChuyenKhoanCT").val(
+                        curenlyNumber(data.content.tongTienKhac)
+                    );
+                    $(".tongTienTrongCaCT").val(
+                        curenlyNumber(data.content.tongTienTrongCa)
+                    );
+                    $(".tongTienMatRutCT").val(
+                        curenlyNumber(data.content.tongTienMatRut)
+                    );
                     $(".ghiChuPhatSinhCT").val(data.content.ghiChuPhatSinh);
                 },
                 error: (error) => {
-                    console.log(error)
-                }
+                    console.log(error);
+                },
             });
         },
     },
-    computed: {}
+    computed: {},
 });

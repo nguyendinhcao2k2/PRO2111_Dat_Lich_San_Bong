@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void processOAuthPostLogin(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/api/v1/user/all");
+        response.sendRedirect("/api/v1/user/trang-chu/danh-sach-lich-dat");
     }
 }
 

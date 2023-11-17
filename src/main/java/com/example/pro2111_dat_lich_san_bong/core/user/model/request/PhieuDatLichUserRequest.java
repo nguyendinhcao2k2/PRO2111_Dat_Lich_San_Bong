@@ -20,6 +20,8 @@ public class PhieuDatLichUserRequest {
     private String hoVaTen;
     private String email;
     private String sdt;
+    private String tongTienSan;
     private String idLoaiSan;
+    private String ghiChu;
     private List<DanhSachCaDatRequest> danhSachCaDatRequests;
 }

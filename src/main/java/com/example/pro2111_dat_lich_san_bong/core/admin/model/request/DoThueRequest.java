@@ -15,11 +15,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DoThueRequest {
-    @NotNull
-    @NotBlank
+
     private String tenDoThue;
-    @NotNull
     private Integer soLuong;
-    @NotNull
+    private String image;
     private Double donGia;
 }

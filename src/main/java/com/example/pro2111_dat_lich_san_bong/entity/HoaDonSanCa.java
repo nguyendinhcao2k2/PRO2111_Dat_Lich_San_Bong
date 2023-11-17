@@ -32,8 +32,6 @@ public class HoaDonSanCa {
     private LocalDate ngayDenSan;
     @Column(name = "thoi_giam_check_in", columnDefinition = "TIMESTAMP")
     private Time thoiGianCheckIn;
-    @Column(name = "ghi_chu")
-    private String ghiChu;
     @Column(name = "tien_san")
     private Double tienSan;
     @Column(name = "id_hoa_don")

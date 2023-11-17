@@ -96,14 +96,14 @@
                             <div
                                     class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                             >
-                                Doang thu hôm nay
+                                <h4>Doang thu hôm nay</h4>
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800 doanhThuNgayHomNay">
+                            <div class="h4 mb-0 font-weight-bold text-gray-800 doanhThuNgayHomNay">
 
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class="fas fa-calendar fa-2x text-gray-300" style="color: #0d6efd"> </i>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
         </div>
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-6 col-md-6 mb-4">
+        <div class="col-md-2 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -136,20 +136,25 @@
 
     </div>
 
-    <div class="col-xl-12 col-lg-4">
+    <div class="col-md-12">
         <!-- Area Chart -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary nameTK">
-                </h6>
-                <select class="optionChonTK ">
-                    <option value="1" selected>Doanh thu năm</option>
-                    <option value="2">Doanh thu ngày</option>
-                </select>
-                <input type="text" class="yearpicker dateNam"/>
-                <input type="date" class="dateNgay" hidden/>
-
-
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <h5 class="font-weight-bold nameTK"></h5>
+                    </div>
+                    <div class="col">
+                        <select class="optionChonTK form-select" >
+                            <option value="1" selected>Doanh thu năm</option>
+                            <option value="2">Doanh thu ngày</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="yearpicker dateNam form-control"/>
+                        <input type="date" class="dateNgay form-control" hidden/>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="chart-area">
@@ -165,19 +170,27 @@
 
 
     <div class="row">
-        <div class="col-xl-6 col-lg-4">
+        <div class="col-md-6">
             <!-- Area Chart -->
             <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Đồ thuê</h6>
-                    <select class="thong-ke-do-thue">
-                        <option value="1" selected>Theo năm</option>
-                        <option value="2">Theo tháng</option>
-                        <option value="3">Theo ngày</option>
-                    </select>
-                    <input type="text" class="yearpicker doThueNam"/>
-                    <input type="month" class="doThueThang" hidden/>
-                    <input type="date" class="doThueNgay" hidden/>
+                <div class="card-header py-2">
+                    <div class="row mb-">
+                        <div class="col-md-6">
+                            <h5 class="font-weight-bold ">Đồ thuê</h5>
+                        </div>
+                        <div class="col">
+                            <select class="thong-ke-do-thue form-select">
+                            <option value="1" selected>Theo năm</option>
+                            <option value="2">Theo tháng</option>
+                            <option value="3">Theo ngày</option>
+                        </select>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="yearpicker doThueNam form-control"/>
+                            <input type="month" class="doThueThang form-control" hidden/>
+                            <input type="date" class="doThueNgay form-control" hidden/>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
@@ -189,7 +202,7 @@
             </div>
         </div>
         <!-- Area Chart -->
-        <div class="col-xl-6 col-lg-4">
+        <div class="col-md-6>
             <!-- Area Chart -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">

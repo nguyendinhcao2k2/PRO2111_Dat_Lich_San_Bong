@@ -12,12 +12,20 @@
     <button class="start">Start Camera</button>
     <button class="close">Close Camera</button>
 
-    <section class="camera">
+<!--    <section class="camera">-->
+<!--      <div class="qr">-->
+<!--        <video id="webcam" autoplay></video>-->
+<!--        <canvas id="canvas" style="display: none"></canvas>-->
+<!--      </div>-->
+<!--    </section>-->
+    <div class="camera-selection" style="display: none;">
+      <select id="cameraList"></select>
       <div class="qr">
         <video id="webcam" autoplay></video>
         <canvas id="canvas" style="display: none"></canvas>
       </div>
-    </section>
+    </div>
+
 
     <script th:src="@{/static/js/custom/read-qrcode.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>

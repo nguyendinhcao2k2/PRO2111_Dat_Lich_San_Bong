@@ -9,6 +9,7 @@ import com.example.pro2111_dat_lich_san_bong.core.user.repository.SanCaUserRepos
 import com.example.pro2111_dat_lich_san_bong.core.user.repository.ThoiGianDLUserRepository;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanBongUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanCaUserService;
+import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiThoiGianDL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -39,10 +40,10 @@ public class SanCaUserServiceImpl implements SanCaUserService {
     @Override
     public List getAllSanCa(EventRequest request) {
         List<SanCaUserResponse> listSanCa = sanCaUserRepository.getAllSanCa(request);
-        List<SanCaUserResponse> listTGDatLich = thoiGianDLUserRepository.getAllTGDLByUserId(request, TrangThaiThoiGianDL.CHO_XAC_NHAN.ordinal());
+       /* List<SanCaUserResponse> listTGDatLich = thoiGianDLUserRepository.getAllTGDLByUserId(request, TrangThaiThoiGianDL.CHO_XAC_NHAN.ordinal());
         if(listTGDatLich != null || !listTGDatLich.isEmpty()){
             listSanCa.addAll(listTGDatLich);
-        }
+        }*/
         return listSanCa;
     }
 
@@ -110,5 +111,15 @@ public class SanCaUserServiceImpl implements SanCaUserService {
         }
 
         return listExist;
+    }
+
+    @Override
+    public void saveAllSanCa(List list) {
+        sanCaUserRepository.saveAll(list);
+    }
+
+    @Override
+    public SanCa findSanCaById(String id) {
+        return sanCaUserRepository.findAllById(id);
     }
 }

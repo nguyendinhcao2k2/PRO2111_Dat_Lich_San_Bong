@@ -45,10 +45,12 @@ public class ViTienCoc {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
-    @Column(name = "tai_khoan_vi")
-    private String taiKhoanVi;
+    @Column(name = "so_giao_dich")
+    private String soGiaoDich;
 
     @Column(name = "id_hoa_don")
     private String idHoaDon;
 
+    @Column(name = "noi_dung")
+    private String noiDung;
 }

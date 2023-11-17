@@ -3,6 +3,7 @@ package com.example.pro2111_dat_lich_san_bong.core.user.repository;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.request.EventRequest;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.request.SanCaUserRequest;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.SanCaUserResponse;
+import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
 import com.example.pro2111_dat_lich_san_bong.repository.SanCaRepository;
 import org.hibernate.annotations.Parameter;
 import org.springframework.data.jpa.repository.Query;
@@ -21,7 +22,7 @@ public interface SanCaUserRepository extends SanCaRepository {
         sc.gia,sc.trang_thai as'trangThai',
         c.ten_ca as'tenCa', c.thoi_gian_bat_dau as 'thoiGianBatDau',
         c.thoi_gian_ket_thuc as 'thoiGianKetThuc',
-        sc.thoi_gian_dat as 'thoiGianDat'
+        sc.ngay_den_san as 'thoiGianDat'
         from san_ca sc 
         join ca c on sc.id_ca = c.id
         join san_bong sb on sb.id = sc.id_san_bong
@@ -38,6 +39,6 @@ public interface SanCaUserRepository extends SanCaRepository {
     """,nativeQuery = true)
     int getAllSanCa(@Param("request") String textCheck);
 
-
+    SanCa findAllById(String id);
 
 }
