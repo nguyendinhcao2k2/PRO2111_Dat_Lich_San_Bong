@@ -19,6 +19,7 @@ public interface LoaiSanUserRepository extends LoaiSanRepository {
                 ,ls.gia_san
                 from loai_san ls
                 where ls.trang_thai = 0
+                order by ls.gia_san asc
             """, nativeQuery = true)
     List<LoaiSan> getAllLoaiSan();
 

@@ -17,6 +17,8 @@ public class VNPayDemoController {
     @Autowired
     private VNPayService vnPayService;
 
+    private String testId;
+
     @GetMapping("")
     public String home() {
         return "DemoVNPay/index";
@@ -27,6 +29,8 @@ public class VNPayDemoController {
                               @RequestParam("orderInfo") String orderInfo,
                               HttpServletRequest request) {
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        baseUrl +="/vn-pay/vnpay-payment";
+        testId = "test";
         String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
         return "redirect:" + vnpayUrl;
     }
@@ -34,11 +38,11 @@ public class VNPayDemoController {
     @GetMapping("/vnpay-payment")
     public String GetMapping(HttpServletRequest request, Model model) {
         int paymentStatus = vnPayService.orderReturn(request);
-
         String orderInfo = request.getParameter("vnp_OrderInfo");
         String paymentTime = request.getParameter("vnp_PayDate");
         String transactionId = request.getParameter("vnp_TransactionNo");
         String totalPrice = request.getParameter("vnp_Amount");
+        String custom_param1 = request.getParameter("custom_param1");
 
         model.addAttribute("orderId", orderInfo);
         model.addAttribute("totalPrice", totalPrice);

@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 /**
  * @author thepvph20110
  */
@@ -32,4 +34,6 @@ public interface SanBongUserRepository extends SanBongRepository {
         where sb.trang_thai = 0 and sb.id_loai_san= :req
     """,nativeQuery = true)
     Integer countSanBong(@Param("req")String idLoaiSan);
+
+    List findAllByIdLoaiSan(String idLoaiSan);
 }

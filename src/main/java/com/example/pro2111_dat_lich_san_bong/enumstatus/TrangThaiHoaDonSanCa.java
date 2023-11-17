@@ -1,8 +1,8 @@
 package com.example.pro2111_dat_lich_san_bong.enumstatus;
 
 public enum TrangThaiHoaDonSanCa {
-    DA_THANH_TOAN,
-    CHUA_THANH_TOAN,
+    CHO_NHAN_SAN,
     DA_CHECK_IN,
-    DA_COC
+    CHUA_THANH_TOAN,
+    DA_THANH_TOAN
 }
