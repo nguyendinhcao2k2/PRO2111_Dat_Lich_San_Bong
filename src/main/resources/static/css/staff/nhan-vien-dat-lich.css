@@ -564,7 +564,8 @@ table th {
 /* SCROLL CONtent San */
 .wrap-div {
     max-height: 500px; /* Điều chỉnh chiều cao tối đa của content-san theo mong muốn */
-    overflow: auto; /* Khi nội dung vượt quá chiều cao tối đa, thanh cuộn sẽ xuất hiện */
+    overflow-y: auto; /* Only vertical scrollbar */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
 /*.card-san{*/
@@ -592,4 +593,32 @@ table th {
     display: flex; /* Thêm display: flex */
     align-items: center; /* Thêm align-items: center */
     justify-content: center; /* Để canh icon theo chiều ngang giữa */
+}
+
+/* Thin scrollbar styles for Webkit browsers */
+.wrap-div::-webkit-scrollbar {
+    width: 8px; /* Adjust the width as needed */
+}
+
+.wrap-div::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar thumb color */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.wrap-div::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Track color */
+}
+
+.button-check-in{
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    height: 2.5em;
+    padding: 0;
+    background: #d35400;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
 }

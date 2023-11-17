@@ -7,6 +7,7 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThongTinNg
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.HoaDonStaffResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LoadSanBongRespose;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IDatSanStaffService;
+import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.RestApiException;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
 import jakarta.validation.Valid;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.context.Context;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -33,6 +36,9 @@ public class DatLichStaffRescontroller {
 
     @Autowired
     private IDatSanStaffService iDatSanStaffService;
+
+    @Autowired
+    private SendMailWithBookings sendMailWithBookings;
 
     @GetMapping("/load-san-bong")
     public ResponseEntity<List<LoadSanBongRespose>> loadSanBong() {
@@ -54,6 +60,11 @@ public class DatLichStaffRescontroller {
         if (!iDatSanStaffService.datLich(thongTinNguoiDatRequest)) {
             throw new RestApiException("Có lỗi !");
         }
+        Context context = new Context();
+        context.setVariable("Họ tên: ", thongTinNguoiDatRequest.getHoVaTen());
+        context.setVariable("Số điện thoại: ", thongTinNguoiDatRequest.getSoDienThoai());
+        context.setVariable("Thời gian đăt: ", LocalDateTime.now());
+        sendMailWithBookings.sendEmailBookings(thongTinNguoiDatRequest.getEmail(), context);
         return new BaseResponse<>(HttpStatus.OK, "Đặt lịch thành công");
     }
 
