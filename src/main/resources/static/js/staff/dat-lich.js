@@ -70,7 +70,7 @@ function reloadSanBong() {
                         <div
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
-                            style="width: 100%; border-radius: 0px"
+                            style="width: 95%; border-radius: 0px"
                         >
                             <!-- Header card -->
                             <div
@@ -297,7 +297,7 @@ function filterSanBong() {
                         <div2
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
-                            style="width: 100%; border-radius: 0px"
+                            style="width: 95%; border-radius: 0px"
                         >
                             <!-- Header card -->
                             <div
@@ -500,7 +500,7 @@ window.onload = function () {
                         <div
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
-                            style="width: 100%; border-radius: 0px"
+                            style="width: 95%; border-radius: 0px"
                         >
                             <!-- Header card -->
                             <div
@@ -998,7 +998,7 @@ function callApiFilter(param) {
                         <div
                             class="card card-san"
                             id="content-san-${index}-card-san-${i}"
-                            style="width: 100%; border-radius: 0px"
+                            style="width: 95%; border-radius: 0px"
                         >
                             <!-- Header card -->
                             <div
@@ -1120,3 +1120,12 @@ function callApiFilter(param) {
         }
     });
 }
+
+// cấu hình tooltip
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+});
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
