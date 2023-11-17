@@ -27,4 +27,8 @@ public interface HoaDonUserRepository extends HoaDonRepository {
     List<HoaDonUserResponse> findHoaDonByChoXacNhanAndAccHT(@Param("idAccountHT") String idAccount);
 
     Optional<HoaDon> findById(String idHoaDon);
+
+    List findAllByIdAccountAndTrangThai(String idAccount,Integer trangThai);
+
+    void deleteHoaDonById(String idHoaDon);
 }

@@ -39,5 +39,20 @@ public class HoaDonUserServiceImpl implements HoaDonUserService {
         return hoaDonUserRepository.findById(idHoaDon).get();
     }
 
+    @Override
+    public List findAllByIdAccountAndTrangThai(String idAccount, Integer trangThai) {
+        return hoaDonUserRepository.findAllByIdAccountAndTrangThai(idAccount,trangThai);
+    }
+
+    @Override
+    public void updateHoaDon(HoaDon hoaDon) {
+        hoaDonUserRepository.saveAndFlush(hoaDon);
+    }
+
+    @Override
+    public void deleteHoaDonById(String idHoaDon) {
+        hoaDonUserRepository.deleteHoaDonById(idHoaDon);
+    }
+
 
 }

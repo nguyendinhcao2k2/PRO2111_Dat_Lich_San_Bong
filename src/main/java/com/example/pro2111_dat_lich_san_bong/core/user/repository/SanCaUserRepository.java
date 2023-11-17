@@ -41,4 +41,9 @@ public interface SanCaUserRepository extends SanCaRepository {
 
     SanCa findAllById(String id);
 
+    @Query(value = """
+        delete from san_ca sc where sc.id =:request
+    """,nativeQuery = true)
+    void deleteSanCaById(@Param("request")String idSanCa);
+
 }

@@ -122,4 +122,9 @@ public class SanCaUserServiceImpl implements SanCaUserService {
     public SanCa findSanCaById(String id) {
         return sanCaUserRepository.findAllById(id);
     }
+
+    @Override
+    public void deleteSanCaById(String idSanCa) {
+        sanCaUserRepository.deleteSanCaById(idSanCa);
+    }
 }
