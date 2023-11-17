@@ -26,4 +26,14 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
     public void saveHoaDonSanCa(HoaDonSanCa hoaDonSanCa) {
         hoaDonSanCaUserRepository.save(hoaDonSanCa);
     }
+
+    @Override
+    public List findAllByIdHoaDon(String idHoaDon) {
+        return hoaDonSanCaUserRepository.findAllByIdHoaDon(idHoaDon);
+    }
+
+    @Override
+    public void deleteAllByIdHoaDon(String idHoaDon) {
+        hoaDonSanCaUserRepository.deleteAllByIdHoaDon(idHoaDon);
+    }
 }

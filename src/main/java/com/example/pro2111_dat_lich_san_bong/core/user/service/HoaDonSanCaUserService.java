@@ -12,4 +12,8 @@ public interface HoaDonSanCaUserService {
     void saveAllHoaDonSanCa(List list);
 
     void saveHoaDonSanCa(HoaDonSanCa hoaDonSanCa);
+
+    List findAllByIdHoaDon(String idHoaDon);
+
+    void deleteAllByIdHoaDon(String idHoaDon);
 }
