@@ -2,6 +2,7 @@ package com.example.pro2111_dat_lich_san_bong.core.admin.serviver;
 
 import com.example.pro2111_dat_lich_san_bong.core.admin.model.response.QuanLyGiaoCaResponse;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiGiaoCa;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
@@ -21,4 +22,6 @@ public interface GiaoCaAdminService {
     QuanLyGiaoCaResponse findGiaoCaByIdAndStatus(TrangThaiGiaoCa trangThaiGiaoCa, String id);
 
     List<QuanLyGiaoCaResponse> findAllGiaoCaAndOrderByTimeNhanCa();
+
+    void  exportExcel(HttpServletResponse response,List<QuanLyGiaoCaResponse> list);
 }

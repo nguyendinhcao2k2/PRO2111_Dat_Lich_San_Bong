@@ -18,6 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author caodinh
@@ -64,7 +67,7 @@ public class DoThueRestController {
     @PostMapping("/upload-image")
     public void loadImage(@RequestBody MultipartFile file) {
         try {
-           String tb =  uploadImg.uploadImg(file);
+            String tb = uploadImg.uploadImg(file);
             System.out.println(tb);
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,10 +92,10 @@ public class DoThueRestController {
         try {
             response.setContentType("application/octet-stream");
             String headerKey = "Content-Disposition";
-            String headerValue = "attachment; filename=MauImportExcelDoThue" + "." + "xlsx";
+            String headerValue = "attachment; filename=DoThue" + "." + "xlsx";
             response.setHeader(headerKey, headerValue);
-            doThueService.exprotExcel(response);
-        }catch (Exception e) {
+            doThueService.exprotExcel(response, doThueService.findAll());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

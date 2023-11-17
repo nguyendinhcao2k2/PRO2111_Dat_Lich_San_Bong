@@ -27,5 +27,5 @@ public interface DoThueService {
 
     boolean nuocUongImportExcel(MultipartFile file) throws IOException;
 
-    void exprotExcel(HttpServletResponse response) throws IOException;
+    void exprotExcel(HttpServletResponse response,List<DoThue> doThueList) throws IOException;
 }
