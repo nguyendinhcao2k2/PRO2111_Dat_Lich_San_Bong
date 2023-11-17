@@ -2,13 +2,12 @@ package com.example.pro2111_dat_lich_san_bong.core.user.repository;
 
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.HoaDonUserResponse;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
-import com.example.pro2111_dat_lich_san_bong.entity.ThoiGianDatLich;
 import com.example.pro2111_dat_lich_san_bong.repository.HoaDonRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author thepvph20110
@@ -27,5 +26,5 @@ public interface HoaDonUserRepository extends HoaDonRepository {
             """)
     List<HoaDonUserResponse> findHoaDonByChoXacNhanAndAccHT(@Param("idAccountHT") String idAccount);
 
-
+    Optional<HoaDon> findById(String idHoaDon);
 }
