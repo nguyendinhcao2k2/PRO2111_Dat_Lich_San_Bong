@@ -18,4 +18,9 @@ public interface HoaDonUserService {
 
     HoaDon findHoaDonById(String idHoaDon);
 
+    List findAllByIdAccountAndTrangThai(String idAccount,Integer trangThai);
+
+    void updateHoaDon(HoaDon hoaDon);
+
+    void deleteHoaDonById(String idHoaDon);
 }

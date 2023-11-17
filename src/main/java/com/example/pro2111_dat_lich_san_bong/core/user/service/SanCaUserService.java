@@ -23,4 +23,6 @@ public interface SanCaUserService {
     void saveAllSanCa(List list);
 
     SanCa findSanCaById(String id);
+
+    void deleteSanCaById(String idSanCa);
 }
