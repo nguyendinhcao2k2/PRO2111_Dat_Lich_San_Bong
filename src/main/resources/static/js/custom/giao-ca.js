@@ -179,7 +179,8 @@ var app = new Vue({
             );
             if (event.target.value === "" || event.target.value == 0) {
                 this.total = this.curenlyNumber(app.giaoCaStaff.tongTienMatTrongCa);
-                this.giaoCaStaff.tongTienTrongCa = this.curenlyNumber(parseFloat(this.repleaPriceDouble(this.total)) + parseFloat(this.repleaPriceDouble(this.giaoCaStaff.tienBanDau)));
+                this.giaoCaStaff.tongTienTrongCa = this.curenlyNumber(parseFloat(this.repleaPriceDouble(this.total)));
+                // this.giaoCaStaff.tongTienTrongCa = this.curenlyNumber(parseFloat(this.repleaPriceDouble(this.total)) + parseFloat(this.repleaPriceDouble(this.giaoCaStaff.tienBanDau)));
                 this.isDisable = true;
             } else {
                 var price = parseFloat(this.giaoCaStaff.tongTienMatTrongCa) - parseFloat(event.target.value.replace(/\./g, ""));

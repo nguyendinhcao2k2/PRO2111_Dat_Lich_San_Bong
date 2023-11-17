@@ -22,16 +22,10 @@ import java.util.List;
  * @author caodinh
  */
 public class DoThueExportExcel {
-    private static XSSFWorkbook workbook = new XSSFWorkbook();
-    private static XSSFSheet sheet;
-
-    @Autowired
-    private static DoThueService doThueService;
-
     // create header Line
-    private static void writeHeader() {
+    private static void writeHeader(XSSFWorkbook workbook) {
 
-        sheet = workbook.createSheet("Đồ Thuê");
+        XSSFSheet sheet  = workbook.createSheet("DoThue");
         Row row = sheet.createRow(0);
 
         CellStyle cellStyle = workbook.createCellStyle();
@@ -41,14 +35,16 @@ public class DoThueExportExcel {
         cellStyle.setFont(font);
 
         createCell(row, 0, "STT", cellStyle);
-        createCell(row, 1, "Đơn Giá", cellStyle);
-        createCell(row, 2, "Số Lượng", cellStyle);
-        createCell(row, 3, "Tên Đồ Thuê", cellStyle);
+        createCell(row, 1, "Tên Đồ Thuê", cellStyle);
+        createCell(row, 2, "Ảnh", cellStyle);
+        createCell(row, 3, "Đơn Giá", cellStyle);
+        createCell(row, 4, "Số Lượng", cellStyle);
+
     }
 
     private static void createCell(Row row, int countColumn, Object value, CellStyle cellStyle) {
         // TODO Auto-generated method stub
-        sheet.autoSizeColumn(countColumn);
+        row.getSheet().autoSizeColumn(countColumn);
         Cell cell = row.createCell(countColumn);
         if (value instanceof Double) {
             cell.setCellValue((Double) value);
@@ -61,34 +57,33 @@ public class DoThueExportExcel {
     }
 
     //    thêm
-    public static void writeData() {
-        int rowCount = 1;
+    public static void writeData(XSSFWorkbook workbook,List<DoThue> doThueList) {
+        XSSFSheet sheet = workbook.getSheetAt(0);
+        int rowCount = sheet.getLastRowNum() + 1;
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setFontHeight(14);
         style.setFont(font);
-        List<DoThue> doThueList = new ArrayList<DoThue>();
-        doThueList.add(new DoThue("564654654", "ád", "5345", 6546, 5345.5, 0));
-        doThueList.add(new DoThue("564654654", "ád", "5345", 6546, 5345.5, 0));
-        doThueList.add(new DoThue("564654654", "ád", "5345", 6546, 5345.5, 0));
-        doThueList.add(new DoThue("564654654", "ád", "5345", 6546, 5345.5, 0));
         int index = 0;
         for (DoThue items : doThueList) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
             createCell(row, columnCount++, index++, style);
+            createCell(row, columnCount++, items.getTenDoThue(), style);
+            createCell(row, columnCount++, items.getImage(), style);
             createCell(row, columnCount++, items.getDonGia(), style);
             createCell(row, columnCount++, items.getSoLuong(), style);
-            createCell(row, columnCount++, items.getTenDoThue(), style);
+
 
         }
     }
 //    them
 
-    public static void exportData(HttpServletResponse response) throws IOException {
+    public static void exportData(HttpServletResponse response, List<DoThue> doThueList) throws IOException {
         // calling method headerLine
-        writeHeader();
-        writeData();
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        writeHeader(workbook);
+        writeData(workbook,doThueList);
         // calling methods writedataline
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);

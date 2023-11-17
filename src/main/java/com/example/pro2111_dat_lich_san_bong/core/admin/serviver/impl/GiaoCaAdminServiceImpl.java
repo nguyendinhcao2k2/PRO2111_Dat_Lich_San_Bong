@@ -1,9 +1,11 @@
 package com.example.pro2111_dat_lich_san_bong.core.admin.serviver.impl;
 
+import com.example.pro2111_dat_lich_san_bong.core.admin.excel.GiaoCaExportExcel;
 import com.example.pro2111_dat_lich_san_bong.core.admin.model.response.QuanLyGiaoCaResponse;
 import com.example.pro2111_dat_lich_san_bong.core.admin.reposiotry.GiaoCaAdminRepository;
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.GiaoCaAdminService;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiGiaoCa;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -79,5 +81,14 @@ public class GiaoCaAdminServiceImpl implements GiaoCaAdminService {
             return null;
         }
 
+    }
+
+    @Override
+    public void exportExcel(HttpServletResponse response, List<QuanLyGiaoCaResponse> list) {
+        try {
+            GiaoCaExportExcel.exportData(response, list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
