@@ -70,7 +70,7 @@
 
         .scrollable-table tbody tr {
             display: table;
-            width: 100%;
+            width: 100%;T
             table-layout: fixed;
             border-collapse: collapse;
             border-spacing: 1; /* Loại bỏ khoảng trống giữa các ô của dòng */
@@ -293,7 +293,23 @@
 
                                                                 </tbody>
                                                             </table>
-
+                                                            <div>
+                                                                <div class="row g-3">
+                                                                    <div class="col">
+                                                                        <h5
+                                                                        >
+                                                                            Tổng tiền:
+                                                                        </h5>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <h5
+                                                                                class=" text-center"
+                                                                        >
+                                                                            600000 VND
+                                                                        </h5>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
                                                         </div>
                                                     </div>
@@ -1829,7 +1845,7 @@
                 const addNewRow = `
                         <tr>
                             <td style="width: 270px;">${comboboxCa}</td>
-                            <td><input type="date" class="form-control" id="datepicker"></td>
+                            <td ><input type="date" class="form-control" id="datepicker"></td>
                             <td>New giá</td>
                             <td class="rowOrd">
                                 <button class="btn btn-primary btn-sm add-row">Thêm ca</button>

@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface DoThueAdminRepository extends JpaRepository<DoThue, String> {
 
-    @Query(value = "SELECT id as id,don_gia as donGia,so_luong as soLuong,ten_do_thue as tenDoThue FROM do_thue;", nativeQuery = true)
+    @Query(value = "SELECT id as id,don_gia as donGia,so_luong as soLuong,ten_do_thue as tenDoThue,image as image FROM do_thue;", nativeQuery = true)
     Page<DoThueResponse> findAllDoThue(PageRequest request);
 
 }

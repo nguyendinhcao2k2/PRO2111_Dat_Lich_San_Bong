@@ -22,4 +22,6 @@ public interface DoThueResponse {
     @Value("#{target.tenDoThue}")
     String getTenDoThue();
 
+    @Value("#{target.image}")
+    String getImage();
 }
