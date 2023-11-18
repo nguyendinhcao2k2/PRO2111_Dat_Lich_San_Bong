@@ -1,148 +1,519 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html
+        lang="en"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:v="urn:schemas-microsoft-com:vml"
+        xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:th="http://www.thymeleaf.org"
+>
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Bootstrap demo</title>
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <title></title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link
+            href="https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700"
+            rel="stylesheet"
+    />
+
+    <!-- CSS Reset : BEGIN -->
+    <style>
+        /* What it does: Remove spaces around the email design added by some email clients. */
+        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+        html,
+        body {
+            margin: 0 auto !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+            background: #f1f1f1;
+        }
+
+        /* What it does: Stops email clients resizing small text. */
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* What it does: Centers email on Android 4.4 */
+        div[style*="margin: 16px 0"] {
+            margin: 0 !important;
+        }
+
+        /* What it does: Stops Outlook from adding extra spacing to tables. */
+        table,
+        td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+        }
+
+        /* What it does: Fixes webkit padding issue. */
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            margin: 0 auto !important;
+        }
+
+        /* What it does: Uses a better rendering method when resizing images in IE. */
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
+        a {
+            text-decoration: none;
+        }
+
+        /* If the above doesn't work, add a .g-img class to any image in question. */
+        img.g-img + div {
+            display: none !important;
+        }
+
+        /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+        /* Create one of these media queries for each additional viewport size you'd like to fix */
+
+        /* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
+        @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+            u ~ div .email-container {
+                min-width: 320px !important;
+            }
+        }
+        /* iPhone 6, 6S, 7, 8, and X */
+        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+            u ~ div .email-container {
+                min-width: 375px !important;
+            }
+        }
+        /* iPhone 6+, 7+, and 8+ */
+        @media only screen and (min-device-width: 414px) {
+            u ~ div .email-container {
+                min-width: 414px !important;
+            }
+        }
+    </style>
+
+    <!-- CSS Reset : END -->
+
+    <!-- Progressive Enhancements : BEGIN -->
+    <style>
+
+        .bg_white {
+            background: #ffffff;
+        }
+        .bg_light {
+            background: #f7fafa;
+        }
+
+
+        .email-section {
+            padding: 2.5em;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Work Sans", sans-serif;
+            color: #000000;
+            margin-top: 0;
+            font-weight: 400;
+        }
+
+        body {
+            font-family: "Work Sans", sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        a {
+            color: #2124b1;
+        }
+
+        .logo h1 {
+            text-align: center;
+            margin: 0;
+        }
+
+        .logo h1 a {
+            color: #2124b1;
+            font-size: 24px;
+            font-weight: 700;
+            font-family: "Work Sans", sans-serif;
+        }
+
+
+        /*HERO*/
+        .hero {
+            position: relative;
+            z-index: 0;
+        }
+
+        .hero .text {
+            color: rgba(0, 0, 0, 0.3);
+        }
+        .hero .text h2 {
+            text-align: center;
+            color: #000;
+            font-size: 34px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+        .hero .text h3 {
+            font-size: 24px;
+            font-weight: 200;
+        }
+        .hero .text h2 span {
+            font-weight: 600;
+            color: #000;
+        }
+
+        /*PRODUCT*/
+        .product-entry {
+            display: block;
+            position: relative;
+            float: left;
+            padding-top: 15px;
+        }
+        .product-entry .text {
+            /* width: calc(100% - 125px); */
+            padding-left: 5px;
+        }
+        .product-entry .text h3 {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .product-entry .text p {
+            margin-top: 0;
+        }
+
+        /*FOOTER*/
+
+        .footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            color: rgba(0, 0, 0, 0.5);
+        }
+        .footer .heading {
+            color: #000;
+            font-size: 20px;
+        }
+        .footer ul {
+            margin: 0;
+            padding: 0;
+        }
+        .footer ul li {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .footer ul li a {
+            color: rgba(0, 0, 0, 1);
+        }
+
+        @media screen and (max-width: 500px) {
+        }
+    </style>
 </head>
-<style>
-    @import url("https://fonts.googleapis.com/css?family=Roboto:300,400");
 
-    .contenido {
-        margin: 30px auto;
-        max-height: 100%;
-        max-width: 245px;
-        overflow: hidden;
-        box-shadow: 0 0 10px rgb(202, 202, 204);
-
-        border-radius: 2px;
-    }
-
-    .details {
-        padding: 26px;
-        background: white;
-        border-top: 1px dashed #c3c3c3;
-    }
-
-    .tinfo {
-        font-size: 0.5em;
-        font-weight: 300;
-        color: #c3c3c3;
-        font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin: 7px 0;
-    }
-
-    .tdata {
-        font-size: 0.7em;
-        font-weight: 400;
-        font-family: "Roboto", sans-serif;
-        letter-spacing: 0.5px;
-        margin: 7px 0;
-    }
-
-    .name {
-        font-size: 1.3em;
-        font-weight: 300;
-    }
-
-    a {
-        text-decoration: none;
-        color: #55c9e6;
-        font-weight: 400;
-        font-family: "Roboto", sans-serif;
-        letter-spacing: 0.7px;
-        font-size: 0.7em;
-    }
-
-    .hqr {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
-        margin: 0px auto;
-    }
-
-    .left-one {
-        background-repeat: no-repeat;
-        background-image: radial-gradient(
-                circle at 0 96%,
-                rgba(0, 0, 0, 0) 0.2em,
-                gray 0.3em,
-                white 0.1em
-        );
-    }
-
-    .right-one {
-        background-repeat: no-repeat;
-        background-image: radial-gradient(
-                circle at 100% 96%,
-                rgba(0, 0, 0, 0) 0.2em,
-                gray 0.3em,
-                white 0.1em
-        );
-    }
-
-    .column {
-        display: table-cell;
-        padding: 10px 0px;
-    }
-</style>
-<body>
-<!-- start -->
-<div class="contenido" >
-    <div class="ticket">
-        <div style="text-transform: uppercase; text-align: center">
-            Phiếu đặt lịch Sân bóng đồng đế
-        </div>
-        <div class="hqr">
-            <div class="column left-one"></div>
-
-            <div class="column right-one"></div>
-        </div>
-
-        <div class="details">
-            <div class="tinfo">người đặt</div>
-            <div class="tdata name" th:text="${nguoiDat}"></div>
-            <div class="tinfo">số điện thoại</div>
-            <div class="tdata" th:text="${sdt}"></div>
-            <div class="tinfo">thời gian đặt</div>
-            <div class="tdata" th:text="${timeDat}"></div>
-            <div class="masinfo">
-                <div class="left">
-                    <div class="tinfo">Thời gian</div>
-                    <div class="tdata nesp">
-                        <ul th:each="items : ${thoiGian}">
-                            <li th:text="${items}"></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body style="
+      width: 100%;
+      margin: 0;
+      padding: 0 !important;
+      mso-line-height-rule: exactly;
+      background-color: #f1f1f1;
+    "
+>
+<div style="width: 100%; background-color: #f1f1f1">
+    <div
+            style="
+          display: none;
+          font-size: 1px;
+          max-height: 0px;
+          max-width: 0px;
+          opacity: 0;
+          overflow: hidden;
+          mso-hide: all;
+          font-family: sans-serif;
+        "
+    >
+        &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+    </div>
+    <div style="max-width: 600px; margin: 0 auto" class="email-container">
+        <!-- BEGIN BODY -->
+        <table
+                role="presentation"
+                cellspacing="0"
+                cellpadding="0"
+                width="100%"
+                style="margin: auto"
+        >
+            <tr>
+                <td
+                        valign="top"
+                        class="bg_white"
+                        style="padding: 1em 2.5em 0 2.5em"
+                >
+                    <table
+                            role="presentation"
+                            cellpadding="0"
+                            cellspacing="0"
+                            width="100%"
+                    >
+                        <tr>
+                            <td class="logo">
+                                <h1>
+                                    <a href="#"> Đồng Đế Stadium</a>
+                                </h1>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <!-- end tr -->
+            <tr>
+                <td
+                        valign="middle"
+                        class="hero bg_white"
+                        style="padding: 1.5em 0 1em 0"
+                >
+                    <table
+                            role="presentation"
+                            cellpadding="0"
+                            cellspacing="0"
+                            width="100%"
+                    >
+                        <tr>
+                            <td style="padding: 0 2.5em; text-align: left">
+                                <div class="text">
+                                    <h2>Phiếu Đặt Lịch Sân Bóng</h2>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <!-- end tr -->
+            <tr>
+                <table
+                        class="bg_white"
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                        width="100%"
+                >
+                    <!-- Tên người đặt -->
+                    <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.05)">
+                        <td
+                                valign="middle"
+                                width="50%"
+                                style="text-align: left; padding: 0 2.5em"
+                        >
+                            <div class="product-entry">
+                                <div class="text">
+                                    <h3>Tên khách đặt :</h3>
+                                </div>
+                            </div>
+                        </td>
+                        <td
+                                valign="middle"
+                                width="50%"
+                                style="text-align: left; padding: 0 2.5em"
+                        >
+                            <div class="product-entry">
+                                <div class="text">
+                                    <h3 th:text="${nguoiDat}">Nguyễn Anh Tú</h3>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- số điện thoại -->
+                    <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.05)">
+                        <td
+                                valign="middle"
+                                width="50%"
+                                style="text-align: left; padding: 0 2.5em"
+                        >
+                            <div class="product-entry">
+                                <div class="text">
+                                    <h3>Số điện thoại :</h3>
+                                </div>
+                            </div>
+                        </td>
+                        <td
+                                valign="middle"
+                                width="50%"
+                                style="text-align: left; padding: 0 2.5em"
+                        >
+                            <div class="product-entry">
+                                <div class="text">
+                                    <h3 th:text="${sdt}">0915288985</h3>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- thời gian đặt -->
+                    <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.05)">
+                        <td
+                                valign="middle"
+                                width="50%"
+                                style="text-align: left; padding: 0 2.5em"
+                        >
+                            <div class="product-entry">
+                                <div class="text">
+                                    <h3>Thời gian đặt :</h3>
+                                </div>
+                            </div>
+                        </td>
+                        <td
+                                valign="middle"
+                                width="50%"
+                                style="text-align: left; padding: 0 2.5em"
+                        >
+                            <div class="product-entry">
+                                <div class="text">
+                                    <h3 th:text="${timeDat}">09:00:00</h3>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Thời gian đá -->
+                    <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.05)">
+                        <td
+                                valign="middle"
+                                width="50%"
+                                style="text-align: left; padding: 0 2.5em"
+                        >
+                            <div class="product-entry">
+                                <div class="text">
+                                    <h3>Thời gian đá :</h3>
+                                </div>
+                            </div>
+                        </td>
+                        <td
+                                valign="middle"
+                                width="70%"
+                                style="text-align: left; padding: 0 2.5em"
+                        >
+                            <div class="product-entry">
+                                <div class="text">
+                                    <div class="tdata nesp">
+                                        <ul
+                                                th:each="items : ${thoiGian}"
+                                                style="color: black; font-size: 1.17em"
+                                        >
+                                            <li th:text="${items}">90</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </tr>
+            <!-- end tr -->
+            <!-- 1 Column Text + Button : END -->
+        </table>
+        <table
+                role="presentation"
+                cellspacing="0"
+                cellpadding="0"
+                width="100%"
+                style="margin: auto"
+        >
+            <tr>
+                <td valign="middle" class="bg_light footer email-section">
+                    <table>
+                        <tr>
+                            <td valign="top" width="33.333%" style="padding-top: 20px">
+                                <table
+                                        role="presentation"
+                                        cellspacing="0"
+                                        cellpadding="0"
+                                        width="100%"
+                                >
+                                    <tr>
+                                        <td style="text-align: left; padding-right: 10px">
+                                            <h3 class="heading">Về Chúng Tôi</h3>
+                                            <p>
+                                                Sân Bóng Đồng Đế được phát triển và hình thành từ tháng 01/11/2021, bởi các đội ngũ thành viên
+                                                giàu kinh nghiệm trong lĩnh vực thể thao, do nhu cầu tăng cao, chúng tôi khởi tạo nên cho anh em một sân chơi lành mạnh từ đó chúng tôi đã phát triển ra Website đặt lịch cho khách hàng.
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td valign="top" width="33.333%" style="padding-top: 20px">
+                                <table
+                                        role="presentation"
+                                        cellspacing="0"
+                                        cellpadding="0"
+                                        width="100%"
+                                >
+                                    <tr>
+                                        <td
+                                                style="
+                                                        text-align: left;
+                                                        padding-left: 5px;
+                                                        padding-right: 5px;
+                                                      "
+                                        >
+                                            <h3 class="heading">Thông Tin Liên Hệ</h3>
+                                            <ul>
+                                                <li>
+                                                      <span class="text"
+                                                      >FPT-POLYTECHNIC Trịnh Văn Bô, Nam Từ Liêm, Hà
+                                                        Nội</span
+                                                      >
+                                                </li>
+                                                <li>
+                                                    <span class="text">Đặng Văn Sỹ - 092348283</span>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td valign="top" width="33.333%" style="padding-top: 20px">
+                                <table
+                                        role="presentation"
+                                        cellspacing="0"
+                                        cellpadding="0"
+                                        width="100%"
+                                >
+                                    <tr>
+                                        <td style="text-align: left; padding-left: 10px">
+                                            <h3 class="heading">Website Đặt Lịch</h3>
+                                            <ul>
+                                                <li><a href="#">Trang chủ</a></li>
+                                                <li><a href="#">Đặt lịch</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <!-- end: tr -->
+            <tr>
+                <td class="bg_white" style="text-align: center">
+                    <p>
+                        Sân Bóng Đồng Đế - Liên hệ : 0369569225
+                        <a href="#" style="color: rgba(0, 0, 0, 0.8)"></a>
+                    </p>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
-
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"
-></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"
-></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"
-></script>
 </body>
 </html>
