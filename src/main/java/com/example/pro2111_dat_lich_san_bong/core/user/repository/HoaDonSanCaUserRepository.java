@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.repository;
 
 import com.example.pro2111_dat_lich_san_bong.repository.HoaDonSanCaReponsitory;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -13,6 +14,7 @@ public interface HoaDonSanCaUserRepository extends HoaDonSanCaReponsitory {
 
     List findAllByIdHoaDon(String idHoaDon);
 
+    @Modifying
     @Query(value = """
         delete from hoa_don_san_ca where id_hoa_don =:request
     """,nativeQuery = true)
