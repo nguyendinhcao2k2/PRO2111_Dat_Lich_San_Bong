@@ -76,19 +76,55 @@ function createMultipleToasts(toastsArray) {
     document.body.appendChild(toastContainer);
 }
 
-// Example usage: Create and show multiple toasts
-// const toastsArray = [
-//     ["bg-success", "Error 1", "Description 1"],
-//     ["bg-success", "Error 2", "Description 2"],
-//     ["bg-success", "Error 3", "Description 3"],
-//     ["bg-success", "Error 4", "Description 4"],
-//     ["bg-success", "Error 5", "Description 5"],
-//     ["bg-danger", "Combined Error", "Combined Description"],
-//     ["bg-warning", "Warning 1", "Warning Description 1"],
-//     ["bg-warning", "Warning 2", "Warning Description 2"],
-//     ["bg-warning", "Warning 3", "Warning Description 3"],
-//     ["bg-warning", "Warning 4", "Warning Description 4"],
-//     ["bg-warning", "Warning 5", "Warning Description 5"],
-// ];
+function createAndShowToast(backGround, headerText, bodyText) {
+    const toastContainer = document.getElementById("toastContainer");
+    const toastsContainer = document.getElementById("toasts");
+    const maxToasts = 5;
+    const toastsArray = [];
+    let toastCounter = 1;
 
-// createMultipleToasts(toastsArray);
+        toastCounter++;
+        const toast = document.createElement("div");
+        toast.className = "toast mb-2";
+        toast.setAttribute("role", "alert");
+        toast.setAttribute("aria-live", "assertive");
+        toast.setAttribute("aria-atomic", "true");
+
+        toast.innerHTML = `
+          <div class="toast-header  ${backGround}" style="border-radius:5px 5px 0px 0px">
+            <div class="mx-1">
+              <i class="far fa-futbol fa-lg" style="color: #ffffff"></i>
+            </div>
+            <strong class="me-auto" style="color: #ffffff">${headerText}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body p-2" style="color: black; font-size: 14px;background-color: #ffffff;border-radius:0px 0px 5px 5px ">
+            ${bodyText}
+          </div>
+        `;
+
+        // thằng bố add thằng toast là con
+        toastContainer.appendChild(toast);
+
+        // hiển thị toast
+        const toastInstance = new bootstrap.Toast(toast, {
+            animation: true,
+            autohide: true,
+            delay: 5000,
+        });
+
+        // hiển thị ra toast
+        toastInstance.show();
+
+        toastsArray.forEach((toast) => {
+            toast.addEventListener("hidden.bs.toast", function () {
+                toast.remove();
+                // Remove the container if there are no toasts left
+                if (toastInnerContainer.childElementCount === 0) {
+                    toastContainer.remove();
+                }
+            });
+        });
+
+        toastsArray.push(toast);
+}
