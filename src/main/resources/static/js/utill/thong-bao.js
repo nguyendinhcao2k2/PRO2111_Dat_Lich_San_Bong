@@ -31,16 +31,16 @@ function createMultipleToasts(toastsArray) {
             toast.setAttribute("aria-live", "assertive");
             toast.setAttribute("aria-atomic", "true");
 
-            // Customize the toast content as needed
+            // Customize the toast content as needed5
             toast.innerHTML = `
-                                <div class="toast-header ${headerBackgroundColor}">
+                                <div style="border-radius:5px 5px 0px 0px" class="toast-header ${headerBackgroundColor}">
                                   <div class="m-2">
                                     <i class="far fa-futbol fa-lg" style="color: #ffffff"></i>
                                   </div>
                                   <strong style="color: #ffffff; font-size: 17px" class="me-auto">${headerText}</strong>
                                   <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
-                                <div class="toast-body" style="color: black; font-size: 14px;background-color: #ffffff;border-radius:0px 0px 12px 12px ">
+                                <div class="toast-body" style="color: black; font-size: 14px;background-color: #ffffff;border-radius:0px 0px 12px 12px">
                                   ${bodyText}
                                 </div>
                               `;

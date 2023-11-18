@@ -455,10 +455,12 @@
                                                         <div class="modal-dialog modal-fullscreen">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Nhân viên Check in</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                                        Nhân viên Check in
+                                                                    </h5>
                                                                     <button
                                                                             type="button"
-                                                                            class="btn-close"
+                                                                            class="btn-close close"
                                                                             data-bs-dismiss="modal"
                                                                             aria-label="Close"
                                                                     ></button>
@@ -466,22 +468,162 @@
                                                                 <div class="modal-body">
                                                                     <div class="row">
                                                                         <div class="col-md-3">
-
+                                                                            <div class="">
+                                                                                <h5>Quét QR</h5>
+                                                                            </div>
+                                                                            <hr />
+                                                                            <div>
+                                                                                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                                                                    <button
+                                                                                            class="start btn btn-primary btn-labeled"
+                                                                                            type="button"
+                                                                                            style="width: 9em"
+                                                                                    >
+                                                                                        Quét QR
+                                                                                    </button>
+                                                                                    <button
+                                                                                            class="close btn btn-danger btn-labeled"
+                                                                                            type="button"
+                                                                                            style="width: 9em"
+                                                                                    >
+                                                                                        Đóng QR
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="body-row-col mt-2" style="height: 350px">
+                                                                                <div class="camera-selection" style="display: none">
+                                                                                    <select id="cameraList" class="form-select mt-2"></select>
+                                                                                    <div class="qr">
+                                                                                        <video id="webcam" autoplay></video>
+                                                                                        <canvas id="canvas" style="display: none"></canvas>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                         <div class="col-md-9">
+                                                                            <div class="">
+                                                                                <h5>Danh sách</h5>
+                                                                            </div>
+                                                                            <hr />
+                                                                            <form class="row mb-3">
+                                                                                <label
+                                                                                        for="inputSearch"
+                                                                                        class="col-auto col-form-label text-center"
+                                                                                >Tìm kiếm :
+                                                                                </label>
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="input-group mb-3">
+                                                                                        <input
+                                                                                                id="inputSearch"
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                placeholder="Tìm kiếm theo tên, số điện thoại..."
+                                                                                                aria-label="Recipient's username"
+                                                                                                aria-describedby="button-addon2"
+                                                                                        />
+                                                                                        <button
+                                                                                                class="btn btn-success btn-outline-success"
+                                                                                                type="button"
+                                                                                                id="button-addon2"
+                                                                                                style="
+                                                                                                                  border-top-right-radius: 5px;
+                                                                                                                  border-bottom-right-radius: 5px;
+                                                                                                    "
 
+                                                                                        >
+                                                                                            <i
+                                                                                                    class="fas fa-search fa-lg"
+                                                                                                    style="color: #ffffff"
+                                                                                            ></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                            <div>
+                                                                                <table class="table table-hover">
+                                                                                    <thead>
+                                                                                    <tr>
+                                                                                        <th>STT</th>
+                                                                                        <th>Họ Tên</th>
+                                                                                        <th>Location</th>
+                                                                                        <th>Order Date</th>
+                                                                                        <th>Status</th>
+                                                                                        <th>Net Amount</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                    <tr>
+                                                                                        <td>5</td>
+                                                                                        <td>Martin Sommer ></td>
+                                                                                        <td>Paris</td>
+                                                                                        <td>Aug 04, 2017</td>
+                                                                                        <td>trạng thái</td>
+                                                                                        <td>$580</td>
+                                                                                        <td>
+                                                                                            <div class="d-flex flex-column">
+                                                                                                <button class="btn btn-success  btn-sm " type="button">
+                                                                                                    Check in
+                                                                                                </button>
+                                                                                                <button class="btn btn-primary   btn-sm mt-1" type="button">
+                                                                                                    Đổi sân
+                                                                                                </button>
+                                                                                                <button class="btn btn-outline-danger btn-sm mt-1" type="button">
+                                                                                                    Hủy lịch
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                                <div class="row">
+                                                                                    <div class="col">
+                                                                                        <div class="hint-text">
+                                                                                            <p style="color: #333">
+                                                                                                Hiển thị <b>5</b> / <b>25</b> bản ghi
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-6 d-flex justify-content-end">
+                                                                                        <nav aria-label="Page navigation example">
+                                                                                            <ul class="pagination ">
+                                                                                                <li class="page-item disabled">
+                                                                                                    <a
+                                                                                                            class="page-link"
+                                                                                                            href="#"
+                                                                                                            tabindex="-1"
+                                                                                                            aria-disabled="true"
+                                                                                                    >Previous</a
+                                                                                                    >
+                                                                                                </li>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link" href="#">1</a>
+                                                                                                </li>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link" href="#">2</a>
+                                                                                                </li>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link" href="#">3</a>
+                                                                                                </li>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link" href="#">Next</a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </nav>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button
                                                                             type="button"
-                                                                            class="btn btn-secondary"
+                                                                            class="btn btn-danger close btn-labeled"
                                                                             data-bs-dismiss="modal"
                                                                     >
-                                                                        Close
+                                                                        Đóng
                                                                     </button>
-                                                                    <button type="button" class="btn btn-primary">Save changes</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1241,5 +1383,9 @@
 <script th:src="@{/static/js/calendar/calendar-custom-book.js}"></script>
 <script th:src="@{/static/js/staff/nhan-vien-dat-lich.js}"></script>
 <script th:src="@{/static/js/staff/dat-lich.js}"></script>
+<!--QR code-->
+<script th:src="@{/static/js/custom/read-qrcode.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
+
 </body>
 </html>
