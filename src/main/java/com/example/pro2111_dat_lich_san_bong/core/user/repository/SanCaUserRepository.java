@@ -6,6 +6,7 @@ import com.example.pro2111_dat_lich_san_bong.core.user.model.response.SanCaUserR
 import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
 import com.example.pro2111_dat_lich_san_bong.repository.SanCaRepository;
 import org.hibernate.annotations.Parameter;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public interface SanCaUserRepository extends SanCaRepository {
 
     @Query(value = """
-        select sc.id_san_bong as 'idSanBong',
+        select sc.id, sc.id_san_bong as 'idSanBong',
         sc.gia,sc.trang_thai as'trangThai',
         c.ten_ca as'tenCa', c.thoi_gian_bat_dau as 'thoiGianBatDau',
         c.thoi_gian_ket_thuc as 'thoiGianKetThuc',
@@ -41,6 +42,7 @@ public interface SanCaUserRepository extends SanCaRepository {
 
     SanCa findAllById(String id);
 
+    @Modifying
     @Query(value = """
         delete from san_ca sc where sc.id =:request
     """,nativeQuery = true)

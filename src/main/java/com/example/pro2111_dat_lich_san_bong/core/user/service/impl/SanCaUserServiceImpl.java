@@ -125,6 +125,11 @@ public class SanCaUserServiceImpl implements SanCaUserService {
 
     @Override
     public void deleteSanCaById(String idSanCa) {
-        sanCaUserRepository.deleteSanCaById(idSanCa);
+        try {
+            sanCaUserRepository.deleteSanCaById(idSanCa);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

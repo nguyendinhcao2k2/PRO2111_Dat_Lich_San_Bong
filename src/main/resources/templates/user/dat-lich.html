@@ -212,6 +212,19 @@
                         <div class="col-md-6"></div>
                         <div class="col-md-6">
                             <div class="d-flex justify-content-end">
+                                <!--button đổi lịch-->
+                                <div>
+                                    <button
+                                            type="button"
+                                            class="button-header"
+                                            onclick=""
+                                    >
+                                        <span class="button__text">Đổi lịch</span>
+                                        <span class="button__icon">
+                                            <i class="fas fa-info"></i>
+                                        </span>
+                                    </button>
+                                </div>
                                 <div>
                                     <select class="select-loai-san" id="selectLoaiSan" onchange="resetEventByIdLoaiSan(this.value);">
                                         <option th:each="loaiSan : ${listLoaiSan}" th:selected="${loaiSan.tenLoaiSan == 'Sân 7'}"
@@ -601,6 +614,7 @@
                                 trangThai: 'ORD',
                                 classCustom: 'event-class-'+sanBong.trangThai,
                                 giaSan:sanBong.gia,
+                                idSanCa: sanBong.id,
                             },
                            /* editable: true,
                             idSanBong: sanBong.idSanBong,
@@ -942,7 +956,8 @@
                 endTimeVietnam,
                 formattedDate,
                 event.id,
-                event.extendedProps.trangThai
+                event.extendedProps.trangThai,
+                event.extendedProps.idSanCa
             );
         });
     }
@@ -959,7 +974,7 @@
 
     // LAMNP 20/10/2023 UPDATE TABLE
     // Hàm để thêm thông tin ca vào bảng
-    function addToTable(caInfo, timeStart, timeEnd, dateVietnam,eventId,statusEvent) {
+    function addToTable(caInfo, timeStart, timeEnd, dateVietnam,eventId,statusEvent,idSanCa) {
         // Create a row for the event information
         var rowInfo = tableBody.insertRow();
         var cell1 = rowInfo.insertCell(0);
@@ -1006,7 +1021,7 @@
                       <button class="btn btn-outline-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
                         Hủy lịch
                       </button>
-                      <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" type="button">
+                      <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" type="button" onclick="doiSanDetail('`+idSanCa+`')">
                         Đổi sân
                       </button>
                     </div>
