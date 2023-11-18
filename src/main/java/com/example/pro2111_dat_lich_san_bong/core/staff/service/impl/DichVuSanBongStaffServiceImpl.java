@@ -45,7 +45,7 @@ public class DichVuSanBongStaffServiceImpl implements IDichVuSanBongStaffService
         int doThueTrangThai = 2;
 
         for (NuocUong nuocUong : listNuocUongs) {
-            if (nuocUong.getTrangThai() == 0) {
+            if (nuocUong.getTrangThai() == 0 && nuocUong.getSoLuong() > 0) {
                 DoThueNuocUongDichVuRequest request = new DoThueNuocUongDichVuRequest();
                 request.setId(nuocUong.getId());
                 request.setImage(nuocUong.getImage());
@@ -58,7 +58,7 @@ public class DichVuSanBongStaffServiceImpl implements IDichVuSanBongStaffService
         }
 
         for (DoThue doThue : listDoThues) {
-            if (doThue.getTrangThai() == 0) {
+            if (doThue.getTrangThai() == 0 && doThue.getSoLuong() > 0) {
                 DoThueNuocUongDichVuRequest request = new DoThueNuocUongDichVuRequest();
                 request.setId(doThue.getId());
                 request.setImage(doThue.getImage());
