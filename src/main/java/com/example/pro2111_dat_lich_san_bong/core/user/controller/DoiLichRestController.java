@@ -200,7 +200,24 @@ public class DoiLichRestController {
             e.printStackTrace();
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.BAD_REQUEST, 0));
         }
+    }
 
+    @GetMapping("check-lick-dat")
+    public ResponseEntity<?> checkLichDat(
+            @RequestParam("idLS") String idLS,
+            @RequestParam("idCa") String idCa,
+            @RequestParam("ngayDoi") String ngayDoi
+    ) {
+        try {
+            int a = sanCaUserService.checkSanCa(idLS, idCa, ngayDoi);
+            if (a == 1) {
+                return ResponseEntity.ok(new BaseResponse<>(HttpStatus.ALREADY_REPORTED, 1));
+            }
+            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, 0));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.BAD_REQUEST, 2));
+        }
     }
 
 }

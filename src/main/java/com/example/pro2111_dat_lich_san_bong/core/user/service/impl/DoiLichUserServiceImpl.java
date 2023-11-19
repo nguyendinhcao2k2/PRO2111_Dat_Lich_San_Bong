@@ -3,11 +3,14 @@ package com.example.pro2111_dat_lich_san_bong.core.user.service.impl;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.DoiLichOneUserResponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.repository.DoiLichUserReponsitory;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.DoiLichUserService;
+import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanBongUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanCaUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.entity.SanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
+import com.example.pro2111_dat_lich_san_bong.entity.SysParam;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,9 @@ public class DoiLichUserServiceImpl implements DoiLichUserService {
 
     @Autowired
     private SanBongUserService sanBongUserService;
+
+    @Autowired
+    private SYSParamUserService sysParamUserService;
 
     @Override
     public DoiLichOneUserResponse findFirstByIdSanCa(String idSanCa) {
@@ -59,7 +65,8 @@ public class DoiLichUserServiceImpl implements DoiLichUserService {
     }
 
     private boolean demNgayCheck(long value) {
-        if (value >= 2) {
+        SysParam param = sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_DOI_LICH);
+        if (value >= Integer.valueOf(param.getValue())) {
             return true;
         }
         return false;

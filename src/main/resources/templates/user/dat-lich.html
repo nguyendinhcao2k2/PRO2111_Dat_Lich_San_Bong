@@ -220,7 +220,7 @@
                     <div class="row">
                         <div class="col-md-6"></div>
                         <div class="col-md-6">
-<!--                            thong bao-->
+                            <!--                            thong bao-->
                             <div
                                     id="toastContainer"
                                     class="position-fixed osition-absolute top-0 end-0 p-3"
@@ -228,7 +228,7 @@
                             >
                                 <div id="toasts" class="d-flex flex-column-reverse"></div>
                             </div>
-<!--                            thong bao end-->
+                            <!--                            thong bao end-->
                             <div class="d-flex justify-content-end">
                                 <!--button đổi lịch-->
                                 <div>
@@ -527,129 +527,139 @@
                             </div>
                         </div>
                         <!-- Modal doi lich one start -->
-                           <div class="modal" id="doiLichOne" style="overflow-y: auto;">
-                               <div class="modal-dialog modal-xl">
-                                   <div class="modal-content">
-                                       <div class="modal-header">
-                                           <h5 class="modal-title">Xác nhận đổi lịch</h5>
-                                           <button
-                                                   type="button"
-                                                   class="btn-close"
-                                                   data-bs-dismiss="modal"
-                                           ></button>
-                                       </div>
-                                       <div class="modal-body">
-                                           <div class="table-responsive">
-                                               <table class="table table-hover ">
-                                                   <tr>
-                                                       <th>Ca hiện tại</th>
-                                                       <th>Loại sân</th>
-                                                       <th>Ngày đá dự kiến</th>
-                                                       <th>Tiền sân cũ</th>
-                                                       <th>Ca muốn đổi</th>
-                                                       <th>Loại sân muốn đổi</th>
-                                                       <th>Ngày muốn đổi</th>
-                                                       <th>Tiền sân dự kiến</th>
-                                                       <th v-if="checkTienCoc() === 0" style="color: red">Tiền
-                                                           cọc còn thiếu
-                                                       </th>
-                                                       <th v-if="checkTienCoc() === 1" style="color: red">Tiền
-                                                           cọc thừa
-                                                       </th>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>{{lichDatCu.caHT}} - {{lichDatCu.thoiGianBatDau}} :
-                                                           {{lichDatCu.thoiGianKetThuc}}
-                                                       </td>
-                                                       <td>{{lichDatCu.loaiSan}}</td>
-                                                       <td>{{lichDatCu.ngayDaDuKien}}</td>
-                                                       <td>{{lichDatCu.tienSan}}</td>
-                                                       <td>
-                                                           <select class="form-selects "
-                                                                   aria-label="Default select example"
-                                                                   @change="selectCaDoiLich">
-                                                               <option v-for="items in listCa"
-                                                                       :selected="lichDatCu.idCa == items.id"
-                                                                       v-bind:value="items.id">{{items.tenCa}}
-                                                               </option>
-                                                           </select>
-                                                       </td>
-                                                       <td>
-                                                           <select class="form-selects "
-                                                                   aria-label="Default select example"
-                                                                   @change="selectLoaiSanDoiLich">
-                                                               <option v-for="items in listLoaiSan"
-                                                                       :selected="lichDatCu.idLoaiSan == items.id"
-                                                                       v-bind:value="items.id">{{items.tenLoaiSan}}
-                                                               </option>
-                                                           </select>
-                                                       </td>
-                                                       <td>
-                                                           <div class="input-group flex-nowrap">
-                                                               <input type="date" class="form-control ngayMuonDoi"
-                                                                      id="dateInput"
-                                                                      v-bind:value="lichDatCu.ngayDaDuKien"
-                                                                      aria-describedby="addon-wrapping">
-                                                           </div>
-                                                       </td>
-                                                       <td>{{tienPhaiTra}}</td>
-                                                       <td v-if="checkTienCoc() === 0" style="color: red"> <marquee>{{tinhTienCoc()}}</marquee>
-                                                       </td>
-                                                       <td v-if="checkTienCoc() === 1" style="color: red"><marquee>{{tinhTienCoc()}}</marquee>
-                                                       </td>
-                                                   </tr>
-                                               </table>
-                                           </div>
-                                       </div>
-                                       <div class="modal-footer">
-                                           <button
-                                                   type="button"
-                                                   class="btn btn-success btn-labeled "
-                                                   data-bs-toggle="modal" data-bs-target="#modalConfirmDoiLich"
-                                                   @click="btnXacNhanDoiLich"
-                                                   name="next"
-                                           >
-                                               Gửi
-                                               <i class="fas fa-check fa-lg"></i>
-                                           </button>
-                                           <button
-                                                   type="button"
-                                                   class="btn btn-danger btn-labeled closeModalFather"
-                                                   data-bs-dismiss="modal"
-                                           >
-                                               Đóng
-                                               <i class="fas fa-times fa-lg"></i>
-                                           </button>
-                                       </div>
-                                       <!-- Modal -->
-                                     <section class="modalCon">
-                                         <div class="modal fade" id="modalConfirmDoiLich" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                             <div class="modal-dialog">
-                                                 <form  id="formDoiLichOne" action="/api/v1/user/tien-coc/create-payment" method="post" >
-                                                     <input type="hidden" name="amount" v-model="tienCocThieu" >
-                                                     <input type="hidden"  name="orderInfo" v-model="noiDung" >
-                                                     <div class="modal-content">
-                                                         <div class="modal-header">
-                                                             <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
-                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                         </div>
-                                                         <div class="modal-body">
-                                                             Bạn có chắc chắn thực hiện hành động?
-                                                         </div>
-                                                         <div class="modal-footer">
-                                                             <button type="button" class="btn btn-secondary closeXacNhan" data-bs-dismiss="modal">Close</button>
-                                                             <button type="submit" class="btn btn-primary">Xác nhận</button>
-                                                         </div>
-                                                     </div>
-                                                 </form>
+                        <div class="modal" id="doiLichOne" style="overflow-y: auto;">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Xác nhận đổi lịch</h5>
+                                        <button
+                                                type="button"
+                                                class="btn-close"
+                                                data-bs-dismiss="modal"
+                                        ></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover ">
+                                                <tr>
+                                                    <th>Ca hiện tại</th>
+                                                    <th>Loại sân</th>
+                                                    <th>Ngày đá dự kiến</th>
+                                                    <th>Tiền sân cũ</th>
+                                                    <th>Ca muốn đổi</th>
+                                                    <th>Loại sân muốn đổi</th>
+                                                    <th>Ngày muốn đổi</th>
+                                                    <th>Tiền sân dự kiến</th>
+                                                    <th v-if="checkTienCoc() === 0" style="color: red">Tiền
+                                                        cọc còn thiếu
+                                                    </th>
+                                                    <th v-if="checkTienCoc() === 1" style="color: red">Tiền
+                                                        cọc thừa
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{lichDatCu.caHT}} - {{lichDatCu.thoiGianBatDau}} :
+                                                        {{lichDatCu.thoiGianKetThuc}}
+                                                    </td>
+                                                    <td>{{lichDatCu.loaiSan}}</td>
+                                                    <td>{{lichDatCu.ngayDaDuKien}}</td>
+                                                    <td>{{lichDatCu.tienSan}}</td>
+                                                    <td>
+                                                        <select class="form-selects "
+                                                                aria-label="Default select example"
+                                                                @change="selectCaDoiLich">
+                                                            <option v-for="items in listCa"
+                                                                    :selected="lichDatCu.idCa == items.id"
+                                                                    v-bind:value="items.id">{{items.tenCa}}
+                                                            </option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-selects "
+                                                                aria-label="Default select example"
+                                                                @change="selectLoaiSanDoiLich">
+                                                            <option v-for="items in listLoaiSan"
+                                                                    :selected="lichDatCu.idLoaiSan == items.id"
+                                                                    v-bind:value="items.id">{{items.tenLoaiSan}}
+                                                            </option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group flex-nowrap">
+                                                            <input type="date" class="form-control ngayMuonDoi"
+                                                                   id="dateInput"
+                                                                   v-bind:value="lichDatCu.ngayDaDuKien"
+                                                                   aria-describedby="addon-wrapping">
+                                                        </div>
+                                                    </td>
+                                                    <td>{{tienPhaiTra}}</td>
+                                                    <td v-if="checkTienCoc() === 0" style="color: red">
+                                                        <marquee>{{tinhTienCoc()}}</marquee>
+                                                    </td>
+                                                    <td v-if="checkTienCoc() === 1" style="color: red">
+                                                        <marquee>{{tinhTienCoc()}}</marquee>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button
+                                                type="button"
+                                                class="btn btn-success btn-labeled "
+                                                data-bs-toggle="modal" data-bs-target="#modalConfirmDoiLich"
+                                                @click="btnXacNhanDoiLich"
+                                                name="next"
+                                        >
+                                            Gửi
+                                            <i class="fas fa-check fa-lg"></i>
+                                        </button>
+                                        <button
+                                                type="button"
+                                                class="btn btn-danger btn-labeled closeModalFather"
+                                                data-bs-dismiss="modal"
+                                        >
+                                            Đóng
+                                            <i class="fas fa-times fa-lg"></i>
+                                        </button>
+                                    </div>
+                                    <!-- Modal -->
+                                    <section class="modalCon">
+                                        <div class="modal fade" id="modalConfirmDoiLich"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <form id="formDoiLichOne" action="/api/v1/user/tien-coc/create-payment"
+                                                      method="post">
+                                                    <input type="hidden" name="amount" v-model="tienCocThieu">
+                                                    <input type="hidden" name="orderInfo" v-model="noiDung">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thông
+                                                                báo</h1>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Bạn có chắc chắn thực hiện hành động?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary closeXacNhan"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-primary"
+                                                                    @click="findLichDat">Xác nhận
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
 
-                                             </div>
-                                         </div>
-                                     </section>
-                                       <!-- Modal -->
-                                   </div>
-                               </div>
-                           </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- Modal -->
+                                </div>
+                            </div>
+                        </div>
                         <!-- Modal doi lich one end -->
                     </div>
                 </div>
@@ -2207,7 +2217,7 @@
     const currentDate = new Date();
     const inputElement = document.getElementById('dateInput');
     inputElement.setAttribute('min', currentDate.toISOString().substring(0, 10));
-    $(document).ready(()=>{
+    $(document).ready(() => {
         callApiPhanTramTienCoc();
     });
 
@@ -2226,13 +2236,13 @@
                 if (response.statusCode == 'ALREADY_REPORTED') {
                     $("#doiLichOne").modal('hide');
                     $('.modal-backdrop').remove();
-                    createAndShowToast("bg-danger","Thông báo","Bạn không đủ điều kiện để đổi lịch này!");
+                    createAndShowToast("bg-danger", "Thông báo", "Bạn không đủ điều kiện để đổi lịch này!");
                     return;
                 }
                 if (response.statusCode == 'BAD_REQUEST') {
                     $("#doiLichOne").modal('hide');
                     $('.modal-backdrop').remove();
-                    createAndShowToast("bg-danger","Thông báo","Không thể thực hiện!");
+                    createAndShowToast("bg-danger", "Thông báo", "Không thể thực hiện!");
                     return;
                 }
 
@@ -2257,7 +2267,7 @@
                 if (modalDL.lichDatCu.countDoiLich === 1) {
                     $("#doiLichOne").modal('hide');
                     $('.modal-backdrop').remove();
-                    createAndShowToast("bg-danger","Thông báo","Bạn chỉ được đổi lịch 1 lần duy nhất! Cảm ơn!");
+                    createAndShowToast("bg-danger", "Thông báo", "Bạn chỉ được đổi lịch 1 lần duy nhất! Cảm ơn!");
                     return;
                 }
                 $('#doiLichOne').modal('show');
@@ -2318,7 +2328,7 @@
                 thoiGianBatDau: "",
                 thoiGianKetThuc: "",
                 giaSan: 0,
-                countDoiLich:0,
+                countDoiLich: 0,
             },
             ngayMuonDoi: "",
             tienPhaiTra: 0,
@@ -2329,7 +2339,7 @@
             tienCocThieu: 0,
             tienCocThua: 0,
             phanTramCoc: 0,
-            noiDung:"Tiền cọc",
+            noiDung: "Tiền cọc",
         },
         methods: {
             selectCaDoiLich(event) {
@@ -2354,22 +2364,55 @@
                 if (this.lichDatCu.ngayDaDuKien == $(".ngayMuonDoi").val()
                     && this.lichDatCu.idLoaiSan == this.checkLich.idLoaiSan
                     && this.lichDatCu.idCa == this.checkLich.idCa) {
-                    createAndShowToast("bg-warning","Thông báo","Lịch không có gì thay đổi! Vui lòng xem lại!");
+                    createAndShowToast("bg-warning", "Thông báo", "Lịch không có gì thay đổi! Vui lòng xem lại!");
                     // $('.closeXacNhan').click();
-                    $(".modalCon").prop("hidden",true);
+                    $(".modalCon").prop("hidden", true);
                     $('.modal-backdrop').remove();
                     return;
                 }
-                if(this.checkTienCoc() === 0){
-                    $(".modalCon").prop("hidden",false);
+                if (this.checkTienCoc() === 0) {
+                    $(".modalCon").prop("hidden", false);
                     return;
                 }
-                $(".modalCon").prop("hidden",true);
-                if(confirm("Bạn có chắc chắn thực hiện không?")){
+                if (!this.checkLichDat()) {
+                    return;
+                }
+                $(".modalCon").prop("hidden", true);
+                if (confirm("Bạn có chắc chắn thực hiện không?")) {
                     this.updateLichOne();
                 }
 
 
+            },
+            checkLichDat() {
+                //0: đang trống, 1: đã có đặt, 2: lỗi
+                let check = 0;
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8081/api/v1/user/doi-lich/check-lick-dat?idLS=" + this.lichDatCu.idLoaiSan + "&idCa=" + this.lichDatCu.idCa + "&ngayDoi=" + $(".ngayMuonDoi").val(),
+                    success: function (data) {
+                        if (data.statusCode.content === 1) {
+                            this.check = 1;
+                            return;
+                        }
+                        if (data.statusCode.content === 2) {
+                            this.check = 2;
+                            return;
+                        }
+                        check = 0;
+                    }, error: function (error) {
+                        createAndShowToast("bg-danger", "Thông báo", "Lỗi");
+                        console.log(error);
+                    }
+                });
+                if (this.check === 1) {
+                    createAndShowToast("bg-danger", "Thông báo", "Đã có lịch đặt");
+                    return false;
+                }
+                if (this.check === 2) {
+                    createAndShowToast("bg-danger", "Thông báo", "Lỗi");
+                    return false;
+                }
             },
             updateLichOne() {
                 $.ajax({
@@ -2389,11 +2432,36 @@
                     }),
                     success: function (response) {
                         window.location.reload();
-                        createAndShowToast("bg-success","Thông báo","Thao tác thành công!");
+                        createAndShowToast("bg-success", "Thông báo", "Thao tác thành công!");
                     },
                     error: function (error) {
                         console.log(error);
-                        createAndShowToast("bg-danger","Thông báo","Thao tác thất bại!");
+                        createAndShowToast("bg-danger", "Thông báo", "Thao tác thất bại!");
+                    }
+                })
+            },
+            findLichDat() {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8081/api/v1/user/tien-coc/one",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        idHDSC: this.lichDatCu.id,
+                        idCa: this.lichDatCu.idCa,
+                        idLoaiSan: this.lichDatCu.idLoaiSan,
+                        idSanBong: this.lichDatCu.idSanBong,
+                        tienSan: this.tienPhaiTra,
+                        ngayDoi: $(".ngayMuonDoi").val(),
+                        tienCocThieu: this.tienCocThieu,
+                        tienCocThua: this.tienCocThua
+                    }),
+                    success: function (response) {
+                        console.log(response)
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        createAndShowToast("bg-danger", "Thông báo", "Thao tác thất bại!");
                     }
                 })
             },
@@ -2406,10 +2474,10 @@
                 return 2;
             },
             tinhTienCoc() {
-                if (this.checkTienCoc() === 0 ) {
+                if (this.checkTienCoc() === 0) {
                     this.tienCocThieu = (parseFloat(this.tienPhaiTra) - parseFloat(this.lichDatCu.tienSan)) * (this.phanTramCoc / 100);
                     return this.tienCocThieu;
-                } else if (this.checkTienCoc() === 1 ) {
+                } else if (this.checkTienCoc() === 1) {
                     this.tienCocThua = (parseFloat(this.lichDatCu.tienSan) - parseFloat(this.tienPhaiTra)) * (this.phanTramCoc / 100);
                     return this.tienCocThua;
                 }
