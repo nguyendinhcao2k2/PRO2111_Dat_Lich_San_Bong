@@ -133,6 +133,7 @@ public class DatLichUserRestController extends BaseController {
                 sanCa.setThoiGianDat(LocalDateTime.now());
                 sanCa.setIdCa(idCa);
                 listSanCa.add(sanCa);
+                sanCaUserService.saveSanCa(sanCa);
 
                 HoaDonSanCa hoaDonSanCa = new HoaDonSanCa();
                 hoaDonSanCa.setIdHoaDon(hoaDonSave.getId());
@@ -146,7 +147,7 @@ public class DatLichUserRestController extends BaseController {
 
 
             thoiGianDLUserServiver.saveAllThoiGianDatLich(listTGDL);
-            sanCaUserService.saveAllSanCa(listSanCa);
+//            sanCaUserService.saveAllSanCa(listSanCa);
             hoaDonSanCaUserService.saveAllHoaDonSanCa(listHoaDonSanCa);
             HoDonDatLichResponse response = new HoDonDatLichResponse();
             response.setRemark("Thanh toan tien coc dat lich san bong");
