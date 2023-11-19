@@ -6,6 +6,7 @@ import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
     }
 
     @Override
+    @Transactional
     public void saveHoaDonSanCa(HoaDonSanCa hoaDonSanCa) {
         hoaDonSanCaUserRepository.save(hoaDonSanCa);
     }
@@ -37,5 +39,24 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
     @Transactional
     public void deleteAllByIdHoaDon(String idHoaDon) {
         hoaDonSanCaUserRepository.deleteAllByIdHoaDon(idHoaDon);
+    }
+
+    @Override
+    public HoaDonSanCa findById(String id) {
+        try {
+            return hoaDonSanCaUserRepository.findById(id).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public void deleteByIdHoaDonSanCa(String id) {
+        try {
+            hoaDonSanCaUserRepository.deleteById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
