@@ -4,11 +4,13 @@ import com.example.pro2111_dat_lich_san_bong.core.user.model.response.HoaDonUser
 import com.example.pro2111_dat_lich_san_bong.core.user.repository.HoaDonUserRepository;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author thepvph20110
@@ -36,7 +38,8 @@ public class HoaDonUserServiceImpl implements HoaDonUserService {
 
     @Override
     public HoaDon findHoaDonById(String idHoaDon) {
-        return hoaDonUserRepository.findById(idHoaDon).get();
+        Optional<HoaDon> optionalHoaDon= hoaDonUserRepository.findById(idHoaDon);
+        return optionalHoaDon.isPresent()?optionalHoaDon.get():new HoaDon();
     }
 
     @Override
@@ -50,6 +53,7 @@ public class HoaDonUserServiceImpl implements HoaDonUserService {
     }
 
     @Override
+    @Transactional
     public void deleteHoaDonById(String idHoaDon) {
         hoaDonUserRepository.deleteHoaDonById(idHoaDon);
     }

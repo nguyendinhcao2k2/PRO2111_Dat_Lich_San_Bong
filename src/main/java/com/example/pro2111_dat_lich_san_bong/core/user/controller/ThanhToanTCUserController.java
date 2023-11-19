@@ -1,9 +1,12 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.controller;
 
 import com.example.pro2111_dat_lich_san_bong.core.common.base.BaseController;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.runSchedule.RunJobHuyHDByOutTab;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.runSchedule.RunJobHuyLichSanCa;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.HoDonDatLichResponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonSanCaUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonUserService;
+import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanCaUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.ViTienUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
@@ -12,8 +15,10 @@ import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiViTien;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +61,12 @@ public class ThanhToanTCUserController extends BaseController {
     @Autowired
     private SanCaUserService  sanCaUserService;
 
+    @Autowired
+    private SYSParamUserService sysParamUserService;
+
+    @Autowired
+    private RunJobHuyHDByOutTab runJobHuyHDByOutTab;
+
 
     @PostMapping("/create-payment")
     public String submidOrder(@RequestParam(name = "HDrequest") String HDrequest,
@@ -63,12 +74,35 @@ public class ThanhToanTCUserController extends BaseController {
 
         HoDonDatLichResponse HDCreateBill = new ObjectMapper().readValue(HDrequest, HoDonDatLichResponse.class);
 
+        //thời gian hết thời gian giao dịch (tính bằng phút)
+        int miuteParam = Integer.valueOf(sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_HET_GD).getValue());
+
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+
+        //tạo ra 1 luồng mới để tạo job kiểm trả tg hết tg thanh toán
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //thêm 1 phút sau khi tắt tab thanh toán thì hủy hóa đơn
+                    Thread.sleep((miuteParam+1) * 60 * 1000);
+                    huyLichByThatBai(HDCreateBill.getIdHoaDon());
+                  //runJobHuyHDByOutTab.khaiBaoInfoJobHuyHoaDon(HDCreateBill.getIdHoaDon(), miuteParam+1);
+                } catch (Exception e) {
+                    // Handle exception
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+
         //đường dẫn kết quả thanh toán
         baseUrl+="/api/v1/user/thanh-toan/resul-payment";
         String vnpayUrl = vnPayService.createOrder(HDCreateBill.getTienCoc().intValue(),
-                HDCreateBill.getRemark(), baseUrl);
+                HDCreateBill.getRemark(), baseUrl,miuteParam);
+
         return "redirect:" + vnpayUrl;
+
     }
 
     @GetMapping("/resul-payment")
@@ -125,23 +159,34 @@ public class ThanhToanTCUserController extends BaseController {
 
             return "DemoVNPay/SuccessOder";
         }else {// thanh toán thất bại hoặc hết tg thanh toán
-            String idHoaDon = hoaDon.getId();
-            //lấy tất cả hóa đơn sân ca có idHoaDon
-            List<HoaDonSanCa> list = hoaDonSanCaUserService.findAllByIdHoaDon(idHoaDon);
-            for (HoaDonSanCa hoaDonSanCa: list
-                 ) {
-                String idSanCa = hoaDonSanCa.getIdSanCa();
-                sanCaUserService.deleteSanCaById(idSanCa);
-            }
-            hoaDonSanCaUserService.deleteAllByIdHoaDon(idHoaDon);
-            hoaDonUserService.deleteHoaDonById(idHoaDon);
+            huyLichByThatBai(hoaDon.getId());
 
             return "DemoVNPay/FailOder";
         }
 
-//        return paymentStatus == 1 ? "DemoVNPay/SuccessOder" : "DemoVNPay/FailOder";
     }
 
+    private void huyLichByThatBai(String idHoaDon){
+        try {
+            HoaDon hoaDon = hoaDonUserService.findHoaDonById(idHoaDon);
 
+            //kiểm tr có đúng hóa đơn và trạng thái mới tạo không
+            if(hoaDon != null && hoaDon.getTrangThai() != null
+                    && hoaDon.getTrangThai() == TrangThaiHoaDon.MOI_TAO.ordinal()){
+                //lấy tất cả hóa đơn sân ca có idHoaDon
+                List<HoaDonSanCa> list = hoaDonSanCaUserService.findAllByIdHoaDon(idHoaDon);
+                for (HoaDonSanCa hoaDonSanCa: list
+                ) {
+                    String idSanCa = hoaDonSanCa.getIdSanCa();
+                    sanCaUserService.deleteSanCaById(idSanCa);
+                }
+                hoaDonSanCaUserService.deleteAllByIdHoaDon(idHoaDon);
+                hoaDonUserService.deleteHoaDonById(idHoaDon);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 
 }

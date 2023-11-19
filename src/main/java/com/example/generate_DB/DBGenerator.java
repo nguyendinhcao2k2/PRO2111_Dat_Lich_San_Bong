@@ -113,6 +113,34 @@ public class DBGenerator implements CommandLineRunner {
         param1.setType("%"); //đơn vị của value
         param1.setId(sysParamRepository.save(param1).getId());
 
+
+        SysParam param2 = new SysParam();
+        param2.setCode(SYSParamCodeConstant.THOI_GIAN_HET_GD);
+        param2.setTrangThai(0); //đang hoạt động
+        param2.setName("Thời gian kết thúc giao dịch");
+        param2.setValue("30");
+        param2.setNote("giá trị (cột value) để tính thời gian thanh toán bằng vnpay hết thời gian này giao dịch thành thất bại");
+        param2.setType("phút"); //đơn vị của value
+        param2.setId(sysParamRepository.save(param2).getId());
+
+        SysParam param3 = new SysParam();
+        param3.setCode(SYSParamCodeConstant.THOI_GIAN_THONG_BAO);
+        param3.setTrangThai(0); //đang hoạt động
+        param3.setName("Thời gian gửi thông báo trước ca");
+        param3.setValue("30");
+        param3.setNote("giá trị (cột value) để tính thời gian gửi thông báo qua mail trước thời gian bắt đầu ca");
+        param3.setType("phút"); //đơn vị của value
+        param3.setId(sysParamRepository.save(param3).getId());
+
+        SysParam param4 = new SysParam();
+        param4.setCode(SYSParamCodeConstant.THOI_GIAN_DOI_LICH);
+        param4.setTrangThai(0); //đang hoạt động
+        param4.setName("Thời gian cho phép đổi lịch");
+        param4.setValue("1");
+        param4.setNote("giá trị (cột value) để tính thời gian cho phép người dùng đổi lích trước ngày đá");
+        param4.setType("ngày"); //đơn vị của value
+        param4.setId(sysParamRepository.save(param4).getId());
+
         //end bảng sys_param cấu hình phần mền
 
         //start chuc vu
@@ -174,6 +202,26 @@ public class DBGenerator implements CommandLineRunner {
         kh2.setIdChucVu(khachHangRole.getId());
         kh2.setTaiKhoan("account2");
         kh2.setId(accountRepository.save(kh2).getId());
+
+        Account nhanVien1 = new Account();
+        nhanVien1.setEmail("nhanVien1@gamil.com");
+        nhanVien1.setSoDienThoai("0312345678");
+        nhanVien1.setDisplayName("nhan vien 1");
+        nhanVien1.setMatKhau("$2a$12$7gE1Gmxw86zKOsv1HE6EWu5fADdikTRzbAYrdeHNYjMwso9G3cko2"); // pass: 1111
+        nhanVien1.setTrangThai(0); //trang thái 0: hoạt động
+        nhanVien1.setIdChucVu(nhanVienRole.getId());
+        nhanVien1.setTaiKhoan("nhanVien1");
+        nhanVien1.setId(accountRepository.save(nhanVien1).getId());
+
+        Account admin1 = new Account();
+        admin1.setEmail("admin1@gamil.com");
+        admin1.setSoDienThoai("0312345678");
+        admin1.setDisplayName("admin 1");
+        admin1.setMatKhau("$2a$12$7gE1Gmxw86zKOsv1HE6EWu5fADdikTRzbAYrdeHNYjMwso9G3cko2"); // pass: 1111
+        admin1.setTrangThai(0); //trang thái 0: hoạt động
+        admin1.setIdChucVu(adminRole.getId());
+        admin1.setTaiKhoan("admin1");
+        admin1.setId(accountRepository.save(admin1).getId());
 
         //end account
         //start ca
