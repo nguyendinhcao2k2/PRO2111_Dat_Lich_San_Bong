@@ -48,4 +48,8 @@ public class HoaDonSanCa {
     private String idLichSuViTien;
     @Column(name = "id_giao_ca")
     private String idGiaoCa;
+    @Column(name = "dem_so_lan_doi_lich")
+    private Integer countLich = 0;
+    @Column(name = "tien_coc_thua")
+    private Double tienCocThua = 0.0;
 }
