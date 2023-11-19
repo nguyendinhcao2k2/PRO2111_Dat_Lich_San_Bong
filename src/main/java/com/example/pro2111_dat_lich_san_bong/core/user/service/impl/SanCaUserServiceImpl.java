@@ -11,6 +11,7 @@ import com.example.pro2111_dat_lich_san_bong.core.user.service.SanBongUserServic
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanCaUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiThoiGianDL;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -124,6 +125,7 @@ public class SanCaUserServiceImpl implements SanCaUserService {
     }
 
     @Override
+    @Transactional
     public void deleteSanCaById(String idSanCa) {
         try {
             sanCaUserRepository.deleteSanCaById(idSanCa);
