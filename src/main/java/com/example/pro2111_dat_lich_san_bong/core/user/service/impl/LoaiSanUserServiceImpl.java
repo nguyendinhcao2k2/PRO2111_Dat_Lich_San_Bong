@@ -33,9 +33,13 @@ public class LoaiSanUserServiceImpl implements LoaiSanUserService {
     public List<LoaiSanUserResponse> findAll() {
         try {
             List<LoaiSan> loaiSanList = loaiSanUserRepository.findAll();
-            TypeToken<List<LoaiSanUserResponse>> token = new TypeToken<>() {
-            };
-            return mapper.map(loaiSanList, token.getType());
+
+            if (loaiSanList != null) {
+                TypeToken<List<LoaiSanUserResponse>> token = new TypeToken<>() {
+                };
+                return mapper.map(loaiSanList, token.getType());
+            }
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

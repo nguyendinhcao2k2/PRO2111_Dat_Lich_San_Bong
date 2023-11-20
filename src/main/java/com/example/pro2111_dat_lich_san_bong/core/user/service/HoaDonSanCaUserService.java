@@ -16,4 +16,10 @@ public interface HoaDonSanCaUserService {
     List findAllByIdHoaDon(String idHoaDon);
 
     void deleteAllByIdHoaDon(String idHoaDon);
+
+    HoaDonSanCa findById(String id);
+
+    void  deleteByIdHoaDonSanCa(String id);
+
+    HoaDonSanCa findByIdSanCa(String id);
 }
