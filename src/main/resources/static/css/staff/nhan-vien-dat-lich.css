@@ -541,10 +541,10 @@ input[type="checkbox"].cho-thanh-toan:disabled
     /* transform: translateY(5px); */
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+/*table {*/
+/*    width: 100%;*/
+/*    border-collapse: collapse;*/
+/*}*/
 
 table th,
 table td {
@@ -621,4 +621,43 @@ table th {
     border-radius: 5px;
     overflow: hidden;
     cursor: pointer;
+}
+
+#modalCheckIn .modal-header,
+.modal-title {
+    background: #f7941e;
+    color: #fff;
+    font-size: 25px;
+}
+
+video {
+    padding-top: 6%; /* Tỷ lệ chiều cao tùy thuộc vào thiết kế của bạn */
+    margin-bottom: 10px; /* Khoảng cách bottom giữa camera và nút là 10px */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo video không bị biến dạng khi kích thước không đúng */
+    display: block;
+}
+
+/* Đảm bảo canvas cũng chiếm đúng kích thước */
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Thêm bóng cho camera (tùy chọn) */
+.camera::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Đảm bảo sự kiện không bị chặn */
+}
+
+.col-form-label {
+    font-size: 18px;
+    color: black;
 }

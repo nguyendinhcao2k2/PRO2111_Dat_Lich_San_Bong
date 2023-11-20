@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>SÂN BÓNG VN</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link rel="website icon" type="png" href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
-    <meta content="" name="keywords" />
-    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link rel="website icon" type="png"
+          href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
+    <meta content="" name="keywords"/>
+    <meta content="" name="description"/>
     <!-- Mobiscroll JS and CSS Includes -->
     <link
             href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css"
@@ -19,10 +20,11 @@
     <!-- Quan Trọng -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
     <!--  -->
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
@@ -36,7 +38,7 @@
             referrerpolicy="no-referrer"
     />
     <!-- Libraries Stylesheet -->
-    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet" />
+    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet"/>
     <link th:href="@{/static/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
     <link th:href="@{/static/lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
     <!-- Customized Bootstrap Stylesheet -->
@@ -80,12 +82,14 @@
             /* border: 1px solid #000; */
             padding: 8px;
         }
+
         /*màu của trạng thái của sân ca và đặt lịch*/
-        .event-class-1{
+        .event-class-1 {
             background-color: #7cd28f; /* Example color */
             color: #fff;
         }
-        .event-class-0{
+
+        .event-class-0 {
             /* 0 là trạng thái chờ nhận sân*/
             background-color: #6f42c1; /* Example color */
             color: #fff;
@@ -94,11 +98,12 @@
         /*màu của trạng thái của sân ca và đặt lịch*/
 
 
-        .event-class{
+        .event-class {
             background-color: #009578; /* Example color */
             color: #fff;
         }
-        .event-class-full{
+
+        .event-class-full {
             background-color: #fbc12d; /* Example color */
             color: #fff;
         }
@@ -121,7 +126,7 @@
             margin: 0;
         }
 
-        .event-tooltip br{
+        .event-tooltip br {
             color: #fff;
         }
 
@@ -135,26 +140,30 @@
                 max-width: 250px;
             }
         }
+
         /*END LÂM TEST*/
-        .mbsc-material.mbsc-calendar-today, .mbsc-material.mbsc-calendar-week-nr{
+        .mbsc-material.mbsc-calendar-today, .mbsc-material.mbsc-calendar-week-nr {
             color: #2124B1;
-            background-color: rgba(255,220,40,.15) !important;
+            background-color: rgba(255, 220, 40, .15) !important;
         }
-        .mbsc-material.mbsc-selected .mbsc-calendar-cell-text{
-            background: rgba(188,232,241,.3);
-            border-color:#1a73e8;
+
+        .mbsc-material.mbsc-selected .mbsc-calendar-cell-text {
+            background: rgba(188, 232, 241, .3);
+            border-color: #1a73e8;
             color: #2124B1;
         }
-        .fc .fc-highlight{
-            border-color:#1a73e8;
+
+        .fc .fc-highlight {
+            border-color: #1a73e8;
         }
 
         .event-tooltip {
             z-index: 7; /* Đặt giá trị z-index cao hơn */
             color: #fff !important;
             border: 1px solid #2124B1 !important;
-            border-radius:12px ;
+            border-radius: 12px;
         }
+
         .event-tooltip {
             pointer-events: none; /* Không tương tác với con chuột */
         }
@@ -197,12 +206,12 @@
     <!-- Full Screen Search End -->
 
     <!-- Service Start -->
-   <!-- <div
-            class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp mt-5"
-            data-wow-delay="0.1s"
-    >
-        <h2 class="mt-2">Liên Hệ Đặt Sân</h2>
-    </div>-->
+    <!-- <div
+             class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp mt-5"
+             data-wow-delay="0.1s"
+     >
+         <h2 class="mt-2">Liên Hệ Đặt Sân</h2>
+     </div>-->
     <!--      Start Calendar-->
     <section class="container">
         <div class="card border-0 m-0 p-1">
@@ -211,10 +220,34 @@
                     <div class="row">
                         <div class="col-md-6"></div>
                         <div class="col-md-6">
+                            <!--                            thong bao-->
+                            <div
+                                    id="toastContainer"
+                                    class="position-fixed osition-absolute top-0 end-0 p-3"
+                                    style="z-index: 9999"
+                            >
+                                <div id="toasts" class="d-flex flex-column-reverse"></div>
+                            </div>
+                            <!--                            thong bao end-->
                             <div class="d-flex justify-content-end">
+                                <!--button đổi lịch-->
                                 <div>
-                                    <select class="select-loai-san" id="selectLoaiSan" onchange="resetEventByIdLoaiSan(this.value);">
-                                        <option th:each="loaiSan : ${listLoaiSan}" th:selected="${loaiSan.tenLoaiSan == 'Sân 7'}"
+                                    <button
+                                            type="button"
+                                            class="button-header"
+                                            onclick=""
+                                    >
+                                        <span class="button__text">Đổi lịch</span>
+                                        <span class="button__icon">
+                                            <i class="fas fa-info"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div>
+                                    <select class="select-loai-san" id="selectLoaiSan"
+                                            onchange="resetEventByIdLoaiSan(this.value);">
+                                        <option th:each="loaiSan : ${listLoaiSan}"
+                                                th:selected="${loaiSan.tenLoaiSan == 'Sân 7'}"
                                                 th:value="${loaiSan.id}" th:text="${loaiSan.tenLoaiSan}"></option>
                                     </select>
                                 </div>
@@ -250,28 +283,30 @@
                                                                     <label class="form-label required"
                                                                     >Họ và tên</label
                                                                     >
-                                                                    <input type="text" id="hoVaTen" class="form-control" />
+                                                                    <input type="text" id="hoVaTen"
+                                                                           class="form-control"/>
                                                                     <span id="hoVaTen_erro" class="text-danger"></span>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label class="form-label required"
                                                                     >Email</label
                                                                     >
-                                                                    <input type="email" id="mail" class="form-control" />
+                                                                    <input type="email" id="mail" class="form-control"/>
                                                                     <span id="mail_erro" class="text-danger"></span>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label class="form-label required"
                                                                     >Số điện thoại</label
                                                                     >
-                                                                    <input type="text" id="sdt" class="form-control" />
+                                                                    <input type="text" id="sdt" class="form-control"/>
                                                                     <span id="sdt_erro" class="text-danger"></span>
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label class="form-label required"
                                                                     >Ghi chú</label
                                                                     >
-                                                                    <textarea class="form-control" id="remark"></textarea>
+                                                                    <textarea class="form-control"
+                                                                              id="remark"></textarea>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -289,7 +324,8 @@
                                                                     <th>Thao tác</th>
                                                                 </tr>
                                                                 </thead>
-                                                                <tbody id="listEventNew" style="max-height: 300px; overflow-y: auto;">
+                                                                <tbody id="listEventNew"
+                                                                       style="max-height: 300px; overflow-y: auto;">
 
                                                                 </tbody>
                                                             </table>
@@ -304,7 +340,7 @@
                                                                     <div class="col-6 col-md-6 col-sm-6">
                                                                         <h4
                                                                                 class=" text-center text-primary"
-                                                                            id="id_tongTien"
+                                                                                id="id_tongTien"
                                                                         >
                                                                             600000 VND
                                                                         </h4>
@@ -318,7 +354,7 @@
                                                                     <div class="col-6 col-md-6 col-sm-6">
                                                                         <h4
                                                                                 class=" text-center text-primary"
-                                                                            id="id_tienCoc"
+                                                                                id="id_tienCoc"
                                                                         >
                                                                             600000 VND
                                                                         </h4>
@@ -340,10 +376,11 @@
                                                         Đóng
                                                         <i class="fas fa-times fa-lg"></i>
                                                     </button>
-                                                    <button type="submit" class="btn btn-success" onclick="getFormLichDat()">
-                                                    Đặt lịch và thanh toán
-                                                    <i class="fas fa-check fa-lg"></i>
-                                                </button>
+                                                    <button type="submit" class="btn btn-success"
+                                                            onclick="getFormLichDat()">
+                                                        Đặt lịch và thanh toán
+                                                        <i class="fas fa-check fa-lg"></i>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -471,7 +508,7 @@
                             <div class="body-row-col">
                                 <div class="header-text-body">
                                     <h5>Sự Kiện</h5>
-                                    <hr />
+                                    <hr/>
                                 </div>
                                 <div>
                                     <table
@@ -489,6 +526,141 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Modal doi lich one start -->
+                        <div class="modal" id="doiLichOne" style="overflow-y: auto;">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Xác nhận đổi lịch</h5>
+                                        <button
+                                                type="button"
+                                                class="btn-close"
+                                                data-bs-dismiss="modal"
+                                        ></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover ">
+                                                <tr>
+                                                    <th>Ca hiện tại</th>
+                                                    <th>Loại sân</th>
+                                                    <th>Ngày đá dự kiến</th>
+                                                    <th>Tiền sân cũ</th>
+                                                    <th>Ca muốn đổi</th>
+                                                    <th>Loại sân muốn đổi</th>
+                                                    <th>Ngày muốn đổi</th>
+                                                    <th>Tiền sân dự kiến</th>
+                                                    <th v-if="checkTienCoc() === 0" style="color: red">Tiền
+                                                        cọc còn thiếu
+                                                    </th>
+                                                    <th v-if="checkTienCoc() === 1" style="color: red">Tiền
+                                                        cọc thừa
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{lichDatCu.caHT}} - {{lichDatCu.thoiGianBatDau}} :
+                                                        {{lichDatCu.thoiGianKetThuc}}
+                                                    </td>
+                                                    <td>{{lichDatCu.loaiSan}}</td>
+                                                    <td>{{lichDatCu.ngayDaDuKien}}</td>
+                                                    <td>{{lichDatCu.tienSan}}</td>
+                                                    <td>
+                                                        <select class="form-selects "
+                                                                aria-label="Default select example"
+                                                                @change="selectCaDoiLich">
+                                                            <option v-for="items in listCa"
+                                                                    :selected="lichDatCu.idCa == items.id"
+                                                                    v-bind:value="items.id">{{items.tenCa}}
+                                                            </option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-selects "
+                                                                aria-label="Default select example"
+                                                                @change="selectLoaiSanDoiLich">
+                                                            <option v-for="items in listLoaiSan"
+                                                                    :selected="lichDatCu.idLoaiSan == items.id"
+                                                                    v-bind:value="items.id">{{items.tenLoaiSan}}
+                                                            </option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group flex-nowrap">
+                                                            <input type="date" class="form-control ngayMuonDoi"
+                                                                   id="dateInput"
+                                                                   v-bind:value="lichDatCu.ngayDaDuKien"
+                                                                   aria-describedby="addon-wrapping">
+                                                        </div>
+                                                    </td>
+                                                    <td>{{tienPhaiTra}}</td>
+                                                    <td v-if="checkTienCoc() === 0" style="color: red">
+                                                        <marquee>{{tinhTienCoc()}}</marquee>
+                                                    </td>
+                                                    <td v-if="checkTienCoc() === 1" style="color: red">
+                                                        <marquee>{{tinhTienCoc()}}</marquee>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button
+                                                type="button"
+                                                class="btn btn-success btn-labeled "
+                                                data-bs-toggle="modal" data-bs-target="#modalConfirmDoiLich"
+                                                @click="btnXacNhanDoiLich"
+                                                name="next"
+                                        >
+                                            Gửi
+                                            <i class="fas fa-check fa-lg"></i>
+                                        </button>
+                                        <button
+                                                type="button"
+                                                class="btn btn-danger btn-labeled closeModalFather"
+                                                data-bs-dismiss="modal"
+                                        >
+                                            Đóng
+                                            <i class="fas fa-times fa-lg"></i>
+                                        </button>
+                                    </div>
+                                    <!-- Modal -->
+                                    <section class="modalCon">
+                                        <div class="modal fade" id="modalConfirmDoiLich"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <form id="formDoiLichOne" action="/api/v1/user/tien-coc/create-payment"
+                                                      method="post">
+                                                    <input type="hidden" name="amount" v-model="tienCocThieu">
+                                                    <input type="hidden" name="orderInfo" v-model="noiDung">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thông
+                                                                báo</h1>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Bạn có chắc chắn thực hiện hành động?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary closeXacNhan"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-primary"
+                                                                    @click="findLichDat">Xác nhận
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- Modal -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal doi lich one end -->
                     </div>
                 </div>
             </div>
@@ -519,9 +691,9 @@
 <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/vi.js"></script>
 
- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 <!-- Template Javascript -->
 <script th:src="@{/static/js/utill/thong-bao.js}"/>
 <script th:src="@{/static/js/main.js}"></script>
@@ -552,7 +724,7 @@
         var calendarEl = document.getElementById("calendar");
 
         var dateViewStart = "";
-        var dateViewEnd ="";
+        var dateViewEnd = "";
         calendar = new FullCalendar.Calendar(calendarEl, {
             selectable: true,
             headerToolbar: {
@@ -567,7 +739,7 @@
                 console.log(formatDate(dateViewEnd));
             },*/
             events: {
-                url: "/api/vi/user/all-event?idLoaiSan="+selectedValue,
+                url: "/api/vi/user/all-event?idLoaiSan=" + selectedValue,
                 method: "GET",
                 success: function (data) {
                     var eventDefaul = [];
@@ -579,7 +751,7 @@
                         var thoiGianDat = new Date(sanBong.thoiGianDat);
 
                         var event = {
-                            id:generateEventId(),
+                            id: generateEventId(),
                             title: sanBong.tenCa,
                             start: new Date(
                                 thoiGianDat.getFullYear(),
@@ -596,16 +768,17 @@
                                 parseInt(sanBong.thoiGianKetThuc.split(":")[1]) // Phút kết thúc
                             ),
                             allDay: false,
-                            className: 'event-class-'+sanBong.trangThai,
+                            className: 'event-class-' + sanBong.trangThai,
                             extendedProps: {
                                 trangThai: 'ORD',
-                                classCustom: 'event-class-'+sanBong.trangThai,
-                                giaSan:sanBong.gia,
+                                classCustom: 'event-class-' + sanBong.trangThai,
+                                giaSan: sanBong.gia,
+                                idSanCa: sanBong.id,
                             },
-                           /* editable: true,
-                            idSanBong: sanBong.idSanBong,
-                            gia: sanBong.gia,
-                            trangThai: sanBong.trangThai,*/
+                            /* editable: true,
+                             idSanBong: sanBong.idSanBong,
+                             gia: sanBong.gia,
+                             trangThai: sanBong.trangThai,*/
                         };
 
                         eventDefaul.push(event);
@@ -646,9 +819,9 @@
                         dateParts[1] + "-" + dateParts[0] + "-" + dateParts[2];
 
                     var tooltipHTML = '' +
-                        '<div style="z-index: 7" class=" event-tooltip '+event.extendedProps.classCustom+'">';
+                        '<div style="z-index: 7" class=" event-tooltip ' + event.extendedProps.classCustom + '">';
 
-                    tooltipHTML += '<h3 style="color: #fff">' + event.title +'('+formattedDate+')'+ '</h3>'; // Tiêu đề sự kiện
+                    tooltipHTML += '<h3 style="color: #fff">' + event.title + '(' + formattedDate + ')' + '</h3>'; // Tiêu đề sự kiện
                     tooltipHTML += '<hr/>';
                     tooltipHTML += '<p>' + 'Thời gian bắt đầu: ' + startTimeVietnam + '</p>'; // Ngày bắt đầu
                     tooltipHTML += '<p>' + 'Thời gian kết thúc: ' + endTimeVietnam + '</p>'; // Ngày kết thúc
@@ -661,7 +834,7 @@
                     var tooltipElement = document.createElement('div');
                     tooltipElement.innerHTML = tooltipHTML;
                     tooltipElement.style.position = 'absolute';
-                    tooltipElement.style.left = info.jsEvent.pageX +'px'; // Điều chỉnh khoảng cách bên phải
+                    tooltipElement.style.left = info.jsEvent.pageX + 'px'; // Điều chỉnh khoảng cách bên phải
                     tooltipElement.style.top = info.jsEvent.pageY - tooltipElement.offsetHeight / 2 + 'px'; // Hiển thị bên phải
 
                     document.body.appendChild(tooltipElement);
@@ -688,35 +861,35 @@
             views: {
                 dayGridMonth: {
                     // Customize the "dayGridMonth" view name
-                    titleFormat: { year: "numeric", month: "long" },
+                    titleFormat: {year: "numeric", month: "long"},
                 },
                 timeGridWeek: {
                     // Customize the "timeGridWeek" view name
-                    titleFormat: { year: "numeric", month: "short", day: "numeric" },
+                    titleFormat: {year: "numeric", month: "short", day: "numeric"},
                 },
                 timeGridDay: {
                     // Customize the "timeGridDay" view name
-                    titleFormat: { year: "numeric", month: "long", day: "numeric" },
+                    titleFormat: {year: "numeric", month: "long", day: "numeric"},
                 },
             },
 
             //sự kiện kéo qua ngày khác
-            eventDrop: function(info) {
+            eventDrop: function (info) {
                 debugger
                 var listCheck = [];
                 var eventsClickShowEvent = calendar.getEvents();
                 var eventsForSelectedDate = eventsClickShowEvent.filter(function (
                     event
                 ) {
-                    return event.extendedProps.trangThai === 'NEW' ||event.extendedProps.trangThai === 'NEW-FULL' ;
+                    return event.extendedProps.trangThai === 'NEW' || event.extendedProps.trangThai === 'NEW-FULL';
                 });
 
                 eventsForSelectedDate.forEach(value => {
 
                     var objectCheck = {};
-                    objectCheck.id= value.id;
+                    objectCheck.id = value.id;
                     objectCheck.idLoaiSan = selectedValue;
-                    objectCheck.idCa= value.extendedProps.idSanCa;
+                    objectCheck.idCa = value.extendedProps.idSanCa;
                     // Lấy ngày từ thời gian bắt đầu của sự kiện
                     const eventStart = new Date(value.start); // Chuyển đổi sang kiểu Date
 
@@ -838,7 +1011,7 @@
                     // Hiển thị modal
                     /*modal.classList.add("visible");*/
 
-                    addDataAndShowModal(modal,selectedValue);
+                    addDataAndShowModal(modal, selectedValue);
 
 
                     // Đặt sự kiện để đóng modal khi người dùng click vào nút đóng (X)
@@ -870,22 +1043,23 @@
                 }
             });
     });
-   function addDataAndShowModal(modal,idLoaiSan) {
-       $.ajax({
-           type: "GET",
-           contentType: "application/json",
-           url: "/api/v1/user/ca/get-all-ca?idLoaiSan="+idLoaiSan,
-           dataType: 'json',
-           success: function (responseData) {
-               $("#list").html(responseData.map(function (item) {
-                   return ` <div class="col-md-4 col-12 mt-1">
+
+    function addDataAndShowModal(modal, idLoaiSan) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "/api/v1/user/ca/get-all-ca?idLoaiSan=" + idLoaiSan,
+            dataType: 'json',
+            success: function (responseData) {
+                $("#list").html(responseData.map(function (item) {
+                        return ` <div class="col-md-4 col-12 mt-1">
                                 <label class="checkbox-button">
                                     <input type="checkbox" class="custom-checkbox" value="${item.id}"/>
                                     <span class="checkbox-label">
-                                      <strong>${item.tenCa+' :'}</strong>
-                                      <span>${item.thoiGianBatDau +' - '+item.thoiGianKetThuc }</span><br />
+                                      <strong>${item.tenCa + ' :'}</strong>
+                                      <span>${item.thoiGianBatDau + ' - ' + item.thoiGianKetThuc}</span><br />
                                       <strong>Giá ca:</strong>
-                                      <span>${item.giaSanCa+' VND'} </span><br />
+                                      <span>${item.giaSanCa + ' VND'} </span><br />
                                       <div class="m-1">
                                           <input type="number" value="1" min="1" max="${item.countSanBong}"
                                                oninput="checkMaxValue(this,'${item.countSanBong}')" onblur="checkValue(this)"/>
@@ -894,14 +1068,15 @@
                                 </label>
                            </div>`
                     }
-               ));
-               modal.classList.add("visible");
-           },
-           error: function (e) {
-               console.log("ERROR : ", e);
-           }
-       });
-   }
+                ));
+                modal.classList.add("visible");
+            },
+            error: function (e) {
+                console.log("ERROR : ", e);
+            }
+        });
+    }
+
     // LAMNP 17/10/2023, 20/10/2023 UPDATE
     // ADD sự kiện click vào cell day có ca hiển thị sang thông tin
     // Hàm để hiển thị các sự kiện trong bảng
@@ -942,7 +1117,8 @@
                 endTimeVietnam,
                 formattedDate,
                 event.id,
-                event.extendedProps.trangThai
+                event.extendedProps.trangThai,
+                event.extendedProps.idSanCa
             );
         });
     }
@@ -959,7 +1135,7 @@
 
     // LAMNP 20/10/2023 UPDATE TABLE
     // Hàm để thêm thông tin ca vào bảng
-    function addToTable(caInfo, timeStart, timeEnd, dateVietnam,eventId,statusEvent) {
+    function addToTable(caInfo, timeStart, timeEnd, dateVietnam, eventId, statusEvent, idSanCa) {
         // Create a row for the event information
         var rowInfo = tableBody.insertRow();
         var cell1 = rowInfo.insertCell(0);
@@ -975,38 +1151,37 @@
 
         // Sử dụng insertAdjacentHTML để thêm mã HTML
         var cell2 = rowInfo.insertCell(1);
-        if(statusEvent === 'NEW'){
+        if (statusEvent === 'NEW') {
             cell2.insertAdjacentHTML(
                 "beforeend",
                 `
                     <div class="d-flex flex-column">
-                      <button class="btn btn-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
-                        Xóa
-                      </button>
-                    </div>
-                  `
-                );
-        }else if(statusEvent === 'NEW-FULL'){
-            cell2.insertAdjacentHTML(
-                "beforeend",
-                `
-                    <div class="d-flex flex-column">
-                      <button class="btn btn-warning btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
+                      <button class="btn btn-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('` + eventId + `')">
                         Xóa
                       </button>
                     </div>
                   `
             );
-        }
-        else {
+        } else if (statusEvent === 'NEW-FULL') {
             cell2.insertAdjacentHTML(
                 "beforeend",
                 `
                     <div class="d-flex flex-column">
-                      <button class="btn btn-outline-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('`+eventId+`')">
+                      <button class="btn btn-warning btn-sm xoa-san-button" type="button" onclick="deleteEventById('` + eventId + `')">
+                        Xóa
+                      </button>
+                    </div>
+                  `
+            );
+        } else {
+            cell2.insertAdjacentHTML(
+                "beforeend",
+                `
+                    <div class="d-flex flex-column">
+                      <button class="btn btn-outline-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('` + eventId + `')">
                         Hủy lịch
                       </button>
-                      <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" type="button">
+                      <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" data-bs-toggle="modal" data-bs-target="#doiLichOne" type="button" onclick="doiSanDetail('` + idSanCa + `')">
                         Đổi sân
                       </button>
                     </div>
@@ -1030,6 +1205,7 @@
 
         });*/
     }
+
     //  LAMNP
     //  SET UP CALENDAR MOBISCROLL
     mobiscroll.setOptions({
@@ -1086,7 +1262,7 @@
                         var selectedDateRangeInModal = $("#demo-range-selection").mobiscroll("getVal");
 
                         var selectedWeekInModal =
-                            $("#demo-week-select").mobiscroll("getVal","array");
+                            $("#demo-week-select").mobiscroll("getVal", "array");
 
                         //
                         if (selectComboboxDateChoise.value == 0) {
@@ -1096,7 +1272,7 @@
                                 var year = date.getFullYear();
                                 // Tạo đối tượng sự kiện cho ngày này
                                 var event = {
-                                    id:generateEventId(),
+                                    id: generateEventId(),
                                     title: caName,
                                     start: new Date(
                                         year,
@@ -1117,15 +1293,15 @@
                                     editable: true,
                                     extendedProps: {
                                         trangThai: 'NEW',
-                                        classCustom:'event-class',
-                                        giaSan:giaCa,
-                                        idSanCa:checkboxValue
+                                        classCustom: 'event-class',
+                                        giaSan: giaCa,
+                                        idSanCa: checkboxValue
                                     },
                                 };
                                 var element = parseInt(inputElement.value);
                                 console.log(element);
                                 for (let i = 0; i < element; i++) {
-                                    var clonedEvent = { ...event }; // Tạo bản sao của sự kiện ban đầu
+                                    var clonedEvent = {...event}; // Tạo bản sao của sự kiện ban đầu
                                     clonedEvent.id = generateEventId(); // Gán ID mới cho bản sao
                                     events.push(clonedEvent); // Thêm bản sao với ID mới vào mảng events
                                 }
@@ -1150,7 +1326,7 @@
 
                                 // Tạo đối tượng sự kiện cho ngày này
                                 var event = {
-                                    id:generateEventId(),
+                                    id: generateEventId(),
                                     title: caName,
                                     start: new Date(
                                         year,
@@ -1171,15 +1347,15 @@
                                     editable: true,
                                     extendedProps: {
                                         trangThai: 'NEW',
-                                        classCustom:'event-class',
-                                        giaSan:giaCa,
-                                        idSanCa:checkboxValue
+                                        classCustom: 'event-class',
+                                        giaSan: giaCa,
+                                        idSanCa: checkboxValue
                                     },
                                 };
                                 var element = parseInt(inputElement.value);
 
                                 for (let i = 0; i < element; i++) {
-                                    var clonedEvent = { ...event }; // Tạo bản sao của sự kiện ban đầu
+                                    var clonedEvent = {...event}; // Tạo bản sao của sự kiện ban đầu
                                     clonedEvent.id = generateEventId(); // Gán ID mới cho bản sao
                                     events.push(clonedEvent); // Thêm bản sao với ID mới vào mảng events
                                 }
@@ -1204,7 +1380,7 @@
 
                                 // Tạo đối tượng sự kiện cho ngày này
                                 var event = {
-                                    id:generateEventId(),
+                                    id: generateEventId(),
                                     title: caName,
                                     start: new Date(
                                         year,
@@ -1225,15 +1401,15 @@
                                     editable: true,
                                     extendedProps: {
                                         trangThai: 'NEW',
-                                        classCustom:'event-class',
-                                        giaSan:giaCa,
-                                        idSanCa:checkboxValue
+                                        classCustom: 'event-class',
+                                        giaSan: giaCa,
+                                        idSanCa: checkboxValue
                                     },
                                 };
                                 var element = parseInt(inputElement.value);
                                 console.log(element);
                                 for (let i = 0; i < element; i++) {
-                                    var clonedEvent = { ...event }; // Tạo bản sao của sự kiện ban đầu
+                                    var clonedEvent = {...event}; // Tạo bản sao của sự kiện ban đầu
                                     clonedEvent.id = generateEventId(); // Gán ID mới cho bản sao
                                     events.push(clonedEvent); // Thêm bản sao với ID mới vào mảng events
                                 }
@@ -1247,13 +1423,13 @@
                 }
             });
 
-            var listCheck=[];
+            var listCheck = [];
             events.forEach(value => {
 
                 var objectCheck = {};
-                objectCheck.id= value.id;
+                objectCheck.id = value.id;
                 objectCheck.idLoaiSan = selectedValue;
-                objectCheck.idCa= value.extendedProps.idSanCa;
+                objectCheck.idCa = value.extendedProps.idSanCa;
                 const eventStart = new Date(value.start); // Chuyển đổi sang kiểu Date
 
                 const year = eventStart.getFullYear();
@@ -1270,15 +1446,15 @@
             var eventsForSelectedDate = eventsClickShowEvent.filter(function (
                 event
             ) {
-                return event.extendedProps.trangThai === 'NEW' ||event.extendedProps.trangThai === 'NEW-FULL' ;
+                return event.extendedProps.trangThai === 'NEW' || event.extendedProps.trangThai === 'NEW-FULL';
             });
 
             eventsForSelectedDate.forEach(value => {
 
                 var objectCheck = {};
-                objectCheck.id= value.id;
+                objectCheck.id = value.id;
                 objectCheck.idLoaiSan = selectedValue;
-                objectCheck.idCa= value.extendedProps.idSanCa;
+                objectCheck.idCa = value.extendedProps.idSanCa;
                 // Lấy ngày từ thời gian bắt đầu của sự kiện
                 const eventStart = new Date(value.start); // Chuyển đổi sang kiểu Date
 
@@ -1300,13 +1476,13 @@
                 contentType: "application/json",
                 success: function (data) {
                     debugger
-                    if(data.length >0 || data != ''){
-                        var  toastsArray = []; //     ["bg-success", "Error 1", "Description 1"],
+                    if (data.length > 0 || data != '') {
+                        var toastsArray = []; //     ["bg-success", "Error 1", "Description 1"],
                         data.forEach(EExist => {
                             const foundEvent = events.find(event => event.id === EExist.id);
                             if (foundEvent) {
                                 // Tạo bản sao của extendedProps
-                                const updatedExtendedProps = { ...foundEvent.extendedProps };
+                                const updatedExtendedProps = {...foundEvent.extendedProps};
                                 // Cập nhật thuộc tính mới cho bản sao
                                 updatedExtendedProps.trangThai = 'NEW-FULL';
                                 updatedExtendedProps.classCustom = 'event-class-full';
@@ -1321,8 +1497,8 @@
                                 const day = eventStart.getDate();
 
                                 const formattedDate = `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
-                                var error = ["bg-warning","Thông báo",foundEvent.title+" của ngày "+
-                                formattedDate+" hiện tại đã có người đặt. Vui lòng kiểm tra lại"];
+                                var error = ["bg-warning", "Thông báo", foundEvent.title + " của ngày " +
+                                formattedDate + " hiện tại đã có người đặt. Vui lòng kiểm tra lại"];
                                 toastsArray.push(error);
                             }
                         });
@@ -1333,7 +1509,7 @@
                         createMultipleToasts(toastsArray);
 
 
-                    }else {
+                    } else {
 
                         calendar.addEventSource(events);
                         // Thêm sự kiện vào FullCalendar
@@ -1349,7 +1525,8 @@
                         return isSameDay(event.start, selectDateClickShowEvent);
                     });
                     // Hiển thị các sự kiện trong bảng
-                    displayEventsInTable(eventsForSelectedDate);                },
+                    displayEventsInTable(eventsForSelectedDate);
+                },
                 error: function (error) {
 
                 }
@@ -1479,16 +1656,16 @@
         modal.classList.remove("visible");
     }
 
-    function checkMaxValue(inputElement,countSanBong) {
+    function checkMaxValue(inputElement, countSanBong) {
 
         var countNumber = parseInt(countSanBong);
         var inputValue = parseInt(inputElement.value);
 
-         if (inputValue > countNumber) {
+        if (inputValue > countNumber) {
             inputElement.value = countNumber;
-        }else {
-             inputElement.value = inputElement.value ;
-         }
+        } else {
+            inputElement.value = inputElement.value;
+        }
     }
 
     function checkValue(inputElement) {
@@ -1503,10 +1680,10 @@
 
         var eventNew = getEventNew();
 
-        if( eventNew.length > 0){
+        if (eventNew.length > 0) {
             addDateToFormDatLich(eventNew);
             $('#modalInfo').modal('show');
-        }else {
+        } else {
             alert('vui lòng chọn ca')
         }
 
@@ -1574,6 +1751,7 @@
                             trangThai: 'ORD',
                             classCustom: 'event-class-' + sanBong.trangThai,
                             giaSan: sanBong.gia,
+                            idSanCa: sanBong.id,
                         },
                     };
 
@@ -1606,9 +1784,9 @@
         if (event) {
             event.remove(); // Xóa sự kiện
             var eventNew = getEventNew();
-            if( eventNew.length > 0){
+            if (eventNew.length > 0) {
                 addDateToFormDatLich(eventNew);
-            }else {
+            } else {
                 $('#modalInfo').modal('hide');
             }
 
@@ -1617,15 +1795,15 @@
             var eventsForSelectedDate = eventsClickShowEvent.filter(function (
                 event
             ) {
-                return event.extendedProps.trangThai === 'NEW' ||event.extendedProps.trangThai === 'NEW-FULL' ;
+                return event.extendedProps.trangThai === 'NEW' || event.extendedProps.trangThai === 'NEW-FULL';
             });
 
             eventsForSelectedDate.forEach(value => {
 
                 var objectCheck = {};
-                objectCheck.id= value.id;
+                objectCheck.id = value.id;
                 objectCheck.idLoaiSan = selectedValue;
-                objectCheck.idCa= value.extendedProps.idSanCa;
+                objectCheck.idCa = value.extendedProps.idSanCa;
                 // Lấy ngày từ thời gian bắt đầu của sự kiện
                 const eventStart = new Date(value.start); // Chuyển đổi sang kiểu Date
 
@@ -1677,29 +1855,30 @@
             });
         }
     }
+
     function getFormLichDat() {
 
         var selectedValue = $("#selectLoaiSan").val();
-        var hoVaTen= $('#hoVaTen').val();
-        var sdt =$('#sdt').val();
+        var hoVaTen = $('#hoVaTen').val();
+        var sdt = $('#sdt').val();
         var mail = $('#mail').val();
         var remark = $('#remark').val();
         var check = false;
 
-        if(hoVaTen.trim() ==''){
+        if (hoVaTen.trim() == '') {
             $('#hoVaTen_erro').text("Vui lòng nhập họ và tên");
             check = true;
         }
-        if(sdt.trim() ==''){
+        if (sdt.trim() == '') {
             $('#sdt_erro').text("Vui lòng nhập số điện thoại");
             check = true;
         }
-        if(mail.trim() ==''){
+        if (mail.trim() == '') {
             $('#mail_erro').text("Vui lòng nhập email");
             check = true;
         }
 
-        if(check){
+        if (check) {
             return;
         }
 
@@ -1709,7 +1888,7 @@
         var tableData = [];
 
         // Bắt đầu từ hàng thứ 1 (hàng đầu tiên là tiêu đề)
-        rows.forEach(function(row,index) {
+        rows.forEach(function (row, index) {
             if (index !== 0) {
 
                 var idCa = row.getAttribute("data-id");
@@ -1733,9 +1912,9 @@
             email: mail,
             tongTienSan: cutMoney(tongTienSan),
             sdt: sdt,
-            ghiChu:remark,
-            idLoaiSan : selectedValue,
-            danhSachCaDatRequests:tableData
+            ghiChu: remark,
+            idLoaiSan: selectedValue,
+            danhSachCaDatRequests: tableData
         }
 
         $.ajax({
@@ -1748,7 +1927,7 @@
                 $('#modalInfo').modal('hide');
                 /*alert(data.content);
                 resetEventByIdLoaiSan(selectedValue);*/
-                if(data.statusCode == 'OK'){
+                if (data.statusCode == 'OK') {
                     // Tạo form ẩn
                     var form = $('<form action="/api/v1/user/thanh-toan/create-payment" method="post"></form>');
                     form.append('<input type="hidden" name="HDrequest" value=\'' + JSON.stringify(data.content) + '\' />');
@@ -1756,7 +1935,7 @@
 
                     // Submit form để chuyển hướng
                     form.submit();
-                }else {
+                } else {
                     alert(data.content);
                 }
 
@@ -1781,6 +1960,7 @@
             return 0;
         }
     }
+
     function formatDate(date) {
         var day = date.getDate();
         var month = date.getMonth() + 1;
@@ -1788,33 +1968,33 @@
         return (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
     }
 
-    $(document).ready(function() {
-        $(document).on("click", ".add-row", function() {
+    $(document).ready(function () {
+        $(document).on("click", ".add-row", function () {
 
             const caSelect = document.querySelector('.form-select');
             const datePicker = document.querySelector('#datepicker');
             const selectedCa = caSelect.options[caSelect.selectedIndex].value;
             const selectedDate = datePicker.value;
 
-            if(selectedCa == '' && selectedDate =='' ){
+            if (selectedCa == '' && selectedDate == '') {
                 alert('Vui lòng chọn ca và ngày đặt sân');
                 return;
             }
-            if(selectedCa == ''){
+            if (selectedCa == '') {
                 alert('Vui lòng chọn ca muốn đặt');
                 return;
             }
-            if(selectedDate == ''){
+            if (selectedDate == '') {
                 alert('Vui lòng chọn Ngày muốn đặt');
                 return;
             }
 
             var listCheck = [];
 
-            var objectCheck ={};
-            objectCheck.idLoaiSan= selectedValue;
-            objectCheck.idCa=selectedCa;
-            objectCheck.ngayDat=selectedDate;
+            var objectCheck = {};
+            objectCheck.idLoaiSan = selectedValue;
+            objectCheck.idCa = selectedCa;
+            objectCheck.ngayDat = selectedDate;
             listCheck.push(objectCheck);
 
             var eventsClickShowEvent = calendar.getEvents();
@@ -1827,9 +2007,9 @@
             eventsForSelectedDate.forEach(value => {
                 debugger
                 var objectCheck = {};
-                objectCheck.id= value.id;
+                objectCheck.id = value.id;
                 objectCheck.idLoaiSan = selectedValue;
-                objectCheck.idCa= value.extendedProps.idSanCa;
+                objectCheck.idCa = value.extendedProps.idSanCa;
                 // Lấy ngày từ thời gian bắt đầu của sự kiện
                 const eventStart = new Date(value.start); // Chuyển đổi sang kiểu Date
 
@@ -1839,7 +2019,7 @@
 
                 const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 
-                 objectCheck.ngayDat = formattedDate;
+                objectCheck.ngayDat = formattedDate;
 
                 listCheck.unshift(objectCheck);
             })
@@ -1848,15 +2028,15 @@
                 type: "POST",
                 contentType: "application/json",
                 url: "/api/v1/user/san-ca/check-list-san-ca",
-                data:JSON.stringify(listCheck),
+                data: JSON.stringify(listCheck),
                 dataType: 'json',
                 success: function (responseData) {
                     debugger
-                    if(responseData.length <=0 || responseData ==''){
+                    if (responseData.length <= 0 || responseData == '') {
                         $.ajax({
                             type: "GET",
                             contentType: "application/json",
-                            url: "/api/v1/user/ca/get-info-ca?idLoaiSan="+selectedValue+"&&idCa="+selectedCa,
+                            url: "/api/v1/user/ca/get-info-ca?idLoaiSan=" + selectedValue + "&&idCa=" + selectedCa,
                             dataType: 'json',
                             success: function (data) {
                                 var sanBong = data;
@@ -1880,12 +2060,12 @@
                                     ),
                                     allDay: false,
                                     editable: true,
-                                    className: 'event-class' ,
+                                    className: 'event-class',
                                     extendedProps: {
                                         trangThai: 'NEW',
                                         classCustom: 'event-class',
-                                        giaSan: sanBong.giaSanCa+' VND',
-                                        idSanCa:sanBong.id,
+                                        giaSan: sanBong.giaSanCa + ' VND',
+                                        idSanCa: sanBong.id,
                                     },
                                 };
                                 calendar.addEvent(event);
@@ -1899,7 +2079,7 @@
                         });
 
 
-                    }else {
+                    } else {
                         //tạo ra event
                         alert('ca của ngày đã có người đặt vui lòng chọn ca khác');
                     }
@@ -1911,6 +2091,7 @@
 
         });
     });
+
     function addDateToFormDatLich(eventNew) {
         $("#listEventNew").html('');
 
@@ -1924,12 +2105,12 @@
             success: function (responseData) {
 
                 var options = responseData.map(function (item) {
-                   /* const startTimeVietnam = new Date(`1970-01-01T${item.thoiGianBatDau}Z`).toLocaleTimeString("en-US", {
-                        timeZone: "Asia/Ho_Chi_Minh",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: true,
-                    });*/
+                    /* const startTimeVietnam = new Date(`1970-01-01T${item.thoiGianBatDau}Z`).toLocaleTimeString("en-US", {
+                         timeZone: "Asia/Ho_Chi_Minh",
+                         hour: "2-digit",
+                         minute: "2-digit",
+                         hour12: true,
+                     });*/
                     const startTimeVietnam = formatTime(item.thoiGianBatDau);
                     const endTimeVietnam = formatTime(item.thoiGianKetThuc);
 
@@ -1980,7 +2161,7 @@
                 month: "2-digit",
                 year: "numeric",
             });
-            tongTien= tongTien + Number(item.extendedProps.giaSan.replace('.0 VND',''));
+            tongTien = tongTien + Number(item.extendedProps.giaSan.replace('.0 VND', ''));
             // Chuyển định dạng ngày tháng năm thành "dd - MM - yyyy"
             const dateParts = dateVietnam.split("/");
             const formattedDate =
@@ -1988,7 +2169,7 @@
 
             return `
                         <tr data-id="${item.extendedProps.idSanCa}">
-                            <td style="width: 270px;">${item.title+'('+startTimeVietnam+' - '+endTimeVietnam +')'}</td>
+                            <td style="width: 270px;">${item.title + '(' + startTimeVietnam + ' - ' + endTimeVietnam + ')'}</td>
                             <td>${formattedDate}</td>
                              <td>${item.extendedProps.giaSan}</td>
                             <td>
@@ -1997,8 +2178,8 @@
                         </tr>
                         `;
         }));
-        $('#id_tongTien').text(tongTien+" VND");
-        $('#id_tienCoc').text(tongTien*(thamSoTienCoc/100)+" VND");
+        $('#id_tongTien').text(tongTien + " VND");
+        $('#id_tienCoc').text(tongTien * (thamSoTienCoc / 100) + " VND");
     }
 
     function formatTime(inputTime) {
@@ -2024,11 +2205,279 @@
         }
         return formattedTime;
     }
-    $(document).on("change", "select.form-select", function() {
+
+    $(document).on("change", "select.form-select", function () {
         var selectedGiaSan = $(this).find("option:selected").data("gia-san");
-        $(this).closest("tr").find("td:nth-child(3)").text(selectedGiaSan +' VND');
+        $(this).closest("tr").find("td:nth-child(3)").text(selectedGiaSan + ' VND');
     });
 </script>
+//doi lich one user
+<script>
+    // <!--    check input date là ngày hiện tại-->
+    const currentDate = new Date();
+    const inputElement = document.getElementById('dateInput');
+    inputElement.setAttribute('min', currentDate.toISOString().substring(0, 10));
+    $(document).ready(() => {
+        callApiPhanTramTienCoc();
+    });
 
+    // <!--    check input date là ngày hiện tại-->
+    function doiSanDetail(id) {
+        // $("#doiLichOne").modal('hide');
+        // var modalBackdrop = $('.modal-backdrop');
+        // if (modalBackdrop.length > 0) {
+        //     modalBackdrop.remove();
+        // }
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8081/api/v1/user/doi-lich/one/" + id,
+            success: function (response) {
+
+                if (response.statusCode == 'ALREADY_REPORTED') {
+                    $("#doiLichOne").modal('hide');
+                    $('.modal-backdrop').remove();
+                    createAndShowToast("bg-danger", "Thông báo", "Bạn không đủ điều kiện để đổi lịch này!");
+                    return;
+                }
+                if (response.statusCode == 'BAD_REQUEST') {
+                    $("#doiLichOne").modal('hide');
+                    $('.modal-backdrop').remove();
+                    createAndShowToast("bg-danger", "Thông báo", "Không thể thực hiện!");
+                    return;
+                }
+
+                console.log(response)
+                modalDL.lichDatCu.id = response.content.id,
+                    modalDL.lichDatCu.caHT = response.content.tenCa,
+                    modalDL.lichDatCu.loaiSan = response.content.tenLoaiSan,
+                    modalDL.lichDatCu.ngayDaDuKien = response.content.ngayDenSan,
+                    modalDL.lichDatCu.thoiGianBatDau = response.content.thoiGianBatDau,
+                    modalDL.lichDatCu.thoiGianKetThuc = response.content.thoiGianKetThuc,
+                    modalDL.lichDatCu.tienSan = response.content.tienSan,
+                    modalDL.lichDatCu.idCa = response.content.idCa,
+                    modalDL.lichDatCu.idLoaiSan = response.content.idLoaiSan,
+                    modalDL.checkLich.idCa = response.content.idCa,
+                    modalDL.checkLich.idLoaiSan = response.content.idLoaiSan,
+                    modalDL.lichDatCu.idSanBong = response.content.idSanBong,
+                    modalDL.tienPhaiTra = response.content.tienSan,
+                    modalDL.lichDatCu.giaCa = response.content.giaCa,
+                    modalDL.lichDatCu.giaSan = response.content.giaSan,
+                    modalDL.lichDatCu.countDoiLich = response.content.countDoiLich
+
+                if (modalDL.lichDatCu.countDoiLich === 1) {
+                    $("#doiLichOne").modal('hide');
+                    $('.modal-backdrop').remove();
+                    createAndShowToast("bg-danger", "Thông báo", "Bạn chỉ được đổi lịch 1 lần duy nhất! Cảm ơn!");
+                    return;
+                }
+                $('#doiLichOne').modal('show');
+                callApiLoaiSanAndCa();
+            },
+            error: function (error) {
+                console.log(error);
+                alert("Lỗi!");
+            }
+        })
+    }
+
+    function callApiLoaiSanAndCa() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8081/api/v1/user/doi-lich/list-san-list-ca",
+            success: function (response) {
+                modalDL.listCa = response.content.ca,
+                    modalDL.listLoaiSan = response.content.loaiSan
+            },
+            error: function (error) {
+                console.log(error);
+                alert("Lỗi!");
+            }
+        })
+    }
+
+    function callApiPhanTramTienCoc() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8081/api/v1/user/doi-lich/find-by-tien-coc",
+            success: function (response) {
+                modalDL.phanTramCoc = parseInt(response.content);
+                console.log(response)
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
+<script>
+    var modalDL = new Vue({
+        el: "#doiLichOne",
+        data: {
+            listLoaiSan: [],
+            listCa: [],
+            lichDatCu: {
+                id: "",
+                idCa: "",
+                caHT: "",
+                giaCa: 0,
+                idLoaiSan: "",
+                loaiSan: "",
+                tienLoaiSan: "",
+                idSanBong: "",
+                ngayDaDuKien: "",
+                thoiGianBatDau: "",
+                thoiGianKetThuc: "",
+                giaSan: 0,
+                countDoiLich: 0,
+            },
+            ngayMuonDoi: "",
+            tienPhaiTra: 0,
+            checkLich: {
+                idLoaiSan: "",
+                idCa: ""
+            },
+            tienCocThieu: 0,
+            tienCocThua: 0,
+            phanTramCoc: 0,
+            noiDung: "Tien coc san bong",
+            indexCheckLich:0,
+        },
+        methods: {
+            selectCaDoiLich(event) {
+                this.listCa.forEach((elment) => {
+                    if (elment.id == event.target.value) {
+                        this.lichDatCu.giaCa = elment.giaCa;
+                        this.lichDatCu.idCa = elment.id;
+                        this.tienPhaiTra = parseFloat(elment.giaCa) + this.lichDatCu.giaSan;
+                    }
+                })
+            },
+            selectLoaiSanDoiLich(event) {
+                this.listLoaiSan.forEach((elment) => {
+                    if (elment.id == event.target.value) {
+                        this.lichDatCu.giaSan = elment.giaSan;
+                        this.lichDatCu.idLoaiSan = elment.id;
+                        this.tienPhaiTra = parseFloat(elment.giaSan) + parseFloat(this.lichDatCu.giaCa);
+                    }
+                })
+            },
+            btnXacNhanDoiLich() {
+                if (this.lichDatCu.ngayDaDuKien == $(".ngayMuonDoi").val()
+                    && this.lichDatCu.idLoaiSan == this.checkLich.idLoaiSan
+                    && this.lichDatCu.idCa == this.checkLich.idCa) {
+                    createAndShowToast("bg-warning", "Thông báo", "Lịch không có gì thay đổi! Vui lòng xem lại!");
+                    // $('.closeXacNhan').click();
+                    $(".modalCon").prop("hidden", true);
+                    $('.modal-backdrop').remove();
+                    return;
+                }
+                if (this.checkTienCoc() === 0) {
+                    $(".modalCon").prop("hidden", false);
+                    return;
+                }
+                // alert(modalDL.indexCheckLich )
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8081/api/v1/user/doi-lich/check-lick-dat?idLS=" + this.lichDatCu.idLoaiSan + "&idCa=" + this.lichDatCu.idCa + "&ngayDoi=" + $(".ngayMuonDoi").val(),
+                    success: function (response) {
+                        if (response.content  === 1) {
+                            $(".modalCon").prop("hidden", true);
+                            $('.modal-backdrop').remove();
+                            createAndShowToast("bg-danger", "Thông báo", "Đã có lịch đặt");
+                            return;
+                        }
+
+                        if (response.content  === 2) {
+                            $(".modalCon").prop("hidden", true);
+                            $('.modal-backdrop').remove();
+                            createAndShowToast("bg-danger", "Thông báo", "Lỗi");
+                            return;
+                        }
+                        $(".modalCon").prop("hidden", true);
+                        $('.modal-backdrop').remove();
+                        if (confirm("Bạn có chắc chắn thực hiện không?")) {
+                            modalDL.updateLichOne();
+                        }
+                    }, error: function (error) {
+                        createAndShowToast("bg-danger", "Thông báo", "Lỗi");
+                        console.log(error);
+                    }
+                });
+
+            },
+            updateLichOne() {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8081/api/v1/user/doi-lich/update-lich",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        idHDSC: this.lichDatCu.id,
+                        idCa: this.lichDatCu.idCa,
+                        idLoaiSan: this.lichDatCu.idLoaiSan,
+                        idSanBong: this.lichDatCu.idSanBong,
+                        tienSan: this.tienPhaiTra,
+                        ngayDoi: $(".ngayMuonDoi").val(),
+                        tienCocThieu: this.tienCocThieu,
+                        tienCocThua: this.tienCocThua
+                    }),
+                    success: function (response) {
+                        window.location.reload();
+                        createAndShowToast("bg-success", "Thông báo", "Thao tác thành công!");
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        createAndShowToast("bg-danger", "Thông báo", "Thao tác thất bại!");
+                    }
+                })
+            },
+            findLichDat() {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8081/api/v1/user/tien-coc/one",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        idHDSC: this.lichDatCu.id,
+                        idCa: this.lichDatCu.idCa,
+                        idLoaiSan: this.lichDatCu.idLoaiSan,
+                        idSanBong: this.lichDatCu.idSanBong,
+                        tienSan: this.tienPhaiTra,
+                        ngayDoi: $(".ngayMuonDoi").val(),
+                        tienCocThieu: this.tienCocThieu,
+                        tienCocThua: this.tienCocThua
+                    }),
+                    success: function (response) {
+                        console.log(response)
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        createAndShowToast("bg-danger", "Thông báo", "Thao tác thất bại!");
+                    }
+                })
+            },
+            checkTienCoc() {
+                if (this.lichDatCu.tienSan < this.tienPhaiTra) {
+                    return 0;
+                } else if (this.lichDatCu.tienSan > this.tienPhaiTra) {
+                    return 1;
+                }
+                return 2;
+            },
+            tinhTienCoc() {
+                if (this.checkTienCoc() === 0) {
+                    this.tienCocThieu = (parseFloat(this.tienPhaiTra) - parseFloat(this.lichDatCu.tienSan)) * (this.phanTramCoc / 100);
+                    return this.tienCocThieu;
+                } else if (this.checkTienCoc() === 1) {
+                    this.tienCocThua = (parseFloat(this.lichDatCu.tienSan) - parseFloat(this.tienPhaiTra)) * (this.phanTramCoc / 100);
+                    return this.tienCocThua;
+                }
+            }
+
+        }
+    })
+
+</script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.example.pro2111_dat_lich_san_bong.core.utils;
 
+import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ public class VNPayDemoController {
     @Autowired
     private VNPayService vnPayService;
 
+    @Autowired
+    private SYSParamUserService sysParamUserService;
+
     private String testId;
 
     @GetMapping("")
@@ -31,7 +36,11 @@ public class VNPayDemoController {
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         baseUrl +="/vn-pay/vnpay-payment";
         testId = "test";
-        String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
+
+        //thời gian hết thời gian giao dịch (tính bằng phút)
+        int miuteParam = Integer.valueOf(sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_HET_GD).getValue());
+
+        String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl,miuteParam);
         return "redirect:" + vnpayUrl;
     }
 
