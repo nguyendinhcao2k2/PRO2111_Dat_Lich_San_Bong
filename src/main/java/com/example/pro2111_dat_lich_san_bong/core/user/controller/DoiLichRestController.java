@@ -44,8 +44,7 @@ public class DoiLichRestController {
     @Autowired
     private CommonSession commonSession;
 
-    @Autowired
-    private ThoiGianDLUserServiver thoiGianDLUserServiver;
+
 
     @Autowired
     private DoiLichUserService doiLichUserService;

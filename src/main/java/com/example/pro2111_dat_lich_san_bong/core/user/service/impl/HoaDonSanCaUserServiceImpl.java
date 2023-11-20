@@ -26,7 +26,7 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
     @Override
     @Transactional
     public void saveHoaDonSanCa(HoaDonSanCa hoaDonSanCa) {
-        hoaDonSanCaUserRepository.save(hoaDonSanCa);
+        hoaDonSanCaUserRepository.saveAndFlush(hoaDonSanCa);
     }
 
     @Override
@@ -56,6 +56,16 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
             hoaDonSanCaUserRepository.deleteById(id);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public HoaDonSanCa findByIdSanCa(String id) {
+        try {
+            return hoaDonSanCaUserRepository.findHoaDonSanCaByIdSanCa(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

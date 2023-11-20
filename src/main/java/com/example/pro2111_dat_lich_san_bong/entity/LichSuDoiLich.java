@@ -20,11 +20,11 @@ public class LichSuDoiLich {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     protected String id;
 
-    @Column(name = "id_san_ca", columnDefinition = "NVARCHAR(255)")
-    private String idSanCa;
+    @Column(name = "id_san_ca-moi", columnDefinition = "NVARCHAR(255)")
+    private String idSanCaMoi;
 
-    @Column(name = "id_hoa_don_san_ca")
-    private String idHoaDonSanCa;
+    @Column(name = "id_san_ca_cu", columnDefinition = "NVARCHAR(255)")
+    private String idSanCaCu;
 
     @Column(name = "id_nguoi_dung")
     private String idNguoiDung;
