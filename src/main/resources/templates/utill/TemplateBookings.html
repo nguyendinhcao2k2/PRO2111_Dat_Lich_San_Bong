@@ -442,14 +442,14 @@
                                 </tr>
                                 <!-- body  -->
                                 <!--  Đây là list sân ca -->
-                                <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.05)">
+                                <tr th:each="item : ${thoiGianList}" style="border-bottom: 1px solid rgba(0, 0, 0, 0.05)">
                                     <td
                                             valign="middle"
                                             style="text-align: center; padding: 0 0.5em"
                                     >
                                         <div class="product-entry-cus">
                                             <div class="text-cus">
-                                                <h3>18/11/2023</h3>
+                                                <h3 th:text="${item.ngayDa}"></h3>
                                             </div>
                                         </div>
                                     </td>
@@ -460,7 +460,7 @@
                                     >
                                         <div class="product-entry-cus">
                                             <div class="text-cus">
-                                                <h3>Ca 1 : 09:00:00-10:00:00</h3>
+                                                <h3 th:text="${item.ca}">Ca 1 : 09:00:00-10:00:00</h3>
                                             </div>
                                         </div>
                                     </td>
@@ -470,7 +470,7 @@
                                     >
                                         <div class="product-entry-cus">
                                             <div class="text-cus">
-                                                <h3>900000 VND</h3>
+                                                <h3 th:text="${item.giaSan +' VND'}">900000 VND</h3>
                                             </div>
                                         </div>
                                     </td>
@@ -480,7 +480,7 @@
                                     >
                                         <div class="product-entry-cus">
                                             <div class="text-cus">
-                                                <h3><a href="#">Chi tiết</a></h3>
+                                                <h3><a th:href="@{http://localhost:8081/chi-tiet/hoa-don(idHoaDonSanCa=${item.idHoaDonSanCa})}" target="_blank">Chi tiết</a></h3>
                                             </div>
                                         </div>
                                     </td>
@@ -506,7 +506,7 @@
                                     >
                                         <div class="product-entry-cus">
                                             <div class="text-cus">
-                                                <h3 style="font-weight: bold">900000 VND</h3>
+                                                <h3 style="font-weight: bold" th:text="${tongTien+' VND'}">900000 VND</h3>
                                             </div>
                                         </div>
                                     </td>

@@ -125,6 +125,11 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-java8time</artifactId>
+        </dependency>
+
         <!-- Logback (implementation của SLF4J) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>

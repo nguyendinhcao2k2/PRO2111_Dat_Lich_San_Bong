@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:v="urn:schemas-microsoft-com:vml"
+      xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -244,11 +249,11 @@
         </header>
         <div class="hero">
             <p class="departure">
-                <strong style="font-size: 20px; font-weight: 200">07:00:00</strong>
+                <strong style="font-size: 20px; font-weight: 200" th:text="${item.thoiGianBatDau}">07:00:00</strong>
                 <span style="font-size: 16px; font-weight: 200">Bắt đầu</span>
             </p>
             <p class="destination">
-                <strong style="font-size: 20px; font-weight: 200">09:00:00</strong>
+                <strong style="font-size: 20px; font-weight: 200" th:text="${item.thoiGianKetThuc}">09:00:00</strong>
                 <span style="font-size: 16px; font-weight: 200">Kết thúc</span>
             </p>
         </div>
@@ -262,14 +267,14 @@
                                         style="font-size: 20px; font-weight: 200; color: black"
                                 >Người đặt</label
                                 >
-                                <span>Đặng Văn Sỹ</span>
+                                <span th:text="${item.displayName}"></span>
                             </p>
                             <p class="col-50">
                                 <label
                                         style="font-size: 20px; font-weight: 200; color: black"
                                 >Thời gian đặt</label
                                 >
-                                <span>24/10/2023</span>
+                                <span th:text="${#temporals.format(item.ngayTao, 'dd/MM/yyyy hh:mm:ss')}"></span>
                             </p>
                         </div>
                         <div class="row">
@@ -278,14 +283,14 @@
                                         style="font-size: 20px; font-weight: 200; color: black"
                                 >Ngày check-in</label
                                 >
-                                <span>25/10/2023</span>
+                                <span th:text="${#temporals.format(item.ngayDenSan, 'dd/MM/yyyy')}">25/10/2023</span>
                             </p>
                             <p class="col-50 gate">
                                 <label
                                         style="font-size: 20px; font-weight: 200; color: black"
                                 >Giá tiền</label
                                 >
-                                <span>500.000 VND</span>
+                                <span th:text="${item.tienSan+' VND'}">500.000 VND</span>
                             </p>
                         </div>
                     </div>
@@ -296,7 +301,8 @@
                     <br />
                     <div class="row">
                         <p style="text-align: center; font-size: 12px">
-                            Sân bóng Đồng Đế kính chào!
+                            Quý khách vui lòng giữa mã này để thực hiện check in nhận sân tại quầy giao dịch.
+                             Trân trọng cảm ơn!
                         </p>
                     </div>
                     <p class="hotline">Liên hệ? Call 0369 569 225</p>
@@ -344,13 +350,15 @@
         crossorigin="anonymous"
 ></script>
 <script>
+    var maQRValue = '[[${item.maQR}]]';
     var qrcode = new QRCode("qrcode", {
-        text: "maqrcode oi day",
+        text: maQRValue,
         width: 100,
         height: 100,
         colorDark: "black", // Màu của ô vuông khi có dữ liệu
         colorLight: "whitesmoke",
     });
+
 </script>
 </body>
 </html>
