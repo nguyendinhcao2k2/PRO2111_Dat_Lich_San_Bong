@@ -6,6 +6,7 @@ import com.example.pro2111_dat_lich_san_bong.core.user.repository.HoaDonUserRepo
 import com.example.pro2111_dat_lich_san_bong.repository.HoaDonSanCaReponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,10 +23,10 @@ public class ChiTietMailController {
     private HoaDonSanCaUserRepository reponsitory;
 
     @GetMapping("/hoa-don")
-    public String detailHoaDon(String idHoaDonSanCa){
+    public String detailHoaDon(String idHoaDonSanCa, Model model){
         HoaDonSendMailResponse response = reponsitory.getDetialHoaDon(idHoaDonSanCa);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        DateTimeFormatter formatterNgayDa = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return "detail";
+
+        model.addAttribute("item",response);
+        return "utill/chi-tiet-phieu-dat";
     }
 }
