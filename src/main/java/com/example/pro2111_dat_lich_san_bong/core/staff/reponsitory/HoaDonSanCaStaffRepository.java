@@ -18,8 +18,8 @@ public interface HoaDonSanCaStaffRepository extends JpaRepository<HoaDonSanCa, S
             "JOIN Ca C ON SC.idCa = C.id " +
             "JOIN LoaiSan LS ON SB.idLoaiSan = LS.id " +
             "JOIN HoaDon HD ON HD.id = HDSC.idHoaDon " +
-            "JOIN Account A ON HD.idAccount = A.id WHERE HDSC.trangThai = :trangThai")
-    List<HoaDonThanhToanRequest> findAllByTrangThai(@Param("trangThai") int trangThai);
+            "JOIN Account A ON HD.idAccount = A.id WHERE HDSC.trangThai = :trangThaiDaCheckIn OR HDSC.trangThai = :trangThaiChoThanhToan")
+    List<HoaDonThanhToanRequest> findAllByTrangThai(@Param("trangThaiDaCheckIn") int trangThaiDaCheckIn, @Param("trangThaiChoThanhToan") int trangThaiChoThanhToan);
 
     @Query(value = "SELECT new com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest" +
             "(HDSC.id, A.id, HD.tienCoc,HD.tenNguoiDat, HD.soDienThoaiNguoiDat, SB.tenSanBong, LS.tenLoaiSan, C.tenCa, C.thoiGianBatDau, C.thoiGianKetThuc, HDSC.ngayDenSan, HDSC.thoiGianCheckIn, HD.ngayXacNhanDatSan, SC.gia, HDSC.trangThai) " +

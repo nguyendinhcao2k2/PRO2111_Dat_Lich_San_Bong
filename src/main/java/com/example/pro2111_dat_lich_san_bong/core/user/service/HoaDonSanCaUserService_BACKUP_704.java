@@ -23,6 +23,9 @@ public interface HoaDonSanCaUserService {
 
     void  deleteByIdHoaDonSanCa(String id);
 
+<<<<<<< HEAD
     HoaDonSendMailResponse getDetialHoaDon(String idHoaDonSanCa);
+=======
     HoaDonSanCa findByIdSanCa(String id);
+>>>>>>> ef5ea7c57a521737add70e469c2d6d595d1a6321
 }

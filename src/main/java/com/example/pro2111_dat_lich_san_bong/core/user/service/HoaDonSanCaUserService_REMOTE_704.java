@@ -1,8 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.service;
 
-import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -23,6 +21,5 @@ public interface HoaDonSanCaUserService {
 
     void  deleteByIdHoaDonSanCa(String id);
 
-    HoaDonSendMailResponse getDetialHoaDon(String idHoaDonSanCa);
     HoaDonSanCa findByIdSanCa(String id);
 }

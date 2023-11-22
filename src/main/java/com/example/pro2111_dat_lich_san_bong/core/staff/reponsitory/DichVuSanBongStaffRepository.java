@@ -11,7 +11,6 @@ import java.util.List;
 public interface DichVuSanBongStaffRepository extends JpaRepository<DichVuSanBong, String> {
     List<DichVuSanBong> findAllByIdHoaDonSanCaAndTrangThai(String idHoaDonSanCa, int trangThai);
 
-
     @Query(value = "SELECT new com.example.pro2111_dat_lich_san_bong.core.staff.model.request.DichVuSanBongRequest" +
             "(dv.idHoaDonSanCa, dv.idNuocUong, dv.idDoThue, nu.image, dt.image, nu.tenNuocUong, dt.tenDoThue, nu.donGia, dt.donGia, SUM(dv.donGia), SUM(dv.soLuongDoThue), SUM(dv.soLuongNuocUong))" +
             "FROM DichVuSanBong dv " +

@@ -44,8 +44,7 @@ public class DoiLichRestController {
     @Autowired
     private CommonSession commonSession;
 
-    @Autowired
-    private ThoiGianDLUserServiver thoiGianDLUserServiver;
+
 
     @Autowired
     private DoiLichUserService doiLichUserService;
@@ -58,6 +57,9 @@ public class DoiLichRestController {
 
     @Autowired
     private SYSParamUserService sysParamUserService;
+
+    @Autowired
+    private HoaDonDoiLichUserService hoaDonDoiLichUserService;
 
 
     @GetMapping()
@@ -129,22 +131,19 @@ public class DoiLichRestController {
 
             Date date = simpleDateFormat.parse(doiLichOneRequest.getNgayDoi());
 
-            int a = sanCaUserService.checkSanCa(doiLichOneRequest.getIdLoaiSan(), doiLichOneRequest.getIdCa(), doiLichOneRequest.getNgayDoi());
-            if (a == 1) {
-                return ResponseEntity.ok(new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Đã có lịch đặt!"));
-            }
             String idCaAndLoaiSan = doiLichOneRequest.getIdCa() + "+" + doiLichOneRequest.getIdLoaiSan() + "+" + dateFormat.format(date);
             String idSanBongCheck = doiLichUserService.getIdSanBongEmpty(idCaAndLoaiSan, doiLichOneRequest.getIdLoaiSan());
 
 
             HoaDonSanCa hoaDonSanCa = hoaDonSanCaUserService.findById(doiLichOneRequest.getIdHDSC());
             SanCa sanCa = sanCaUserService.findSanCaById(hoaDonSanCa.getIdSanCa());
+            HoaDon hoaDon = hoaDonDoiLichUserService.findById(hoaDonSanCa.getIdHoaDon());
 
             HoaDonSanCa hoaDonSanCaUpdate = new HoaDonSanCa();
             hoaDonSanCaUpdate.setNgayDenSan(ngayDenSan);
             hoaDonSanCaUpdate.setTienSan(Double.valueOf(doiLichOneRequest.getTienSan()));
             hoaDonSanCaUpdate.setMaQR(hoaDonSanCa.getMaQR());
-            hoaDonSanCaUpdate.setTrangThai(hoaDonSanCa.getTrangThai());
+            hoaDonSanCaUpdate.setTrangThai(TrangThaiHoaDonSanCa.CHO_NHAN_SAN.ordinal());
             hoaDonSanCaUpdate.setIdLichSuViTien(hoaDonSanCa.getIdLichSuViTien());
             hoaDonSanCaUpdate.setIdGiaoCa(hoaDonSanCa.getIdGiaoCa());
             hoaDonSanCaUpdate.setIdHoaDon(hoaDonSanCa.getIdHoaDon());
@@ -166,19 +165,17 @@ public class DoiLichRestController {
             sanCaUpdate.setUserId(sanCa.getUserId());
             sanCaUpdate.setThoiGianDat(sanCa.getThoiGianDat());
 
-            //cap nhat
+            //cap nhat hoa don
+            hoaDon.setTongTien((hoaDon.getTongTien() - hoaDonSanCa.getTienSan()) + Double.valueOf(doiLichOneRequest.getTienSan()));
+            hoaDon.setTienCoc(hoaDon.getTienCoc() + doiLichOneRequest.getTienCocThieu());
+            hoaDonDoiLichUserService.update(hoaDon);
+            //cap nhat hoa don san ca
             hoaDonSanCaUserService.saveHoaDonSanCa(hoaDonSanCaUpdate);
             sanCaUserService.saveSanCa(sanCaUpdate);
 
             //delete
             hoaDonSanCaUserService.deleteByIdHoaDonSanCa(doiLichOneRequest.getIdHDSC());
             sanCaUserService.deleteSanCaById(sanCa.getId());
-
-
-            System.out.println(idSanCa);
-            System.out.println(doiLichOneRequest.getIdSanBong());
-            System.out.println(doiLichOneRequest.getIdCa());
-            System.out.println(doiLichOneRequest.getIdLoaiSan());
 
 
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, "Oke"));
@@ -210,10 +207,8 @@ public class DoiLichRestController {
     ) {
         try {
             int a = sanCaUserService.checkSanCa(idLS, idCa, ngayDoi);
-            if (a == 1) {
-                return ResponseEntity.ok(new BaseResponse<>(HttpStatus.ALREADY_REPORTED, 1));
-            }
-            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, 0));
+            System.out.println("hello:" + a);
+            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, a));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.BAD_REQUEST, 2));

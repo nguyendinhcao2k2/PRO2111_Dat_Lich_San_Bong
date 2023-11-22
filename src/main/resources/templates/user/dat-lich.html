@@ -2339,7 +2339,8 @@
             tienCocThieu: 0,
             tienCocThua: 0,
             phanTramCoc: 0,
-            noiDung: "Tiền cọc",
+            noiDung: "Tien coc san bong",
+            indexCheckLich:0,
         },
         methods: {
             selectCaDoiLich(event) {
@@ -2374,45 +2375,36 @@
                     $(".modalCon").prop("hidden", false);
                     return;
                 }
-                if (!this.checkLichDat()) {
-                    return;
-                }
-                $(".modalCon").prop("hidden", true);
-                if (confirm("Bạn có chắc chắn thực hiện không?")) {
-                    this.updateLichOne();
-                }
+                // alert(modalDL.indexCheckLich )
 
-
-            },
-            checkLichDat() {
-                //0: đang trống, 1: đã có đặt, 2: lỗi
-                let check = 0;
                 $.ajax({
                     type: "GET",
                     url: "http://localhost:8081/api/v1/user/doi-lich/check-lick-dat?idLS=" + this.lichDatCu.idLoaiSan + "&idCa=" + this.lichDatCu.idCa + "&ngayDoi=" + $(".ngayMuonDoi").val(),
-                    success: function (data) {
-                        if (data.statusCode.content === 1) {
-                            this.check = 1;
+                    success: function (response) {
+                        if (response.content  === 1) {
+                            $(".modalCon").prop("hidden", true);
+                            $('.modal-backdrop').remove();
+                            createAndShowToast("bg-danger", "Thông báo", "Đã có lịch đặt");
                             return;
                         }
-                        if (data.statusCode.content === 2) {
-                            this.check = 2;
+
+                        if (response.content  === 2) {
+                            $(".modalCon").prop("hidden", true);
+                            $('.modal-backdrop').remove();
+                            createAndShowToast("bg-danger", "Thông báo", "Lỗi");
                             return;
                         }
-                        check = 0;
+                        $(".modalCon").prop("hidden", true);
+                        $('.modal-backdrop').remove();
+                        if (confirm("Bạn có chắc chắn thực hiện không?")) {
+                            modalDL.updateLichOne();
+                        }
                     }, error: function (error) {
                         createAndShowToast("bg-danger", "Thông báo", "Lỗi");
                         console.log(error);
                     }
                 });
-                if (this.check === 1) {
-                    createAndShowToast("bg-danger", "Thông báo", "Đã có lịch đặt");
-                    return false;
-                }
-                if (this.check === 2) {
-                    createAndShowToast("bg-danger", "Thông báo", "Lỗi");
-                    return false;
-                }
+
             },
             updateLichOne() {
                 $.ajax({

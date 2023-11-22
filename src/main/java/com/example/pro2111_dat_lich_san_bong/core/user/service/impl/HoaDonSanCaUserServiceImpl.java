@@ -28,7 +28,7 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
     @Override
     @Transactional
     public void saveHoaDonSanCa(HoaDonSanCa hoaDonSanCa) {
-        hoaDonSanCaUserRepository.save(hoaDonSanCa);
+        hoaDonSanCaUserRepository.saveAndFlush(hoaDonSanCa);
     }
 
     @Override
@@ -64,4 +64,14 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
     public HoaDonSendMailResponse getDetialHoaDon(String idHoaDonSanCa){
         return hoaDonSanCaUserRepository.getDetialHoaDon(idHoaDonSanCa);
     };
+
+    @Override
+    public HoaDonSanCa findByIdSanCa(String id) {
+        try {
+            return hoaDonSanCaUserRepository.findHoaDonSanCaByIdSanCa(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
