@@ -8,8 +8,11 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.HoaDonSta
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LoadSanBongRespose;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IDatSanStaffService;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.RestApiException;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +36,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/staff")
 public class DatLichStaffRescontroller {
+
+    @Autowired
+    private VNPayService vnPayService;
+
+    @Autowired
+    private HttpSession session;
 
     @Autowired
     private IDatSanStaffService iDatSanStaffService;
@@ -66,6 +75,19 @@ public class DatLichStaffRescontroller {
         context.setVariable("Thời gian đăt: ", LocalDateTime.now());
         sendMailWithBookings.sendEmailBookings(thongTinNguoiDatRequest.getEmail(), context);
         return new BaseResponse<>(HttpStatus.OK, "Đặt lịch thành công");
+    }
+
+    @PostMapping("/submit-order")
+    public String submidOrder(@RequestBody ThongTinNguoiDatRequest thongTinNguoiDatRequest, HttpServletRequest request) {
+        Integer price = 0;
+        for (ThongTinLichDatRequest thongTinLichDatRequest : thongTinNguoiDatRequest.getThongTinLichDatRequests()) {
+            price += Integer.valueOf(thongTinLichDatRequest.getPrice());
+        }
+        session.setAttribute("thongTinNguoiDat", thongTinNguoiDatRequest);
+        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        baseUrl += "/api/v1/staff/return-payment";
+        String vnpayUrl = vnPayService.createOrder(price, thongTinNguoiDatRequest.getHoVaTen(), baseUrl);
+        return vnpayUrl;
     }
 
     @GetMapping("/show-danh-sach-cho")
