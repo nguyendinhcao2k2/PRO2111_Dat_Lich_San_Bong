@@ -74,4 +74,9 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
             return null;
         }
     }
+
+    @Override
+    public List<HoaDonSendMailResponse> getLisTHDSC(String idHoaDon){
+        return hoaDonSanCaUserRepository.getLisTHDSC(idHoaDon);
+    }
 }

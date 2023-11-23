@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.controller;
 
 import com.example.pro2111_dat_lich_san_bong.core.common.base.BaseController;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.runSchedule.RunJobHuyHDByOutTab;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.runSchedule.RunJobHuyLichSanCa;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.HoDonDatLichResponse;
@@ -9,6 +10,8 @@ import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonUserService
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanCaUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.ViTienUserService;
+import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailUtils;
+import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
@@ -16,6 +19,8 @@ import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiViTien;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
+import com.example.pro2111_dat_lich_san_bong.model.request.SendMailRequest;
+import com.example.pro2111_dat_lich_san_bong.model.response.MaillListResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.mail.MessagingException;
@@ -30,11 +35,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.thymeleaf.context.Context;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -66,6 +77,12 @@ public class ThanhToanTCUserController extends BaseController {
 
     @Autowired
     private RunJobHuyHDByOutTab runJobHuyHDByOutTab;
+
+    @Autowired
+    private SendMailUtils sendMailUtils;
+
+    @Autowired
+    private SendMailWithBookings sendMailWithBookings;
 
 
     @PostMapping("/create-payment")
@@ -156,6 +173,59 @@ public class ThanhToanTCUserController extends BaseController {
             viTienCoc.setSoTien(soTienGD);
 
             viTienUserService.saveViTen(viTienCoc);
+
+            //gửi mail
+            try {
+
+                List<HoaDonSendMailResponse> list = hoaDonSanCaUserService.getLisTHDSC(hoaDon.getId());
+                DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                DateTimeFormatter formatterNgayDa = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                if(list.size() == 1){
+                    HoaDonSendMailResponse response = list.get(0);
+
+                    SendMailRequest sendMailRequest = new SendMailRequest();
+                    sendMailRequest.setTitle("Phiếu Đặt Lịch");
+                    sendMailRequest.setNguoiDat(response.getDisplayName());
+                    sendMailRequest.setNguoiNhanMail(response.getEmail());
+                    sendMailRequest.setQrCodeData(response.getMaQR());
+                    sendMailRequest.setNgayDat(formatter.format(response.getNgayTao()));
+                    sendMailRequest.setTimeStart(response.getThoiGianBatDau());
+                    sendMailRequest.setTimeEnd(response.getThoiGianKetThuc());
+                    sendMailRequest.setGiaTien(response.getTienSan());
+                    sendMailRequest.setNgayCheckIn(formatterNgayDa.format(response.getNgayDenSan()));
+
+                    sendMailUtils.sendEmail(sendMailRequest);
+                }else if (list.size()>1){
+
+                    Context context = new Context();
+                    context.setVariable("nguoiDat", hoaDon.getTenNguoiDat());
+                    context.setVariable("sdt", hoaDon.getSoDienThoaiNguoiDat());
+
+                    //thời gian đặt sân
+                    context.setVariable("timeDat", hoaDon.getNgayTao());
+                    context.setVariable("tongTien",decimalFormat.format(hoaDon.getTongTien()));
+
+                    List<MaillListResponse> listResponses = new ArrayList<>();
+
+                    for (HoaDonSendMailResponse response: list) {
+                        MaillListResponse maillListResponse = new MaillListResponse();
+                        maillListResponse.setIdHoaDonSanCa(response.getId());
+                        maillListResponse.setGiaSan(decimalFormat.format(response.getTienSan()));
+                        maillListResponse.setNgayDa(formatterNgayDa.format(response.getNgayDenSan()));
+                        maillListResponse.setCa(response.getTenCa()+": ("+response.getThoiGianBatDau()+"-"+response.getThoiGianKetThuc()+")");
+                        listResponses.add(maillListResponse);
+                    }
+
+                    context.setVariable("thoiGianList", listResponses);
+                    sendMailWithBookings.sendEmailBookings(hoaDon.getEmail(), context,request);
+                }
+
+            } catch (Exception e) {
+                // Handle exception
+                e.printStackTrace();
+            }
 
             return "DemoVNPay/SuccessOder";
         }else {// thanh toán thất bại hoặc hết tg thanh toán
