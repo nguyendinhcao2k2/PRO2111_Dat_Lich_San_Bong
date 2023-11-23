@@ -1,5 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.core.utils;
 
+import com.example.pro2111_dat_lich_san_bong.model.request.SendMailRequest;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import jakarta.mail.MessagingException;
@@ -18,6 +19,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 @Service
 public class SendMailUtils {
@@ -28,9 +30,19 @@ public class SendMailUtils {
     @Value("${spring.mail.username}")
     private String fromEmail;
 
-    public String sendEmail(String nguoiNhanMail, String qrCodeData,
-                            String timeStart, String timeEnd, String nguoiDat, String ngayDat,
-                            String ngayCheckIn, String giaTien) {
+    public String sendEmail(SendMailRequest request) {
+
+        String title = request.getTitle();
+        String nguoiNhanMail = request.getNguoiNhanMail();
+        String qrCodeData = request.getQrCodeData();
+        String timeStart= request.getTimeStart();
+        String timeEnd = request.getTimeEnd();
+        String nguoiDat = request.getNguoiDat();
+        String ngayDat = request.getNgayDat();
+        String ngayCheckIn = request.getNgayCheckIn();
+        Double giaTien = request.getGiaTien();
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -38,9 +50,10 @@ public class SendMailUtils {
                     MimeMessage message = mailSender.createMimeMessage();
                     MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
+
                     helper.setFrom(fromEmail);
                     helper.setTo(nguoiNhanMail);
-                    helper.setSubject("PHIẾU ĐẶT LỊCH SÂN BÓNG ĐỒNG ĐẾ");
+                    helper.setSubject(title);
 
                     // Đọc tệp HTML chứa mã QR code
                     String htmlContent = "<!DOCTYPE html>\n" +
@@ -48,7 +61,7 @@ public class SendMailUtils {
                             "<head>\n" +
                             "    <meta charset=\"utf-8\" />\n" +
                             "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n" +
-                            "    <title>Bootstrap demo</title>\n" +
+                            "    <title>"+title+"</title>\n" +
                             "    <link\n" +
                             "            href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css\"\n" +
                             "            rel=\"stylesheet\"\n" +
@@ -289,7 +302,7 @@ public class SendMailUtils {
                             "              font-weight: bold;\n" +
                             "            \"\n" +
                             "            >\n" +
-                            "                PHIẾU ĐẶT LỊCH\n" +
+                            "                "+title+"\n" +
                             "            </p>\n" +
                             "        </header>\n" +
                             "        <div class=\"hero\" style=\"height: 5px\">\n" +
@@ -321,7 +334,7 @@ public class SendMailUtils {
                             "                    </p>\n" +
                             "                    <p class=\"col-50\">\n" +
                             "                        <label>Giá tiền</label>\n" +
-                            "                        <span style=\"font-size: 15px;\">" + giaTien + " VND" + "</span>\n" +
+                            "                        <span style=\"font-size: 15px;\">" + decimalFormat.format(giaTien) + " VND" + "</span>\n" +
                             "                    </p>\n" +
                             "                </div>\n" +
                             "            </div>\n" +
@@ -331,7 +344,8 @@ public class SendMailUtils {
                             "            </div>\n" +
                             "            <div class=\"row\">\n" +
                             "                <p style=\"text-align: center; font-size: 12px\">\n" +
-                            "                    Sân bóng Đồng Đế kính chào!\n" +
+                            "                    Quý khách vui lòng giữ lại mã QR code để thực hiện check in tại " +
+                            "sân bóng đồng đế. cảm ơn quý khách đã sự dụng dịch vụ!\n" +
                             "                </p>\n" +
                             "            </div>\n" +
                             "            <p class=\"hotline\">Liên hệ? Call 0369 569 225</p>\n" +

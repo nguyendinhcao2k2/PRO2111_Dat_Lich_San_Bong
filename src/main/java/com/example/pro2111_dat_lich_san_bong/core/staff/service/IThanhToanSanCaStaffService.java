@@ -5,7 +5,7 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThan
 import java.util.List;
 
 public interface IThanhToanSanCaStaffService {
-    List<HoaDonThanhToanRequest> getAllHoaDonSanCas(int trangThai);
+    List<HoaDonThanhToanRequest> getAllHoaDonSanCas();
 
     HoaDonThanhToanRequest getOneHoaDonThanhToan(String id);
 }

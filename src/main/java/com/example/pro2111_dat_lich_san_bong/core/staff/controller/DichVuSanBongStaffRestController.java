@@ -9,6 +9,8 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.service.INuocUongStaffSe
 import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.DoThue;
 import com.example.pro2111_dat_lich_san_bong.entity.NuocUong;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiDichVu;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiDoThue;
 import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,21 +58,21 @@ public class DichVuSanBongStaffRestController {
     @GetMapping("/get-by-id/{id}")
     public ResponseEntity<List<DichVuSanBong>> getAllDichVuSanBongs(@PathVariable(name = "id") String idHoaDonSanCa) {
         listDichVuSanBongs.clear();
-        listDichVuSanBongs = dichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, 0);
+        listDichVuSanBongs = dichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, TrangThaiDichVu.Dang_Su_Dung.ordinal());
         return ResponseEntity.ok(listDichVuSanBongs);
     }
 
     @GetMapping("/dich-vu-thanh-toan/{id}")
     public ResponseEntity<List<DichVuSanBongRequest>> getAllDichVuSanBongRequests(@PathVariable("id") String id) {
         listDichVuSanBongRequests.clear();
-        listDichVuSanBongRequests = dichVuSanBongStaffService.dichVuSanBongSuDungByHoaDonSanCas(id, 0);
+        listDichVuSanBongRequests = dichVuSanBongStaffService.dichVuSanBongSuDungByHoaDonSanCas(id, TrangThaiDichVu.Dang_Su_Dung.ordinal());
         return ResponseEntity.ok(listDichVuSanBongRequests);
     }
 
     @GetMapping("/danh-sach-dich-vu")
     public ResponseEntity<List<DoThueNuocUongDichVuRequest>> getAllDoThueNuocUongDichVuRequest() {
         listDoThueNuocUongDichVuRequest.clear();
-        listDoThueNuocUongDichVuRequest = dichVuSanBongStaffService.getAllDoThueNuocUongDichVuRequest(0);
+        listDoThueNuocUongDichVuRequest = dichVuSanBongStaffService.getAllDoThueNuocUongDichVuRequest(TrangThaiDoThue.Con_Hang.ordinal());
         return ResponseEntity.ok(listDoThueNuocUongDichVuRequest);
     }
 
@@ -79,7 +81,7 @@ public class DichVuSanBongStaffRestController {
         int soLuongDoThueNuocUong = doThueNuocUongDichVuRequest.getSoLuong();
         String idDoThueNuocUong = doThueNuocUongDichVuRequest.getId();
         int trangThaiDoThueNuocUong = doThueNuocUongDichVuRequest.getTrangThai();
-        listDichVuSanBongs = dichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, 0);
+        listDichVuSanBongs = dichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, TrangThaiDichVu.Dang_Su_Dung.ordinal());
         System.out.println(listDichVuSanBongs.size());
         if (listDichVuSanBongs == null || listDichVuSanBongs.size() == 0) {
             DichVuSanBong dichVuSanBong = new DichVuSanBong();
@@ -101,7 +103,7 @@ public class DichVuSanBongStaffRestController {
             dichVuSanBong.setTrangThai(0);
             dichVuSanBongStaffRepository.save(dichVuSanBong);
         } else {
-            listDichVuSanBongs = dichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, 0);
+            listDichVuSanBongs = dichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, TrangThaiDichVu.Dang_Su_Dung.ordinal());
             for (int i = 0; i < listDichVuSanBongs.size(); i++) {
                 int count = 0;
                 DichVuSanBong dichVuSanBongIndex = listDichVuSanBongs.get(i);
@@ -133,8 +135,8 @@ public class DichVuSanBongStaffRestController {
                             NuocUong nuocUong = nuocUongStaffService.getOneNuocUong(idDoThueNuocUong);
                             dichVuSanBongFind.setDonGia((soLuongCu + soLuongDoThueNuocUong) * nuocUong.getDonGia());
                         }
-                        dichVuSanBongStaffRepository.save(dichVuSanBongFind);
                         updateSoLuongDoThueNuocUong(idDoThueNuocUong, soLuongDoThueNuocUong, 1);
+                        dichVuSanBongStaffRepository.save(dichVuSanBongFind);
                         break;
                     } else {
                         if (count == 0 && i == listDichVuSanBongs.size() - 1) {
@@ -146,12 +148,13 @@ public class DichVuSanBongStaffRestController {
                             dichVuSanBongNull.setId(null);
                             dichVuSanBongNull.setIdHoaDonSanCa(idHoaDonSanCa);
                             dichVuSanBongNull.setTrangThai(0);
-                            dichVuSanBongStaffRepository.save(dichVuSanBongNull);
                             updateSoLuongDoThueNuocUong(idDoThueNuocUong, soLuongDoThueNuocUong, 1);
+                            dichVuSanBongStaffRepository.save(dichVuSanBongNull);
                             break;
                         }
                     }
                 } else {
+                    listDichVuSanBongs = dichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, 0);
                     if (dichVuSanBongIndex.getIdDoThue() == null) {
                         count++;
                         DichVuSanBong dichVuSanBongUpdated = getOneDichVuSanBong(dichVuSanBongIndex.getId());
@@ -208,7 +211,7 @@ public class DichVuSanBongStaffRestController {
 
     @PostMapping("/xoa-dich-vu/{id}")
     public void deleteDichVu(@PathVariable(name = "id") String idHoaDonSanCa, @RequestBody DoThueNuocUongDichVuRequest doThueNuocUongDichVuRequest) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-
+        listDichVuSanBongs = dichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, 0);
         String idDichVuDoThue = doThueNuocUongDichVuRequest.getId();
 
         int trangThai = doThueNuocUongDichVuRequest.getTrangThai();
@@ -288,7 +291,7 @@ public class DichVuSanBongStaffRestController {
         System.out.println(doThueNuocUongDichVuRequest.getId());
         System.out.println(soLuongCapNhat);
 
-        listDichVuSanBongs = dichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, 0);
+        listDichVuSanBongs = dichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, TrangThaiDichVu.Dang_Su_Dung.ordinal());
 
         for (int i = 0; i < listDichVuSanBongs.size(); i++) {
             String idDichVuSanBong = listDichVuSanBongs.get(i).getId();

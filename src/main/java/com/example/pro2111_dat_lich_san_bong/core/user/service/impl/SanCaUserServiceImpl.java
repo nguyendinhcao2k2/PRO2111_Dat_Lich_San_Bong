@@ -11,6 +11,7 @@ import com.example.pro2111_dat_lich_san_bong.core.user.service.SanBongUserServic
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanCaUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiThoiGianDL;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -52,11 +53,11 @@ public class SanCaUserServiceImpl implements SanCaUserService {
 
         String[] dateFomat = ngayDat.split("-");
 
-        String textCheck= idCa+"+"+idLoaiSan+"+"+dateFomat[2]+dateFomat[1]+dateFomat[0];
+        String textCheck = idCa + "+" + idLoaiSan + "+" + dateFomat[2] + dateFomat[1] + dateFomat[0];
         int countSanCa = sanCaUserRepository.getAllSanCa(textCheck);
-        int countSanBong= sanBongUserService.countSanBong(idLoaiSan);
+        int countSanBong = sanBongUserService.countSanBong(idLoaiSan);
 
-        if(countSanCa<countSanBong){
+        if (countSanCa < countSanBong) {
             return 0;
         }
         return 1;
@@ -66,43 +67,43 @@ public class SanCaUserServiceImpl implements SanCaUserService {
     public List checkListSanCa(List<CheckSanCaUserRequest> list) {
         //list trả ra những san ca đã có người đặt
         List<CheckSanCaUserRequest> listExist = new ArrayList<>();
-        Map<String,Integer> mapCoutnExist = new HashMap<>();
-        for (CheckSanCaUserRequest request: list) {
+        Map<String, Integer> mapCoutnExist = new HashMap<>();
+        for (CheckSanCaUserRequest request : list) {
             String[] dateFomat = request.getNgayDat().split("-");
 
             //đếm số lượng sân bóng theo id loại san
-            int countSanBong= sanBongUserService.countSanBong(request.getIdLoaiSan());
+            int countSanBong = sanBongUserService.countSanBong(request.getIdLoaiSan());
 
             // id của sân ca
-            String textCheck= request.getIdCa()+"+"+request.getIdLoaiSan()+"+"+dateFomat[2]+dateFomat[1]+dateFomat[0];
+            String textCheck = request.getIdCa() + "+" + request.getIdLoaiSan() + "+" + dateFomat[2] + dateFomat[1] + dateFomat[0];
             //kiểm tra xem có trong map không
-            if(!mapCoutnExist.containsKey(textCheck)){ // nếu không có trong map
+            if (!mapCoutnExist.containsKey(textCheck)) { // nếu không có trong map
                 int countSanCa = sanCaUserRepository.getAllSanCa(textCheck);
 
                 //kiểm tra xem số lương san ca trong db có còn không
-                if(countSanCa<countSanBong){ //nếu san ca trong db có bé hơn số lượng sân bóng
-                    mapCoutnExist.put(textCheck,countSanCa+1); //thì put vào map số lương san ca trong db và +1 san ca muốn đặt
+                if (countSanCa < countSanBong) { //nếu san ca trong db có bé hơn số lượng sân bóng
+                    mapCoutnExist.put(textCheck, countSanCa + 1); //thì put vào map số lương san ca trong db và +1 san ca muốn đặt
 
-                }else {
+                } else {
                     listExist.add(request);
                 }
-            }else { //nếu trong map đã tồn tại
+            } else { //nếu trong map đã tồn tại
                 int allCountSanCaInList = mapCoutnExist.get(textCheck);
                 // kiểm tra xem trong map (đã lơn hoặc) bằng số lượng sân bóng chưa
-                if(allCountSanCaInList >= countSanBong){ //đã (lớn hơn hoặc) bằng rồi thì thêm vào list đã tồn tại
+                if (allCountSanCaInList >= countSanBong) { //đã (lớn hơn hoặc) bằng rồi thì thêm vào list đã tồn tại
                     listExist.add(request);
-                }else {
+                } else {
                     //đếm số sân ca trong db
                     int countSanCa = sanCaUserRepository.getAllSanCa(textCheck);
 
                     //lấy số sân ca muốn đặt trước đó bằng cách lấy số sân ca trong map trừ đi sân ca trong db
-                    int soDuocCongTruocDo =allCountSanCaInList - countSanCa;
+                    int soDuocCongTruocDo = allCountSanCaInList - countSanCa;
 
                     //kiểm tra xem sân ca được cổng + cho sân ca trong db+ 1 sân ca muốn đặt có bé hơn số sân bóng không
-                    if(countSanCa+soDuocCongTruocDo+1<=countSanBong){ // nếu bé hơn số lượng sân bóng
-                        mapCoutnExist.put(textCheck,allCountSanCaInList+1);// thì cập nhật lại số lượng san ca muốn đặt+ sân ca trong db
+                    if (countSanCa + soDuocCongTruocDo + 1 <= countSanBong) { // nếu bé hơn số lượng sân bóng
+                        mapCoutnExist.put(textCheck, allCountSanCaInList + 1);// thì cập nhật lại số lượng san ca muốn đặt+ sân ca trong db
 
-                    }else {
+                    } else {
                         listExist.add(request);
                     }
                 }
@@ -124,12 +125,23 @@ public class SanCaUserServiceImpl implements SanCaUserService {
     }
 
     @Override
+    @Transactional
     public void deleteSanCaById(String idSanCa) {
         try {
             sanCaUserRepository.deleteSanCaById(idSanCa);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    @Transactional
+    public void saveSanCa(SanCa sanCa) {
+        try {
+            sanCaUserRepository.save(sanCa);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

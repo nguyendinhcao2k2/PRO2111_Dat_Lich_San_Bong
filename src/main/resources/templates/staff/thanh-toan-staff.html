@@ -18,8 +18,8 @@
     <!-- BOOTSTRAP -->
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                 </div>
-                <hr />
+                <hr/>
 
                 <div>
                     <!-- Thông tin -->
@@ -98,54 +98,40 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label for="email" class="form-label">Email</label>
-                            <input readonly type="text" class="form-control" id="email" />
+                            <label for="tenSanCa" class="form-label">Tên Sân Ca: </label>
+                            <input readonly type="text" class="form-control" id="tenSanCa" name="tenSanCa"/>
                         </div>
 
                         <!--  -->
                         <div class="col-md-6">
-                            <label for="tenSan" class="form-label">Tên Sân</label>
+                            <label for="thoiGianNhanSan" class="form-label">Thời Gian Nhận Sân: </label>
                             <input
                                     readonly
                                     type="text"
                                     class="form-control"
-                                    name="tenSanBong"
-                                    id="tenSan"
-                            />
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="inputAddress" class="form-label">Tên ca</label>
-                            <input
-                                    readonly
-                                    type="text"
-                                    name="tenCa"
-                                    class="form-control"
-                                    id="inputAddress"
-                            />
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="thoiGianNhanSan" class="form-label"
-                            >Thời gian nhận sân</label
-                            >
-                            <input
-                                    readonly
-                                    type="text"
                                     name="thoiGianNhanSan"
-                                    class="form-control"
                                     id="thoiGianNhanSan"
                             />
                         </div>
 
-                        <!--  -->
                         <div class="col-md-6">
-                            <label for="giaSan" class="form-label">Giá sân</label>
+                            <label for="thoiGianDa" class="form-label">Thời Gian Đá: </label>
+                            <input
+                                    readonly
+                                    type="text"
+                                    name="thoiGianDa"
+                                    class="form-control"
+                                    id="thoiGianDa"
+                            />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="giaSan" class="form-label">Giá Sân (1)</label>
                             <div class="input-group">
                                 <input
                                         readonly
                                         type="text"
                                         class="form-control"
+                                        name="giaSan"
                                         id="giaSan"
                                 />
                                 <span
@@ -158,62 +144,77 @@
                                 >
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <label for="giaDichVu" class="form-label">Giá Dịch Vụ (2)</label>
+                            <div class="input-group">
+                                <input
+                                        readonly
+                                        type="text"
+                                        class="form-control"
+                                        name="giaDichVu"
+                                        id="giaDichVu"
+                                />
+                                <span
+                                        class="input-group-text"
+                                        style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                >VND</span
+                                >
+                            </div>
+                        </div>
 
+                        <!--  -->
+                        <div class="col-md-6">
+                            <label for="giaPhuPhiShow" class="form-label">Giá Phụ Phí (3)</label>
+                            <div class="input-group">
+                                <input
+                                        readonly
+                                        type="text"
+                                        class="form-control"
+                                        name="giaPhuPhiShow"
+                                        id="giaPhuPhiShow"
+                                />
+                                <span
+                                        class="input-group-text"
+                                        style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                >VND</span
+                                >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="tienCocSan" class="form-label">Tiền Cọc Sân (4)</label>
+                            <div class="input-group">
+                                <input
+                                        readonly
+                                        type="text"
+                                        class="form-control"
+                                        name="tienCocSan"
+                                        id="tienCocSan"
+                                />
+                                <span
+                                        class="input-group-text"
+                                        style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                >VND</span
+                                >
+                            </div>
+                        </div>
                         <!-- Thanh toán -->
                         <div class="row mt-4">
                             <div class="col-md-12">
                                 <h1>Thanh Toán</h1>
                             </div>
-                            <hr />
+                            <hr/>
 
                             <div class="col-md-12">
                                 <!-- phương thức chuyển khoản -->
-                                <fieldset class="row mb-3">
-                                    <legend class="col-form-label col-md-4 pt-0">
-                                        Phương thức thanh toán
-                                    </legend>
-                                    <div class="col-md-8">
-                                        <div class="form-check">
-                                            <input
-                                                    class="form-check-input"
-                                                    type="radio"
-                                                    name="phuongThucChuyenKhoan"
-                                                    id="chuyeKhoan"
-                                                    value="option1"
-                                                    checked
-                                            />
-                                            <label class="form-check-label" for="chuyeKhoan">
-                                                Chuyển khoản
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input
-                                                    class="form-check-input"
-                                                    type="radio"
-                                                    name="phuongThucChuyenKhoan"
-                                                    id="tienMat"
-                                                    value="option2"
-                                            />
-                                            <label class="form-check-label" for="tienMat">
-                                                Tiền mặt
-                                            </label>
-                                        </div>
-                                        <div class="form-check disabled">
-                                            <input
-                                                    class="form-check-input"
-                                                    type="radio"
-                                                    name="phuongThucChuyenKhoan"
-                                                    id="gridRadios3"
-                                                    value="option3"
-                                                    disabled
-                                            />
-                                            <label class="form-check-label" for="gridRadios3">
-                                                Third disabled radio
-                                            </label>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
                                 <!--Phụ Phí  -->
                                 <div class="row mb-3">
                                     <label
@@ -223,21 +224,15 @@
                                     >
                                     <div class="col-md-8">
                                         <div class="input-group">
-                                            <select
-                                                    id="selectPhuPhi"
-                                                    class="form-select"
-                                                    aria-label="Default select example"
-                                            >
-                                                <option selected>Chọn dịch vụ</option>
-                                                <option value="1">Hỏng</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                            <select id="selectPhuPhi" class="form-select"
+                                                    aria-label="Default select example">
+                                                <option selected>Chọn Phụ Phí</option>
                                             </select>
                                             <!--  -->
                                             <button
                                                     class="btn btn-success btn-outline-success"
                                                     type="button"
-                                                    id="button-addon2"
+                                                    id="buttonThemPhuPhiHoaDon"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalThemPhuPhi"
                                                     style="
@@ -291,6 +286,7 @@
                                                                                     type="text"
                                                                                     class="form-control"
                                                                                     id="tenPhuPhi"
+
                                                                             />
                                                                         </div>
                                                                     </div>
@@ -302,9 +298,10 @@
                                                                         >
                                                                         <div class="input-group">
                                                                             <input
-                                                                                    type="text"
+                                                                                    type="number"
                                                                                     class="form-control"
                                                                                     id="giaPhuPhi"
+                                                                                    min="1"
                                                                             />
                                                                             <span
                                                                                     class="input-group-text"
@@ -318,20 +315,32 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <hr>
+                                                                <button type="button" class="btn btn-success"
+                                                                        id="saveNewPhuPhi">
+                                                                    Thêm Vào Phụ Phí
+                                                                </button>
+                                                                <hr>
+                                                                <table class="table">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th scope="col">STT</th>
+                                                                        <th scope="col">TÊN PHỤ PHÍ</th>
+                                                                        <th scope="col">GIÁ PHỤ PHÍ</th>
+                                                                        <th scope="col">CHỌN</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody id="dataPhuPhiHoaDon">
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button
                                                                         type="button"
-                                                                        class="btn btn-danger btn-labeled-sm"
                                                                         data-bs-dismiss="modal"
-                                                                >
-                                                                    Hủy
-                                                                </button>
-                                                                <button
-                                                                        type="button"
                                                                         class="btn btn-success btn-labeled-sm"
                                                                 >
-                                                                    Thêm
+                                                                    Xác Nhận
                                                                 </button>
                                                             </div>
                                                         </form>
@@ -343,17 +352,51 @@
                                     </div>
                                 </div>
                                 <!-- Tiền khách đưa -->
-                                <div class="row mb-3">
-                                    <label for="tienKhachDua" class="col-md-4 col-form-label"
-                                    >Tiền khách đưa</label
-                                    >
+                                <fieldset class="row mb-3">
+                                    <legend class="col-form-label col-md-4 pt-0">
+                                        Hình Thức :
+                                    </legend>
+                                    <div class="col-md-8">
+                                        <div class="form-check form-check-inline">
+                                            <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    name="phuongThucChuyenKhoan"
+                                                    id="chuyeKhoan"
+                                                    value="chuyeKhoan"
+                                                    checked
+                                                    onchange="toggleInputs()"
+                                            />
+                                            <label class="form-check-label" for="chuyeKhoan">
+                                                Chuyển khoản
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    name="phuongThucChuyenKhoan"
+                                                    id="tienMat"
+                                                    value="tienMat"
+                                                    onchange="toggleInputs()"
+                                            />
+                                            <label class="form-check-label" for="tienMat">
+                                                Tiền mặt
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <!-- Tiền khách đưa -->
+                                <div class="row mb-3" id="tienKhachDuaContainer">
                                     <div class="col-md-8">
                                         <div class="input-group">
+                                            <label for="tienKhachDua" class="col-md-4 col-form-label"
+                                            >Tiền Khách Đưa :</label
+                                            >
                                             <input
-                                                    readonly
                                                     type="text"
-                                                    class="form-control"
                                                     id="tienKhachDua"
+                                                    oninput="calculateChange()"
                                             />
                                             <span
                                                     class="input-group-text"
@@ -368,12 +411,12 @@
                                     </div>
                                 </div>
                                 <!-- Tiền trả lại -->
-                                <div class="row mb-3">
-                                    <label for="tienTraLai" class="col-md-4 col-form-label"
-                                    >Tiền trả lại</label
-                                    >
+                                <div class="row mb-3" id="tienTraLaiContainer">
                                     <div class="col-md-8">
                                         <div class="input-group">
+                                            <label for="tienTraLai" class="col-md-4 col-form-label"
+                                            >Tiền Trả Lại: </label
+                                            >
                                             <input
                                                     readonly
                                                     type="text"
@@ -393,8 +436,8 @@
                             </div>
                             <!-- tổng tiền -->
                             <div class="col-md-12">
-                                <hr />
-                                <h2
+                                <hr/>
+                                <h3
                                         style="
                                                 font-size: 19px;
                                                 font-family: Tahoma;
@@ -403,24 +446,37 @@
                                                 color: rgb(215, 92, 92);
                                               "
                                 >
-                                    Tổng Thanh Toán: 150.000 VND
-                                </h2>
+                                    ((1 + 2 + 3) - 4) :
+                                </h3>
+                                <h1
+                                        style="
+                                                font-size: 22px;
+                                                font-family: Tahoma;
+                                                font-weight: 900;
+                                                text-align: center;
+                                                color: rgb(215, 92, 92);
+                                              "
+                                >
+                                    <br>
+                                    Tổng Thanh Toán: <span id="tongThanhToan" name="tongThanhToan">0</span>
+                                </h1>
                             </div>
                         </div>
                         <!-- BUTTON NEW 2/11 -->
-                        <hr />
-                        <div
-                                class="mt-2 d-grid gap-2 d-md-block d-flex justify-content-center text-center"
-                        >
-                            <button type="button" class="m-2 btn btn-danger btn-labeled">
+                        <hr/>
+                        <div class="mt-2 d-grid gap-2 d-md-block d-flex justify-content-center text-center">
+                            <button
+                                    type="button "
+                                    class="m-2 btn btn-danger btn-labeled"
+                            >
                                 Hủy
                                 <span class="btn-label">
-                      <i class="fa fa-remove"></i>
-                    </span>
+                                        <i class="fa fa-remove"></i>
+                                         </span>
                             </button>
                             <button
                                     type="submit"
-                                    id="submitBtn"
+                                    id="btnThanhToanHoaDon"
                                     class="m-2 btn btn-success btn-labeled"
                             >
                                 Thanh Toán
@@ -446,16 +502,13 @@
                                 <div class="row g-2 align-items-center">
                                     <div class="col-md-6"></div>
                                     <div class="col-md-3 col-sm-auto">
-                                        <select
-                                                id="select-san-staff"
-                                                class="form-select"
-                                                style="border-radius: 5px"
-                                        >
+                                        <select id="select-san-staff" class="form-select"
+                                                style="border-radius: 5px">
                                             <option selected value="0">Tất cả</option>
                                             <option value="1">Nước Uống</option>
-                                            <option value="2">Bóng</option>
-                                            <option value="3">Áo đấu</option>
+                                            <option value="2">Đồ Thuê</option>
                                         </select>
+
                                     </div>
                                     <!-- BUTTON ADD DỊCH VỤ -->
                                     <div
@@ -504,64 +557,30 @@
                                                             <div class="row">
                                                                 <div class="col-md-9">
                                                                     <form>
-                                                                        <div
-                                                                                class="row g-2 align-items-center"
-                                                                        >
+                                                                        <div class="row g-2 align-items-center">
                                                                             <!-- Sân filter -->
+                                                                            <!-- Loại Sân -->
                                                                             <div class="col-auto">
-                                                                                <label
-                                                                                        for="search-list-service"
-                                                                                        class="col-form-label label-filter-list-order"
-                                                                                >Tìm Kiếm :
-                                                                                </label>
+                                                                                <label for="select-service-list-order"
+                                                                                       class="col-form-label label-filter-list-order">Dịch
+                                                                                    vụ:</label>
                                                                             </div>
                                                                             <div class="col-md-3 col-sm-auto">
-                                                                                <input
-                                                                                        type="text"
-                                                                                        class="form-control"
-                                                                                        id="search-list-service"
-                                                                                        placeholder="Tìm kiếm tên dịch vụ..."
-                                                                                />
-                                                                            </div>
-
-                                                                            <!--Loại Sân  -->
-                                                                            <div class="col-auto">
-                                                                                <label
-                                                                                        for="select-service-list-order"
-                                                                                        class="col-form-label label-filter-list-order"
-                                                                                >Dịch vụ :
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="col-md-3 col-sm-auto">
-                                                                                <select
-                                                                                        id="select-service-list-order"
+                                                                                <select id="select-service-list-order"
                                                                                         class="form-select"
-                                                                                        style="border-radius: 5px"
-                                                                                >
+                                                                                        style="border-radius: 5px">
                                                                                     <option selected value="0">
                                                                                         Tất cả
                                                                                     </option>
-                                                                                    <option value="1">
-                                                                                        Nước
+                                                                                    <option value="1">Nước
                                                                                     </option>
-                                                                                    <option value="2">Áo
-                                                                                    </option>
-                                                                                    <option value="3">
-                                                                                        Bóng
+                                                                                    <option value="2">Đồ Thuê
                                                                                     </option>
                                                                                 </select>
                                                                             </div>
-                                                                            <!-- BUTTON TÌM KIẾM -->
-                                                                            <div class="col-auto">
-                                                                                <button
-                                                                                        type="submit"
-                                                                                        class="btn btn-success btn-labeled-sm"
-                                                                                >
-                                                                                    Tìm Kiếm
-                                                                                </button>
-                                                                            </div>
                                                                         </div>
                                                                     </form>
+
                                                                 </div>
                                                                 <!-- BUTTON CHECK BOX -->
                                                                 <div class="col-md-3">
@@ -594,15 +613,10 @@
                                                     <!-- END BODY -->
                                                     <div class="modal-footer">
                                                         <button
-                                                                type="button"
-                                                                class="btn btn-danger btn-labeled-sm"
-                                                                data-bs-dismiss="modal"
-                                                        >
-                                                            Hủy
-                                                        </button>
-                                                        <button
+                                                                id="xacNhanDichVuAddNew"
                                                                 type="button"
                                                                 class="btn btn-primary btn-labeled-sm"
+                                                                data-bs-dismiss="modal"
                                                         >
                                                             Xác Nhận
                                                         </button>
@@ -617,11 +631,10 @@
                             </div>
                         </div>
                         <div class="body-dich-vu header-border-content-dich-vu">
-                            <div class="row mt-3 scrollable-content" id="dataContainer">
+                            <div class="row mt-3 scrollable-content" id="dataNuocUong">
                             </div>
                             <hr>
                             <div class="row mt-3 scrollable-content" id="dataDoThue">
-
                             </div>
                         </div>
                     </div>
@@ -633,32 +646,119 @@
 
 
 <script>
+    var getId;
+    var tongTienSanCa;
+    var tongTienDichVu;
+    var tongTienPhuPhi;
+    var tongTienHoaDonPhaiTra;
+    var tongTienCoc;
     $(document).ready(function () {
         var currentURL = window.location.href;
         var parts = currentURL.split('/');
-        var id = parts[parts.length - 1];
+        getId = parts[parts.length - 1];
 
-        $.get("/api/v1/staff/thanh-toan-hoa-don/" + id, function (response) {
-            var hoaDonThanhToan = response;
-            $("input[name='tenSanBong']").val(hoaDonThanhToan.tenSanBong + ' - ' + hoaDonThanhToan.tenLoaiSan);
-            $("input[name='tienCoc']").val(hoaDonThanhToan.tienCoc);
-            $("input[name='tenCa']").val(hoaDonThanhToan.tenCa);
-            $("input[name='thoiGianNhanSan']").val(hoaDonThanhToan.thoiGianCheckIn);
-            $("input[name='thoiGianSanCa']").val(hoaDonThanhToan.thoiGianBatDau + ' - ' + hoaDonThanhToan.thoiGianKetThuc);
-            $("input[name='soDienThoai']").val(hoaDonThanhToan.soDienThoai);
-            $("input[name='tenKhachHang']").val(hoaDonThanhToan.tenKhachHang);
-            $("input[name='tienSanBong']").val(hoaDonThanhToan.tongTienSanCa);
-            $("input[name='tienDichVu']").val(hoaDonThanhToan.tongTienDichVu);
-            $("span[name='tongThanhToan']").text(parseFloat(hoaDonThanhToan.tongTienSanCa) + parseFloat(hoaDonThanhToan.tongTienDichVu) - parseFloat(hoaDonThanhToan.tienCoc));
+        $.get("/api/v1/staff/thanh-toan-hoa-don/" + getId, function (response) {
+            displayPhuPhiHoaDon(getId);
+            $("input[id='tenKhachHang']").val(response.tenKhachHang);
+            $("input[id='soDienThoai']").val(response.soDienThoai);
+            $("input[id='tenSanCa']").val(response.tenSanBong + ' - ' + response.tenLoaiSan + ' - ' + response.tenCa);
+            $("input[id='thoiGianNhanSan']").val(response.thoiGianCheckIn);
+            $("input[id='thoiGianDa']").val(response.thoiGianBatDau + ' - ' + response.thoiGianKetThuc);
+            $("input[id='giaSan']").val(formatCurrencyVND(response.tongTienSanCa));
+            $("input[id='tienCocSan']").val(formatCurrencyVND(response.tienCoc));
+            tongTienSanCa = response.tongTienSanCa;
+            tongTienCoc = response.tienCoc;
+            tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc));
+            $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc))) + '.VNĐ');
         });
+    });
+    $('#addDichVu').on('click', function () {
+        processSelectChange();
+    });
 
-        var tongTienDichVu = 0;
+    $('#xacNhanDichVuAddNew').on('click', function () {
+        displayDichVu();
+    });
+    $(document).on('click', '#addDichVuHoaDon', function () {
+        var card = $(this).closest('.card-product');
+        var soLuong = card.find('.soluong').val();
+        var idDichVuSuDung = $(this).data('id');
+        var trangThaiDichVu = $(this).data('trang-thai');
+        clearTienKhachDua();
         $.ajax({
-            url: '/api/v1/staff/dich-vu-san-bong/dich-vu-thanh-toan/' + id,
+            url: '/api/v1/staff/dich-vu-san-bong/them-dich-vu-hoa-don/' + getId,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                soLuong: soLuong,
+                id: idDichVuSuDung,
+                trangThai: trangThaiDichVu
+            }),
+            success: function (response) {
+                processSelectChange();
+                displayDichVu();
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
+        });
+    });
+    $(document).on('click', '#buttonXoa', function () {
+        var idDichVuSuDung = $(this).data('id');
+        var card = $(this).closest('.card-product');
+        var soLuong = card.find('.soluong').val();
+        var trangThaiDichVu = $(this).data('trang-thai');
+        $.ajax({
+            url: '/api/v1/staff/dich-vu-san-bong/xoa-dich-vu/' + getId,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: idDichVuSuDung,
+                soLuong: soLuong,
+                trangThai: trangThaiDichVu
+            }),
+            success: function (response) {
+                displayDichVu();
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
+        });
+    });
+    $(document).on('click', '#buttonCapNhat', function () {
+        var idDichVuSuDung = $(this).data('id');
+        var card = $(this).closest('.card-product');
+        var soLuong = card.find('.soluong').val();
+        var trangThaiDichVu = $(this).data('trang-thai');
+        $.ajax({
+            url: '/api/v1/staff/dich-vu-san-bong/cap-nhat-so-luong-dich-vu/' + getId,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: idDichVuSuDung,
+                soLuong: soLuong,
+                trangThai: trangThaiDichVu
+            }),
+            success: function (response) {
+                displayDichVu();
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
+        });
+    });
+
+    function displayDichVu() {
+        tongTienDichVu = 0;
+        clearTienKhachDua();
+        $.ajax({
+            url: '/api/v1/staff/dich-vu-san-bong/dich-vu-thanh-toan/' + getId,
             method: 'GET',
             success: function (apiResponse) {
-                $('#dataContainer').empty();
+                $('#dataNuocUong').empty();
                 $('#dataDoThue').empty();
+                $('#tienTraLai').empty();
+                $('#tienKhachDua').empty();
                 apiResponse.forEach(function (item) {
                     var idNuocUong = item.idNuocUong;
                     if (idNuocUong != null && idNuocUong != '') {
@@ -673,7 +773,7 @@
                         htmlContent += '<img src="/static/img/' + imageNuocUong + '" class="card-img-top" alt="..." />';
                         htmlContent += '<div class="card-body">';
                         htmlContent += '<h5 class="card-title text-center">' + tenNuocUong + '</h5>';
-                        htmlContent += '<span class="price" type="number">' + giaNuocUong + ' VNĐ</span>';
+                        htmlContent += '<span class="price" type="number">' + formatCurrencyVND(giaNuocUong) + ' VNĐ</span>';
                         htmlContent += '<div class="form-group form-group-list-service-order">';
                         htmlContent += '<label class="form-label" for="quantity">Số Lượng :</label>';
                         htmlContent += '<input min="1" value="' + soLuongNuocUong + '" type="number" class="soluong" id="quantity" />';
@@ -681,16 +781,15 @@
                         htmlContent += '</div>';
                         htmlContent += '<div class="card-footer bg-white">';
                         htmlContent += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
-                        htmlContent += '<button class="btn btn-danger btn-labeled-sm">Xóa</button>';
-                        htmlContent += '<button class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
+                        htmlContent += '<button id="buttonXoa" data-id="' + idNuocUong + '" data-trang-thai="' + 1 + '" class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                        htmlContent += '<button id="buttonCapNhat" data-id="' + idNuocUong + '" data-trang-thai="' + 1 + '" class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
                         htmlContent += '</div>';
                         htmlContent += '</div>';
                         htmlContent += '</div>';
                         htmlContent += '</div>';
-                        $('#dataContainer').append(htmlContent);
+                        $('#dataNuocUong').append(htmlContent);
                     }
                     var idDoThue = item.idDoThue;
-                    console.log(idDoThue);
                     if (idDoThue != null && idDoThue != '') {
                         var imageDoThue = item.imageDoThue;
                         var giaDoThue = item.giaDoThue;
@@ -703,7 +802,7 @@
                         htmldoThue += '<img src="/static/img/' + imageDoThue + '" class="card-img-top" alt="..." />';
                         htmldoThue += '<div class="card-body">';
                         htmldoThue += '<h5 class="card-title text-center">' + tenDoThue + '</h5>';
-                        htmldoThue += '<span class="price" type="number">' + giaDoThue + ' VNĐ</span>';
+                        htmldoThue += '<span class="price" type="number">' + formatCurrencyVND(giaDoThue) + ' VNĐ</span>';
                         htmldoThue += '<div class="form-group form-group-list-service-order">';
                         htmldoThue += '<label class="form-label" for="quantity">Số Lượng :</label>';
                         htmldoThue += '<input min="1" value="' + soLuongDoThue + '" type="number" class="soluong" id="quantity" />';
@@ -711,43 +810,89 @@
                         htmldoThue += '</div>';
                         htmldoThue += '<div class="card-footer bg-white">';
                         htmldoThue += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
-                        htmldoThue += '<button class="btn btn-danger btn-labeled-sm">Xóa</button>';
-                        htmldoThue += '<button class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
+                        htmldoThue += '<button id="buttonXoa" data-id="' + idDoThue + '" data-trang-thai="' + 2 + '" class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                        htmldoThue += '<button id="buttonCapNhat" data-id="' + idDoThue + '" data-trang-thai="' + 2 + '"  class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
                         htmldoThue += '</div>';
                         htmldoThue += '</div>';
                         htmldoThue += '</div>';
                         htmldoThue += '</div>';
-
                         $('#dataDoThue').append(htmldoThue);
                     }
 
 
                 });
-                //
-                // $('#tienDichVu').val(tongTienDichVu);
-                // $('#tongThanhToan').text((tongTienDichVu + item.tongTienSanCa) + ' . VNĐ');
+                tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc));
+                $("input[id='giaDichVu']").val(formatCurrencyVND(tongTienDichVu));
+                $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc))) + '.VNĐ');
             },
             error: function (error) {
                 console.error('API Request Failed:', error);
             }
         });
-        $('#addDichVu').on('click', function () {
-            $.ajax({
-                url: '/api/v1/staff/dich-vu-san-bong/danh-sach-dich-vu',
-                method: 'GET',
-                success: function (apiResponse) {
-                    console.log(apiResponse);
-                    if (apiResponse && Array.isArray(apiResponse)) {
-                        $('#dataDichVuDoThueNuocUong').empty();
-                        apiResponse.forEach(function (item) {
-                            //Nuoc Uong
-                            var id = item.id;
-                            var image = item.image;
-                            var gia = item.donGia;
-                            var soLuong = item.soLuong;
-                            var tenDichVu = item.tenDichVu;
-                            var trangThai = item.trangThai;
+    }
 
+    $('#select-san-staff').on('change', function () {
+        var selectedValue = $(this).val();
+        if (selectedValue === "0") {
+            $('#dataNuocUong').show();
+            $('#dataDoThue').show();
+        } else if (selectedValue === "1") {
+            $('#dataNuocUong').show();
+            $('#dataDoThue').hide();
+        } else if (selectedValue === "2") {
+            $('#dataNuocUong').hide();
+            $('#dataDoThue').show();
+        }
+    });
+    $(document).ready(function () {
+        displayDichVu();
+    });
+    $('#select-service-list-order').change(function () {
+        processSelectChange();
+    });
+
+    function processSelectChange() {
+        var selectedValue = $('#select-service-list-order').val();
+        console.log(selectedValue);
+        $.ajax({
+            url: '/api/v1/staff/dich-vu-san-bong/danh-sach-dich-vu',
+            method: 'GET',
+            success: function (apiResponse) {
+                if (apiResponse && Array.isArray(apiResponse)) {
+                    $('#dataDichVuDoThueNuocUong').empty();
+                    apiResponse.forEach(function (item) {
+                        //Nuoc Uong
+                        var id = item.id;
+                        var image = item.image;
+                        var gia = item.donGia;
+                        var soLuong = item.soLuong;
+                        var tenDichVu = item.tenDichVu;
+                        var trangThai = item.trangThai;
+                        if (selectedValue == 0) {
+                            var htmlContent2 = '<div class="col-md-3 col-sm-3 col-4">';
+                            htmlContent2 += '<div class="card card-product">';
+                            htmlContent2 += '<div id="checkboxContainerList" style="display: none; position: absolute; top: 10px; left: 10px">';
+                            htmlContent2 += '<input type="checkbox" style="width: 20px; height: 20px; margin-right: 5px" id="checkBoxListService"/>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '<img src="/static/img/' + image + '" class="card-img-top" alt="..." />';
+                            htmlContent2 += '<div class="card-body">';
+                            htmlContent2 += '<h5 class="card-title text-center">' + tenDichVu + '</h5>';
+                            htmlContent2 += '<span class="price" type="number">' + formatCurrencyVND(gia) + ' VNĐ</span>';
+                            htmlContent2 += '<div class="form-group form-group-list-service-order">';
+                            htmlContent2 += '<label class="form-label" for="quantity">Kho Còn : ' + soLuong + '</label>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '<div class="card-footer bg-white">';
+                            htmlContent2 += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+                            htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" />';
+                            htmlContent2 += '<button id="addDichVuHoaDon" type="button" class="btn btn-success btn-labeled-sm" data-id="' + id + '" data-trang-thai="' + trangThai + '">Thêm</button>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+
+                            $('#dataDichVuDoThueNuocUong').append(htmlContent2);
+                        } else if (trangThai == selectedValue) {
                             // Tạo chuỗi HTML cho thẻ <div class="card card-product"> cho từng đối tượng
                             var htmlContent2 = '<div class="col-md-3 col-sm-3 col-4">';
                             htmlContent2 += '<div class="card card-product">';
@@ -757,14 +902,14 @@
                             htmlContent2 += '<img src="/static/img/' + image + '" class="card-img-top" alt="..." />';
                             htmlContent2 += '<div class="card-body">';
                             htmlContent2 += '<h5 class="card-title text-center">' + tenDichVu + '</h5>';
-                            htmlContent2 += '<span class="price" type="number">' + gia + ' VNĐ</span>';
+                            htmlContent2 += '<span class="price" type="number">' + formatCurrencyVND(gia) + ' VNĐ</span>';
                             htmlContent2 += '<div class="form-group form-group-list-service-order">';
                             htmlContent2 += '<label class="form-label" for="quantity">Kho Còn : ' + soLuong + '</label>';
                             htmlContent2 += '</div>';
                             htmlContent2 += '</div>';
                             htmlContent2 += '<div class="card-footer bg-white">';
                             htmlContent2 += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
-                            htmlContent2 += '<input min="1" value="1" type="number" class="soluong" id="quantity" />';
+                            htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" />';
                             htmlContent2 += '<button id="addDichVuHoaDon" type="button" class="btn btn-success btn-labeled-sm" data-id="' + id + '" data-trang-thai="' + trangThai + '">Thêm</button>';
                             htmlContent2 += '</div>';
                             htmlContent2 += '</div>';
@@ -772,39 +917,193 @@
                             htmlContent2 += '</div>';
 
                             $('#dataDichVuDoThueNuocUong').append(htmlContent2);
-                        });
-                    }
-                },
-                error: function (error) {
-                    console.error('API Request Failed:', error);
+                        }
+                    });
                 }
-            });
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
         });
-        $(document).on('click', '#addDichVuHoaDon', function () {
-            var card = $(this).closest('.card-product');
-            var soLuong = card.find('.soluong').val();
-            var idDichVuSuDung = $(this).data('id');
-            var trangThaiDichVu = $(this).data('trang-thai');
-            console.log(idDichVuSuDung + '  -  ' + soLuong);
-            $.ajax({
-                url: '/api/v1/staff/dich-vu-san-bong/them-dich-vu-hoa-don/' + id,
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    soLuong: soLuong,
-                    id: idDichVuSuDung,
-                    trangThai : trangThaiDichVu
-                }),
-                success: function (response) {
-                },
-                error: function (error) {
-                    console.error('API Request Failed:', error);
-                }
-            });
+    }
+
+    $(document).on('click', '#buttonThemPhuPhiHoaDon', function () {
+        displayPhuPhiHoaDon(getId);
+    });
+    $(document).on('click', '#saveNewPhuPhi', function () {
+        var tenPhuPhi = $("#tenPhuPhi").val();
+        var giaPhuPhi = $("#giaPhuPhi").val();
+        $('#tienTraLai').empty();
+        $('#tienKhachDua').empty();
+        $.ajax({
+            url: "/api/v1/staff/phu-phi-hoa-don/luu-phu-phi/" + getId,
+            method: "POST",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                tenPhuPhi: tenPhuPhi,
+                giaPhuPhi: giaPhuPhi
+            }),
+            success: function (data) {
+                displayPhuPhiHoaDon(getId);
+            },
+            error: function (error) {
+                console.log("Error:", error);
+            }
         });
     });
 
+    $(document).on('click', '#buttonXoaPhuPhiHoaDon', function () {
+        var idPhuPhiHoaDon = $(this).data('id');
+        $('#tienTraLai').empty();
+        $('#tienKhachDua').empty();
+        $.ajax({
+            url: '/api/v1/staff/phu-phi-hoa-don/xoa-phu-phi/' + idPhuPhiHoaDon,
+            method: 'DELETE',
+            success: function (response) {
+                displayPhuPhiHoaDon(getId);
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
+        });
+    });
 
+    function displayPhuPhiHoaDon(getId) {
+        $('#dataPhuPhiHoaDon').empty();
+        $('#selectPhuPhi').empty();
+        $('#tienTraLai').empty();
+        $('#tienKhachDua').empty();
+        $('#tienPhuPhi').val(0);
+        tongTienPhuPhi = 0;
+        $.ajax({
+            url: "/api/v1/staff/phu-phi-hoa-don/get-by-id-hoa-don/" + getId,
+            method: "GET",
+            success: function (data) {
+                if (data.length > 0) {
+                    // Dữ liệu không null và có ít nhất một phần tử
+                    $.each(data, function (index, item) {
+                        var htmlHoaDonPhuPhi = '<tr>';
+                        htmlHoaDonPhuPhi += '<th scope="row">' + (index + 1) + '</th>';
+                        htmlHoaDonPhuPhi += '<td>' + item.tenPhuPhi + '</td>';
+                        htmlHoaDonPhuPhi += '<td>' + formatCurrencyVND(item.giaPhuPhi) + '.VNĐ' + '</td>';
+                        htmlHoaDonPhuPhi += '<td>';
+                        htmlHoaDonPhuPhi += '<button type="button" id="buttonXoaPhuPhiHoaDon" data-id="' + item.idPhuPhiHoaDon + '" data-phu-phi="' + item.idPhuPhi + '"  class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                        htmlHoaDonPhuPhi += '</td>';
+                        htmlHoaDonPhuPhi += '</tr>';
+                        $('#dataPhuPhiHoaDon').append(htmlHoaDonPhuPhi);
+                        var option = $('<option>', {
+                            value: item.idPhuPhi,
+                            text: (item.tenPhuPhi + ' GIÁ ' + [formatCurrencyVND(item.giaPhuPhi) + '.VNĐ'])
+                        });
+                        $('#selectPhuPhi').append(option);
+                        tongTienPhuPhi += item.giaPhuPhi;
+                    });
+                    tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc));
+                    $('#giaPhuPhiShow').val(formatCurrencyVND(tongTienPhuPhi));
+                    $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc))) + '.VNĐ');
+                } else {
+                    var htmlHoaDonPhuPhi = '<h5>' + 'CHƯA CÓ PHỤ PHÍ' + '</h5>';
+                    $('#dataPhuPhiHoaDon').append(htmlHoaDonPhuPhi);
+                }
+            },
+
+            error: function (error) {
+                console.log("Error:", error);
+            }
+        });
+    }
+
+    function formatCurrencyVND(amount, locale = 'vi-VN') {
+        const formatter = new Intl.NumberFormat(locale, {style: 'currency', currency: 'VND'});
+        const parts = formatter.formatToParts(amount);
+
+        const formattedAmount = parts.map(part => {
+            switch (part.type) {
+                case 'currency':
+                    return '';
+                case 'decimal':
+                    return '.';
+                default:
+                    return part.value;
+            }
+        }).join('');
+
+        return formattedAmount;
+    }
+
+    function clearTienKhachDua() {
+        document.getElementById('tienKhachDua').value = "";
+        document.getElementById('tienTraLai').value = "";
+    }
+
+    function calculateChange() {
+        var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
+
+        if (tienKhachDua > tongTienHoaDonPhaiTra) {
+            var tienTraLai = tienKhachDua - tongTienHoaDonPhaiTra;
+
+            document.getElementById('tienTraLai').value = formatCurrencyVND(tienTraLai);
+        } else {
+            document.getElementById('tienTraLai').value = "Chưa đủ tiền trả";
+        }
+    }
+
+    function clearTienKhachDua() {
+        document.getElementById('tienKhachDua').value = "";
+        document.getElementById('tienTraLai').value = "";
+    }
+
+
+    function formatDate(inputDateString) {
+        var date = new Date(inputDateString);
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var formattedDate = day + ' - ' + month + ' - ' + year;
+        return formattedDate;
+    }
+
+    $(document).ready(function () {
+        $("#btnThanhToanHoaDon").click(function () {
+            checkPaymentMethod();
+        });
+    });
+
+    function checkPaymentMethod() {
+        var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/api/v1/staff/thanh-toan/" + getId,
+            data: {paymentMethod: paymentMethod},
+            success: function (response) {
+                console.log(response);
+                if (response === "paymentMethod=tienMat") {
+                    location.reload();
+                }
+            },
+            error: function (error) {
+                console.error("Lỗi Ajax: ", error);
+            }
+        });
+    }
+</script>
+<script>
+    function toggleInputs() {
+        var tienKhachDuaContainer = document.getElementById('tienKhachDuaContainer');
+        var tienTraLaiContainer = document.getElementById('tienTraLaiContainer');
+
+        var tienMatRadio = document.getElementById('tienMat');
+        if (tienMatRadio.checked) {
+            tienKhachDuaContainer.style.display = 'block';
+            tienTraLaiContainer.style.display = 'block';
+        } else {
+            tienKhachDuaContainer.style.display = 'none';
+            tienTraLaiContainer.style.display = 'none';
+        }
+    }
+
+    toggleInputs();
 </script>
 <!-- Add Bootstrap JS and jQuery links -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
