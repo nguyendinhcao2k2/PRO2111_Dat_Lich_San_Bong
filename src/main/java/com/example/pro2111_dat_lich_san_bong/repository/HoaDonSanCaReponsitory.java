@@ -15,7 +15,7 @@ public interface HoaDonSanCaReponsitory extends JpaRepository<HoaDonSanCa, Strin
     @Query(value = """
        SELECT
            hd_sc.id,
-           acc.display_name as 'displayName',
+           hd.ten_nguoi_dat as 'displayName',
            hd.email,
            c.thoi_gian_bat_dau as 'thoiGianBatDau',
            c.thoi_gian_ket_thuc as 'thoiGianKetThuc',

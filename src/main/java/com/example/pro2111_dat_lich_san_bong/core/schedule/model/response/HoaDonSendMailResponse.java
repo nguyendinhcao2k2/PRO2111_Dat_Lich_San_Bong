@@ -41,4 +41,7 @@ public interface HoaDonSendMailResponse extends BaseIdTemplate {
 
     @Value("#{target.maQR}")
     String getMaQR();
+
+    @Value("#{target.tenCa}")
+    String getTenCa();
 }
