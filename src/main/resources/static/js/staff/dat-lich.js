@@ -92,7 +92,7 @@ function reloadSanBong() {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        ${setSelectBox(ca.trangThai)}
+                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -301,7 +301,7 @@ function filterSanBong() {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        ${setSelectBox(ca.trangThai)}
+                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -486,7 +486,7 @@ window.onload = function () {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                         ${setSelectBox(ca.trangThai)}
+                                         ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -965,7 +965,7 @@ function callApiFilter(param) {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        ${setSelectBox(ca.trangThai)}
+                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -1074,7 +1074,7 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
                                             class="dropdown-menu dropdown-menu-end"
                                         >
                                             <li>
-                                                <a href="#" class="dropdown-item">
+                                                <a href="http://localhost:8081/api/v1/staff/thanh-toan/${idHoaDonSanCa}" class="dropdown-item">
                                                     Thanh toán
                                                 </a>
                                             </li>

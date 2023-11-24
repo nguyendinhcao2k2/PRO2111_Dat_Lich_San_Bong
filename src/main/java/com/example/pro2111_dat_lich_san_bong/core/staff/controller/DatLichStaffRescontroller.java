@@ -86,7 +86,7 @@ public class DatLichStaffRescontroller {
         session.setAttribute("thongTinNguoiDat", thongTinNguoiDatRequest);
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         baseUrl += "/api/v1/staff/return-payment";
-        String vnpayUrl = vnPayService.createOrder(price, thongTinNguoiDatRequest.getHoVaTen(), baseUrl);
+        String vnpayUrl = vnPayService.createOrder(price, thongTinNguoiDatRequest.getHoVaTen(), baseUrl,60);
         return vnpayUrl;
     }
 
