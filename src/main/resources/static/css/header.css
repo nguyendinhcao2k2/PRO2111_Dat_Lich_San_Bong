@@ -1,0 +1,18 @@
+.nav-link.dropdown-toggle::after {
+    display: none !important;
+}
+
+.topbar-divider {
+    width: 0;
+    border-right: 1px solid #e3e6f0;
+    height: calc(4.375rem - 2rem);
+    margin: auto 1rem;
+}
+.nav-link .img-profile {
+    height: 2rem;
+    width: 2rem;
+}
+.navbar-expand {
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}

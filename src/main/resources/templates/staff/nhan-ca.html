@@ -11,6 +11,7 @@
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous"
     />
+<!--    -->
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
@@ -18,28 +19,20 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
     />
+
     <link rel="stylesheet" th:href="@{/static/css/staff/nhan-ca.css}">
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-    />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </head>
 <body>
-<main>
     <!-- Start Header -->
     <div th:insert="~{fragments/header}"></div>
     <!-- End Header -->
-    <section class="container mains" id="app">
-        <div class="card border-0 m-0 p-0">
-            <div class="card-header">
-                <h1>Khai báo tiền đầu ca</h1>
+    <section class="mains" id="app">
+        <div class="card m-0 p-0">
+            <div class="card-header" >
+                <h2 style="color: #2124B1">Khai Báo Tiền Đầu Ca</h2>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -351,31 +344,6 @@
                                 <div style="text-align: center">
                                     <button
                                             data-bs-toggle="modal"
-                                            data-bs-target="#huy"
-                                            type="button"
-                                            class="btn btn-labeled btn-danger"
-                                            style="
-                          padding-top: 0;
-                          padding-bottom: 0;
-                          margin-bottom: 10px;
-                        "
-                                    >
-                        <span
-                                class="btn-label"
-                                style="
-                            position: relative;
-                            left: -12px;
-                            display: inline-block;
-                            padding: 6px 12px;
-                            background: rgba(0, 0, 0, 0.15);
-                            border-radius: 3px 0 0 3px;
-                          "
-                        ><i class="fa fa-remove"></i></span
-                        >Hủy
-                                    </button>
-
-                                    <button
-                                            data-bs-toggle="modal"
                                             data-bs-target="#confirms"
                                             type="button"
                                             class="btn btn-labeled btn-success"
@@ -447,23 +415,11 @@
     <!-- Start Header -->
     <div th:insert="~{fragments/footer}"></div>
     <!-- End Header -->
-</main>
 <script th:src="@{/static/js/custom/nhan-ca.js}"></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"
-></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"
-></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"
-></script>
+<!-- UPDATE 2/11/023 -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
