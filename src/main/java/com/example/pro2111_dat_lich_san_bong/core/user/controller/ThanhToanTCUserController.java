@@ -204,7 +204,7 @@ public class ThanhToanTCUserController extends BaseController {
                     context.setVariable("sdt", hoaDon.getSoDienThoaiNguoiDat());
 
                     //thời gian đặt sân
-                    context.setVariable("timeDat", hoaDon.getNgayTao());
+                    context.setVariable("timeDat", formatter.format(hoaDon.getNgayTao()) );
                     context.setVariable("tongTien",decimalFormat.format(hoaDon.getTongTien()));
 
                     List<MaillListResponse> listResponses = new ArrayList<>();
