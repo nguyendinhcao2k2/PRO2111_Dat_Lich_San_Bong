@@ -25,4 +25,6 @@ public interface HoaDonSanCaUserService {
 
     HoaDonSendMailResponse getDetialHoaDon(String idHoaDonSanCa);
     HoaDonSanCa findByIdSanCa(String id);
+
+    List<HoaDonSendMailResponse> getLisTHDSC(String idHoaDon);
 }

@@ -80,7 +80,7 @@ public class DatLichUserRestController extends BaseController {
             hoaDon.setEmail(request.getEmail());
             hoaDon.setIdAccount(account.getId());
             hoaDon.setSoDienThoaiNguoiDat(request.getSdt());
-            hoaDon.setTenNguoiDat(account.getDisplayName());
+            hoaDon.setTenNguoiDat(request.getHoVaTen());
             hoaDon.setNgayTao(LocalDateTime.now());
             hoaDon.setTongTien(tongTienSan);
             hoaDon.setTienCoc(tongTienCoc);

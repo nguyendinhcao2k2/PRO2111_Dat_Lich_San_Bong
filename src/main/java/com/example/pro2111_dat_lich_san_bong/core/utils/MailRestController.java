@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.core.utils;
 
 import com.example.pro2111_dat_lich_san_bong.model.response.MaillListResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.context.Context;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,11 +23,11 @@ public class MailRestController {
     private SendMailWithBookings sendMailWithBookings;
 
     @GetMapping("/send-mail-bookings")
-    public String sendMailWithBookings() {
+    public String sendMailWithBookings( HttpServletRequest request) {
+
         Context context = new Context();
         context.setVariable("nguoiDat", "ĐẶNG VĂN SỸ");
         context.setVariable("sdt", "0369569225");
-
         //thời gian đặt sân
         context.setVariable("timeDat", "20/12/2023 20:00:00");
         context.setVariable("tongTien","900,000");
@@ -45,7 +48,17 @@ public class MailRestController {
         listResponses.add(maillListResponse2);
 
         context.setVariable("thoiGianList", listResponses);
-        sendMailWithBookings.sendEmailBookings("thepvph20110@fpt.edu.vn", context);
+        sendMailWithBookings.sendEmailBookings("thepvph20110@fpt.edu.vn", context,request);
         return "Send mail run....";
+    }
+
+    private String getServerIPAddress(HttpServletRequest request) {
+        try {
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            return inetAddress.getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ tùy thuộc vào yêu cầu của bạn
+            return "Unknown";
+        }
     }
 }
