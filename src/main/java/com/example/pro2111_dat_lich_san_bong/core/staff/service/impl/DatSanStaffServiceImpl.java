@@ -90,9 +90,9 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
                 loadCaResponse.setLoaiSan(sanBongStaffResponse.getTenLoaiSan());
                 loadCaResponse.setGia(caStaffResponse.getGiaCa() + sanBongStaffResponse.getGiaSan());
                 loadCaResponse.setDate(localDateTime.toLocalDate().toString());
+                loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
                 Object obj = checkTimeSanCa(checkSanCa, sanBongStaffResponse.getIdSanBong() + loadCaResponse.getThoiGianBatDau(), loadCaResponse);
                 if (obj != null) {
-                    loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
                     LocalDate localDateCompare = LocalDateTime.now().toLocalDate();
                     loadCaResponse.setIdHoaDonSanCa(hoaDonSanCaStaffRepository.findByIdSanCa((String) obj));
                     if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
@@ -147,9 +147,9 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
                 loadCaResponse.setLoaiSan(sanBongStaffResponse.getTenLoaiSan());
                 loadCaResponse.setGia(caStaffResponse.getGiaCa() + sanBongStaffResponse.getGiaSan());
                 loadCaResponse.setDate(localDateTime.toLocalDate().toString());
+                loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
                 Object obj = checkTimeSanCa(checkSanCa, sanBongStaffResponse.getIdSanBong() + loadCaResponse.getThoiGianBatDau(), loadCaResponse);
                 if (obj != null) {
-                    loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
                     LocalDate localDateCompare = LocalDateTime.now().toLocalDate();
                     loadCaResponse.setIdHoaDonSanCa(hoaDonSanCaStaffRepository.findByIdSanCa((String) obj));
                     if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
