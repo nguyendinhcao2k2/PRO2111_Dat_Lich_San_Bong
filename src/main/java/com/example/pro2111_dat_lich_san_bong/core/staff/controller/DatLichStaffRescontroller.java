@@ -65,7 +65,7 @@ public class DatLichStaffRescontroller {
     }
 
     @PostMapping("/dat-lich")
-    public BaseResponse<String> datLich(@Valid @RequestBody ThongTinNguoiDatRequest thongTinNguoiDatRequest) {
+    public BaseResponse<String> datLich(@Valid @RequestBody ThongTinNguoiDatRequest thongTinNguoiDatRequest, HttpServletRequest request) {
         if (!iDatSanStaffService.datLich(thongTinNguoiDatRequest)) {
             throw new RestApiException("Có lỗi !");
         }
@@ -73,7 +73,7 @@ public class DatLichStaffRescontroller {
         context.setVariable("Họ tên: ", thongTinNguoiDatRequest.getHoVaTen());
         context.setVariable("Số điện thoại: ", thongTinNguoiDatRequest.getSoDienThoai());
         context.setVariable("Thời gian đăt: ", LocalDateTime.now());
-        sendMailWithBookings.sendEmailBookings(thongTinNguoiDatRequest.getEmail(), context);
+        sendMailWithBookings.sendEmailBookings(thongTinNguoiDatRequest.getEmail(), context,request);
         return new BaseResponse<>(HttpStatus.OK, "Đặt lịch thành công");
     }
 
