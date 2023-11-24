@@ -34,4 +34,6 @@ public class LoadCaResponse {
 
     private Integer trangThai;
 
+    private String idHoaDonSanCa;
+
 }

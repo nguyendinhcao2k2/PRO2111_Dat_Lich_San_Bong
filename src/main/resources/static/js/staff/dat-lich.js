@@ -92,25 +92,7 @@ function reloadSanBong() {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        <ul
-                                            class="dropdown-menu dropdown-menu-end"
-                                        >
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 1
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 2
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 3
-                                                </a>
-                                            </li>
-                                        </ul>
+                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -319,25 +301,7 @@ function filterSanBong() {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        <ul
-                                            class="dropdown-menu dropdown-menu-end"
-                                        >
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 1
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 2
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 3
-                                                </a>
-                                            </li>
-                                        </ul>
+                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -522,25 +486,7 @@ window.onload = function () {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        <ul
-                                            class="dropdown-menu dropdown-menu-end"
-                                        >
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 1
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 2
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 3
-                                                </a>
-                                            </li>
-                                        </ul>
+                                         ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -769,16 +715,15 @@ function datSan() {
                 thongTinLichDatRequests: thongTin
             }
             $.ajax({
-                url: apiUrl + "/dat-lich",
+                url: apiUrl + "/submit-order",
                 type: "POST",
                 data: JSON.stringify(dataSend),
                 contentType: "application/json",
                 success: function (data) {
                     localStorage.setItem("thongTin", JSON.stringify([]));
-                    alert(data.content);
                     $('#modalInfo').modal('hide');
-                    reloadSanBong();
                     $('#idTable').empty();
+                    window.location.href = data;
                 },
                 error: function (error) {
                     alert(error.responseJSON.message);
@@ -1020,25 +965,7 @@ function callApiFilter(param) {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        <ul
-                                            class="dropdown-menu dropdown-menu-end"
-                                        >
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 1
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 2
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Check In 3
-                                                </a>
-                                            </li>
-                                        </ul>
+                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -1119,4 +1046,39 @@ function callApiFilter(param) {
             console.log("ERROR : ", e);
         }
     });
+}
+
+function setSelectBox(trangThai, idHoaDonSanCa) {
+    if (trangThai === 0) {
+        return `<ul
+                                            class="dropdown-menu dropdown-menu-end"
+                                        >
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Check In
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Hủy
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">
+                                                    Đổi Sân
+                                                </a>
+                                            </li>
+                                        </ul>`
+    } else if (trangThai === 1) {
+        return `<ul
+                                            class="dropdown-menu dropdown-menu-end"
+                                        >
+                                            <li>
+                                                <a href="http://localhost:8081/api/v1/staff/thanh-toan/${idHoaDonSanCa}" class="dropdown-item">
+                                                    Thanh toán
+                                                </a>
+                                            </li>
+                                        </ul>`
+    }
+    return ``;
 }
