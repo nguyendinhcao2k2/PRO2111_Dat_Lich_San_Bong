@@ -38,4 +38,7 @@ public interface HoaDonSanCaStaffRepository extends JpaRepository<HoaDonSanCa, S
     @Modifying
     @Query(value = "DELETE FROM hoa_don_san_ca hdsc WHERE hdsc.id_hoa_don = ?1", nativeQuery = true)
     void deleteByIdHoaDon(String idHoaDon);
+
+    @Query(value = "SELECT hdsc.id FROM hoa_don_san_ca hdsc where hdsc.id_san_ca = ?1", nativeQuery = true)
+    String findByIdSanCa(String idSanCa);
 }

@@ -90,9 +90,11 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
                 loadCaResponse.setLoaiSan(sanBongStaffResponse.getTenLoaiSan());
                 loadCaResponse.setGia(caStaffResponse.getGiaCa() + sanBongStaffResponse.getGiaSan());
                 loadCaResponse.setDate(localDateTime.toLocalDate().toString());
-                if (!checkTimeSanCa(checkSanCa, sanBongStaffResponse.getIdSanBong() + loadCaResponse.getThoiGianBatDau(), loadCaResponse)) {
+                Object obj = checkTimeSanCa(checkSanCa, sanBongStaffResponse.getIdSanBong() + loadCaResponse.getThoiGianBatDau(), loadCaResponse);
+                if (obj != null) {
                     loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
                     LocalDate localDateCompare = LocalDateTime.now().toLocalDate();
+                    loadCaResponse.setIdHoaDonSanCa(hoaDonSanCaStaffRepository.findByIdSanCa((String) obj));
                     if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                         LocalTime localTimeCompare = LocalTime.parse(loadCaResponse.getThoiGianBatDau(), formatter);
@@ -145,9 +147,11 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
                 loadCaResponse.setLoaiSan(sanBongStaffResponse.getTenLoaiSan());
                 loadCaResponse.setGia(caStaffResponse.getGiaCa() + sanBongStaffResponse.getGiaSan());
                 loadCaResponse.setDate(localDateTime.toLocalDate().toString());
-                if (!checkTimeSanCa(checkSanCa, sanBongStaffResponse.getIdSanBong() + loadCaResponse.getThoiGianBatDau(), loadCaResponse)) {
+                Object obj = checkTimeSanCa(checkSanCa, sanBongStaffResponse.getIdSanBong() + loadCaResponse.getThoiGianBatDau(), loadCaResponse);
+                if (obj != null) {
                     loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
                     LocalDate localDateCompare = LocalDateTime.now().toLocalDate();
+                    loadCaResponse.setIdHoaDonSanCa(hoaDonSanCaStaffRepository.findByIdSanCa((String) obj));
                     if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                         LocalTime localTimeCompare = LocalTime.parse(loadCaResponse.getThoiGianBatDau(), formatter);
@@ -346,14 +350,14 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         return hashMap;
     }
 
-    public boolean checkTimeSanCa(Map<String, SanCaStaffResponse> hashMap, String checkString, LoadCaResponse loadCaResponse) {
+    public Object checkTimeSanCa(Map<String, SanCaStaffResponse> hashMap, String checkString, LoadCaResponse loadCaResponse) {
         if (hashMap.containsKey(checkString)) {
             SanCaStaffResponse sanCaStaffResponse = hashMap.get(checkString);
             loadCaResponse.setTrangThai(sanCaStaffResponse.getTrangThai());
             loadCaResponse.setIdResponse(sanCaStaffResponse.getIdSanCa());
-            return true;
+            return sanCaStaffResponse.getIdSanCa();
         }
-        return false;
+        return null;
     }
 
     public LocalDate toLocalDate(String date) {
