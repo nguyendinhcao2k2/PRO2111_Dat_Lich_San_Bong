@@ -120,9 +120,12 @@ input::placeholder {
     /* align-items: center; */
 }
 
+/*LAMNP Cập nhập ngày 24/11*/
+/*Dòng 144 modal-lg style="max-width: 700px"*/
 .checkbox-label strong,
-span {
-    font-size: 9px; /* Điều chỉnh độ nhỏ của chữ tùy ý */
+.checkbox-label span {
+    margin: 2px;
+    font-size: 15px; /* Điều chỉnh độ nhỏ của chữ tùy ý */
 }
 
 .checkbox-button input[type="checkbox"] {
@@ -139,10 +142,10 @@ span {
     cursor: not-allowed;
 }
 
-.checkbox-button .checkbox-label {
+.checkbox-button .checkbox-label{
     font-size: 1em;
     line-height: 1.2;
-    padding: 1px;
+    padding: 7px;
     flex: 1;
 }
 
