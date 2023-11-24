@@ -14,8 +14,8 @@
 
 /*Table title */
 .table-title {
-    color: #fff;
-    background: #4b5366;
+    color: #007bff;
+    background: #ffffff;
     padding: 16px 25px;
     margin: -20px -25px 10px;
     /*border-radius: 3px 3px 0 0;*/
@@ -68,17 +68,13 @@
     float: left;
     margin-top: 2px;
 }
-.table-title {
-    color: #fff;
-    background: #4b5366;
-    padding: 16px 25px;
-    margin: -20px -25px 10px;
-    border-radius: 3px 3px 0 0;
-}
-.table-title h2 {
+
+h2 {
     margin: 5px 0 0;
-    font-size: 24px;
+    font-size: 28px;
+    font-weight: bold;
 }
+
 .table-wrapper .btn-refresh:hover {
     color: #333;
     background: #f2f2f2;
@@ -132,7 +128,7 @@
 
 h1 {
     /* text-align: center; */
-    font-size: 25px;
+    font-size: 24px;
     font-weight: bold;
     /* text-transform: uppercase; */
 }
@@ -165,8 +161,9 @@ h1 {
 }
 
 .scrollable-content {
-    max-height: 450px; /* Điều chỉnh chiều cao tối đa ở đây */
+    max-height: 500px; /* Điều chỉnh chiều cao tối đa ở đây */
     overflow-y: auto; /* Kích hoạt thanh cuộn theo chiều dọc khi cần */
+    overflow-x: hidden;
 }
 
 /* input search, select */
@@ -236,7 +233,8 @@ h1 {
 }
 
 /* BACKGROUND  */
-#modalAddDichVuHoaDon .modal-header {
+#modalAddDichVuHoaDon .modal-header, .modal-title {
+    font-size: 25px;
     background: #f7941e;
     color: #fff;
 }
