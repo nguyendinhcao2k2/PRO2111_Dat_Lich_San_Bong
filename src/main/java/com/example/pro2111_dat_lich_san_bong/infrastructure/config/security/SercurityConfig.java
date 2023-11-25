@@ -119,7 +119,7 @@ public class SercurityConfig {
             //auto source /api/v1/staff/all
             response.sendRedirect("api/v1/staff/account/display");
         } else if (role.equalsIgnoreCase(RoleConstant.roleUser)) {
-            response.sendRedirect("/api/v1/user/trang-chu/danh-sach-lich-dat");
+            response.sendRedirect("/api/v1/trang-chu");
         }
     }
 
