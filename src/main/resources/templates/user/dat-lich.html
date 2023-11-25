@@ -241,7 +241,7 @@
                                     >
                                         <span class="button__text">Đổi lịch nhanh</span>
                                         <span class="button__icon">
-                                            <i class="fas fa-info"></i>
+                                            <i class="fas fa-retweet fa-lg"></i>
                                         </span>
                                     </button>
                                 </div>
@@ -251,8 +251,9 @@
                                     <div class="modal-dialog modal-fullscreen">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel"><h1>Danh sách đổi lịch
-                                                    nhanh</h1></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                    Đổi Lịch Nhanh
+                                                </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -260,331 +261,327 @@
                                                 <!-- Nội dung modal -->
                                                 <section class="bod app">
                                                     <div class="table-wrapper">
-                                                        <div class="body-row-col">
-                                                            <div class="row">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <h5 style="font-size: 35px" class="text-primary my-auto">Danh sách</h5>
+                                                                    </div>
 
-                                                                <div class="col-md-12">
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
+                                                                    <div class="col-md-6 d-md-flex justify-content-md-end">
+                                                                        <button
+                                                                                type="button"
+                                                                                class="button-header-confirm modalXacNhan"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#modalConfirm"
+                                                                        >
+                                                                            <span class="button-text-confirm">Xác Nhận</span>
+                                                                            <span class="button-icon-confirm">
+                                                                                <i class="fas fa-check fa-lg"></i>
+                                                                          </span>
+                                                                        </button>
 
-                                                                        </div>
-
-                                                                        <div class="col-md-4 d-md-flex justify-content-md-end">
-                                                                            <button
-                                                                                    type="button"
-                                                                                    class="button-header-confirm modalXacNhan"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#modalConfirm"
-                                                                            >
-                                                                                <span class="button-text-confirm">Xác Nhận</span>
-                                                                                <span class="button-icon-confirm">
-                        <i class="fas fa-check fa-lg"></i>
-                      </span>
-                                                                            </button>
-
-                                                                            <!--  -->
-                                                                            <div class="modal modal-start"
-                                                                                 id="modalConfirm">
-                                                                                <div class="modal-dialog modal-xl">
-                                                                                    <div class="modal-content"
-                                                                                         style="background-color: wheat">
-                                                                                        <div class="modal-header">
-                                                                                            <h5 class="modal-title">
-                                                                                                Xác nhận đổi
-                                                                                                lịch</h5>
+                                                                        <!--  -->
+                                                                        <div class="modal modal-start"
+                                                                             id="modalConfirm">
+                                                                            <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                                                <div class="modal-content"
+                                                                                     style="background-color: wheat">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title">
+                                                                                            Xác nhận đổi lịch
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="table-responsive">
+                                                                                            <table class="table table-hover tableFixHead">
+                                                                                                <tr>
+                                                                                                    <th>Ca cũ
+                                                                                                    </th>
+                                                                                                    <th>Loại sân
+                                                                                                        cũ
+                                                                                                    </th>
+                                                                                                    <th>Ngày đá
+                                                                                                        cũ
+                                                                                                    </th>
+                                                                                                    <th>Giá sân
+                                                                                                        cũ
+                                                                                                    </th>
+                                                                                                    <th>Ca muốn
+                                                                                                        đổi
+                                                                                                    </th>
+                                                                                                    <th>Loại sân
+                                                                                                        muốn đổi
+                                                                                                    </th>
+                                                                                                    <th>Ngày
+                                                                                                        muốn đổi
+                                                                                                    </th>
+                                                                                                    <th>Giá phải
+                                                                                                        trả
+                                                                                                    </th>
+                                                                                                </tr>
+                                                                                                <tr v-for="element in arrXacNhanLich">
+                                                                                                    <td hidden>
+                                                                                                        {{element.id}}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {{element.caCu}}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {{element.loaiSanCu}}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {{element.ngayDaCu}}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {{element.giaCu}}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {{getByIdCa(element.caNew).tenCa}}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {{getByIdLoaiSan(element.loaiSanNew).tenLoaiSan}}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {{element.ngayNew}}
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        {{element.giaNew}}
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
                                                                                         </div>
-                                                                                        <div class="modal-body">
-                                                                                            <div class="table-responsive">
-                                                                                                <table class="table table-hover tableFixHead">
-                                                                                                    <tr>
-                                                                                                        <th>Ca cũ
-                                                                                                        </th>
-                                                                                                        <th>Loại sân
-                                                                                                            cũ
-                                                                                                        </th>
-                                                                                                        <th>Ngày đá
-                                                                                                            cũ
-                                                                                                        </th>
-                                                                                                        <th>Giá sân
-                                                                                                            cũ
-                                                                                                        </th>
-                                                                                                        <th>Ca muốn
-                                                                                                            đổi
-                                                                                                        </th>
-                                                                                                        <th>Loại sân
-                                                                                                            muốn đổi
-                                                                                                        </th>
-                                                                                                        <th>Ngày
-                                                                                                            muốn đổi
-                                                                                                        </th>
-                                                                                                        <th>Giá phải
-                                                                                                            trả
-                                                                                                        </th>
-                                                                                                    </tr>
-                                                                                                    <tr v-for="element in arrXacNhanLich">
-                                                                                                        <td hidden>
-                                                                                                            {{element.id}}
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            {{element.caCu}}
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            {{element.loaiSanCu}}
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            {{element.ngayDaCu}}
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            {{element.giaCu}}
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            {{getByIdCa(element.caNew).tenCa}}
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            {{getByIdLoaiSan(element.loaiSanNew).tenLoaiSan}}
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            {{element.ngayNew}}
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            {{element.giaNew}}
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </table>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="modal-footer">
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
 
-                                                                                            <div v-if="checkTienDoiLichNhieu()===0">
-                                                                                                <form action="/api/v1/user/thanh-toan-nhieu/submitOrder"
-                                                                                                      method="post">
-                                                                                                    <input type="hidden"
-                                                                                                           name="amount"
-                                                                                                           v-model="tienCocThieuDoiLichNhieu">
-                                                                                                    <input type="hidden"
-                                                                                                           name="orderInfo"
-                                                                                                           value="Tien coc doi san bong">
-                                                                                                    <button
-                                                                                                            type="submit"
-                                                                                                            class="btn btn-success btn-labeled btnGuiXacNhan"
-                                                                                                            @click="thanhToanTienCocLichNhieu($event)"
-                                                                                                    >
-                                                                                                        Xác nhận và
-                                                                                                        thanh toán
-                                                                                                        <i class="fas fa-check fa-lg"></i>
-                                                                                                    </button>
-                                                                                                </form>
-
-                                                                                            </div>
-                                                                                            <div v-if="checkTienDoiLichNhieu()===1 || checkTienDoiLichNhieu()===2">
+                                                                                        <div v-if="checkTienDoiLichNhieu()===0">
+                                                                                            <form action="/api/v1/user/thanh-toan-nhieu/submitOrder"
+                                                                                                  method="post">
+                                                                                                <input type="hidden"
+                                                                                                       name="amount"
+                                                                                                       v-model="tienCocThieuDoiLichNhieu">
+                                                                                                <input type="hidden"
+                                                                                                       name="orderInfo"
+                                                                                                       value="Tien coc doi san bong">
                                                                                                 <button
-                                                                                                        type="button"
-                                                                                                        class="btn btn-success btn-labeled doiLichNhieuDuTienHoacKhong"
+                                                                                                        type="submit"
+                                                                                                        class="btn btn-success btn-labeled btnGuiXacNhan"
+                                                                                                        @click="thanhToanTienCocLichNhieu($event)"
                                                                                                 >
-                                                                                                    Xác nhận đổi
-                                                                                                    lịch
+                                                                                                    Xác nhận và
+                                                                                                    thanh toán
                                                                                                     <i class="fas fa-check fa-lg"></i>
                                                                                                 </button>
-                                                                                            </div>
+                                                                                            </form>
+
+                                                                                        </div>
+                                                                                        <div v-if="checkTienDoiLichNhieu()===1 || checkTienDoiLichNhieu()===2">
                                                                                             <button
                                                                                                     type="button"
-                                                                                                    class="btn btn-danger btn-labeled closeModalXacNhanThongTinCon"
-
+                                                                                                    class="btn btn-success btn-labeled doiLichNhieuDuTienHoacKhong"
                                                                                             >
-                                                                                                Đóng
-                                                                                                <i class="fas fa-times fa-lg"></i>
+                                                                                                Xác nhận đổi
+                                                                                                lịch
+                                                                                                <i class="fas fa-check fa-lg"></i>
                                                                                             </button>
                                                                                         </div>
+                                                                                        <button
+                                                                                                type="button"
+                                                                                                class="btn btn-danger btn-labeled closeModalXacNhanThongTinCon"
+
+                                                                                        >
+                                                                                            Đóng
+                                                                                            <i class="fas fa-times fa-lg"></i>
+                                                                                        </button>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <!--  -->
                                                                         </div>
+                                                                        <!--  -->
                                                                     </div>
-
-                                                                    <hr/>
-                                                                    <table class="table tableList">
-                                                                        <tr>
-                                                                            <th>
-                                                                                <input
-                                                                                        class="form-check-input check-all"
-                                                                                        type="checkbox"
-                                                                                        value=""
-                                                                                        aria-label="Checkbox for following text input"
-                                                                                />
-                                                                            </th>
-                                                                            <th>Ca hiện tại</th>
-                                                                            <th>Loại sân</th>
-                                                                            <th>Ngày đá dự kiến</th>
-                                                                            <th>Giá</th>
-                                                                            <th>Ca muốn đổi</th>
-                                                                            <th>Ngày muốn đổi</th>
-                                                                            <th>Loại sân muốn đổi</th>
-                                                                            <th>Giá dự kiến</th>
-                                                                        </tr>
-                                                                        <tr v-for="items in arrLichCanDoi">
-                                                                            <td class="check-box-one">
-                                                                                <input
-                                                                                        class="form-check-input mt-0 check-one"
-                                                                                        type="checkbox"
-                                                                                        aria-label="Checkbox for following text input"
-                                                                                        v-bind:value="items.id"
-                                                                                />
-                                                                            </td>
-                                                                            <td class="ca-ht">{{items.tenCa}}</td>
-                                                                            <td class="loai-san-ht">
-                                                                                {{items.tenLoaiSan}}
-                                                                            </td>
-                                                                            <td class="time-da-bong">
-                                                                                {{items.ngayDenSan}}
-                                                                            </td>
-                                                                            <td class="tong-tien">
-                                                                                {{items.tienSan}}
-                                                                            </td>
-                                                                            <td>
-                                                                                <select class="form-select ca-sb">
-                                                                                    <option
-                                                                                            v-bind:value="loaiCa.id"
-                                                                                            :selected="loaiCa.id == items.idCa"
-                                                                                            v-for="loaiCa in arrCaDL"
-                                                                                    >
-                                                                                        {{loaiCa.tenCa}}
-                                                                                    </option>
-                                                                                </select>
-                                                                            </td>
-                                                                            <td>
-                                                                                <input
-                                                                                        type="date"
-                                                                                        class="form-control change-time ngayNhieu"
-                                                                                        id="datePicker"
-                                                                                        :min="dateNow()"
-                                                                                />
-                                                                            </td>
-                                                                            <td>
-                                                                                <select class="form-select loai-san">
-                                                                                    <option
-                                                                                            v-bind:value="loaiSan.id"
-                                                                                            :selected="loaiSan.id == items.idLoaiSan"
-                                                                                            v-for="loaiSan in arrLoaiSanDL"
-                                                                                    >
-                                                                                        {{loaiSan.tenLoaiSan}}
-                                                                                    </option>
-                                                                                </select>
-                                                                            </td>
-                                                                            <td class="giaDuKienPhaiTra">
-                                                                                {{items.tienSan}}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>Tổng tiền</td>
-
-                                                                            <td style="color: red;size: 25px"
-                                                                                colspan="4">
-                                                                                {{tongTienSanCu}}
-                                                                            </td>
-                                                                            <td style="color: red;size: 25px"
-                                                                                colspan="4">
-                                                                                {{tongTienSanMoi}}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr v-if="checkTienDoiLichNhieu() === 0">
-                                                                            <td>Tiền cọc còn thiếu</td>
-                                                                            <td colspan="9"
-                                                                                style="font-size: 30px;color: red">
-                                                                                {{tinhTienCocLichNhieu()}}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr v-if="checkTienDoiLichNhieu() === 1">
-                                                                            <td>Tiền cọc thừa</td>
-                                                                            <td colspan="9"
-                                                                                style="font-size: 30px;color: red">
-                                                                                {{tinhTienCocLichNhieu()}}
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
                                                                 </div>
-                                                                <div class="col-md-12">
-                                                                    <section class="gather" hidden>
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <h1>Đổi lịch chung</h1>
-                                                                                <hr/>
-                                                                            </div>
-                                                                            <div class="col-md-3">
-                                                                                Ca chung:
-                                                                                <select class="form-select ca-chung">
-                                                                                    <option
-                                                                                            v-bind:value="items.id"
-                                                                                            v-for="items in arrCaDL"
-                                                                                    >
-                                                                                        {{items.tenCa}}
-                                                                                    </option>
-                                                                                </select>
+
+                                                                <hr/>
+                                                                <table class="table tableList">
+                                                                    <tr>
+                                                                        <th>
+                                                                            <input
+                                                                                    class="form-check-input check-all"
+                                                                                    type="checkbox"
+                                                                                    value=""
+                                                                                    aria-label="Checkbox for following text input"
+                                                                            />
+                                                                        </th>
+                                                                        <th>Ca hiện tại</th>
+                                                                        <th>Loại sân</th>
+                                                                        <th>Ngày đá dự kiến</th>
+                                                                        <th>Giá</th>
+                                                                        <th>Ca muốn đổi</th>
+                                                                        <th>Ngày muốn đổi</th>
+                                                                        <th>Loại sân muốn đổi</th>
+                                                                        <th>Giá dự kiến</th>
+                                                                    </tr>
+                                                                    <tr v-for="items in arrLichCanDoi">
+                                                                        <td class="check-box-one">
+                                                                            <input
+                                                                                    class="form-check-input mt-0 check-one"
+                                                                                    type="checkbox"
+                                                                                    aria-label="Checkbox for following text input"
+                                                                                    v-bind:value="items.id"
+                                                                            />
+                                                                        </td>
+                                                                        <td class="ca-ht">{{items.tenCa}}</td>
+                                                                        <td class="loai-san-ht">
+                                                                            {{items.tenLoaiSan}}
+                                                                        </td>
+                                                                        <td class="time-da-bong">
+                                                                            {{items.ngayDenSan}}
+                                                                        </td>
+                                                                        <td class="tong-tien">
+                                                                            {{items.tienSan}}
+                                                                        </td>
+                                                                        <td>
+                                                                            <select class="form-select ca-sb">
+                                                                                <option
+                                                                                        v-bind:value="loaiCa.id"
+                                                                                        :selected="loaiCa.id == items.idCa"
+                                                                                        v-for="loaiCa in arrCaDL"
+                                                                                >
+                                                                                    {{loaiCa.tenCa}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input
+                                                                                    type="date"
+                                                                                    class="form-control change-time ngayNhieu"
+                                                                                    id="datePicker"
+                                                                                    :min="dateNow()"
+                                                                            />
+                                                                        </td>
+                                                                        <td>
+                                                                            <select class="form-select loai-san">
+                                                                                <option
+                                                                                        v-bind:value="loaiSan.id"
+                                                                                        :selected="loaiSan.id == items.idLoaiSan"
+                                                                                        v-for="loaiSan in arrLoaiSanDL"
+                                                                                >
+                                                                                    {{loaiSan.tenLoaiSan}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td class="giaDuKienPhaiTra">
+                                                                            {{items.tienSan}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Tổng tiền</td>
+
+                                                                        <td style="color: red;size: 25px"
+                                                                            colspan="4">
+                                                                            {{tongTienSanCu}}
+                                                                        </td>
+                                                                        <td style="color: red;size: 25px"
+                                                                            colspan="4">
+                                                                            {{tongTienSanMoi}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr v-if="checkTienDoiLichNhieu() === 0">
+                                                                        <td>Tiền cọc còn thiếu</td>
+                                                                        <td colspan="9"
+                                                                            style="font-size: 30px;color: red">
+                                                                            {{tinhTienCocLichNhieu()}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr v-if="checkTienDoiLichNhieu() === 1">
+                                                                        <td>Tiền cọc thừa</td>
+                                                                        <td colspan="9"
+                                                                            style="font-size: 30px;color: red">
+                                                                            {{tinhTienCocLichNhieu()}}
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <section class="gather" hidden>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <h1>Đổi lịch chung</h1>
+                                                                            <hr/>
+                                                                        </div>
+                                                                        <div class="col-md-3" style="color: black">
+                                                                            Ca chung:
+                                                                            <select class="form-select ca-chung">
+                                                                                <option
+                                                                                        v-bind:value="items.id"
+                                                                                        v-for="items in arrCaDL"
+                                                                                >
+                                                                                    {{items.tenCa}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="col-md-6 dai-ngay">
+                                                                            <div
+                                                                                    class="d-grid gap-2 d-md-flex justify-content-md-center"
+                                                                            >
+                                                                                <button
+                                                                                        type="button"
+                                                                                        class="btn btn-outline-danger btnTheoNgay"
+                                                                                >
+                                                                                    Theo ngày
+                                                                                </button>
+                                                                                <button
+                                                                                        type="button"
+                                                                                        class="btn btn-outline-warning btnTheoTuan"
+                                                                                >
+                                                                                    Theo tuần
+                                                                                </button>
                                                                             </div>
 
-                                                                            <div class="col-md-6 dai-ngay">
-                                                                                <div
-                                                                                        class="d-grid gap-2 d-md-flex justify-content-md-center"
-                                                                                >
-                                                                                    <button
-                                                                                            type="button"
-                                                                                            class="btn btn-outline-danger btnTheoNgay"
-                                                                                    >
-                                                                                        Theo ngày
-                                                                                    </button>
-                                                                                    <button
-                                                                                            type="button"
-                                                                                            class="btn btn-outline-warning btnTheoTuan"
-                                                                                    >
-                                                                                        Theo tuần
-                                                                                    </button>
-                                                                                </div>
-
-                                                                                <div
-                                                                                        class="d-grid gap-2 d-md-flex justify-content-md-center"
-                                                                                >
-                                                                                    <div class="dateTheoNgay">
-                                                                                        <div style="height: 100%">
-                                                                                            <div class="mbsc-grid">
-                                                                                                <div style="width: 500px">
-                                                                                                    <div class="mbsc-form-group">
-                                                                                                        <div id="demo-counter"></div>
-                                                                                                    </div>
+                                                                            <div
+                                                                                    class="d-grid gap-2 d-md-flex justify-content-md-center"
+                                                                            >
+                                                                                <div class="dateTheoNgay">
+                                                                                    <div style="height: 100%">
+                                                                                        <div class="mbsc-grid">
+                                                                                            <div style="width: 500px">
+                                                                                                <div class="mbsc-form-group">
+                                                                                                    <div id="demo-counter"></div>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
+                                                                                </div>
 
-                                                                                    <div class="dateTheoTuan mt-4"
-                                                                                         hidden>
-                                                                                        <div
-                                                                                                mbsc-page
-                                                                                                class="demo-range-select"
-                                                                                                style="width: 500px; border-color: #ccc"
-                                                                                        >
-                                                                                            <div style="height: 100%">
-                                                                                                <div id="datLichTheoTuans"></div>
-                                                                                            </div>
+                                                                                <div class="dateTheoTuan mt-4"
+                                                                                     hidden>
+                                                                                    <div
+                                                                                            mbsc-page
+                                                                                            class="demo-range-select"
+                                                                                            style="width: 500px; border-color: #ccc"
+                                                                                    >
+                                                                                        <div style="height: 100%">
+                                                                                            <div id="datLichTheoTuans"></div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-                                                                            <div class="col-md-3">
-                                                                                Loại sân chung
-                                                                                <select class="form-select loai-san-chung">
-                                                                                    <option
-                                                                                            v-bind:value="items.id"
-                                                                                            v-for="items in arrLoaiSanDL"
-                                                                                    >
-                                                                                        {{items.tenLoaiSan}}
-                                                                                    </option>
-                                                                                </select>
-                                                                            </div>
                                                                         </div>
-                                                                    </section>
-                                                                </div>
 
+                                                                        <div class="col-md-3" style="color: black">
+                                                                            Loại sân chung
+                                                                            <select class="form-select loai-san-chung">
+                                                                                <option
+                                                                                        v-bind:value="items.id"
+                                                                                        v-for="items in arrLoaiSanDL"
+                                                                                >
+                                                                                    {{items.tenLoaiSan}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </section>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -666,26 +663,28 @@
                                                                 </div>
                                                             </form>
                                                         </div>
-                                                        <div class="col-md-8 col-sm-auto scrollable-table">
-                                                            <table
-                                                                    class="table table-bordered table-hover"
-                                                                    style="color: black"
-                                                                    id="myTable"
-                                                            >
-                                                                <thead>
-                                                                <tr>
-                                                                    <th style="width: 270px;">Ca</th>
-                                                                    <th>Ngày</th>
-                                                                    <th>Giá sân</th>
-                                                                    <th>Thao tác</th>
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody id="listEventNew"
-                                                                       style="max-height: 300px; overflow-y: auto;">
+                                                        <div class="col-md-8 col-sm-auto ">
+                                                            <div class="table-container">
+                                                                <table
+                                                                        class="table table-bordered table-hover"
+                                                                        style="color: black"
+                                                                        id="myTable"
+                                                                >
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th style="width: 270px;">Ca</th>
+                                                                        <th>Ngày</th>
+                                                                        <th>Giá sân</th>
+                                                                        <th>Thao tác</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody id="listEventNew"
+                                                                           style="max-height: 300px; overflow-y: auto;">
 
-                                                                </tbody>
-                                                            </table>
-                                                            <div class="card text-bg-light p-2">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="card text-bg-light p-2" style="border-radius: 0px">
                                                                 <div class="row">
                                                                     <div class="col-6 col-md-6 col-sm-6">
                                                                         <h4
@@ -726,13 +725,13 @@
 
                                                     <button
                                                             type="button"
-                                                            class="btn btn-danger"
+                                                            class="btn btn-danger btn-labeled"
                                                             data-bs-dismiss="modal"
                                                     >
                                                         Đóng
                                                         <i class="fas fa-times fa-lg"></i>
                                                     </button>
-                                                    <button type="submit" class="btn btn-success"
+                                                    <button type="submit" class="btn btn-success btn-labeled"
                                                             onclick="getFormLichDat()">
                                                         Đặt lịch và thanh toán
                                                         <i class="fas fa-check fa-lg"></i>
@@ -776,9 +775,9 @@
                                 <div>
                                     <div id="calendar"></div>
                                     <div id="myModal1" class="modal">
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modal-lg" style="max-width: 650px">
                                             <div class="modal-content">
-                                                <div class="modal-header" style="background: #f7941e">
+                                                <div class="modal-header" style="">
                                                     <h6 class="modal-title">Lựa Chọn Ca</h6>
                                                     <span class="close" id="closeModal1">&times;</span>
                                                 </div>
@@ -793,14 +792,14 @@
                                                     <!-- end ca -->
                                                     <!-- ngày -->
                                                     <div>
-                                                        <div class="header m-1">
-                                                            <h6 class="modal-title">Đặt Lịch</h6>
+                                                        <div class="header m-2">
+                                                            <h4 class="">Đặt Lịch</h4>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-5">
                                                                 <div>
                                                                     <select
-                                                                            class="custom-select"
+                                                                            class="form-select"
                                                                             name="tinhTrang"
                                                                             id="dateSelect"
                                                                     >
@@ -812,7 +811,7 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-8">
+                                                            <div class="col-md-7">
                                                                 <div class="mbsc-form-group m-0 p-0">
                                                                     <div id="demo-multi-day"></div>
                                                                     <div id="demo-range-selection"></div>
@@ -828,7 +827,7 @@
                                                         <div class="p-1 bd-highlight">
                                                             <button
                                                                     type="button"
-                                                                    class="btn btn-success"
+                                                                    class="btn btn-success btn-labeled"
                                                                     id="luuCaCellDay"
                                                             >
                                                                 Lưu Ca
@@ -841,7 +840,7 @@
                                                         <div class="p-1 bd-highlight">
                                                             <button
                                                                     type="button"
-                                                                    class="btn btn-danger"
+                                                                    class="btn btn-danger btn-labeled"
                                                                     onclick="closeModal1()"
                                                             >
                                                                 Hủy
@@ -1040,13 +1039,13 @@
 
 <!-- END Full Calendar -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
-<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/vi.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>-->
 <!-- Template Javascript -->
 <script th:src="@{/static/js/utill/thong-bao.js}"/>
 <script th:src="@{/static/js/main.js}"></script>
@@ -1414,6 +1413,7 @@
                                       <strong>Giá ca:</strong>
                                       <span>${item.giaSanCa + ' VND'} </span><br />
                                       <div class="m-1">
+                                            <strong>SL Sân:</strong>
                                           <input type="number" value="1" min="1" max="${item.countSanBong}"
                                                oninput="checkMaxValue(this,'${item.countSanBong}')" onblur="checkValue(this)"/>
                                       </div>

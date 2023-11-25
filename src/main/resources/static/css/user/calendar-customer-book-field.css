@@ -59,6 +59,12 @@ label {
     color: #888;
 }
 
+#myModal1 .modal-header, #myModal1  .modal-title{
+    background: #f7941e;
+    color: #fff;
+    font-size: 25px;
+}
+
 .visible {
     display: block;
 }
@@ -72,9 +78,10 @@ input::placeholder {
 }
 
 /* modal header background 20/10/2023 */
-#modalInfo .modal-header {
-    background: #f7941e;
+#modalInfo .modal-header,  #modalInfo .modal-title{
     color: #fff;
+    font-size: 25px;
+    background: #f7941e;
 }
 /* Tùy chỉnh màu nền và màu chữ cho nút "prev" */
 .fc-prev-button {
@@ -402,4 +409,99 @@ table th {
     border-radius: 4px;
     border: 1px solid #ccc;
     color: black;
+}
+
+.btn-labeled {
+    /* padding-top: 0;
+    padding-bottom: 0; */
+    border-radius: 5px;
+}
+
+/*SCROLLL LAMNP*/
+
+.table-container {
+    max-height: 300px; /* Điều chỉnh độ cao tối đa của phần body */
+    overflow-y: auto;
+}
+
+#myTable table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#myTable th,
+#myTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#myTable th {
+    background-color: #f2f2f2;
+    position: sticky;
+    top: 0;
+}
+
+/* BUTTON XÁC NHẬN */
+.button-header-confirm {
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    height: 2.5em;
+    padding: 0;
+    background: #009578;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.button-header-confirm:hover {
+    background: #008168;
+}
+
+.button-header-confirm:active {
+    background: #006e58;
+}
+
+.button-text-confirm {
+    font-family: "Quicksand", sans-serif;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    color: #fff;
+    height: 100%;
+}
+
+.button-text-confirm,
+.button-icon-confirm {
+    font-family: "Quicksand", sans-serif;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    color: #fff;
+    height: 100%;
+}
+
+.button-icon-confirm {
+    font-size: 1em;
+    background: rgba(0, 0, 0, 0.08);
+}
+
+#modalConfirm .modal-header {
+    background: #f7941e;
+    /* color: #fff; */
+}
+/*  */
+.table-responsive {
+    margin: 30px 0;
+}
+
+#doiLichNhanh .modal-header, #doiLichNhanh .modal-title{
+    background: #f7941e;
+    color: #fff;
+    font-size: 25px;
 }
