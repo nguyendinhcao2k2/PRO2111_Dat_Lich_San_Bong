@@ -13,6 +13,12 @@
           href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
 
     <title>Sân Bóng Đồng Đế</title>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+
+
     <!-- Icon Font AWESOME Bắt buộc có hai bản 5.10 và 6.2 -->
     <link
             rel="stylesheet"
@@ -25,7 +31,9 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
             rel="stylesheet"
     />
+
     <!-- BOOTSTRAP -->
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
     <!-- BOOTSTRAP -->
 
@@ -37,6 +45,8 @@
             rel="stylesheet"
     />
     <!-- Google -->
+
+
     <!-- table icon -->
     <link
             rel="stylesheet"
@@ -44,7 +54,6 @@
     />
     <!-- table icon -->
     <link rel="stylesheet" th:href="@{/static/css/staff/danh-sach-hoa-don-staff.css}"/>
-    <link th:href="@{/static/css/staff/thanh-toan-staff.css}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <style>
@@ -57,219 +66,234 @@
 <body>
 <header th:insert="~{fragments/header-admin}"></header>
 
-<section class="mains" >
-    <div class="card m-0">
-        <div class="card-header">
-            <h2 class="text-primary">Hóa Đơn Đặt Lịch</h2>
+<div class="table-wrapper">
+    <div class="table-title">
+        <!--    row 1-->
+        <div class="row">
+            <div class="col-md-4">
+                <h2 style="color: #fff">Hóa Đơn Đặt Lịch</h2>
+            </div>
+            <div class="col-md-8">
+                <!--                <a href="#" class="btn btn-primary btn-refresh"-->
+                <!--                ><i class="material-icons">&#xE863;</i>-->
+                <!--                    <span>Refresh List</span></a-->
+                <!--                >-->
+                <!--                <a href="#" class="btn btn-secondary btn-export-excel"-->
+                <!--                ><i class="material-icons">&#xE24D;</i>-->
+                <!--                    <span>Export to Excel</span></a-->
+                <!--                >-->
+            </div>
         </div>
-        <div class="card-body">
+    </div>
+
+    <!--    row2 -->
+    <div class="row">
+        <!--        col chung cho table, thông tin, và list servie của từng hóa đơn-->
+        <div class="col-md-12">
             <div class="row">
-                <!--        col chung cho table, thông tin, và list servie của từng hóa đơn-->
-                <div class="col-md-12">
+                <!--                BEGIN COL-MD-9 Table, List--->
+                <div class="col-md-9">
                     <div class="row">
-                        <!--                BEGIN COL-MD-9 Table, List--->
-                        <div class="col-md-8">
-                            <div class="row">
-                                <!-- col-md-12 TABLE -->
-                                <div class="col-md-12">
-                                    <!-- ADD BODY ROW COL BÊN NGOÀI UPDATE THÊM HEADER THẺ DIV table table-striped table-hover -->
-                                    <div class="body-row-col">
-                                        <div class="row header-border">
-                                            <div class="col-md-8">
-                                                <div class="header-row-col">
-                                                    <h1 class="text-primary">Danh Sách hóa đơn</h1>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 d-flex justify-content-end">
-                                                <div class="input-group mb-3">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            placeholder="Tìm kiếm theo tên, số điện thoại..."
-                                                            aria-label="Recipient's username"
-                                                            aria-describedby="button-addon2"
-                                                    />
-                                                    <button
-                                                            class="btn btn-success btn-outline-success"
-                                                            type="button"
-                                                            id="button-addon2"
-                                                            style="
+                        <!-- col-md-12 TABLE -->
+                        <div class="col-md-12">
+                            <!-- ADD BODY ROW COL BÊN NGOÀI UPDATE THÊM HEADER THẺ DIV table table-striped table-hover -->
+                            <div class="body-row-col">
+                                <div class="row header-border">
+                                    <div class="col-md-8">
+                                        <div class="header-row-col">
+                                            <h1>Danh Sách hóa đơn</h1>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-flex justify-content-end">
+                                        <div class="input-group mb-3">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Tìm kiếm theo tên, số điện thoại..."
+                                                    aria-label="Recipient's username"
+                                                    aria-describedby="button-addon2"
+                                            />
+                                            <button
+                                                    class="btn btn-success btn-outline-success"
+                                                    type="button"
+                                                    id="button-addon2"
+                                                    style="
                               border-top-right-radius: 5px;
                               border-bottom-right-radius: 5px;
                             "
-                                                    >
-                                                        <i
-                                                                class="fas fa-search fa-lg"
-                                                                style="color: #ffffff"
-                                                        ></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--bỏ table-responsive-->
-                                        <div class=" ">
-                                            <table
-                                                    class="table table-striped table-hover"
-                                                    id="myTable"
                                             >
-                                                <tbody id="myTableBody">
-                                                <!-- Nội dung cập nhật bằng JavaScript -->
-                                                </tbody>
-                                            </table>
-                                            <!-- LAMNP UPDATE PHÂN TRANG, HIỂN THỊ SỐ BẢN GHI 02/11 -->
-                                            <div class="clearfix">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="hint-text">
-                                                            <p style="color: #333">
-                                                                Hiển thị <b>5</b> / <b>25</b> bản ghi.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 d-flex justify-content-end">
-                                                        <nav aria-label="Page navigation">
-                                                            <ul class="pagination">
-                                                                <li class="page-item">
-                                                                    <a
-                                                                            class="page-link"
-                                                                            href="#"
-                                                                            aria-label="Previous"
-                                                                    >
-                                                                        <span aria-hidden="true">&laquo;</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="page-item active">
-                                                                    <a class="page-link" href="#">1</a>
-                                                                </li>
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="#">2</a>
-                                                                </li>
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="#">3</a>
-                                                                </li>
-                                                                <li class="page-item">
-                                                                    <a
-                                                                            class="page-link"
-                                                                            href="#"
-                                                                            aria-label="Next"
-                                                                    >
-                                                                        <span aria-hidden="true">&raquo;</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </nav>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- END UPDATE PHAN TRANG -->
+                                                <i
+                                                        class="fas fa-search fa-lg"
+                                                        style="color: #ffffff"
+                                                ></i>
+                                            </button>
                                         </div>
                                     </div>
-                                    <!-- END body-row-col  -->
                                 </div>
-                                <!-- END col-md-12  -->
-                                <!-- col-md-12 DỊCH VỤ SỬ DỤNG -->
-                                <div class="col-md-12 mt-4 mb-2">
-                                    <div class="body-row-col">
+
+                                <div class="table-responsive ">
+                                    <table
+                                            class="table table-striped table-hover"
+                                            id="myTable"
+                                    >
+                                        <tbody id="myTableBody">
+                                        <!-- Nội dung cập nhật bằng JavaScript -->
+                                        </tbody>
+                                    </table>
+                                    <!-- LAMNP UPDATE PHÂN TRANG, HIỂN THỊ SỐ BẢN GHI 02/11 -->
+                                    <div class="clearfix">
                                         <div class="row">
-                                            <div class="col-md-4 d-flex justify-content-start">
-                                                <div class="header-row-col">
-                                                    <h1 class="">Dịch vụ sử dụng</h1>
+                                            <div class="col-md-6">
+                                                <div class="hint-text">
+                                                    <p style="color: #333">
+                                                        Hiển thị <b>5</b> / <b>25</b> bản ghi.
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-8">
-                                                <div class="row g-2 align-items-center">
-                                                    <div class="col-md-6"></div>
-                                                    <div class="col-md-5 col-sm-auto">
-                                                        <select id="select-san-staff" class="form-select"
-                                                                style="border-radius: 5px">
-                                                            <option selected value="0">Tất cả</option>
-                                                            <option value="1">Nước Uống</option>
-                                                            <option value="2">Đồ Thuê</option>
-                                                        </select>
+                                            <div class="col-md-6 d-flex justify-content-end">
+                                                <nav aria-label="Page navigation">
+                                                    <ul class="pagination">
+                                                        <li class="page-item">
+                                                            <a
+                                                                    class="page-link"
+                                                                    href="#"
+                                                                    aria-label="Previous"
+                                                            >
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="page-item active">
+                                                            <a class="page-link" href="#">1</a>
+                                                        </li>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#">2</a>
+                                                        </li>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#">3</a>
+                                                        </li>
+                                                        <li class="page-item">
+                                                            <a
+                                                                    class="page-link"
+                                                                    href="#"
+                                                                    aria-label="Next"
+                                                            >
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END UPDATE PHAN TRANG -->
+                                </div>
+                            </div>
+                            <!-- END body-row-col  -->
+                        </div>
+                        <!-- END col-md-12  -->
+                        <!-- col-md-12 DỊCH VỤ SỬ DỤNG -->
+                        <div class="col-md-12 mt-4 mb-2">
+                            <div class="body-row-col">
+                                <div class="row">
+                                    <div class="col-md-4 d-flex justify-content-start">
+                                        <div class="header-row-col">
+                                            <h1 class="">Dịch vụ sử dụng</h1>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="row g-2 align-items-center">
+                                            <div class="col-md-6"></div>
+                                            <div class="col-md-3 col-sm-auto">
+                                                <select id="select-san-staff" class="form-select"
+                                                        style="border-radius: 5px">
+                                                    <option selected value="0">Tất cả</option>
+                                                    <option value="1">Nước Uống</option>
+                                                    <option value="2">Đồ Thuê</option>
+                                                </select>
 
-                                                    </div>
-                                                    <!-- BUTTON ADD DỊCH VỤ -->
-                                                    <div
-                                                            class="col-md-1 col-sm-auto d-flex justify-content-end"
-                                                    >
-                                                        <button
-                                                                id="addDichVu"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalAddDichVuHoaDon"
-                                                                type="button"
-                                                                class="btn btn-secondary btn-labeled-sm"
-                                                        >
-                                                            <i
-                                                                    class="fas fa-plus fa-lg"
-                                                                    style="color: #f0f2f4"
-                                                            ></i>
-                                                        </button>
-                                                        <!-- MODAL ADD DỊCH VỤ -->
-                                                        <div
-                                                                class="modal fade"
-                                                                id="modalAddDichVuHoaDon"
-                                                                data-bs-backdrop="static"
-                                                                data-bs-keyboard="false"
-                                                                tabindex="-1"
-                                                                aria-labelledby="staticBackdropLabel"
-                                                                aria-hidden="true"
-                                                        >
-                                                            <div class="modal-dialog modal-xl">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5
-                                                                                class="modal-title"
-                                                                        >
-                                                                            Thêm dịch vụ
-                                                                        </h5>
-                                                                        <button
-                                                                                type="button"
-                                                                                class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"
-                                                                        ></button>
-                                                                    </div>
-                                                                    <!-- BODY DICH VU-->
-                                                                    <div class="modal-body m-0">
-                                                                        <div class="body-row-col">
-                                                                            <div class="row">
-                                                                                <div class="col-md-9">
-                                                                                    <form>
-                                                                                        <div class="row g-2 align-items-center">
-                                                                                            <!-- Sân filter -->
-                                                                                            <!-- Loại Sân -->
-                                                                                            <div class="col-auto">
-                                                                                                <label for="select-service-list-order"
-                                                                                                       class="col-form-label label-filter-list-order">Dịch
-                                                                                                    vụ:</label>
-                                                                                            </div>
-                                                                                            <div class="col-md-3 col-sm-auto">
-                                                                                                <select id="select-service-list-order"
-                                                                                                        class="form-select"
-                                                                                                        style="border-radius: 5px">
-                                                                                                    <option selected value="0">
-                                                                                                        Tất cả
-                                                                                                    </option>
-                                                                                                    <option value="1">Nước
-                                                                                                    </option>
-                                                                                                    <option value="2">Đồ Thuê
-                                                                                                    </option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </form>
-
+                                            </div>
+                                            <!-- BUTTON ADD DỊCH VỤ -->
+                                            <div
+                                                    class="col-md-3 col-sm-auto d-flex justify-content-end"
+                                            >
+                                                <button
+                                                        id="addDichVu"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalAddDichVuHoaDon"
+                                                        type="button"
+                                                        class="btn btn-secondary btn-labeled-sm"
+                                                >
+                                                    <i
+                                                            class="fas fa-plus fa-lg"
+                                                            style="color: #f0f2f4"
+                                                    ></i>
+                                                </button>
+                                                <!-- MODAL ADD DỊCH VỤ -->
+                                                <div
+                                                        class="modal fade"
+                                                        id="modalAddDichVuHoaDon"
+                                                        data-bs-backdrop="static"
+                                                        data-bs-keyboard="false"
+                                                        tabindex="-1"
+                                                        aria-labelledby="staticBackdropLabel"
+                                                        aria-hidden="true"
+                                                >
+                                                    <div class="modal-dialog modal-xl">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5
+                                                                        class="modal-title"
+                                                                >
+                                                                    Thêm dịch vụ
+                                                                </h5>
+                                                                <button
+                                                                        type="button"
+                                                                        class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"
+                                                                ></button>
+                                                            </div>
+                                                            <!-- BODY DICH VU-->
+                                                            <div class="modal-body m-0">
+                                                                <div class="body-row-col">
+                                                                    <div class="row">
+                                                                        <div class="col-md-9">
+                                                                            <form>
+                                                                                <div class="row g-2 align-items-center">
+                                                                                    <!-- Sân filter -->
+                                                                                    <!-- Loại Sân -->
+                                                                                    <div class="col-auto">
+                                                                                        <label for="select-service-list-order"
+                                                                                               class="col-form-label label-filter-list-order">Dịch
+                                                                                            vụ:</label>
+                                                                                    </div>
+                                                                                    <div class="col-md-3 col-sm-auto">
+                                                                                        <select id="select-service-list-order"
+                                                                                                class="form-select"
+                                                                                                style="border-radius: 5px">
+                                                                                            <option selected value="0">
+                                                                                                Tất cả
+                                                                                            </option>
+                                                                                            <option value="1">Nước
+                                                                                            </option>
+                                                                                            <option value="2">Đồ Thuê
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
                                                                                 </div>
-                                                                                <!-- BUTTON CHECK BOX -->
-                                                                                <div class="col-md-3">
-                                                                                    <div
-                                                                                            class="d-flex justify-content-end"
-                                                                                    >
-                                                                                        <button
-                                                                                                type="button"
-                                                                                                id="showCheckboxButtonList"
-                                                                                                class="button-header-check-box"
-                                                                                        >
+                                                                            </form>
+
+                                                                        </div>
+                                                                        <!-- BUTTON CHECK BOX -->
+                                                                        <div class="col-md-3">
+                                                                            <div
+                                                                                    class="d-flex justify-content-end"
+                                                                            >
+                                                                                <button
+                                                                                        type="button"
+                                                                                        id="showCheckboxButtonList"
+                                                                                        class="button-header-check-box"
+                                                                                >
                                                                                   <span
                                                                                           class="button-icon-check-list"
                                                                                   >
@@ -277,491 +301,489 @@
                                                                                             class="far fa-check-square fa-lg"
                                                                                     ></i>
                                                                                   </span>
-                                                                                        </button>
-                                                                                    </div>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--  -->
+                                                                <div class="row mt-3 scrollable-content"
+                                                                     id="dataDichVuDoThueNuocUong">
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- END BODY -->
+                                                            <div class="modal-footer">
+                                                                <button
+                                                                        id="xacNhanDichVuAddNew"
+                                                                        type="button"
+                                                                        class="btn btn-primary btn-labeled-sm"
+                                                                        data-bs-dismiss="modal"
+                                                                >
+                                                                    Xác Nhận
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--  -->
+                                            </div>
+                                            <!-- END BUTTON ADD DỊCH VỤ -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="body-dich-vu header-border-content-dich-vu">
+                                    <div class="row mt-3 scrollable-content" id="dataNuocUong">
+                                    </div>
+                                    <hr>
+                                    <div class="row mt-3 scrollable-content" id="dataDoThue">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END col-md-12 -->
+                    </div>
+                </div>
+                <!--                END COL-MD-9 Table, List-->
+                <!--               BEGIN COL-MD-3 Hiển THị thông tin-->
+                <div class="col-md-3">
+                    <div class="body-row-col">
+                        <div class="info-display">
+                            <div class="header-border">
+                                <h1>Thông Tin Hóa Đơn</h1>
+                            </div>
+                            <form method="GET">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="tenKhachHang" class="form-label"
+                                        >Tên Khách Hàng</label
+                                        >
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="tenKhachHang"
+                                                readonly
+                                        />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="soDienThoai" class="form-label"
+                                        >Số Điện Thoại</label
+                                        >
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="soDienThoai"
+                                                readonly
+                                        />
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="mb-3">
+                                    <label for="tenSan" class="form-label">Tên Sân Ca</label>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="tenSan"
+                                            readonly
+                                    />
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="thoiGianDa" class="form-label"
+                                        >Thời Gian Đá</label
+                                        >
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="thoiGianDa"
+                                                readonly
+                                        />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="thoiGianCheckIn" class="form-label"
+                                        >Thời Gian Nhận Sân</label
+                                        >
+                                        <input
+                                                readonly
+                                                type="text"
+                                                class="form-control"
+                                                id="thoiGianCheckIn"
+                                        />
+                                    </div>
+                                </div>
+                                <hr>
+                                <br>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="tienSan" class="form-label">Giá Sân (1) </label>
+                                        <div class="input-group">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="tienSan"
+                                                    readonly
+                                            />
+                                            <span
+                                                    class="input-group-text"
+                                                    style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                            >VND</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="tienDichVu" class="form-label">Giá Dịch Vụ (2) </label>
+                                        <div class="input-group">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="tienDichVu"
+                                                    readonly
+                                            />
+                                            <span
+                                                    class="input-group-text"
+                                                    style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                            >VND</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <br>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="tienDichVu" class="form-label">Tiền Phụ Phí (3)</label>
+                                        <div class="input-group">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="tienPhuPhi"
+                                                    readonly
+                                            />
+                                            <span
+                                                    class="input-group-text"
+                                                    style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                            >VND</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="tienSan" class="form-label">Tiền Cọc Sân (4)</label>
+                                        <div class="input-group">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="tienCocSan"
+                                                    readonly
+                                            />
+                                            <span
+                                                    class="input-group-text"
+                                                    style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                            >VND</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-md-12">
+                                        <h1>Thanh Toán</h1>
+                                    </div>
+                                    <hr/>
+
+                                    <div class="col-md-12">
+                                        <!--Phụ Phí  -->
+                                        <div class="row mb-3">
+                                            <label
+                                                    for="selectPhuPhi"
+                                                    class="col-md-4 col-form-label"
+                                            >Phụ phí</label
+                                            >
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <select id="selectPhuPhi" class="form-select"
+                                                            aria-label="Default select example">
+                                                        <option selected>Chọn Phụ Phí</option>
+                                                    </select>
+                                                    <!--  -->
+                                                    <button
+                                                            class="btn btn-success btn-outline-success"
+                                                            type="button"
+                                                            id="buttonThemPhuPhiHoaDon"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modalThemPhuPhi"
+                                                            style="
+                                                              border-top-right-radius: 5px;
+                                                              border-bottom-right-radius: 5px;
+                                                            "
+                                                    >
+                                                        <i
+                                                                class="fas fa-plus fa-lg"
+                                                                style="color: #ffffff"
+                                                        ></i>
+                                                    </button>
+                                                    <!-- MODAL -->
+                                                    <div
+                                                            class="modal fade"
+                                                            id="modalThemPhuPhi"
+                                                            data-bs-backdrop="static"
+                                                            data-bs-keyboard="false"
+                                                            tabindex="-1"
+                                                            aria-labelledby="staticBackdropLabel"
+                                                            aria-hidden="true"
+                                                    >
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5
+                                                                            class="modal-title"
+                                                                            id="staticBackdropLabel"
+                                                                    >
+                                                                        Thêm phụ phí
+                                                                    </h5>
+                                                                    <button
+                                                                            type="button"
+                                                                            class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"
+                                                                    ></button>
+                                                                </div>
+
+                                                                <form>
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <label
+                                                                                        for="tenPhuPhi"
+                                                                                        class="form-label"
+                                                                                >Tên phụ phí</label
+                                                                                >
+                                                                                <div class="input-group">
+                                                                                    <input
+                                                                                            type="text"
+                                                                                            class="form-control"
+                                                                                            id="tenPhuPhi"
+
+                                                                                    />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <label
+                                                                                        for="giaPhuPhi"
+                                                                                        class="form-label"
+                                                                                >Giá phú phí</label
+                                                                                >
+                                                                                <div class="input-group">
+                                                                                    <input
+                                                                                            type="number"
+                                                                                            class="form-control"
+                                                                                            id="giaPhuPhi"
+                                                                                            min="1"
+                                                                                    />
+                                                                                    <span
+                                                                                            class="input-group-text"
+                                                                                            style="
+                                                                                              border-top-right-radius: 5px;
+                                                                                              border-bottom-right-radius: 5px;
+                                                                                            "
+                                                                                            id="basic-addon2"
+                                                                                    >VND</span
+                                                                                    >
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <!--  -->
-                                                                        <div class="row mt-3 scrollable-content"
-                                                                             id="dataDichVuDoThueNuocUong">
-
-                                                                        </div>
+                                                                        <hr>
+                                                                        <button type="button" class="btn btn-success"
+                                                                                id="saveNewPhuPhi">
+                                                                            Thêm Vào Phụ Phí
+                                                                        </button>
+                                                                        <hr>
+                                                                        <table class="table">
+                                                                            <thead>
+                                                                            <tr>
+                                                                                <th scope="col">STT</th>
+                                                                                <th scope="col">TÊN PHỤ PHÍ</th>
+                                                                                <th scope="col">GIÁ PHỤ PHÍ</th>
+                                                                                <th scope="col">CHỌN</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody id="dataPhuPhiHoaDon">
+                                                                            </tbody>
+                                                                        </table>
                                                                     </div>
-                                                                    <!-- END BODY -->
                                                                     <div class="modal-footer">
                                                                         <button
-                                                                                id="xacNhanDichVuAddNew"
                                                                                 type="button"
-                                                                                class="btn btn-primary btn-labeled-sm"
                                                                                 data-bs-dismiss="modal"
+                                                                                class="btn btn-success btn-labeled-sm"
                                                                         >
                                                                             Xác Nhận
                                                                         </button>
                                                                     </div>
-                                                                </div>
+                                                                </form>
                                                             </div>
                                                         </div>
-                                                        <!--  -->
                                                     </div>
-                                                    <!-- END BUTTON ADD DỊCH VỤ -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="body-dich-vu header-border-content-dich-vu">
-                                            <div class="row mt-3 scrollable-content" id="dataNuocUong">
-                                            </div>
-                                            <hr>
-                                            <div class="row mt-3 scrollable-content" id="dataDoThue">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- END col-md-12 -->
-                            </div>
-                        </div>
-                        <!--                END COL-MD-9 Table, List-->
-                        <!--               BEGIN COL-MD-3 Hiển THị thông tin-->
-                        <div class="col-md-4">
-                            <div class="body-row-col">
-                                <div class="info-display">
-                                    <div class="header-border">
-                                        <h1 class="text-primary">Thông Tin Hóa Đơn</h1>
-                                    </div>
-                                    <form method="GET">
-                                        <div class="row g-3">
-                                            <div class="col-md-6">
-                                                <label for="tenKhachHang" class="form-label"
-                                                >Tên Khách Hàng</label
-                                                >
-                                                <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="tenKhachHang"
-                                                        readonly
-                                                />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="soDienThoai" class="form-label"
-                                                >Số Điện Thoại</label
-                                                >
-                                                <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="soDienThoai"
-                                                        readonly
-                                                />
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="mb-3">
-                                            <label for="tenSan" class="form-label">Tên Sân Ca</label>
-                                            <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="tenSan"
-                                                    readonly
-                                            />
-                                        </div>
-                                        <div class="row g-3">
-                                            <div class="col-md-6">
-                                                <label for="thoiGianDa" class="form-label"
-                                                >Thời Gian Đá</label
-                                                >
-                                                <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="thoiGianDa"
-                                                        readonly
-                                                />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="thoiGianCheckIn" class="form-label"
-                                                >Thời Gian Nhận Sân</label
-                                                >
-                                                <input
-                                                        readonly
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="thoiGianCheckIn"
-                                                />
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <br>
-                                        <div class="row g-3">
-                                            <div class="col-md-6">
-                                                <label for="tienSan" class="form-label">Giá Sân (1) </label>
-                                                <div class="input-group">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            id="tienSan"
-                                                            readonly
-                                                    />
-                                                    <span
-                                                            class="input-group-text"
-                                                            style="
-                                                border-top-right-radius: 5px;
-                                                border-bottom-right-radius: 5px;
-                                              "
-                                                    >VND</span
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="tienDichVu" class="form-label">Giá Dịch Vụ (2) </label>
-                                                <div class="input-group">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            id="tienDichVu"
-                                                            readonly
-                                                    />
-                                                    <span
-                                                            class="input-group-text"
-                                                            style="
-                                                border-top-right-radius: 5px;
-                                                border-bottom-right-radius: 5px;
-                                              "
-                                                    >VND</span
-                                                    >
+                                                    <!-- END MODAL -->
                                                 </div>
                                             </div>
                                         </div>
                                         <hr>
                                         <br>
-                                        <div class="row g-3">
-                                            <div class="col-md-6">
-                                                <label for="tienDichVu" class="form-label">Tiền Phụ Phí (3)</label>
+                                        <!-- phương thức chuyển khoản -->
+                                        <fieldset class="row mb-3">
+                                            <legend class="col-form-label col-md-4 pt-0">
+                                                Hình Thức :
+                                            </legend>
+                                            <div class="col-md-8">
+                                                <div class="form-check form-check-inline">
+                                                    <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="phuongThucChuyenKhoan"
+                                                            id="chuyenKhoan"
+                                                            value="chuyenKhoan"
+                                                            checked
+                                                            onchange="toggleInputs()"
+                                                    />
+                                                    <label class="form-check-label" for="chuyenKhoan">
+                                                        Chuyển khoản
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="phuongThucChuyenKhoan"
+                                                            id="tienMat"
+                                                            value="tienMat"
+                                                            onchange="toggleInputs()"
+                                                    />
+                                                    <label class="form-check-label" for="tienMat">
+                                                        Tiền mặt
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <!-- Tiền khách đưa -->
+                                        <div class="row mb-3" id="tienKhachDuaContainer">
+                                            <div class="col-md-8">
                                                 <div class="input-group">
+                                                    <label for="tienKhachDua" class="col-md-4 col-form-label"
+                                                    >Tiền Khách Đưa :</label
+                                                    >
                                                     <input
                                                             type="text"
-                                                            class="form-control"
-                                                            id="tienPhuPhi"
-                                                            readonly
+                                                            id="tienKhachDua"
+                                                            oninput="calculateChange()"
                                                     />
                                                     <span
                                                             class="input-group-text"
                                                             style="
-                                                border-top-right-radius: 5px;
-                                                border-bottom-right-radius: 5px;
-                                              "
-                                                    >VND</span
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="tienSan" class="form-label">Tiền Cọc Sân (4)</label>
-                                                <div class="input-group">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            id="tienCocSan"
-                                                            readonly
-                                                    />
-                                                    <span
-                                                            class="input-group-text"
-                                                            style="
-                                                border-top-right-radius: 5px;
-                                                border-bottom-right-radius: 5px;
-                                              "
-                                                    >VND</span
-                                                    >
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-md-12">
-                                                <h1>Thanh Toán</h1>
-                                            </div>
-                                            <hr/>
-
-                                            <div class="col-md-12">
-                                                <!--Phụ Phí  -->
-                                                <div class="row mb-3">
-                                                    <label
-                                                            for="selectPhuPhi"
-                                                            class="col-md-4 col-form-label"
-                                                    >Phụ phí</label
-                                                    >
-                                                    <div class="col-md-8">
-                                                        <div class="input-group">
-                                                            <select id="selectPhuPhi" class="form-select"
-                                                                    aria-label="Default select example">
-                                                                <option selected>Chọn Phụ Phí</option>
-                                                            </select>
-                                                            <!--  -->
-                                                            <button
-                                                                    class="btn btn-success btn-outline-success"
-                                                                    type="button"
-                                                                    id="buttonThemPhuPhiHoaDon"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#modalThemPhuPhi"
-                                                                    style="
-                                                              border-top-right-radius: 5px;
-                                                              border-bottom-right-radius: 5px;
-                                                            "
-                                                            >
-                                                                <i
-                                                                        class="fas fa-plus fa-lg"
-                                                                        style="color: #ffffff"
-                                                                ></i>
-                                                            </button>
-                                                            <!-- MODAL -->
-                                                            <div
-                                                                    class="modal fade"
-                                                                    id="modalThemPhuPhi"
-                                                                    data-bs-backdrop="static"
-                                                                    data-bs-keyboard="false"
-                                                                    tabindex="-1"
-                                                                    aria-labelledby="staticBackdropLabel"
-                                                                    aria-hidden="true"
-                                                            >
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5
-                                                                                    class="modal-title"
-                                                                                    id="staticBackdropLabel"
-                                                                            >
-                                                                                Thêm phụ phí
-                                                                            </h5>
-                                                                            <button
-                                                                                    type="button"
-                                                                                    class="btn-close"
-                                                                                    data-bs-dismiss="modal"
-                                                                                    aria-label="Close"
-                                                                            ></button>
-                                                                        </div>
-
-                                                                        <form>
-                                                                            <div class="modal-body">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-12">
-                                                                                        <label
-                                                                                                for="tenPhuPhi"
-                                                                                                class="form-label"
-                                                                                        >Tên phụ phí</label
-                                                                                        >
-                                                                                        <div class="input-group">
-                                                                                            <input
-                                                                                                    type="text"
-                                                                                                    class="form-control"
-                                                                                                    id="tenPhuPhi"
-
-                                                                                            />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-12">
-                                                                                        <label
-                                                                                                for="giaPhuPhi"
-                                                                                                class="form-label"
-                                                                                        >Giá phú phí</label
-                                                                                        >
-                                                                                        <div class="input-group">
-                                                                                            <input
-                                                                                                    type="number"
-                                                                                                    class="form-control"
-                                                                                                    id="giaPhuPhi"
-                                                                                                    min="1"
-                                                                                            />
-                                                                                            <span
-                                                                                                    class="input-group-text"
-                                                                                                    style="
-                                                                                              border-top-right-radius: 5px;
-                                                                                              border-bottom-right-radius: 5px;
-                                                                                            "
-                                                                                                    id="basic-addon2"
-                                                                                            >VND</span
-                                                                                            >
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <hr>
-                                                                                <button type="button" class="btn btn-success btn-labeled-sm"
-                                                                                        id="saveNewPhuPhi">
-                                                                                    Thêm Vào Phụ Phí
-                                                                                </button>
-                                                                                <hr>
-                                                                                <table class="table">
-                                                                                    <thead>
-                                                                                    <tr>
-                                                                                        <th scope="col">STT</th>
-                                                                                        <th scope="col">TÊN PHỤ PHÍ</th>
-                                                                                        <th scope="col">GIÁ PHỤ PHÍ</th>
-                                                                                        <th scope="col">CHỌN</th>
-                                                                                    </tr>
-                                                                                    </thead>
-                                                                                    <tbody id="dataPhuPhiHoaDon">
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button
-                                                                                        type="button"
-                                                                                        data-bs-dismiss="modal"
-                                                                                        class="btn btn-success btn-labeled-sm"
-                                                                                >
-                                                                                    Xác Nhận
-                                                                                </button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- END MODAL -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <br>
-                                                <!-- phương thức chuyển khoản -->
-                                                <fieldset class="row mb-3">
-                                                    <legend class="col-form-label col-md-4 pt-0">
-                                                        Hình Thức :
-                                                    </legend>
-                                                    <div class="col-md-8">
-                                                        <div class="form-check form-check-inline">
-                                                            <input
-                                                                    class="form-check-input"
-                                                                    type="radio"
-                                                                    name="phuongThucChuyenKhoan"
-                                                                    id="chuyeKhoan"
-                                                                    value="chuyeKhoan"
-                                                                    checked
-                                                                    onchange="toggleInputs()"
-                                                            />
-                                                            <label class="form-check-label" for="chuyeKhoan">
-                                                                Chuyển khoản
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input
-                                                                    class="form-check-input"
-                                                                    type="radio"
-                                                                    name="phuongThucChuyenKhoan"
-                                                                    id="tienMat"
-                                                                    value="tienMat"
-                                                                    onchange="toggleInputs()"
-                                                            />
-                                                            <label class="form-check-label" for="tienMat">
-                                                                Tiền mặt
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                                <!-- Tiền khách đưa -->
-                                                <div class="row mb-3" id="tienKhachDuaContainer">
-                                                    <div class="col-md-8">
-                                                        <div class="input-group">
-                                                            <label for="tienKhachDua" class="col-md-4 col-form-label"
-                                                            >Tiền Khách Đưa :</label
-                                                            >
-                                                            <input
-                                                                    type="text"
-                                                                    id="tienKhachDua"
-                                                                    oninput="calculateChange()"
-                                                            />
-                                                            <span
-                                                                    class="input-group-text"
-                                                                    style="
                               border-top-right-radius: 5px;
                               border-bottom-right-radius: 5px;
                             "
-                                                                    id="basic-addon3"
-                                                            >VND</span
-                                                            >
-                                                        </div>
-                                                    </div>
+                                                            id="basic-addon3"
+                                                    >VND</span
+                                                    >
                                                 </div>
-                                                <!-- Tiền trả lại -->
-                                                <div class="row mb-3" id="tienTraLaiContainer">
-                                                    <div class="col-md-8">
-                                                        <div class="input-group">
-                                                            <label for="tienTraLai" class="col-md-4 col-form-label"
-                                                            >Tiền Trả Lại: </label
-                                                            >
-                                                            <input
-                                                                    readonly
-                                                                    type="text"
-                                                                    class="form-control"
-                                                                    id="tienTraLai"
-                                                            />
-                                                            <span
-                                                                    class="input-group-text"
-                                                                    style="
+                                            </div>
+                                        </div>
+                                        <!-- Tiền trả lại -->
+                                        <div class="row mb-3" id="tienTraLaiContainer">
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <label for="tienTraLai" class="col-md-4 col-form-label"
+                                                    >Tiền Trả Lại: </label
+                                                    >
+                                                    <input
+                                                            readonly
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="tienTraLai"
+                                                    />
+                                                    <span
+                                                            class="input-group-text"
+                                                            style="
                                                               border-top-right-radius: 5px;
                                                               border-bottom-right-radius: 5px;
                                                             "
-                                                            >VND</span>
-                                                        </div>
-                                                    </div>
+                                                    >VND</span>
                                                 </div>
                                             </div>
-                                            <!-- tổng tiền -->
-                                            <div class="col-md-12">
-                                                <hr/>
-                                                <h3
-                                                        style="
+                                        </div>
+                                    </div>
+                                    <!-- tổng tiền -->
+                                    <div class="col-md-12">
+                                        <hr/>
+                                        <h3
+                                                style="
                                                 font-size: 19px;
                                                 font-family: Tahoma;
                                                 font-weight: 600;
                                                 text-align: center;
                                                 color: rgb(215, 92, 92);
                                               "
-                                                >
-                                                    ((1 + 2 + 3) - 4) :
-                                                </h3>
-                                                <h1
-                                                        style="
+                                        >
+                                            ((1 + 2 + 3) - 4) :
+                                        </h3>
+                                        <h1
+                                                style="
                                                 font-size: 22px;
                                                 font-family: Tahoma;
                                                 font-weight: 900;
                                                 text-align: center;
                                                 color: rgb(215, 92, 92);
                                               "
-                                                >
-                                                    <br>
-                                                    Tổng Thanh Toán: <span id="tongThanhToan">0</span>
-                                                </h1>
-                                            </div>
-                                        </div>
-                                        <!-- BUTTON NEW 2/11 -->
-                                        <hr/>
-                                        <div class="mt-2 d-grid gap-2 d-md-block d-flex justify-content-center text-center">
-                                            <button
-                                                    type="button "
-                                                    class="m-2 btn btn-danger btn-labeled"
-                                            >
-                                                Hủy
-                                                <span class="btn-label">
+                                        >
+                                            <br>
+                                            Tổng Thanh Toán: <span id="tongThanhToan">0</span>
+                                        </h1>
+                                    </div>
+                                </div>
+                                <!-- BUTTON NEW 2/11 -->
+                                <hr/>
+                                <div class="mt-2 d-grid gap-2 d-md-block d-flex justify-content-center text-center">
+                                    <button
+                                            type="button "
+                                            class="m-2 btn btn-danger btn-labeled"
+                                    >
+                                        Hủy
+                                        <span class="btn-label">
                                         <i class="fa fa-remove"></i>
                                          </span>
-                                            </button>
-                                            <button
-                                                    type="submit"
-                                                    id="btnThanhToanHoaDon"
-                                                    class="m-2 btn btn-success btn-labeled"
-                                            >
-                                                Thanh Toán
-                                                <span class="btn-label"
-                                                ><i class="fas fa-money-bill fa-lg"></i
-                                                ></span>
-                                            </button>
-                                        </div>
-                                    </form>
+                                    </button>
+                                    <button
+                                            type="submit"
+                                            id="btnThanhToanHoaDon"
+                                            class="m-2 btn btn-success btn-labeled"
+                                    >
+                                        Thanh Toán
+                                        <span class="btn-label"
+                                        ><i class="fas fa-money-bill fa-lg"></i
+                                        ></span>
+                                    </button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                        <!--                END Hiển thị thông tin-->
                     </div>
                 </div>
+                <!--                END Hiển thị thông tin-->
             </div>
         </div>
     </div>
-</section>
+</div>
+
 <script>
 
     // show check box
@@ -1278,16 +1300,41 @@
 
         $(document).ready(function () {
             $("#btnThanhToanHoaDon").click(function () {
-                checkPaymentMethod();
+                var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+                if (paymentMethod == "tienMat") {
+                    thanhToanTienMat();
+                } else if (paymentMethod == "chuyenKhoan") {
+                    thanhToanChuyenKhoan();
+                }
             });
         });
 
-        function checkPaymentMethod() {
-            var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
-
+        function thanhToanChuyenKhoan() {
+            var tenKhachHang = $("#tenKhachHang").val();
+            var soDienThoai = $("#soDienThoai").val();
+            console.log(tenKhachHang);
+            console.log(soDienThoai);
             $.ajax({
                 type: "POST",
-                url: "/api/v1/staff/thanh-toan/" + getId,
+                url: "/api/v1/staff/thanh-toan-chuyen-khoan",
+                data: {
+                    amount: tongTienHoaDonPhaiTra,
+                    orderInfo: soDienThoai,
+                },
+                success: function (response) {
+                    window.open(response);
+                },
+                error: function (error) {
+                    console.error("Lỗi Ajax: ", error);
+                }
+            });
+        }
+
+        function thanhToanTienMat() {
+            var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+            $.ajax({
+                type: "POST",
+                url: "/api/v1/staff/thanh-toan-tien-mat/" + getId,
                 data: {paymentMethod: paymentMethod},
                 success: function (response) {
                     console.log(response);

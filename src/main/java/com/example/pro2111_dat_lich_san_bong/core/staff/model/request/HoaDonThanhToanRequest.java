@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 @Builder
 public class HoaDonThanhToanRequest {
     private String id;
-    private String idAccount;
     private Double tienCoc;
     private String tenKhachHang;
     private String soDienThoai;

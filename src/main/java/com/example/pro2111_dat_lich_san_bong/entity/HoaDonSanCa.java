@@ -30,7 +30,7 @@ public class HoaDonSanCa {
     private String id;
     @Column(name = "ngay_den_san", columnDefinition = "TIMESTAMP")
     private LocalDate ngayDenSan;
-    @Column(name = "thoi_giam_check_in", columnDefinition = "TIMESTAMP")
+    @Column(name = "thoi_giam_check_in")
     private Time thoiGianCheckIn;
     @Column(name = "tien_san")
     private Double tienSan;
