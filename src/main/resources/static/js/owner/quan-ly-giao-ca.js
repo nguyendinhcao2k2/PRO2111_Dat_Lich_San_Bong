@@ -1,7 +1,7 @@
 $(document).ready(function () {
     getData();
     sortByThoiGianNhanCa();
-    $(".giaCaExport").click(()=>{
+    $(".exportExcelGC").click(()=>{
         window.location.href="http://localhost:8081/api/v1/admin/giao-ca/export";
     });
     function getData() {

@@ -15,6 +15,8 @@ public interface HoaDonSanCaUserService {
 
     void saveHoaDonSanCa(HoaDonSanCa hoaDonSanCa);
 
+    void updateAll(List list);
+
     List findAllByIdHoaDon(String idHoaDon);
 
     void deleteAllByIdHoaDon(String idHoaDon);
@@ -27,4 +29,5 @@ public interface HoaDonSanCaUserService {
     HoaDonSanCa findByIdSanCa(String id);
 
     List<HoaDonSendMailResponse> getLisTHDSC(String idHoaDon);
+
 }

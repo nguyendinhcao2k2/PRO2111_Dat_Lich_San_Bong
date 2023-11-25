@@ -21,6 +21,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <!--  -->
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -234,15 +235,370 @@
                                 <div>
                                     <button
                                             type="button"
-                                            class="button-header"
+                                            class="button-header btnDoiLichNhanh"
                                             onclick=""
+                                            data-bs-toggle="modal" data-bs-target="#doiLichNhanh"
                                     >
-                                        <span class="button__text">Đổi lịch</span>
+                                        <span class="button__text">Đổi lịch nhanh</span>
                                         <span class="button__icon">
                                             <i class="fas fa-info"></i>
                                         </span>
                                     </button>
                                 </div>
+                                <!-- Modal đổi lịch nhanh start-->
+                                <div class="modal fade" id="doiLichNhanh" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-fullscreen">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><h1>Danh sách đổi lịch
+                                                    nhanh</h1></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Nội dung modal -->
+                                                <section class="bod app">
+                                                    <div class="table-wrapper">
+                                                        <div class="body-row-col">
+                                                            <div class="row">
+
+                                                                <div class="col-md-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+
+                                                                        </div>
+
+                                                                        <div class="col-md-4 d-md-flex justify-content-md-end">
+                                                                            <button
+                                                                                    type="button"
+                                                                                    class="button-header-confirm modalXacNhan"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#modalConfirm"
+                                                                            >
+                                                                                <span class="button-text-confirm">Xác Nhận</span>
+                                                                                <span class="button-icon-confirm">
+                        <i class="fas fa-check fa-lg"></i>
+                      </span>
+                                                                            </button>
+
+                                                                            <!--  -->
+                                                                            <div class="modal modal-start"
+                                                                                 id="modalConfirm">
+                                                                                <div class="modal-dialog modal-xl">
+                                                                                    <div class="modal-content"
+                                                                                         style="background-color: wheat">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title">
+                                                                                                Xác nhận đổi
+                                                                                                lịch</h5>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            <div class="table-responsive">
+                                                                                                <table class="table table-hover tableFixHead">
+                                                                                                    <tr>
+                                                                                                        <th>Ca cũ
+                                                                                                        </th>
+                                                                                                        <th>Loại sân
+                                                                                                            cũ
+                                                                                                        </th>
+                                                                                                        <th>Ngày đá
+                                                                                                            cũ
+                                                                                                        </th>
+                                                                                                        <th>Giá sân
+                                                                                                            cũ
+                                                                                                        </th>
+                                                                                                        <th>Ca muốn
+                                                                                                            đổi
+                                                                                                        </th>
+                                                                                                        <th>Loại sân
+                                                                                                            muốn đổi
+                                                                                                        </th>
+                                                                                                        <th>Ngày
+                                                                                                            muốn đổi
+                                                                                                        </th>
+                                                                                                        <th>Giá phải
+                                                                                                            trả
+                                                                                                        </th>
+                                                                                                    </tr>
+                                                                                                    <tr v-for="element in arrXacNhanLich">
+                                                                                                        <td hidden>
+                                                                                                            {{element.id}}
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            {{element.caCu}}
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            {{element.loaiSanCu}}
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            {{element.ngayDaCu}}
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            {{element.giaCu}}
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            {{getByIdCa(element.caNew).tenCa}}
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            {{getByIdLoaiSan(element.loaiSanNew).tenLoaiSan}}
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            {{element.ngayNew}}
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            {{element.giaNew}}
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+
+                                                                                            <div v-if="checkTienDoiLichNhieu()===0">
+                                                                                                <form action="/api/v1/user/thanh-toan-nhieu/submitOrder"
+                                                                                                      method="post">
+                                                                                                    <input type="hidden"
+                                                                                                           name="amount"
+                                                                                                           v-model="tienCocThieuDoiLichNhieu">
+                                                                                                    <input type="hidden"
+                                                                                                           name="orderInfo"
+                                                                                                           value="Tien coc doi san bong">
+                                                                                                    <button
+                                                                                                            type="submit"
+                                                                                                            class="btn btn-success btn-labeled btnGuiXacNhan"
+                                                                                                            @click="thanhToanTienCocLichNhieu($event)"
+                                                                                                    >
+                                                                                                        Xác nhận và
+                                                                                                        thanh toán
+                                                                                                        <i class="fas fa-check fa-lg"></i>
+                                                                                                    </button>
+                                                                                                </form>
+
+                                                                                            </div>
+                                                                                            <div v-if="checkTienDoiLichNhieu()===1 || checkTienDoiLichNhieu()===2">
+                                                                                                <button
+                                                                                                        type="button"
+                                                                                                        class="btn btn-success btn-labeled doiLichNhieuDuTienHoacKhong"
+                                                                                                >
+                                                                                                    Xác nhận đổi
+                                                                                                    lịch
+                                                                                                    <i class="fas fa-check fa-lg"></i>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <button
+                                                                                                    type="button"
+                                                                                                    class="btn btn-danger btn-labeled closeModalXacNhanThongTinCon"
+
+                                                                                            >
+                                                                                                Đóng
+                                                                                                <i class="fas fa-times fa-lg"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--  -->
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <hr/>
+                                                                    <table class="table tableList">
+                                                                        <tr>
+                                                                            <th>
+                                                                                <input
+                                                                                        class="form-check-input check-all"
+                                                                                        type="checkbox"
+                                                                                        value=""
+                                                                                        aria-label="Checkbox for following text input"
+                                                                                />
+                                                                            </th>
+                                                                            <th>Ca hiện tại</th>
+                                                                            <th>Loại sân</th>
+                                                                            <th>Ngày đá dự kiến</th>
+                                                                            <th>Giá</th>
+                                                                            <th>Ca muốn đổi</th>
+                                                                            <th>Ngày muốn đổi</th>
+                                                                            <th>Loại sân muốn đổi</th>
+                                                                            <th>Giá dự kiến</th>
+                                                                        </tr>
+                                                                        <tr v-for="items in arrLichCanDoi">
+                                                                            <td class="check-box-one">
+                                                                                <input
+                                                                                        class="form-check-input mt-0 check-one"
+                                                                                        type="checkbox"
+                                                                                        aria-label="Checkbox for following text input"
+                                                                                        v-bind:value="items.id"
+                                                                                />
+                                                                            </td>
+                                                                            <td class="ca-ht">{{items.tenCa}}</td>
+                                                                            <td class="loai-san-ht">
+                                                                                {{items.tenLoaiSan}}
+                                                                            </td>
+                                                                            <td class="time-da-bong">
+                                                                                {{items.ngayDenSan}}
+                                                                            </td>
+                                                                            <td class="tong-tien">
+                                                                                {{items.tienSan}}
+                                                                            </td>
+                                                                            <td>
+                                                                                <select class="form-select ca-sb">
+                                                                                    <option
+                                                                                            v-bind:value="loaiCa.id"
+                                                                                            :selected="loaiCa.id == items.idCa"
+                                                                                            v-for="loaiCa in arrCaDL"
+                                                                                    >
+                                                                                        {{loaiCa.tenCa}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input
+                                                                                        type="date"
+                                                                                        class="form-control change-time ngayNhieu"
+                                                                                        id="datePicker"
+                                                                                        :min="dateNow()"
+                                                                                />
+                                                                            </td>
+                                                                            <td>
+                                                                                <select class="form-select loai-san">
+                                                                                    <option
+                                                                                            v-bind:value="loaiSan.id"
+                                                                                            :selected="loaiSan.id == items.idLoaiSan"
+                                                                                            v-for="loaiSan in arrLoaiSanDL"
+                                                                                    >
+                                                                                        {{loaiSan.tenLoaiSan}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="giaDuKienPhaiTra">
+                                                                                {{items.tienSan}}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Tổng tiền</td>
+
+                                                                            <td style="color: red;size: 25px"
+                                                                                colspan="4">
+                                                                                {{tongTienSanCu}}
+                                                                            </td>
+                                                                            <td style="color: red;size: 25px"
+                                                                                colspan="4">
+                                                                                {{tongTienSanMoi}}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr v-if="checkTienDoiLichNhieu() === 0">
+                                                                            <td>Tiền cọc còn thiếu</td>
+                                                                            <td colspan="9"
+                                                                                style="font-size: 30px;color: red">
+                                                                                {{tinhTienCocLichNhieu()}}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr v-if="checkTienDoiLichNhieu() === 1">
+                                                                            <td>Tiền cọc thừa</td>
+                                                                            <td colspan="9"
+                                                                                style="font-size: 30px;color: red">
+                                                                                {{tinhTienCocLichNhieu()}}
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <section class="gather" hidden>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <h1>Đổi lịch chung</h1>
+                                                                                <hr/>
+                                                                            </div>
+                                                                            <div class="col-md-3">
+                                                                                Ca chung:
+                                                                                <select class="form-select ca-chung">
+                                                                                    <option
+                                                                                            v-bind:value="items.id"
+                                                                                            v-for="items in arrCaDL"
+                                                                                    >
+                                                                                        {{items.tenCa}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="col-md-6 dai-ngay">
+                                                                                <div
+                                                                                        class="d-grid gap-2 d-md-flex justify-content-md-center"
+                                                                                >
+                                                                                    <button
+                                                                                            type="button"
+                                                                                            class="btn btn-outline-danger btnTheoNgay"
+                                                                                    >
+                                                                                        Theo ngày
+                                                                                    </button>
+                                                                                    <button
+                                                                                            type="button"
+                                                                                            class="btn btn-outline-warning btnTheoTuan"
+                                                                                    >
+                                                                                        Theo tuần
+                                                                                    </button>
+                                                                                </div>
+
+                                                                                <div
+                                                                                        class="d-grid gap-2 d-md-flex justify-content-md-center"
+                                                                                >
+                                                                                    <div class="dateTheoNgay">
+                                                                                        <div style="height: 100%">
+                                                                                            <div class="mbsc-grid">
+                                                                                                <div style="width: 500px">
+                                                                                                    <div class="mbsc-form-group">
+                                                                                                        <div id="demo-counter"></div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="dateTheoTuan mt-4"
+                                                                                         hidden>
+                                                                                        <div
+                                                                                                mbsc-page
+                                                                                                class="demo-range-select"
+                                                                                                style="width: 500px; border-color: #ccc"
+                                                                                        >
+                                                                                            <div style="height: 100%">
+                                                                                                <div id="datLichTheoTuans"></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-3">
+                                                                                Loại sân chung
+                                                                                <select class="form-select loai-san-chung">
+                                                                                    <option
+                                                                                            v-bind:value="items.id"
+                                                                                            v-for="items in arrLoaiSanDL"
+                                                                                    >
+                                                                                        {{items.tenLoaiSan}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </section>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                                <!-- Nội dung modal -->
+                                                <p>...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal đổi lịch nhanh end-->
+                                <!--                                -->
+                                <!--                                -->
                                 <div>
                                     <select class="select-loai-san" id="selectLoaiSan"
                                             onchange="resetEventByIdLoaiSan(this.value);">
@@ -532,11 +888,6 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Xác nhận đổi lịch</h5>
-                                        <button
-                                                type="button"
-                                                class="btn-close"
-                                                data-bs-dismiss="modal"
-                                        ></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="table-responsive">
@@ -562,10 +913,10 @@
                                                         {{lichDatCu.thoiGianKetThuc}}
                                                     </td>
                                                     <td>{{lichDatCu.loaiSan}}</td>
-                                                    <td>{{lichDatCu.ngayDaDuKien}}</td>
-                                                    <td>{{lichDatCu.tienSan}}</td>
+                                                    <td>{{currenDateLichOne(lichDatCu.ngayDaDuKien)}}</td>
+                                                    <td>{{currenNumberVNLichOne(lichDatCu.tienSan)}}</td>
                                                     <td>
-                                                        <select class="form-selects "
+                                                        <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 @change="selectCaDoiLich">
                                                             <option v-for="items in listCa"
@@ -575,7 +926,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select class="form-selects "
+                                                        <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 @change="selectLoaiSanDoiLich">
                                                             <option v-for="items in listLoaiSan"
@@ -592,12 +943,12 @@
                                                                    aria-describedby="addon-wrapping">
                                                         </div>
                                                     </td>
-                                                    <td>{{tienPhaiTra}}</td>
+                                                    <td>{{currenNumberVNLichOne(tienPhaiTra)}}</td>
                                                     <td v-if="checkTienCoc() === 0" style="color: red">
-                                                        <marquee>{{tinhTienCoc()}}</marquee>
+                                                        <marquee>{{currenNumberVNLichOne(tinhTienCoc())}}</marquee>
                                                     </td>
                                                     <td v-if="checkTienCoc() === 1" style="color: red">
-                                                        <marquee>{{tinhTienCoc()}}</marquee>
+                                                        <marquee>{{currenNumberVNLichOne(tinhTienCoc())}}</marquee>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -611,7 +962,7 @@
                                                 @click="btnXacNhanDoiLich"
                                                 name="next"
                                         >
-                                            Gửi
+                                            Đổi lịch
                                             <i class="fas fa-check fa-lg"></i>
                                         </button>
                                         <button
@@ -632,22 +983,24 @@
                                                       method="post">
                                                     <input type="hidden" name="amount" v-model="tienCocThieu">
                                                     <input type="hidden" name="orderInfo" v-model="noiDung">
-                                                    <div class="modal-content">
+                                                    <div class="modal-content" style="background-color: wheat">
                                                         <div class="modal-header">
                                                             <h1 class="modal-title fs-5" id="exampleModalLabel">Thông
                                                                 báo</h1>
-                                                            <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             Bạn có chắc chắn thực hiện hành động?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary closeXacNhan"
-                                                                    data-bs-dismiss="modal">Close
+                                                            <button type="button" class="btn btn-danger closeXacNhanOne"
+                                                            >
+                                                                <i class="fa fa-ban" aria-hidden="true"></i>
+                                                                Hủy
                                                             </button>
-                                                            <button type="submit" class="btn btn-primary"
-                                                                    @click="findLichDat">Xác nhận
+                                                            <button type="submit" class="btn btn-success"
+                                                                    @click="findLichDat">
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                                Đổi lịch và thanh toán
                                                             </button>
                                                         </div>
                                                     </div>
@@ -1178,9 +1531,27 @@
                 "beforeend",
                 `
                     <div class="d-flex flex-column">
-                      <button class="btn btn-outline-danger btn-sm xoa-san-button" type="button" onclick="deleteEventById('` + eventId + `')">
+                      <button class="btn btn-outline-danger btn-sm xoa-san-button" data-bs-toggle="modal" data-bs-target="#huyLichSanBongDa" type="button" >
                         Hủy lịch
                       </button>
+                      <!-- Modal huy lich-->
+                <div class="modal fade" id="huyLichSanBongDa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
+                </div>
+                <div class="modal-body">
+                Bạn có chắc chắn xóa lịch đặt này? Bạn sẽ mất tiền cọc! Bạn suy nghĩ kỹ chứ?
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger huyXacNhan"  data-bs-dismiss="modal">Hủy <i class="fa fa-ban" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-success" onclick="deleteLichSanBong('` + idSanCa + `')">Xác nhận và hủy lịch <i class="fa fa-check" aria-hidden="true"></i></button>
+                </div>
+                </div>
+                </div>
+                </div>
+<!-- Modal huy lich-->
                       <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" data-bs-toggle="modal" data-bs-target="#doiLichOne" type="button" onclick="doiSanDetail('` + idSanCa + `')">
                         Đổi sân
                       </button>
@@ -1971,7 +2342,7 @@
     $(document).ready(function () {
         $(document).on("click", ".add-row", function () {
 
-            const caSelect = document.querySelector('.form-select');
+            const caSelect = document.querySelector('#selectCaDatLichs');
             const datePicker = document.querySelector('#datepicker');
             const selectedCa = caSelect.options[caSelect.selectedIndex].value;
             const selectedDate = datePicker.value;
@@ -2095,7 +2466,7 @@
     function addDateToFormDatLich(eventNew) {
         $("#listEventNew").html('');
 
-        var comboboxCa = "<select class=\"form-select\" aria-label=\"Default select example\"> <option selected disabled value=\"\">Chọn ca </option>";
+        var comboboxCa = "<select class=\"form-select\" id='selectCaDatLichs' aria-label=\"Default select example\"> <option selected disabled value=\"\">Chọn ca </option>";
 
         $.ajax({
             type: "GET",
@@ -2206,7 +2577,7 @@
         return formattedTime;
     }
 
-    $(document).on("change", "select.form-select", function () {
+    $(document).on("change", "#selectCaDatLichs", function () {
         var selectedGiaSan = $(this).find("option:selected").data("gia-san");
         $(this).closest("tr").find("td:nth-child(3)").text(selectedGiaSan + ' VND');
     });
@@ -2219,6 +2590,10 @@
     inputElement.setAttribute('min', currentDate.toISOString().substring(0, 10));
     $(document).ready(() => {
         callApiPhanTramTienCoc();
+        $(".closeXacNhanOne").click(() => {
+            $("#modalConfirmDoiLich").modal('hide');
+            $('.modal-backdrop').remove();
+        })
     });
 
     // <!--    check input date là ngày hiện tại-->
@@ -2263,7 +2638,7 @@
                     modalDL.lichDatCu.giaCa = response.content.giaCa,
                     modalDL.lichDatCu.giaSan = response.content.giaSan,
                     modalDL.lichDatCu.countDoiLich = response.content.countDoiLich
-
+                callApiLoaiSanAndCaOne();
                 if (modalDL.lichDatCu.countDoiLich === 1) {
                     $("#doiLichOne").modal('hide');
                     $('.modal-backdrop').remove();
@@ -2271,7 +2646,7 @@
                     return;
                 }
                 $('#doiLichOne').modal('show');
-                callApiLoaiSanAndCa();
+
             },
             error: function (error) {
                 console.log(error);
@@ -2280,7 +2655,7 @@
         })
     }
 
-    function callApiLoaiSanAndCa() {
+    function callApiLoaiSanAndCaOne() {
         $.ajax({
             type: "GET",
             url: "http://localhost:8081/api/v1/user/doi-lich/list-san-list-ca",
@@ -2301,7 +2676,6 @@
             url: "http://localhost:8081/api/v1/user/doi-lich/find-by-tien-coc",
             success: function (response) {
                 modalDL.phanTramCoc = parseInt(response.content);
-                console.log(response)
             },
             error: function (error) {
                 console.log(error);
@@ -2340,7 +2714,7 @@
             tienCocThua: 0,
             phanTramCoc: 0,
             noiDung: "Tien coc san bong",
-            indexCheckLich:0,
+            indexCheckLich: 0,
         },
         methods: {
             selectCaDoiLich(event) {
@@ -2366,7 +2740,7 @@
                     && this.lichDatCu.idLoaiSan == this.checkLich.idLoaiSan
                     && this.lichDatCu.idCa == this.checkLich.idCa) {
                     createAndShowToast("bg-warning", "Thông báo", "Lịch không có gì thay đổi! Vui lòng xem lại!");
-                    // $('.closeXacNhan').click();
+
                     $(".modalCon").prop("hidden", true);
                     $('.modal-backdrop').remove();
                     return;
@@ -2381,14 +2755,14 @@
                     type: "GET",
                     url: "http://localhost:8081/api/v1/user/doi-lich/check-lick-dat?idLS=" + this.lichDatCu.idLoaiSan + "&idCa=" + this.lichDatCu.idCa + "&ngayDoi=" + $(".ngayMuonDoi").val(),
                     success: function (response) {
-                        if (response.content  === 1) {
+                        if (response.content === 1) {
                             $(".modalCon").prop("hidden", true);
                             $('.modal-backdrop').remove();
                             createAndShowToast("bg-danger", "Thông báo", "Đã có lịch đặt");
                             return;
                         }
 
-                        if (response.content  === 2) {
+                        if (response.content === 2) {
                             $(".modalCon").prop("hidden", true);
                             $('.modal-backdrop').remove();
                             createAndShowToast("bg-danger", "Thông báo", "Lỗi");
@@ -2473,11 +2847,641 @@
                     this.tienCocThua = (parseFloat(this.lichDatCu.tienSan) - parseFloat(this.tienPhaiTra)) * (this.phanTramCoc / 100);
                     return this.tienCocThua;
                 }
+            },
+            currenDateLichOne(date) {
+                return moment(date).format("DD-MM-YYYY");
+            },
+            currenNumberVNLichOne(number) {
+                if (number !== undefined && number !== null) {
+                    // return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
+                    return number.toLocaleString("vi-VN");
+                } else {
+                    return 0;// hoặc có thể trả về giá trị mặc định khác
+                }
             }
 
         }
     })
 
 </script>
+//doi lich one user
+//doi lich nhieu
+<script>
+    var app = new Vue({
+        el: ".app",
+        data: {
+            arrCaDL: [],
+            arrLoaiSanDL: [],
+            arrLichCanDoi: [],
+            arrXacNhanLich: [],
+            tongTienSanCu: 0,
+            tongTienSanMoi: 0,
+            giaDukienChung: 0,
+            phanTramTienCocLichNhieu: 0,
+            tienCocThieuDoiLichNhieu: 0,
+            tienCocThuaDoiLichNhieu: 0,
+            sanCaCheckRequest: [],
+            listDataDoiLichNhieuRequest: [],
+            boolCheckLich: false,
+            listCheck: [],
+        },
+        methods: {
+            // currenlyNumberVue(number) {
+            //     return number.toLocaleString("vi-VN");
+            // },
+            getByIdCa(id) {
+                var ca = null;
+                this.arrCaDL.forEach((item) => {
+                    if (item.id == id) {
+                        ca = item;
+                        return;
+                    }
+                });
+                return ca;
+            },
+            getByIdLoaiSan(id) {
+                var lSan = null;
+                this.arrLoaiSanDL.forEach((item) => {
+                    if (item.id == id) {
+                        lSan = item;
+                        return;
+                    }
+                });
+                return lSan;
+            },
+            currenDateDLN(date) {
+                return moment(date).format("DD-MM-YYYY");
+            },
+            currenDateUKDLN(date) {
+                return moment(date).format("YYYY-MM-DD");
+            },
+            dateNow() {
+                const currentDateNhieu = new Date();
+                return currentDateNhieu.toISOString().substring(0, 10);
+            },
+            currenDateLichNhieu(date) {
+                if (date !== undefined && date !== null) {
+                    return moment(date).format("DD-MM-YYYY");
+                }
+                return "Null";
+            },
+            currenNumberLichNhieu(number) {
+                if (number !== undefined && number !== null) {
+                    // return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
+                    return number.toLocaleString("vi-VN");
+                } else {
+                    return 0;// hoặc có thể trả về giá trị mặc định khác
+                }
+            },
+            tinhTienCocLichNhieu() {
+                let phanTramTienCoc = parseInt(this.phanTramTienCocLichNhieu);
+                if (this.checkTienDoiLichNhieu() === 0) {
+                    this.tienCocThieuDoiLichNhieu = (parseFloat(this.tongTienSanMoi) - parseFloat(this.tongTienSanCu)) * (phanTramTienCoc / 100);
+                    return this.tienCocThieuDoiLichNhieu;
+                }
+                if (this.checkTienDoiLichNhieu() === 1) {
+                    this.tienCocThuaDoiLichNhieu = (parseFloat(this.tongTienSanCu) - parseFloat(this.tongTienSanMoi)) * (phanTramTienCoc / 100);
+                    return this.tienCocThuaDoiLichNhieu;
+                }
+                return
+            },
+            checkTienDoiLichNhieu() {
+                if (parseFloat(this.tongTienSanMoi) > parseFloat(this.tongTienSanCu)) {
+                    return 0;
+                }
+                if (parseFloat(this.tongTienSanMoi) < parseFloat(this.tongTienSanCu)) {
+                    return 1;
+                }
+                return 2;
+            },
+            thanhToanTienCocLichNhieu(event) {
+                event.preventDefault();
+                var arrTB = [];
+                var shouldSubmitDefault = false;
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: "http://localhost:8081/api/v1/user/san-ca/check-list-san-ca",
+                    data: JSON.stringify(this.sanCaCheckRequest),
+                    success: function (response) {
+                        if (response.length > 0) {
+
+                            response.forEach((items) => {
+                                var error = ["bg-warning", "Thông báo", app.getByIdCa(items.idCa).tenCa + " của ngày " +
+                                items.ngayDat + " hiện tại đã có người đặt. Vui lòng kiểm tra lại"];
+                                arrTB.push(error);
+                            });
+                            createMultipleToasts(arrTB);
+                            return;
+                        }
+                        app.callApiListDoiLichNhieuList();
+                        shouldSubmitDefault = true;
+
+                    }, error: function (error) {
+                        console.log(error);
+                    },
+                    complete: function () {
+                        if (shouldSubmitDefault) {
+                            var form = $(event.target).closest('form')[0];
+                            if (form && form.tagName === "FORM") {
+                                form.submit();
+                            } else {
+                                console.error("Không thể tìm thấy đối tượng form hợp lệ.");
+                            }
+                        }
+                    }
+                });
+            },
+            callApiListDoiLichNhieuList() {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'JSON',
+                    contentType: 'application/json',
+                    url: "http://localhost:8081/api/v1/user/thanh-toan-nhieu/find-list-doi-lich",
+                    data: JSON.stringify(app.listDataDoiLichNhieuRequest),
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        createAndShowToast("bg-warning", "Thông báo", "Không thể thực hiện!");
+                        console.log(error);
+                    }
+                });
+            }
+        }
+    });
+</script>
+<script>
+    function updateNgayMuonDoi() {
+        const ngayMuonDoiInputs = $(".change-time");
+        ngayMuonDoiInputs.each((index, element) => {
+            $(element).val(list[index]);
+        });
+    }
+
+    $(function () {
+        // Theo tuan
+        $("#datLichTheoTuans")
+            .mobiscroll()
+            .datepicker({
+                controls: ["calendar"],
+                display: "inline",
+                rangeSelectMode: "wizard",
+                select: "range",
+                showRangeLabels: true,
+                min: new Date(),
+                onChange: function (event, inst) {
+                    var arrStartEnd = event.value;
+                    var startDate = new Date(arrStartEnd[0]); // Ngày bắt đầu
+                    var endDate = new Date(arrStartEnd[1]); // Ngày kết thúc
+                    var dateArr = [];
+                    while (startDate <= endDate) {
+                        dateArr.push(
+                            moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD")
+                        );
+                        startDate.setDate(startDate.getDate() + 1);
+                    }
+                    if (dateArr.length > app.arrLichCanDoi.length) {
+                        alert('Số bản ghi của bạn chỉ có ' + app.arrLichCanDoi.length + ', vui lòng bớt ngày chọn!');
+                        inst.setVal([], true, true);
+                        return;
+                    }
+
+                    if (dateArr.length > 1) {
+                        dateArr.forEach((items) => {
+                            list = [];
+                            list = dateArr.slice();
+                        });
+                        updateNgayMuonDoi();
+                    }
+                },
+            });
+    });
+    mobiscroll.setOptions({
+        locale: mobiscroll.localeVi,
+        theme: "ios",
+        themeVariant: "light",
+    });
+    var list = [];
+    $(function () {
+        // Theo ngay
+        var counterNumber = $("#demo-counter")
+            .mobiscroll()
+            .datepicker({
+                controls: ["calendar"],
+                display: "inline",
+                selectMultiple: true,
+                selectCounter: true,
+                min: new Date(),
+                onChange: function (event, inst) {
+                    if (parseInt(inst.getVal().length) > app.arrLichCanDoi.length) {
+                        alert('Số bản ghi của bạn chỉ có ' + app.arrLichCanDoi.length + ', vui lòng bớt ngày chọn!');
+                        var selectedDates = inst.getVal();
+                        selectedDates.pop();
+                        inst.setVal(selectedDates);
+                        return;
+                    }
+                    list = [];
+                    var listDate = event.valueText.split(",");
+                    listDate.forEach((element) => {
+                        list.push(moment(element, "DD/MM/YYYY").format("YYYY-MM-DD"));
+                    });
+                    updateNgayMuonDoi();
+                },
+            });
+    });
+</script>
+<script>
+
+    $(document).ready(function () {
+
+        $(".btnDoiLichNhanh").click(() => {
+            callApiDoiLich();
+            callApiLoaiSanAndCaNhieu();
+        });
+        updateNgayMuonDoi();
+        checkNowDate();
+        checkDate();
+        //xac nhan
+        xacNhanDoiLich();
+        eventGiaDuKien();
+        callApiPhanTramTienCocDoiLichNhieu();
+        $(".closeModalXacNhanThongTinCon").click(() => {
+            $("#modalConfirm").modal('hide');
+            $('.modal-backdrop').remove();
+        });
+        doiLichNhieuDuTienCocHoacKhong();
+    });
+
+
+    function eventGiaDuKien() {
+        $(document).on("change", ".ca-sb, .loai-san", function () {
+            var $row = $(this).closest("tr"); // Tìm phần tử cha <tr>
+            var giaDuKien = 0;
+            var giaCa = 0;
+            var giaLoaiSan = 0;
+
+            var selectedCaId = $row.find(".ca-sb").val();
+            var selectedLoaiSanId = $row.find(".loai-san").val();
+
+            // Tính giá Ca
+            app.arrCaDL.forEach((element) => {
+                if (element.id == selectedCaId) {
+                    giaCa = parseFloat(element.giaCa);
+                }
+                listCheckBoxCheckKed();
+            });
+
+            // Tính giá Loại sân
+            app.arrLoaiSanDL.forEach((element) => {
+                if (element.id == selectedLoaiSanId) {
+                    giaLoaiSan = parseFloat(element.giaSan);
+                }
+            });
+
+            // Tính giá dự kiến
+            giaDuKien = giaCa + giaLoaiSan;
+            app.giaDukienChung = giaDuKien;
+            // Cập nhật giá dự kiến chỉ cho dòng hiện tại
+            $row.find(".giaDuKienPhaiTra").text(giaDuKien);
+            listCheckBoxCheckKed();
+        });
+    }
+
+    //doi lich cos du tien coc hoac khong
+    function doiLichNhieuDuTienCocHoacKhong() {
+
+        $(document).on('click', '.doiLichNhieuDuTienHoacKhong', function () {
+            var arrTB = [];
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: "http://localhost:8081/api/v1/user/san-ca/check-list-san-ca",
+                data: JSON.stringify(app.sanCaCheckRequest),
+                success: function (response) {
+                    if (response.length > 0) {
+                        response.forEach((items) => {
+                            var error = ["bg-warning", "Thông báo", app.getByIdCa(items.idCa).tenCa + " của ngày " +
+                            items.ngayDat + " hiện tại đã có người đặt. Vui lòng kiểm tra lại"];
+                            arrTB.push(error);
+                        });
+                        createMultipleToasts(arrTB);
+                        return;
+                    }
+                    updateLichNhieuKoVNPay();
+
+                }, error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    };
+
+    function updateLichNhieuKoVNPay() {
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json',
+            url: "http://localhost:8081/api/v1/user/doi-lich/update-lich-nhieu",
+            data: JSON.stringify(app.listDataDoiLichNhieuRequest),
+            success: function (response) {
+                if (response.statusCode === 'OK') {
+                    createAndShowToast("bg-success", "Thông báo", "Thao tác đổi lịch thành công!");
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                    return;
+                }
+                createAndShowToast("bg-warning", "Thông báo", "Không thể thực hiện!");
+            },
+            error: function (error) {
+                createAndShowToast("bg-warning", "Thông báo", "Không thể thực hiện!");
+                console.log(error);
+            }
+        });
+    }
+
+
+    function xacNhanDoiLich() {
+        // $(".btnGuiXacNhan").click((event) => {
+        $(".modalXacNhan").click((event) => {
+            event.preventDefault();
+            var checkedData = [];
+            var dataRow = {};
+            var dataRequest = {};
+            var dataCheckEmpty = {};
+            app.listDataDoiLichNhieuRequest = [];
+            app.sanCaCheckRequest = [];
+            var checkboxes = document.querySelectorAll(".check-one");
+            checkboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    var row = checkbox.closest("tr");
+                    var id = row.querySelector("input.check-one").value;
+                    var caCu = row.querySelector("td.ca-ht").textContent;
+                    var loaiSanCu = row.querySelector("td.loai-san-ht").textContent;
+                    var ngayDaCu = row.querySelector("td.time-da-bong").textContent;
+                    var giaCu = row.querySelector("td.tong-tien").textContent;
+                    var caNew = row.querySelector("select.ca-sb").value;
+                    var loaiSanNew = row.querySelector("select.loai-san").value;
+                    var giaNew = row.querySelector("td.giaDuKienPhaiTra").textContent;
+                    var ngayNew = row.querySelector("input.change-time").value == "" ? app.currenDateUKDLN(ngayDaCu) : app.currenDateUKDLN(row.querySelector("input.change-time").value);
+                    dataRow = {id, caCu, loaiSanCu, ngayDaCu, giaCu, caNew, ngayNew, loaiSanNew, giaNew, ngayNew};
+                    checkedData.push(dataRow);
+                    dataCheckEmpty = {
+                        id: id,
+                        idLoaiSan: loaiSanNew,
+                        idCa: caNew,
+                        ngayDat: ngayNew,
+                    };
+                    app.sanCaCheckRequest.push(dataCheckEmpty);
+                    var tienCocThieu = 0;
+                    var tienCocThua = 0;
+                    var valuePhanTram = parseInt(app.phanTramTienCocLichNhieu);
+                    if (parseFloat(app.tongTienSanMoi) > parseFloat(app.tongTienSanCu)) {
+                        tienCocThieu = (parseInt(app.tongTienSanMoi) - parseInt(app.tongTienSanCu)) * (valuePhanTram / 100);
+                    } else if (parseFloat(app.tongTienSanMoi) < parseFloat(app.tongTienSanCu)) {
+                        tienCocThua = (parseInt(app.tongTienSanCu) - parseInt(app.tongTienSanMoi)) * (valuePhanTram / 100);
+                    }
+                    dataRequest = {
+                        idHDSC: id,
+                        idCa: caNew,
+                        idLoaiSan: loaiSanNew,
+                        ngayDoi: ngayNew,
+                        tienSan: giaNew,
+                        tienCocThieu: tienCocThieu,
+                        tienCocThua: tienCocThua
+                    };
+                    app.listDataDoiLichNhieuRequest.push(dataRequest);
+                }
+            });
+            if (checkedData.length === 0) {
+                // Đóng modal
+                $("#modalConfirm").modal("hide");
+                $('.modal-backdrop').remove();
+                createAndShowToast("bg-warning", "Thông báo", "Vui lòng chọn lịch bạn muốn thay đổi!");
+            }
+            app.arrXacNhanLich = checkedData;
+
+        });
+    }
+
+    //check truoc ngay hien tai
+    function checkNowDate() {
+        // khong chon truoc ngay hien tai start
+        // Lấy ngày hiện tại
+        var currentDate = new Date().toISOString().split("T")[0];
+
+        // Xử lý tất cả các trường nhập có id là "datePicker"
+        $("input#datePicker").each(function () {
+            // Thiết lập giá trị tối thiểu cho trường nhập ngày
+            $(this).attr("min", currentDate);
+
+            // Xử lý sự kiện onchange để ngăn chọn ngày trước ngày hiện tại
+            $(this).on("change", function () {
+                if ($(this).val() < currentDate) {
+                    $(this).val(currentDate);
+                }
+            });
+        });
+
+        // khong chon truoc ngay hien tai end
+    }
+
+    //call api
+    function callApiDoiLich() {
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8081/api/v1/user/doi-lich/list-lich-doi",
+            dataType: "json",
+            success: function (response) {
+                console.log(response)
+                app.arrLichCanDoi = response.content;
+                response.content.forEach((items) => {
+
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    }
+
+    //call api
+    function callApiLoaiSanAndCaNhieu() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8081/api/v1/user/doi-lich/find-all-loai-san-ca",
+            dataType: "json",
+            success: function (response) {
+                app.arrCaDL = response.content.ca;
+                app.arrLoaiSanDL = response.content.loaiSan;
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    }
+
+    //event chung
+    function checkDate() {
+        $(".check-all").change(function () {
+            if (this.checked) {
+                $(".gather").prop("hidden", false);
+                $(".check-one").prop("checked", true);
+            } else {
+                $(".check-one").prop("checked", false);
+                $(".gather").prop("hidden", true);
+            }
+            listCheckBoxCheckKed();
+        });
+
+        $(document).on('click', '.check-one', function () {
+            var lengCheckOne = $(".check-one").length;
+            var lengChecked = $(".check-one:checked").length;
+            if (lengCheckOne == lengChecked) {
+                $(".check-all").prop("checked", true);
+                $(".gather").prop("hidden", false);
+            } else {
+                $(".check-all").prop("checked", false);
+                $(".gather").prop("hidden", true);
+            }
+            //
+            listCheckBoxCheckKed();
+        });
+
+        //cac ca chung
+        $(".ca-chung").change((event) => {
+            $(".ca-sb").val(event.target.value);
+            $(".loai-san").val($(".loai-san-chung").val());
+            giaDuKienChung(event, $(".loai-san-chung").val(), 0);
+        });
+        //loai san chung
+        $(".loai-san-chung").change((event) => {
+            $(".loai-san").val(event.target.value);
+            $(".ca-sb").val($(".ca-chung").val());
+            giaDuKienChung(event, $(".ca-chung").val(), 1);
+        });
+        ///
+        $(".btnTheoNgay").addClass("active");
+        $(".btnTheoNgay").click(() => {
+            $(".btnTheoNgay").addClass("active");
+            $(".btnTheoTuan").removeClass("active");
+            $(".dateTheoNgay").prop("hidden", false);
+            $(".dateTheoTuan").prop("hidden", true);
+        });
+        $(".btnTheoTuan").click(() => {
+            $(".btnTheoTuan").addClass("active");
+            $(".btnTheoNgay").removeClass("active");
+            $(".dateTheoNgay").prop("hidden", true);
+            $(".dateTheoTuan").prop("hidden", false);
+        });
+    }
+
+    function listCheckBoxCheckKed() {
+        var checkboxes = document.querySelectorAll(".check-one");
+        app.tongTienSanCu = 0;
+        app.tongTienSanMoi = 0;
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                var row = checkbox.closest("tr");
+                var giaCu = row.querySelector("td.tong-tien").textContent;
+                app.tongTienSanCu += parseFloat(giaCu);
+                var giaNew = row.querySelector("td.giaDuKienPhaiTra").textContent;
+                app.tongTienSanMoi += parseFloat(giaNew);
+            }
+
+        });
+    };
+
+    function giaDuKienChung(event, value, index) {
+        var giaDuKien = 0;
+        var giaCa = 0;
+        var giaLoaiSan = 0;
+        // Tính giá Ca
+        if (index == 0) {
+            app.arrCaDL.forEach((element) => {
+                if (element.id == event.target.value) {
+                    giaCa = parseFloat(element.giaCa);
+                }
+            });
+            // Tính giá Loại sân
+            app.arrLoaiSanDL.forEach((element) => {
+                if (element.id == value) {
+                    giaLoaiSan = parseFloat(element.giaSan);
+                }
+            });
+        } else {
+            app.arrCaDL.forEach((element) => {
+                if (element.id == value) {
+                    giaCa = parseFloat(element.giaCa);
+                }
+            });
+            // Tính giá Loại sân
+            app.arrLoaiSanDL.forEach((element) => {
+                if (element.id == event.target.value) {
+                    giaLoaiSan = parseFloat(element.giaSan);
+                }
+            });
+        }
+
+        giaDuKien = giaCa + giaLoaiSan;
+        app.tongTienSanMoi = 0;
+        app.tongTienSanMoi = parseFloat(giaDuKien) * app.arrLichCanDoi.length;
+        $(".giaDuKienPhaiTra").text(giaDuKien);
+    };
+
+    function callApiPhanTramTienCocDoiLichNhieu() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8081/api/v1/user/doi-lich/find-by-tien-coc",
+            success: function (response) {
+                app.phanTramTienCocLichNhieu = parseInt(response.content);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    // function currenlyNumber(number) {
+    //     return number.toLocaleString("vi-VN");
+    // }
+</script>
+//doi lich nhieu
+//xoa lich đặt
+<script>
+    $(document).ready(() => {
+
+    });
+
+    function deleteLichSanBong(id) {
+            deleteLichSan(id);
+    }
+
+    function deleteLichSan(id) {
+        $.ajax({
+            type: "DELETE",
+            url: "http://localhost:8081/api/v1/user/huy-lich-dat-san/" + id,
+            success: function (response) {
+                if(response.statusCode == 'OK'){
+                    createAndShowToast("bg-success", "Thông báo", "Thao tác thành công!");
+                    resetEventByIdLoaiSan(selectedValue);
+                    $(".huyXacNhan").click();
+                    return;
+                }
+                createAndShowToast("bg-warning", "Thông báo", "Thao tác thất bại, vui lòng thử lại sau!");
+            },
+            error: function (error) {
+                console.log(error);
+                createAndShowToast("bg-warning", "Thông báo", "Thao tác thất bại, vui lòng thử lại sau!");
+            }
+        });
+    }
+</script>
+//xoa lich đặt
 </body>
 </html>
