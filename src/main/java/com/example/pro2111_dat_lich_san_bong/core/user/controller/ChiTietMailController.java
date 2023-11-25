@@ -28,7 +28,7 @@ public class ChiTietMailController {
 
     @GetMapping("/hoa-don")
     public String detailHoaDon(String idHoaDonSanCa, Model model){
-        HoaDonSendMailResponse response = reponsitory.getDetialHoaDon(idHoaDonSanCa);
+        HoaDonSendMailResponse response = reponsitory.getDetailHoaDon(idHoaDonSanCa);
         DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
         model.addAttribute("item",response);
         return "utill/chi-tiet-phieu-dat";

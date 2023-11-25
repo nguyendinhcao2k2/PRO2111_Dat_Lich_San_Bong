@@ -66,7 +66,7 @@ public class DatLichStaffRescontroller {
 
     @PostMapping("/dat-lich")
     public BaseResponse<String> datLich(@Valid @RequestBody ThongTinNguoiDatRequest thongTinNguoiDatRequest, HttpServletRequest request) {
-        if (!iDatSanStaffService.datLich(thongTinNguoiDatRequest)) {
+        if (!iDatSanStaffService.datLich(thongTinNguoiDatRequest,request)) {
             throw new RestApiException("Có lỗi !");
         }
         Context context = new Context();

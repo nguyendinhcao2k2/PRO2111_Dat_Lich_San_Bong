@@ -1,7 +1,11 @@
 package com.example.pro2111_dat_lich_san_bong.core.utils;
 
+import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.SanCaStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IHoaDonSanCaStaffQRCodeService;
+import com.example.pro2111_dat_lich_san_bong.core.user.repository.HoaDonSanCaUserRepository;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
+import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +25,8 @@ public class RestControllerScanQR {
 
     @Autowired
     private IHoaDonSanCaStaffQRCodeService hoaDonSanCaStaffQRCodeService;
+    @Autowired
+    private SanCaStaffRepository  sanCaStaffRepository;
 
     @PostMapping("/camera/check-qr-code")
     public ResponseEntity<?> checkQRCode(@RequestBody String qrCode) {
@@ -37,6 +43,12 @@ public class RestControllerScanQR {
             hoaDonSanCa.setTrangThai(1);
 //            hoaDonSanCa.setThoiGianCheckIn(new Time(new Date().getTime()));
             hoaDonSanCaStaffQRCodeService.updateHoaDonSanCaStaffQRCode(hoaDonSanCa);
+
+            SanCa sanCa = sanCaStaffRepository.findById(hoaDonSanCa.getIdSanCa()).get();
+            sanCa.setTrangThai(TrangThaiSanCa.DANG_DA.ordinal());
+
+            sanCaStaffRepository.save(sanCa);
+
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, "Check-in thành công!"));
         } catch (Exception e) {
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.NOT_FOUND, "NOT_FOUND"));

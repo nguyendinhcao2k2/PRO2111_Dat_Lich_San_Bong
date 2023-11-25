@@ -6,6 +6,7 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThongTinLi
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThongTinNguoiDatRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.HoaDonStaffResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LoadSanBongRespose;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
@@ -18,12 +19,14 @@ public interface IDatSanStaffService {
 
     List<LoadSanBongRespose> filterSanBong(FilterSanBongRequest filterSanBongRequest);
 
-    boolean datLich(ThongTinNguoiDatRequest thongTinNguoiDatRequest);
+    boolean datLich(ThongTinNguoiDatRequest thongTinNguoiDatRequest,HttpServletRequest request);
 
     List<HoaDonStaffResponse> getHoaDonByTrangThai();
 
      void huySanBong(String idHoaDon);
 
     List<HoaDonStaffResponse> filterHoaDon(FilterLichDatRequest filterSanBongRequest);
+
+    void sendMailDatLich(HttpServletRequest request, String idhoaDon);
 
 }
