@@ -27,4 +27,5 @@ public interface SanCaUserService {
     void deleteSanCaById(String idSanCa);
 
     void saveSanCa(SanCa sanCa);
+
 }

@@ -3,28 +3,41 @@ package com.example.pro2111_dat_lich_san_bong.core.staff.controller;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.DichVuSanBongStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.impl.ThanhToanSanCaStaffServiceImpl;
+import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiDichVu;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.repository.DichVuSanBongRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.HoaDonSanCaReponsitory;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 @RestController
 @RequestMapping("/api/v1/staff")
 public class ThanhToanHoaDonStaffRestController {
+    @Autowired
+    private VNPayService vnPayService;
 
+    @Autowired
+    private SYSParamUserService sysParamUserService;
+
+    private String testId;
     @Autowired
     private ThanhToanSanCaStaffServiceImpl thanhToanStaffService;
     @Autowired
@@ -45,7 +58,7 @@ public class ThanhToanHoaDonStaffRestController {
         return ResponseEntity.ok(hoaDonThanhToanRequests);
     }
 
-    @PostMapping("/thanh-toan/{id}")
+    @PostMapping("/thanh-toan-tien-mat/{id}")
     public String checkPaymentMethod(@PathVariable(name = "id") String id, @RequestBody String paymentMethod) {
         System.out.println(id);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -62,5 +75,16 @@ public class ThanhToanHoaDonStaffRestController {
             return paymentMethod;
         }
         return paymentMethod;
+    }
+
+    @PostMapping("/thanh-toan-chuyen-khoan")
+    public String submidOrder(@RequestParam("amount") int orderTotal, @RequestParam("orderInfo") String orderInfo, HttpServletRequest request) {
+        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        baseUrl += "/api/v1/staff/thanh-toan/chuyen-khoan-thanh-cong";
+        testId = "test";
+        int miuteParam = Integer.valueOf(sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_HET_GD).getValue());
+
+        String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl, miuteParam);
+        return vnpayUrl;
     }
 }
