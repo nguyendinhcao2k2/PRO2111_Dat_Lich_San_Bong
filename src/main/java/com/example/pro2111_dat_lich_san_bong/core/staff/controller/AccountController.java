@@ -40,7 +40,7 @@ public class AccountController {
                         model.addAttribute("thongBao", "Bạn không phải là nhân viên của ca làm việc này!");
                         return "authen/login-staff";
                     }
-                    return "staff/giao-ca";
+                    return "redirect:/api/v1/staff/view-dat-lich";
                 } else {
                     if (!giaoCaResponseOrderByKetCa.getIdNhanVienCaTiepTheo().equals(accountResponse.getId())) {
                         model.addAttribute("thongBao", "Bạn không phải là nhân viên ca tiếp theo!");
