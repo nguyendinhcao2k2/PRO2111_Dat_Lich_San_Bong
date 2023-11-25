@@ -651,12 +651,12 @@
                                                             class="form-check-input"
                                                             type="radio"
                                                             name="phuongThucChuyenKhoan"
-                                                            id="chuyeKhoan"
-                                                            value="chuyeKhoan"
+                                                            id="chuyenKhoan"
+                                                            value="chuyenKhoan"
                                                             checked
                                                             onchange="toggleInputs()"
                                                     />
-                                                    <label class="form-check-label" for="chuyeKhoan">
+                                                    <label class="form-check-label" for="chuyenKhoan">
                                                         Chuyển khoản
                                                     </label>
                                                 </div>
@@ -1300,16 +1300,41 @@
 
         $(document).ready(function () {
             $("#btnThanhToanHoaDon").click(function () {
-                checkPaymentMethod();
+                var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+                if (paymentMethod == "tienMat") {
+                    thanhToanTienMat();
+                } else if (paymentMethod == "chuyenKhoan") {
+                    thanhToanChuyenKhoan();
+                }
             });
         });
 
-        function checkPaymentMethod() {
-            var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
-
+        function thanhToanChuyenKhoan() {
+            var tenKhachHang = $("#tenKhachHang").val();
+            var soDienThoai = $("#soDienThoai").val();
+            console.log(tenKhachHang);
+            console.log(soDienThoai);
             $.ajax({
                 type: "POST",
-                url: "/api/v1/staff/thanh-toan/" + getId,
+                url: "/api/v1/staff/thanh-toan-chuyen-khoan",
+                data: {
+                    amount: tongTienHoaDonPhaiTra,
+                    orderInfo: soDienThoai,
+                },
+                success: function (response) {
+                    window.open(response);
+                },
+                error: function (error) {
+                    console.error("Lỗi Ajax: ", error);
+                }
+            });
+        }
+
+        function thanhToanTienMat() {
+            var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+            $.ajax({
+                type: "POST",
+                url: "/api/v1/staff/thanh-toan-tien-mat/" + getId,
                 data: {paymentMethod: paymentMethod},
                 success: function (response) {
                     console.log(response);
