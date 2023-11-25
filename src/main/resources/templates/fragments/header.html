@@ -1,6 +1,29 @@
-<div >
+<!-- Header user -->
+
+<style>
+  .nav-link.dropdown-toggle::after {
+    display: none !important;
+  }
+
+  .topbar-divider {
+    width: 0;
+    border-right: 1px solid #e3e6f0;
+    height: calc(4.375rem - 2rem);
+    margin: auto 1rem;
+  }
+  .nav-link .img-profile {
+    height: 2rem;
+    width: 2rem;
+  }
+  .navbar-expand {
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+  }
+</style>
+
+<div>
   <!-- Navbar & Hero Start -->
-  <div class=" p-0">
+  <div class="p-0">
     <nav
             class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3"
             style="background-color: #2124b1"
@@ -9,54 +32,97 @@
         <h1 class="m-0">
           <i
                   class="fa-solid fa-futbol"
-                  style="color: rgb(244, 238, 238); font-size: 35px;"
+                  style="color: rgb(244, 238, 238); font-size: 35px"
           ></i>
-          <span style="font-style: italic; font-size: 35px; color: white">DONGDE</span>
-          <span class="fs-5" style="font-style: italic; font-size: 18px; color: white">STADIUM</span>
+          <span style="font-style: italic; font-size: 35px; color: white; font-weight: bold"
+          >DONGDE</span
+          >
+          <span
+                  class="fs-5"
+                  style="font-style: italic; font-size: 18px; color: white"
+          >STADIUM</span
+          >
         </h1>
         <!-- <img src="img/logo.png" alt="Logo"> -->
       </a>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto py-0" style="color: white">
+      <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarCollapse2"
+      >
+        <span class="fa fa-bars"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse2">
+        <div
+                class="navbar-nav ms-auto py-0"
+                style="color: white; font-size: 18px"
+        >
           <a
                   href="/template/user/trang-chu.html"
                   class="nav-item nav-link active"
                   style="color: white"
-          >Trang Chủ</a
-          >
-          <a
-                  href="/template/user/chi-tiet-san-bong.html"
-                  class="nav-item nav-link"
-                  style="color: white"
-          >Chi Tiết Sân Bóng</a
-          >
-          <a
-                  href="/template/user/danh-sach-san-bong.html"
-                  class="nav-item nav-link"
-                  style="color: white"
-          >Danh Sách Sân Bóng</a
-          >
+          >Trang Chủ</a>
           <a
                   href="/template/user/book-soccer-field.html"
                   class="nav-item nav-link"
                   style="color: white"
           >Đặt Sân</a
           >
-        </div>
-        <div class="nav-item dropdown">
-          <a
-                  href="#"
-                  class="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-          ><i class="fa-solid fa-user fa-xl" style="color: #ebecf0"></i
-          ></a>
-          <div class="dropdown-menu m-0">
-            <a href="team.html" class="dropdown-item">Our Team</a>
-            <a href="testimonial.html" class="dropdown-item"
-            >Testimonial</a
+          <div class="topbar-divider d-none d-sm-block"></div>
+
+          <!-- Nav Item - User Information -->
+          <li class="nav-item dropdown">
+            <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="userDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
             >
-            <a href="404.html" class="dropdown-item">404 Page</a>
-          </div>
+                  <span
+                          class="mr-2 d-lg-inline text-gray-600"
+                          style="color: white"
+                  >Nguyễn Anh Thư</span
+                  >
+              <img
+                      class="img-profile rounded-circle"
+                      src="img/undraw_profile.svg"
+              />
+            </a>
+            <!-- Dropdown - User Information -->
+            <div
+                    class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    aria-labelledby="userDropdown"
+            >
+              <a class="dropdown-item" href="#">
+                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                Trang cá nhân
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                Lịch sử giao dịch
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                Activity Log
+              </a>
+              <div class="dropdown-divider"></div>
+              <a
+                      class="dropdown-item"
+                      href="#"
+                      data-toggle="modal"
+                      data-target="#logoutModal"
+              >
+                <i
+                        class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                ></i>
+                Đăng Xuất
+              </a>
+            </div>
+          </li>
         </div>
       </div>
     </nav>
