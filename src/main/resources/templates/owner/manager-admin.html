@@ -161,6 +161,13 @@
     </div>
 </div>
 <div class="mt-4">
+    <div
+            id="toastContainer"
+            class="position-fixed osition-absolute top-0 end-0 p-3"
+            style="z-index: 9999"
+    >
+        <div id="toasts" class="d-flex flex-column-reverse"></div>
+    </div>
     <!-- Thành phần nav tabs -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -1634,6 +1641,7 @@
 <script th:src="@{/static/js/owner/luat-san-admin.js}"></script>
 <script th:src="@{/static/js/owner/quan-li-tham-so.js}"></script>
 <script th:src="@{/static/js/owner/quan-li-do-thue.js}"></script>
+<script th:src="@{/static/js/utill/thong-bao.js}"></script>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"

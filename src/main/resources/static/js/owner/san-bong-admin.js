@@ -50,7 +50,7 @@ var tab2 = new Vue({
                 success: function (response) {
                     // $("#modalLoaiSan").modal("toggle");
                     // $(".modal-backdrop").remove();
-                    alert("Thêm thành công!");
+                    createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                     callApiLoaiSan();
                 },
             });
@@ -79,7 +79,7 @@ var tab2 = new Vue({
                 type: "GET",
                 url: "http://localhost:8081/api/v1/admin/loai-san/delete/" + id,
                 success: function (response) {
-                    alert(response.content);
+                    createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                     callApiLoaiSan();
                 },
             });
@@ -108,7 +108,7 @@ var tab2 = new Vue({
                     id: tab2.loaiSan.id,
                 }),
                 success: function (response) {
-                    alert("Update thành công!");
+                    createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                     callApiLoaiSan();
                 },
             });
@@ -143,10 +143,10 @@ var tab2 = new Vue({
                 }),
                 success: function (response) {
                     if (response.statusCode === "ACCEPTED") {
-                        alert("Tên sân bóng đã tồn tại!");
+                        createAndShowToast("bg-warning","Thông báo!","Tên sân bóng đã tồn tại");
                         return;
                     }
-                    alert("Thêm thành công!");
+                    createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                     callApiSanBong(tab2.url);
                 },
             });
@@ -161,9 +161,12 @@ var tab2 = new Vue({
                 type: "DELETE",
                 url: "http://localhost:8081/api/v1/admin/san-bong/delete/" + id,
                 success: function (response) {
-                    alert("Xóa thành công");
+                    createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                     callApiSanBong(tab2.url);
-                },
+                },error: function (error) {
+                    console.log(error);
+                    createAndShowToast("bg-danger","Thông báo!","Lỗi!");
+                }
             });
         },
         detailSanBong(id) {
@@ -176,6 +179,10 @@ var tab2 = new Vue({
                     tab2.sanBongUpdate.trangThai = response.content.trangThai;
                     tab2.sanBongUpdate.id = response.content.id;
                 },
+                error: function (error) {
+                    console.log(error);
+                    createAndShowToast("bg-danger","Thông báo!","Lỗi!");
+                }
             });
         },
         confirmUpdate() {
@@ -198,14 +205,18 @@ var tab2 = new Vue({
                 }),
                 success: function (response) {
                     if (response.statusCode === "ACCEPTED") {
-                        alert("Tên sân bóng đã tồn tại!");
+                        createAndShowToast("bg-warning","Thông báo!","Tên sân bóng đã tồn tại");
                         return;
                     }
-                    alert("Update thành công!");
+                    createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                     $("#detailSanBong").modal("toggle");
                     $(".modal-backdrop").remove();
                     callApiSanBong(tab2.url);
                 },
+                error: function (error) {
+                    console.log(error);
+                    createAndShowToast("bg-danger","Thông báo!","Lỗi!");
+                }
             });
         },
         searchByTenSanBong() {
@@ -226,6 +237,10 @@ var tab2 = new Vue({
                     tab2.pageSize = response.content.pageSize;
                     tab2.indexSearch = 1;
                 },
+                error: function (error) {
+                    console.log(error);
+                    createAndShowToast("bg-danger","Thông báo!","Lỗi!");
+                }
             });
         },
         //  san bong end
@@ -259,6 +274,7 @@ function callApiLoaiSan() {
         success: function (response) {
             tab2.arrLoaiSan = response.content;
         },
+
     });
 }
 
