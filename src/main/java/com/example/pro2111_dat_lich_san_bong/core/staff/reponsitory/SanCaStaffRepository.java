@@ -22,4 +22,6 @@ public interface SanCaStaffRepository extends JpaRepository<SanCa, String> {
     @Query(value = "SELECT sc.id as idSanCa,c.thoi_gian_bat_dau as thoiGianBatDau,sb.id as idSanBong,sc.trang_thai as trangThai FROM san_ca as sc inner join san_bong as sb" +
             " on sc.id_san_bong = sb.id inner join ca as c on c.id = sc.id_ca ", nativeQuery = true)
     List<SanCaStaffResponse> findAllSanCa();
+
+
 }

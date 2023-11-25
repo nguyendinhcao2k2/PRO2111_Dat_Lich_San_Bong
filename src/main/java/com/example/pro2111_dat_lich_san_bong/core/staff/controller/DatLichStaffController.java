@@ -49,7 +49,7 @@ public class DatLichStaffController {
         if (paymentStatus == 1) {
             ThongTinNguoiDatRequest thongTinNguoiDatRequest = (ThongTinNguoiDatRequest) session.getAttribute("thongTinNguoiDat");
             if(thongTinNguoiDatRequest != null){
-                if (!iDatSanStaffService.datLich(thongTinNguoiDatRequest)) {
+                if (!iDatSanStaffService.datLich(thongTinNguoiDatRequest,request)) {
                     throw new RestApiException("Có lỗi !");
                 }
             }
