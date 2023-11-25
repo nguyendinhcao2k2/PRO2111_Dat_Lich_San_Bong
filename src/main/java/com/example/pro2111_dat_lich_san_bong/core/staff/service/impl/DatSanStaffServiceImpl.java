@@ -1,5 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.core.staff.service.impl;
 
+import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.FilterLichDatRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.FilterSanBongRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThongTinLichDatRequest;
@@ -17,6 +18,10 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.SanBongStaff
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.SanCaStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.ThoiGianDatLichStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IDatSanStaffService;
+import com.example.pro2111_dat_lich_san_bong.core.user.repository.HoaDonSanCaUserRepository;
+import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonSanCaUserService;
+import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonUserService;
+import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailUtils;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
@@ -26,11 +31,16 @@ import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.RestApiException;
+import com.example.pro2111_dat_lich_san_bong.model.request.SendMailRequest;
+import com.example.pro2111_dat_lich_san_bong.model.response.MaillListResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.context.Context;
 
 import java.security.SecureRandom;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -39,6 +49,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author caodinh
@@ -65,6 +77,15 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
     @Autowired
     private HoaDonSanCaStaffRepository hoaDonSanCaStaffRepository;
 
+    @Autowired
+    private HoaDonSanCaUserRepository hoaDonSanCaUserRepository;
+
+    @Autowired
+    private SendMailUtils sendMailUtils;
+
+    @Autowired
+    private SendMailWithBookings sendMailWithBookings;
+
 
     @Override
     public List<LoadSanBongRespose> loadSanBong() {
@@ -90,17 +111,17 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
                 loadCaResponse.setLoaiSan(sanBongStaffResponse.getTenLoaiSan());
                 loadCaResponse.setGia(caStaffResponse.getGiaCa() + sanBongStaffResponse.getGiaSan());
                 loadCaResponse.setDate(localDateTime.toLocalDate().toString());
+                loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
                 Object obj = checkTimeSanCa(checkSanCa, sanBongStaffResponse.getIdSanBong() + loadCaResponse.getThoiGianBatDau(), loadCaResponse);
                 if (obj != null) {
-                    loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
-                    LocalDate localDateCompare = LocalDateTime.now().toLocalDate();
                     loadCaResponse.setIdHoaDonSanCa(hoaDonSanCaStaffRepository.findByIdSanCa((String) obj));
-                    if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-                        LocalTime localTimeCompare = LocalTime.parse(loadCaResponse.getThoiGianBatDau(), formatter);
-                        if (localTime.isAfter(localTimeCompare)) {
-                            loadCaResponse.setTrangThai(4);
-                        }
+                }
+                LocalDate localDateCompare = LocalDateTime.now().toLocalDate();
+                if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    LocalTime localTimeCompare = LocalTime.parse(loadCaResponse.getThoiGianBatDau(), formatter);
+                    if (localTime.isAfter(localTimeCompare)) {
+                        loadCaResponse.setTrangThai(4);
                     }
                 }
                 loadCaResponses.add(loadCaResponse);
@@ -147,17 +168,17 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
                 loadCaResponse.setLoaiSan(sanBongStaffResponse.getTenLoaiSan());
                 loadCaResponse.setGia(caStaffResponse.getGiaCa() + sanBongStaffResponse.getGiaSan());
                 loadCaResponse.setDate(localDateTime.toLocalDate().toString());
+                loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
                 Object obj = checkTimeSanCa(checkSanCa, sanBongStaffResponse.getIdSanBong() + loadCaResponse.getThoiGianBatDau(), loadCaResponse);
                 if (obj != null) {
-                    loadCaResponse.setIdResponse(sanBongStaffResponse.getIdSanBong() + "+" + caStaffResponse.getIdCa() + "+" + sanBongStaffResponse.getIdLoaiSan());
-                    LocalDate localDateCompare = LocalDateTime.now().toLocalDate();
                     loadCaResponse.setIdHoaDonSanCa(hoaDonSanCaStaffRepository.findByIdSanCa((String) obj));
-                    if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-                        LocalTime localTimeCompare = LocalTime.parse(loadCaResponse.getThoiGianBatDau(), formatter);
-                        if (localTime.isAfter(localTimeCompare)) {
-                            loadCaResponse.setTrangThai(4);
-                        }
+                }
+                LocalDate localDateCompare = LocalDateTime.now().toLocalDate();
+                if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    LocalTime localTimeCompare = LocalTime.parse(loadCaResponse.getThoiGianBatDau(), formatter);
+                    if (localTime.isAfter(localTimeCompare)) {
+                        loadCaResponse.setTrangThai(4);
                     }
                 }
                 loadCaResponses.add(loadCaResponse);
@@ -169,7 +190,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
     }
 
     @Override
-    public boolean datLich(ThongTinNguoiDatRequest thongTinNguoiDatRequest) {
+    public boolean datLich(ThongTinNguoiDatRequest thongTinNguoiDatRequest, HttpServletRequest request) {
         checkDatLich(thongTinNguoiDatRequest.getThongTinLichDatRequests());
         String idHoaDon = createHoaDon(thongTinNguoiDatRequest);
         if (idHoaDon == null) {
@@ -186,7 +207,64 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         if (!createHoaDonSanCa(sanCas, idHoaDon)) {
             return false;
         }
+        sendMailDatLich(request, idHoaDon);
         return true;
+    }
+
+    @Override
+    public void sendMailDatLich(HttpServletRequest request, String idhoaDon) {
+        HoaDon hoaDon = hoaDonStaffRepository.findById(idhoaDon).get();
+        //gửi mail
+        try {
+            List<HoaDonSendMailResponse> list = hoaDonSanCaUserRepository.getListHoaDonSanCa(hoaDon.getId());
+            DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            DateTimeFormatter formatterNgayDa = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            if (list.size() == 1) {
+                HoaDonSendMailResponse response = list.get(0);
+
+                SendMailRequest sendMailRequest = new SendMailRequest();
+                sendMailRequest.setTitle("Phiếu Đặt Lịch");
+                sendMailRequest.setNguoiDat(response.getDisplayName());
+                sendMailRequest.setNguoiNhanMail(response.getEmail());
+                sendMailRequest.setQrCodeData(response.getMaQR());
+                sendMailRequest.setNgayDat(formatter.format(response.getNgayTao()));
+                sendMailRequest.setTimeStart(response.getThoiGianBatDau());
+                sendMailRequest.setTimeEnd(response.getThoiGianKetThuc());
+                sendMailRequest.setGiaTien(response.getTienSan());
+                sendMailRequest.setNgayCheckIn(formatterNgayDa.format(response.getNgayDenSan()));
+
+                sendMailUtils.sendEmail(sendMailRequest);
+            } else if (list.size() > 1) {
+
+                Context context = new Context();
+                context.setVariable("nguoiDat", hoaDon.getTenNguoiDat());
+                context.setVariable("sdt", hoaDon.getSoDienThoaiNguoiDat());
+
+                //thời gian đặt sân
+                context.setVariable("timeDat", formatter.format(hoaDon.getNgayTao()));
+                context.setVariable("tongTien", decimalFormat.format(hoaDon.getTongTien()));
+
+                List<MaillListResponse> listResponses = new ArrayList<>();
+
+                for (HoaDonSendMailResponse response : list) {
+                    MaillListResponse maillListResponse = new MaillListResponse();
+                    maillListResponse.setIdHoaDonSanCa(response.getId());
+                    maillListResponse.setGiaSan(decimalFormat.format(response.getTienSan()));
+                    maillListResponse.setNgayDa(formatterNgayDa.format(response.getNgayDenSan()));
+                    maillListResponse.setCa(response.getTenCa() + ": (" + response.getThoiGianBatDau() + "-" + response.getThoiGianKetThuc() + ")");
+                    listResponses.add(maillListResponse);
+                }
+
+                context.setVariable("thoiGianList", listResponses);
+                sendMailWithBookings.sendEmailBookings(hoaDon.getEmail(), context, request);
+            }
+
+        } catch (Exception e) {
+            // Handle exception
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -230,7 +308,9 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
             HoaDonSanCa hoaDonSanCa = new HoaDonSanCa();
             hoaDonSanCa.setIdHoaDon(idHoaDon);
             hoaDonSanCa.setTienSan(sanCa.getGia());
+            hoaDonSanCa.setMaQR(UUID.randomUUID().toString());
             hoaDonSanCa.setIdSanCa(sanCa.getId());
+            hoaDonSanCa.setNgayDenSan(sanCa.getNgayDenSan());
             hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal());
             hoaDonSanCas.add(hoaDonSanCa);
         }

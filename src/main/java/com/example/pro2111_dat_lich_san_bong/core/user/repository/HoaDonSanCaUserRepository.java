@@ -51,6 +51,25 @@ public interface HoaDonSanCaUserRepository extends HoaDonSanCaReponsitory {
            hd.ngay_tao as 'ngayTao',
            hd_sc.ngay_den_san as 'ngayDenSan',
            hd_sc.tien_san as 'tienSan',
+           hd_sc.ma_qr as 'maQR'
+       FROM hoa_don_san_ca hd_sc
+       join hoa_don hd on hd.id = hd_sc.id_hoa_don
+       JOIN san_ca sc ON sc.id = hd_sc.id_san_ca
+       join ca c on c.id = sc.id_ca
+       WHERE hd_sc.id = :req
+    """,nativeQuery = true)
+    HoaDonSendMailResponse getDetailHoaDon(@Param("req") String idHoaDonSanCa);
+
+    @Query(value = """
+       SELECT
+           hd_sc.id,
+           hd.ten_nguoi_dat as 'displayName',
+           hd.email,
+           c.thoi_gian_bat_dau as 'thoiGianBatDau',
+           c.thoi_gian_ket_thuc as 'thoiGianKetThuc',
+           hd.ngay_tao as 'ngayTao',
+           hd_sc.ngay_den_san as 'ngayDenSan',
+           hd_sc.tien_san as 'tienSan',
            hd_sc.ma_qr as 'maQR',
            c.ten_ca as 'tenCa'
        FROM hoa_don_san_ca hd_sc
@@ -61,4 +80,24 @@ public interface HoaDonSanCaUserRepository extends HoaDonSanCaReponsitory {
        WHERE hd_sc.id_hoa_don = :req
     """,nativeQuery = true)
     List<HoaDonSendMailResponse> getLisTHDSC(@Param("req") String idHoaDon);
+
+    @Query(value = """
+       SELECT
+           hd_sc.id,
+           hd.ten_nguoi_dat as 'displayName',
+           hd.email,
+           c.thoi_gian_bat_dau as 'thoiGianBatDau',
+           c.thoi_gian_ket_thuc as 'thoiGianKetThuc',
+           hd.ngay_tao as 'ngayTao',
+           hd_sc.ngay_den_san as 'ngayDenSan',
+           hd_sc.tien_san as 'tienSan',
+           hd_sc.ma_qr as 'maQR',
+           c.ten_ca as 'tenCa'
+       FROM hoa_don_san_ca hd_sc
+       join hoa_don hd on hd.id = hd_sc.id_hoa_don
+       JOIN san_ca sc ON sc.id = hd_sc.id_san_ca
+       join ca c on c.id = sc.id_ca
+       WHERE hd_sc.id_hoa_don = :req
+    """,nativeQuery = true)
+    List<HoaDonSendMailResponse> getListHoaDonSanCa(@Param("req") String idHoaDon);
 }
