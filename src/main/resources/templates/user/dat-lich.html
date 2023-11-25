@@ -1551,251 +1551,251 @@
                 </div>
                 </div>
                 </div>
-<!-- Modal huy lich-->
-                      <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" data-bs-toggle="modal" data-bs-target="#doiLichOne" type="button" onclick="doiSanDetail('` + idSanCa + `')">
-                        Đổi sân
-                      </button>
-                    </div>
-                  `
-            );
-        }
+                    <!-- Modal huy lich-->
+                <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button" data-bs-toggle="modal" data-bs-target="#doiLichOne" type="button" onclick="doiSanDetail('` + idSanCa + `')">
+                Đổi sân
+                </button>
+                </div>
+                `
+                );
+                }
 
 
-        // Lấy các nút Chi Tiết và Đặt Sân bằng class
-        var chiTietButton = cell2.querySelector(".xoa-san-button");
-        var datSanButton = cell2.querySelector(".doi-san-button");
+                // Lấy các nút Chi Tiết và Đặt Sân bằng class
+                var chiTietButton = cell2.querySelector(".xoa-san-button");
+                var datSanButton = cell2.querySelector(".doi-san-button");
 
-        /*// Thêm xử lý sự kiện cho nút Chi Tiết
-        chiTietButton.addEventListener("click", function () {
-            // Thực hiện xử lý khi nút Chi Tiết được nhấn
-            // Ví dụ: Hiển thị thông tin chi tiết
-        });
+                /*// Thêm xử lý sự kiện cho nút Chi Tiết
+                chiTietButton.addEventListener("click", function () {
+                // Thực hiện xử lý khi nút Chi Tiết được nhấn
+                // Ví dụ: Hiển thị thông tin chi tiết
+                });
 
-        // Thêm xử lý sự kiện cho nút Đặt Sân
-        datSanButton.addEventListener("click", function () {
+                // Thêm xử lý sự kiện cho nút Đặt Sân
+                datSanButton.addEventListener("click", function () {
 
-        });*/
-    }
+                });*/
+                }
 
-    //  LAMNP
-    //  SET UP CALENDAR MOBISCROLL
-    mobiscroll.setOptions({
-        locale: mobiscroll.localeEn,
-        theme: "material",
-        themeVariant: "light",
-    });
+                //  LAMNP
+                //  SET UP CALENDAR MOBISCROLL
+                mobiscroll.setOptions({
+                locale: mobiscroll.localeEn,
+                theme: "material",
+                themeVariant: "light",
+                });
 
-    // ADD EVENT CELL DAY
-    document
-        .getElementById("luuCaCellDay")
-        .addEventListener("click", function () {
-            // Click vào check box trước
-            var checkboxes = document.querySelectorAll(".custom-checkbox");
-            //
-            var events = [];
-            var selectComboboxDateChoise = document.getElementById("dateSelect");
-            checkboxes.forEach(function (checkbox) {
+                // ADD EVENT CELL DAY
+                document
+                .getElementById("luuCaCellDay")
+                .addEventListener("click", function () {
+                // Click vào check box trước
+                var checkboxes = document.querySelectorAll(".custom-checkbox");
+                //
+                var events = [];
+                var selectComboboxDateChoise = document.getElementById("dateSelect");
+                checkboxes.forEach(function (checkbox) {
                 // Kiểm tra xem checkbox có được chọn (checked) hay không
                 var checkboxButton = checkbox.parentElement;
 
                 if (checkbox.checked) {
-                    var checkboxValue = checkbox.value;
-                    var inputElement = checkboxButton.querySelector(
-                        "input[type='number']"
-                    );
-                    // Lấy content bên trong thẻ Strong
-                    var caNameElement = checkboxButton.querySelector("strong");
+                var checkboxValue = checkbox.value;
+                var inputElement = checkboxButton.querySelector(
+                "input[type='number']"
+                );
+                // Lấy content bên trong thẻ Strong
+                var caNameElement = checkboxButton.querySelector("strong");
 
-                    // Lấy thông tin trong <span class="checkbox-label">
-                    var strongElements = checkboxButton.querySelectorAll("strong");
-                    var spanElements = checkboxButton.querySelectorAll("span");
+                // Lấy thông tin trong <span class="checkbox-label">
+                var strongElements = checkboxButton.querySelectorAll("strong");
+                var spanElements = checkboxButton.querySelectorAll("span");
 
-                    // Lấy các thông tin cụ thể
-                    var ca = strongElements[0].textContent; // Giá trị của "Ca 5:"
-                    var thoiGian = spanElements[1].textContent; // Giá trị của "07:00 - 09:00"
-                    var giaCa = spanElements[2].textContent; // Giá
+                // Lấy các thông tin cụ thể
+                var ca = strongElements[0].textContent; // Giá trị của "Ca 5:"
+                var thoiGian = spanElements[1].textContent; // Giá trị của "07:00 - 09:00"
+                var giaCa = spanElements[2].textContent; // Giá
 
-                    // Sử dụng phương thức split() để tách chuỗi thành một mảng dựa trên dấu cách và gạch ngang
-                    var parts = thoiGian.split(" - ");
+                // Sử dụng phương thức split() để tách chuỗi thành một mảng dựa trên dấu cách và gạch ngang
+                var parts = thoiGian.split(" - ");
 
-                    // Lấy phần tử đầu tiên của mảng (07:00) và phần tử thứ hai của mảng (09:00)
-                    var batDau = parts[0];
-                    var ketThuc = parts[1];
+                // Lấy phần tử đầu tiên của mảng (07:00) và phần tử thứ hai của mảng (09:00)
+                var batDau = parts[0];
+                var ketThuc = parts[1];
 
-                    //
+                //
 
-                    if (caNameElement) {
-                        // Lấy nội dung của phần tử `<strong>` (trong trường hợp này, "Ca 6")
-                        var caName = caNameElement.textContent.split(":")[0];
-                        // Lấy ra ngày chọn trong mobiscroll modal
-                        var selectedDateMultiInModal =
-                            $("#demo-multi-day").mobiscroll("getVal");
-                        var selectedDateRangeInModal = $("#demo-range-selection").mobiscroll("getVal");
+                if (caNameElement) {
+                // Lấy nội dung của phần tử `<strong>` (trong trường hợp này, "Ca 6")
+                var caName = caNameElement.textContent.split(":")[0];
+                // Lấy ra ngày chọn trong mobiscroll modal
+                var selectedDateMultiInModal =
+                $("#demo-multi-day").mobiscroll("getVal");
+                var selectedDateRangeInModal = $("#demo-range-selection").mobiscroll("getVal");
 
-                        var selectedWeekInModal =
-                            $("#demo-week-select").mobiscroll("getVal", "array");
+                var selectedWeekInModal =
+                $("#demo-week-select").mobiscroll("getVal", "array");
 
-                        //
-                        if (selectComboboxDateChoise.value == 0) {
-                            selectedDateMultiInModal.forEach(function (date) {
-                                var day = date.getDate();
-                                var month = date.getMonth();
-                                var year = date.getFullYear();
-                                // Tạo đối tượng sự kiện cho ngày này
-                                var event = {
-                                    id: generateEventId(),
-                                    title: caName,
-                                    start: new Date(
-                                        year,
-                                        month,
-                                        day,
-                                        parseInt(batDau.split(":")[0]), // Giờ bắt đầu
-                                        parseInt(batDau.split(":")[1]) // Phút bắt đầu
-                                    ),
-                                    end: new Date(
-                                        year,
-                                        month,
-                                        day,
-                                        parseInt(ketThuc.split(":")[0]), // Giờ kết thúc
-                                        parseInt(ketThuc.split(":")[1]) // Phút kết thúc
-                                    ),
-                                    allDay: false, // Đặt thành false nếu bạn muốn sự kiện có thời gian cụ thể
-                                    className: 'event-class',
-                                    editable: true,
-                                    extendedProps: {
-                                        trangThai: 'NEW',
-                                        classCustom: 'event-class',
-                                        giaSan: giaCa,
-                                        idSanCa: checkboxValue
-                                    },
-                                };
-                                var element = parseInt(inputElement.value);
-                                console.log(element);
-                                for (let i = 0; i < element; i++) {
-                                    var clonedEvent = {...event}; // Tạo bản sao của sự kiện ban đầu
-                                    clonedEvent.id = generateEventId(); // Gán ID mới cho bản sao
-                                    events.push(clonedEvent); // Thêm bản sao với ID mới vào mảng events
-                                }
-
-                            });
-                        } else if (selectComboboxDateChoise.value == 1) {
-
-                            var startDate = new Date(selectedDateRangeInModal[0]); // Ngày bắt đầu
-                            var endDate = new Date(selectedDateRangeInModal[1]);   // Ngày kết thúc
-
-                            var dateArray = [];
-
-                            var currentDate = startDate;
-                            while (currentDate <= endDate) {
-                                dateArray.push(new Date(currentDate));
-                                currentDate.setDate(currentDate.getDate() + 1);
-                            }
-                            dateArray.forEach(function (date) {
-                                var day = date.getDate();
-                                var month = date.getMonth();
-                                var year = date.getFullYear();
-
-                                // Tạo đối tượng sự kiện cho ngày này
-                                var event = {
-                                    id: generateEventId(),
-                                    title: caName,
-                                    start: new Date(
-                                        year,
-                                        month,
-                                        day,
-                                        batDau.split(":")[0],
-                                        batDau.split(":")[1]
-                                    ), // Thêm giờ bắt đầu và phút bắt đầu
-                                    end: new Date(
-                                        year,
-                                        month,
-                                        day,
-                                        ketThuc.split(":")[0],
-                                        ketThuc.split(":")[1]
-                                    ), // Thêm giờ kết thúc và phút kết thúc
-                                    allDay: false, // Đặt thành false nếu bạn muốn sự kiện có thời gian cụ thể
-                                    className: 'event-class',
-                                    editable: true,
-                                    extendedProps: {
-                                        trangThai: 'NEW',
-                                        classCustom: 'event-class',
-                                        giaSan: giaCa,
-                                        idSanCa: checkboxValue
-                                    },
-                                };
-                                var element = parseInt(inputElement.value);
-
-                                for (let i = 0; i < element; i++) {
-                                    var clonedEvent = {...event}; // Tạo bản sao của sự kiện ban đầu
-                                    clonedEvent.id = generateEventId(); // Gán ID mới cho bản sao
-                                    events.push(clonedEvent); // Thêm bản sao với ID mới vào mảng events
-                                }
-
-                            });
-                        } else if (selectComboboxDateChoise.value == 2) {
-                            var startDate = new Date(selectedWeekInModal[0]); // Ngày bắt đầu
-                            var endDate = new Date(selectedWeekInModal[1]);   // Ngày kết thúc
-
-                            var dateArray = [];
-
-                            var currentDate = startDate;
-                            while (currentDate <= endDate) {
-                                dateArray.push(new Date(currentDate));
-                                currentDate.setDate(currentDate.getDate() + 1);
-                            }
-
-                            dateArray.forEach(function (date) {
-                                var day = date.getDate();
-                                var month = date.getMonth();
-                                var year = date.getFullYear();
-
-                                // Tạo đối tượng sự kiện cho ngày này
-                                var event = {
-                                    id: generateEventId(),
-                                    title: caName,
-                                    start: new Date(
-                                        year,
-                                        month,
-                                        day,
-                                        batDau.split(":")[0],
-                                        batDau.split(":")[1]
-                                    ), // Thêm giờ bắt đầu và phút bắt đầu
-                                    end: new Date(
-                                        year,
-                                        month,
-                                        day,
-                                        ketThuc.split(":")[0],
-                                        ketThuc.split(":")[1]
-                                    ), // Thêm giờ kết thúc và phút kết thúc
-                                    allDay: false, // Đặt thành false nếu bạn muốn sự kiện có thời gian cụ thể
-                                    className: 'event-class',
-                                    editable: true,
-                                    extendedProps: {
-                                        trangThai: 'NEW',
-                                        classCustom: 'event-class',
-                                        giaSan: giaCa,
-                                        idSanCa: checkboxValue
-                                    },
-                                };
-                                var element = parseInt(inputElement.value);
-                                console.log(element);
-                                for (let i = 0; i < element; i++) {
-                                    var clonedEvent = {...event}; // Tạo bản sao của sự kiện ban đầu
-                                    clonedEvent.id = generateEventId(); // Gán ID mới cho bản sao
-                                    events.push(clonedEvent); // Thêm bản sao với ID mới vào mảng events
-                                }
-
-                            });
-                        }
-
-
-                        closeModal1();
-                    }
+                //
+                if (selectComboboxDateChoise.value == 0) {
+                selectedDateMultiInModal.forEach(function (date) {
+                var day = date.getDate();
+                var month = date.getMonth();
+                var year = date.getFullYear();
+                // Tạo đối tượng sự kiện cho ngày này
+                var event = {
+                id: generateEventId(),
+                title: caName,
+                start: new Date(
+                year,
+                month,
+                day,
+                parseInt(batDau.split(":")[0]), // Giờ bắt đầu
+                parseInt(batDau.split(":")[1]) // Phút bắt đầu
+                ),
+                end: new Date(
+                year,
+                month,
+                day,
+                parseInt(ketThuc.split(":")[0]), // Giờ kết thúc
+                parseInt(ketThuc.split(":")[1]) // Phút kết thúc
+                ),
+                allDay: false, // Đặt thành false nếu bạn muốn sự kiện có thời gian cụ thể
+                className: 'event-class',
+                editable: true,
+                extendedProps: {
+                trangThai: 'NEW',
+                classCustom: 'event-class',
+                giaSan: giaCa,
+                idSanCa: checkboxValue
+                },
+                };
+                var element = parseInt(inputElement.value);
+                console.log(element);
+                for (let i = 0; i < element; i++) {
+                var clonedEvent = {...event}; // Tạo bản sao của sự kiện ban đầu
+                clonedEvent.id = generateEventId(); // Gán ID mới cho bản sao
+                events.push(clonedEvent); // Thêm bản sao với ID mới vào mảng events
                 }
-            });
 
-            var listCheck = [];
-            events.forEach(value => {
+                });
+                } else if (selectComboboxDateChoise.value == 1) {
+
+                var startDate = new Date(selectedDateRangeInModal[0]); // Ngày bắt đầu
+                var endDate = new Date(selectedDateRangeInModal[1]);   // Ngày kết thúc
+
+                var dateArray = [];
+
+                var currentDate = startDate;
+                while (currentDate <= endDate) {
+                dateArray.push(new Date(currentDate));
+                currentDate.setDate(currentDate.getDate() + 1);
+                }
+                dateArray.forEach(function (date) {
+                var day = date.getDate();
+                var month = date.getMonth();
+                var year = date.getFullYear();
+
+                // Tạo đối tượng sự kiện cho ngày này
+                var event = {
+                id: generateEventId(),
+                title: caName,
+                start: new Date(
+                year,
+                month,
+                day,
+                batDau.split(":")[0],
+                batDau.split(":")[1]
+                ), // Thêm giờ bắt đầu và phút bắt đầu
+                end: new Date(
+                year,
+                month,
+                day,
+                ketThuc.split(":")[0],
+                ketThuc.split(":")[1]
+                ), // Thêm giờ kết thúc và phút kết thúc
+                allDay: false, // Đặt thành false nếu bạn muốn sự kiện có thời gian cụ thể
+                className: 'event-class',
+                editable: true,
+                extendedProps: {
+                trangThai: 'NEW',
+                classCustom: 'event-class',
+                giaSan: giaCa,
+                idSanCa: checkboxValue
+                },
+                };
+                var element = parseInt(inputElement.value);
+
+                for (let i = 0; i < element; i++) {
+                var clonedEvent = {...event}; // Tạo bản sao của sự kiện ban đầu
+                clonedEvent.id = generateEventId(); // Gán ID mới cho bản sao
+                events.push(clonedEvent); // Thêm bản sao với ID mới vào mảng events
+                }
+
+                });
+                } else if (selectComboboxDateChoise.value == 2) {
+                var startDate = new Date(selectedWeekInModal[0]); // Ngày bắt đầu
+                var endDate = new Date(selectedWeekInModal[1]);   // Ngày kết thúc
+
+                var dateArray = [];
+
+                var currentDate = startDate;
+                while (currentDate <= endDate) {
+                dateArray.push(new Date(currentDate));
+                currentDate.setDate(currentDate.getDate() + 1);
+                }
+
+                dateArray.forEach(function (date) {
+                var day = date.getDate();
+                var month = date.getMonth();
+                var year = date.getFullYear();
+
+                // Tạo đối tượng sự kiện cho ngày này
+                var event = {
+                id: generateEventId(),
+                title: caName,
+                start: new Date(
+                year,
+                month,
+                day,
+                batDau.split(":")[0],
+                batDau.split(":")[1]
+                ), // Thêm giờ bắt đầu và phút bắt đầu
+                end: new Date(
+                year,
+                month,
+                day,
+                ketThuc.split(":")[0],
+                ketThuc.split(":")[1]
+                ), // Thêm giờ kết thúc và phút kết thúc
+                allDay: false, // Đặt thành false nếu bạn muốn sự kiện có thời gian cụ thể
+                className: 'event-class',
+                editable: true,
+                extendedProps: {
+                trangThai: 'NEW',
+                classCustom: 'event-class',
+                giaSan: giaCa,
+                idSanCa: checkboxValue
+                },
+                };
+                var element = parseInt(inputElement.value);
+                console.log(element);
+                for (let i = 0; i < element; i++) {
+                var clonedEvent = {...event}; // Tạo bản sao của sự kiện ban đầu
+                clonedEvent.id = generateEventId(); // Gán ID mới cho bản sao
+                events.push(clonedEvent); // Thêm bản sao với ID mới vào mảng events
+                }
+
+                });
+                }
+
+
+                closeModal1();
+                }
+                }
+                });
+
+                var listCheck = [];
+                events.forEach(value => {
 
                 var objectCheck = {};
                 objectCheck.id = value.id;
@@ -1811,16 +1811,16 @@
                 objectCheck.ngayDat = formattedDate;
 
                 listCheck.push(objectCheck);
-            })
+                })
 
-            var eventsClickShowEvent = calendar.getEvents();
-            var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+                var eventsClickShowEvent = calendar.getEvents();
+                var eventsForSelectedDate = eventsClickShowEvent.filter(function (
                 event
-            ) {
+                ) {
                 return event.extendedProps.trangThai === 'NEW' || event.extendedProps.trangThai === 'NEW-FULL';
-            });
+                });
 
-            eventsForSelectedDate.forEach(value => {
+                eventsForSelectedDate.forEach(value => {
 
                 var objectCheck = {};
                 objectCheck.id = value.id;
@@ -1838,338 +1838,338 @@
                 objectCheck.ngayDat = formattedDate;
 
                 listCheck.unshift(objectCheck);
-            })
+                })
 
-            $.ajax({
+                $.ajax({
                 url: "/api/v1/user/san-ca/check-list-san-ca",
                 type: "POST",
                 data: JSON.stringify(listCheck),
                 contentType: "application/json",
                 success: function (data) {
-                    debugger
-                    if (data.length > 0 || data != '') {
-                        var toastsArray = []; //     ["bg-success", "Error 1", "Description 1"],
-                        data.forEach(EExist => {
-                            const foundEvent = events.find(event => event.id === EExist.id);
-                            if (foundEvent) {
-                                // Tạo bản sao của extendedProps
-                                const updatedExtendedProps = {...foundEvent.extendedProps};
-                                // Cập nhật thuộc tính mới cho bản sao
-                                updatedExtendedProps.trangThai = 'NEW-FULL';
-                                updatedExtendedProps.classCustom = 'event-class-full';
-                                // Gán extendedProps của sự kiện bằng bản sao đã cập nhật
-                                foundEvent.extendedProps = updatedExtendedProps;
-                                foundEvent.className = 'event-class-full';
+                debugger
+                if (data.length > 0 || data != '') {
+                var toastsArray = []; //     ["bg-success", "Error 1", "Description 1"],
+                data.forEach(EExist => {
+                const foundEvent = events.find(event => event.id === EExist.id);
+                if (foundEvent) {
+                // Tạo bản sao của extendedProps
+                const updatedExtendedProps = {...foundEvent.extendedProps};
+                // Cập nhật thuộc tính mới cho bản sao
+                updatedExtendedProps.trangThai = 'NEW-FULL';
+                updatedExtendedProps.classCustom = 'event-class-full';
+                // Gán extendedProps của sự kiện bằng bản sao đã cập nhật
+                foundEvent.extendedProps = updatedExtendedProps;
+                foundEvent.className = 'event-class-full';
 
-                                const eventStart = new Date(foundEvent.start); // Chuyển đổi sang kiểu Date
+                const eventStart = new Date(foundEvent.start); // Chuyển đổi sang kiểu Date
 
-                                const year = eventStart.getFullYear();
-                                const month = eventStart.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0, cần cộng thêm 1
-                                const day = eventStart.getDate();
+                const year = eventStart.getFullYear();
+                const month = eventStart.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0, cần cộng thêm 1
+                const day = eventStart.getDate();
 
-                                const formattedDate = `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
-                                var error = ["bg-warning", "Thông báo", foundEvent.title + " của ngày " +
-                                formattedDate + " hiện tại đã có người đặt. Vui lòng kiểm tra lại"];
-                                toastsArray.push(error);
-                            }
-                        });
+                const formattedDate = `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
+                var error = ["bg-warning", "Thông báo", foundEvent.title + " của ngày " +
+                formattedDate + " hiện tại đã có người đặt. Vui lòng kiểm tra lại"];
+                toastsArray.push(error);
+                }
+                });
 
-                        calendar.addEventSource(events);
-                        // Thêm sự kiện vào FullCalendar
-                        calendar.render();
-                        createMultipleToasts(toastsArray);
+                calendar.addEventSource(events);
+                // Thêm sự kiện vào FullCalendar
+                calendar.render();
+                createMultipleToasts(toastsArray);
 
 
-                    } else {
+                } else {
 
-                        calendar.addEventSource(events);
-                        // Thêm sự kiện vào FullCalendar
-                        calendar.render(); // Cập nhật lịch sau khi thêm sự kiện
-                    }
-                    var selectDateClickShowEvent = lastClickedDate;
-                    var eventsClickShowEvent = calendar.getEvents();
+                calendar.addEventSource(events);
+                // Thêm sự kiện vào FullCalendar
+                calendar.render(); // Cập nhật lịch sau khi thêm sự kiện
+                }
+                var selectDateClickShowEvent = lastClickedDate;
+                var eventsClickShowEvent = calendar.getEvents();
 
-                    // Lọc sự kiện cho ngày được click
-                    var eventsForSelectedDate = eventsClickShowEvent.filter(function (
-                        event
-                    ) {
-                        return isSameDay(event.start, selectDateClickShowEvent);
-                    });
-                    // Hiển thị các sự kiện trong bảng
-                    displayEventsInTable(eventsForSelectedDate);
+                // Lọc sự kiện cho ngày được click
+                var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+                event
+                ) {
+                return isSameDay(event.start, selectDateClickShowEvent);
+                });
+                // Hiển thị các sự kiện trong bảng
+                displayEventsInTable(eventsForSelectedDate);
                 },
                 error: function (error) {
 
                 }
-            });
+                });
 
-        });
+                });
 
-    $(function () {
-        // MULTI
-        $("#demo-multi-day")
-            .mobiscroll()
-            .datepicker({
+                $(function () {
+                // MULTI
+                $("#demo-multi-day")
+                .mobiscroll()
+                .datepicker({
                 controls: ["calendar"],
                 display: "inline",
                 selectMultiple: true,
-            });
+                });
 
-        // COUNTER
-        $("#demo-range-selection")
-            .mobiscroll()
-            .datepicker({
+                // COUNTER
+                $("#demo-range-selection")
+                .mobiscroll()
+                .datepicker({
                 controls: ["calendar"], // More info about controls: https://docs.mobiscroll.com/5-27-1/calendar#opt-controls
                 display: "inline", // Specify display mode like: display: 'bottom' or omit setting to use default
                 rangeSelectMode: "wizard",
                 select: "range", // More info about select: https://docs.mobiscroll.com/5-27-1/calendar#opt-select
                 showRangeLabels: true,
-            });
+                });
 
-        // SINGLE
-        $("#demo-single-select-date")
-            .mobiscroll()
-            .datepicker({
+                // SINGLE
+                $("#demo-single-select-date")
+                .mobiscroll()
+                .datepicker({
                 controls: ["calendar"],
                 display: "inline",
                 selectMultiple: false,
-            });
+                });
 
-        //  WEEK
-        $("#demo-week-select")
-            .mobiscroll()
-            .datepicker({
+                //  WEEK
+                $("#demo-week-select")
+                .mobiscroll()
+                .datepicker({
                 controls: ["calendar"],
                 select: "preset-range",
                 display: "inline",
                 // firstSelectDay: 1,
                 selectSize: 14,
-            });
-    });
+                });
+                });
 
-    $(function () {
-        $("#demo-single-select-date")
-            .mobiscroll()
-            .datepicker({
+                $(function () {
+                $("#demo-single-select-date")
+                .mobiscroll()
+                .datepicker({
                 controls: ["calendar"],
                 display: "inline",
                 locale: mobiscroll.localeVi,
                 onChange: function (event, inst) {
-                    var selectedDate = inst.getVal();
-                    var year = selectedDate.getFullYear();
-                    var month = selectedDate.getMonth(); // Tháng bắt đầu từ 0
-                    var day = selectedDate.getDate();
+                var selectedDate = inst.getVal();
+                var year = selectedDate.getFullYear();
+                var month = selectedDate.getMonth(); // Tháng bắt đầu từ 0
+                var day = selectedDate.getDate();
 
-                    var newDate = new Date(year, month, day);
-                    //chọn ngày trên lịch nhỏ Đặt ngày trên FullCalendar
-                    calendar.gotoDate(newDate);
-                    calendar.select(newDate);
+                var newDate = new Date(year, month, day);
+                //chọn ngày trên lịch nhỏ Đặt ngày trên FullCalendar
+                calendar.gotoDate(newDate);
+                calendar.select(newDate);
                 },
-            });
-        mobiscrollInstanceSingleSelectDate = $(
-            "#demo-single-select-date"
-        ).mobiscroll("getInst");
-        // Từ Ful Calendar sang modal
-        mobiscrollInstanceMultiSelectDate =
-            $("#demo-multi-day").mobiscroll("getInst");
-        mobiscrollInstanceSelectWeek =
-            $("#demo-week-select").mobiscroll("getInst");
-        mobiscrollInstanceSelectRangeDay = $(
-            "#demo-range-selection"
-        ).mobiscroll("getInst");
-    });
+                });
+                mobiscrollInstanceSingleSelectDate = $(
+                "#demo-single-select-date"
+                ).mobiscroll("getInst");
+                // Từ Ful Calendar sang modal
+                mobiscrollInstanceMultiSelectDate =
+                $("#demo-multi-day").mobiscroll("getInst");
+                mobiscrollInstanceSelectWeek =
+                $("#demo-week-select").mobiscroll("getInst");
+                mobiscrollInstanceSelectRangeDay = $(
+                "#demo-range-selection"
+                ).mobiscroll("getInst");
+                });
 
-    // Hàm chọn từ Fulcalendar -> lịch bé
-    function handleCalendarDateClick(selectedDate) {
-        mobiscrollInstanceSingleSelectDate.setVal(selectedDate);
-        mobiscrollInstanceMultiSelectDate.setVal(selectedDate);
-        mobiscrollInstanceSelectWeek.setVal(selectedDate);
-        mobiscrollInstanceSelectRangeDay.setVal(selectedDate);
-    }
+                // Hàm chọn từ Fulcalendar -> lịch bé
+                function handleCalendarDateClick(selectedDate) {
+                mobiscrollInstanceSingleSelectDate.setVal(selectedDate);
+                mobiscrollInstanceMultiSelectDate.setVal(selectedDate);
+                mobiscrollInstanceSelectWeek.setVal(selectedDate);
+                mobiscrollInstanceSelectRangeDay.setVal(selectedDate);
+                }
 
-    // LAMNP 14/10/2023
-    // SỬ LÝ SỰ KIỆN SHOW LỊCH KHI CUS CHỌN ĐẶT LỊCH THEO NGÀY, TUẦN, THÁNG
-    // Lấy tham chiếu đến select và các div cần ẩn/hiển thị
-    var dateSelect = document.getElementById("dateSelect");
-    // Select type choise clendar
-    var demoMultiDay = document.getElementById("demo-multi-day");
-    var demoRange = document.getElementById("demo-range-selection");
-    var demoWeek = document.getElementById("demo-week-select");
+                // LAMNP 14/10/2023
+                // SỬ LÝ SỰ KIỆN SHOW LỊCH KHI CUS CHỌN ĐẶT LỊCH THEO NGÀY, TUẦN, THÁNG
+                // Lấy tham chiếu đến select và các div cần ẩn/hiển thị
+                var dateSelect = document.getElementById("dateSelect");
+                // Select type choise clendar
+                var demoMultiDay = document.getElementById("demo-multi-day");
+                var demoRange = document.getElementById("demo-range-selection");
+                var demoWeek = document.getElementById("demo-week-select");
 
-    // Ẩn mặc định hai calendar
-    demoRange.style.display = "none";
-    demoWeek.style.display = "none";
+                // Ẩn mặc định hai calendar
+                demoRange.style.display = "none";
+                demoWeek.style.display = "none";
 
-    // Gắn sự kiện change cho select
-    dateSelect.addEventListener("change", function () {
-        // Lấy giá trị được chọn trong select
-        var selectedValue = dateSelect.value;
+                // Gắn sự kiện change cho select
+                dateSelect.addEventListener("change", function () {
+                // Lấy giá trị được chọn trong select
+                var selectedValue = dateSelect.value;
 
-        // Ẩn tất cả các div trước
-        demoMultiDay.style.display = "none";
-        demoRange.style.display = "none";
-        demoWeek.style.display = "none";
+                // Ẩn tất cả các div trước
+                demoMultiDay.style.display = "none";
+                demoRange.style.display = "none";
+                demoWeek.style.display = "none";
 
-        // Hiển thị div tương ứng dựa trên giá trị được chọn
-        if (selectedValue === "0") {
-            demoMultiDay.style.display = "block";
-        } else if (selectedValue === "1") {
-            demoRange.style.display = "block";
-        } else if (selectedValue === "2") {
-            demoWeek.style.display = "block";
-        }
-    });
+                // Hiển thị div tương ứng dựa trên giá trị được chọn
+                if (selectedValue === "0") {
+                demoMultiDay.style.display = "block";
+                } else if (selectedValue === "1") {
+                demoRange.style.display = "block";
+                } else if (selectedValue === "2") {
+                demoWeek.style.display = "block";
+                }
+                });
 
-    // LAMNP 14/10/2023
-    // hàm dùng chung đóng modal
-    function closeModal1() {
-        var modal = document.getElementById("myModal1");
-        modal.classList.remove("visible");
-    }
+                // LAMNP 14/10/2023
+                // hàm dùng chung đóng modal
+                function closeModal1() {
+                var modal = document.getElementById("myModal1");
+                modal.classList.remove("visible");
+                }
 
-    function checkMaxValue(inputElement, countSanBong) {
+                function checkMaxValue(inputElement, countSanBong) {
 
-        var countNumber = parseInt(countSanBong);
-        var inputValue = parseInt(inputElement.value);
+                var countNumber = parseInt(countSanBong);
+                var inputValue = parseInt(inputElement.value);
 
-        if (inputValue > countNumber) {
-            inputElement.value = countNumber;
-        } else {
-            inputElement.value = inputElement.value;
-        }
-    }
+                if (inputValue > countNumber) {
+                inputElement.value = countNumber;
+                } else {
+                inputElement.value = inputElement.value;
+                }
+                }
 
-    function checkValue(inputElement) {
-        var inputValue = parseInt(inputElement.value);
+                function checkValue(inputElement) {
+                var inputValue = parseInt(inputElement.value);
 
-        if (isNaN(inputValue) || inputValue < 1) {
-            inputElement.value = 1;
-        }
-    }
+                if (isNaN(inputValue) || inputValue < 1) {
+                inputElement.value = 1;
+                }
+                }
 
-    function showModalInfo() {
+                function showModalInfo() {
 
-        var eventNew = getEventNew();
+                var eventNew = getEventNew();
 
-        if (eventNew.length > 0) {
-            addDateToFormDatLich(eventNew);
-            $('#modalInfo').modal('show');
-        } else {
-            alert('vui lòng chọn ca')
-        }
+                if (eventNew.length > 0) {
+                addDateToFormDatLich(eventNew);
+                $('#modalInfo').modal('show');
+                } else {
+                alert('vui lòng chọn ca')
+                }
 
-    }
+                }
 
 
-    function getEventNew() {
+                function getEventNew() {
 
-        var eventsClickShowEvent = calendar.getEvents();
+                var eventsClickShowEvent = calendar.getEvents();
 
-        // Lọc sự kiện cho ngày được click
-        var eventsForSelectedDate = eventsClickShowEvent.filter(function (
-            event
-        ) {
-            return event.extendedProps.trangThai === 'NEW';
-        });
-        return eventsForSelectedDate;
-    }
+                // Lọc sự kiện cho ngày được click
+                var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+                event
+                ) {
+                return event.extendedProps.trangThai === 'NEW';
+                });
+                return eventsForSelectedDate;
+                }
 
-    // Hàm để tạo ID ngẫu nhiên
-    function generateEventId() {
-        // Sử dụng timestamp và một số ngẫu nhiên để tạo ID độc đáo
-        return 'event_' + new Date().getTime() + '_' + Math.floor(Math.random() * 1000000);
-    }
+                // Hàm để tạo ID ngẫu nhiên
+                function generateEventId() {
+                // Sử dụng timestamp và một số ngẫu nhiên để tạo ID độc đáo
+                return 'event_' + new Date().getTime() + '_' + Math.floor(Math.random() * 1000000);
+                }
 
-    // Hàm để lấy danh sách sự kiện dựa trên ID loại sân
-    function findEventByLoaiSan(idLoaiSan) {
-        return fetch("/api/vi/user/all-event?idLoaiSan=" + idLoaiSan, {
-            method: "GET",
-        })
-            .then(function (response) {
+                // Hàm để lấy danh sách sự kiện dựa trên ID loại sân
+                function findEventByLoaiSan(idLoaiSan) {
+                return fetch("/api/vi/user/all-event?idLoaiSan=" + idLoaiSan, {
+                method: "GET",
+                })
+                .then(function (response) {
                 if (!response.ok) {
-                    throw new Error('Lỗi khi lấy dữ liệu');
+                throw new Error('Lỗi khi lấy dữ liệu');
                 }
                 return response.json();
-            })
-            .then(function (data) {
+                })
+                .then(function (data) {
                 var eventDefaul = [];
 
                 for (var i = 0; i < data.length; i++) {
-                    var sanBong = data[i];
+                var sanBong = data[i];
 
-                    // Parse dữ liệu và tạo sự kiện
-                    var thoiGianDat = new Date(sanBong.thoiGianDat);
-                    var event = {
-                        id: generateEventId(),
-                        title: sanBong.tenCa,
-                        start: new Date(
-                            thoiGianDat.getFullYear(),
-                            thoiGianDat.getMonth(),
-                            thoiGianDat.getDate(),
-                            parseInt(sanBong.thoiGianBatDau.split(":")[0]),
-                            parseInt(sanBong.thoiGianBatDau.split(":")[1])
-                        ),
-                        end: new Date(
-                            thoiGianDat.getFullYear(),
-                            thoiGianDat.getMonth(),
-                            thoiGianDat.getDate(),
-                            parseInt(sanBong.thoiGianKetThuc.split(":")[0]),
-                            parseInt(sanBong.thoiGianKetThuc.split(":")[1])
-                        ),
-                        allDay: false,
-                        className: 'event-class-' + sanBong.trangThai,
-                        extendedProps: {
-                            trangThai: 'ORD',
-                            classCustom: 'event-class-' + sanBong.trangThai,
-                            giaSan: sanBong.gia,
-                            idSanCa: sanBong.id,
-                        },
-                    };
+                // Parse dữ liệu và tạo sự kiện
+                var thoiGianDat = new Date(sanBong.thoiGianDat);
+                var event = {
+                id: generateEventId(),
+                title: sanBong.tenCa,
+                start: new Date(
+                thoiGianDat.getFullYear(),
+                thoiGianDat.getMonth(),
+                thoiGianDat.getDate(),
+                parseInt(sanBong.thoiGianBatDau.split(":")[0]),
+                parseInt(sanBong.thoiGianBatDau.split(":")[1])
+                ),
+                end: new Date(
+                thoiGianDat.getFullYear(),
+                thoiGianDat.getMonth(),
+                thoiGianDat.getDate(),
+                parseInt(sanBong.thoiGianKetThuc.split(":")[0]),
+                parseInt(sanBong.thoiGianKetThuc.split(":")[1])
+                ),
+                allDay: false,
+                className: 'event-class-' + sanBong.trangThai,
+                extendedProps: {
+                trangThai: 'ORD',
+                classCustom: 'event-class-' + sanBong.trangThai,
+                giaSan: sanBong.gia,
+                idSanCa: sanBong.id,
+                },
+                };
 
-                    eventDefaul.push(event);
+                eventDefaul.push(event);
                 }
 
                 return eventDefaul;
-            });
-    }
+                });
+                }
 
-    function resetEventByIdLoaiSan(idLoaiSan) {
-        selectedValue = idLoaiSan;
-        calendar.getEvents().forEach(function (event) {
-            event.remove();
-        });
+                function resetEventByIdLoaiSan(idLoaiSan) {
+                selectedValue = idLoaiSan;
+                calendar.getEvents().forEach(function (event) {
+                event.remove();
+                });
 
-        findEventByLoaiSan(idLoaiSan)
-            .then(function (events) {
+                findEventByLoaiSan(idLoaiSan)
+                .then(function (events) {
                 calendar.addEventSource(events);
                 calendar.render();
-            })
-            .catch(function (error) {
+                })
+                .catch(function (error) {
                 console.error(error);
-            });
-    }
+                });
+                }
 
-    function deleteEventById(eventId) {
+                function deleteEventById(eventId) {
 
-        var event = calendar.getEventById(eventId); // Lấy sự kiện dựa trên eventId
-        if (event) {
-            event.remove(); // Xóa sự kiện
-            var eventNew = getEventNew();
-            if (eventNew.length > 0) {
+                var event = calendar.getEventById(eventId); // Lấy sự kiện dựa trên eventId
+                if (event) {
+                event.remove(); // Xóa sự kiện
+                var eventNew = getEventNew();
+                if (eventNew.length > 0) {
                 addDateToFormDatLich(eventNew);
-            } else {
+                } else {
                 $('#modalInfo').modal('hide');
-            }
+                }
 
-            var listCheck = [];
-            var eventsClickShowEvent = calendar.getEvents();
-            var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+                var listCheck = [];
+                var eventsClickShowEvent = calendar.getEvents();
+                var eventsForSelectedDate = eventsClickShowEvent.filter(function (
                 event
-            ) {
+                ) {
                 return event.extendedProps.trangThai === 'NEW' || event.extendedProps.trangThai === 'NEW-FULL';
-            });
+                });
 
-            eventsForSelectedDate.forEach(value => {
+                eventsForSelectedDate.forEach(value => {
 
                 var objectCheck = {};
                 objectCheck.id = value.id;
@@ -2187,80 +2187,80 @@
                 objectCheck.ngayDat = formattedDate;
 
                 listCheck.unshift(objectCheck);
-            })
+                })
 
-            $.ajax({
+                $.ajax({
                 url: "/api/v1/user/san-ca/check-list-san-ca",
                 type: "POST",
                 data: JSON.stringify(listCheck),
                 contentType: "application/json",
                 success: function (data) {
-                    for (const event of eventsForSelectedDate) {
+                for (const event of eventsForSelectedDate) {
 
-                        const foundData = data.find(EExist => event.id === EExist.id);
-                        if (foundData) {
-                            calendar.getEventById(event.id).setProp('classNames', 'event-class-full');
-                            calendar.getEventById(event.id).setExtendedProp('trangThai', 'NEW-FULL');
-                            calendar.getEventById(event.id).setExtendedProp('classCustom', 'event-class-full');
-                        } else {
-                            calendar.getEventById(event.id).setProp('classNames', 'event-class');
-                            calendar.getEventById(event.id).setExtendedProp('trangThai', 'NEW');
-                            calendar.getEventById(event.id).setExtendedProp('classCustom', 'event-class');
-                        }
-                    }
-                    var selectDateClickShowEvent = event.start;
-                    var eventsClickShowEvent = calendar.getEvents();
+                const foundData = data.find(EExist => event.id === EExist.id);
+                if (foundData) {
+                calendar.getEventById(event.id).setProp('classNames', 'event-class-full');
+                calendar.getEventById(event.id).setExtendedProp('trangThai', 'NEW-FULL');
+                calendar.getEventById(event.id).setExtendedProp('classCustom', 'event-class-full');
+                } else {
+                calendar.getEventById(event.id).setProp('classNames', 'event-class');
+                calendar.getEventById(event.id).setExtendedProp('trangThai', 'NEW');
+                calendar.getEventById(event.id).setExtendedProp('classCustom', 'event-class');
+                }
+                }
+                var selectDateClickShowEvent = event.start;
+                var eventsClickShowEvent = calendar.getEvents();
 
-                    // Lọc sự kiện cho ngày được click
-                    var eventsForSelectedDate2 = eventsClickShowEvent.filter(function (
-                        event
-                    ) {
-                        return isSameDay(event.start, selectDateClickShowEvent);
-                    });
-                    // Hiển thị các sự kiện trong bảng
-                    displayEventsInTable(eventsForSelectedDate2);
+                // Lọc sự kiện cho ngày được click
+                var eventsForSelectedDate2 = eventsClickShowEvent.filter(function (
+                event
+                ) {
+                return isSameDay(event.start, selectDateClickShowEvent);
+                });
+                // Hiển thị các sự kiện trong bảng
+                displayEventsInTable(eventsForSelectedDate2);
                 },
                 error: function (error) {
 
                 }
-            });
-        }
-    }
+                });
+                }
+                }
 
-    function getFormLichDat() {
+                function getFormLichDat() {
 
-        var selectedValue = $("#selectLoaiSan").val();
-        var hoVaTen = $('#hoVaTen').val();
-        var sdt = $('#sdt').val();
-        var mail = $('#mail').val();
-        var remark = $('#remark').val();
-        var check = false;
+                var selectedValue = $("#selectLoaiSan").val();
+                var hoVaTen = $('#hoVaTen').val();
+                var sdt = $('#sdt').val();
+                var mail = $('#mail').val();
+                var remark = $('#remark').val();
+                var check = false;
 
-        if (hoVaTen.trim() == '') {
-            $('#hoVaTen_erro').text("Vui lòng nhập họ và tên");
-            check = true;
-        }
-        if (sdt.trim() == '') {
-            $('#sdt_erro').text("Vui lòng nhập số điện thoại");
-            check = true;
-        }
-        if (mail.trim() == '') {
-            $('#mail_erro').text("Vui lòng nhập email");
-            check = true;
-        }
+                if (hoVaTen.trim() == '') {
+                $('#hoVaTen_erro').text("Vui lòng nhập họ và tên");
+                check = true;
+                }
+                if (sdt.trim() == '') {
+                $('#sdt_erro').text("Vui lòng nhập số điện thoại");
+                check = true;
+                }
+                if (mail.trim() == '') {
+                $('#mail_erro').text("Vui lòng nhập email");
+                check = true;
+                }
 
-        if (check) {
-            return;
-        }
+                if (check) {
+                return;
+                }
 
-        // Lấy danh sách các hàng (tr) trong bảng
-        var rows = document.querySelectorAll("#myTable tbody tr");
+                // Lấy danh sách các hàng (tr) trong bảng
+                var rows = document.querySelectorAll("#myTable tbody tr");
 
-        var tableData = [];
+                var tableData = [];
 
-        // Bắt đầu từ hàng thứ 1 (hàng đầu tiên là tiêu đề)
-        rows.forEach(function (row, index) {
-            if (index !== 0) {
+                // Bắt đầu từ hàng thứ 1 (hàng đầu tiên là tiêu đề)
+                rows.forEach(function (row, index) {
+                if (index !== 0) {
 
                 var idCa = row.getAttribute("data-id");
                 var cells = row.querySelectorAll("td");
@@ -2272,110 +2272,110 @@
                 dataObject.idCa = idCa;
 
                 tableData.push(dataObject);
-            }
-        });
+                }
+                });
 
-        debugger
-        var tongTienSan = $('#id_tongTien').text();
+                debugger
+                var tongTienSan = $('#id_tongTien').text();
 
-        var formDatLich = {
-            hoVaTen: hoVaTen,
-            email: mail,
-            tongTienSan: cutMoney(tongTienSan),
-            sdt: sdt,
-            ghiChu: remark,
-            idLoaiSan: selectedValue,
-            danhSachCaDatRequests: tableData
-        }
+                var formDatLich = {
+                hoVaTen: hoVaTen,
+                email: mail,
+                tongTienSan: cutMoney(tongTienSan),
+                sdt: sdt,
+                ghiChu: remark,
+                idLoaiSan: selectedValue,
+                danhSachCaDatRequests: tableData
+                }
 
-        $.ajax({
-            url: "/api/v1/user/dat-lich/form-dat-lich",
-            type: "POST",
-            data: JSON.stringify(formDatLich),
-            contentType: "application/json",
-            success: function (data) {
+                $.ajax({
+                url: "/api/v1/user/dat-lich/form-dat-lich",
+                type: "POST",
+                data: JSON.stringify(formDatLich),
+                contentType: "application/json",
+                success: function (data) {
                 debugger
                 $('#modalInfo').modal('hide');
                 /*alert(data.content);
                 resetEventByIdLoaiSan(selectedValue);*/
                 if (data.statusCode == 'OK') {
-                    // Tạo form ẩn
-                    var form = $('<form action="/api/v1/user/thanh-toan/create-payment" method="post"></form>');
-                    form.append('<input type="hidden" name="HDrequest" value=\'' + JSON.stringify(data.content) + '\' />');
-                    $('body').append(form);
+                // Tạo form ẩn
+                var form = $('<form action="/api/v1/user/thanh-toan/create-payment" method="post"></form>');
+                form.append('<input type="hidden" name="HDrequest" value=\'' + JSON.stringify(data.content) + '\' />');
+                $('body').append(form);
 
-                    // Submit form để chuyển hướng
-                    form.submit();
+                // Submit form để chuyển hướng
+                form.submit();
                 } else {
-                    alert(data.content);
+                alert(data.content);
                 }
 
-            },
-            error: function (error) {
+                },
+                error: function (error) {
                 $('#modalInfo').modal('hide');
                 alert(error.responseJSON.message);
-            }
-        });
-    }
+                }
+                });
+                }
 
-    function cutMoney(chuoi) {
-        var soTien = chuoi.match(/\d+(\.\d+)?/);
-        if (soTien !== null) {
-            // Lấy số tiền từ mảng kết quả
-            var soTienTimThay = soTien[0];
-            console.log(soTienTimThay); // In ra số tiền
-            return soTienTimThay;
-        } else {
+                function cutMoney(chuoi) {
+                var soTien = chuoi.match(/\d+(\.\d+)?/);
+                if (soTien !== null) {
+                // Lấy số tiền từ mảng kết quả
+                var soTienTimThay = soTien[0];
+                console.log(soTienTimThay); // In ra số tiền
+                return soTienTimThay;
+                } else {
 
-            console.log("Không tìm thấy số tiền trong chuỗi.");
-            return 0;
-        }
-    }
+                console.log("Không tìm thấy số tiền trong chuỗi.");
+                return 0;
+                }
+                }
 
-    function formatDate(date) {
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
-        return (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
-    }
+                function formatDate(date) {
+                var day = date.getDate();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+                return (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
+                }
 
-    $(document).ready(function () {
-        $(document).on("click", ".add-row", function () {
+                $(document).ready(function () {
+                $(document).on("click", ".add-row", function () {
 
-            const caSelect = document.querySelector('#selectCaDatLichs');
-            const datePicker = document.querySelector('#datepicker');
-            const selectedCa = caSelect.options[caSelect.selectedIndex].value;
-            const selectedDate = datePicker.value;
+                const caSelect = document.querySelector('#selectCaDatLichs');
+                const datePicker = document.querySelector('#datepicker');
+                const selectedCa = caSelect.options[caSelect.selectedIndex].value;
+                const selectedDate = datePicker.value;
 
-            if (selectedCa == '' && selectedDate == '') {
+                if (selectedCa == '' && selectedDate == '') {
                 alert('Vui lòng chọn ca và ngày đặt sân');
                 return;
-            }
-            if (selectedCa == '') {
+                }
+                if (selectedCa == '') {
                 alert('Vui lòng chọn ca muốn đặt');
                 return;
-            }
-            if (selectedDate == '') {
+                }
+                if (selectedDate == '') {
                 alert('Vui lòng chọn Ngày muốn đặt');
                 return;
-            }
+                }
 
-            var listCheck = [];
+                var listCheck = [];
 
-            var objectCheck = {};
-            objectCheck.idLoaiSan = selectedValue;
-            objectCheck.idCa = selectedCa;
-            objectCheck.ngayDat = selectedDate;
-            listCheck.push(objectCheck);
+                var objectCheck = {};
+                objectCheck.idLoaiSan = selectedValue;
+                objectCheck.idCa = selectedCa;
+                objectCheck.ngayDat = selectedDate;
+                listCheck.push(objectCheck);
 
-            var eventsClickShowEvent = calendar.getEvents();
-            var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+                var eventsClickShowEvent = calendar.getEvents();
+                var eventsForSelectedDate = eventsClickShowEvent.filter(function (
                 event
-            ) {
+                ) {
                 return event.extendedProps.trangThai === 'NEW';
-            });
+                });
 
-            eventsForSelectedDate.forEach(value => {
+                eventsForSelectedDate.forEach(value => {
                 debugger
                 var objectCheck = {};
                 objectCheck.id = value.id;
@@ -2393,194 +2393,194 @@
                 objectCheck.ngayDat = formattedDate;
 
                 listCheck.unshift(objectCheck);
-            })
+                })
 
-            $.ajax({
+                $.ajax({
                 type: "POST",
                 contentType: "application/json",
                 url: "/api/v1/user/san-ca/check-list-san-ca",
                 data: JSON.stringify(listCheck),
                 dataType: 'json',
                 success: function (responseData) {
-                    debugger
-                    if (responseData.length <= 0 || responseData == '') {
-                        $.ajax({
-                            type: "GET",
-                            contentType: "application/json",
-                            url: "/api/v1/user/ca/get-info-ca?idLoaiSan=" + selectedValue + "&&idCa=" + selectedCa,
-                            dataType: 'json',
-                            success: function (data) {
-                                var sanBong = data;
-                                var thoiGianDat = new Date(selectedDate);
-                                var event = {
-                                    id: generateEventId(),
-                                    title: sanBong.tenCa,
-                                    start: new Date(
-                                        thoiGianDat.getFullYear(),
-                                        thoiGianDat.getMonth(),
-                                        thoiGianDat.getDate(),
-                                        parseInt(sanBong.thoiGianBatDau.split(":")[0]),
-                                        parseInt(sanBong.thoiGianBatDau.split(":")[1])
-                                    ),
-                                    end: new Date(
-                                        thoiGianDat.getFullYear(),
-                                        thoiGianDat.getMonth(),
-                                        thoiGianDat.getDate(),
-                                        parseInt(sanBong.thoiGianKetThuc.split(":")[0]),
-                                        parseInt(sanBong.thoiGianKetThuc.split(":")[1])
-                                    ),
-                                    allDay: false,
-                                    editable: true,
-                                    className: 'event-class',
-                                    extendedProps: {
-                                        trangThai: 'NEW',
-                                        classCustom: 'event-class',
-                                        giaSan: sanBong.giaSanCa + ' VND',
-                                        idSanCa: sanBong.id,
-                                    },
-                                };
-                                calendar.addEvent(event);
-                                calendar.render();
-                                var eventNew = getEventNew();
-                                addDateToFormDatLich(eventNew);
-                            },
-                            error: function (e) {
-                                console.log("ERROR: ", e);
-                            }
-                        });
-
-
-                    } else {
-                        //tạo ra event
-                        alert('ca của ngày đã có người đặt vui lòng chọn ca khác');
-                    }
+                debugger
+                if (responseData.length <= 0 || responseData == '') {
+                $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "/api/v1/user/ca/get-info-ca?idLoaiSan=" + selectedValue + "&&idCa=" + selectedCa,
+                dataType: 'json',
+                success: function (data) {
+                var sanBong = data;
+                var thoiGianDat = new Date(selectedDate);
+                var event = {
+                id: generateEventId(),
+                title: sanBong.tenCa,
+                start: new Date(
+                thoiGianDat.getFullYear(),
+                thoiGianDat.getMonth(),
+                thoiGianDat.getDate(),
+                parseInt(sanBong.thoiGianBatDau.split(":")[0]),
+                parseInt(sanBong.thoiGianBatDau.split(":")[1])
+                ),
+                end: new Date(
+                thoiGianDat.getFullYear(),
+                thoiGianDat.getMonth(),
+                thoiGianDat.getDate(),
+                parseInt(sanBong.thoiGianKetThuc.split(":")[0]),
+                parseInt(sanBong.thoiGianKetThuc.split(":")[1])
+                ),
+                allDay: false,
+                editable: true,
+                className: 'event-class',
+                extendedProps: {
+                trangThai: 'NEW',
+                classCustom: 'event-class',
+                giaSan: sanBong.giaSanCa + ' VND',
+                idSanCa: sanBong.id,
+                },
+                };
+                calendar.addEvent(event);
+                calendar.render();
+                var eventNew = getEventNew();
+                addDateToFormDatLich(eventNew);
                 },
                 error: function (e) {
-                    console.log("ERROR: ", e);
+                console.log("ERROR: ", e);
                 }
-            });
+                });
 
-        });
-    });
 
-    function addDateToFormDatLich(eventNew) {
-        $("#listEventNew").html('');
+                } else {
+                //tạo ra event
+                alert('ca của ngày đã có người đặt vui lòng chọn ca khác');
+                }
+                },
+                error: function (e) {
+                console.log("ERROR: ", e);
+                }
+                });
 
-        var comboboxCa = "<select class=\"form-select\" id='selectCaDatLichs' aria-label=\"Default select example\"> <option selected disabled value=\"\">Chọn ca </option>";
+                });
+                });
 
-        $.ajax({
-            type: "GET",
-            contentType: "application/json",
-            url: "/api/v1/user/ca/get-all-ca?idLoaiSan=" + selectedValue,
-            dataType: 'json',
-            success: function (responseData) {
+                function addDateToFormDatLich(eventNew) {
+                $("#listEventNew").html('');
+
+                var comboboxCa = "<select class=\"form-select\" id='selectCaDatLichs' aria-label=\"Default select example\"> <option selected disabled value=\"\">Chọn ca </option>";
+
+                $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "/api/v1/user/ca/get-all-ca?idLoaiSan=" + selectedValue,
+                dataType: 'json',
+                success: function (responseData) {
 
                 var options = responseData.map(function (item) {
-                    /* const startTimeVietnam = new Date(`1970-01-01T${item.thoiGianBatDau}Z`).toLocaleTimeString("en-US", {
-                         timeZone: "Asia/Ho_Chi_Minh",
-                         hour: "2-digit",
-                         minute: "2-digit",
-                         hour12: true,
-                     });*/
-                    const startTimeVietnam = formatTime(item.thoiGianBatDau);
-                    const endTimeVietnam = formatTime(item.thoiGianKetThuc);
+                /* const startTimeVietnam = new Date(`1970-01-01T${item.thoiGianBatDau}Z`).toLocaleTimeString("en-US", {
+                timeZone: "Asia/Ho_Chi_Minh",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+                });*/
+                const startTimeVietnam = formatTime(item.thoiGianBatDau);
+                const endTimeVietnam = formatTime(item.thoiGianKetThuc);
 
-                    return `<option value="${item.id}" data-gia-san="${item.giaSanCa}">${item.tenCa} (${startTimeVietnam} - ${endTimeVietnam})</option>`;
+                return `<option value="${item.id}" data-gia-san="${item.giaSanCa}">${item.tenCa} (${startTimeVietnam} - ${endTimeVietnam})</option>`;
                 }).join(''); // Use .join('') to concatenate the option elements.
 
                 comboboxCa = comboboxCa + options + '</select>';
 
 
                 const addNewRow = `
-                        <tr>
-                            <td style="width: 270px;">${comboboxCa}</td>
-                            <td ><input type="date" class="form-control" id="datepicker"></td>
-                            <td>New giá</td>
-                            <td class="rowOrd">
-                                <button class="btn btn-primary btn-sm add-row">Thêm ca</button>
-                            </td>
-                        </tr>
-                    `;
+                <tr>
+                <td style="width: 270px;">${comboboxCa}</td>
+                <td ><input type="date" class="form-control" id="datepicker"></td>
+                <td>New giá</td>
+                <td class="rowOrd">
+                <button class="btn btn-primary btn-sm add-row">Thêm ca</button>
+                </td>
+                </tr>
+                `;
 
                 // Thêm dòng đầu tiên vào #listEventNew
                 $("#listEventNew").prepend(addNewRow);
-            },
-            error: function (e) {
+                },
+                error: function (e) {
                 console.log("ERROR: ", e);
-            }
-        });
+                }
+                });
 
-        var tongTien = 0;
+                var tongTien = 0;
 
 
-        $("#listEventNew").append(eventNew.map(function (item) {
-            const startTimeVietnam = item.start.toLocaleTimeString("en-US", {
+                $("#listEventNew").append(eventNew.map(function (item) {
+                const startTimeVietnam = item.start.toLocaleTimeString("en-US", {
                 timeZone: "Asia/Ho_Chi_Minh",
                 hour: "2-digit",
                 minute: "2-digit",
-            });
-            const endTimeVietnam = item.end.toLocaleTimeString("en-US", {
+                });
+                const endTimeVietnam = item.end.toLocaleTimeString("en-US", {
                 timeZone: "Asia/Ho_Chi_Minh",
                 hour: "2-digit",
                 minute: "2-digit",
-            });
+                });
 
-            // Lấy ra ngày từ sự kiện
-            const dateVietnam = item.start.toLocaleDateString("en-US", {
+                // Lấy ra ngày từ sự kiện
+                const dateVietnam = item.start.toLocaleDateString("en-US", {
                 timeZone: "Asia/Ho_Chi_Minh",
                 day: "2-digit",
                 month: "2-digit",
                 year: "numeric",
-            });
-            tongTien = tongTien + Number(item.extendedProps.giaSan.replace('.0 VND', ''));
-            // Chuyển định dạng ngày tháng năm thành "dd - MM - yyyy"
-            const dateParts = dateVietnam.split("/");
-            const formattedDate =
+                });
+                tongTien = tongTien + Number(item.extendedProps.giaSan.replace('.0 VND', ''));
+                // Chuyển định dạng ngày tháng năm thành "dd - MM - yyyy"
+                const dateParts = dateVietnam.split("/");
+                const formattedDate =
                 dateParts[1] + "-" + dateParts[0] + "-" + dateParts[2];
 
-            return `
-                        <tr data-id="${item.extendedProps.idSanCa}">
-                            <td style="width: 270px;">${item.title + '(' + startTimeVietnam + ' - ' + endTimeVietnam + ')'}</td>
-                            <td>${formattedDate}</td>
-                             <td>${item.extendedProps.giaSan}</td>
-                            <td>
-                                <button class="btn btn-danger btn-sm xoa-san-button" onclick="deleteEventById('${item.id}')">Xóa</button>
-                            </td>
-                        </tr>
-                        `;
-        }));
-        $('#id_tongTien').text(tongTien + " VND");
-        $('#id_tienCoc').text(tongTien * (thamSoTienCoc / 100) + " VND");
-    }
+                return `
+                <tr data-id="${item.extendedProps.idSanCa}">
+                <td style="width: 270px;">${item.title + '(' + startTimeVietnam + ' - ' + endTimeVietnam + ')'}</td>
+                <td>${formattedDate}</td>
+                <td>${item.extendedProps.giaSan}</td>
+                <td>
+                <button class="btn btn-danger btn-sm xoa-san-button" onclick="deleteEventById('${item.id}')">Xóa</button>
+                </td>
+                </tr>
+                `;
+                }));
+                $('#id_tongTien').text(tongTien + " VND");
+                $('#id_tienCoc').text(tongTien * (thamSoTienCoc / 100) + " VND");
+                }
 
-    function formatTime(inputTime) {
-        const timeParts = inputTime.split(":");
-        const hours = parseInt(timeParts[0]);
-        const minutes = parseInt(timeParts[1]);
+                function formatTime(inputTime) {
+                const timeParts = inputTime.split(":");
+                const hours = parseInt(timeParts[0]);
+                const minutes = parseInt(timeParts[1]);
 
-        const formatWithLeadingZeros = (number) => {
-            return number < 10 ? `0${number}` : number.toString();
-        };
+                const formatWithLeadingZeros = (number) => {
+                return number < 10 ? `0${number}` : number.toString();
+                };
 
-        const formattedHours = formatWithLeadingZeros(hours);
-        const formattedMinutes = formatWithLeadingZeros(minutes);
+                const formattedHours = formatWithLeadingZeros(hours);
+                const formattedMinutes = formatWithLeadingZeros(minutes);
 
-        let formattedTime = '';
+                let formattedTime = '';
 
-        if (hours === 12) {
-            formattedTime = `12:${formattedMinutes} PM`;
-        } else if (hours > 12) {
-            formattedTime = `${formattedHours - 12}:${formattedMinutes} PM`;
-        } else {
-            formattedTime = `${formattedHours}:${formattedMinutes} AM`;
-        }
-        return formattedTime;
-    }
+                if (hours === 12) {
+                formattedTime = `12:${formattedMinutes} PM`;
+                } else if (hours > 12) {
+                formattedTime = `${formattedHours - 12}:${formattedMinutes} PM`;
+                } else {
+                formattedTime = `${formattedHours}:${formattedMinutes} AM`;
+                }
+                return formattedTime;
+                }
 
-    $(document).on("change", "#selectCaDatLichs", function () {
-        var selectedGiaSan = $(this).find("option:selected").data("gia-san");
-        $(this).closest("tr").find("td:nth-child(3)").text(selectedGiaSan + ' VND');
-    });
+                $(document).on("change", "#selectCaDatLichs", function () {
+                var selectedGiaSan = $(this).find("option:selected").data("gia-san");
+                $(this).closest("tr").find("td:nth-child(3)").text(selectedGiaSan + ' VND');
+                });
 </script>
 //doi lich one user
 <script>
@@ -3459,7 +3459,7 @@
     });
 
     function deleteLichSanBong(id) {
-            deleteLichSan(id);
+        deleteLichSan(id);
     }
 
     function deleteLichSan(id) {
