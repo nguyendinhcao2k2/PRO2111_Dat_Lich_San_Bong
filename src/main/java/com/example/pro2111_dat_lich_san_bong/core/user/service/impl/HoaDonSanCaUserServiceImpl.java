@@ -32,6 +32,15 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
     }
 
     @Override
+    public void updateAll(List list) {
+        try {
+            hoaDonSanCaUserRepository.saveAllAndFlush(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public List findAllByIdHoaDon(String idHoaDon) {
         return hoaDonSanCaUserRepository.findAllByIdHoaDon(idHoaDon);
     }
@@ -60,10 +69,13 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
             e.printStackTrace();
         }
     }
+
     @Override
-    public HoaDonSendMailResponse getDetialHoaDon(String idHoaDonSanCa){
+    public HoaDonSendMailResponse getDetialHoaDon(String idHoaDonSanCa) {
         return hoaDonSanCaUserRepository.getDetialHoaDon(idHoaDonSanCa);
-    };
+    }
+
+    ;
 
     @Override
     public HoaDonSanCa findByIdSanCa(String id) {
@@ -76,7 +88,7 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
     }
 
     @Override
-    public List<HoaDonSendMailResponse> getLisTHDSC(String idHoaDon){
+    public List<HoaDonSendMailResponse> getLisTHDSC(String idHoaDon) {
         return hoaDonSanCaUserRepository.getLisTHDSC(idHoaDon);
     }
 }

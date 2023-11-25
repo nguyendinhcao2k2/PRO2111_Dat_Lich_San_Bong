@@ -44,7 +44,7 @@ $(document).ready(() => {
     $(".confirm").click(() => {
         if ($("#tienPhatSinh").val() != 0 && $(".ghiChuPhatSinh").val() == "") {
             document.title = "Thông báo!";
-            alert("Vui lòng nhập tiền phát sinh")
+            alert("Vui lòng nhập ghi chú phát sinh")
         } else {
             $.ajax({
                 type: "POST",

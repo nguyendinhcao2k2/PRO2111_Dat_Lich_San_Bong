@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class HoaDonDoiLichUserServiceImpl implements HoaDonDoiLichUserService {
 
@@ -28,6 +30,16 @@ public class HoaDonDoiLichUserServiceImpl implements HoaDonDoiLichUserService {
     public void update(HoaDon hoaDon) {
         try {
             hoaDonDoiLichUserReponsitory.saveAndFlush(hoaDon);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateAll(List list) {
+        try {
+            hoaDonDoiLichUserReponsitory.saveAllAndFlush(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
