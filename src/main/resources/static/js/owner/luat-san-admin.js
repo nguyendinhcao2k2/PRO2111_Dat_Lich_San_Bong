@@ -50,7 +50,7 @@ function createLuatSan() {
             quill.getText() == null ||
             quill.getText().length == 1
         ) {
-            alert("Vui lòng không để trống!");
+            createAndShowToast("bg-warning","Thông báo!","Vui lòng không để trống!");
             return;
         }
         if (confirm(tab3.thongBao)) {
@@ -71,12 +71,12 @@ function apiCreateLuatSan() {
             thongTin: quill.root.innerHTML,
         }),
         success: function (response) {
-            alert(tab3.success);
+            createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
             quill.setText("");
             callApiLuatSan();
         },
         error: function (error) {
-            alert(tab3.error);
+            createAndShowToast("bg-success","Thông báo!","Thao tác thất bại!");
             console.log(error);
         },
     });
@@ -92,13 +92,13 @@ function deleteLuatSan() {
                     tab3.idLuatSan,
                 success: function (response) {
                     if (response.statusCode == "OK") {
-                        alert(tab3.success);
+                        createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                         callApiLuatSan();
                         $(".thongTinLuatSan").text("");
                     }
                 },
                 error: function (error) {
-                    alert(tab3.error);
+                    createAndShowToast("bg-success","Thông báo!","Thao tác thất bại!");
                     console.log(error);
                 },
             });
@@ -147,12 +147,12 @@ function apiUpdateLoaiSan() {
             thongTin: quill.root.innerHTML,
         }),
         success: function (response) {
-            alert(tab3.success);
+            createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
             quill.setText("");
             callApiLuatSan();
         },
         error: function (error) {
-            alert(tab3.error);
+            createAndShowToast("bg-success","Thông báo!","Thao tác thất bại!");
             console.log(error);
         },
     });

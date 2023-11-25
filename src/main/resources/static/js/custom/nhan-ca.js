@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     //Get account by login
@@ -58,7 +59,7 @@ $(document).ready(function () {
                         }
                     });
                 } else {
-                    alert("Nhận ca thất bại!")
+                    createAndShowToast("bg-danger","Thông báo!","Xin lỗi nhận ca thất bại!");
                 }
 
             },
