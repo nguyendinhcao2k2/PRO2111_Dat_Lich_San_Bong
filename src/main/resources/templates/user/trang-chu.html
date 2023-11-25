@@ -143,12 +143,12 @@
               class="section-title position-relative text-center mb-3 mt-5 pb-2 wow fadeInUp"
               data-wow-delay="0.1s"
       >
-        <h4 class="position-relative d-inline text-primary ps-4">CHÀO MỪNG BẠN ĐẾN VỚI SÂN BÓNG ĐỒNG ĐẾ</h4>
+        <h2 class="position-relative d-inline text-primary ps-4" style="font-weight: 800">CHÀO MỪNG BẠN ĐẾN VỚI SÂN BÓNG ĐỒNG ĐẾ</h2>
       </div>
 
       <div class="mt-5 mb-5 justify-content-center text-center">
         <div>
-          <button type="button" class="btn mb-5" id="showRulesButton" data-bs-toggle="button" style="font-weight: bold; color:#2124B1; font-family: Roboto,sans-serif; ">Xem nội quy</button>
+          <a type="button" class="btn mb-5" id="showRulesButton" data-bs-toggle="button" style="font-weight: bold; color:#2124B1; font-family: Roboto,sans-serif; ">Xem nội quy</a>
         </div>
         <button style="
                     display: inline-block;
@@ -175,7 +175,7 @@
                         transform: scale(1.04);
                         background-color: #21e065;
                     }
-                "> <a href="#" style="color: white;">Đặt Sân Ngay <i class="fas fa-arrow-right"></i></a></button>
+                "> <a th:href="@{/api/v1/user/trang-chu/danh-sach-lich-dat}" style="color: white;">Đặt Sân Ngay <i class="fas fa-arrow-right"></i></a></button>
 
       </div>
       <div id="rulesModal" style="display: none;">
@@ -204,7 +204,7 @@
           <p>7. LƯU Ý:  Chúng tôi khuyến cáo quý khách đặt sân trên website của chúng tôi để có thể nắm được các thông tin về các ca, số sân trống
             dễ dàng phục vụ cho quý khách</p>
         </div>
-        <button type="button" class="btn mb-5 align-items-end" id="closeRulesButton" data-bs-toggle="button" style="color: red; float: right;">
+        <button type="button" class="btn mb-5 align-items-end" id="closeRulesButton" data-bs-toggle="button" style="color: red; float: right; font-size: 28px">
           <i class="far fa-times-circle"></i>
         </button>
       </div>
@@ -213,8 +213,8 @@
       <div class="container">
         <div class="row justify-content-md-center">
           <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
-            <h2 class="fs-6 text-secondary mb-2 text-uppercase text-center">Các Bạn Là Một Phần Phát Triển Của Chúng Tôi</h2>
-            <p class="display-5 mb-4 mb-md-5 text-center">Chúng tôi cung cấp những gì chúng tôi hứa. Hãy xem khách hàng đang bày tỏ điều gì về chúng tôi.</p>
+            <h4 class="text-primary mb-2  text-center">Các Bạn Là Một Phần Phát Triển Của Chúng Tôi</h4>
+            <p style="font-size: 1.25em; color: #1a1a1a" class="display-5 mb-4 mb-md-5 text-center">Chúng tôi cung cấp những gì chúng tôi hứa. Hãy xem khách hàng đang bày tỏ điều gì về chúng tôi.</p>
             <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
           </div>
         </div>

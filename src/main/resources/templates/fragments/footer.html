@@ -7,7 +7,7 @@
           <div class="row h-100 align-items-end justify-content-center">
             <div class="col-12 col-md-11 col-xl-10">
               <div class="footer-logo-wrapper">
-                <a href="" class="navbar-brand p-0">
+                <a th:href="@{/api/v1/trang-chu}" class="navbar-brand p-0">
                   <h1 class="m-0">
                     <i
                             class="fa-solid fa-futbol"
@@ -137,8 +137,7 @@
                     <ul class="list-unstyled">
                       <li class="mb-3">
                         <a
-                                href="#!"
-                                class="link-secondary text-decoration-none"
+                                th:href="@{/api/v1/trang-chu}"                                class="link-secondary text-decoration-none"
                         >Trang chủ</a
                         >
                       </li>
@@ -152,7 +151,7 @@
                       </li>
                       <li class="mb-3">
                         <a
-                                href="#!"
+                                th:href="@{/api/v1/user/trang-chu/danh-sach-lich-dat}"
                                 class="link-secondary text-decoration-none"
                         >Đặt sân</a
                         >
