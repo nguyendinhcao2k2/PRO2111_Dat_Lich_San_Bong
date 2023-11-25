@@ -176,6 +176,11 @@
     color: #888;
 }
 
+#myModal1 .modal-content .modal-header{
+    background: #f7941e;
+    color: #fff;
+}
+
 .visible {
     display: block;
 }
