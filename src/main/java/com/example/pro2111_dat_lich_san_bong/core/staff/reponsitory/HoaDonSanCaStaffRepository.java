@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface HoaDonSanCaStaffRepository extends JpaRepository<HoaDonSanCa, String> {
     @Query(value = "SELECT new com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest" +
-            "(HDSC.id, HD.tienCoc,HD.tenNguoiDat, HD.soDienThoaiNguoiDat, SB.tenSanBong, LS.tenLoaiSan, C.tenCa, C.thoiGianBatDau, C.thoiGianKetThuc, HDSC.ngayDenSan, HDSC.thoiGianCheckIn, HD.ngayXacNhanDatSan, SC.gia, HDSC.trangThai) " +
+            "(HDSC.id, HD.tienCoc,HD.tenNguoiDat, HD.soDienThoaiNguoiDat, SB.tenSanBong, LS.tenLoaiSan, C.tenCa, C.thoiGianBatDau, C.thoiGianKetThuc, HDSC.ngayDenSan, HDSC.thoiGianCheckIn, HD.ngayTao, SC.gia, HDSC.trangThai) " +
             "FROM HoaDonSanCa HDSC " +
             "JOIN SanCa SC ON HDSC.idSanCa = SC.id " +
             "JOIN SanBong SB ON SC.idSanBong = SB.id " +
@@ -22,7 +22,7 @@ public interface HoaDonSanCaStaffRepository extends JpaRepository<HoaDonSanCa, S
     List<HoaDonThanhToanRequest> findAllByTrangThai(@Param("trangThaiDaCheckIn") int trangThaiDaCheckIn, @Param("trangThaiChoThanhToan") int trangThaiChoThanhToan);
 
     @Query(value = "SELECT new com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest" +
-            "(HDSC.id, HD.tienCoc,HD.tenNguoiDat, HD.soDienThoaiNguoiDat, SB.tenSanBong, LS.tenLoaiSan, C.tenCa, C.thoiGianBatDau, C.thoiGianKetThuc, HDSC.ngayDenSan, HDSC.thoiGianCheckIn, HD.ngayXacNhanDatSan, SC.gia, HDSC.trangThai) " +
+            "(HDSC.id, HD.tienCoc,HD.tenNguoiDat, HD.soDienThoaiNguoiDat, SB.tenSanBong, LS.tenLoaiSan, C.tenCa, C.thoiGianBatDau, C.thoiGianKetThuc, HDSC.ngayDenSan, HDSC.thoiGianCheckIn, HD.ngayTao, SC.gia, HDSC.trangThai) " +
             "FROM HoaDonSanCa HDSC " +
             "JOIN SanCa SC ON HDSC.idSanCa = SC.id " +
             "JOIN SanBong SB ON SC.idSanBong = SB.id " +
