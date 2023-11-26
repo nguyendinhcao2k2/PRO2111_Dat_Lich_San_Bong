@@ -37,7 +37,7 @@ public interface GiaoCaStaffReponsitory extends GiaoCaRepository {
             	join hinh_thuc_thanh_toan httt on hdsc.id = httt.id_hoa_don_san_ca
             	where  gc.trang_thai = 0
             	and  hdsc.ngay_thanh_toan  between gc.thoi_gian_nhan_ca and now()
-            	and hdsc.trang_thai =0
+            	and hdsc.trang_thai =3
             	and httt.hinh_thuc_thanh_toan = :hinhTT
             	group by gc.id
             """, nativeQuery = true)
