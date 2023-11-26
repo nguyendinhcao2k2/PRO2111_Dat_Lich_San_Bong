@@ -84,7 +84,7 @@ public class DoiLichOneThanhToanController {
         try {
             doiLichOneRequest = doiLichOneRequestUpdate;
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, doiLichOneRequestUpdate));
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.BAD_GATEWAY, "Error"));
         }
@@ -168,17 +168,19 @@ public class DoiLichOneThanhToanController {
                 try {
                     //thêm 1 phút sau khi tắt tab thanh toán thì hủy hóa đơn
                     Thread.sleep((miuteParam + 1) * 60 * 1000);
+                    Boolean check = huyDoiLichThatBai(hoaDonSanCaUpdate.getId());
+                    if (check) {
+                        //xóa sân mới
+                        hoaDonSanCaUserService.deleteByIdHoaDonSanCa(hoaDonSanCaUpdate.getId());
+                        sanCaUserService.deleteSanCaById(sanCaUpdate.getId());
 
-                    //xóa sân mới
-                    hoaDonSanCaUserService.deleteByIdHoaDonSanCa(hoaDonSanCaUpdate.getId());
-                    sanCaUserService.deleteSanCaById(sanCaUpdate.getId());
+                        //update lại trạng thái sân cũ
+                        hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.CHO_NHAN_SAN.ordinal());
+                        hoaDonSanCaUserService.saveHoaDonSanCa(hoaDonSanCa);
 
-                    //update lại trạng thái sân cũ
-                    hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.CHO_NHAN_SAN.ordinal());
-                    hoaDonSanCaUserService.saveHoaDonSanCa(hoaDonSanCa);
-
-                    //xóa lịch sử đổi lịch
-                    lichSuDoiLichUserService.deleteById(lichSuDoiLich.getId());
+                        //xóa lịch sử đổi lịch
+                        lichSuDoiLichUserService.deleteById(lichSuDoiLich.getId());
+                    }
                 } catch (Exception e) {
                     // Handle exception
                     e.printStackTrace();
@@ -194,6 +196,14 @@ public class DoiLichOneThanhToanController {
         return "redirect:" + vnpayUrl;
     }
 
+
+    private Boolean huyDoiLichThatBai(String id) {
+        HoaDonSanCa hoaDonSanCa = hoaDonSanCaUserService.findById(id);
+        if (hoaDonSanCa != null && hoaDonSanCa.getTrangThai() == TrangThaiHoaDonSanCa.CHO_DOI_SAN.ordinal()) {
+            return true;
+        }
+        return false;
+    }
 
     @GetMapping("/vnpay-payment")
     public String GetMapping(HttpServletRequest request, Model model) throws ParseException {
@@ -263,7 +273,7 @@ public class DoiLichOneThanhToanController {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             DateTimeFormatter formatterNgayDa = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            if(list.size() == 1){
+            if (list.size() == 1) {
                 HoaDonSendMailResponse response = list.get(0);
 
                 SendMailRequest sendMailRequest = new SendMailRequest();
@@ -278,7 +288,7 @@ public class DoiLichOneThanhToanController {
                 sendMailRequest.setNgayCheckIn(formatterNgayDa.format(response.getNgayDenSan()));
 
                 sendMailUtils.sendEmail(sendMailRequest);
-            }else if (list.size()>1){
+            } else if (list.size() > 1) {
 
                 Context context = new Context();
                 context.setVariable("nguoiDat", hoaDon.getTenNguoiDat());
@@ -286,21 +296,21 @@ public class DoiLichOneThanhToanController {
 
                 //thời gian đặt sân
                 context.setVariable("timeDat", hoaDon.getNgayTao());
-                context.setVariable("tongTien",decimalFormat.format(hoaDon.getTongTien()));
+                context.setVariable("tongTien", decimalFormat.format(hoaDon.getTongTien()));
 
                 List<MaillListResponse> listResponses = new ArrayList<>();
 
-                for (HoaDonSendMailResponse response: list) {
+                for (HoaDonSendMailResponse response : list) {
                     MaillListResponse maillListResponse = new MaillListResponse();
                     maillListResponse.setIdHoaDonSanCa(response.getId());
                     maillListResponse.setGiaSan(decimalFormat.format(response.getTienSan()));
                     maillListResponse.setNgayDa(formatterNgayDa.format(response.getNgayDenSan()));
-                    maillListResponse.setCa(response.getTenCa()+": ("+response.getThoiGianBatDau()+"-"+response.getThoiGianKetThuc()+")");
+                    maillListResponse.setCa(response.getTenCa() + ": (" + response.getThoiGianBatDau() + "-" + response.getThoiGianKetThuc() + ")");
                     listResponses.add(maillListResponse);
                 }
 
                 context.setVariable("thoiGianList", listResponses);
-                sendMailWithBookings.sendEmailBookings(hoaDon.getEmail(), context,request);
+                sendMailWithBookings.sendEmailBookings(hoaDon.getEmail(), context, request);
             }
             //gửi mail
             return "DemoVNPay/SuccessOder";

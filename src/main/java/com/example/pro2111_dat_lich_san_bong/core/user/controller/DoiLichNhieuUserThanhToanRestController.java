@@ -201,28 +201,31 @@ public class DoiLichNhieuUserThanhToanRestController {
                     //thêm 1 phút sau khi tắt tab thanh toán thì hủy hóa đơn
                     Thread.sleep((miuteParam + 1) * 60 * 1000);
 
-                    //xóa sân mới
-                    for (HoaDonSanCa hdsc : listHoaDonSanCaUpdate) {
-                        hoaDonSanCaUserService.deleteByIdHoaDonSanCa(hdsc.getId());
+                    if (listHoaDonSanCaUpdate.size() == listSanCaUpdate.size()) {
+                        for (int i = 0; i < listHoaDonSanCaUpdate.size(); i++) {
+                            Boolean check = huyDoiLichThatBai(listHoaDonSanCaUpdate.get(i).getId());
+                            if (check) {
+                                //xóa hóa đơn sân ca mới
+                                hoaDonSanCaUserService.deleteByIdHoaDonSanCa(listHoaDonSanCaUpdate.get(i).getId());
+                                //xóa sân ca mới
+                                sanCaUserService.deleteSanCaById(listSanCaUpdate.get(i).getId());
+                                //update lại trạng thái sân cũ
+                                List listUpdate = new ArrayList<>();
+                                for (HoaDonSanCa hoaDonSanCa : listHoaDonSanCaCuThayDoiTrangThai) {
+                                    hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.CHO_NHAN_SAN.ordinal());
+                                    listUpdate.add(hoaDonSanCa);
+                                }
+                                hoaDonSanCaUserService.updateAll(listUpdate);
+
+                                //xóa lịch sử đổi lịch
+                                for (LichSuDoiLich lichSuDoiLich : lichSuDoiLichList) {
+                                    lichSuDoiLichUserService.deleteById(lichSuDoiLich.getId());
+                                }
+                            }
+                        }
                     }
-                    for (SanCa sanCa : listSanCaUpdate) {
-                        sanCaUserService.deleteSanCaById(sanCa.getId());
-                    }
-                    //
 
 
-                    //update lại trạng thái sân cũ
-                    List listUpdate = new ArrayList<>();
-                    for (HoaDonSanCa hoaDonSanCa : listHoaDonSanCaCuThayDoiTrangThai) {
-                        hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.CHO_NHAN_SAN.ordinal());
-                        listUpdate.add(hoaDonSanCa);
-                    }
-                    hoaDonSanCaUserService.updateAll(listUpdate);
-
-                    //xóa lịch sử đổi lịch
-                    for (LichSuDoiLich lichSuDoiLich : lichSuDoiLichList) {
-                        lichSuDoiLichUserService.deleteById(lichSuDoiLich.getId());
-                    }
                 } catch (Exception e) {
                     // Handle exception
                     e.printStackTrace();
@@ -234,6 +237,14 @@ public class DoiLichNhieuUserThanhToanRestController {
 
         String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl, miuteParam);
         return "redirect:" + vnpayUrl;
+    }
+
+    private Boolean huyDoiLichThatBai(String idHDSC) {
+        HoaDonSanCa hoaDonSanCa = hoaDonSanCaUserService.findById(idHDSC);
+        if (hoaDonSanCa != null && hoaDonSanCa.getTrangThai() == TrangThaiHoaDonSanCa.CHO_DOI_SAN.ordinal()) {
+            return true;
+        }
+        return false;
     }
 
     @GetMapping("/vnpay-payment")
@@ -322,14 +333,14 @@ public class DoiLichNhieuUserThanhToanRestController {
 
                     }
                     //gửi mail
-                    for (String items: listHoaDonMail) {
+                    for (String items : listHoaDonMail) {
                         HoaDon hoaDonMail = hoaDonUserService.findHoaDonById(items);
                         List<HoaDonSendMailResponse> list = hoaDonSanCaUserService.getLisTHDSC(hoaDonMail.getId());
                         DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
 
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                         DateTimeFormatter formatterNgayDa = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                        if(list.size() == 1){
+                        if (list.size() == 1) {
                             HoaDonSendMailResponse response = list.get(0);
 
                             SendMailRequest sendMailRequest = new SendMailRequest();
@@ -344,7 +355,7 @@ public class DoiLichNhieuUserThanhToanRestController {
                             sendMailRequest.setNgayCheckIn(formatterNgayDa.format(response.getNgayDenSan()));
 
                             sendMailUtils.sendEmail(sendMailRequest);
-                        }else if (list.size()>1){
+                        } else if (list.size() > 1) {
 
                             Context context = new Context();
                             context.setVariable("nguoiDat", hoaDonMail.getTenNguoiDat());
@@ -352,21 +363,21 @@ public class DoiLichNhieuUserThanhToanRestController {
 
                             //thời gian đặt sân
                             context.setVariable("timeDat", hoaDonMail.getNgayTao());
-                            context.setVariable("tongTien",decimalFormat.format(hoaDonMail.getTongTien()));
+                            context.setVariable("tongTien", decimalFormat.format(hoaDonMail.getTongTien()));
 
                             List<MaillListResponse> listResponses = new ArrayList<>();
 
-                            for (HoaDonSendMailResponse response: list) {
+                            for (HoaDonSendMailResponse response : list) {
                                 MaillListResponse maillListResponse = new MaillListResponse();
                                 maillListResponse.setIdHoaDonSanCa(response.getId());
                                 maillListResponse.setGiaSan(decimalFormat.format(response.getTienSan()));
                                 maillListResponse.setNgayDa(formatterNgayDa.format(response.getNgayDenSan()));
-                                maillListResponse.setCa(response.getTenCa()+": ("+response.getThoiGianBatDau()+"-"+response.getThoiGianKetThuc()+")");
+                                maillListResponse.setCa(response.getTenCa() + ": (" + response.getThoiGianBatDau() + "-" + response.getThoiGianKetThuc() + ")");
                                 listResponses.add(maillListResponse);
                             }
 
                             context.setVariable("thoiGianList", listResponses);
-                            sendMailWithBookings.sendEmailBookings(hoaDonMail.getEmail(), context,request);
+                            sendMailWithBookings.sendEmailBookings(hoaDonMail.getEmail(), context, request);
                         }
                     }
 
