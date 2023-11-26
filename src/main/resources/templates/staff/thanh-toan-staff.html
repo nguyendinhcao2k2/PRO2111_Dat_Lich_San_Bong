@@ -49,6 +49,16 @@
 
 <section>
     <div class="table-wrapper">
+        <div class="container-fluid">
+            <!-- Other content of your page goes here -->
+            <div
+                    id="toastContainer"
+                    class="position-fixed osition-absolute top-0 end-0 p-3"
+                    style="z-index: 9999"
+            >
+                <div id="toasts" class="d-flex flex-column-reverse"></div>
+            </div>
+        </div>
         <div class="table-title">
             <div class="row">
                 <div class="col-md-4">
@@ -362,12 +372,12 @@
                                                     class="form-check-input"
                                                     type="radio"
                                                     name="phuongThucChuyenKhoan"
-                                                    id="chuyeKhoan"
-                                                    value="chuyeKhoan"
+                                                    id="chuyenKhoan"
+                                                    value="chuyenKhoan"
                                                     checked
                                                     onchange="toggleInputs()"
                                             />
-                                            <label class="form-check-label" for="chuyeKhoan">
+                                            <label class="form-check-label" for="chuyenKhoan">
                                                 Chuyển khoản
                                             </label>
                                         </div>
@@ -394,7 +404,8 @@
                                             >Tiền Khách Đưa :</label
                                             >
                                             <input
-                                                    type="text"
+                                                    type="number"
+                                                    min="1"
                                                     id="tienKhachDua"
                                                     oninput="calculateChange()"
                                             />
@@ -466,10 +477,11 @@
                         <hr/>
                         <div class="mt-2 d-grid gap-2 d-md-block d-flex justify-content-center text-center">
                             <button
-                                    type="button "
+                                    type="submit "
+                                    id="btnQuayLai"
                                     class="m-2 btn btn-danger btn-labeled"
                             >
-                                Hủy
+                                Trở Về
                                 <span class="btn-label">
                                         <i class="fa fa-remove"></i>
                                          </span>
@@ -682,8 +694,10 @@
     $(document).on('click', '#addDichVuHoaDon', function () {
         var card = $(this).closest('.card-product');
         var soLuong = card.find('.soluong').val();
+        var tenDichVu = $(this).data('ten-dich-vu');
         var idDichVuSuDung = $(this).data('id');
         var trangThaiDichVu = $(this).data('trang-thai');
+        var giaDichVu = $(this).data('gia-dich-vu');
         clearTienKhachDua();
         $.ajax({
             url: '/api/v1/staff/dich-vu-san-bong/them-dich-vu-hoa-don/' + getId,
@@ -702,11 +716,13 @@
                 console.error('API Request Failed:', error);
             }
         });
+        createAndShowToast('bg-success', 'Thêm Dịch Vụ Thành Công :', tenDichVu + ' : ' + formatCurrencyVND(giaDichVu) + '.VNĐ' + ' sl: ' + soLuong);
     });
     $(document).on('click', '#buttonXoa', function () {
         var idDichVuSuDung = $(this).data('id');
         var card = $(this).closest('.card-product');
         var soLuong = card.find('.soluong').val();
+        var tenDichVu = $(this).data('ten-dich-vu');
         var trangThaiDichVu = $(this).data('trang-thai');
         $.ajax({
             url: '/api/v1/staff/dich-vu-san-bong/xoa-dich-vu/' + getId,
@@ -724,12 +740,15 @@
                 console.error('API Request Failed:', error);
             }
         });
+        createAndShowToast('bg-success', 'Xóa Dịch Vu Thành Công :', tenDichVu + ' : ' + ' sl: ' + soLuong);
     });
     $(document).on('click', '#buttonCapNhat', function () {
         var idDichVuSuDung = $(this).data('id');
         var card = $(this).closest('.card-product');
         var soLuong = card.find('.soluong').val();
         var trangThaiDichVu = $(this).data('trang-thai');
+        var tenDichVu = $(this).data('ten-dich-vu');
+        var giaDichVu = $(this).data('gia-dich-vu');
         $.ajax({
             url: '/api/v1/staff/dich-vu-san-bong/cap-nhat-so-luong-dich-vu/' + getId,
             method: 'POST',
@@ -746,6 +765,7 @@
                 console.error('API Request Failed:', error);
             }
         });
+        createAndShowToast('bg-success', 'Cập Nhật Số Lượng Thành Công :', tenDichVu + ' : ' + formatCurrencyVND(giaDichVu) + '.VNĐ' + ' sl: ' + soLuong);
     });
 
     function displayDichVu() {
@@ -776,13 +796,13 @@
                         htmlContent += '<span class="price" type="number">' + formatCurrencyVND(giaNuocUong) + ' VNĐ</span>';
                         htmlContent += '<div class="form-group form-group-list-service-order">';
                         htmlContent += '<label class="form-label" for="quantity">Số Lượng :</label>';
-                        htmlContent += '<input min="1" value="' + soLuongNuocUong + '" type="number" class="soluong" id="quantity" />';
+                        htmlContent += '<input min="1" value="' + soLuongNuocUong + '" type="number" class="soluong" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + soLuongNuocUong + '"/>';
                         htmlContent += '</div>';
                         htmlContent += '</div>';
                         htmlContent += '<div class="card-footer bg-white">';
                         htmlContent += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
-                        htmlContent += '<button id="buttonXoa" data-id="' + idNuocUong + '" data-trang-thai="' + 1 + '" class="btn btn-danger btn-labeled-sm">Xóa</button>';
-                        htmlContent += '<button id="buttonCapNhat" data-id="' + idNuocUong + '" data-trang-thai="' + 1 + '" class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
+                        htmlContent += '<button id="buttonXoa" data-ten-dich-vu="' + tenNuocUong + '" data-id="' + idNuocUong + '" data-trang-thai="' + 1 + '" class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                        htmlContent += '<button id="buttonCapNhat" data-gia-dich-vu="' + giaNuocUong + '" data-ten-dich-vu="' + tenNuocUong + '" data-id="' + idNuocUong + '" data-trang-thai="' + 1 + '"  class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
                         htmlContent += '</div>';
                         htmlContent += '</div>';
                         htmlContent += '</div>';
@@ -805,13 +825,13 @@
                         htmldoThue += '<span class="price" type="number">' + formatCurrencyVND(giaDoThue) + ' VNĐ</span>';
                         htmldoThue += '<div class="form-group form-group-list-service-order">';
                         htmldoThue += '<label class="form-label" for="quantity">Số Lượng :</label>';
-                        htmldoThue += '<input min="1" value="' + soLuongDoThue + '" type="number" class="soluong" id="quantity" />';
+                        htmldoThue += '<input min="1" value="' + soLuongDoThue + '" type="number" class="soluong" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + soLuongDoThue + '"/>';
                         htmldoThue += '</div>';
                         htmldoThue += '</div>';
                         htmldoThue += '<div class="card-footer bg-white">';
                         htmldoThue += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
-                        htmldoThue += '<button id="buttonXoa" data-id="' + idDoThue + '" data-trang-thai="' + 2 + '" class="btn btn-danger btn-labeled-sm">Xóa</button>';
-                        htmldoThue += '<button id="buttonCapNhat" data-id="' + idDoThue + '" data-trang-thai="' + 2 + '"  class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
+                        htmldoThue += '<button id="buttonXoa" data-ten-dich-vu="' + tenDoThue + '" data-id="' + idDoThue + '" data-trang-thai="' + 2 + '" class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                        htmldoThue += '<button id="buttonCapNhat" data-gia-dich-vu="' + giaDoThue + '" data-ten-dich-vu="' + tenDoThue + '" data-id="' + idDoThue + '" data-trang-thai="' + 2 + '"  class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
                         htmldoThue += '</div>';
                         htmldoThue += '</div>';
                         htmldoThue += '</div>';
@@ -884,8 +904,8 @@
                             htmlContent2 += '</div>';
                             htmlContent2 += '<div class="card-footer bg-white">';
                             htmlContent2 += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
-                            htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" />';
-                            htmlContent2 += '<button id="addDichVuHoaDon" type="button" class="btn btn-success btn-labeled-sm" data-id="' + id + '" data-trang-thai="' + trangThai + '">Thêm</button>';
+                            htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + 1 + '"/>';
+                            htmlContent2 += '<button id="addDichVuHoaDon" type="button" class="btn btn-success btn-labeled-sm" data-ten-dich-vu="' + tenDichVu + '" data-gia-dich-vu="' + gia + '" data-id="' + id + '" data-trang-thai="' + trangThai + '">Thêm</button>';
                             htmlContent2 += '</div>';
                             htmlContent2 += '</div>';
                             htmlContent2 += '</div>';
@@ -909,8 +929,8 @@
                             htmlContent2 += '</div>';
                             htmlContent2 += '<div class="card-footer bg-white">';
                             htmlContent2 += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
-                            htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" />';
-                            htmlContent2 += '<button id="addDichVuHoaDon" type="button" class="btn btn-success btn-labeled-sm" data-id="' + id + '" data-trang-thai="' + trangThai + '">Thêm</button>';
+                            htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + 1 + '"/>';
+                            htmlContent2 += '<button id="addDichVuHoaDon" type="button" class="btn btn-success btn-labeled-sm" data-ten-dich-vu="' + tenDichVu + '" data-gia-dich-vu="' + gia + '" data-id="' + id + '" data-trang-thai="' + trangThai + '">Thêm</button>';
                             htmlContent2 += '</div>';
                             htmlContent2 += '</div>';
                             htmlContent2 += '</div>';
@@ -932,28 +952,48 @@
     });
     $(document).on('click', '#saveNewPhuPhi', function () {
         var tenPhuPhi = $("#tenPhuPhi").val();
-        var giaPhuPhi = $("#giaPhuPhi").val();
-        $('#tienTraLai').empty();
-        $('#tienKhachDua').empty();
-        $.ajax({
-            url: "/api/v1/staff/phu-phi-hoa-don/luu-phu-phi/" + getId,
-            method: "POST",
-            contentType: 'application/json',
-            data: JSON.stringify({
-                tenPhuPhi: tenPhuPhi,
-                giaPhuPhi: giaPhuPhi
-            }),
-            success: function (data) {
-                displayPhuPhiHoaDon(getId);
-            },
-            error: function (error) {
-                console.log("Error:", error);
-            }
-        });
+        var giaPhuPhi = parseFloat(document.getElementById('giaPhuPhi').value) || 0;
+        $('#tienTraLai').val();
+        $('#tienKhachDua').val();
+
+        console.log(giaPhuPhi);
+        if (tenPhuPhi == '') {
+            $('#tenPhuPhi').val('').css('border-color', 'red');
+        } else {
+            $('#tenPhuPhi').css('border-color', '');
+        }
+        if (giaPhuPhi === 0) {
+            $('#giaPhuPhi').val(0).css('border-color', 'red');
+        } else {
+            $('#giaPhuPhi').css('border-color', '');
+        }
+        if (tenPhuPhi != '' && giaPhuPhi !== 0) {
+            $('#tenPhuPhi').val('');
+            createAndShowToast('bg-success', 'Thêm Phụ Phí Thành Công :', tenPhuPhi + ' ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
+            $.ajax({
+                url: "/api/v1/staff/phu-phi-hoa-don/luu-phu-phi/" + getId,
+                method: "POST",
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    tenPhuPhi: tenPhuPhi,
+                    giaPhuPhi: giaPhuPhi
+                }),
+                success: function (data) {
+                    displayPhuPhiHoaDon(getId);
+                },
+                error: function (error) {
+                    console.log("Error:", error);
+                }
+            });
+            $('#tenPhuPhi').val('');
+            $('#giaPhuPhi').val(0);
+        }
     });
 
     $(document).on('click', '#buttonXoaPhuPhiHoaDon', function () {
         var idPhuPhiHoaDon = $(this).data('id');
+        var tenPhuPhi = $(this).data('ten-phu-phi');
+        var giaPhuPhi = $(this).data('gia-phu-phi');
         $('#tienTraLai').empty();
         $('#tienKhachDua').empty();
         $.ajax({
@@ -966,6 +1006,7 @@
                 console.error('API Request Failed:', error);
             }
         });
+        createAndShowToast('bg-success', 'Xóa Phụ Phí Thành Công :', tenPhuPhi + ' ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
     });
 
     function displayPhuPhiHoaDon(getId) {
@@ -987,7 +1028,7 @@
                         htmlHoaDonPhuPhi += '<td>' + item.tenPhuPhi + '</td>';
                         htmlHoaDonPhuPhi += '<td>' + formatCurrencyVND(item.giaPhuPhi) + '.VNĐ' + '</td>';
                         htmlHoaDonPhuPhi += '<td>';
-                        htmlHoaDonPhuPhi += '<button type="button" id="buttonXoaPhuPhiHoaDon" data-id="' + item.idPhuPhiHoaDon + '" data-phu-phi="' + item.idPhuPhi + '"  class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                        htmlHoaDonPhuPhi += '<button type="button" id="buttonXoaPhuPhiHoaDon" data-gia-phu-phi="' + item.giaPhuPhi + '" data-ten-phu-phi="' + item.tenPhuPhi + '" data-id="' + item.idPhuPhiHoaDon + '" data-phu-phi="' + item.idPhuPhi + '"  class="btn btn-danger btn-labeled-sm">Xóa</button>';
                         htmlHoaDonPhuPhi += '</td>';
                         htmlHoaDonPhuPhi += '</tr>';
                         $('#dataPhuPhiHoaDon').append(htmlHoaDonPhuPhi);
@@ -1041,16 +1082,10 @@
 
         if (tienKhachDua > tongTienHoaDonPhaiTra) {
             var tienTraLai = tienKhachDua - tongTienHoaDonPhaiTra;
-
             document.getElementById('tienTraLai').value = formatCurrencyVND(tienTraLai);
         } else {
             document.getElementById('tienTraLai').value = "Chưa đủ tiền trả";
         }
-    }
-
-    function clearTienKhachDua() {
-        document.getElementById('tienKhachDua').value = "";
-        document.getElementById('tienTraLai').value = "";
     }
 
 
@@ -1065,27 +1100,151 @@
 
     $(document).ready(function () {
         $("#btnThanhToanHoaDon").click(function () {
-            checkPaymentMethod();
+            var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+            if (paymentMethod == "tienMat") {
+                var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
+                console.log(tienKhachDua);
+                if (tienKhachDua === 0) {
+                    showMessageThanhToanWarning();
+                    $('#tienKhachDua').css('border-color', 'red');
+                }
+                if(tienKhachDua < tongTienHoaDonPhaiTra){
+                    showMessageThanhToanWarning();
+                    $('#tienKhachDua').css('border-color', 'red');
+                }
+                if (tienKhachDua >= tongTienHoaDonPhaiTra) {
+                    thanhToanTienMat();
+                    showMessageThanhToan();
+                    $('#tienKhachDua').css('border-color', '')
+                }
+            } else if (paymentMethod == "chuyenKhoan") {
+                thanhToanChuyenKhoan();
+            }
+        });
+    });
+    $(document).ready(function () {
+        $("#btnQuayLai").click(function () {
+            window.location.href = "/api/v1/staff/view-dat-lich";
         });
     });
 
-    function checkPaymentMethod() {
-        var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+    function clearForm() {
+        $('#dataNuocUong').empty();
+        $('#dataDoThue').empty();
+        $('#thoiGianNhanSan').val('');
+        $('#tienTraLai').val('');
+        $('#tienKhachDua').val('');
+        $('#tenSanCa').val('');
+        $('#tienCocSan').val(0);
+        $('#tenKhachHang').val('');
+        $('#tienDichVu').val('');
+        $('#selectPhuPhi').empty();
+        $('#giaPhuPhiShow').val(0);
+        $('#soDienThoai').val('');
+        $('#giaSan').val(0);
+        $('#thoiGianDa').val('');
+        $('#thoiGianCheckIn').val('');
+        $('#tongThanhToan').text('0' + '.VNĐ');
+    }
 
+    function showMessageThanhToan() {
+        var tenKhachHang = $("#tenKhachHang").val();
+        var tenSan = $("#tenSanCa").val();
+        clearForm();
+        createAndShowToast('bg-success', 'Thanh Toán Thành Công :', tenKhachHang + ' : ' + tenSan + ' : ' + formatCurrencyVND(tongTienHoaDonPhaiTra) + '.VNĐ');
+    }
+
+    function showMessageThanhToanWarning() {
+        var tenKhachHang = $("#tenKhachHang").val();
+        var tenSan = $("#tenSanCa").val();
+        createAndShowToast('bg-warning', 'Thanh Toán Chưa Thành Công :', tenKhachHang + ' : ' + tenSan + ' : ' + formatCurrencyVND(tongTienHoaDonPhaiTra) + '.VNĐ');
+    }
+
+    function thanhToanChuyenKhoan() {
+        var tenKhachHang = $("#tenKhachHang").val();
+        var soDienThoai = $("#soDienThoai").val();
+        console.log(tenKhachHang);
+        console.log(soDienThoai);
         $.ajax({
             type: "POST",
-            url: "/api/v1/staff/thanh-toan/" + getId,
-            data: {paymentMethod: paymentMethod},
+            url: "/api/v1/staff/thanh-toan-chuyen-khoan",
+            data: {
+                amount: tongTienHoaDonPhaiTra,
+                orderInfo: soDienThoai,
+            },
             success: function (response) {
-                console.log(response);
-                if (response === "paymentMethod=tienMat") {
-                    location.reload();
-                }
+                window.open(response);
             },
             error: function (error) {
                 console.error("Lỗi Ajax: ", error);
             }
         });
+    }
+
+    function thanhToanTienMat() {
+        var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+        $.ajax({
+            type: "POST",
+            url: "/api/v1/staff/thanh-toan-tien-mat/" + getId,
+            data: {paymentMethod: paymentMethod},
+            success: function (response) {
+
+            },
+            error: function (error) {
+                console.error("Lỗi Ajax: ", error);
+            }
+        });
+    }
+    function createAndShowToast(backGround, headerText, bodyText) {
+        const toastContainer = document.getElementById("toastContainer");
+        const toastsContainer = document.getElementById("toasts");
+        const maxToasts = 5;
+        const toastsArray = [];
+        let toastCounter = 1;
+
+        toastCounter++;
+        const toast = document.createElement("div");
+        toast.className = "toast mb-2";
+        toast.setAttribute("role", "alert");
+        toast.setAttribute("aria-live", "assertive");
+        toast.setAttribute("aria-atomic", "true");
+
+        toast.innerHTML = `
+          <div class="toast-header  ${backGround}" style="border-radius:5px 5px 0px 0px">
+            <div class="mx-1">
+              <i class="far fa-futbol fa-lg" style="color: #ffffff"></i>
+            </div>
+            <strong class="me-auto" style="color: #ffffff">${headerText}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body p-2" style="color: black; font-size: 14px;background-color: #ffffff;border-radius:0px 0px 5px 5px ">
+            ${bodyText}
+          </div>
+        `;
+
+        // thằng bố add thằng toast là con
+        toastContainer.appendChild(toast);
+
+        // hiển thị toast
+        const toastInstance = new bootstrap.Toast(toast, {
+            animation: true,
+            autohide: true,
+            delay: 5000,
+        });
+
+        // hiển thị ra toast
+        toastInstance.show();
+
+        toastsArray.forEach((toast) => {
+            toast.addEventListener("hidden.bs.toast", function () {
+                toast.remove();
+                if (toastInnerContainer.childElementCount === 0) {
+                    toastContainer.remove();
+                }
+            });
+        });
+
+        toastsArray.push(toast);
     }
 </script>
 <script>
@@ -1104,6 +1263,15 @@
     }
 
     toggleInputs();
+    function validatePositiveNumberInput(input) {
+        // Get the input value
+        var inputValue = $(input).val();
+        if (isNaN(inputValue) || parseFloat(inputValue) <= 0) {
+            var initialQuantity = $(input).data('initial-quantity');
+            $(input).val(initialQuantity);
+            createAndShowToast('bg-success', 'Nhập Số Lượng Sai :', inputValue);
+        }
+    }
 </script>
 <!-- Add Bootstrap JS and jQuery links -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
