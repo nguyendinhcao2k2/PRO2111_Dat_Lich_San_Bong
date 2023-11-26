@@ -427,36 +427,41 @@ public class DBGenerator implements CommandLineRunner {
 
         NuocUong nuocUong1 = new NuocUong();
         nuocUong1.setTenNuocUong("STING ĐỎ");
-        nuocUong1.setSoLuong(200);
+        nuocUong1.setSoLuong(11200);
         nuocUong1.setDonGia(8000d);
+        nuocUong1.setImage("sting_do.jpg");
         nuocUong1.setTrangThai(0); // 0: ĐANG BÁN 1: TẠM DỪNG
         nuocUong1.setId(nuocUongRepository.save(nuocUong1).getId());
 
         NuocUong nuocUong2 = new NuocUong();
         nuocUong2.setTenNuocUong("STING VÀNG");
-        nuocUong2.setSoLuong(200);
+        nuocUong2.setSoLuong(11200);
         nuocUong2.setDonGia(8000d);
+        nuocUong2.setImage("sting_vang.jpg");
         nuocUong2.setTrangThai(0); // 0: ĐANG BÁN 1: TẠM DỪNG
         nuocUong2.setId(nuocUongRepository.save(nuocUong2).getId());
 
         NuocUong nuocUong3 = new NuocUong();
         nuocUong3.setTenNuocUong("7 UP");
-        nuocUong3.setSoLuong(300);
+        nuocUong3.setSoLuong(11300);
         nuocUong3.setDonGia(8000d);
+        nuocUong3.setImage("7up.jpg");
         nuocUong3.setTrangThai(0); // 0: ĐANG BÁN 1: TẠM DỪNG
         nuocUong3.setId(nuocUongRepository.save(nuocUong3).getId());
 
         NuocUong nuocUong4 = new NuocUong();
-        nuocUong4.setTenNuocUong("MIRIDA");
-        nuocUong4.setSoLuong(100);
+        nuocUong4.setTenNuocUong("MIRINDA");
+        nuocUong4.setSoLuong(11100);
         nuocUong4.setDonGia(10000d);
+        nuocUong4.setImage("mirida.jpg");
         nuocUong4.setTrangThai(0); // 0: ĐANG BÁN 1: TẠM DỪNG
         nuocUong4.setId(nuocUongRepository.save(nuocUong4).getId());
 
         NuocUong nuocUong5 = new NuocUong();
         nuocUong5.setTenNuocUong("NƯỚC KHOÁNG");
-        nuocUong5.setSoLuong(500);
+        nuocUong5.setSoLuong(1500);
         nuocUong5.setDonGia(5000d);
+        nuocUong5.setImage("nuoc_khoang.png");
         nuocUong5.setTrangThai(0); // 0: ĐANG BÁN 1: TẠM DỪNG
         nuocUong5.setId(nuocUongRepository.save(nuocUong5).getId());
 
@@ -464,29 +469,33 @@ public class DBGenerator implements CommandLineRunner {
 
         DoThue doThue1 = new DoThue();
         doThue1.setTenDoThue("ÁO ĐỘI BÓNG");
-        doThue1.setSoLuong(200);
+        doThue1.setSoLuong(11200);
         doThue1.setDonGia(20000d);
+        doThue1.setImage("dothue1.jpg");
         doThue1.setTrangThai(0); //0:CÒN ĐỒ THUÊ -- 1: HẾT ĐỒ THUÊ
         doThue1.setId(doThueRepository.save(doThue1).getId());
 
         DoThue doThue2 = new DoThue();
         doThue2.setTenDoThue("BÓNG ĐÁ");
-        doThue2.setSoLuong(200);
+        doThue2.setSoLuong(11200);
         doThue2.setDonGia(30000d);
+        doThue2.setImage("bong_da1.jpg");
         doThue2.setTrangThai(0); //0:CÒN ĐỒ THUÊ -- 1: HẾT ĐỒ THUÊ
         doThue2.setId(doThueRepository.save(doThue2).getId());
 
         DoThue doThue3 = new DoThue();
         doThue3.setTenDoThue("GIÀY ĐÁ BÓNG");
-        doThue3.setSoLuong(200);
+        doThue3.setSoLuong(11200);
         doThue3.setDonGia(50000d);
+        doThue3.setImage("giay-da-bong-2.jpg");
         doThue3.setTrangThai(0); //0:CÒN ĐỒ THUÊ -- 1: HẾT ĐỒ THUÊ
         doThue3.setId(doThueRepository.save(doThue3).getId());
 
         DoThue doThue4 = new DoThue();
         doThue4.setTenDoThue("BẢNG THỐNG KÊ");
-        doThue4.setSoLuong(200);
+        doThue4.setSoLuong(11200);
         doThue4.setDonGia(10000d);
+        doThue4.setImage("tinh_diem2.jpg");
         doThue4.setTrangThai(0); //0:CÒN ĐỒ THUÊ -- 1: HẾT ĐỒ THUÊ
         doThue4.setId(doThueRepository.save(doThue4).getId());
 
