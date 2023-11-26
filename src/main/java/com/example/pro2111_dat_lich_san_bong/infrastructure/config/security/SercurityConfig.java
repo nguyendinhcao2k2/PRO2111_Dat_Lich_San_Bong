@@ -107,7 +107,7 @@ public class SercurityConfig {
                 .and()
                 .exceptionHandling().accessDeniedPage("/authentication/403")
                 .authenticationEntryPoint((request, response, authException) -> {
-                    response.sendRedirect("http://localhost:" + port + "/authentication/403");
+                    response.sendRedirect("http://localhost:" + port + "/authentication/home-login");
                 });
         return http.build();
     }
