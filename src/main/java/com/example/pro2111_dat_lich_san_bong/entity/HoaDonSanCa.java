@@ -34,6 +34,8 @@ public class HoaDonSanCa {
     private Time thoiGianCheckIn;
     @Column(name = "tien_san")
     private Double tienSan;
+    @Column(name = "tong_tien-hoa_don_san_ca")
+    private Double tongTienHoaDonSanCa;
     @Column(name = "id_hoa_don")
     private String idHoaDon;
     @Column(name = "id_san_ca")
