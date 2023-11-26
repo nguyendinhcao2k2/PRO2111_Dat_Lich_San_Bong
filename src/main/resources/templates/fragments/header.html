@@ -85,6 +85,7 @@
                   <span
                           class="mr-2 d-lg-inline text-gray-600"
                           style="color: white"
+                          th:text="${session.Account.displayName}"
                   >Nguyễn Anh Thư</span
                   >
               <img
@@ -105,16 +106,10 @@
                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                 Lịch sử giao dịch
               </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                Activity Log
-              </a>
               <div class="dropdown-divider"></div>
               <a
                       class="dropdown-item"
-                      href="#"
-                      data-toggle="modal"
-                      data-target="#logoutModal"
+                      th:href="@{/logout}"
               >
                 <i
                         class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
@@ -123,6 +118,10 @@
               </a>
             </div>
           </li>
+          <a
+                  th:href="/template/user/login.html"
+                  class="btn btn-secondary text-light rounded-pill py-2 px-4 ms-3"
+          >Đăng Nhập</a>
         </div>
       </div>
     </nav>
