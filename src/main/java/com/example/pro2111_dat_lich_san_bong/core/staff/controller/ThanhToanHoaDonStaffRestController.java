@@ -2,15 +2,21 @@ package com.example.pro2111_dat_lich_san_bong.core.staff.controller;
 
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.DichVuSanBongStaffRepository;
+import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.SanCaStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.impl.ThanhToanSanCaStaffServiceImpl;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
+import com.example.pro2111_dat_lich_san_bong.entity.HinhThucThanhToan;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
+import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.LoaiHinhThanhToan;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiDichVu;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.repository.DichVuSanBongRepository;
+import com.example.pro2111_dat_lich_san_bong.repository.HinhThucThanhToanRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.HoaDonSanCaReponsitory;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +52,12 @@ public class ThanhToanHoaDonStaffRestController {
     @Autowired
     private DichVuSanBongStaffRepository dichVuSanBongStaffRepository;
 
+    @Autowired
+    private SanCaStaffRepository sanCaStaffRepository;
+
+    @Autowired
+    private HinhThucThanhToanRepository hinhThucThanhToanRepository;
+
     @GetMapping("/get-all-thanh-toan")
     public ResponseEntity<List<HoaDonThanhToanRequest>> getAllHoaDonThanhToans() {
         List<HoaDonThanhToanRequest> listHoaDonThanhToans = thanhToanStaffService.getAllHoaDonSanCas();
@@ -67,6 +79,14 @@ public class ThanhToanHoaDonStaffRestController {
             hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.DA_THANH_TOAN.ordinal());
             hoaDonSanCa.setNgayThanhToan(timestamp);
             hoaDonSanCaReponsitory.save(hoaDonSanCa);
+            SanCa sanCa = sanCaStaffRepository.getById(hoaDonSanCa.getIdSanCa());
+            sanCa.setTrangThai(TrangThaiSanCa.QUA_GIO_HIEN_TAI.ordinal());
+            HinhThucThanhToan hinhThucThanhToan = new HinhThucThanhToan();
+            hinhThucThanhToan.setLoaiHinhThanhToan(LoaiHinhThanhToan.TIEN_MAT);
+            hinhThucThanhToan.setTrangThai(LoaiHinhThanhToan.TIEN_MAT.ordinal());
+            hinhThucThanhToan.setIdHoaDonSanCa(hoaDonSanCa.getId());
+            sanCaStaffRepository.saveAndFlush(sanCa);
+            hinhThucThanhToanRepository.saveAndFlush(hinhThucThanhToan);
             List<DichVuSanBong> listDichVuSanBong = dichVuSanBongStaffRepository.findAllByIdHoaDonSanCaAndTrangThai(hoaDonSanCa.getId(), TrangThaiDichVu.Dang_Su_Dung.ordinal());
             for (DichVuSanBong dichVuSanBong : listDichVuSanBong) {
                 dichVuSanBong.setTrangThai(TrangThaiDichVu.NGUNG_Su_Dung.ordinal());
