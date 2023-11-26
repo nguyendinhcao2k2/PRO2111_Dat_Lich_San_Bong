@@ -190,16 +190,16 @@ $(document).ready(() => {
                                     contentType: "application/json",
                                     success: function (response) {
                                         if (response.statusCode === "OK") {
-                                            shouldScanQRCode = false;
-                                            if (webcamStream) {
-                                                var tracks = webcamStream.getTracks();
-                                                tracks.forEach(function (track) {
-                                                    track.stop();
-                                                });
-                                            }
-                                            $(".camera").slideUp(1000);
-                                            $(".start").show();
-                                            $(".camera-selection").slideUp(1000);
+                                            // shouldScanQRCode = false;
+                                            // if (webcamStream) {
+                                            //     var tracks = webcamStream.getTracks();
+                                            //     tracks.forEach(function (track) {
+                                            //         track.stop();
+                                            //     });
+                                            // }
+                                            // $(".camera").slideUp(1000);
+                                            // $(".start").show();
+                                            // $(".camera-selection").slideUp(1000);
                                             return alert("Check-in thành công!");
                                         } else if (response.statusCode === "NOT_FOUND") {
                                             return alert("Không tìm thấy phiếu đặt!");
