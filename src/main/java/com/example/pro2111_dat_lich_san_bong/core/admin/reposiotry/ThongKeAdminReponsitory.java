@@ -13,7 +13,7 @@ public interface ThongKeAdminReponsitory extends HoaDonSanCaReponsitory {
     @Query(value = """
                    select new com.example.pro2111_dat_lich_san_bong.core.admin.model.response.ThongKeTheoNamAdminResponse(month(hdsc.ngayThanhToan) as thang, sum(hdsc.tongTienHoaDonSanCa)) 
                    from HoaDonSanCa hdsc 
-                   where hdsc.trangThai = 0 and year(hdsc.ngayThanhToan) = :year
+                   where hdsc.trangThai = 3 and year(hdsc.ngayThanhToan) = :year
                    group by month(hdsc.ngayThanhToan)
                    order  by month(hdsc.ngayThanhToan) ASC
             """)
@@ -40,7 +40,7 @@ public interface ThongKeAdminReponsitory extends HoaDonSanCaReponsitory {
                     from HoaDonSanCa hdsc
                     		join DichVuSanBong dvsb on hdsc .id  = dvsb.idHoaDonSanCa
                     		join DoThue dt on dvsb.idDoThue  = dt.id
-                    where hdsc.trangThai  =0 
+                    where hdsc.trangThai  =3
                     and year(hdsc.ngayThanhToan) = :year
                     group by dvsb.idDoThue 
             """)
@@ -56,7 +56,7 @@ public interface ThongKeAdminReponsitory extends HoaDonSanCaReponsitory {
                     from HoaDonSanCa hdsc
                     		join DichVuSanBong dvsb on hdsc .id  = dvsb.idHoaDonSanCa
                     		join DoThue dt on dvsb.idDoThue  = dt.id
-                    where hdsc.trangThai  =0
+                    where hdsc.trangThai  =3
                     and year(hdsc.ngayThanhToan ) = :year
                     and month(hdsc.ngayThanhToan) = :month
                     group by dvsb.idDoThue
@@ -73,7 +73,7 @@ public interface ThongKeAdminReponsitory extends HoaDonSanCaReponsitory {
                     from HoaDonSanCa hdsc
                     		join DichVuSanBong dvsb on hdsc .id  = dvsb.idHoaDonSanCa
                     		join DoThue dt on dvsb.idDoThue  = dt.id
-                    where hdsc.trangThai  =0
+                    where hdsc.trangThai  =3
                     and year(hdsc.ngayThanhToan ) = :year
                     and month(hdsc.ngayThanhToan) = :month
                     and day(hdsc.ngayThanhToan) = :day
@@ -93,7 +93,7 @@ public interface ThongKeAdminReponsitory extends HoaDonSanCaReponsitory {
                     from HoaDonSanCa hdsc
                     		join DichVuSanBong dvsb on hdsc .id  = dvsb.idHoaDonSanCa
                     		join NuocUong nu on dvsb.idNuocUong  = nu.id
-                    where hdsc.trangThai  =0 
+                    where hdsc.trangThai  =3
                     and year(hdsc.ngayThanhToan) = :year
                     group by dvsb.idNuocUong 
             """)
@@ -110,7 +110,7 @@ public interface ThongKeAdminReponsitory extends HoaDonSanCaReponsitory {
                     from HoaDonSanCa hdsc
                     		join DichVuSanBong dvsb on hdsc .id  = dvsb.idHoaDonSanCa
                     		join NuocUong nu on dvsb.idNuocUong  = nu.id
-                    where hdsc.trangThai  =0 
+                    where hdsc.trangThai  =3
                     and year(hdsc.ngayThanhToan) = :year
                     and month(hdsc.ngayThanhToan) = :month
                     group by dvsb.idNuocUong 
@@ -128,7 +128,7 @@ public interface ThongKeAdminReponsitory extends HoaDonSanCaReponsitory {
                     from HoaDonSanCa hdsc
                     		join DichVuSanBong dvsb on hdsc .id  = dvsb.idHoaDonSanCa
                     		join NuocUong nu on dvsb.idNuocUong  = nu.id
-                    where hdsc.trangThai  =0 
+                    where hdsc.trangThai  =3
                     and year(hdsc.ngayThanhToan ) = :year
                     and month(hdsc.ngayThanhToan) = :month
                     and day(hdsc.ngayThanhToan) = :day
