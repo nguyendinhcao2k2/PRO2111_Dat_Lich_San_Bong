@@ -24,11 +24,11 @@ var tab1 = new Vue({
                 type: "DELETE",
                 url: "http://localhost:8081/api/v1/admin/account/delete/" + id,
                 success: function (response) {
-                    alert(response.content);
+                    createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                     callApi("http://localhost:8081/api/v1/admin/account/find-all");
                 },
                 error: function (error) {
-                    alert("Lỗi");
+                    createAndShowToast("bg-danger","Thông báo!","Thao tác thất bại!");
                 },
             });
         },
@@ -39,7 +39,12 @@ var tab1 = new Vue({
         },
         confirmSave() {
             if (!this.checkRegex(this.account.soDienThoai)) {
-                alert("Số điện thoại không đúng định dạng!");
+                createAndShowToast("bg-warning","Thông báo!","Số điện thoại không đúng định dạng!");
+                return;
+            }
+            var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ /;
+            if(!regex.test(this.account.email)){
+                createAndShowToast("bg-warning","Thông báo!","Email không đúng định dạng!");
                 return;
             }
             if (confirm("BẠN CÓ CHẮC CHẮN THỰC HIỆN THAO TÁC!")) {
@@ -61,19 +66,19 @@ var tab1 = new Vue({
                 }),
                 success: function (response) {
                     if (response.statusCode == "OK") {
-                        alert("Thêm thành công!");
+                        createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                         callApi(
                             "http://localhost:8081/api/v1/admin/account/find-all"
                         );
                         return;
                     }
                     if (response.statusCode == "ACCEPTED") {
-                        alert("Đã tồn tại userName!");
+                        createAndShowToast("bg-warning","Thông báo!","Đã tồn tại userName!");
                         return;
                     }
                 },
                 error: function (error) {
-                    alert("Lỗi");
+                    createAndShowToast("bg-danger","Thông báo!","Lỗi!");
                 },
             });
         },
@@ -97,7 +102,7 @@ var tab1 = new Vue({
                     tab1.countIndex = 1;
                 },
                 error: function (error) {
-                    alert(error);
+                    createAndShowToast("bg-danger","Thông báo!","Lỗi!");
                 },
             });
         },
@@ -131,7 +136,7 @@ function callApi(url) {
             tab1.curentPage = response.content.currentPage;
         },
         error: function (error) {
-            alert(error);
+            createAndShowToast("bg-danger","Thông báo!","Lỗi!");
         },
     });
 }

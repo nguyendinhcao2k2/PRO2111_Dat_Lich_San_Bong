@@ -44,7 +44,7 @@ $(document).ready(() => {
     $(".confirm").click(() => {
         if ($("#tienPhatSinh").val() != 0 && $(".ghiChuPhatSinh").val() == "") {
             document.title = "Thông báo!";
-            alert("Vui lòng nhập tiền phát sinh")
+            createAndShowToast("bg-warning","Thông báo!","Bạn có tiền phát sinh! Vui lòng nhập ghi chú phát sinh!");
         } else {
             $.ajax({
                 type: "POST",
@@ -81,7 +81,8 @@ $(document).ready(() => {
                         }, 4000);
                         return;
                     }
-                    return alert("Lỗi!");
+                    createAndShowToast("bg-warning","Thông báo!","Lỗi!");
+                    return;
                 },
                 error: (error) => {
                     console.log(error)
@@ -94,7 +95,7 @@ $(document).ready(() => {
     $(".resetCa").click(() => {
         if ($("#tienPhatSinh").val() != 0 && $(".ghiChuPhatSinh").val() == "") {
             document.title = "Thông báo!";
-            alert("Vui lòng nhập tiền phát sinh")
+            createAndShowToast("bg-warning","Thông báo!","Bạn có tiền phát sinh! Vui lòng nhập ghi chú phát sinh!");
         } else {
             $.ajax({
                 type: "POST",
@@ -133,7 +134,8 @@ $(document).ready(() => {
                         }, 4000);
                         return;
                     }
-                    return alert("Lỗi!");
+                    createAndShowToast("bg-warning","Thông báo!","Lỗi!");
+                    return;
                 },
                 error: (error) => {
                     console.log(error)
@@ -185,7 +187,7 @@ var app = new Vue({
             } else {
                 var price = parseFloat(this.giaoCaStaff.tongTienMatTrongCa) - parseFloat(event.target.value.replace(/\./g, ""));
                 if (price < 0) {
-                    alert("Không đủ tiền!");
+                    createAndShowToast("bg-warning","Thông báo!","Xin lỗi, Bạn không đủ tiền!");
                     return event.target.value = parseInt(this.repleaPriceDouble(event.target.value.slice(0, -1))).toLocaleString(
                         "vi-VN"
                     );
@@ -225,7 +227,7 @@ var app = new Vue({
                 "vi-VN"
             );
             if (parseInt(this.repleaPriceDouble(event.target.value)) > parseInt(this.repleaPriceDouble(this.total))) {
-                alert('Tiền mặt hiện tại chỉ có ' + this.total + ' VND');
+                createAndShowToast("bg-warning","Thông báo!","Rất tiếc bạn chỉ có "+ this.total+" VND");
                 return event.target.value = parseInt(this.repleaPriceDouble(event.target.value.slice(0, -1))).toLocaleString(
                     "vi-VN"
                 );

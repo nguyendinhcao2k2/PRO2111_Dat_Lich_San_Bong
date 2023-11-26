@@ -63,7 +63,7 @@
                     <h6 class="text-center lead">Đăng Nhập Với Vai Trò Là Nhân Viên</h6>
                     <form th:action="@{/login}" method="post">
                         <label class="font-500">Tên Tài Khoản</label>
-                        <input th:name="username" class="form-control form-control-lg mb-3" type="text">
+                        <input th:name="username" class="form-control form-control-lg mb-3" value="nhanVien1" type="text">
                         <label class="font-500">Mật Khẩu</label>
                         <input th:name="password" class="form-control form-control-lg" type="password">
                         <a th:href="@{/authentication/home-login}">Quay lại !</a>

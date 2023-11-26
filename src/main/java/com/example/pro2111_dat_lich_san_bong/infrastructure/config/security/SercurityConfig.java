@@ -73,15 +73,13 @@ public class SercurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors().and().csrf().disable().authorizeHttpRequests()
-//                .requestMatchers("/authentication/**", "/error").permitAll()
-//                .requestMatchers("/static/**").permitAll()
-//                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleConstant.roleAdmin)
-//                .requestMatchers("/api/v1/staff/**").hasAuthority(RoleConstant.roleStaff)
-//                .requestMatchers("/api/v1/user/**").hasAuthority(RoleConstant.roleUser)
-//                .anyRequest().authenticated()
-//                set tạm
-                .anyRequest().permitAll()
-                //set tạm
+                .requestMatchers("/authentication/**", "/error").permitAll()
+                .requestMatchers("/chi-tiet/hoa-don","/api/v1/trang-chu").permitAll()
+                .requestMatchers("/static/**").permitAll()
+                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleConstant.roleAdmin)
+                .requestMatchers("/api/v1/staff/**").hasAuthority(RoleConstant.roleStaff)
+                .requestMatchers("/api/v1/user/**").hasAuthority(RoleConstant.roleUser)
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -109,7 +107,7 @@ public class SercurityConfig {
                 .and()
                 .exceptionHandling().accessDeniedPage("/authentication/403")
                 .authenticationEntryPoint((request, response, authException) -> {
-                    response.sendRedirect("http://localhost:" + port + "/authentication/403");
+                    response.sendRedirect("http://localhost:" + port + "/authentication/home-login");
                 });
         return http.build();
     }
@@ -121,7 +119,7 @@ public class SercurityConfig {
             //auto source /api/v1/staff/all
             response.sendRedirect("api/v1/staff/account/display");
         } else if (role.equalsIgnoreCase(RoleConstant.roleUser)) {
-            response.sendRedirect("/api/v1/user/trang-chu/danh-sach-lich-dat");
+            response.sendRedirect("/api/v1/trang-chu");
         }
     }
 

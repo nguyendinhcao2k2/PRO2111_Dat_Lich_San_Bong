@@ -28,11 +28,11 @@
             class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3"
             style="background-color: #2124b1"
     >
-      <a href="" class="navbar-brand p-0">
+      <a th:href="@{/api/v1/trang-chu}" class="navbar-brand p-0">
         <h1 class="m-0">
           <i
                   class="fa-solid fa-futbol"
-                  style="color: rgb(244, 238, 238); font-size: 35px"
+                  style="color: rgb(244, 238, 238); font-size: 40px"
           ></i>
           <span style="font-style: italic; font-size: 35px; color: white; font-weight: bold"
           >DONGDE</span
@@ -59,12 +59,12 @@
                 style="color: white; font-size: 18px"
         >
           <a
-                  href="/template/user/trang-chu.html"
+                  th:href="@{/api/v1/trang-chu}"
                   class="nav-item nav-link active"
                   style="color: white"
           >Trang Chủ</a>
           <a
-                  href="/template/user/book-soccer-field.html"
+                  th:href="@{/api/v1/user/trang-chu/danh-sach-lich-dat}"
                   class="nav-item nav-link"
                   style="color: white"
           >Đặt Sân</a

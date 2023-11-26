@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     //Get account by login
@@ -46,19 +47,19 @@ $(document).ready(function () {
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     confirm = true;
-                                    window.location.href = data;
+                                    window.location.href = "http://localhost:8081/api/v1/staff/view-dat-lich";
                                 }
                             });
                             setTimeout(() => {
                                 if (!confirm) {
-                                    window.location.href = data;
+                                    window.location.href = "http://localhost:8081/api/v1/staff/view-dat-lich";
                                 }
                             }, 3000);
                             return;
                         }
                     });
                 } else {
-                    alert("Nhận ca thất bại!")
+                    createAndShowToast("bg-danger","Thông báo!","Xin lỗi nhận ca thất bại!");
                 }
 
             },

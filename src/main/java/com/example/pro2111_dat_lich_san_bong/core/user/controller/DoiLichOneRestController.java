@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.controller;
 
 import com.example.pro2111_dat_lich_san_bong.core.common.session.CommonSession;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.request.DoiLichOneRequest;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.request.HoaDonUserRequest;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.DoiLichDatResponse;
@@ -8,15 +9,22 @@ import com.example.pro2111_dat_lich_san_bong.core.user.model.response.DoiLichOne
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.LoaiSanAndCaResponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.repository.DoiLichUserReponsitory;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.*;
+import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailUtils;
+import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
 import com.example.pro2111_dat_lich_san_bong.entity.*;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
+import com.example.pro2111_dat_lich_san_bong.model.request.SendMailRequest;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
+import com.example.pro2111_dat_lich_san_bong.model.response.MaillListResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.context.Context;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -24,13 +32,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/user/doi-lich")
 @CrossOrigin("*")
-public class DoiLichRestController {
+public class DoiLichOneRestController {
 
     @Autowired
     private CaUserService caUserService;
@@ -43,8 +52,6 @@ public class DoiLichRestController {
 
     @Autowired
     private CommonSession commonSession;
-
-
 
     @Autowired
     private DoiLichUserService doiLichUserService;
@@ -61,6 +68,12 @@ public class DoiLichRestController {
     @Autowired
     private HoaDonDoiLichUserService hoaDonDoiLichUserService;
 
+    @Autowired
+    private SendMailUtils sendMailUtils;
+
+    @Autowired
+    private SendMailWithBookings sendMailWithBookings;
+
 
     @GetMapping()
     public ResponseEntity<?> doiLich() {
@@ -75,24 +88,6 @@ public class DoiLichRestController {
         }
     }
 
-    //    @PostMapping("/lich-chua-xn")
-//    public ResponseEntity<?> doiLichChuaXn(@RequestBody List<HoaDonUserRequest> list) throws ParseException {
-//        SimpleDateFormat dateOriginal = new SimpleDateFormat("dd-MM-yyyy");
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        for (HoaDonUserRequest request : list) {
-//            LoaiSan loaiSan = loaiSanUserService.finLoaiSanByTeLoaiSan(request.getLoaiSanCu());
-//            Ca ca = caUserService.findFirstByTenCa(request.getCaCu());
-//            System.out.println(request.getCaNew());
-//            System.out.println(request.getLoaiSanNew());
-//            System.out.println(request.getGiaNew());
-//            System.out.println(request.getNgayNew());
-//            ThoiGianDatLich thoiGianDatLich = thoiGianDLUserServiver.findTGDLByIdCaAndIdLsAndNgayDa(request.getId(),
-//                    format.parse(format.format(dateOriginal.parse(request.getNgayDaCu()))),
-//                    ca.getId(), loaiSan.getId());
-//
-//        }
-//        return ResponseEntity.ok("OKE");
-//    }
     @GetMapping("/one/{id}")
     public ResponseEntity<?> doiLich1(@PathVariable("id") String idSanCa) {
         try {
@@ -122,7 +117,7 @@ public class DoiLichRestController {
     }
 
     @PostMapping("update-lich")
-    public ResponseEntity<?> updateLichDat(@RequestBody DoiLichOneRequest doiLichOneRequest) {
+    public ResponseEntity<?> updateLichDat(@RequestBody DoiLichOneRequest doiLichOneRequest, HttpServletRequest request) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -165,18 +160,66 @@ public class DoiLichRestController {
             sanCaUpdate.setUserId(sanCa.getUserId());
             sanCaUpdate.setThoiGianDat(sanCa.getThoiGianDat());
 
+
             //cap nhat hoa don
             hoaDon.setTongTien((hoaDon.getTongTien() - hoaDonSanCa.getTienSan()) + Double.valueOf(doiLichOneRequest.getTienSan()));
-            hoaDon.setTienCoc(hoaDon.getTienCoc() + doiLichOneRequest.getTienCocThieu());
+//            hoaDon.setTienCoc(hoaDon.getTienCoc() + doiLichOneRequest.getTienCocThieu());
             hoaDonDoiLichUserService.update(hoaDon);
-            //cap nhat hoa don san ca
+            //create hoa don san ca,san ca
             hoaDonSanCaUserService.saveHoaDonSanCa(hoaDonSanCaUpdate);
             sanCaUserService.saveSanCa(sanCaUpdate);
 
             //delete
-            hoaDonSanCaUserService.deleteByIdHoaDonSanCa(doiLichOneRequest.getIdHDSC());
+            hoaDonSanCaUserService.deleteByIdHoaDonSanCa(hoaDonSanCa.getId());
             sanCaUserService.deleteSanCaById(sanCa.getId());
 
+
+//            gửi mail
+            List<HoaDonSendMailResponse> list = hoaDonSanCaUserService.getLisTHDSC(hoaDon.getId());
+            DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            DateTimeFormatter formatterNgayDa = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            if(list.size() == 1){
+                HoaDonSendMailResponse response = list.get(0);
+
+                SendMailRequest sendMailRequest = new SendMailRequest();
+                sendMailRequest.setTitle("Phiếu Đặt Lịch");
+                sendMailRequest.setNguoiDat(response.getDisplayName());
+                sendMailRequest.setNguoiNhanMail(response.getEmail());
+                sendMailRequest.setQrCodeData(response.getMaQR());
+                sendMailRequest.setNgayDat(formatter.format(response.getNgayTao()));
+                sendMailRequest.setTimeStart(response.getThoiGianBatDau());
+                sendMailRequest.setTimeEnd(response.getThoiGianKetThuc());
+                sendMailRequest.setGiaTien(response.getTienSan());
+                sendMailRequest.setNgayCheckIn(formatterNgayDa.format(response.getNgayDenSan()));
+
+                sendMailUtils.sendEmail(sendMailRequest);
+            }else if (list.size()>1){
+
+                Context context = new Context();
+                context.setVariable("nguoiDat", hoaDon.getTenNguoiDat());
+                context.setVariable("sdt", hoaDon.getSoDienThoaiNguoiDat());
+
+                //thời gian đặt sân
+                context.setVariable("timeDat", hoaDon.getNgayTao());
+                context.setVariable("tongTien",decimalFormat.format(hoaDon.getTongTien()));
+
+                List<MaillListResponse> listResponses = new ArrayList<>();
+
+                for (HoaDonSendMailResponse response: list) {
+                    MaillListResponse maillListResponse = new MaillListResponse();
+                    maillListResponse.setIdHoaDonSanCa(response.getId());
+                    maillListResponse.setGiaSan(decimalFormat.format(response.getTienSan()));
+                    maillListResponse.setNgayDa(formatterNgayDa.format(response.getNgayDenSan()));
+                    maillListResponse.setCa(response.getTenCa()+": ("+response.getThoiGianBatDau()+"-"+response.getThoiGianKetThuc()+")");
+                    listResponses.add(maillListResponse);
+                }
+
+                context.setVariable("thoiGianList", listResponses);
+                sendMailWithBookings.sendEmailBookings(hoaDon.getEmail(), context,request);
+            }
+//            gửi mail
 
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, "Oke"));
         } catch (Exception e) {
