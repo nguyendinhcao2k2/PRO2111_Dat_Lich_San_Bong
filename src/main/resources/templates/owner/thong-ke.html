@@ -86,19 +86,19 @@
 <body id="page-top">
 <header th:insert="~{fragments/header-admin}"></header>
 <main id="app">
-    <div class="row mt-5">
+    <div class="row mt-2 mb-2 p-2">
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-6 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-left-primary shadow h-100 p-3">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div
-                                    class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                    class="text-xs text-primary mb-1"
                             >
-                                <h4>Doang thu hôm nay</h4>
+                                <h4>Doanh thu hôm nay</h4>
                             </div>
-                            <div class="h4 mb-0 font-weight-bold text-gray-800 doanhThuNgayHomNay">
+                            <div class="h4 mb-0 text-gray-800 doanhThuNgayHomNay">
 
                             </div>
                         </div>
@@ -111,15 +111,15 @@
         </div>
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-md-2 mb-4">
+        <div class=" col-xl-6 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
-                    <div class="row no-gutters align-items-center">
+                    <div class="row no-gutters align-items-center mb-2 p-2">
                         <div class="col mr-2">
                             <div
-                                    class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                                    class="text-xs text-success text-uppercase mb-1"
                             >
-                                <div class="clock row" style="font-size: 20px">
+                                <div class="clock row" style="font-size: 25px">
                                     <p id="date" class="col-6"></p>
                                     <p id="time" class="col-6"></p>
                                 </div>
@@ -132,17 +132,15 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
     <div class="col-md-12">
         <!-- Area Chart -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <div class="row mb-2">
+            <div class="card-header py-2">
+                <div class="row mb-2 p-2">
                     <div class="col-md-6">
-                        <h5 class="font-weight-bold nameTK"></h5>
+                        <h5 class="font-weight-bold nameTK text-primary"></h5>
                     </div>
                     <div class="col">
                         <select class="optionChonTK form-select" >
@@ -174,9 +172,9 @@
             <!-- Area Chart -->
             <div class="card shadow mb-4">
                 <div class="card-header py-2">
-                    <div class="row mb-">
+                    <div class="row mb-2 p-2">
                         <div class="col-md-6">
-                            <h5 class="font-weight-bold ">Đồ thuê</h5>
+                            <h5 class="font-weight-bold text-primary">Đồ thuê</h5>
                         </div>
                         <div class="col">
                             <select class="thong-ke-do-thue form-select">
@@ -202,19 +200,27 @@
             </div>
         </div>
         <!-- Area Chart -->
-        <div class="col-md-6>
+        <div class="col-md-6">
             <!-- Area Chart -->
             <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Nước uống</h6>
-                    <select class="thong-ke-nuoc-uong">
-                        <option value="1" selected>Theo năm</option>
-                        <option value="2">Theo tháng</option>
-                        <option value="3">Theo ngày</option>
-                    </select>
-                    <input type="text" class="yearpicker nuocUongNam"/>
-                    <input type="month" class="nuocUongThang" hidden/>
-                    <input type="date" class="nuocUongNgay" hidden/>
+                <div class="card-header py-2">
+                    <div class="row mb-2 p-2">
+                        <div class="col-md-6">
+                            <h5 class="m-0 font-weight-bold text-primary">Nước uống</h5>
+                        </div>
+                        <div class="col">
+                            <select class="thong-ke-nuoc-uong form-select">
+                                <option value="1" selected>Theo năm</option>
+                                <option value="2">Theo tháng</option>
+                                <option value="3">Theo ngày</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="yearpicker nuocUongNam form-control"/>
+                            <input type="month" class="nuocUongThang form-control" hidden/>
+                            <input type="date" class="nuocUongNgay form-control" hidden/>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
@@ -225,7 +231,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </main>
 <!-- Bootstrap core JavaScript-->
