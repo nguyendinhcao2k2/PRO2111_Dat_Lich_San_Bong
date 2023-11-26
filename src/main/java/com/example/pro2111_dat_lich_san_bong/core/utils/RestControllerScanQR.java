@@ -1,10 +1,15 @@
 package com.example.pro2111_dat_lich_san_bong.core.utils;
 
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.GiaoCaResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.SanCaStaffRepository;
+import com.example.pro2111_dat_lich_san_bong.core.staff.service.IGiaoCaStaffService;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IHoaDonSanCaStaffQRCodeService;
 import com.example.pro2111_dat_lich_san_bong.core.user.repository.HoaDonSanCaUserRepository;
+import com.example.pro2111_dat_lich_san_bong.entity.GiaoCa;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiGiaoCa;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +33,9 @@ public class RestControllerScanQR {
     @Autowired
     private SanCaStaffRepository  sanCaStaffRepository;
 
+    @Autowired
+    private IGiaoCaStaffService giaoCaStaffService;
+
     @PostMapping("/camera/check-qr-code")
     public ResponseEntity<?> checkQRCode(@RequestBody String qrCode) {
         try {
@@ -37,12 +45,21 @@ public class RestControllerScanQR {
             }
             // trang thai =0 la chưa check in
             // trang thai =1 la đã check in
-            if (hoaDonSanCa.getTrangThai() == 1) {
+            if (hoaDonSanCa.getTrangThai() == TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal()) {
                 return ResponseEntity.ok(new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Đã được check-in"));
             }
-            hoaDonSanCa.setTrangThai(1);
+            GiaoCaResponse giaoCa = giaoCaStaffService.findGiaoCaByTrangThai(TrangThaiGiaoCa.NHAN_CA);
+
+            hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal());
+            if(giaoCa != null) {
 //            hoaDonSanCa.setThoiGianCheckIn(new Time(new Date().getTime()));
+                hoaDonSanCa.setIdGiaoCa(giaoCa.getId());
+            }else{
+                GiaoCaResponse giaoCaKhongHoatDong = giaoCaStaffService.findFirstByOrderByThoiGianNhanCaDesc();
+                hoaDonSanCa.setIdGiaoCa(giaoCaKhongHoatDong.getId());
+            }
             hoaDonSanCaStaffQRCodeService.updateHoaDonSanCaStaffQRCode(hoaDonSanCa);
+
 
             SanCa sanCa = sanCaStaffRepository.findById(hoaDonSanCa.getIdSanCa()).get();
             sanCa.setTrangThai(TrangThaiSanCa.DANG_DA.ordinal());
