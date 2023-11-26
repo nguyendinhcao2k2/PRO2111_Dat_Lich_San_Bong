@@ -71,13 +71,16 @@ public class ThanhToanHoaDonStaffRestController {
     }
 
     @PostMapping("/thanh-toan-tien-mat/{id}")
-    public String checkPaymentMethod(@PathVariable(name = "id") String id, @RequestBody String paymentMethod) {
+    public String checkPaymentMethod(@PathVariable(name = "id") String id, @RequestParam String paymentMethod, @RequestParam Double tongTienSave) {
         System.out.println(id);
+        System.out.println(paymentMethod);
+        System.out.println(tongTienSave);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        if (paymentMethod.equals("paymentMethod=tienMat") && !id.isEmpty() && !id.isBlank()) {
+        if (paymentMethod.equals("tienMat") && !id.isEmpty() && !id.isBlank()) {
             HoaDonSanCa hoaDonSanCa = hoaDonSanCaReponsitory.getById(id);
             hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.DA_THANH_TOAN.ordinal());
             hoaDonSanCa.setNgayThanhToan(timestamp);
+            hoaDonSanCa.setTongTienHoaDonSanCa(tongTienSave);
             hoaDonSanCaReponsitory.save(hoaDonSanCa);
             SanCa sanCa = sanCaStaffRepository.getById(hoaDonSanCa.getIdSanCa());
             sanCa.setTrangThai(TrangThaiSanCa.QUA_GIO_HIEN_TAI.ordinal());
