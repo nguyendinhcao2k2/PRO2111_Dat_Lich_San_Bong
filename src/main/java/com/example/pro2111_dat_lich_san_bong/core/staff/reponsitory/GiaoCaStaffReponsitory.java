@@ -32,7 +32,7 @@ public interface GiaoCaStaffReponsitory extends GiaoCaRepository {
     Integer tongSoHoaDonTrongCaFollowStatus(@Param("ttGC") Integer trangThaiGC, @Param("ttHDSC") Integer trangThaiHDSC);
 
     @Query(value = """
-            select sum(hdsc.tien_san)  as TongTien  from  giao_ca gc
+            select sum(hdsc.tong_tien_hoa_don_san_ca)  as TongTien  from  giao_ca gc
             	join hoa_don_san_ca hdsc  on gc.id  = hdsc.id_giao_ca
             	join hinh_thuc_thanh_toan httt on hdsc.id = httt.id_hoa_don_san_ca
             	where  gc.trang_thai = 0

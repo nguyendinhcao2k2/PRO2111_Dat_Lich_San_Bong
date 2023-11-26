@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ThongKeAdminReponsitory extends HoaDonSanCaReponsitory {
     @Query(value = """
-                   select new com.example.pro2111_dat_lich_san_bong.core.admin.model.response.ThongKeTheoNamAdminResponse(month(hdsc.ngayThanhToan) as thang, sum(hdsc.tienSan)) 
+                   select new com.example.pro2111_dat_lich_san_bong.core.admin.model.response.ThongKeTheoNamAdminResponse(month(hdsc.ngayThanhToan) as thang, sum(hdsc.tongTienHoaDonSanCa)) 
                    from HoaDonSanCa hdsc 
                    where hdsc.trangThai = 0 and year(hdsc.ngayThanhToan) = :year
                    group by month(hdsc.ngayThanhToan)
@@ -20,7 +20,7 @@ public interface ThongKeAdminReponsitory extends HoaDonSanCaReponsitory {
     List<ThongKeTheoNamAdminResponse> sumTongTienByMonthAndYear(@Param("year") Integer year);
 
     @Query(value = """
-                select sum(hdsc.tien_san) as TongTien
+                select sum(hdsc.tong_tien_hoa_don_san_ca) as TongTien
                 from hoa_don_san_ca hdsc
                 where DAY(hdsc.ngay_thanh_toan)= :ngay
                 and month(hdsc.ngay_thanh_toan)=:thang
