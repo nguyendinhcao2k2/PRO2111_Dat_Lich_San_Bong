@@ -1,5 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.core.staff.service.impl;
 
+import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.LichSuSanBongAdminService;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.FilterLichDatRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.FilterSanBongRequest;
@@ -23,12 +24,10 @@ import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonSanCaUserSe
 import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonUserService;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailUtils;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.ThoiGianDatLich;
+import com.example.pro2111_dat_lich_san_bong.entity.*;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.RestApiException;
 import com.example.pro2111_dat_lich_san_bong.model.request.SendMailRequest;
@@ -86,6 +85,8 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
     @Autowired
     private SendMailWithBookings sendMailWithBookings;
 
+    @Autowired
+    private LichSuSanBongAdminService lichSuSanBongAdminService;
 
     @Override
     public List<LoadSanBongRespose> loadSanBong() {
@@ -382,6 +383,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
 
     public List<SanCa> createSanCa(ThongTinNguoiDatRequest thongTinNguoiDatRequest) {
         List<SanCa> sanCas = new ArrayList<>();
+        List<LichSuSanBong> listLS = new ArrayList<>();
         for (ThongTinLichDatRequest thongTinLichDatRequest : thongTinNguoiDatRequest.getThongTinLichDatRequests()) {
             LocalDate localDate = toLocalDate(thongTinLichDatRequest.getNgay());
             String[] stringParts = thongTinLichDatRequest.getId().split("\\+");
@@ -394,8 +396,14 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
             sanCa.setGia(Double.parseDouble(thongTinLichDatRequest.getPrice()));
             sanCa.setId(sanCa.getIdSanBong() + "+" + sanCa.getIdCa() + "+" + stringParts[2] + "+" + getTime(localDate));
             sanCas.add(sanCa);
+
+            LichSuSanBong lichSuSanBong = new LichSuSanBong();
+            lichSuSanBong.setTrangThai(TrangThaiLichSuSanBong.DAT_LICH_HO.ordinal());
+            lichSuSanBong.setNgayThucHien(LocalDateTime.now());
+            listLS.add(lichSuSanBong);
         }
         try {
+            lichSuSanBongAdminService.saveAll(listLS);
             return sanCaStaffRepository.saveAll(sanCas);
         } catch (Exception e) {
             e.printStackTrace();

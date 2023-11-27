@@ -1,5 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.controller;
 
+import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.LichSuSanBongAdminService;
 import com.example.pro2111_dat_lich_san_bong.core.common.base.BaseController;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.runSchedule.RunJobHuyHDByOutTab;
@@ -14,8 +15,10 @@ import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailUtils;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
+import com.example.pro2111_dat_lich_san_bong.entity.LichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDon;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiViTien;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
@@ -44,6 +47,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,7 +74,7 @@ public class ThanhToanTCUserController extends BaseController {
     private ViTienUserService viTienUserService;
 
     @Autowired
-    private SanCaUserService  sanCaUserService;
+    private SanCaUserService sanCaUserService;
 
     @Autowired
     private SYSParamUserService sysParamUserService;
@@ -83,6 +87,9 @@ public class ThanhToanTCUserController extends BaseController {
 
     @Autowired
     private SendMailWithBookings sendMailWithBookings;
+
+    @Autowired
+    private LichSuSanBongAdminService lichSuSanBongAdminService;
 
 
     @PostMapping("/create-payment")
@@ -102,9 +109,9 @@ public class ThanhToanTCUserController extends BaseController {
             public void run() {
                 try {
                     //thêm 1 phút sau khi tắt tab thanh toán thì hủy hóa đơn
-                    Thread.sleep((miuteParam+1) * 60 * 1000);
+                    Thread.sleep((miuteParam + 1) * 60 * 1000);
                     huyLichByThatBai(HDCreateBill.getIdHoaDon());
-                  //runJobHuyHDByOutTab.khaiBaoInfoJobHuyHoaDon(HDCreateBill.getIdHoaDon(), miuteParam+1);
+                    //runJobHuyHDByOutTab.khaiBaoInfoJobHuyHoaDon(HDCreateBill.getIdHoaDon(), miuteParam+1);
                 } catch (Exception e) {
                     // Handle exception
                     e.printStackTrace();
@@ -114,9 +121,9 @@ public class ThanhToanTCUserController extends BaseController {
         thread.start();
 
         //đường dẫn kết quả thanh toán
-        baseUrl+="/api/v1/user/thanh-toan/resul-payment";
+        baseUrl += "/api/v1/user/thanh-toan/resul-payment";
         String vnpayUrl = vnPayService.createOrder(HDCreateBill.getTienCoc().intValue(),
-                HDCreateBill.getRemark(), baseUrl,miuteParam);
+                HDCreateBill.getRemark(), baseUrl, miuteParam);
 
         return "redirect:" + vnpayUrl;
 
@@ -148,9 +155,9 @@ public class ThanhToanTCUserController extends BaseController {
         Date date = inputDateFormat.parse(paymentTime);
 
         // Format lại thành chuỗi theo định dạng mong muốn
-         String thoiGianGD = outputDateFormatObj.format(date);
+        String thoiGianGD = outputDateFormatObj.format(date);
 
-         Double soTienGD = Double.valueOf(totalPrice) /100;
+        Double soTienGD = Double.valueOf(totalPrice) / 100;
 
         model.addAttribute("orderId", orderInfo);
         model.addAttribute("totalPrice", totalPrice);
@@ -161,6 +168,15 @@ public class ThanhToanTCUserController extends BaseController {
         if (paymentStatus == 1) {
             hoaDon.setTrangThai(TrangThaiHoaDon.DA_COC.ordinal());
             hoaDonUserService.updateHoaDon(hoaDon);
+            List<HoaDonSanCa> listHdSC = hoaDonSanCaUserService.findByIdHoaDon(hoaDon.getId());
+            List<LichSuSanBong> listCreate = new ArrayList<>();
+            for (HoaDonSanCa hoaDonSanCa : listHdSC) {
+                LichSuSanBong lichSuSanBong = new LichSuSanBong();
+                lichSuSanBong.setNgayThucHien(LocalDateTime.now());
+                lichSuSanBong.setTrangThai(TrangThaiLichSuSanBong.DAT_LICH_ONLINE.ordinal());
+                listCreate.add(lichSuSanBong);
+            }
+            lichSuSanBongAdminService.saveAll(listCreate);
             //thanh toán thành công
             ViTienCoc viTienCoc = new ViTienCoc();
             viTienCoc.setIdHoaDon(hoaDon.getId());
@@ -182,7 +198,7 @@ public class ThanhToanTCUserController extends BaseController {
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                 DateTimeFormatter formatterNgayDa = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                if(list.size() == 1){
+                if (list.size() == 1) {
                     HoaDonSendMailResponse response = list.get(0);
 
                     SendMailRequest sendMailRequest = new SendMailRequest();
@@ -197,29 +213,29 @@ public class ThanhToanTCUserController extends BaseController {
                     sendMailRequest.setNgayCheckIn(formatterNgayDa.format(response.getNgayDenSan()));
 
                     sendMailUtils.sendEmail(sendMailRequest);
-                }else if (list.size()>1){
+                } else if (list.size() > 1) {
 
                     Context context = new Context();
                     context.setVariable("nguoiDat", hoaDon.getTenNguoiDat());
                     context.setVariable("sdt", hoaDon.getSoDienThoaiNguoiDat());
 
                     //thời gian đặt sân
-                    context.setVariable("timeDat", formatter.format(hoaDon.getNgayTao()) );
-                    context.setVariable("tongTien",decimalFormat.format(hoaDon.getTongTien()));
+                    context.setVariable("timeDat", formatter.format(hoaDon.getNgayTao()));
+                    context.setVariable("tongTien", decimalFormat.format(hoaDon.getTongTien()));
 
                     List<MaillListResponse> listResponses = new ArrayList<>();
 
-                    for (HoaDonSendMailResponse response: list) {
+                    for (HoaDonSendMailResponse response : list) {
                         MaillListResponse maillListResponse = new MaillListResponse();
                         maillListResponse.setIdHoaDonSanCa(response.getId());
                         maillListResponse.setGiaSan(decimalFormat.format(response.getTienSan()));
                         maillListResponse.setNgayDa(formatterNgayDa.format(response.getNgayDenSan()));
-                        maillListResponse.setCa(response.getTenCa()+": ("+response.getThoiGianBatDau()+"-"+response.getThoiGianKetThuc()+")");
+                        maillListResponse.setCa(response.getTenCa() + ": (" + response.getThoiGianBatDau() + "-" + response.getThoiGianKetThuc() + ")");
                         listResponses.add(maillListResponse);
                     }
 
                     context.setVariable("thoiGianList", listResponses);
-                    sendMailWithBookings.sendEmailBookings(hoaDon.getEmail(), context,request);
+                    sendMailWithBookings.sendEmailBookings(hoaDon.getEmail(), context, request);
                 }
 
             } catch (Exception e) {
@@ -228,7 +244,7 @@ public class ThanhToanTCUserController extends BaseController {
             }
 
             return "DemoVNPay/SuccessOder";
-        }else {// thanh toán thất bại hoặc hết tg thanh toán
+        } else {// thanh toán thất bại hoặc hết tg thanh toán
             huyLichByThatBai(hoaDon.getId());
 
             return "DemoVNPay/FailOder";
@@ -236,16 +252,16 @@ public class ThanhToanTCUserController extends BaseController {
 
     }
 
-    private void huyLichByThatBai(String idHoaDon){
+    private void huyLichByThatBai(String idHoaDon) {
         try {
             HoaDon hoaDon = hoaDonUserService.findHoaDonById(idHoaDon);
 
             //kiểm tr có đúng hóa đơn và trạng thái mới tạo không
-            if(hoaDon != null && hoaDon.getTrangThai() != null
-                    && hoaDon.getTrangThai() == TrangThaiHoaDon.MOI_TAO.ordinal()){
+            if (hoaDon != null && hoaDon.getTrangThai() != null
+                    && hoaDon.getTrangThai() == TrangThaiHoaDon.MOI_TAO.ordinal()) {
                 //lấy tất cả hóa đơn sân ca có idHoaDon
                 List<HoaDonSanCa> list = hoaDonSanCaUserService.findAllByIdHoaDon(idHoaDon);
-                for (HoaDonSanCa hoaDonSanCa: list
+                for (HoaDonSanCa hoaDonSanCa : list
                 ) {
                     String idSanCa = hoaDonSanCa.getIdSanCa();
                     sanCaUserService.deleteSanCaById(idSanCa);
@@ -253,7 +269,7 @@ public class ThanhToanTCUserController extends BaseController {
                 hoaDonSanCaUserService.deleteAllByIdHoaDon(idHoaDon);
                 hoaDonUserService.deleteHoaDonById(idHoaDon);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

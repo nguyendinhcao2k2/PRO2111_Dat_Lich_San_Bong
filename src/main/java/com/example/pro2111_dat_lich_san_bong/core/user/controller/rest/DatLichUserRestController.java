@@ -10,13 +10,7 @@ import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserServi
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanBongUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SanCaUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.ThoiGianDLUserServiver;
-import com.example.pro2111_dat_lich_san_bong.entity.Account;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.SanBong;
-import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.SysParam;
-import com.example.pro2111_dat_lich_san_bong.entity.ThoiGianDatLich;
+import com.example.pro2111_dat_lich_san_bong.entity.*;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
@@ -66,7 +60,7 @@ public class DatLichUserRestController extends BaseController {
     private HoaDonSanCaUserService hoaDonSanCaUserService;
 
     @PostMapping("/form-dat-lich")
-    public BaseResponse<Object> GetFormDatLich(@RequestBody PhieuDatLichUserRequest request){
+    public BaseResponse<Object> GetFormDatLich(@RequestBody PhieuDatLichUserRequest request) {
 
         try {
 
@@ -87,12 +81,13 @@ public class DatLichUserRestController extends BaseController {
             hoaDon.setTrangThai(TrangThaiHoaDon.MOI_TAO.ordinal());
             hoaDon.setGhiChu(request.getGhiChu());
 
-            HoaDon hoaDonSave= hoaDonUserService.saveHoaDon(hoaDon);
-            List listTGDL = new ArrayList< ThoiGianDatLich >();
-            List listSanCa = new ArrayList< ThoiGianDatLich >();
-            List listHoaDonSanCa = new ArrayList< ThoiGianDatLich >();
+            HoaDon hoaDonSave = hoaDonUserService.saveHoaDon(hoaDon);
+            List listTGDL = new ArrayList<ThoiGianDatLich>();
+            List listSanCa = new ArrayList<ThoiGianDatLich>();
+            List listHoaDonSanCa = new ArrayList<ThoiGianDatLich>();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            List<LichSuSanBong> lichSuSanBongs = new ArrayList<>();
             for (DanhSachCaDatRequest danhSachCaDatRequest : request.getDanhSachCaDatRequests()) {
 
                 Double giaSanCa = Double.valueOf(danhSachCaDatRequest.getGiaSan());
@@ -120,12 +115,12 @@ public class DatLichUserRestController extends BaseController {
                 int year = ngayDaLocalDateTime.getYear();
                 String dateString = String.format("%02d%02d%04d", day, month, year);
 
-                String textCheck= danhSachCaDatRequest.getIdCa()+"+"+request.getIdLoaiSan()+"+"+dateString;
+                String textCheck = danhSachCaDatRequest.getIdCa() + "+" + request.getIdLoaiSan() + "+" + dateString;
                 String idSanBong = getIdSanBongEmpty(textCheck, request.getIdLoaiSan());
                 //tạo san ca
                 SanCa sanCa = new SanCa();
                 sanCa.setUserId(account.getId());
-                sanCa.setId(idSanBong+"+"+textCheck);
+                sanCa.setId(idSanBong + "+" + textCheck);
                 sanCa.setTrangThai(TrangThaiSanCa.CHO_NHAN_SAN.ordinal());
                 sanCa.setIdSanBong(idSanBong);
                 sanCa.setGia(giaSanCa);
@@ -153,10 +148,10 @@ public class DatLichUserRestController extends BaseController {
             response.setRemark("Thanh toan tien coc dat lich san bong");
             response.setTienCoc(tongTienCoc);
             response.setIdHoaDon(hoaDon.getId());
-            return  new BaseResponse<>(HttpStatus.OK,response);
-        }catch (Exception e){
+            return new BaseResponse<>(HttpStatus.OK, response);
+        } catch (Exception e) {
             e.printStackTrace();
-            return  new BaseResponse<>(HttpStatus.GATEWAY_TIMEOUT,"Đặt lịch không thành công");
+            return new BaseResponse<>(HttpStatus.GATEWAY_TIMEOUT, "Đặt lịch không thành công");
         }
 
 
