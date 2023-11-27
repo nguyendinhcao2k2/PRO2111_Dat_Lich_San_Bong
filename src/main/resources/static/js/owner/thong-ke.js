@@ -59,6 +59,7 @@ $(document).ready(() => {
         arraySoLuongDoThue = [];
         callApiDoThue(url);
     });
+
     // thang
     $(".doThueThang").change((event) => {
         var year = parseInt(event.target.value.split("-")[0]);
@@ -178,7 +179,7 @@ function callAPIThongKeNam(url) {
             response.content.thongKeNgayHomNay.forEach((items) => {
                 totalPriceNow += items.totalPrice === null ? 0 : items.totalPrice;
             });
-            $(".doanhThuNgayHomNay").text(curenlyNumber(totalPriceNow)+" VND");
+            $(".doanhThuNgayHomNay").text(curenlyNumber(totalPriceNow)+" Vnd");
 
             thongKePriceFollowYear(array);
             thongKePriceFollowDay(arrayCaInDay);
@@ -196,7 +197,7 @@ function curenlyNumber(number) {
 };
 
 function tongDoanhThuCanam(valueClass, price) {
-    $(valueClass).text("Tổng doanh thu: " + curenlyNumber(price) + " VND")
+    $(valueClass).text("Tổng doanh thu: " + curenlyNumber(price) + " Vnd")
     return;
 };
 
@@ -327,7 +328,7 @@ function callApiDoThue(url) {
                 doanhThu += items.tongTienThu;
             });
             thongKeDoThue(arraySoLuongDoThue, arrayDoThue);
-            $(".doanhThuDoThue").text("Doanh thu: " + curenlyNumber(doanhThu) + " VND");
+            $(".doanhThuDoThue").text("Doanh thu: " + curenlyNumber(doanhThu) + " Vnd");
         },
         error: function (error) {
             console.log(error);
@@ -443,7 +444,7 @@ function callApiNuocUong(url) {
                 doanhThu += items.tongTienThu;
             });
             thongKeNuocUong(arraySoLuongNuocUong, arrayNuocUong);
-            $(".doanhThuNuocUong").text("Doanh thu: " + curenlyNumber(doanhThu) + " VND");
+            $(".doanhThuNuocUong").text("Doanh thu: " + curenlyNumber(doanhThu) + " Vnd");
         },
         error: function (error) {
             console.log(error);

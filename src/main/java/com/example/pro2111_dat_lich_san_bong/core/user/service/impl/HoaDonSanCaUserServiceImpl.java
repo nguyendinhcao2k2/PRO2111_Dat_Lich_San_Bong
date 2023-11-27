@@ -91,4 +91,18 @@ public class HoaDonSanCaUserServiceImpl implements HoaDonSanCaUserService {
     public List<HoaDonSendMailResponse> getLisTHDSC(String idHoaDon) {
         return hoaDonSanCaUserRepository.getLisTHDSC(idHoaDon);
     }
+
+    @Override
+    public List<HoaDonSanCa> findByIdHoaDon(String idHoaDon) {
+        try {
+            List<HoaDonSanCa> list = hoaDonSanCaUserRepository.findByIdHoaDon(idHoaDon);
+            if (list != null) {
+                return list;
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

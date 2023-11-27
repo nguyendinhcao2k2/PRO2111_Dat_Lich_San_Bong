@@ -1,5 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.controller;
 
+import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.LichSuSanBongAdminService;
 import com.example.pro2111_dat_lich_san_bong.core.common.session.CommonSession;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.request.DoiLichNhieuRequest;
@@ -8,11 +9,9 @@ import com.example.pro2111_dat_lich_san_bong.core.user.model.response.DoiLichNhi
 import com.example.pro2111_dat_lich_san_bong.core.user.service.*;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailUtils;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.SysParam;
+import com.example.pro2111_dat_lich_san_bong.entity.*;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.model.request.SendMailRequest;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
@@ -27,6 +26,7 @@ import org.thymeleaf.context.Context;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -67,6 +67,9 @@ public class DoiLichNhieuUserRestController {
 
     @Autowired
     private SendMailWithBookings sendMailWithBookings;
+
+    @Autowired
+    private LichSuSanBongAdminService lichSuSanBongAdminService;
 
     @GetMapping("list-lich-doi")
     public ResponseEntity<?> getAllLichCoTheDoi() {
@@ -160,6 +163,12 @@ public class DoiLichNhieuUserRestController {
                 //xoa san cu di
                 listHoaDonSanCaCanXoa.add(hoaDonSanCa);
                 listSanCaCanXoa.add(sanCa);
+
+                //create Lich su san bong
+                LichSuSanBong lichSuSanBong = new LichSuSanBong();
+                lichSuSanBong.setTrangThai(TrangThaiLichSuSanBong.DOI_LICH.ordinal());
+                lichSuSanBong.setNgayThucHien(LocalDateTime.now());
+                lichSuSanBongAdminService.createOrUpdate(lichSuSanBong);
             }
             //save hoa don san ca new
             listHoaDonSanCaUpdate.get(0).setTienCocThua(list.get(0).getTienCocThua());
