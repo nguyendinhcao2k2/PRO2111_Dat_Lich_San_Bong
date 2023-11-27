@@ -39,7 +39,6 @@ public class ThongKeRestController {
 
     @GetMapping("/ngay")
     public ResponseEntity<?> getListThongke(@RequestParam("paramNgay") Optional<LocalDate> paramNgay) {
-        
         // theo ngay
         Double tongDoanhThuTheoNgay = hoaDonSanCaThongKeAdminService.tongTienTheoNgay(paramNgay.orElse(date));
         Double tongTienMatTheoNgay = hoaDonSanCaThongKeAdminService.tongTienMatTheoNgayVaHinhThucThanhToan(paramNgay.orElse(date), LoaiHinhThanhToan.TIEN_MAT.ordinal());

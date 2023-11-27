@@ -275,6 +275,7 @@ public class DoiLichNhieuUserThanhToanRestController {
         List<HoaDonSanCa> listHoaDonSanCaUpdate = new ArrayList<>();
         List<HoaDonSanCa> listHoaDonSanCaCu = new ArrayList<>();
         Set<String> hoaDonListSanCaMoi = new HashSet<>();
+        List<LichSuSanBong> listCreateLichSuSanBong = new ArrayList<>();
         List<LichSuDoiLich> lichSuDoiLichList = lichSuDoiLichUserService.findAllByIdNguoiDungAndTrangThaiList(commonSession.getUserId(), TrangThaiLichSuDoiLich.DOI_N_LICH.ordinal());
         Double phanTramTienCoc = Double.valueOf(sysParamUserService.findSysParamByCode(SYSParamCodeConstant.PHAN_TRAM_GIA_TIEN_COC).getValue());
         if (paymentStatus == 1) {
@@ -299,8 +300,9 @@ public class DoiLichNhieuUserThanhToanRestController {
                     LichSuSanBong lichSuSanBong = new LichSuSanBong();
                     lichSuSanBong.setTrangThai(TrangThaiLichSuSanBong.DOI_LICH.ordinal());
                     lichSuSanBong.setNgayThucHien(LocalDateTime.now());
-                    lichSuSanBongAdminService.createOrUpdate(lichSuSanBong);
+                    listCreateLichSuSanBong.add(lichSuSanBong);
                 }
+                lichSuSanBongAdminService.saveAll(listCreateLichSuSanBong);
                 hoaDonSanCaUserService.updateAll(listHoaDonSanCaUpdate);
 
                 for (String idSanCaCu : listSanCaCu) {
