@@ -27,9 +27,9 @@ import java.util.regex.Pattern;
  */
 public class DoThueImportExcel {
 
-    public static final int COLUMN_DON_GIA = 1;
-    public static final int COLUMN_SO_LUONG = 2;
-    public static final int COLUMN_TEN_DO_THUE = 3;
+    public static final int COLUMN_DON_GIA = 3;
+    public static final int COLUMN_SO_LUONG = 4;
+    public static final int COLUMN_TEN_DO_THUE = 1;
 
     public static List<DoThue> readExcel(MultipartFile file) throws IOException {
         List<DoThue> listDoThue = new ArrayList<>();

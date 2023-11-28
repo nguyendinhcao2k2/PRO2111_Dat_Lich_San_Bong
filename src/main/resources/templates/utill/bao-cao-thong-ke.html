@@ -314,7 +314,7 @@
                             <td style="padding: 0 2em; text-align: center">
                                 <div class="text">
                                     <h2>Báo Cáo Thống Kê Theo Ngày</h2>
-                                    <h5>Ngày: 28/11/2023</h5>
+                                    <h5 th:text="${ngayBaoCao}"></h5>
                                 </div>
                             </td>
                         </tr>
@@ -350,7 +350,7 @@
                         >
                             <div class="product-entry">
                                 <div class="text">
-                                    <h3 th:text="${nguoiDat}">5</h3>
+                                    <h3 th:text="${soLichDatOnline}">5</h3>
                                 </div>
                             </div>
                         </td>
@@ -364,7 +364,7 @@
                         >
                             <div class="product-entry">
                                 <div class="text">
-                                    <h3>Tổng số nhân viên đặt lịch:</h3>
+                                    <h3>Tổng số lịch đặt nhờ:</h3>
                                 </div>
                             </div>
                         </td>
@@ -375,7 +375,7 @@
                         >
                             <div class="product-entry">
                                 <div class="text">
-                                    <h3 th:text="${sdt}">5</h3>
+                                    <h3 th:text="${soLichDatNho}">5</h3>
                                 </div>
                             </div>
                         </td>
@@ -385,14 +385,14 @@
                         <td valign="middle" style="text-align: left; padding: 0 2.5em">
                             <div class="product-entry">
                                 <div class="text">
-                                    <h3>Tổng số lượt đá trong ngày:</h3>
+                                    <h3>Tổng số lượt đá:</h3>
                                 </div>
                             </div>
                         </td>
                         <td valign="middle" style="text-align: left; padding: 0 2.5em">
                             <div class="product-entry">
                                 <div class="text">
-                                    <h3 th:text="${timeDat}">5</h3>
+                                    <h3 th:text="${soLuotDaTrongNgay}">5</h3>
                                 </div>
                             </div>
                         </td>
@@ -409,7 +409,7 @@
                         <td valign="middle" style="text-align: left; padding: 0 2.5em">
                             <div class="product-entry">
                                 <div class="text">
-                                    <h3 th:text="${timeDat}">5</h3>
+                                    <h3 th:text="${soLuotLichChuyen}">5</h3>
                                 </div>
                             </div>
                         </td>
@@ -419,31 +419,14 @@
                         <td valign="middle" style="text-align: left; padding: 0 2.5em">
                             <div class="product-entry">
                                 <div class="text">
-                                    <h3>Tổng số hủy lịch:</h3>
+                                    <h3>Tổng số lịch hủy lịch:</h3>
                                 </div>
                             </div>
                         </td>
                         <td valign="middle" style="text-align: left; padding: 0 2.5em">
                             <div class="product-entry">
                                 <div class="text">
-                                    <h3 th:text="${timeDat}">5</h3>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- thời gian đặt -->
-                    <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.05)">
-                        <td valign="middle" style="text-align: left; padding: 0 2.5em">
-                            <div class="product-entry">
-                                <div class="text">
-                                    <h3>Tổng Tiền mặt:</h3>
-                                </div>
-                            </div>
-                        </td>
-                        <td valign="middle" style="text-align: left; padding: 0 2.5em">
-                            <div class="product-entry">
-                                <div class="text">
-                                    <h3 th:text="${timeDat}">5.000.000 Vnd</h3>
+                                    <h3 th:text="${soLichHuy}">5</h3>
                                 </div>
                             </div>
                         </td>
@@ -453,14 +436,31 @@
                         <td valign="middle" style="text-align: left; padding: 0 2.5em">
                             <div class="product-entry">
                                 <div class="text">
-                                    <h3>Tổng tiền phát sinh khi giao ca:</h3>
+                                    <h3>Tổng tiền mặt:</h3>
                                 </div>
                             </div>
                         </td>
                         <td valign="middle" style="text-align: left; padding: 0 2.5em">
                             <div class="product-entry">
                                 <div class="text">
-                                    <h3 th:text="${timeDat}">10.000.000 Vnd</h3>
+                                    <h3 th:text="${tongTienMat}">5.000.000 Vnd</h3>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- thời gian đặt -->
+                    <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.05)">
+                        <td valign="middle" style="text-align: left; padding: 0 2.5em">
+                            <div class="product-entry">
+                                <div class="text">
+                                    <h3>Tổng tiền phát sinh:</h3>
+                                </div>
+                            </div>
+                        </td>
+                        <td valign="middle" style="text-align: left; padding: 0 2.5em">
+                            <div class="product-entry">
+                                <div class="text">
+                                    <h3 th:text="${tongTienPhatSinh}">10.000.000 Vnd</h3>
                                 </div>
                             </div>
                         </td>
@@ -477,7 +477,7 @@
                         <td valign="middle" style="text-align: left; padding: 0 2.5em">
                             <div class="product-entry">
                                 <div class="text">
-                                    <h3 th:text="${timeDat}" style="font-weight: bold">
+                                    <h3 th:text="${tongDoanhThu}" style="font-weight: bold">
                                         50.000.000 Vnd
                                     </h3>
                                 </div>
