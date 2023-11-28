@@ -21,8 +21,7 @@ public interface AccountAdminStaffRepository extends AccountRepository {
     @Query("""
                select a from Account a
                			join ChucVu cv on a.idChucVu  = cv .id
-               			where cv.tenChucVu  = 'ROLE_STAFF'
-               			and a.taiKhoan  = :taiKhoan
+               			where a.taiKhoan  = :taiKhoan
             """)
     Account findFirstByEmailAAndTaiKhoan(@Param("taiKhoan") String taiKhoan);
 

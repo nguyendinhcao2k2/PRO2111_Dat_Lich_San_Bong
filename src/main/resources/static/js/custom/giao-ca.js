@@ -44,7 +44,7 @@ $(document).ready(() => {
     $(".confirm").click(() => {
         if ($("#tienPhatSinh").val() != 0 && $(".ghiChuPhatSinh").val() == "") {
             document.title = "Thông báo!";
-            createAndShowToast("bg-warning","Thông báo!","Bạn có tiền phát sinh! Vui lòng nhập ghi chú phát sinh!");
+            createAndShowToast("bg-warning", "Thông báo!", "Bạn có tiền phát sinh! Vui lòng nhập ghi chú phát sinh!");
         } else {
             $.ajax({
                 type: "POST",
@@ -58,14 +58,13 @@ $(document).ready(() => {
                     idNhanVienCaTiepTheo: $("#nhanVienNhanCaTiepTheo").val(),
                     tongTienMat: $("#tongTienMatTrongCa").val() == 0 ? $("#tongTienMatTrongCa").val() : app.repleaPriceDouble($("#tongTienMatTrongCa").val()),
                     tongTienTrongCa: app.repleaPriceDouble(app.giaoCaStaff.tongTienTrongCa),
-                    tongTienKhac:  $(".tienChuyenKhoan").val() == 0 ? $(".tienChuyenKhoan").val() : app.repleaPriceDouble($(".tienChuyenKhoan").val()),
+                    tongTienKhac: $(".tienChuyenKhoan").val() == 0 ? $(".tienChuyenKhoan").val() : app.repleaPriceDouble($(".tienChuyenKhoan").val()),
                 }),
                 success: (response) => {
                     var confirm = false;
                     if (response.statusCode === 'OK') {
                         Swal.fire({
                             title: 'Bàn giao ca thành công!',
-                            text: 'Hẹn gặp lại!',
                             icon: 'success',
                             confirmButtonText: 'OKE'
                         }).then((result) => {
@@ -81,7 +80,7 @@ $(document).ready(() => {
                         }, 4000);
                         return;
                     }
-                    createAndShowToast("bg-warning","Thông báo!","Lỗi!");
+                    createAndShowToast("bg-warning", "Thông báo!", "Lỗi!");
                     return;
                 },
                 error: (error) => {
@@ -95,7 +94,7 @@ $(document).ready(() => {
     $(".resetCa").click(() => {
         if ($("#tienPhatSinh").val() != 0 && $(".ghiChuPhatSinh").val() == "") {
             document.title = "Thông báo!";
-            createAndShowToast("bg-warning","Thông báo!","Bạn có tiền phát sinh! Vui lòng nhập ghi chú phát sinh!");
+            createAndShowToast("bg-warning", "Thông báo!", "Bạn có tiền phát sinh! Vui lòng nhập ghi chú phát sinh!");
         } else {
             $.ajax({
                 type: "POST",
@@ -111,11 +110,12 @@ $(document).ready(() => {
                     tongTienTrongCa: app.repleaPriceDouble(app.giaoCaStaff.tongTienTrongCa),
                     thoiGianReset: app.formatDateTimeStamps($("#NowTime").val()),
                     tongTienMatRut: $("#tienMatRut").val() == 0 ? $("#tienMatRut").val() : app.repleaPriceDouble($("#tienMatRut").val()),
-                    tongTienKhac:  $(".tienChuyenKhoan").val() == 0 ? $(".tienChuyenKhoan").val() : app.repleaPriceDouble($(".tienChuyenKhoan").val()),
+                    tongTienKhac: $(".tienChuyenKhoan").val() == 0 ? $(".tienChuyenKhoan").val() : app.repleaPriceDouble($(".tienChuyenKhoan").val()),
                 }),
                 success: (response) => {
                     var confirm = false;
                     if (response.statusCode === 'OK') {
+                        sendMailThongKe();
                         Swal.fire({
                             title: 'Rút tiền và Bàn giao ca thành công!',
                             text: 'Hẹn gặp lại!',
@@ -134,7 +134,7 @@ $(document).ready(() => {
                         }, 4000);
                         return;
                     }
-                    createAndShowToast("bg-warning","Thông báo!","Lỗi!");
+                    createAndShowToast("bg-warning", "Thông báo!", "Lỗi!");
                     return;
                 },
                 error: (error) => {
@@ -145,6 +145,13 @@ $(document).ready(() => {
 
     });
 });
+
+function sendMailThongKe() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8081/static/send-mail-thong-ke",
+    });
+}
 
 var app = new Vue({
     el: "#app",
@@ -187,7 +194,7 @@ var app = new Vue({
             } else {
                 var price = parseFloat(this.giaoCaStaff.tongTienMatTrongCa) - parseFloat(event.target.value.replace(/\./g, ""));
                 if (price < 0) {
-                    createAndShowToast("bg-warning","Thông báo!","Xin lỗi, Bạn không đủ tiền!");
+                    createAndShowToast("bg-warning", "Thông báo!", "Xin lỗi, Bạn không đủ tiền!");
                     return event.target.value = parseInt(this.repleaPriceDouble(event.target.value.slice(0, -1))).toLocaleString(
                         "vi-VN"
                     );
@@ -226,8 +233,12 @@ var app = new Vue({
             event.target.value = parseInt(event.target.value).toLocaleString(
                 "vi-VN"
             );
+            if(this.repleaPriceDouble(this.total) == 0){
+                createAndShowToast("bg-warning", "Thông báo!", "Rất tiếc bạn chỉ có " + this.total + " VND");
+                return event.target.value = 0;
+            }
             if (parseInt(this.repleaPriceDouble(event.target.value)) > parseInt(this.repleaPriceDouble(this.total))) {
-                createAndShowToast("bg-warning","Thông báo!","Rất tiếc bạn chỉ có "+ this.total+" VND");
+                createAndShowToast("bg-warning", "Thông báo!", "Rất tiếc bạn chỉ có " + this.total + " VND");
                 return event.target.value = parseInt(this.repleaPriceDouble(event.target.value.slice(0, -1))).toLocaleString(
                     "vi-VN"
                 );

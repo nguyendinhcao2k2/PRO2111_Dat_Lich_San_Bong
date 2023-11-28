@@ -53,7 +53,7 @@ public class DoThueRestController {
 
     }
 
-    @PostMapping("/save")
+    @PostMapping(value = "/save")
     public BaseResponse<?> save(@RequestBody DoThueRequest doThueRequest) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         try {
             doThueService.save(doThueRequest);
@@ -82,7 +82,7 @@ public class DoThueRestController {
     }
 
     @PostMapping("/import")
-    public BaseResponse<?> importEcel(@RequestParam("file") MultipartFile file) throws IOException {
+    public BaseResponse<?> importEcel(@RequestBody MultipartFile file) throws IOException {
         doThueService.nuocUongImportExcel(file);
         return new BaseResponse<>(HttpStatus.OK, "Ok");
     }

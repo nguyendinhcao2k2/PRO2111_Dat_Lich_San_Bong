@@ -64,9 +64,9 @@
                     <h6 class="text-center lead">Đăng Nhập Với Vai Trò Là Quản Lý</h6>
                     <form th:action="@{/login}" method="post">
                         <label class="font-500">Tên Tài Khoản</label>
-                        <input th:name="username" class="form-control form-control-lg mb-3" type="text">
+                        <input th:name="username" value="admin1" class="form-control form-control-lg mb-3" type="text">
                         <label class="font-500">Mật Khẩu</label>
-                        <input th:name="password" class="form-control form-control-lg" type="password">
+                        <input th:name="password" value="1111" class="form-control form-control-lg" type="password">
                         <a th:href="@{/authentication/home-login}">Quay lại !</a>
                         <div th:if="${param.error}">
                             <span style="color: red">Invalid User or Password</span>

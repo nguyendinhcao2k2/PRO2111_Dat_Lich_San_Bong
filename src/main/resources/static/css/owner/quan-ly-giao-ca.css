@@ -32,6 +32,7 @@
     margin-bottom: 10px;
     border-bottom: 2px solid #6e6e6e;
 }
+
 /*css cho thằng filter*/
 
 .col-auto > .label-filter {
@@ -49,10 +50,10 @@
 }
 
 .input-group .input-search-giao-ca-admin {
-  color: black;
-  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 /*end*/
@@ -69,6 +70,7 @@
     border: 1px solid #ccc;
     color: black;
 }
+
 .mb-3 {
     margin-bottom: 15px;
 }
@@ -92,7 +94,12 @@ table td {
     border: 1px solid #ccc;
     text-align: center;
 }
+
 table th {
     text-align: center;
+}
+
+.highlight-row {
+    background-color: yellow; /* Màu nền hoặc màu sắc mong muốn */
 }
 

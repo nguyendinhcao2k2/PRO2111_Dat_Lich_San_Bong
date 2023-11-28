@@ -42,7 +42,7 @@ var tab1 = new Vue({
                 createAndShowToast("bg-warning","Thông báo!","Số điện thoại không đúng định dạng!");
                 return;
             }
-            var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ /;
+            var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if(!regex.test(this.account.email)){
                 createAndShowToast("bg-warning","Thông báo!","Email không đúng định dạng!");
                 return;

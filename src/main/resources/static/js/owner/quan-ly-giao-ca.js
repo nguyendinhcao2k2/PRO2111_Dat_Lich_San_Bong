@@ -1,6 +1,7 @@
 $(document).ready(function () {
     getData();
     sortByThoiGianNhanCa();
+    ganValueInputDate(".timeNC");
     $(".exportExcelGC").click(()=>{
         window.location.href="http://localhost:8081/api/v1/admin/giao-ca/export";
     });
@@ -37,6 +38,7 @@ $(document).ready(function () {
                     console.log(data.content.data);
                     if (data.content.data.length == 0) {
                         alert(message);
+                        createAndShowToast("bg-warning","Thông báo","Không có dữ liệu!")
                     } else {
                         readData(data);
                         if (parseInt(event.target.value) === 1) {
@@ -179,7 +181,7 @@ $(document).ready(function () {
                 "http://localhost:8081/api/v1/admin/giao-ca/by-time?time=" + timeSearch,
             success: function (data) {
                 if (data.content.data.length == 0) {
-                    alert("Không có dữ liệu!");
+                    createAndShowToast("bg-warning","Thông báo","Không có dữ liệu!")
                 } else {
                     readData(data);
                     app.lengthListSearch = 3;
@@ -217,6 +219,15 @@ $(document).ready(function () {
         });
     }
 });
+
+function ganValueInputDate(className) {
+    const inputNgay = document.querySelector(className);
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Tháng là số từ 1 đến 12
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    inputNgay.value = `${year}-${month}-${day}`;
+};
 
 // base read data
 function readData(data) {
