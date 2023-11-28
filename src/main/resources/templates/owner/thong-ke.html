@@ -65,11 +65,11 @@
 
 <body id="page-top">
 <header th:insert="~{fragments/header-admin}"></header>
-<main id="app">
-    <div class="row mt-2 mb-2 p-2">
+<main>
+    <div class="row m-1">
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-6 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 p-3">
+        <div class="col-sm-6 col-md-6 mb-1">
+            <div class="card border-left-primary shadow h-75 p-1">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -91,8 +91,8 @@
         </div>
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class=" col-xl-6 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+        <div class="col-md-6 col-sm-6 mb-1s">
+            <div class="card border-left-success shadow h-75 p-1">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center mb-2 p-2">
                         <div class="col mr-2">
@@ -113,49 +113,52 @@
             </div>
         </div>
     </div>
-<!---->
-    <div class="row">
+    <!---->
+    <div class="row m-1" id="thongKeList">
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-1">
+            <div class="card border-left-primary shadow h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div
-                                    class="h4 text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                    class="h5 text-xs font-weight-bold text-primary text-uppercase mb-1"
                             >
                                 Ngày
                             </div>
                         </div>
                         <div class="col-auto">
-                            <input class="form-control" type="date" />
+                            <input class="form-control-sm inputTKNgay" type="date"/>
                         </div>
-                        <hr class="mt-2" />
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng doanh thu: <span style="color: red">500.000 VND</span>
+                        <hr class="mt-2"/>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeNgay.tongDoanhThu)}} Vnd</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng sân đặt online: <span style="color: red">5</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt online: <span style="color: red">{{thongKeNgay.tongSanDatOnline}} </span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt hộ: <span style="color: red">{{thongKeNgay.tongSoLuotSanDatNho}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng số lượt đá trong ngày:
-                            <span style="color: red">5</span>
+                            <span style="color: red">{{thongKeNgay.tongSoLuotDa}} </span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng số lượt chuyển lịch:
-                            <span style="color: red">5</span>
+                            <span style="color: red">{{thongKeNgay.tongSoLuotChuyenLich}} </span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng số huỷ lịch:
-                            <span style="color: red">5</span>
+                            <span style="color: red">{{thongKeNgay.tongSoHuyLich}} </span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng tiền mặt trong ngày:
-                            <span style="color: red">1.000.000 VND</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng tiền mặt:
+                            <span style="color: red">{{currenNumberListTK(thongKeNgay.tongSoTienMat)}} Vnd</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng tiền phát sinh khi giao ca:
-                            <span style="color: red">5.000.000 VND</span>
+                            <span style="color: red">{{currenNumberListTK(thongKeNgay.tongTienPhatSinhKhiGiaoCa)}} Vnd</span>
                         </div>
                     </div>
                 </div>
@@ -164,41 +167,44 @@
 
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-1">
+            <div class="card border-left-success shadow h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div
-                                    class="h4 text-xs font-weight-bold text-success text-uppercase mb-1"
+                                    class="h5 text-xs font-weight-bold text-success text-uppercase mb-1"
                             >
                                 Tuần
                             </div>
                         </div>
                         <div class="col-auto">
-                            <input class="form-control" type="week" />
+                            <input class="form-control-sm inputTKTuan" type="week"/>
                         </div>
-                        <hr class="mt-2" />
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng doanh thu: <span style="color: red">500.000 VND</span>
+                        <hr class="mt-2"/>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeTuan.tongDoanhThu)}} Vnd</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng sân đặt online: <span style="color: red">5</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt online: <span style="color: red">{{thongKeTuan.tongSanDatOnline}}</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt hộ: <span style="color: red">{{thongKeTuan.tongSoLuotSanDatNho}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng số lượt đá:
-                            <span style="color: red">5</span>
+                            <span style="color: red">{{thongKeTuan.tongSoLuotDa}}</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng số lượng chuyển lịch:
-                            <span style="color: red">5</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đã đổi:
+                            <span style="color: red">{{thongKeTuan.tongSoLuotChuyenLich}}</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng số luợng huỷ lịch:
-                            <span style="color: red">5</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch bị hủy:
+                            <span style="color: red">{{thongKeTuan.tongSoHuyLich}}</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng tiền mặt trong tuần:
-                            <span style="color: red">1.000.000 VND</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng tiền mặt:
+                            <span style="color: red">{{currenNumberListTK(thongKeTuan.tongSoTienMat)}} Vnd</span>
                         </div>
                     </div>
                 </div>
@@ -207,41 +213,44 @@
 
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-1">
+            <div class="card border-left-info shadow h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div
-                                    class="h4 text-xs font-weight-bold text-info text-uppercase mb-1"
+                                    class="h5 text-xs font-weight-bold text-info text-uppercase mb-1"
                             >
                                 Tháng
                             </div>
                         </div>
                         <div class="col-auto">
-                            <input class="form-control" type="month" />
+                            <input class="form-control-sm inputTKThang" type="month"/>
                         </div>
-                        <hr class="mt-2" />
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng doanh thu: <span style="color: red">500.000 VND</span>
+                        <hr class="mt-2"/>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeThang.tongDoanhThu)}} Vnd</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng sân đặt online: <span style="color: red">5</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt online: <span style="color: red">{{thongKeThang.tongSanDatOnline}} </span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt hộ: <span style="color: red">{{thongKeThang.tongSoLuotSanDatNho}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng số lượt đá:
-                            <span style="color: red">5</span>
+                            <span style="color: red">{{thongKeThang.tongSoLuotDa}} </span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng số lượng chuyển lịch:
-                            <span style="color: red">5</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đã đổi:
+                            <span style="color: red">{{thongKeThang.tongSoLuotChuyenLich}} </span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng số luợng huỷ lịch:
-                            <span style="color: red">5</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch bị hủy:
+                            <span style="color: red">{{thongKeThang.tongSoHuyLich}} </span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng tiền mặt trong tháng:
-                            <span style="color: red">1.000.000 VND</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng tiền mặt:
+                            <span style="color: red">{{currenNumberListTK(thongKeThang.tongSoTienMat)}}  Vnd</span>
                         </div>
                     </div>
                 </div>
@@ -250,150 +259,159 @@
 
         <!-- Pending Requests Card Example -->
         <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-1">
+            <div class="card border-left-warning shadow h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div
-                                    class="h4 text-xs font-weight-bold text-warning text-uppercase mb-1"
+                                    class="h5 text-xs font-weight-bold text-warning text-uppercase mb-1"
                             >
                                 Năm
                             </div>
                         </div>
                         <div class="col-auto">
-                            <input class="form-control" type="year" />
+                            <input class="form-control-sm inputTKNam yearpicker" type="text"/>
                         </div>
-                        <hr class="mt-2" />
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng doanh thu: <span style="color: red">500.000 VND</span>
+                        <hr class="mt-2"/>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeNam.tongDoanhThu)}}Vnd</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng sân đặt online: <span style="color: red">5</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt online: <span style="color: red">{{thongKeNam.tongSanDatOnline}}</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt hộ: <span style="color: red">{{thongKeNam.tongSoLuotSanDatNho}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng số lượt đá:
-                            <span style="color: red">5</span>
+                            <span style="color: red">{{thongKeNam.tongSoLuotDa}}</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng số lượng chuyển lịch:
-                            <span style="color: red">5</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đã đổi:
+                            <span style="color: red">{{thongKeNam.tongSoLuotChuyenLich}}</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng số luợng huỷ lịch:
-                            <span style="color: red">5</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch bị hủy:
+                            <span style="color: red">{{thongKeNam.tongSoHuyLich}}</span>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            Tổng tiền mặt trong năm:
-                            <span style="color: red">1.000.000 VND</span>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng tiền mặt:
+                            <span style="color: red">{{currenNumberListTK(thongKeNam.tongSoTienMat)}} Vnd</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<!--    -->
-    <div class="col-md-12">
-        <!-- Area Chart -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-2">
-                <div class="row mb-2 p-2">
-                    <div class="col-md-6">
-                        <h5 class="font-weight-bold nameTK text-primary"></h5>
+    <!--    -->
+    <section id="app">
+        <div class="row m-1">
+            <div class="col-md-12">
+                <!-- Area Chart -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-2">
+                        <div class="row mb-2 p-2">
+                            <div class="col-md-6">
+                                <h5 class="font-weight-bold nameTK text-primary"></h5>
+                            </div>
+                            <div class="col">
+                                <select class="optionChonTK form-select">
+                                    <option value="1" selected>Doanh thu năm</option>
+                                    <option value="2">Doanh thu ngày</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="yearpicker dateNam form-control"/>
+                                <input type="date" class="dateNgay form-control" hidden/>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col">
-                        <select class="optionChonTK form-select" >
-                            <option value="1" selected>Doanh thu năm</option>
-                            <option value="2">Doanh thu ngày</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <input type="text" class="yearpicker dateNam form-control"/>
-                        <input type="date" class="dateNgay form-control" hidden/>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="myAreaChart" class="thongKeTheoNam"></canvas>
+                            <canvas id="thongKeNgay" class="thongKeTheoNgay" hidden></canvas>
+                        </div>
+                        <hr/>
+                        <div class="thongKeTheoNam sumYear"></div>
+                        <div class="thongKeTheoNgay sumDay" hidden>Tổng doanh thu: 100000</div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="chart-area">
-                    <canvas id="myAreaChart" class="thongKeTheoNam"></canvas>
-                    <canvas id="thongKeNgay" class="thongKeTheoNgay" hidden></canvas>
-                </div>
-                <hr/>
-                <div class="thongKeTheoNam sumYear"></div>
-                <div class="thongKeTheoNgay sumDay" hidden>Tổng doanh thu: 100000</div>
             </div>
         </div>
-    </div>
 
 
-    <div class="row">
-        <div class="col-md-6">
-            <!-- Area Chart -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-2">
-                    <div class="row mb-2 p-2">
-                        <div class="col-md-6">
-                            <h5 class="font-weight-bold text-primary">Đồ thuê</h5>
+
+        <div class="row m-1">
+            <div class="col-md-6">
+                <!-- Area Chart -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-2">
+                        <div class="row mb-2 p-2">
+                            <div class="col-md-6">
+                                <h5 class="font-weight-bold text-primary">Đồ thuê</h5>
+                            </div>
+                            <div class="col">
+                                <select class="thong-ke-do-thue form-select">
+                                    <option value="1" selected>Theo năm</option>
+                                    <option value="2">Theo tháng</option>
+                                    <option value="3">Theo ngày</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="yearpicker doThueNam form-control"/>
+                                <input type="month" class="doThueThang form-control" hidden/>
+                                <input type="date" class="doThueNgay form-control" hidden/>
+                            </div>
                         </div>
-                        <div class="col">
-                            <select class="thong-ke-do-thue form-select">
-                            <option value="1" selected>Theo năm</option>
-                            <option value="2">Theo tháng</option>
-                            <option value="3">Theo ngày</option>
-                        </select>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="chartDoThue"></canvas>
                         </div>
-                        <div class="col">
-                            <input type="text" class="yearpicker doThueNam form-control"/>
-                            <input type="month" class="doThueThang form-control" hidden/>
-                            <input type="date" class="doThueNgay form-control" hidden/>
-                        </div>
+                        <hr/>
+                        <p class="doanhThuDoThue"></p>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="chartDoThue"></canvas>
+            </div>
+            <!-- Area Chart -->
+            <div class="col-md-6">
+                <!-- Area Chart -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-2">
+                        <div class="row mb-2 p-2">
+                            <div class="col-md-6">
+                                <h5 class="m-0 font-weight-bold text-primary">Nước uống</h5>
+                            </div>
+                            <div class="col">
+                                <select class="thong-ke-nuoc-uong form-select">
+                                    <option value="1" selected>Theo năm</option>
+                                    <option value="2">Theo tháng</option>
+                                    <option value="3">Theo ngày</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="yearpicker nuocUongNam form-control"/>
+                                <input type="month" class="nuocUongThang form-control" hidden/>
+                                <input type="date" class="nuocUongNgay form-control" hidden/>
+                            </div>
+                        </div>
                     </div>
-                    <hr/>
-                    <p class="doanhThuDoThue"></p>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="chartNuocUong" style="height: 502px; width: 502px"></canvas>
+                        </div>
+                        <hr/>
+                        <p class="doanhThuNuocUong"></p>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Area Chart -->
-        <div class="col-md-6">
-            <!-- Area Chart -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-2">
-                    <div class="row mb-2 p-2">
-                        <div class="col-md-6">
-                            <h5 class="m-0 font-weight-bold text-primary">Nước uống</h5>
-                        </div>
-                        <div class="col">
-                            <select class="thong-ke-nuoc-uong form-select">
-                                <option value="1" selected>Theo năm</option>
-                                <option value="2">Theo tháng</option>
-                                <option value="3">Theo ngày</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="yearpicker nuocUongNam form-control"/>
-                            <input type="month" class="nuocUongThang form-control" hidden/>
-                            <input type="date" class="nuocUongNgay form-control" hidden/>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="chartNuocUong"></canvas>
-                    </div>
-                    <hr/>
-                    <p class="doanhThuNuocUong"></p>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
 </main>
 <!-- Bootstrap core JavaScript-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:src="@{/static/js/owner/thong-ke.js}"></script>
+<script th:src="@{/static/js/owner/thong-ke-list.js}"></script>
 
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

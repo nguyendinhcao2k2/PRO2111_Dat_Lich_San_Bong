@@ -33,7 +33,7 @@ public class DoThue {
 
     @Column(name = "ten_do_thue", length = 400)
     private String tenDoThue;
-    @Column(name = "image")
+    @Column(name = "image",columnDefinition = "LONGTEXT")
     private String image;
     @Column(name = "so_luong")
     private Integer soLuong;

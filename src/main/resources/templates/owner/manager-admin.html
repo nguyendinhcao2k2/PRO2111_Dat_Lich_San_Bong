@@ -1028,7 +1028,7 @@
                                             </tr>
                                             </thead>
                                             <tbody v-for="(items,index) in giaoCaOwner" :key="index">
-                                            <tr>
+                                            <tr :class="items.tienPhatSinh != 0 ? 'table-warning' : ''">
                                                 <td>{{index}}</td>
                                                 <td hidden class="valueId">{{items.id}}</td>
                                                 <td>{{items.displayNameNhanVienTrongCa}}</td>
@@ -1352,6 +1352,7 @@
                         <th>#</th>
                         <th>Chức Năng</th>
                         <th>Mã Code</th>
+                        <th>Type</th>
                         <th>Value</th>
                         <th>Ghi Chú</th>
                         <th>Trạng Thái</th>
@@ -1361,6 +1362,7 @@
                         <td>{{index}}</td>
                         <td>{{items.chucNang}}</td>
                         <td>{{items.code}}</td>
+                        <td>{{items.type}}</td>
                         <td>{{items.value}}</td>
                         <td>{{items.note}}</td>
                         <td>{{items.trangThai == 0?"Hoạt động":"Dừng hoạt động"}}</td>
@@ -1374,13 +1376,13 @@
                             >
                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                             </button>
-                            <button
-                                    type="button"
-                                    class="btn btn-outline-danger"
-                                    @click="confirmDelete(items.id)"
-                            >
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </button>
+<!--                            <button-->
+<!--                                    type="button"-->
+<!--                                    class="btn btn-outline-danger"-->
+<!--                                    @click="confirmDelete(items.id)"-->
+<!--                            >-->
+<!--                                <i class="fa fa-trash" aria-hidden="true"></i>-->
+<!--                            </button>-->
                         </td>
                     </tr>
                 </table>
@@ -1514,6 +1516,14 @@
         >
             <br />
             <section class="container">
+                <div class="row">
+                    <div class="col-6"><button type="button" class="btn btn-light exportDoThue">Export Execl</button></div>
+                    <div class="col-6">
+                        <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn file import:</label>
+                        <input style="margin: 0.4rem 0;" class="importExcelDoThue" type="file" id="avatar" @change="handelExcel($event)" /></div>
+                </div>
+
+
                 <form
                         enctype="multipart/form-data"
                         @submit.prevent="confirmSaveDoThue"
@@ -1540,12 +1550,13 @@
                     >Đơn giá</span
                     >
                                 <input
-                                        type="number"
+                                        type="text"
                                         class="form-control"
                                         placeholder="Đơn giá.."
                                         required
                                         aria-describedby="addon-wrapping"
                                         min="0"
+                                        @input="handleDonGia($event)"
                                         v-model="doThue.donGia"
                                 />
                             </div>
@@ -1577,6 +1588,7 @@
                                         placeholder="Số lượng.."
                                         aria-describedby="addon-wrapping"
                                         min="0"
+                                        @input="handleSoLuong($event)"
                                         v-model="doThue.soLuong"
                                 />
                             </div>
@@ -1615,7 +1627,7 @@
                             <img
                                     style="width: 100px; height: 100px"
                                     v-else
-                                    :src="`http://localhost:8081/static/img/${items.image}`"
+                                    :src="imgSrc(items.image)"
                             />
                         </td>
                         <td>{{items.donGia}}</td>
@@ -1642,6 +1654,7 @@
 <script th:src="@{/static/js/owner/quan-li-tham-so.js}"></script>
 <script th:src="@{/static/js/owner/quan-li-do-thue.js}"></script>
 <script th:src="@{/static/js/utill/thong-bao.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"

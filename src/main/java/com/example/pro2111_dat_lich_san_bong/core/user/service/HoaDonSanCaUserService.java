@@ -30,4 +30,6 @@ public interface HoaDonSanCaUserService {
 
     List<HoaDonSendMailResponse> getLisTHDSC(String idHoaDon);
 
+    List<HoaDonSanCa> findByIdHoaDon(String idHoaDon);
+
 }

@@ -41,7 +41,6 @@ $(document).ready(function () {
                             var confirm = false;
                             Swal.fire({
                                 title: 'Nhận ca thành công!',
-                                text: 'Xin chào!',
                                 icon: 'success',
                                 confirmButtonText: 'OKE'
                             }).then((result) => {

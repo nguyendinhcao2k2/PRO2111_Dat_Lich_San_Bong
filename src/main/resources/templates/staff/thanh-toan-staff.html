@@ -251,7 +251,7 @@
                                     <label
                                             for="selectPhuPhi"
                                             class="col-md-4 col-form-label"
-                                    >Phụ phí</label
+                                    >Phụ phí:</label
                                     >
                                     <div class="col-md-8">
                                         <div class="input-group">
@@ -417,52 +417,53 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <!-- Tiền khách đưa -->
-                                <div class="row mb-3" id="tienKhachDuaContainer">
-                                    <div class="col-md-8">
-                                        <div class="input-group">
-                                            <label for="tienKhachDua" class="col-md-4 col-form-label"
-                                            >Tiền Khách Đưa :</label
-                                            >
-                                            <input
-                                                    type="number"
-                                                    min="1"
-                                                    id="tienKhachDua"
-                                                    oninput="calculateChange()"
-                                            />
-                                            <span
-                                                    class="input-group-text"
-                                                    style="
-                              border-top-right-radius: 5px;
-                              border-bottom-right-radius: 5px;
-                            "
-                                                    id="basic-addon3"
-                                            >VND</span
-                                            >
-                                        </div>
+
+                            </div>
+                            <!-- Tiền khách đưa -->
+                            <div class="row mb-3" id="tienKhachDuaContainer">
+                                <label for="tienKhachDua" class="col-md-4 col-form-label"
+                                >Tiền Khách Đưa:</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input
+                                                class="form-control"
+                                                type="number"
+                                                min="1"
+                                                id="tienKhachDua"
+                                                oninput="calculateChange()"
+                                        />
+                                        <span
+                                                class="input-group-text"
+                                                style="
+                                                          border-top-right-radius: 5px;
+                                                          border-bottom-right-radius: 5px;
+                                                        "
+                                                id="basic-addon3"
+                                        >VND</span
+                                        >
                                     </div>
                                 </div>
-                                <!-- Tiền trả lại -->
-                                <div class="row mb-3" id="tienTraLaiContainer">
-                                    <div class="col-md-8">
-                                        <div class="input-group">
-                                            <label for="tienTraLai" class="col-md-4 col-form-label"
-                                            >Tiền Trả Lại: </label
-                                            >
-                                            <input
-                                                    readonly
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="tienTraLai"
-                                            />
-                                            <span
-                                                    class="input-group-text"
-                                                    style="
+                            </div>
+                            <!-- Tiền trả lại -->
+                            <div class="row mb-3" id="tienTraLaiContainer">
+                                <label for="tienTraLai" class="col-md-4 col-form-label"
+                                >Tiền Trả Lại: </label
+                                >
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input
+                                                readonly
+                                                type="text"
+                                                class="form-control"
+                                                id="tienTraLai"
+                                        />
+                                        <span
+                                                class="input-group-text"
+                                                style="
                                                               border-top-right-radius: 5px;
                                                               border-bottom-right-radius: 5px;
                                                             "
-                                            >VND</span>
-                                        </div>
+                                        >VND</span>
                                     </div>
                                 </div>
                             </div>

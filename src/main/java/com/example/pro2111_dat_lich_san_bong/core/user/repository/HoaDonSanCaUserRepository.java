@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.repository;
 
 import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
+import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.repository.HoaDonSanCaReponsitory;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +13,8 @@ import java.util.List;
  * @author thepvph20110
  */
 public interface HoaDonSanCaUserRepository extends HoaDonSanCaReponsitory {
+
+    List<HoaDonSanCa> findByIdHoaDon(String idHoaDon);
 
     List findAllByIdHoaDon(String idHoaDon);
 

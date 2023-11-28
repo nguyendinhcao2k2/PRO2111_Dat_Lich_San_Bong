@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.controller;
 
 
+import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.LichSuSanBongAdminService;
 import com.example.pro2111_dat_lich_san_bong.core.common.session.CommonSession;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.request.DoiLichNhieuRequest;
@@ -12,6 +13,7 @@ import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
 import com.example.pro2111_dat_lich_san_bong.entity.*;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuDoiLich;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLoaiBienDong;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
@@ -79,6 +81,8 @@ public class DoiLichNhieuUserThanhToanRestController {
     @Autowired
     private SendMailWithBookings sendMailWithBookings;
 
+    @Autowired
+    private LichSuSanBongAdminService lichSuSanBongAdminService;
 
     private List<DoiLichNhieuRequest> doiLichNhieuRequestList = new ArrayList<>();
 
@@ -271,6 +275,7 @@ public class DoiLichNhieuUserThanhToanRestController {
         List<HoaDonSanCa> listHoaDonSanCaUpdate = new ArrayList<>();
         List<HoaDonSanCa> listHoaDonSanCaCu = new ArrayList<>();
         Set<String> hoaDonListSanCaMoi = new HashSet<>();
+        List<LichSuSanBong> listCreateLichSuSanBong = new ArrayList<>();
         List<LichSuDoiLich> lichSuDoiLichList = lichSuDoiLichUserService.findAllByIdNguoiDungAndTrangThaiList(commonSession.getUserId(), TrangThaiLichSuDoiLich.DOI_N_LICH.ordinal());
         Double phanTramTienCoc = Double.valueOf(sysParamUserService.findSysParamByCode(SYSParamCodeConstant.PHAN_TRAM_GIA_TIEN_COC).getValue());
         if (paymentStatus == 1) {
@@ -290,7 +295,14 @@ public class DoiLichNhieuUserThanhToanRestController {
                     hoaDonListSanCaMoi.add(hoaDonSanCa.getIdHoaDon());
 
                     listHoaDonSanCaUpdate.add(hoaDonSanCa);
+
+                    //create Lich su san bong
+                    LichSuSanBong lichSuSanBong = new LichSuSanBong();
+                    lichSuSanBong.setTrangThai(TrangThaiLichSuSanBong.DOI_LICH.ordinal());
+                    lichSuSanBong.setNgayThucHien(LocalDateTime.now());
+                    listCreateLichSuSanBong.add(lichSuSanBong);
                 }
+                lichSuSanBongAdminService.saveAll(listCreateLichSuSanBong);
                 hoaDonSanCaUserService.updateAll(listHoaDonSanCaUpdate);
 
                 for (String idSanCaCu : listSanCaCu) {

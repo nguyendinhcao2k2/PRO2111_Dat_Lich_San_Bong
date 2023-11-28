@@ -1,37 +1,12 @@
 package com.example.generate_DB;
 
-import com.example.pro2111_dat_lich_san_bong.entity.Account;
-import com.example.pro2111_dat_lich_san_bong.entity.Ca;
-import com.example.pro2111_dat_lich_san_bong.entity.ChucVu;
-import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
-import com.example.pro2111_dat_lich_san_bong.entity.DoThue;
-import com.example.pro2111_dat_lich_san_bong.entity.LoaiSan;
-import com.example.pro2111_dat_lich_san_bong.entity.NuocUong;
-import com.example.pro2111_dat_lich_san_bong.entity.PhuPhi;
-import com.example.pro2111_dat_lich_san_bong.entity.PhuPhiHoaDon;
-import com.example.pro2111_dat_lich_san_bong.entity.SanBong;
-import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.SysParam;
-import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
+import com.example.pro2111_dat_lich_san_bong.core.admin.model.request.LuatSanRequest;
+import com.example.pro2111_dat_lich_san_bong.core.admin.reposiotry.LuatSanAdminRepository;
+import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.LuatSanAdminService;
+import com.example.pro2111_dat_lich_san_bong.entity.*;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
-import com.example.pro2111_dat_lich_san_bong.repository.AccountRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.CaRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.ChucVuRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.DichVuRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.DoThueRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.HangKhachHangRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.HoaDonRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.LichSuChatRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.LoaiSanRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.NuocUongRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.PhuPhiHoaDonRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.PhuPhiRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.SYSParamRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.SanBongRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.SanCaRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.HinhThucThanhToanRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.ViTienRepository;
+import com.example.pro2111_dat_lich_san_bong.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -97,6 +72,9 @@ public class DBGenerator implements CommandLineRunner {
 
     @Autowired
     private SYSParamRepository sysParamRepository;
+
+    @Autowired
+    private LuatSanRepository luatSanRepository;
 
     private final boolean IS_RELEASE = false;
 
@@ -214,8 +192,8 @@ public class DBGenerator implements CommandLineRunner {
         nhanVien1.setId(accountRepository.save(nhanVien1).getId());
 
         Account admin1 = new Account();
-        admin1.setEmail("admin1@gamil.com");
-        admin1.setSoDienThoai("0312345678");
+        admin1.setEmail("sydvph19885@fpt.edu.vn");
+        admin1.setSoDienThoai("0369569225");
         admin1.setDisplayName("admin 1");
         admin1.setMatKhau("$2a$12$7gE1Gmxw86zKOsv1HE6EWu5fADdikTRzbAYrdeHNYjMwso9G3cko2"); // pass: 1111
         admin1.setTrangThai(0); //trang thái 0: hoạt động
@@ -558,10 +536,17 @@ public class DBGenerator implements CommandLineRunner {
         phuPhiHoaDon3.setId(phuPhiHoaDonRepository.save(phuPhiHoaDon3).getId());
 
         // END PHỤ PHÍ HÓA ĐƠN
+
+        //LUAT SAN START
+        LuatSan luatSan = new LuatSan();
+        luatSan.setThongTin("<p><span style=\"color: rgb(136, 136, 136);\">Cảm ơn quý khách đã tin tưởng và sử dụng hệ thống sân bóng của chúng tôi. Chúng tôi rất vinh hạnh khi được phục vụ quý khách</span></p><p><span style=\"color: rgb(136, 136, 136);\">Để đảm bảo quý khách có thể đặt sân và sử dụng dịch vụ tại sân bóng của chúng tôi một cách an toàn và tốt nhất.</span></p><p><span style=\"color: rgb(136, 136, 136);\">Sân bóng Đồng Đế chúng tôi chuyên cung cấp các dịch vụ thể thao liên quan tới bóng đá. Sân bóng của chúng tôi đạt chuẩn FIFA mang lại sự an toàn khi thi đấu</span></p><p><span style=\"color: rgb(136, 136, 136);\">Website \"Đặt lịch sân bóng Đồng Đế\" của chúng tôi hoạt động 24/24 quý khách có thể chọn giờ và đặt sân bất cứ thời gian nào</span></p><p><br></p><h2 class=\"ql-align-center\"><strong style=\"color: rgb(29, 29, 39);\">Tuy nhiên chúng tôi có 1 số lưu ý cho quý khách như sau:</strong></h2><p class=\"ql-align-center\"><br></p><p><span style=\"color: rgb(136, 136, 136);\">1. Sau khi đặt sân trên hệ thống của chúng tôi, quý khách có 15 phút từ sau khi đặt sân để chuyển tiền cọc tới số tài khoản sân. Số tiền cọc sẽ tương đương 20% số tiền sân ( Không bao gồm dịch vụ ). Sau khi quý khách đã chuyển tiền. Hệ thống sẽ gửi thông báo đến quý khách để xác nhận quý khách đã đặt lịch thành công. Nhân viên chúng tôi sẽ liên hệ quý khách ngay sau khi khách hàng đặt sân ( Thời gian từ 7h - 23h hàng ngày ). Sau thời gian trên nếu quý khách đặt sân sẽ phải chờ vào khoảng thời gian nhân viên hoạt động để xác nhận sân đã được đặt.</span></p><p><span style=\"color: rgb(136, 136, 136);\">2. Dịch vụ của chúng tôi sẽ hỗ trợ quý khách đổi lịch sân trong khoảng thời gian trước 2 ngày lịch đặt của quý khách. Chúng tôi sẽ hủy sân nếu quý khách cố ý đổi gần ngày thi đấu. Trừ một số trường hợp đặc biệt.</span></p><p><span style=\"color: rgb(136, 136, 136);\">3. Khi đến sân quý khách vui lòng cung cấp mã QR để nhận sân. Nếu người đặt sân không có mặt tại đó quý khách vui lòng cung cấp số điện thoại người đặt để nhận sân. Mọi quyết định sẽ được đưa ra ngay thời điểm, và quyết định của chủ sân sẽ là quyết định cuối cùng</span></p><p><span style=\"color: rgb(136, 136, 136);\">4. Nếu quý khách có nhu cầu đặt sân gấp. Chúng tôi khuyến cáo quý khách nên liên hệ tới số 0356169620 để đặt sân trực tiếp thông qua nhân viên trực tại sân.</span></p><p><span style=\"color: rgb(136, 136, 136);\">5. Nếu quý khách đã đặt cọc và tự ý hủy sân. Số tiền quý khách đã cọc sẽ không được thanh toán lại trong mọi trường hợp.</span></p><p><span style=\"color: rgb(136, 136, 136);\">6. Mọi sự việc tại sân quyết định của chủ sân là quyết định cuối cùng nhất</span></p><p><span style=\"color: rgb(136, 136, 136);\">7. LƯU Ý: Chúng tôi khuyến cáo quý khách đặt sân trên website của chúng tôi để có thể nắm được các thông tin về các ca, số sân trống dễ dàng phục vụ cho quý khách</span></p>");
+        luatSan.setTrangThai(0);
+        luatSanRepository.save(luatSan);
+        //LUAT SAN END
     }
 
     private String getIdSanCa(SanBong sanBong, Ca ca, String dateId) {
-        return sanBong.getId() + '+' + ca.getId() +"+"+ sanBong.getIdLoaiSan() + "+" + dateId;
+        return sanBong.getId() + '+' + ca.getId() + "+" + sanBong.getIdLoaiSan() + "+" + dateId;
     }
 
     public static void main(String[] args) {

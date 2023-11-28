@@ -1,5 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.core.user.controller;
 
+import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.LichSuSanBongAdminService;
 import com.example.pro2111_dat_lich_san_bong.core.common.session.CommonSession;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.request.DoiLichOneRequest;
@@ -9,6 +10,7 @@ import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
 import com.example.pro2111_dat_lich_san_bong.entity.*;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuDoiLich;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLoaiBienDong;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
@@ -77,6 +79,9 @@ public class DoiLichOneThanhToanController {
 
     @Autowired
     private SendMailWithBookings sendMailWithBookings;
+
+    @Autowired
+    private LichSuSanBongAdminService lichSuSanBongAdminService;
 
     @PostMapping("/one")
     @ResponseBody
@@ -266,6 +271,12 @@ public class DoiLichOneThanhToanController {
 
             //xóa lịch sử đổi lịch
             lichSuDoiLichUserService.deleteById(lichSuDoiLich.getId());
+
+            //create Lich su san bong
+            LichSuSanBong lichSuSanBong = new LichSuSanBong();
+            lichSuSanBong.setTrangThai(TrangThaiLichSuSanBong.DOI_LICH.ordinal());
+            lichSuSanBong.setNgayThucHien(LocalDateTime.now());
+            lichSuSanBongAdminService.createOrUpdate(lichSuSanBong);
 
             //gửi mail
             List<HoaDonSendMailResponse> list = hoaDonSanCaUserService.getLisTHDSC(hoaDon.getId());
