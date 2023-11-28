@@ -110,9 +110,17 @@
                             <!-- ADD BODY ROW COL BÊN NGOÀI UPDATE THÊM HEADER THẺ DIV table table-striped table-hover -->
                             <div class="body-row-col">
                                 <div class="row header-border">
-                                    <div class="col-md-8">
+                                    <div class="col-md-5">
                                         <div class="header-row-col">
-                                            <h1>Danh Sách hóa đơn</h1>
+                                            <h1>Danh Sách Hóa Đơn</h1>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="header-row-col">
+                                            <button type="button" class="btn btn-success">
+                                                Reload
+                                                <i class="bi bi-arrow-clockwise"></i>
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="col-md-4 d-flex justify-content-end">
@@ -389,16 +397,16 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="mb-3">
-                                    <label for="tenSan" class="form-label">Tên Sân Ca</label>
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            id="tenSan"
-                                            readonly
-                                    />
-                                </div>
                                 <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="tenSan" class="form-label">Tên Sân Ca</label>
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                id="tenSan"
+                                                readonly
+                                        />
+                                    </div>
                                     <div class="col-md-6">
                                         <label for="thoiGianDa" class="form-label"
                                         >Thời Gian Đá</label
@@ -410,9 +418,13 @@
                                                 readonly
                                         />
                                     </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="row g-3">
                                     <div class="col-md-6">
                                         <label for="thoiGianCheckIn" class="form-label"
-                                        >Thời Gian Nhận Sân</label
+                                        >Thời Gian Check In</label
                                         >
                                         <input
                                                 readonly
@@ -420,6 +432,25 @@
                                                 class="form-control"
                                                 id="thoiGianCheckIn"
                                         />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="tienCocThua" class="form-label">Tiền Cọc Thừa (5)</label>
+                                        <div class="input-group">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="tienCocThua"
+                                                    readonly
+                                            />
+                                            <span
+                                                    class="input-group-text"
+                                                    style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                            >VND</span
+                                            >
+                                        </div>
                                     </div>
                                 </div>
                                 <hr>
@@ -747,7 +778,7 @@
                                                 color: rgb(215, 92, 92);
                                               "
                                         >
-                                            ((1 + 2 + 3) - 4) :
+                                            ((1 + 2 + 3) - (4 + 5)):
                                         </h3>
                                         <h1
                                                 style="
@@ -816,12 +847,14 @@
     });
     //
     var tongTienHoaDonPhaiTra = 0;
+    var tongTienSanCaSaveThongKe = 0;
     $(document).ready(function () {
         clearTienKhachDua();
         var getId;
         var tongTienDichVu = 0;
         var tongTienSanCa = 0;
         var tongTienCoc = 0;
+        var tongTienCocThua = 0;
         var tongGiaTienPhuPhi = 0;
         showDataTableViewThanhToan();
 
@@ -983,8 +1016,9 @@
 
                     });
                     $('#tienDichVu').val(formatCurrencyVND(tongTienDichVu));
-                    tongTienHoaDonPhaiTra = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - parseFloat(tongTienCoc));
-                    $('#tongThanhToan').text(formatCurrencyVND((parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - parseFloat(tongTienCoc))) + '.VNĐ');
+                    tongTienSanCaSaveThongKe = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi));
+                    tongTienHoaDonPhaiTra = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)));
+                    $('#tongThanhToan').text(formatCurrencyVND((parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)))) + '.VNĐ');
                 },
                 error: function (error) {
                     console.error('API Request Failed:', error);
@@ -1011,6 +1045,11 @@
         $('#select-service-list-order').change(function () {
             processSelectChange();
         });
+
+        function autoSelectFirstRow() {
+            var firstRow = $("#myTableBody tr:first");
+            firstRow.trigger('click');
+        }
 
         function showDataTableViewThanhToan() {
             $.get("/api/v1/staff/get-all-thanh-toan", function (data) {
@@ -1042,6 +1081,7 @@
 
                 //hiển thị dữ liệu dựa trên trang hiện tại
                 function displayData() {
+
                     tableBody.empty();
                     var startIndex = (currentPage - 1) * pageSize;
                     var endIndex = Math.min(startIndex + pageSize, data.length);
@@ -1051,6 +1091,7 @@
                         var row = document.createElement('tr');
 
                         row.dataset.id = item.id;
+                        row.dataset.tienCocThua = item.tienCocThua;
                         row.dataset.soDienThoai = item.soDienThoai;
                         row.dataset.tenKhachHang = item.tenKhachHang;
                         row.dataset.tenSanBong = item.tenSanBong;
@@ -1094,12 +1135,15 @@
                             tableBody.find('tr').removeClass('selected-row');
                             $(this).addClass('selected-row');
                             getId = this.dataset.id;
+                            tongTienCocThua = this.dataset.tienCocThua;
                             tongTienSanCa = this.dataset.tongTienSanCa;
                             tongTienCoc = this.dataset.tienCoc;
                             displayDichVu(data);
+                            tongTienSanCaSaveThongKe = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi));
                             displayPhuPhiHoaDon(getId);
                             $('#tienSan').val(formatCurrencyVND(this.dataset.tongTienSanCa));
                             $('#tienCocSan').val(formatCurrencyVND(this.dataset.tienCoc));
+                            $('#tienCocThua').val(formatCurrencyVND(this.dataset.tienCocThua));
                             $('#tenKhachHang').val(this.dataset.tenKhachHang);
                             $('#soDienThoai').val(this.dataset.soDienThoai);
                             $('#tenSan').val(this.dataset.tenSanBong + ' - ' + this.dataset.tenCa + ' - ' + this.dataset.tenLoaiSan);
@@ -1149,18 +1193,22 @@
                         if (currentPage > 1) {
                             currentPage--;
                             displayData();
+                            autoSelectFirstRow();
                         }
                     } else if (pageText === "»") {
                         if (currentPage < totalPages) {
                             currentPage++;
                             displayData();
+                            autoSelectFirstRow();
                         }
                     } else {
                         currentPage = parseInt(pageText);
                         displayData();
+                        autoSelectFirstRow();
                     }
                 });
                 displayData();
+                autoSelectFirstRow();
             });
         }
 
@@ -1332,8 +1380,9 @@
                             $('#selectPhuPhi').append(option);
                             tongGiaTienPhuPhi += item.giaPhuPhi;
                         });
+                        tongTienSanCaSaveThongKe = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi));
                         $('#tienPhuPhi').val(formatCurrencyVND(tongGiaTienPhuPhi));
-                        $('#tongThanhToan').text(formatCurrencyVND((parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - parseFloat(tongTienCoc))) + '.VNĐ');
+                        $('#tongThanhToan').text(formatCurrencyVND((parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)))) + '.VNĐ');
                     } else {
                         var htmlHoaDonPhuPhi = '<h5>' + 'CHƯA CÓ PHỤ PHÍ' + '</h5>';
                         $('#dataPhuPhiHoaDon').append(htmlHoaDonPhuPhi);
@@ -1356,7 +1405,7 @@
                         showMessageThanhToanWarning();
                         $('#tienKhachDua').css('border-color', 'red');
                     }
-                    if(tienKhachDua < tongTienHoaDonPhaiTra){
+                    if (tienKhachDua < tongTienHoaDonPhaiTra) {
                         showMessageThanhToanWarning();
                         $('#tienKhachDua').css('border-color', 'red');
                     }
@@ -1374,14 +1423,15 @@
         function clearForm() {
             $('#dataNuocUong').empty();
             $('#dataDoThue').empty();
-            $('#tienTraLai').val('');
-            $('#tienKhachDua').val('');
-            $('#tienSan').val('');
-            $('#tienCocSan').val('');
+            $('#tienTraLai').val(0);
+            $('#tienKhachDua').val(0);
+            $('#tienSan').val(0);
+            $('#tienCocSan').val(0);
+            $('#tienCocThua').val(0);
             $('#tenKhachHang').val('');
-            $('#tienDichVu').val('');
+            $('#tienDichVu').val(0);
             $('#selectPhuPhi').empty();
-            $('#tienPhuPhi').val('');
+            $('#tienPhuPhi').val(0);
             $('#soDienThoai').val('');
             $('#tenSan').val('');
             $('#thoiGianDa').val('');
@@ -1405,17 +1455,17 @@
         function thanhToanChuyenKhoan() {
             var tenKhachHang = $("#tenKhachHang").val();
             var soDienThoai = $("#soDienThoai").val();
-            console.log(tenKhachHang);
-            console.log(soDienThoai);
             $.ajax({
                 type: "POST",
                 url: "/api/v1/staff/thanh-toan-chuyen-khoan",
                 data: {
+                    idHoaDonSanCa: getId,
                     amount: tongTienHoaDonPhaiTra,
                     orderInfo: soDienThoai,
                 },
                 success: function (response) {
                     window.open(response);
+                    showDataTableViewThanhToan();
                 },
                 error: function (error) {
                     console.error("Lỗi Ajax: ", error);
@@ -1425,15 +1475,17 @@
 
         function thanhToanTienMat() {
             var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+            var tongTien = tongTienSanCaSaveThongKe;
+            console.log(tongTien);
             $.ajax({
                 type: "POST",
                 url: "/api/v1/staff/thanh-toan-tien-mat/" + getId,
-                data: {paymentMethod: paymentMethod},
+                data: {
+                    paymentMethod: paymentMethod,
+                    tongTienSave: tongTien
+                },
                 success: function (response) {
-                    console.log(response);
-                    if (response === "paymentMethod=tienMat") {
-                        showDataTableViewThanhToan();
-                    }
+                    showDataTableViewThanhToan();
                 },
                 error: function (error) {
                     console.error("Lỗi Ajax: ", error);

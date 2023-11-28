@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 public class HoaDonThanhToanRequest {
     private String id;
     private Double tienCoc;
+    private Double tienCocThua;
     private String tenKhachHang;
     private String soDienThoai;
     private String tenSanBong;
