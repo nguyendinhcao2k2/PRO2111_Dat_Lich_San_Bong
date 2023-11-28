@@ -117,7 +117,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="header-row-col">
-                                            <button type="button" class="btn btn-success">
+                                            <button type="button" class="btn btn-success" onclick="thongBao()">
                                                 Reload
                                                 <i class="bi bi-arrow-clockwise"></i>
                                             </button>
@@ -1297,7 +1297,6 @@
             $('#tienTraLai').val();
             $('#tienKhachDua').val();
 
-            console.log(giaPhuPhi);
             if (tenPhuPhi == '') {
                 $('#tenPhuPhi').val('').css('border-color', 'red');
             } else {
@@ -1309,45 +1308,65 @@
                 $('#giaPhuPhi').css('border-color', '');
             }
             if (tenPhuPhi != '' && giaPhuPhi !== 0) {
-                $('#tenPhuPhi').val('');
-                createAndShowToast('bg-success', 'Thêm Phụ Phí Thành Công :', tenPhuPhi + ' ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
-                $.ajax({
-                    url: "/api/v1/staff/phu-phi-hoa-don/luu-phu-phi/" + getId,
-                    method: "POST",
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        tenPhuPhi: tenPhuPhi,
-                        giaPhuPhi: giaPhuPhi
-                    }),
-                    success: function (data) {
-                        displayPhuPhiHoaDon(getId);
-                    },
-                    error: function (error) {
-                        console.log("Error:", error);
+                Swal.fire({
+                    title: 'Chắc Chắn Xác Nhận Thêm Phụ Phí!',
+                    text: 'Xin chào!',
+                    icon: 'success',
+                    confirmButtonText: 'Đồng Ý'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/api/v1/staff/phu-phi-hoa-don/luu-phu-phi/" + getId,
+                            method: "POST",
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                tenPhuPhi: tenPhuPhi,
+                                giaPhuPhi: giaPhuPhi
+                            }),
+                            success: function (data) {
+                                displayPhuPhiHoaDon(getId);
+                            },
+                            error: function (error) {
+                                console.log("Error:", error);
+                            }
+                        });
+                        createAndShowToast('bg-success', 'Thêm Phụ Phí Thành Công :', tenPhuPhi + ' ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
+                        $('#tenPhuPhi').val('');
+                        $('#giaPhuPhi').val(0);
                     }
                 });
-                $('#tenPhuPhi').val('');
-                $('#giaPhuPhi').val(0);
             }
+
+
         });
 
         $(document).on('click', '#buttonXoaPhuPhiHoaDon', function () {
-            var idPhuPhiHoaDon = $(this).data('id');
-            var tenPhuPhi = $(this).data('ten-phu-phi');
-            var giaPhuPhi = $(this).data('gia-phu-phi');
-            $('#tienTraLai').empty();
-            $('#tienKhachDua').empty();
-            $.ajax({
-                url: '/api/v1/staff/phu-phi-hoa-don/xoa-phu-phi/' + idPhuPhiHoaDon,
-                method: 'DELETE',
-                success: function (response) {
-                    displayPhuPhiHoaDon(getId);
-                },
-                error: function (error) {
-                    console.error('API Request Failed:', error);
+            Swal.fire({
+                title: 'Chắc Chắn Xác Nhận Xóa Phụ Phí!',
+                text: 'Xin chào!',
+                icon: 'success',
+                confirmButtonText: 'Đồng Ý'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var idPhuPhiHoaDon = $(this).data('id');
+                    var tenPhuPhi = $(this).data('ten-phu-phi');
+                    var giaPhuPhi = $(this).data('gia-phu-phi');
+                    $('#tienTraLai').empty();
+                    $('#tienKhachDua').empty();
+                    $.ajax({
+                        url: '/api/v1/staff/phu-phi-hoa-don/xoa-phu-phi/' + idPhuPhiHoaDon,
+                        method: 'DELETE',
+                        success: function (response) {
+                            displayPhuPhiHoaDon(getId);
+                        },
+                        error: function (error) {
+                            console.error('API Request Failed:', error);
+                        }
+                    });
+                    createAndShowToast('bg-success', 'Xóa Phụ Phí Thành Công :', tenPhuPhi + ' ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
                 }
             });
-            createAndShowToast('bg-success', 'Xóa Phụ Phí Thành Công :', tenPhuPhi + ' ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
+
         });
 
         function displayPhuPhiHoaDon(getId) {
@@ -1362,7 +1381,6 @@
                 method: "GET",
                 success: function (data) {
                     if (data.length > 0) {
-                        // Dữ liệu không null và có ít nhất một phần tử
                         $.each(data, function (index, item) {
                             var htmlHoaDonPhuPhi = '<tr>';
                             htmlHoaDonPhuPhi += '<th scope="row">' + (index + 1) + '</th>';
@@ -1398,27 +1416,23 @@
         $(document).ready(function () {
             $("#btnThanhToanHoaDon").click(function () {
                 var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+
                 if (paymentMethod == "tienMat") {
-                    var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
-                    console.log(tienKhachDua);
-                    if (tienKhachDua === 0) {
+                    var tienKhachDua = parseFloat($('#tienKhachDua').val()) || 0;
+
+                    if (tienKhachDua === 0 || tienKhachDua < tongTienHoaDonPhaiTra) {
                         showMessageThanhToanWarning();
                         $('#tienKhachDua').css('border-color', 'red');
-                    }
-                    if (tienKhachDua < tongTienHoaDonPhaiTra) {
-                        showMessageThanhToanWarning();
-                        $('#tienKhachDua').css('border-color', 'red');
-                    }
-                    if (tienKhachDua >= tongTienHoaDonPhaiTra) {
+                    } else {
                         thanhToanTienMat();
-                        showMessageThanhToan();
-                        $('#tienKhachDua').css('border-color', '')
+                        $('#tienKhachDua').css('border-color', '');
                     }
                 } else if (paymentMethod == "chuyenKhoan") {
                     thanhToanChuyenKhoan();
                 }
             });
         });
+
 
         function clearForm() {
             $('#dataNuocUong').empty();
@@ -1454,41 +1468,64 @@
 
         function thanhToanChuyenKhoan() {
             var tenKhachHang = $("#tenKhachHang").val();
-            var soDienThoai = $("#soDienThoai").val();
-            $.ajax({
-                type: "POST",
-                url: "/api/v1/staff/thanh-toan-chuyen-khoan",
-                data: {
-                    idHoaDonSanCa: getId,
-                    amount: tongTienHoaDonPhaiTra,
-                    orderInfo: soDienThoai,
-                },
-                success: function (response) {
-                    window.open(response);
-                    showDataTableViewThanhToan();
-                },
-                error: function (error) {
-                    console.error("Lỗi Ajax: ", error);
+            var tenSan = $("#tenSan").val();
+            Swal.fire({
+                title: 'Chắc Chắn Xác Nhận Thanh Toán Hóa Đơn : ' + tenKhachHang + ' : ' + tenSan,
+                text: 'Xin chào!',
+                icon: 'success',
+                confirmButtonText: 'Đồng Ý'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var tenKhachHang = $("#tenKhachHang").val();
+                    var soDienThoai = $("#soDienThoai").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/v1/staff/thanh-toan-chuyen-khoan",
+                        data: {
+                            idHoaDonSanCa: getId,
+                            amount: tongTienHoaDonPhaiTra,
+                            orderInfo: soDienThoai,
+                        },
+                        success: function (response) {
+                            window.open(response);
+                        },
+                        error: function (error) {
+                            console.error("Lỗi Ajax: ", error);
+                        }
+                    });
                 }
             });
+
         }
 
         function thanhToanTienMat() {
-            var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
-            var tongTien = tongTienSanCaSaveThongKe;
-            console.log(tongTien);
-            $.ajax({
-                type: "POST",
-                url: "/api/v1/staff/thanh-toan-tien-mat/" + getId,
-                data: {
-                    paymentMethod: paymentMethod,
-                    tongTienSave: tongTien
-                },
-                success: function (response) {
-                    showDataTableViewThanhToan();
-                },
-                error: function (error) {
-                    console.error("Lỗi Ajax: ", error);
+            var tenKhachHang = $("#tenKhachHang").val();
+            var tenSan = $("#tenSan").val();
+            Swal.fire({
+                title: 'Chắc Chắn Xác Nhận Thanh Toán Hóa Đơn : ' + tenKhachHang + ' : ' + tenSan,
+                text: 'Xin chào!',
+                icon: 'success',
+                confirmButtonText: 'Đồng Ý'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+                    var tongTien = tongTienSanCaSaveThongKe;
+                    console.log(tongTien);
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/v1/staff/thanh-toan-tien-mat/" + getId,
+                        data: {
+                            paymentMethod: paymentMethod,
+                            tongTienSave: tongTien
+                        },
+                        success: function (response) {
+                            showMessageThanhToan();
+                            showDataTableViewThanhToan();
+                        },
+                        error: function (error) {
+                            console.error("Lỗi Ajax: ", error);
+                        }
+                    });
                 }
             });
         }
@@ -1619,10 +1656,25 @@
             createAndShowToast('bg-success', 'Nhập Số Lượng Sai :', inputValue);
         }
     }
+
+    function thongBao() {
+        Swal.fire({
+            title: 'Chắc Chắn Xác Nhận!',
+            text: 'Xin chào!',
+            icon: 'success',
+            confirmButtonText: 'OKE'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // confirm = true;
+                // window.location.href = "http://localhost:8081/api/v1/staff/view-dat-lich";
+            }
+        });
+    }
 </script>
 
 <!-- Add Bootstrap JS and jQuery links -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- UPDATE 2/11/023 -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>

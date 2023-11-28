@@ -133,7 +133,7 @@ public class ThanhToanHoaDonStaffRestController {
 
 
     @PostMapping("/thanh-toan-chuyen-khoan")
-    public String submidOrder(@RequestParam("idHoaDonSanCa") int id, @RequestParam("amount") int orderTotal, @RequestParam("orderInfo") String orderInfo, HttpServletRequest request) {
+    public String submidOrder(@RequestParam("idHoaDonSanCa") String id, @RequestParam("amount") int orderTotal, @RequestParam("orderInfo") String orderInfo, HttpServletRequest request) {
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         baseUrl += "/api/v1/staff/thanh-toan/chuyen-khoan-thanh-cong/" + id;
         int miuteParam = Integer.valueOf(sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_HET_GD).getValue());
