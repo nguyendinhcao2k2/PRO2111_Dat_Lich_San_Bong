@@ -70,7 +70,7 @@ public class JobHuySanCaServiceImpl implements JobHuySanCaService {
                         hoaDonSanCaReponsitory.saveAndFlush(hoaDonSanCa);
                     }
                     //đổi trạng thái sân ca từ chờ nhận sân -> quá giờ vì không đến sân
-                    sanCa.setTrangThai(TrangThaiSanCa.QUA_GIO_HIEN_TAI.ordinal());
+                    sanCa.setTrangThai(TrangThaiSanCa.HUY_QUA_GIO.ordinal());
                     sanCaRepository.saveAndFlush(sanCa);
                 }
 

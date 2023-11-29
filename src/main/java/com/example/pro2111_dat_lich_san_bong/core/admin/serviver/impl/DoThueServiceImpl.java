@@ -69,6 +69,7 @@ public class DoThueServiceImpl implements DoThueService {
     public boolean update(DoThueRequest doThueRequest) {
         try {
             DoThue doThue = mapper.map(doThueRequest, DoThue.class);
+            doThue.setTrangThai(0);
             doThueAdminRepository.saveAndFlush(doThue);
             return true;
         } catch (Exception e) {
@@ -95,6 +96,7 @@ public class DoThueServiceImpl implements DoThueService {
     public boolean nuocUongImportExcel(MultipartFile file) throws IOException {
         List<DoThue> doThueList = DoThueImportExcel.readExcel(file);
         try {
+
             doThueAdminRepository.saveAll(doThueList);
             return true;
         } catch (Exception e) {
