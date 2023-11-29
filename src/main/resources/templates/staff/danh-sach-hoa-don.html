@@ -718,50 +718,52 @@
                                             </div>
                                         </fieldset>
                                         <!-- Tiền khách đưa -->
-                                        <div class="row mb-3" id="tienKhachDuaContainer">
-                                            <div class="col-md-8">
-                                                <div class="input-group">
-                                                    <label for="tienKhachDua" class="col-md-4 col-form-label"
-                                                    >Tiền Khách Đưa :</label
-                                                    >
-                                                    <input
-                                                            type="number"
-                                                            id="tienKhachDua"
-                                                            min="0"
-                                                            oninput="calculateChange()"
-                                                    />
-                                                    <span
-                                                            class="input-group-text"
-                                                            style="
+                                        <div id="tienKhachDuaContainer">
+                                            <div class="row mb-3">
+                                                <label for="tienKhachDua" class="col-md-4 col-form-label"
+                                                >Tiền khách đưa</label
+                                                >
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input
+                                                                type="number"
+                                                                class="form-control"
+                                                                id="tienKhachDua"
+                                                                min="0"
+                                                                oninput="calculateChange()"
+                                                        />
+                                                        <span
+                                                                class="input-group-text"
+                                                                style="
                               border-top-right-radius: 5px;
                               border-bottom-right-radius: 5px;
                             "
-                                                            id="basic-addon3"
-                                                    >VND</span
-                                                    >
+                                                                id="basic-addon3"
+                                                        >VND</span
+                                                        >
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- Tiền trả lại -->
-                                        <div class="row mb-3" id="tienTraLaiContainer">
-                                            <div class="col-md-8">
-                                                <div class="input-group">
-                                                    <label for="tienTraLai" class="col-md-4 col-form-label"
-                                                    >Tiền Trả Lại: </label
-                                                    >
-                                                    <input
-                                                            readonly
-                                                            type="text"
-                                                            class="form-control"
-                                                            id="tienTraLai"
-                                                    />
-                                                    <span
-                                                            class="input-group-text"
-                                                            style="
+                                            <div class="row mb-3">
+                                                <label for="tienTraLai" class="col-md-4 col-form-label"
+                                                >Tiền trả lại</label
+                                                >
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input
+                                                                readonly
+                                                                type="text"
+                                                                class="form-control"
+                                                                id="tienTraLai"
+                                                        />
+                                                        <span
+                                                                class="input-group-text"
+                                                                style="
                                                               border-top-right-radius: 5px;
                                                               border-bottom-right-radius: 5px;
                                                             "
-                                                    >VND</span>
+                                                        >VND</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1631,20 +1633,14 @@
 <script>
     function toggleInputs() {
         var tienKhachDuaContainer = document.getElementById('tienKhachDuaContainer');
-        var tienTraLaiContainer = document.getElementById('tienTraLaiContainer');
 
         var tienMatRadio = document.getElementById('tienMat');
         if (tienMatRadio.checked) {
             tienKhachDuaContainer.style.display = 'block';
-            tienTraLaiContainer.style.display = 'block';
-            $('#tienKhachDua').val(0);
-            $('#tienTraLai').val(0);
         } else {
             tienKhachDuaContainer.style.display = 'none';
-            tienTraLaiContainer.style.display = 'none';
         }
     }
-
     toggleInputs();
 
     function validatePositiveNumberInput(input) {
