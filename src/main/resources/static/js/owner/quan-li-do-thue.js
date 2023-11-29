@@ -1,4 +1,5 @@
 <!-- tab 6 start -->
+var urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-all";
 var tabDoThue = new Vue({
     el: ".tabDoThue",
     data: {
@@ -7,7 +8,20 @@ var tabDoThue = new Vue({
         success: "Thao tác thành công!",
         error: "Thao tác thất bại!",
         imageFile: null,
+        isLoading: true,
+        indexSearchDoThue: 0,
+        pageNumberDoThue: 0,
+        pageSizeDoThue: 0,
+        totalPageDoThue: 0,
+        tenDoThueSearch: "",
         doThue: {
+            tenDoThue: "",
+            soLuong: 0,
+            donGia: 0,
+            image: null,
+        },
+        detailDoThueEntity: {
+            id: "",
             tenDoThue: "",
             soLuong: 0,
             donGia: 0,
@@ -32,13 +46,92 @@ var tabDoThue = new Vue({
                                 tenDoThue: tabDoThue.doThue.tenDoThue,
                                 soLuong: tabDoThue.doThue.soLuong,
                                 image: tabDoThue.doThue.image,
-                                donGia: tabDoThue.doThue.donGia.replace(/\D/g, ''),
+                                donGia: tabDoThue.doThue.donGia == 0 ? 0 : tabDoThue.doThue.donGia.replace(/\D/g, ''),
                             }),
                             success: function (response) {
                                 console.log(response)
+                                if (response.statusCode == 'OK') {
+                                    $('[rel="formCreate"]').trigger('reset');
+                                    tabDoThue.doThue.tenDoThue = "";
+                                    tabDoThue.doThue.soLuong = 0;
+                                    tabDoThue.doThue.donGia = 0;
+                                    createAndShowToast("bg-success", "Thông báo!", tabDoThue.success);
+                                    callApiGetDoThue(urlDoThue);
+                                } else {
+                                    createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
+                                }
                             },
                         });
                     } catch (error) {
+                        createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
+                        console.log(error);
+                    }
+
+                }
+            })
+        },
+        updateDoThue() {
+            Swal.fire({
+                title: tabDoThue.thongBao,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try {
+                        $.ajax({
+                            type: "PUT",
+                            url: "http://localhost:8081/api/v1/admin/do-thue/update",
+                            contentType: "application/json",
+                            data: JSON.stringify({
+                                id: tabDoThue.detailDoThueEntity.id,
+                                tenDoThue: tabDoThue.detailDoThueEntity.tenDoThue,
+                                soLuong: tabDoThue.detailDoThueEntity.soLuong,
+                                image: tabDoThue.detailDoThueEntity.image,
+                                donGia: tabDoThue.detailDoThueEntity.donGia == 0 ? 0 : tabDoThue.detailDoThueEntity.donGia.replace(/\D/g, ''),
+                            }),
+                            success: function (response) {
+                                if (response.statusCode === 'OK') {
+                                    callApiGetDoThue(urlDoThue);
+                                    createAndShowToast("bg-success", "Thông báo!", tabDoThue.success);
+                                    $(".huyModalUpdate").click();
+                                    $('[rel="formUpdate"]').trigger('reset');
+                                } else {
+                                    createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
+                                }
+                            },
+                        });
+                    } catch (error) {
+                        createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
+                        console.log(error);
+                    }
+
+                }
+            })
+        },
+        deleteDoThue(id) {
+            Swal.fire({
+                title: tabDoThue.thongBao,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try {
+                        $.ajax({
+                            type: "DELETE",
+                            url: "http://localhost:8081/api/v1/admin/do-thue/delete/" + id,
+                            success: function (response) {
+                                if (response.statusCode === 'OK') {
+                                    callApiGetDoThue(urlDoThue);
+                                    createAndShowToast("bg-success", "Thông báo!", tabDoThue.success);
+                                } else {
+                                    createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
+                                }
+                            },
+                        });
+                    } catch (error) {
+                        createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
                         console.log(error);
                     }
 
@@ -46,12 +139,7 @@ var tabDoThue = new Vue({
             })
         },
         handelImg(event) {
-            this.selectedFile = this.$refs.fileInput.files[0];
-            const formData = new FormData();
-            formData.append("file", this.selectedFile);
 
-            //image check
-            const fileInput = this.$refs.fileInput;
             const file = event.target.files[0]; // Sử dụng event.target.files thay vì truy cập trực tiếp biến fileInput
 
             if (file && file.type.startsWith("image/")) {
@@ -59,13 +147,18 @@ var tabDoThue = new Vue({
                 const render = new FileReader();
                 render.onload = function () {
                     const base64String = render.result.split(',')[1];
-                    tabDoThue.doThue.image = base64String;
+                    if (event.target.id === 'idFileAnhCreate') {
+                        tabDoThue.doThue.image = base64String;
+                    } else {
+                        tabDoThue.detailDoThueEntity.image = base64String;
+                    }
+
                 }
                 render.readAsDataURL(file);
             } else {
                 // Đây không phải là một tệp ảnh, thông báo hoặc xử lý tương ứng
-                alert("Đây không phải là ảnh xin chọn lại!");
-                fileInput.value = ""; // Xóa giá trị tệp đã chọn (nếu muốn)
+                createAndShowToast("bg-warning", "Thông báo!", "Đây không phải là ảnh xin chọn lại!");
+                event.target.value = ""; // Xóa giá trị tệp đã chọn (nếu muốn)
             }
             //image check
         }
@@ -100,13 +193,20 @@ var tabDoThue = new Vue({
                             processData: false,
                             data: formData,
                             success: function (reponse) {
-                                console.log(reponse);
-                                callApiGetDoThue();
-                                alert("Import thành công!")
+                                if(reponse.content == 'OK'){
+                                    callApiGetDoThue(urlDoThue);
+                                    createAndShowToast("bg-success", "Thông báo!", "Import file thành công!");
+                                    event.target.value = "";
+                                }else{
+                                    createAndShowToast("bg-warning", "Thông báo!", "Lỗi không thể import file");
+                                    event.target.value = "";
+                                }
+
                             },
                             error: function (error) {
                                 console.log(error);
-                                alert("Vui lòng để đúng thứ tự các trường như file export excel!")
+                                event.target.value = "";
+                                createAndShowToast("bg-warning", "Thông báo!", "Vui lòng để đúng thứ tự các trường như file export excel! Không cần cột STT nhưng phải đúng thứ tự các trường!");
                             }
                         })
                     } else {
@@ -116,8 +216,8 @@ var tabDoThue = new Vue({
 
             } else {
                 // Đây không phải là một tệp Excel, thông báo hoặc xử lý tương ứng
-                alert("Đây không phải là một tệp Excel, xin chọn lại!");
-                fileInput.value = ""; // Xóa giá trị tệp đã chọn (nếu muốn)
+                createAndShowToast("bg-warning", "Thông báo!", "Đây không phải là một tệp Excel, vui lòng chọn lại!");
+                event.target.value = ""; // Xóa giá trị tệp đã chọn (nếu muốn)
             }
         }
         ,
@@ -140,65 +240,151 @@ var tabDoThue = new Vue({
         ,
         handleSoLuong(event) {
             if (event.target.value === "" || event.target.value === null) {
-                tabDoThue.doThue.soLuong = 0;
+                if (event.target.id === 'idSoLuongCreate') {
+                    tabDoThue.doThue.soLuong = 0;
+                } else {
+                    tabDoThue.detailDoThueEntity.soLuong = 0;
+                }
                 return;
             }
             const regex = /^[0-9]+$/;
             if (!regex.test(event.target.value)) {
-                tabDoThue.doThue.soLuong = event.target.value.replace(/\D/g, '');
+                if (event.target.id === 'idSoLuongCreate') {
+                    tabDoThue.doThue.soLuong = event.target.value.replace(/\D/g, '');
+                } else {
+                    tabDoThue.detailDoThueEntity.soLuong = event.target.value.replace(/\D/g, '');
+                }
                 return;
             }
         }
         ,
         handleDonGia(event) {
             if (event.target.value === "" || event.target.value === null) {
-                tabDoThue.doThue.donGia = 0;
+                if (event.target.id === 'idDonGiaCreate') {
+                    tabDoThue.doThue.donGia = 0;
+                } else {
+                    tabDoThue.detailDoThueEntity.donGia = 0;
+                }
+
                 return;
             }
             const regex = /^[0-9]+$/;
             if (!regex.test(event.target.value)) {
-                tabDoThue.doThue.donGia = event.target.value.replace(/\D/g, '');
-                tabDoThue.doThue.donGia = parseInt(tabDoThue.doThue.donGia).toLocaleString("vi-VN");
+                if (event.target.id === 'idDonGiaCreate') {
+                    tabDoThue.doThue.donGia = event.target.value.replace(/\D/g, '');
+                    tabDoThue.doThue.donGia = parseInt(tabDoThue.doThue.donGia).toLocaleString("vi-VN");
+                } else {
+                    tabDoThue.detailDoThueEntity.donGia = event.target.value.replace(/\D/g, '');
+                    tabDoThue.detailDoThueEntity.donGia = parseInt(tabDoThue.detailDoThueEntity.donGia).toLocaleString("vi-VN");
+                }
+
                 return;
             }
-            tabDoThue.doThue.donGia = parseInt(event.target.value).toLocaleString("vi-VN");
+            if (event.target.id === 'idDonGiaCreate') {
+                tabDoThue.doThue.donGia = parseInt(event.target.value).toLocaleString("vi-VN");
+                return;
+            }
+            tabDoThue.detailDoThueEntity.donGia = parseInt(event.target.value).toLocaleString("vi-VN");
         }
         ,
         imgSrc(value) {
             return `data:image/png;base64,${value}`;
         },
-        // handleLaSo(event, value) {
-        //     if (event.target.value === "" || event.target.value === null) {
-        //         value= 0;
-        //         return;
-        //     }
-        //     const regex = /^[0-9]+$/;
-        //     if (!regex.test(event.target.value)) {
-        //         value = event.target.value.replace(/\D/g, '');
-        //         return;
-        //     }
-        // },
-        // handleFormatGiaVN(event, value) {
-        // }
+        detailDoThue(id) {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8081/api/v1/admin/do-thue/find/" + id,
+                success: function (response) {
+                    tabDoThue.detailDoThueEntity.id = response.content.id;
+                    tabDoThue.detailDoThueEntity.tenDoThue = response.content.tenDoThue;
+                    tabDoThue.detailDoThueEntity.donGia = tabDoThue.currenlyNumBerDoThue(parseInt(response.content.donGia));
+                    tabDoThue.detailDoThueEntity.soLuong = response.content.soLuong;
+                    tabDoThue.detailDoThueEntity.image = response.content.image;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        },
+        currenlyNumBerDoThue(number) {
+            return number.toLocaleString("vi-VN");
+        },
+        tiemKiemTheoTenDoThue(event) {
+
+             var url = "http://localhost:8081/api/v1/admin/do-thue/find-by-name?tenDoThue=" + event.target.value;
+            callApiGetDoThue(url);
+            tabDoThue.indexSearchDoThue = 1;
+            if(event.target.value === ""||event.target.value == null){
+                tabDoThue.indexSearchDoThue = 0;
+                callApiGetDoThue("http://localhost:8081/api/v1/admin/do-thue/find-all");
+            }
+        },
+        pageTionDT(value) {
+            if (parseInt(tabDoThue.indexSearchDoThue) === 1) {
+                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-by-name?tenDoThue=" +
+                    tabDoThue.tenDoThueSearch +
+                    "&page=" +
+                    value+"&size="+tabDoThue.pageSizeDoThue;
+            } else {
+                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-all?page=" + value+"&size="+tabDoThue.pageSizeDoThue;
+
+            }
+            callApiGetDoThue(urlDoThue);
+        },
+        nextPageDT() {
+            if (parseInt(tabDoThue.pageNumberDoThue) + 1 == parseInt(tabDoThue.totalPageDoThue)) {
+                return;
+            }
+            this.pageTionDT(parseInt(tabDoThue.pageNumberDoThue) + 1);
+        },
+        previuosDT() {
+            if (parseInt(tabDoThue.pageNumberDoThue) == 0) {
+                return;
+            }
+            this.pageTionDT(parseInt(tabDoThue.pageNumberDoThue) - 1);
+        },
+        pageSizeSelectDoThue(event){
+            if (parseInt(tabDoThue.indexSearchDoThue) === 1) {
+                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-by-name?tenDoThue=" +
+                    tabDoThue.tenDoThueSearch +
+                    "&size="+event.target.value;
+            } else {
+                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-all?size=" +event.target.value;
+
+            }
+            callApiGetDoThue(urlDoThue);
+        }
     },
 
 });
 $(document).ready(function () {
-    callApiGetDoThue();
+    callApiGetDoThue(urlDoThue);
     exportExcelDoThue();
 });
 
-function callApiGetDoThue() {
+function callApiGetDoThue(url) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/api/v1/admin/do-thue/find-all",
+        url: url,
         dataType: "json",
         success: function (response) {
+            if(response.content.data <= 0){
+                tabDoThue.pageNumberDoThue = -1;
+                tabDoThue.pageSizeDoThue = 0;
+                tabDoThue.totalPageDoThue = 0;
+                tabDoThue.listDoThue = [];
+                tabDoThue.isLoading = false;
+                return;
+            }
             tabDoThue.listDoThue = response.content.data;
-            console.log(response.content.data);
+            tabDoThue.isLoading = false;
+            tabDoThue.pageSizeDoThue = response.content.pageSize;
+            tabDoThue.pageNumberDoThue = response.content.currentPage;
+            tabDoThue.totalPageDoThue = response.content.totalPages;
         },
         error: function (error) {
             console.log(error);
+            tabDoThue.isLoading = false;
         },
     });
 }

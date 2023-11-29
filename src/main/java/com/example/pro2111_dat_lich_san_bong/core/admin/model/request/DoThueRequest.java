@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DoThueRequest {
-
+    private String id;
     private String tenDoThue;
     private Integer soLuong;
     private String image;
