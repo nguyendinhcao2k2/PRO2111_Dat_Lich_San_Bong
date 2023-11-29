@@ -352,6 +352,8 @@
                                     </div>
                                 </div>
                                 <div class="body-dich-vu header-border-content-dich-vu">
+                                    <div class="row mt-3 scrollable-content" id="dataThongBao">
+                                    </div>
                                     <div class="row mt-3 scrollable-content" id="dataNuocUong">
                                     </div>
                                     <hr>
@@ -980,6 +982,7 @@
                     $('#tienTraLai').empty();
                     $('#tienKhachDua').empty();
                     if (apiResponse && Array.isArray(apiResponse) && apiResponse.length > 0) {
+                        $('#dataThongBao').empty();
                         apiResponse.forEach(function (item) {
                             var idNuocUong = item.idNuocUong;
                             if (idNuocUong != null && idNuocUong != '') {
@@ -991,7 +994,7 @@
 
                                 var htmlContent = '<div class="col-md-3 col-sm-3 col-4">';
                                 htmlContent += '<div class="card card-product">';
-                                htmlContent += '<img src="/static/img/' + imageNuocUong + '" class="card-img-top" alt="..." />';
+                                htmlContent += '<img src="data:image/png;base64,' + imageNuocUong + '" class="card-img-top" alt="..." />';
                                 htmlContent += '<div class="card-body">';
                                 htmlContent += '<h5 class="card-title text-center">' + tenNuocUong + '</h5>';
                                 htmlContent += '<span class="price" type="number">' + formatCurrencyVND(giaNuocUong) + ' VNĐ</span>';
@@ -1020,7 +1023,7 @@
 
                                 var htmldoThue = '<div class="col-md-3 col-sm-3 col-4">';
                                 htmldoThue += '<div class="card card-product">';
-                                htmldoThue += '<img src="/static/img/' + imageDoThue + '" class="card-img-top" alt="..." />';
+                                htmldoThue += '<img src="data:image/png;base64,' + imageDoThue + '" class="card-img-top" alt="..." />';
                                 htmldoThue += '<div class="card-body">';
                                 htmldoThue += '<h5 class="card-title text-center">' + tenDoThue + '</h5>';
                                 htmldoThue += '<span class="price" type="number">' + formatCurrencyVND(giaDoThue) + ' VNĐ</span>';
@@ -1041,11 +1044,11 @@
                             }
                         });
                     } else {
+                        $('#dataThongBao').empty();
                         var htmlThongBao = '<div class="alert alert-danger noContent" role="alert">';
-                        htmlThongBao += '<h1 class="" style="font-size: 20px">Không có dữ liệu</h1>';
+                        htmlThongBao += '<h1 class="" style="font-size: 20px">Chưa Sử Dụng Dịch Vụ Nào!</h1>';
                         htmlThongBao += '</div>';
                         $('#dataThongBao').append(htmlThongBao);
-                        console.log('API Request Failed:');
                     }
                     $('#tienDichVu').val(formatCurrencyVND(tongTienDichVu));
                     tongTienSanCaSaveThongKe = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi));
@@ -1267,7 +1270,7 @@
                                 htmlContent2 += '<div id="checkboxContainerList" style="display: none; position: absolute; top: 10px; left: 10px">';
                                 htmlContent2 += '<input type="checkbox" style="width: 20px; height: 20px; margin-right: 5px" id="checkBoxListService"/>';
                                 htmlContent2 += '</div>';
-                                htmlContent2 += '<img src="/static/img/' + image + '" class="card-img-top" alt="..." />';
+                                htmlContent2 += '<img src="data:image/png;base64,' + image + '" class="card-img-top" alt="..." />';
                                 htmlContent2 += '<div class="card-body">';
                                 htmlContent2 += '<h5 class="card-title text-center">' + tenDichVu + '</h5>';
                                 htmlContent2 += '<span class="price" type="number">' + formatCurrencyVND(gia) + ' VNĐ</span>';
@@ -1292,7 +1295,7 @@
                                 htmlContent2 += '<div id="checkboxContainerList" style="display: none; position: absolute; top: 10px; left: 10px">';
                                 htmlContent2 += '<input type="checkbox" style="width: 20px; height: 20px; margin-right: 5px" id="checkBoxListService"/>';
                                 htmlContent2 += '</div>';
-                                htmlContent2 += '<img src="/static/img/' + image + '" class="card-img-top" alt="..." />';
+                                htmlContent2 += '<img src="data:image/png;base64,' + image + '" class="card-img-top" alt="..." />';
                                 htmlContent2 += '<div class="card-body">';
                                 htmlContent2 += '<h5 class="card-title text-center">' + tenDichVu + '</h5>';
                                 htmlContent2 += '<span class="price" type="number">' + formatCurrencyVND(gia) + ' VNĐ</span>';
@@ -1691,8 +1694,6 @@
             confirmButtonText: 'OKE'
         }).then((result) => {
             if (result.isConfirmed) {
-                // confirm = true;
-                // window.location.href = "http://localhost:8081/api/v1/staff/view-dat-lich";
             }
         });
     }
