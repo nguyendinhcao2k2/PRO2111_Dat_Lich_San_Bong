@@ -1,0 +1,19 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-image: url("/static/img/cao-dinh.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.ctbtn {
+    border-radius: 15px;
+    border: #1a1d8e;
+    background-color: white;
+    color: black;
+    width: 150px
+}

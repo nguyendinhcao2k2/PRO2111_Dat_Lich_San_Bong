@@ -30,7 +30,9 @@ public class PhuPhiHoaDon {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
+    private String id;
+    @Column(name = "id_hoa_don_san_ca")
+    private String idHoaDonSanCa;
     @Column(name = "id_phu_phi")
     private String idPhuPhi;
     @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")

@@ -28,7 +28,7 @@ public class LoaiSan {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
+    private String id;
 
     @Column(name = "ten_loai_san")
     @Nationalized
@@ -37,5 +37,11 @@ public class LoaiSan {
     @Column(name = "mo_ta")
     @Nationalized
     private String moTa;
+
+    @Column(name = "gia_san")
+    private Double giaSan;
+
+    @Column(name = "trang_thai")
+    private Integer trangThai;
 
 }

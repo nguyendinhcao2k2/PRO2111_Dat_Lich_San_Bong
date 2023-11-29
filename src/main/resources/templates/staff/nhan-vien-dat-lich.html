@@ -1,0 +1,944 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>SÂN BÓNG VN</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link rel="website icon" type="png"
+          href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
+    <meta content="" name="keywords"/>
+    <meta content="" name="description"/>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
+
+    <!-- Mobiscroll JS and CSS Includes -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.css"
+            rel="stylesheet"
+    />
+    <!-- Icon Font AWESOME Bắt buộc có hai bản 5.10 và 6.2 -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!--    End mobiscroll-->
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+    />
+    <!--    -->
+    <!-- CSS    -->
+    <link rel="stylesheet" th:href="@{/static/css/calendar/mobiscroll.jquery.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/staff/nhan-vien-dat-lich.css}"/>
+
+    <!--    -->
+    <!-- Quan Trọng  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--  -->
+    <title>Document</title>
+</head>
+<style></style>
+<body>
+
+<!-- Start Header -->
+<div th:insert="~{fragments/header-admin}"></div>
+<!-- End Header -->
+<!-- Full Screen Search Start -->
+<div class="modal fade" id="searchModal" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content" style="background: rgba(29, 29, 39, 0.7)">
+            <div class="modal-header border-0">
+                <button
+                        type="button"
+                        class="btn bg-white btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div
+                    class="modal-body d-flex align-items-center justify-content-center"
+            >
+                <div class="input-group" style="max-width: 600px">
+                    <input
+                            type="text"
+                            class="form-control bg-transparent border-light p-3"
+                            placeholder="Type search keyword"
+                    />
+                    <button class="btn btn-light px-4">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Full Screen Search End -->
+<section class="">
+    <div class="border-0">
+        <div class="dat-lich-header-staff">
+            <div class="body-row-col">
+                <!-- Nav tab -->
+                <div class="wrapper">
+                    <div class="tabs">
+                        <ul class="nav-tabs">
+                            <li class="active">
+                                <a href="#menu_1"
+                                ><i class="fas fa-calendar-day fa-lg me-2"></i>Chọn Một
+                                    Ngày</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#menu_2" onclick="clickManyDay()"
+                                ><i class="far fa-calendar-alt fa-lg me-2"></i>Chọn Nhiều
+                                    Ngày</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#menu_3"
+                                ><i class="fas fa-cogs fa-fw me-2"></i>Tab 3</a
+                                >
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="menu_1" class="tab-content-item">
+                                <div class="body-row-col mt-1">
+                                    <!-- list field search butto -->
+                                    <div class="row mt-2 d-flex justify-content-end m-1">
+                                        <div class="col p-0">
+                                            <!-- Danh sách các ca sân -->
+                                            <button
+                                                    th:onclick="|openModalDanhSachCho()|"
+                                                    type="button"
+                                                    class="button-danh-sach"
+                                                    data-bs-toggle="modal">
+                                                <span class="button-icon-danh-sach">
+                                                  <i class="fas fa-list-alt fa-lg"></i>
+                                                </span>
+                                            </button>
+                                            <!-- modal -->
+                                            <div
+                                                    class="modal fade"
+                                                    id="modal-danh-sach-dat-san"
+                                                    data-bs-backdrop="static"
+                                                    data-bs-keyboard="false"
+                                                    tabindex="-1"
+                                                    aria-labelledby="staticBackdropLabel"
+                                                    aria-hidden="true"
+                                            >
+                                                <div class="modal-dialog modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5
+                                                                    class="modal-title"
+                                                            >
+                                                                Danh sách chờ xác nhận
+                                                            </h5>
+                                                            <button
+                                                                    type="button"
+                                                                    class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                            ></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="filter-danh-sach-cho">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <!-- Tìm kiếm -->
+                                                                        <form>
+                                                                            <div
+                                                                                    class="row g-3 align-items-center"
+                                                                            >
+                                                                                <!-- <div class="col-auto">
+                                                                                  <label
+                                                                                    for="input-search-danh-sach-cho"
+                                                                                    class="col-form-label label-danh-sach"
+                                                                                    >Tìm Kiếm :
+                                                                                  </label>
+                                                                                </div> -->
+                                                                                <div class="col-md-4 col-sm-auto">
+                                                                                    <div class="input-group">
+                                                                                            <span
+                                                                                                    class="input-group-text"
+                                                                                                    style="
+                                                                                                border-bottom-left-radius: 5px;
+                                                                                                border-top-left-radius: 5px;
+                                                                                              "
+                                                                                            >
+                                                                                              <i
+                                                                                                      class="fas fa-search fa-lg"
+                                                                                              ></i>
+                                                                                            </span>
+                                                                                        <input
+                                                                                                id="input-search-danh-sach-cho"
+                                                                                                style="color: black"
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                placeholder="Tên, số điện thoại khách"
+                                                                                        />
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-auto">
+                                                                                    <button
+                                                                                            th:onclick="|searchDanhSachCho()|"
+                                                                                            type="button"
+                                                                                            class="btn btn-labeled btn-success"
+                                                                                    >
+                                                                                        Tìm kiếm
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="table-responsive">
+                                                                <!-- LAMNP UPDATE NGÀY 2.11 Cho Thằng Chó Cao  -->
+                                                                <div
+                                                                        class="modal fade"
+                                                                        id="modal-chi-tiet-danh-sach"
+                                                                        data-bs-backdrop="static"
+                                                                        data-bs-keyboard="false"
+                                                                        tabindex="-1"
+                                                                        aria-labelledby="staticBackdropLabel"
+                                                                        aria-hidden="true"
+                                                                >
+                                                                    <div class="modal-dialog modal-xl">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5
+                                                                                        class="modal-title"
+                                                                                        id="staticBackdropLabel"
+                                                                                >
+                                                                                    Chi tiết chờ nhận sân
+                                                                                </h5>
+                                                                                <button
+                                                                                        type="button"
+                                                                                        class="btn-close"
+                                                                                        data-bs-dismiss="modal"
+
+                                                                                ></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button
+                                                                                        type="button"
+                                                                                        class="btn btn-danger btn-labeled"
+                                                                                        data-bs-dismiss="modal"
+                                                                                >
+                                                                                    Đóng
+                                                                                    <i class="fas fa-times fa-lg"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--  -->
+                                                                <table
+                                                                        class="table table-striped table-hover fixed_header"
+                                                                >
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>STT</th>
+                                                                        <th>Tên khách hàng</th>
+                                                                        <th>Số điện thoại</th>
+                                                                        <th>Email</th>
+                                                                        <th>Ngày</th>
+                                                                        <th>Tổng tiền</th>
+                                                                        <th>Tiền cọc</th>
+                                                                        <th>Mã tiền cọc</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody th:id="tableXacNhan">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row g-1  align-items-center">
+                                                <!-- tất cả -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2">
+                                                    <div style="display: flex; align-items: center" class="d-flex justify-content-end align-items-end">
+                                                        <button
+                                                                th:onclick="|filterTrangThai('all')|"
+                                                                type="button"
+                                                                class="btn position-relative button-boder-status"
+                                                                style="background-color: #111111;"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-border-all fa-lg"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="all-san-bong"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                                            </span>
+                                                        </button>
+                                                        <span class="span-text-button-status"
+                                                        >Tất cả</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <!-- đang trống -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2">
+                                                    <div style="display: flex; align-items: center" class="d-flex justify-content-end align-items-end">
+                                                        <button
+                                                                th:onclick="|filterTrangThai(null)|"
+                                                                type="button"
+                                                                class="btn btn-primary position-relative button-boder-status"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-check fa-lg"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="empty-san-bong"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                                          </span>
+                                                        </button>
+                                                        <span class="span-text-button-status"
+                                                        >Đang trống</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <!-- chờ nhận sân -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2">
+                                                    <div style="display: flex; align-items: center" class="d-flex justify-content-end align-items-end">
+                                                        <button
+                                                                th:onclick="|filterTrangThai(0)|"
+                                                                type="button"
+                                                                class="btn btn-secondary position-relative button-boder-status"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-clock fa-lg"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="waiting-san-bong"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                                          </span>
+                                                        </button>
+                                                        <span class="span-text-button-status"
+                                                        >Chờ nhận sân</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <!-- chờ thanh toán -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2" >
+                                                    <div style="display: flex; align-items: center" class="d-flex justify-content-end align-items-end">
+                                                        <button
+                                                                th:onclick="|filterTrangThai(2)|"
+                                                                type="button"
+                                                                class="btn btn-info position-relative button-boder-status"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-file-invoice-dollar fa-lg"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="wait-for-pay"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                                          </span>
+                                                        </button>
+                                                        <span class="span-text-button-status"
+                                                        >Chờ thanh toán</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <!-- đang hoạt động -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2">
+                                                    <div style="display: flex; align-items: center" class="d-flex justify-content-end align-items-end">
+                                                        <button
+                                                                th:onclick="|filterTrangThai(1)|"
+                                                                type="button"
+                                                                class="btn btn-success position-relative button-boder-status"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-futbol fa-lg"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="is-active"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                  </span>
+                                                        </button>
+                                                        <span class="span-text-button-status"
+                                                        >Đang hoạt động</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <!-- quá giờ -->
+                                                <div class="col-md-2 col-sm-4 col-6 mb-2">
+                                                    <div style="display: flex; align-items: center" class="d-flex justify-content-center align-items-center">
+                                                        <button
+                                                                type="button"
+                                                                class="btn btn-danger position-relative button-boder-status"
+                                                        >
+                                                            <i
+                                                                    class="fas fa-hourglass-end"
+                                                                    style="color: #ffffff"
+                                                            ></i>
+                                                            <span
+                                                                    th:id="out-of-time"
+                                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                            >
+                                    <span
+                                            class="visually-hidden"
+                                            style="color: #171717"
+                                    >unread messages</span
+                                    >
+                                  </span>
+                                                        </button>
+                                                        <span
+                                                                class="span-text-button-status"
+                                                        >Quá giờ</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END  -->
+                                    <div class="row m-1">
+                                        <div class="col-md-4 p-0">
+                                        </div>
+                                        <!--      Button check in  -->
+                                        <div class="col-md-8 d-flex justify-content-end">
+                                            <div class="row g-1">
+                                                <div class="col-md-auto col-sm-auto m-1 d-flex justify-content-end">
+                                                    <button
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modalCheckIn"
+                                                            type="button"
+                                                            class="button-check-in"
+                                                    >
+                                                        <span class="button-icon-text-filter">
+                                                                Check In
+                                                        </span>
+                                                                <span class="button-icon-header">
+                                                              <i class="fa-solid fa-check fa-lg"></i>
+                                                        </span>
+                                                    </button>
+                                                    <!-- Modal -->
+                                                    <div
+                                                            class="modal fade"
+                                                            id="modalCheckIn"
+                                                            tabindex="-1"
+                                                            aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true"
+                                                    >
+                                                        <div class="modal-dialog modal-fullscreen">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                                        Nhân viên Check in
+                                                                    </h5>
+                                                                    <button
+                                                                            type="button"
+                                                                            class="btn-close close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"
+                                                                    ></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <div class="">
+                                                                                <h5>Quét QR</h5>
+                                                                            </div>
+                                                                            <hr />
+                                                                            <div>
+                                                                                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                                                                    <button
+                                                                                            class="start btn btn-primary btn-labeled"
+                                                                                            type="button"
+                                                                                            style="width: 9em"
+                                                                                    >
+                                                                                        Quét QR
+                                                                                    </button>
+                                                                                    <button
+                                                                                            class="close btn btn-danger btn-labeled"
+                                                                                            type="button"
+                                                                                            style="width: 9em"
+                                                                                    >
+                                                                                        Đóng QR
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="body-row-col mt-2" style="height: 350px">
+                                                                                <div class="camera-selection" style="display: none">
+                                                                                    <select id="cameraList" class="form-select mt-2"></select>
+                                                                                    <div class="qr">
+                                                                                        <video id="webcam" autoplay></video>
+                                                                                        <canvas id="canvas" style="display: none"></canvas>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-9">
+                                                                            <div class="">
+                                                                                <h5>Danh sách</h5>
+                                                                            </div>
+                                                                            <hr />
+                                                                            <form class="row mb-3">
+                                                                                <label
+                                                                                        for="inputSearch"
+                                                                                        class="col-auto col-form-label text-center"
+                                                                                >Tìm kiếm :
+                                                                                </label>
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="input-group mb-3">
+                                                                                        <input
+                                                                                                id="inputSearch"
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                placeholder="Tìm kiếm theo tên, số điện thoại..."
+                                                                                                aria-label="Recipient's username"
+                                                                                                aria-describedby="button-addon2"
+                                                                                        />
+                                                                                        <button
+                                                                                                class="btn btn-success btn-outline-success"
+                                                                                                type="button"
+                                                                                                id="button-addon2"
+                                                                                                style="
+                                                                                                                  border-top-right-radius: 5px;
+                                                                                                                  border-bottom-right-radius: 5px;
+                                                                                                    "
+
+                                                                                        >
+                                                                                            <i
+                                                                                                    class="fas fa-search fa-lg"
+                                                                                                    style="color: #ffffff"
+                                                                                            ></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                            <div>
+                                                                                <table class="table table-hover">
+                                                                                    <thead>
+                                                                                    <tr>
+                                                                                        <th>STT</th>
+                                                                                        <th>Họ Tên</th>
+                                                                                        <th>Location</th>
+                                                                                        <th>Order Date</th>
+                                                                                        <th>Status</th>
+                                                                                        <th>Net Amount</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                    <tr>
+                                                                                        <td>5</td>
+                                                                                        <td>Martin Sommer ></td>
+                                                                                        <td>Paris</td>
+                                                                                        <td>Aug 04, 2017</td>
+                                                                                        <td>trạng thái</td>
+                                                                                        <td>$580</td>
+                                                                                        <td>
+                                                                                            <div class="d-flex flex-column">
+                                                                                                <button class="btn btn-success  btn-sm " type="button">
+                                                                                                    Check in
+                                                                                                </button>
+                                                                                                <button class="btn btn-primary   btn-sm mt-1" type="button">
+                                                                                                    Đổi sân
+                                                                                                </button>
+                                                                                                <button class="btn btn-outline-danger btn-sm mt-1" type="button">
+                                                                                                    Hủy lịch
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                                <div class="row">
+                                                                                    <div class="col">
+                                                                                        <div class="hint-text">
+                                                                                            <p style="color: #333">
+                                                                                                Hiển thị <b>5</b> / <b>25</b> bản ghi
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-6 d-flex justify-content-end">
+                                                                                        <nav aria-label="Page navigation example">
+                                                                                            <ul class="pagination ">
+                                                                                                <li class="page-item disabled">
+                                                                                                    <a
+                                                                                                            class="page-link"
+                                                                                                            href="#"
+                                                                                                            tabindex="-1"
+                                                                                                            aria-disabled="true"
+                                                                                                    >Previous</a
+                                                                                                    >
+                                                                                                </li>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link" href="#">1</a>
+                                                                                                </li>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link" href="#">2</a>
+                                                                                                </li>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link" href="#">3</a>
+                                                                                                </li>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link" href="#">Next</a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </nav>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button
+                                                                            type="button"
+                                                                            class="btn btn-danger close btn-labeled"
+                                                                            data-bs-dismiss="modal"
+                                                                    >
+                                                                        Đóng
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--FILTER-->
+                                                <div
+                                                        class="col-md-auto col-sm-auto m-1 d-flex justify-content-end"
+                                                >
+                                                    <!--BUTTON-->
+                                                    <button
+                                                            type="button"
+                                                            class="button-header-filter"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modal-filter"
+                                                    >
+                                                    <span class="button-icon-text-filter">
+                                                        Filter
+                                                    </span>
+                                                        <span class="button-icon-header">
+                                                      <i class="fas fa-filter fa-lg"></i>
+                                                    </span>
+                                                    </button>
+                                                    <!--BUTTO END -->
+                                                    <!--MODAL FILTER-->
+                                                    <div
+                                                            class="modal fade"
+                                                            id="modal-filter"
+                                                            data-bs-backdrop="static"
+                                                            data-bs-keyboard="false"
+                                                            tabindex="-1"
+                                                            aria-labelledby="staticBackdropLabel"
+                                                            aria-hidden="true"
+                                                    >
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5
+                                                                            class="modal-title"
+                                                                    >
+                                                                        Tìm kiếm
+                                                                    </h5>
+                                                                    <button
+                                                                            type="button"
+                                                                            class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"
+                                                                    ></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form>
+                                                                        <div class="col-md-12">
+                                                                            <div
+                                                                                    class="row g-2 align-items-center"
+                                                                            >
+                                                                                <!-- Sân filter -->
+                                                                                <div class="col-auto">
+                                                                                    <label
+                                                                                            for="select-san-st"
+                                                                                            class="col-form-label label-filter-staff"
+                                                                                    >Sân :
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-3 col-sm-auto">
+                                                                                    <select
+                                                                                            id="select-san-st"
+                                                                                            class="form-select"
+                                                                                            style="border-radius: 5px"
+                                                                                    >
+                                                                                        <option selected value="0">
+                                                                                            Tất cả
+                                                                                        </option>
+                                                                                        <option value="1">Sân 1</option>
+                                                                                        <option value="2">Sân 2</option>
+                                                                                        <option value="3">Sân 3</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- Ngày -->
+                                                                                <div class="col-auto">
+                                                                                    <label
+                                                                                            class="col-form-label label-filter-staff"
+                                                                                    >Ngày :
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-3 col-sm-auto">
+                                                                                    <input
+                                                                                            id="date-header-search-staff"
+                                                                                            type="date"
+                                                                                            class="form-control"
+                                                                                            style="border-radius: 5px"
+                                                                                    />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button
+                                                                            th:onclick="|filterSanBong()|"
+                                                                            type="submit"
+                                                                            class="btn btn-success btn-labeled"
+                                                                    >
+                                                                        Tìm Kiếm
+                                                                        <i class="fas fa-check fa-lg"></i>
+                                                                    </button>
+                                                                    <button
+                                                                            type="button"
+                                                                            class="btn btn-danger btn-labeled"
+                                                                            data-bs-dismiss="modal"
+                                                                    >
+                                                                        Hủy
+                                                                        <i class="fas fa-times fa-lg"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- MODAL FILTER-->
+                                                </div>
+                                                <!--END FILTER-->
+                                                <!--CHECK BOX-->
+                                                <div
+                                                        class="col-md-auto col-sm-auto m-1 d-flex justify-content-end"
+                                                >
+                                                    <button
+                                                            type="button"
+                                                            id="showCheckboxButton"
+                                                            class="button-header-check-box"
+                                                    >
+                                                        <span class="button-icon-text-check">Chọn Sân</span>
+                                                        <span class="button-icon-check">
+                              <i class="far fa-check-square fa-lg"></i>
+                            </span>
+                                                    </button>
+                                                </div>
+                                                <!--CHECK BOX END-->
+                                                <!--THÔNG TIN-->
+                                                <div
+                                                        class="col-md-auto col-sm-auto m-1 d-flex justify-content-end"
+                                                >
+                                                    <div>
+                                                        <button
+                                                                type="button"
+                                                                class="button-header"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalInfo"
+                                                        >
+                                                            <span class="button__text">Thông Tin</span>
+                                                            <span class="button__icon">
+                                <i class="fas fa-info"></i>
+                              </span>
+                                                        </button>
+                                                        <!-- Modal  -->
+                                                        <div class="modal" id="modalInfo">
+                                                            <div class="modal-dialog modal-xl">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Đặt Sân</h5>
+                                                                        <button
+                                                                                type="button"
+                                                                                class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                        ></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-4 col-sm-auto">
+                                                                                <form>
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label required"
+                                                                                        >Họ và tên</label
+                                                                                        >
+                                                                                        <input
+                                                                                                th:id="hoTenInput"
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                        />
+                                                                                        <span th:id="errorHoten"
+                                                                                              style="color: red"></span>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label required"
+                                                                                        >Email</label
+                                                                                        >
+                                                                                        <input
+                                                                                                th:id="emailInput"
+                                                                                                type="email"
+                                                                                                class="form-control"
+                                                                                        />
+                                                                                        <span th:id="errorEmail"
+                                                                                              style="color: red"></span>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label required"
+                                                                                        >Số điện thoại</label
+                                                                                        >
+                                                                                        <input
+                                                                                                th:id="soDienThoaiInput"
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                        />
+                                                                                        <span th:id="errorSoDienThoai"
+                                                                                              style="color: red"></span>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label required"
+                                                                                        >Ghi chú</label
+                                                                                        >
+                                                                                        <textarea
+                                                                                                th:id="ghiChuInput"
+                                                                                                class="form-control"
+                                                                                        ></textarea>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <!--                                                                    day la san ca-->
+                                                                            <div class="col-md-8 col-sm-auto">
+                                                                                <table
+                                                                                        class="table table-bordered table-hover"
+                                                                                        style="color: black"
+                                                                                >
+                                                                                    <thead>
+                                                                                    <tr>
+                                                                                        <th>Sân Bóng</th>
+                                                                                        <th>Ngày</th>
+                                                                                        <th>Ca</th>
+                                                                                        <th>Thời Gian</th>
+                                                                                        <th>Giá</th>
+                                                                                        <th>Thao tác</th>
+                                                                                    </tr>
+                                                                                    </thead>
+                                                                                    <tbody id="idTable">
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button
+                                                                                th:onclick="|datSan()|"
+                                                                                type="submit"
+                                                                                class="btn btn-success btn-labeled"
+                                                                        >
+                                                                            Đặt Sân
+                                                                            <i class="fas fa-check fa-lg"></i>
+                                                                        </button>
+                                                                        <button
+                                                                                type="button"
+                                                                                class="btn btn-danger btn-labeled"
+                                                                                data-bs-dismiss="modal"
+                                                                        >
+                                                                            Đóng
+                                                                            <i class="fas fa-times fa-lg"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Modal  -->
+                                                    </div>
+                                                </div>
+                                                <!--END THÔNG TIN-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- start đặt lịch nhiều ngày-->
+                            <div id="menu_2" class="tab-content-item" >
+
+                            </div>
+                            <!-- start đặt lịch nhiều ngày-->
+                            <div id="menu_3" class="tab-content-item"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Nav tab -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Start Footer -->
+<div th:insert="~{fragments/footer}"></div>
+<!-- End Footer -->
+<!-- mobiscroll -->
+<!-- mobiscroll -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script th:src="@{/static/js/lib/mobiscroll.jquery.min.js}"></script>
+
+<!-- END mobiscroll -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/vi.js"></script>
+<!-- Modal new 20/10/2023 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<!--<script th:src="@{/static/js/calendar/calendar-custom-book.js}"></script>-->
+<script th:src="@{/static/js/staff/nhan-vien-dat-lich.js}"></script>
+<script th:src="@{/static/js/staff/dat-lich.js}"></script>
+<!--QR code-->
+<script th:src="@{/static/js/custom/read-qrcode.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
+
+<script>
+    function clickManyDay() {
+        debugger
+        $.ajax({
+            url: '/api/v1/staff/dat-lich-dynamic',
+            type: 'GET',
+            success: function (data) {
+                // Đặt nội dung trả về vào container
+                $('#menu_2').html(data);
+            }
+        });
+    }
+</script>
+</body>
+</html>

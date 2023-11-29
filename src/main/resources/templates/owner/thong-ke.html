@@ -1,0 +1,458 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SÂN BÓNG ĐỒNG ĐẾ</title>
+    <link rel="website icon" type="png"
+          href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Quan Trọng -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--  -->
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+            rel="stylesheet"
+    />
+
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous"
+    />
+    <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+            integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+            crossorigin="anonymous"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/dist/bootstrap-icons.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!--    <script src="https://cdn.jsdelivr.net/npm/jquery-slim@3.0.0/dist/jquery.slim.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <!--    <script th:src="@{/js/manager.js}"></script>-->
+    <!--    <link th:href="@{/css/theme.css}" rel="stylesheet" />-->
+    <link rel="stylesheet" th:href="@{/static/css/yearpicker.css}">
+</head>
+
+
+<body id="page-top">
+<header th:insert="~{fragments/header-admin}"></header>
+<main>
+    <div class="row m-1">
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-sm-6 col-md-6 mb-1">
+            <div class="card border-left-primary shadow h-75 p-1">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div
+                                    class="text-xs text-primary mb-1"
+                            >
+                                <h4>Doanh thu hôm nay</h4>
+                            </div>
+                            <div class="h4 mb-0 text-gray-800 doanhThuNgayHomNay">
+
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300" style="color: #0d6efd"> </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-md-6 col-sm-6 mb-1s">
+            <div class="card border-left-success shadow h-75 p-1">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center mb-2 p-2">
+                        <div class="col mr-2">
+                            <div
+                                    class="text-xs text-success text-uppercase mb-1"
+                            >
+                                <div class="clock row" style="font-size: 25px">
+                                    <p id="date" class="col-6"></p>
+                                    <p id="time" class="col-6"></p>
+                                </div>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---->
+    <div class="row m-1" id="thongKeList">
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card border-left-primary shadow h-100">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div
+                                    class="h5 text-xs font-weight-bold text-primary text-uppercase mb-1"
+                            >
+                                Ngày
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <input class="form-control-sm inputTKNgay" type="date"/>
+                        </div>
+                        <hr class="mt-2"/>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeNgay.tongDoanhThu)}} Vnd</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt online: <span style="color: red">{{thongKeNgay.tongSanDatOnline}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt hộ: <span style="color: red">{{thongKeNgay.tongSoLuotSanDatNho}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lượt đá trong ngày:
+                            <span style="color: red">{{thongKeNgay.tongSoLuotDa}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lượt chuyển lịch:
+                            <span style="color: red">{{thongKeNgay.tongSoLuotChuyenLich}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số huỷ lịch:
+                            <span style="color: red">{{thongKeNgay.tongSoHuyLich}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng tiền mặt:
+                            <span style="color: red">{{currenNumberListTK(thongKeNgay.tongSoTienMat)}} Vnd</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng tiền phát sinh khi giao ca:
+                            <span style="color: red">{{currenNumberListTK(thongKeNgay.tongTienPhatSinhKhiGiaoCa)}} Vnd</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card border-left-success shadow h-100">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div
+                                    class="h5 text-xs font-weight-bold text-success text-uppercase mb-1"
+                            >
+                                Tuần
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <input class="form-control-sm inputTKTuan" type="week"/>
+                        </div>
+                        <hr class="mt-2"/>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeTuan.tongDoanhThu)}} Vnd</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt online: <span style="color: red">{{thongKeTuan.tongSanDatOnline}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt hộ: <span style="color: red">{{thongKeTuan.tongSoLuotSanDatNho}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lượt đá:
+                            <span style="color: red">{{thongKeTuan.tongSoLuotDa}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đã đổi:
+                            <span style="color: red">{{thongKeTuan.tongSoLuotChuyenLich}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch bị hủy:
+                            <span style="color: red">{{thongKeTuan.tongSoHuyLich}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng tiền mặt:
+                            <span style="color: red">{{currenNumberListTK(thongKeTuan.tongSoTienMat)}} Vnd</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card border-left-info shadow h-100">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div
+                                    class="h5 text-xs font-weight-bold text-info text-uppercase mb-1"
+                            >
+                                Tháng
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <input class="form-control-sm inputTKThang" type="month"/>
+                        </div>
+                        <hr class="mt-2"/>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeThang.tongDoanhThu)}} Vnd</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt online: <span style="color: red">{{thongKeThang.tongSanDatOnline}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt hộ: <span style="color: red">{{thongKeThang.tongSoLuotSanDatNho}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lượt đá:
+                            <span style="color: red">{{thongKeThang.tongSoLuotDa}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đã đổi:
+                            <span style="color: red">{{thongKeThang.tongSoLuotChuyenLich}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch bị hủy:
+                            <span style="color: red">{{thongKeThang.tongSoHuyLich}} </span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng tiền mặt:
+                            <span style="color: red">{{currenNumberListTK(thongKeThang.tongSoTienMat)}}  Vnd</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card border-left-warning shadow h-100">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div
+                                    class="h5 text-xs font-weight-bold text-warning text-uppercase mb-1"
+                            >
+                                Năm
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <input class="form-control-sm inputTKNam yearpicker" type="text"/>
+                        </div>
+                        <hr class="mt-2"/>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeNam.tongDoanhThu)}}Vnd</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt online: <span style="color: red">{{thongKeNam.tongSanDatOnline}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đặt hộ: <span style="color: red">{{thongKeNam.tongSoLuotSanDatNho}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lượt đá:
+                            <span style="color: red">{{thongKeNam.tongSoLuotDa}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch đã đổi:
+                            <span style="color: red">{{thongKeNam.tongSoLuotChuyenLich}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng số lịch bị hủy:
+                            <span style="color: red">{{thongKeNam.tongSoHuyLich}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng tiền mặt:
+                            <span style="color: red">{{currenNumberListTK(thongKeNam.tongSoTienMat)}} Vnd</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    -->
+    <section id="app">
+        <div class="row m-1">
+            <div class="col-md-12">
+                <!-- Area Chart -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-2">
+                        <div class="row mb-2 p-2">
+                            <div class="col-md-6">
+                                <h5 class="font-weight-bold nameTK text-primary"></h5>
+                            </div>
+                            <div class="col">
+                                <select class="optionChonTK form-select">
+                                    <option value="1" selected>Doanh thu năm</option>
+                                    <option value="2">Doanh thu ngày</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="yearpicker dateNam form-control"/>
+                                <input type="date" class="dateNgay form-control" hidden/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="myAreaChart" class="thongKeTheoNam"></canvas>
+                            <canvas id="thongKeNgay" class="thongKeTheoNgay" hidden></canvas>
+                        </div>
+                        <hr/>
+                        <div class="thongKeTheoNam sumYear"></div>
+                        <div class="thongKeTheoNgay sumDay" hidden>Tổng doanh thu: 100000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row m-1">
+            <div class="col-md-6">
+                <!-- Area Chart -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-2">
+                        <div class="row mb-2 p-2">
+                            <div class="col-md-6">
+                                <h5 class="font-weight-bold text-primary">Đồ thuê</h5>
+                            </div>
+                            <div class="col">
+                                <select class="thong-ke-do-thue form-select">
+                                    <option value="1" selected>Theo năm</option>
+                                    <option value="2">Theo tháng</option>
+                                    <option value="3">Theo ngày</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="yearpicker doThueNam form-control"/>
+                                <input type="month" class="doThueThang form-control" hidden/>
+                                <input type="date" class="doThueNgay form-control" hidden/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="chartDoThue"></canvas>
+                        </div>
+                        <hr/>
+                        <p class="doanhThuDoThue"></p>
+                    </div>
+                </div>
+            </div>
+            <!-- Area Chart -->
+            <div class="col-md-6">
+                <!-- Area Chart -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-2">
+                        <div class="row mb-2 p-2">
+                            <div class="col-md-6">
+                                <h5 class="m-0 font-weight-bold text-primary">Nước uống</h5>
+                            </div>
+                            <div class="col">
+                                <select class="thong-ke-nuoc-uong form-select">
+                                    <option value="1" selected>Theo năm</option>
+                                    <option value="2">Theo tháng</option>
+                                    <option value="3">Theo ngày</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="yearpicker nuocUongNam form-control"/>
+                                <input type="month" class="nuocUongThang form-control" hidden/>
+                                <input type="date" class="nuocUongNgay form-control" hidden/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="chartNuocUong" style="height: 502px; width: 502px"></canvas>
+                        </div>
+                        <hr/>
+                        <p class="doanhThuNuocUong"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Bootstrap core JavaScript-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script th:src="@{/static/js/owner/thong-ke.js}"></script>
+<script th:src="@{/static/js/owner/thong-ke-list.js}"></script>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"
+></script>
+<script th:src="@{/static/js/yearpicker.js}"></script>
+<script>
+    const week = ["Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
+
+    function updateTime() {
+        var now = new Date();
+        document.getElementById("time").innerText =
+            zeroPadding(now.getHours(), 2) + ":" +
+            zeroPadding(now.getMinutes(), 2) + ":" +
+            zeroPadding(now.getSeconds(), 2);
+        document.getElementById("date").innerText =
+            now.getFullYear() + "-" +
+            zeroPadding(now.getMonth() + 1, 2) + "-" +
+            zeroPadding(now.getDate(), 2) + " " +
+            week[now.getDay()];
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    function zeroPadding(num, digit) {
+        return String(num).padStart(digit, '0');
+    }
+</script>
+</body>
+
+
+</html>

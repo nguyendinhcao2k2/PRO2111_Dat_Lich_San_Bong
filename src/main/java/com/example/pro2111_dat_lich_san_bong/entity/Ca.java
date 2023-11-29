@@ -30,7 +30,7 @@ public class Ca {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
+    private String id;
 
     @Column(name = "ten_ca", length = 1000)
     @Nationalized

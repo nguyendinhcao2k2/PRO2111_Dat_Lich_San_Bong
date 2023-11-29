@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>SÂN BÓNG VN</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="keywords"/>
+    <meta content="" name="description"/>
+
+    <!-- Favicon -->
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+            rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet"/>
+    <link th:href="@{/static/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+    <link th:href="@{/static/lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
+
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/authen/login.css}" rel="stylesheet">
+
+    <link th:href="@{/static/css/style.css}" rel="stylesheet">
+    <!-- Template Stylesheet -->
+</head>
+<body>
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form>
+            <h1>Create Account</h1>
+            <span>or use your email for registration</span>
+            <input type="text" th:id="account" placeholder="Account"/>
+            <span style="color: red" th:id="account_error"></span>
+            <input type="text" th:id="display_name" placeholder="DisplayName"/>
+            <span style="color: red" th:id="display_name_error"></span>
+            <input type="text" th:id="phone_number" placeholder="PhoneNumber"/>
+            <span style="color: red" th:id="phone_number_error"></span>
+            <input type="password" th:id="password" placeholder="Password"/>
+            <span style="color: red" th:id="password_error"></span>
+            <input type="password" th:id="re_password" placeholder="RePassword"/>
+            <span style="color: red" th:id="re_password_error"></span>
+            <button th:attr="onclick=|signUp()|">Sign Up</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form th:action="@{/login}" method="post">
+            <h1>Đăng nhập</h1>
+            <div class="social-container">
+                <a style="background-color: red" th:href="@{/oauth2/authorization/google}" class="social"><i
+                        class="fab fa-google-plus-g" style="background-color: red;color: white"></i></a>
+            </div>
+            <span>or use your account</span>
+            <input type="text" value="account1" th:name="username" placeholder="Tên Tài Khoản"/>
+            <input type="password" value="1111" th:name="password" placeholder="Mật Khẩu"/>
+            <a th:href="@{/authentication/home-login}">Quay lại !</a>
+            <div th:if="${param.error}">
+                <span style="color: red">Tài Khoản hoặc Mật Khẩu không hợp lệ</span>
+            </div>
+            <button type="submit">Đăng Nhập</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>
+                    To keep connected with us please login with your personal info
+                </p>
+                <button class="ghost" id="signIn">Đăng Nhập</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1 class="text-white mb-4 animated zoomIn">
+                    CHƠI HẾT MÌNH, CHƠI ĐỂ TẬN HƯỞNG
+                </h1>
+                <p class="text-white pb-3 animated zoomIn">
+                    Tài năng của bạn sẽ quyết định những gì bạn có thể làm. Động lực
+                    của bạn sẽ quyết định mức độ bạn sẵn sàng làm. Thái độ của bạn sẽ
+                    quyết định bạn làm điều đó như thế nào
+                </p>
+                <button class="ghost" id="signUp">Đăng ký</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/static/js/custom/login.js}"></script>
+<script th:src="@{/static/js/authen/sign-up.js}"></script>
+</body>
+</html>

@@ -27,11 +27,12 @@ public class NuocUong {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
+    private String id;
 
     @Column(name = "ten_nuoc_uong", length = 400)
     private String tenNuocUong;
-
+    @Column(name = "image")
+    private String image;
     @Column(name = "so_luong")
     private Integer soLuong;
 

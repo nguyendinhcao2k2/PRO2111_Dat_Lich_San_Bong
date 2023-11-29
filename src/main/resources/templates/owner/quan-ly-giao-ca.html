@@ -1,0 +1,396 @@
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/html"
+>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SÂN BÓNG ĐỒNG ĐẾ</title>
+    <link
+            rel="website icon"
+            type="png"
+            href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000"
+    />
+
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet" />
+    <link
+            th:href="@{/static/lib/owlcarousel/assets/owl.carousel.min.css}"
+            rel="stylesheet"
+    />
+    <link
+            th:href="@{/static/lib/lightbox/css/lightbox.min.css}"
+            rel="stylesheet"
+    />
+    <!-- Customized Bootstrap Stylesheet -->
+    <!--    <script th:src="@{/js/manager.js}"></script>-->
+    <!--    <link th:href="@{/css/theme.css}" rel="stylesheet" />-->
+    <link th:href="@{/static/css/owner/quan-ly-giao-ca.css}" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+</head>
+
+<body>
+<header th:insert="~{fragments/header-thanh-toan}"></header>
+<section class="" id="app">
+    <div class="card border-0 m-0 p-1">
+        <div class="card-header" style="border-radius: 0 0 0 0">
+            <h1 class="text-header-man">Quản Lý Giao Ca</h1>
+        </div>
+        <!--  -->
+        <div class="col-12 col-md-12 p-1">
+            <div class="body-row-col mt-1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row g-3 align-items-center">
+                            <!-- Tìm kiếm -->
+                            <div class="col-auto">
+                                <label class="col-form-label label-filter"
+                                >Tìm Kiếm :
+                                </label>
+                            </div>
+                            <div class="col-md-4 col-sm-auto">
+                                <div class="input-group">
+                      <span class="input-group-text">
+                        <lord-icon
+                                src="https://cdn.lordicon.com/ybaojceo.json"
+                                trigger="in"
+                                delay="1500"
+                                state="in-reveal"
+                                style="width: 20px; height: 20px"
+                        >
+                        </lord-icon>
+                      </span>
+                                    <input
+                                            id="search "
+                                            type="text"
+                                            class="form-control input-search-giao-ca-admin searchName"
+                                            placeholder="Tìm kiếm theo tên nhân viên..."
+                                    />
+                                </div>
+                            </div>
+                            <!--Trạng thái  -->
+                            <div class="col-auto">
+                                <label
+                                        for="select-status-admin"
+                                        class="col-form-label label-filter"
+                                >Lọc:
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-auto">
+                                <select
+                                        id="select-status-admin"
+                                        class="form-select checkBoxKiemTra"
+                                        style="border-radius: 5px"
+                                >
+                                    <option selected value="0">Tất cả</option>
+                                    <option value="1">Giao ca có rú tiền</option>
+                                </select>
+                            </div>
+                            <!-- Ngày -->
+                            <div class="col-auto">
+                                <label
+                                        class="col-form-label label-filter"
+                                        for="input-date-choice-admin"
+                                >Ngày nhận ca :
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-auto">
+                                <input
+                                        id="input-date-choice-admin"
+                                        type="date"
+                                        class="form-control timeNC"
+                                        style="border-radius: 5px"
+                                />
+                            </div>
+                            <!-- export -->
+                            <div class="col-auto">
+                            </div>
+                            <div class="col-md-2 col-sm-auto">
+                                <button type="button" class="btn btn-light exportExcelGC">Export Excel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- // LAMNP Update 24/10/2023 Table and aler -->
+            <div class="body-row-col">
+                <div class="header-table-giao-ca">
+                    <h5 class="header-text-body">Danh sách giao ca</h5>
+                </div>
+                <div class="alert alert-danger noContent" hidden role="alert">
+                    <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
+                </div>
+                <div class="row readTable" hidden>
+                    <div class="col-md-12 col-sm-auto">
+                        <div
+                                style="
+                    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                    box-sizing: border-box;
+                    background: #fff;
+                    border-radius: 0 0 0 0;
+                  "
+                        >
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Tên Nhân Viên</th>
+                                    <th scope="col">
+                                        Thời gian nhận ca
+                                        <i
+                                                style="cursor: pointer"
+                                                class="fa fa-sort-asc thoiGianNhanCaTangDan"
+                                                aria-hidden="true"
+                                        ></i>
+                                        <i
+                                                style="cursor: pointer"
+                                                class="fa fa-sort-desc thoiGianNhanCaGiamDan"
+                                                aria-hidden="true"
+                                                hidden
+                                        ></i>
+                                    </th>
+                                    <th scope="col">Thời gian kết ca</th>
+                                    <th scope="col">Thao tác</th>
+                                </tr>
+                                </thead>
+                                <tbody v-for="(items,index) in giaoCaOwner" :key="index">
+                                <tr>
+                                    <td>{{index}}</td>
+                                    <td hidden class="valueId">{{items.id}}</td>
+                                    <td>{{items.displayNameNhanVienTrongCa}}</td>
+                                    <td>{{items.thoiGianNhanCa}}</td>
+                                    <td>{{items.thoiGianKetCa}}</td>
+                                    <td>
+                                        <button
+                                                class="btn btn-primary thongTinCT"
+                                                type="button"
+                                                @click="findGiaoCaByid(items.id)"
+                                                data-bs-toggle="offcanvas"
+                                                data-bs-target="#offcanvasRight"
+                                                aria-controls="offcanvasRight"
+                                        >
+                                            Thông tin
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <!--  -->
+                    <div class="row mt-2">
+                        <div class="d-flex justify-content-center">
+                            <!-- Center horizontally -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a
+                                                class="page-link previousPage"
+                                                href="#"
+                                                aria-label="Previous"
+                                        >
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" aria-current="page">
+                                        <a class="page-link" href="#"
+                                        >{{displaycurrentPage}} / {{totalPages}} trang</a
+                                        >
+                                    </li>
+                                    <li class="page-item nextPage">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="offcanvasRight"
+        aria-labelledby="offcanvasRightLabel"
+        style="width: 500px"
+>
+    <div class="offcanvas-header border-bottom bg">
+        <h5 id="offcanvasRightLabel">Thông tin chi tiết giao ca</h5>
+        <button
+                type="button"
+                class="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+        ></button>
+    </div>
+    <!-- offcanvas body  -->
+    <div class="offcanvas-body">
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Tên nhân viên</label>
+                <input
+                        type="text"
+                        class="form-control tenNVCT"
+                        readonly
+                        id="name"
+                        name="name"
+                />
+            </div>
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label for="time" class="form-label">Thời gian nhận ca</label>
+                    <input
+                            type="text"
+                            class="form-control thoiGianNhanCaCT"
+                            id="time"
+                            name="time"
+                            readonly
+                    />
+                </div>
+
+                <div class="col-6 mb-3">
+                    <label for="time" class="form-label">Thời gian kết ca</label>
+                    <input
+                            type="text"
+                            class="form-control thoiGianKetCaCT"
+                            id="time"
+                            name="time"
+                            readonly
+                    />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="time" class="form-label">Tiền ban đầu</label>
+                <input
+                        type="text"
+                        class="form-control tienBanDauCT"
+                        id="time"
+                        name="time"
+                        readonly
+                />
+            </div>
+
+            <div class="mb-3">
+                <label for="time" class="form-label">Tiền phát sinh</label>
+                <input
+                        type="text"
+                        class="form-control tienPhatSinhCT"
+                        id="time"
+                        name="time"
+                        readonly
+                />
+            </div>
+
+            <div class="mb-3">
+                <label for="total_amount" class="form-label">Tiền mặt</label>
+                <input
+                        type="text"
+                        class="form-control priceTotal tongTienMatTrongCaCT"
+                        id="total_amount"
+                        name="total_amount"
+                        readonly
+                />
+            </div>
+
+            <div class="mb-3">
+                <label for="total_amount" class="form-label"
+                >Tiền chuyển khoản</label
+                >
+                <input
+                        type="text"
+                        class="form-control priceTotal tongTienChuyenKhoanCT"
+                        id="total_amount"
+                        name="total_amount"
+                        readonly
+                />
+            </div>
+
+            <div class="mb-3">
+                <label for="total_amount" class="form-label"
+                >Tổng tiền trong ca</label
+                >
+                <input
+                        type="text"
+                        class="form-control priceTotal tongTienTrongCaCT"
+                        id="total_amount"
+                        name="total_amount"
+                        readonly
+                />
+            </div>
+
+            <div class="mb-3">
+                <label for="total_amount" class="form-label">Tiền đã rút</label>
+                <input
+                        type="text"
+                        class="form-control priceTotal tongTienMatRutCT"
+                        id="total_amount"
+                        name="total_amount"
+                        readonly
+                />
+            </div>
+
+            <div class="mb-3">
+                <label for="total_amount" class="form-label"
+                >Ghi chú phát sinh</label
+                >
+                <textarea
+                        class="form-control ghiChuPhatSinhCT"
+                        id="floatingTextarea "
+                        readonly
+                ></textarea>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script th:src="@{/static/js/owner/choices.js}"></script>
+<script src="giao-ca.js"></script>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"
+></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script th:src="@{/static/js/owner/quan-ly-giao-ca.js}"></script>
+</body>
+</html>

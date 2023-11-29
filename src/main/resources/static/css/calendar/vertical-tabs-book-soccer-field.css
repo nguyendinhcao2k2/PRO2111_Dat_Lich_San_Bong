@@ -1,0 +1,193 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+li {
+    list-style: none;
+}
+
+:root {
+    --white: #fff;
+    --blue: #562bf7;
+    --light: #f5f5f5;
+    --light-blue: #f3f0ff;
+    --grey: #eee;
+    --dark-grey: #666;
+    --black: #222;
+}
+
+.card {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 0 0 0 0;
+}
+
+.card .card-header {
+    font-weight: 500;
+}
+
+.card-header:first-child {
+    border-radius: 0rem 0rem 0 0;
+}
+
+.indicator {
+    padding: 1.5rem 0;
+    border-right: 1px solid var(--grey);
+}
+
+.indicator li {
+    display: flex;
+    align-items: center;
+    grid-gap: 0.5rem;
+    padding: 10px 2rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--black);
+    border-right: 3px solid transparent;
+}
+.indicator li i {
+    font-size: 1rem;
+}
+.indicator li:hover {
+    background: var(--light-blue);
+}
+
+.indicator li.active {
+    border-right-color: var(--blue);
+    color: var(--blue);
+    background: var(--light-blue);
+}
+
+.text-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--black);
+}
+
+/* .content {
+  padding: 1.5rem 2rem;
+} */
+
+.content li {
+    display: none;
+}
+.content li.active {
+    display: block;
+}
+.content li > h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--black);
+    /* margin-bottom: 0.75rem; */
+}
+
+ul li h1 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--black);
+}
+
+@media screen and (max-width: 576px) {
+    .wrapper {
+        flex-direction: column;
+    }
+    .indicator {
+        border-bottom: 3px solid transparent;
+    }
+}
+
+/* content card intro */
+.card-content-body {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    overflow: hidden;
+}
+
+.card-description {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    gap: 0.5em;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    color: #212121;
+    height: 90%;
+    bottom: 0;
+    transform: translateY(100%);
+    transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    padding: 1rem;
+}
+
+/* Hover states */
+.card-content-body:hover .card-description {
+    /* transform: translateY(100%); */
+    transform: translateY(0);
+}
+/*  */
+.box-croll {
+    overflow-y: scroll;
+}
+/*  */
+
+/* choise shift*/
+
+/* Ẩn checkbox mặc định */
+.checkbox-button {
+    max-width: 100%;
+    display: inline-block;
+    padding: 5px;
+    background-color: #fff;
+    color: black;
+    border-radius: 3px;
+    border: 2px solid #008000;
+    cursor: pointer;
+    border-radius: 5px;
+    user-select: none;
+    transition: background-color 0.3s;
+}
+
+.checkbox-button input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-button input[type="checkbox"]:checked + .button-label {
+    background-color: #008000;
+    color: #ffff;
+}
+
+.checkbox-button input[type="checkbox"]:disabled + .button-label {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* quá giờ  xám*/
+.checkbox-button input[type="checkbox"].qua-gio:disabled + .button-label {
+    background-color: rgb(102, 102, 101);
+    cursor: not-allowed;
+}
+/* đang trống trắng*/
+
+/* chờ nhận sân vàng*/
+.checkbox-button input[type="checkbox"].cho-nhan-san:disabled + .button-label {
+    background-color: rgb(231, 231, 77);
+    cursor: not-allowed;
+}
+/* đang sử dụng xanh */
+.checkbox-button input[type="checkbox"].dang-su-dung:disabled + .button-label {
+    background-color: #008000;
+    cursor: not-allowed;
+}
+/* chờ thanh toán xanh lục*/
+.checkbox-button
+input[type="checkbox"].cho-thanh-toan:disabled
++ .button-label {
+    background-color: rgb(44, 130, 235);
+    cursor: not-allowed;
+}
+/*  */
+
+.button-label {
+    width: 280px;
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+}

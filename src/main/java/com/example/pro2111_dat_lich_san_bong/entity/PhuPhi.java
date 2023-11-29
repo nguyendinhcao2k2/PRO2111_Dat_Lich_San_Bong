@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "phu_phi")
 @Getter
+@Builder
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,7 +28,7 @@ public class PhuPhi {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
+    private String id;
 
     @Column(name = "ma_phu_phi")
     private String maPhuPhi;

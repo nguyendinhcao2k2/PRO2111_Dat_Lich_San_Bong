@@ -1,0 +1,668 @@
+
+/* desgin button */
+.btn-labeled {
+    /* padding-top: 0;
+    padding-bottom: 0; */
+    border-radius: 5px;
+}
+
+
+.body-row-col {
+    padding: 5px;
+    background: #fff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.header-text-body {
+    text-align: center;
+    font-size: 20px;
+}
+
+.card-type-custom {
+    max-width: 100%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 0 0 0 0;
+}
+
+/* LAMNP 21/10/2023 */
+
+.label-danh-sach {
+    color: black;
+    font-size: 15px;
+}
+
+/* chú ý */
+.form-control {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.form-select {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: black;
+}
+
+#select-date-danh-sach-cho,
+#select-trang-thai-danh-sach-cho,
+#select-ca-danh-sach-cho,
+#select-san-danh-sach-cho {
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+/* input riêng ko đổ viền khi click */
+#input-search-danh-sach-cho {
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/*end danh sách chờ  */
+.col-auto > .label-filter-staff {
+    color: black;
+    font-size: 16px;
+    /*font-weight: bold;*/
+}
+
+#select-san-staff,
+#select-loai-san-staff,
+#date-header-search-staff {
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+
+
+/*.icon-content {*/
+/*    width: 1em;*/
+/*    height: 1em;*/
+/*    font-size: 1em;*/
+/*}*/
+
+.badge-icon {
+    font-size: 1em;
+    border-radius: 30px;
+    height: 35px;
+    width: 35px;
+    display: flex; /* Thêm display: flex */
+    align-items: center; /* Thêm align-items: center */
+    justify-content: center; /* Để canh icon theo chiều ngang giữa */
+}
+
+.badge-status {
+    font-size: 1.2em;
+    font-size: 16px;
+}
+
+/* nav-tab */
+#wrapper {
+    margin: 20px;
+    max-width: 960px;
+    margin: 0px auto;
+}
+
+.tabs {
+    padding: 10px;
+}
+
+.nav-tabs {
+    display: flex;
+    list-style: none;
+    margin: 0px;
+    padding: 0;
+    border-bottom: 3px solid #ddd;
+    justify-content: flex-start;
+}
+
+.nav-tabs li {
+    margin-right: 10px;
+}
+
+.nav-tabs li a {
+    display: block;
+    padding: 6px 10px;
+    text-decoration: none;
+    position: relative;
+    font-size: 16px;
+    /*color: black;*/
+}
+
+.nav-tabs li a::after {
+    content: "";
+    height: 3px;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    bottom: -3px;
+    background: transparent;
+}
+
+.nav-tabs li.active a::after,
+.nav-tabs li:hover a::after {
+    background: #00008b;
+}
+/* style content */
+.tab-content {
+    padding: 5px 0px;
+}
+/* text title tab */
+.text-title-tab {
+    text-align: center;
+}
+/*  */
+
+#myModal1 .modal-content {
+    background-color: #fff;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 2px;
+}
+
+#myModal1 .close {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 40px;
+    cursor: pointer;
+    color: #888;
+}
+
+#myModal1 .modal-content .modal-header{
+    background: #f7941e;
+    color: #fff;
+}
+
+.visible {
+    display: block;
+}
+
+.date-text {
+    font-size: 18px;
+}
+
+input::placeholder {
+    color: white;
+}
+
+/* modal header background 20/10/2023 */
+#modalInfo .modal-header {
+    background: #f7941e;
+    color: #fff;
+}
+
+#modal-filter .modal-header {
+    background: #f7941e;
+    color: #fff;
+}
+
+
+#modalThongTin .modal-header {
+    background: #f7941e;
+    color: #fff;
+}
+/*  */
+/* choise shift*/
+/* LamNP */
+/* Ẩn checkbox mặc định */
+.checkbox-button {
+    display: inline-block;
+    background-color: #fff;
+    color: black;
+    border-radius: 0.5em;
+    border: 2px solid #008000;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    /* align-items: center; */
+}
+
+.checkbox-label strong,
+span {
+    font-size: 9px; /* Điều chỉnh độ nhỏ của chữ tùy ý */
+}
+
+.checkbox-button input[type="checkbox"] {
+    display: none;
+}
+
+/*.checkbox-button input[type="checkbox"]:checked + .checkbox-label {*/
+/*    background-color: #008000;*/
+/*    color: #fff;*/
+/*}*/
+
+/*.checkbox-button input[type="checkbox"]:disabled + .checkbox-label {*/
+/*    background-color: #ccc;*/
+/*    cursor: not-allowed;*/
+/*}*/
+
+.checkbox-button .checkbox-label {
+    font-size: 1em;
+    line-height: 1.2;
+    padding: 1px;
+    flex: 1;
+}
+
+/* Cập nhật màu cho các trạng thái */
+.checkbox-button input[type="checkbox"].qua-gio:disabled + .checkbox-label {
+    background-color: rgb(102, 102, 101);
+    cursor: not-allowed;
+}
+
+.checkbox-button
+input[type="checkbox"].cho-nhan-san:disabled
++ .checkbox-label {
+    background-color: rgb(231, 231, 77);
+    cursor: not-allowed;
+}
+
+.checkbox-button
+input[type="checkbox"].dang-su-dung:disabled
++ .checkbox-label {
+    background-color: #008000;
+    cursor: not-allowed;
+}
+
+.checkbox-button
+input[type="checkbox"].cho-thanh-toan:disabled
++ .checkbox-label {
+    background-color: rgb(44, 130, 235);
+    cursor: not-allowed;
+}
+
+/* css cho option select 20/10/2023 */
+/* Thiết lập kiểu hiển thị của phần tử select */
+.select-type-date {
+    position: relative;
+    display: inline-block;
+    background-color: #ffff;
+    color: black;
+    border-radius: 2px;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Định dạng phần tử select khi được chọn */
+.select-type-date:hover {
+    color: black;
+}
+
+/* Thiết lập kiểu hiển thị của mũi tên */
+.select-type-date::after {
+    content: "\25BC"; /* Mã Unicode của mũi tên xuống */
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+}
+
+/*  */
+.select-loai-san {
+    /* Reset */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 5px;
+    outline: 0;
+    font: inherit;
+    /* Personalize */
+    width: 100%;
+    height: 2.5em;
+    padding: 0 4em 0 1em;
+    background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg)
+    no-repeat right 0.8em center/1.4em,
+    linear-gradient(to left, #1a73e8, rgba(255, 255, 255, 0.2) 3em);
+    color: black;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.select-loai-san option {
+    color: inherit;
+    background-color: #ffff;
+}
+.select-loai-san:focus {
+    outline: none;
+}
+.select-loai-san::-ms-expand {
+    display: none;
+}
+
+/* Hiển thị thông tin  */
+.button-header{
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    height: 2.5em;
+    padding: 0;
+    background: #f7941e;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.button-header:hover{
+    background: #f7941e;
+}
+
+.button-header:active
+{
+    background: #f7941e;
+}
+
+.button__text,
+.button__icon {
+    font-family: "Quicksand", sans-serif;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    color: #fff;
+    height: 100%;
+}
+
+.button__icon {
+    font-size: 1em;
+    background: rgba(0, 0, 0, 0.08);
+}
+
+/* Button hiển thị check box  */
+.button-header-check-box, .button-header-filter  {
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    height: 2.5em;
+    padding: 0;
+    background: #009578;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.button-header-check-box:hover  ,
+.button-header-filter:hover{
+    background: #008168;
+}
+
+.button-header-check-box:active,
+.button-header-filter:active{
+    background: #006e58;
+}
+
+.button-icon-text-check,
+.button-icon-check,
+.button-icon-header,
+.button-icon-text-filter {
+    font-family: "Quicksand", sans-serif;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    color: #fff;
+    height: 100%;
+}
+
+.button-icon-check,
+.button-icon-header{
+    font-size: 1em;
+    background: rgba(0, 0, 0, 0.08);
+}
+
+/* button danh sách chờ */
+.button-danh-sach {
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    height: 2.5em;
+    padding: 0;
+    background: #2124b1;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.button-icon-danh-sach {
+    font-family: "Quicksand", sans-serif;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    color: #fff;
+    height: 100%;
+}
+
+.button-danh-sach:hover {
+    background: #2124b1;
+}
+
+.button-danh-sach:active {
+    background: #2124b1;
+}
+
+#modal-danh-sach-dat-san .modal-header {
+    background: #f7941e;
+    color: #fff;
+}
+/* end danh sách chờ */
+
+/* Css calendar */
+/* CSS chung cho nút và văn bản */
+.fc-button,
+.fc-toolbar-title,
+.fc-dayGridMonth-button,
+.fc-timeGridWeek-button,
+.fc-timeGridDay-button {
+    /* font-size: 16px !important; */
+    padding: 10px !important;
+}
+
+/* CSS cho các thiết bị có kích thước màn hình nhỏ hơn */
+@media (max-width: 767px) {
+    .fc-button {
+        font-size: 14px !important;
+        padding: 8px !important;
+    }
+    .fc-toolbar-title {
+        font-size: 14px !important;
+    }
+}
+
+/* CSS cho các thiết bị có kích thước màn hình rất nhỏ */
+@media (max-width: 479px) {
+    .fc-button {
+        font-size: 12px !important;
+        padding: 6px !important;
+    }
+    .fc-toolbar-title {
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 319px) {
+    .fc-button {
+        font-size: 10px !important;
+        padding: 4px !important;
+    }
+    .fc-toolbar-title {
+        font-size: 10px !important;
+    }
+}
+
+/* Tùy chỉnh màu nền và màu chữ cho nút "prev" */
+.fc-button-primary {
+    background-color: #1a73e8 !important; /* Màu nền */
+    color: #fff; /* Màu chữ */
+}
+
+/* Tùy chỉnh màu nền và màu chữ cho nút "next" */
+.fc-next-button {
+    background-color: #1a73e8 !important; /* Màu nền */
+    color: #fff; /* Màu chữ */
+}
+
+/* Tùy chỉnh màu nền và màu chữ cho nút "today" */
+.fc-button {
+    background-color: #1a73e8 !important ; /* Màu nền */
+    color: #fff; /* Màu chữ */
+}
+
+.fc-daygrid-day-frame .fc-scrollgrid-sync-inner {
+    background-color: #1a73e8;
+}
+
+/* table form coppy for giao ca  */
+.form-label {
+    font-size: 16px;
+    color: black;
+}
+
+.mb-3 {
+    margin-bottom: 15px;
+}
+
+.mains {
+    /* border: 1px solid black; */
+    padding: 10px 20px;
+    /* box-shadow: 0 0 20px #c5c5c5; */
+    /* transform: translateY(5px); */
+}
+
+/*table {*/
+/*    width: 100%;*/
+/*    border-collapse: collapse;*/
+/*}*/
+
+table th,
+table td {
+    color: black;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+table th {
+    text-align: center;
+}
+/*Header bottton chi tiết*/
+.border-bottom {
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+/* SCROLL CONtent San */
+.wrap-div {
+    max-height: 500px; /* Điều chỉnh chiều cao tối đa của content-san theo mong muốn */
+    overflow-y: auto; /* Only vertical scrollbar */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+/*.card-san{*/
+/*    margin-top: 6px;*/
+/*    width: 100%;*/
+/*    margin-left: 5px;*/
+/*    margin-right: 5px;*/
+/*    overflow: hidden;*/
+/*}*/
+
+.row > *{
+    padding-right: 1px !important;
+}
+
+.span-text-button-status {
+    margin: 10px;
+    font-size: 16px;
+    color: #171717;
+}
+
+.button-boder-status{
+    border-radius: 30px;
+    width: 40px; /* Đặt chiều rộng và cao tùy ý */
+    height: 40px;
+    display: flex; /* Thêm display: flex */
+    align-items: center; /* Thêm align-items: center */
+    justify-content: center; /* Để canh icon theo chiều ngang giữa */
+}
+
+/* Thin scrollbar styles for Webkit browsers */
+.wrap-div::-webkit-scrollbar {
+    width: 8px; /* Adjust the width as needed */
+}
+
+.wrap-div::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar thumb color */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.wrap-div::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Track color */
+}
+
+.button-check-in{
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    height: 2.5em;
+    padding: 0;
+    background: #d35400;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#modalCheckIn .modal-header,
+.modal-title {
+    background: #f7941e;
+    color: #fff;
+    font-size: 25px;
+}
+
+video {
+    padding-top: 6%; /* Tỷ lệ chiều cao tùy thuộc vào thiết kế của bạn */
+    margin-bottom: 10px; /* Khoảng cách bottom giữa camera và nút là 10px */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo video không bị biến dạng khi kích thước không đúng */
+    display: block;
+}
+
+/* Đảm bảo canvas cũng chiếm đúng kích thước */
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Thêm bóng cho camera (tùy chọn) */
+.camera::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Đảm bảo sự kiện không bị chặn */
+}
+
+.col-form-label {
+    font-size: 18px;
+    color: black;
+}

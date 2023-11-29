@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Bootstrap demo</title>
+    <!-- FONT AWESOME -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <!-- BOOTSTRAP  -->
+    <!-- <link href="../../static/css/bootstrap.min.css" rel="stylesheet" /> -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+    />
+
+    <!-- AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+    <!-- MOBISCROLL -->
+    <!--    <script src="mobiscroll.jquery.min.js"></script>-->
+    <!--    <link rel="stylesheet" href="mobiscroll.jquery.min.css" />-->
+    <script th:src="@{/static/js/lib/mobiscroll.jquery.min.js}"></script>
+    <link th:href="@{/static/css/calendar/mobiscroll.jquery.min.css}" rel="stylesheet">
+
+    <style>
+        /* .bod {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        } */
+
+        h1 {
+            /* text-align: center; */
+            font-size: 25px;
+            font-weight: bold;
+            /* text-transform: uppercase; */
+        }
+
+        form {
+            background-color: white;
+            width: 900px;
+            height: 100%;
+            /* border: 1px solid black; */
+            padding: 20px;
+        }
+
+        /* table wrapper 2/11 */
+        .table-wrapper {
+            min-width: 1000px;
+            background: #fff;
+            padding: 20px 25px;
+            border-radius: 3px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .table-wrapper {
+                max-width: 90%;
+            }
+        }
+
+        .table-title {
+            color: #fff;
+            background: #4b5366;
+            padding: 16px 25px;
+            margin: -20px -25px 10px;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .table-title h2 {
+            margin: 5px 0 0;
+            font-size: 24px;
+        }
+
+        /* body row col 2/11 */
+        .body-row-col {
+            padding: 10px;
+            background: #fff;
+            border-radius: 0 0 0 0;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        }
+
+        /* BUTTON XÁC NHẬN */
+        .button-header-confirm {
+            margin-left: 1em;
+            margin-right: 1em;
+            display: flex;
+            height: 2.5em;
+            padding: 0;
+            background: #009578;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .button-header-confirm:hover {
+            background: #008168;
+        }
+
+        .button-header-confirm:active {
+            background: #006e58;
+        }
+
+        .button-text-confirm {
+            font-family: "Quicksand", sans-serif;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            padding: 0 20px;
+            color: #fff;
+            height: 100%;
+        }
+
+        .button-text-confirm,
+        .button-icon-confirm {
+            font-family: "Quicksand", sans-serif;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            padding: 0 20px;
+            color: #fff;
+            height: 100%;
+        }
+
+        .button-icon-confirm {
+            font-size: 1em;
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        #modalConfirm .modal-header {
+            background: #f7941e;
+            /* color: #fff; */
+        }
+
+        /*  */
+        .table-responsive {
+            margin: 30px 0;
+        }
+
+        table.tableFixHead {
+            overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
+            height: 100px; /* gives an initial height of 200px to the table */
+        }
+
+        table.tableFixHead thead th {
+            position: sticky; /* make the table heads sticky */
+            top: 0px; /* table head will be placed from the top of the table and sticks to it */
+        }
+
+        table th,
+        table td {
+            background-color: #ddd;
+            color: black;
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        table th {
+            text-align: center;
+        }
+
+        .custom-hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<section class="bod app">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-md-5">
+                    <h2 style="color: #fff">Dịch vụ đổi lịch sân bóng</h2>
+                </div>
+                <div class="col-md-7"></div>
+            </div>
+        </div>
+        <div class="body-row-col">
+            <div class="row">
+                <form action="">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h1>Danh sách đổi lịch</h1>
+                            </div>
+                            <div class="col-md-4 d-md-flex justify-content-md-end">
+                                <div class="form-check form-check-inline">
+                                    <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="inlineRadioOptions"
+                                            id="inlineRadio2"
+                                            value="option2"
+
+                                    />
+                                    <label class="form-check-label" for="inlineRadio2"
+                                    >Lịch đã xác nhận</label
+                                    >
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="inlineRadioOptions"
+                                            id="inlineRadio1"
+                                            value="option1"
+                                            checked
+                                    />
+                                    <label class="form-check-label" for="inlineRadio1"
+                                    >Lịch chờ xác nhận</label
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-md-flex justify-content-md-end">
+                                <button
+                                        type="button"
+                                        class="button-header-confirm modalXacNhan"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalConfirm"
+                                >
+                                    <span class="button-text-confirm">Xác Nhận</span>
+                                    <span class="button-icon-confirm">
+                        <i class="fas fa-check fa-lg"></i>
+                      </span>
+                                </button>
+
+                                <!--  -->
+                                <div class="modal modal-start" id="modalConfirm">
+                                    <div class="modal-dialog modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Xác nhận đổi lịch</h5>
+                                                <button
+                                                        type="button"
+                                                        class="btn-close"
+                                                        data-bs-dismiss="modal"
+                                                ></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover tableFixHead">
+                                                        <tr>
+                                                            <th>Ca cũ</th>
+                                                            <th>Loại sân cũ</th>
+                                                            <th>Ngày đá cũ</th>
+                                                            <th>Giá sân cũ</th>
+                                                            <th>Ca muốn đổi</th>
+                                                            <th>Loại sân muốn đổi</th>
+                                                            <th>Ngày muốn đổi</th>
+                                                            <th>Giá phải trả</th>
+                                                        </tr>
+                                                        <tr v-for="element in arrXacNhanLich">
+                                                            <td hidden>{{element.id}}</td>
+                                                            <td>{{element.caCu}}</td>
+                                                            <td>{{element.loaiSanCu}}</td>
+                                                            <td>{{element.ngayDaCu}}</td>
+                                                            <td>{{element.giaCu}}</td>
+                                                            <td>{{getByIdCa(element.caNew).tenCa}}</td>
+                                                            <td>{{getByIdLoaiSan(element.loaiSanNew).tenLoaiSan}}</td>
+                                                            <td>{{element.ngayNew}}
+                                                            </td>
+                                                            <td>{{element.giaNew}}</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button
+                                                        type="submit"
+                                                        class="btn btn-success btn-labeled btnGuiXacNhan"
+                                                >
+                                                    Gửi
+                                                    <i class="fas fa-check fa-lg"></i>
+                                                </button>
+                                                <button
+                                                        type="button"
+                                                        class="btn btn-danger btn-labeled"
+                                                        data-bs-dismiss="modal"
+                                                >
+                                                    Đóng
+                                                    <i class="fas fa-times fa-lg"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  -->
+                            </div>
+                        </div>
+
+                        <hr/>
+                        <table class="table tableList">
+                            <tr>
+                                <th>
+                                    <input
+                                            class="form-check-input check-all"
+                                            type="checkbox"
+                                            value=""
+                                            aria-label="Checkbox for following text input"
+                                    />
+                                </th>
+                                <th>Ca hiện tại</th>
+                                <th>Loại sân</th>
+                                <th>Ngày đá dự kiến</th>
+                                <th>Giá</th>
+                                <th>Ca muốn đổi</th>
+                                <th>Ngày muốn đổi</th>
+                                <th>Loại sân muốn đổi</th>
+                                <th>Giá dự kiến</th>
+                            </tr>
+                            <tr v-for="items in arrHoaDonDL">
+                                <td class="check-box-one">
+                                    <input
+                                            class="form-check-input mt-0 check-one"
+                                            type="checkbox"
+                                            aria-label="Checkbox for following text input"
+                                            v-bind:value="items.id"
+                                    />
+                                </td>
+                                <td class="ca-ht">{{items.tenCaHT}}</td>
+                                <td class="loai-san-ht">{{items.loaiSanHT}}</td>
+                                <td class="time-da-bong">{{currenDate(items.ngayDatHT)}}</td>
+                                <td class="tong-tien">{{currenlyNumberVue(items.tongTienHT)}}</td>
+                                <td>
+                                    <select class="form-select ca-sb">
+                                        <option
+                                                v-bind:value="loaiCa.id"
+                                                :selected="loaiCa.tenCa == items.tenCaHT"
+                                                v-for="loaiCa in arrCaDL"
+                                        >
+                                            {{loaiCa.tenCa}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input
+                                            type="date"
+                                            class="form-control change-time"
+                                            id="datePicker"
+                                    />
+                                </td>
+                                <td>
+                                    <select class="form-select loai-san">
+                                        <option
+                                                v-bind:value="loaiSan.id"
+                                                :selected="loaiSan.tenLoaiSan == items.loaiSanHT"
+                                                v-for="loaiSan in arrLoaiSanDL"
+                                        >
+                                            {{loaiSan.tenLoaiSan}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td class="giaDuKien">{{currenlyNumberVue(items.tongTienHT)}}</td>
+                            </tr>
+                        </table>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="hint-text">
+                                    <p style="color: #333">
+                                        Hiển thị <b>5</b> / <b>25</b> bản ghi
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-end">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item active">
+                                            <a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">2</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">3</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <section class="gather" hidden>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h1>Đổi lịch chung</h1>
+                                    <hr/>
+                                </div>
+                                <div class="col-md-3">
+                                    Ca chung:
+                                    <select class="form-select ca-chung">
+                                        <option
+                                                v-bind:value="items.id"
+                                                v-for="items in arrCaDL"
+                                        >
+                                            {{items.tenCa}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 dai-ngay">
+                                    <div
+                                            class="d-grid gap-2 d-md-flex justify-content-md-center"
+                                    >
+                                        <button
+                                                type="button"
+                                                class="btn btn-outline-danger btnTheoNgay"
+                                        >
+                                            Theo ngày
+                                        </button>
+                                        <button
+                                                type="button"
+                                                class="btn btn-outline-warning btnTheoTuan"
+                                        >
+                                            Theo tuần
+                                        </button>
+                                    </div>
+
+                                    <div
+                                            class="d-grid gap-2 d-md-flex justify-content-md-center"
+                                    >
+                                        <div class="dateTheoNgay">
+                                            <div style="height: 100%">
+                                                <div class="mbsc-grid">
+                                                    <div style="width: 500px">
+                                                        <div class="mbsc-form-group">
+                                                            <div id="demo-counter"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="dateTheoTuan mt-4" hidden>
+                                            <div
+                                                    mbsc-page
+                                                    class="demo-range-select"
+                                                    style="width: 500px; border-color: #ccc"
+                                            >
+                                                <div style="height: 100%">
+                                                    <div id="demo-range-selection"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    Loại sân chung
+                                    <select class="form-select loai-san-chung">
+                                        <option
+                                                v-bind:value="items.id"
+                                                v-for="items in arrLoaiSanDL"
+                                        >
+                                            {{items.tenLoaiSan}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var app = new Vue({
+        el: ".app",
+        data: {
+            arrCaDL: [],
+            arrLoaiSanDL: [],
+            arrHoaDonDL: [],
+            arrXacNhanLich: [],
+        },
+        methods: {
+            currenlyNumberVue(number) {
+                return number.toLocaleString("vi-VN");
+            },
+            getByIdCa(id) {
+                var ca = null;
+                this.arrCaDL.forEach((item) => {
+                    if (item.id == id) {
+                        ca = item;
+                        return;
+                    }
+                });
+                return ca;
+            },
+            getByIdLoaiSan(id) {
+                var lSan = null;
+                this.arrLoaiSanDL.forEach((item) => {
+                    if (item.id == id) {
+                        lSan = item;
+                        return;
+                    }
+                });
+                return lSan;
+            },
+            currenDate(date) {
+                return moment(date).format("DD-MM-YYYY");
+            }
+        }
+    });
+</script>
+<script>
+    function updateNgayMuonDoi() {
+        const ngayMuonDoiInputs = $(".change-time");
+        ngayMuonDoiInputs.each((index, element) => {
+            $(element).val(list[index]);
+        });
+    }
+
+    $(function () {
+        // Theo tuan
+        var selectedDates = [];
+        $("#demo-range-selection")
+            .mobiscroll()
+            .datepicker({
+                controls: ["calendar"],
+                display: "inline",
+                rangeSelectMode: "wizard",
+                select: "range",
+                showRangeLabels: true,
+                min: new Date(),
+                onChange: function (event, inst) {
+                    var arrStartEnd = event.value;
+                    var startDate = new Date(arrStartEnd[0]); // Ngày bắt đầu
+                    var endDate = new Date(arrStartEnd[1]); // Ngày kết thúc
+                    var dateArr = [];
+                    while (startDate <= endDate) {
+                        dateArr.push(
+                            moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD")
+                        );
+                        startDate.setDate(startDate.getDate() + 1);
+                    }
+                    if (dateArr.length > app.arrHoaDonDL.length) {
+                        alert('Số bản ghi của bạn chỉ có ' + app.arrHoaDonDL.length + ', vui lòng bớt ngày chọn!');
+                        inst.setVal([], true, true);
+                        return;
+                    }
+
+                    if (dateArr.length > 1) {
+                        dateArr.forEach((items) => {
+                            list = [];
+                            list = dateArr.slice();
+                        });
+                        updateNgayMuonDoi();
+                    }
+                },
+            });
+    });
+    mobiscroll.setOptions({
+        locale: mobiscroll.localeVi,
+        theme: "ios",
+        themeVariant: "light",
+    });
+    var list = [];
+    $(function () {
+        // Theo ngay
+        var counterNumber = $("#demo-counter")
+            .mobiscroll()
+            .datepicker({
+                controls: ["calendar"],
+                display: "inline",
+                selectMultiple: true,
+                selectCounter: true,
+                min: new Date(),
+                onChange: function (event, inst) {
+                    if (parseInt(inst.getVal().length) > app.arrHoaDonDL.length) {
+                        alert('Số bản ghi của bạn chỉ có ' + app.arrHoaDonDL.length + ', vui lòng bớt ngày chọn!');
+                        var selectedDates = inst.getVal();
+                        selectedDates.pop();
+                        inst.setVal(selectedDates);
+                        return;
+                    }
+                    list = [];
+                    var listDate = event.valueText.split(",");
+                    listDate.forEach((element) => {
+                        list.push(moment(element, "DD/MM/YYYY").format("YYYY-MM-DD"));
+                    });
+                    updateNgayMuonDoi();
+                },
+            });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        callApiDoiLich();
+        updateNgayMuonDoi();
+        checkNowDate();
+        checkDate();
+        //xac nhan
+        xacNhanDoiLich();
+        eventGiaDuKien();
+        doiLichChuaXacNhan();
+    });
+
+    function doiLichChuaXacNhan() {
+        $(".btnGuiXacNhan").click((event) => {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/api/v1/user/doi-lich/lich-chua-xn",
+                dataType: "JSON",
+                contentType: "application/json",
+                data: JSON.stringify(app.arrXacNhanLich),
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        });
+
+    }
+
+    function eventGiaDuKien() {
+        $(document).on("change", ".ca-sb, .loai-san", function () {
+            var $row = $(this).closest("tr"); // Tìm phần tử cha <tr>
+            var giaDuKien = 0;
+            var giaCa = 0;
+            var giaLoaiSan = 0;
+
+            var selectedCaId = $row.find(".ca-sb").val();
+            var selectedLoaiSanId = $row.find(".loai-san").val();
+
+            // Tính giá Ca
+            app.arrCaDL.forEach((element) => {
+                if (element.id == selectedCaId) {
+                    giaCa = parseFloat(element.giaCa);
+                }
+            });
+
+            // Tính giá Loại sân
+            app.arrLoaiSanDL.forEach((element) => {
+                if (element.id == selectedLoaiSanId) {
+                    giaLoaiSan = parseFloat(element.giaSan);
+                }
+            });
+
+            // Tính giá dự kiến
+            giaDuKien = giaCa + giaLoaiSan;
+
+            // Cập nhật giá dự kiến chỉ cho dòng hiện tại
+            $row.find(".giaDuKien").text(currenlyNumber(giaDuKien));
+        });
+    }
+
+    function xacNhanDoiLich() {
+        // $(".btnGuiXacNhan").click((event) => {
+        $(".modalXacNhan").click((event) => {
+            event.preventDefault();
+            var checkboxes = document.querySelectorAll(".check-one");
+            var checkedCheckboxes = [];
+
+            var checkedData = [];
+            var dataRow = {};
+
+            var checkboxes = document.querySelectorAll(".check-one");
+            checkboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    var row = checkbox.closest("tr");
+                    var id = row.querySelector("input.check-one").value;
+                    var caCu = row.querySelector("td.ca-ht").textContent;
+                    var loaiSanCu = row.querySelector("td.loai-san-ht").textContent;
+                    var ngayDaCu = row.querySelector("td.time-da-bong").textContent;
+                    var giaCu = row.querySelector("td.tong-tien").textContent;
+                    var caNew = row.querySelector("select.ca-sb").value;
+                    var ngayNew = row.querySelector("td.ca-ht").textContent;
+                    var loaiSanNew = row.querySelector("select.loai-san").value;
+                    var giaNew = row.querySelector("td.giaDuKien").textContent;
+                    var ngayNew = row.querySelector("input.change-time").value ==""?ngayDaCu: row.querySelector("input.change-time").value;
+                    dataRow = {id, caCu, loaiSanCu, ngayDaCu, giaCu, caNew, ngayNew, loaiSanNew, giaNew, ngayNew};
+                    checkedData.push(dataRow);
+                    console.log(row)
+                }
+            });
+            if (checkedData.length === 0) {
+                // Đóng modal
+                $("#modalConfirm").modal("hide");
+                alert("Vui lòng chọn lịch bạn muốn thay đổi");
+            }
+            console.log(checkedData);
+            app.arrXacNhanLich = checkedData;
+
+        });
+    }
+
+    //check truoc ngay hien tai
+    function checkNowDate() {
+        // khong chon truoc ngay hien tai start
+        // Lấy ngày hiện tại
+        var currentDate = new Date().toISOString().split("T")[0];
+
+        // Xử lý tất cả các trường nhập có id là "datePicker"
+        $("input#datePicker").each(function () {
+            // Thiết lập giá trị tối thiểu cho trường nhập ngày
+            $(this).attr("min", currentDate);
+
+            // Xử lý sự kiện onchange để ngăn chọn ngày trước ngày hiện tại
+            $(this).on("change", function () {
+                if ($(this).val() < currentDate) {
+                    $(this).val(currentDate);
+                }
+            });
+        });
+
+        // khong chon truoc ngay hien tai end
+    }
+
+    //call api
+    function callApiDoiLich() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8081/api/v1/user/doi-lich",
+            dataType: "json",
+            success: function (response) {
+                app.arrCaDL = response.content.ca;
+                app.arrLoaiSanDL = response.content.loaiSan;
+                app.arrHoaDonDL = response.content.hoaDon;
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    }
+
+    //event chung
+    function checkDate() {
+        $(".check-all").click(function () {
+            if (this.checked) {
+                $(".gather").prop("hidden", false);
+                $(".check-one").prop("checked", true);
+            } else {
+                $(".check-one").prop("checked", false);
+                $(".gather").prop("hidden", true);
+            }
+        });
+        $(".check-one").click(function () {
+            var lengCheckOne = $(".check-one").length;
+            var lengChecked = $(".check-one:checked").length;
+            if (lengCheckOne == lengChecked) {
+                $(".check-all").prop("checked", true);
+                $(".gather").prop("hidden", false);
+            } else {
+                $(".check-all").prop("checked", false);
+                $(".gather").prop("hidden", true);
+            }
+        });
+        //cac ca chung
+        $(".ca-chung").change((event) => {
+            $(".ca-sb").val(event.target.value);
+            $(".loai-san").val($(".loai-san-chung").val());
+            giaDuKienChung(event, $(".loai-san-chung").val(), 0);
+        });
+        //loai san chung
+        $(".loai-san-chung").change((event) => {
+            $(".loai-san").val(event.target.value);
+            $(".ca-sb").val($(".ca-chung").val());
+            giaDuKienChung(event, $(".ca-chung").val(), 1);
+        });
+        ///
+        $(".btnTheoNgay").addClass("active");
+        $(".btnTheoNgay").click(() => {
+            $(".btnTheoNgay").addClass("active");
+            $(".btnTheoTuan").removeClass("active");
+            $(".dateTheoNgay").prop("hidden", false);
+            $(".dateTheoTuan").prop("hidden", true);
+        });
+        $(".btnTheoTuan").click(() => {
+            $(".btnTheoTuan").addClass("active");
+            $(".btnTheoNgay").removeClass("active");
+            $(".dateTheoNgay").prop("hidden", true);
+            $(".dateTheoTuan").prop("hidden", false);
+        });
+    }
+
+    function giaDuKienChung(event, value, index) {
+        var giaDuKien = 0;
+        var giaCa = 0;
+        var giaLoaiSan = 0;
+        // Tính giá Ca
+        if (index == 0) {
+            app.arrCaDL.forEach((element) => {
+                if (element.id == event.target.value) {
+                    giaCa = parseFloat(element.giaCa);
+                }
+            });
+            // Tính giá Loại sân
+            app.arrLoaiSanDL.forEach((element) => {
+                if (element.id == value) {
+                    giaLoaiSan = parseFloat(element.giaSan);
+                }
+            });
+        } else {
+            app.arrCaDL.forEach((element) => {
+                if (element.id == value) {
+                    giaCa = parseFloat(element.giaCa);
+                }
+            });
+            // Tính giá Loại sân
+            app.arrLoaiSanDL.forEach((element) => {
+                if (element.id == event.target.value) {
+                    giaLoaiSan = parseFloat(element.giaSan);
+                }
+            });
+        }
+
+        giaDuKien = giaCa + giaLoaiSan;
+        $(".giaDuKien").text(currenlyNumber(giaDuKien));
+    }
+
+    function currenlyNumber(number) {
+        return number.toLocaleString("vi-VN");
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="website icon" type="png" href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
+
+    <title>Document</title>
+    <style>
+        .custom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        @media (min-width: 60em) {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        }
+
+        .box-croll {
+            overflow-y: scroll;
+        }
+
+        .custom-modal.show {
+            display: block;
+        }
+
+        .modal-content {
+            transition: all 0.3s ease;
+            /* Để tạo hiệu ứng thu nhỏ/phóng to mượt mà */
+            /* width: 600px;
+            max-width: 100%; */
+        }
+
+        /* The Close Button */
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            text-align: center;
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+        }
+    </style>
+</head>
+<body>
+<button id="openModalBtn">Mở Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" id="resizeModalBtn" class="custom-modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="closeModalBtn" class="close">&times;</span>
+            <h2>Danh Sách Sân Trong Trạng Thái Đặt</h2>
+        </div>
+        <div class="modal-body">
+            <p>Some text in the Modal Body</p>
+            <p>Some other text...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // MODAL
+    const openModalBtn = document.getElementById("openModalBtn");
+    // Get the <span> element that closes the modal
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const resizeModalBtn = document.getElementById("resizeModalBtn");
+    const modal = document.getElementById("myModal");
+    const modalContent = modal.querySelector(".modal-content");
+    let isModalExpanded = false;
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    openModalBtn.addEventListener("click", () => {
+        modal.classList.add("show");
+    });
+
+    // When the user clicks on <span> (x), close the modal
+    closeModalBtn.addEventListener("click", () => {
+        modal.classList.remove("show");
+    });
+
+    modalContent.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        offsetX = e.clientX - modal.getBoundingClientRect().left;
+        offsetY = e.clientY - modal.getBoundingClientRect().top;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+            modal.style.left = e.clientX - offsetX + "px";
+            modal.style.top = e.clientY - offsetY + "px";
+        }
+    });
+
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+    });
+</script>
+</body>
+</html>

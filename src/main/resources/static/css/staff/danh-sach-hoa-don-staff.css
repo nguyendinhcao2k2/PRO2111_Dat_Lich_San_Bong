@@ -1,0 +1,259 @@
+/* table wrapper 2/11 */
+.table-wrapper {
+    min-width: 1000px;
+    background: #fff;
+    padding: 20px 25px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+    .table-wrapper {
+        max-width: 90%;
+    }
+}
+
+/*Table title */
+.table-title {
+    color: #007bff;
+    background: #ffffff;
+    padding: 16px 25px;
+    margin: -20px -25px 10px;
+    /*border-radius: 3px 3px 0 0;*/
+}
+
+.table-wrapper .btn-refresh,
+.btn-export-excel {
+    float: right;
+    color: #333;
+    background-color: #fff;
+    border-radius: 3px;
+    border: none;
+    outline: none !important;
+    margin-left: 10px;
+}
+
+.btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 5px;
+    size: 1em;
+}
+
+.btn-labeled-sm {
+    border-radius: 5px;
+    size: 1em;
+}
+
+.btn-label {
+    position: relative;
+    left: 12px;
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 1px 0 0 1px;
+}
+
+.table-title .btn-refresh,
+.btn-export-excel {
+    font-size: 13px;
+    border: none;
+}
+.table-title .btn i {
+    float: left;
+    font-size: 21px;
+    margin-right: 5px;
+}
+
+.table-title .btn span {
+    float: left;
+    margin-top: 2px;
+}
+
+h2 {
+    margin: 5px 0 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.table-wrapper .btn-refresh:hover {
+    color: #333;
+    background: #f2f2f2;
+}
+.table-wrapper .btn.btn-refresh {
+    color: #fff;
+    background: #03a9f4;
+}
+.table-wrapper .btn.btn-refresh:hover {
+    background: #03a3e7;
+}
+/*end table */
+
+/* body row col 2/11 */
+.body-row-col {
+    padding: 10px;
+    background: #fff;
+    border-radius: 0 0 0 0;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+/* css lại cho from - controll của bootstrap */
+/* chú ý */
+.form-control {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+.soluong {
+    margin-left: 10px;
+    width: 60%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.form-select {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: black;
+}
+
+.form-label {
+    font-size: 18px;
+    color: black;
+}
+
+h1 {
+    /* text-align: center; */
+    font-size: 24px;
+    font-weight: bold;
+    /* text-transform: uppercase; */
+}
+/*gài dòng kẻ */
+.header-border {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    margin: 5px;
+}
+
+.header-border-content-dich-vu {
+    border-top: 2px solid rgba(0, 0, 0, 0.2);
+    margin: 5px;
+}
+
+/* card */
+.card-product {
+    margin-top: 6px;
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+    overflow: hidden;
+}
+
+.card-product .card-img-top {
+    max-width: 150px;
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+    /* object-fit: cover; */
+}
+
+.scrollable-content {
+    max-height: 500px; /* Điều chỉnh chiều cao tối đa ở đây */
+    overflow-y: auto; /* Kích hoạt thanh cuộn theo chiều dọc khi cần */
+    overflow-x: hidden;
+}
+
+/* input search, select */
+.label-filter-list-order {
+    color: black;
+    font-size: 15px;
+    /* font-weight: bold; */
+}
+
+/* select */
+#select-service-list-order {
+    border-radius: 5px;
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+/* input */
+#search-list-service {
+    border-radius: 5px;
+    color: black;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+/* checkboxx */
+.button-icon-text-check,
+.button-icon-check-list {
+    font-family: "Quicksand", sans-serif;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    color: #fff;
+    height: 100%;
+}
+
+.button-icon-check-list,
+.button-icon-header {
+    font-size: 1em;
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.button-header-check-box {
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    height: 2.5em;
+    padding: 0;
+    background: #009578;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.button-header-check-box:hover {
+    background: #008168;
+}
+
+.button-header-check-box:active {
+    background: #006e58;
+}
+/* LIST GROUP */
+.form-group-list-service-order {
+    display: flex;
+    align-items: center;
+}
+
+/* BACKGROUND  */
+#modalAddDichVuHoaDon .modal-header, .modal-title {
+    font-size: 25px;
+    background: #f7941e;
+    color: #fff;
+}
+
+/*table*/
+table.table tr th,
+table.table tr td {
+    border-color: #fff;
+    padding: 12px 15px;
+    vertical-align: middle;
+    color: #2f2f2f;
+}
+.price {
+    background-color: #F44336;
+    color: #fff;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 5px 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}

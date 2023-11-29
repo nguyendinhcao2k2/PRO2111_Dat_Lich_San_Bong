@@ -13,6 +13,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author caodinh
@@ -27,10 +29,10 @@ import java.sql.Timestamp;
 public class SanCa {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    protected String id;
+//    @GeneratedValue(generator = "uuid2")
+//    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(255)")
+    private String id;
 
     @Column(name = "id_san_bong")
     private String idSanBong;
@@ -38,13 +40,19 @@ public class SanCa {
     @Column(name = "id_ca")
     private String idCa;
 
-    @Column(name = "thoi_gian_tao", columnDefinition = "TIMESTAMP")
-    private Timestamp thoiGianTao;
+    @Column(name = "thoi_gian_dat", columnDefinition = "TIMESTAMP")
+    private LocalDateTime thoiGianDat;
+
+    @Column(name = "ngay_den_san", columnDefinition = "TIMESTAMP")
+    private LocalDate ngayDenSan;
 
     @Column(name = "gia")
     private Double gia;
 
     @Column(name = "trang_thai")
     private Integer trangThai;
+
+    @Column(name = "user_id")
+    private String userId;
 
 }

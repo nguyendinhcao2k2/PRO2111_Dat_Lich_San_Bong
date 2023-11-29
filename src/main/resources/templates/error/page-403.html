@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>403 Forbidden</title>
+    <link th:href="@{/static/css/authen/403.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="scene">
+    <div class="overlay"></div>
+    <div class="overlay"></div>
+    <div class="overlay"></div>
+    <div class="overlay"></div>
+    <span class="bg-403">403</span>
+    <div class="text">
+        <span class="hero-text"></span>
+        <span class="msg">can't let <span>you</span> in.</span>
+        <span class="support">
+      <span>unexpected?</span>
+      <a th:href="@{/authentication/home-login}">Go Home!!</a>
+    </span>
+    </div>
+    <div class="lock"></div>
+</div>
+</body>
+</html>

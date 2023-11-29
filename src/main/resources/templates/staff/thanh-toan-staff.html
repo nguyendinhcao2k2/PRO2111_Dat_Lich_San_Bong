@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>SÂN BÓNG VN</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="keywords"/>
+    <meta content="" name="description"/>
+    <link rel="website icon" type="png"
+          href="https://img.freepik.com/premium-vector/soccer-ball-logo-illustration-vector_472355-210.jpg?w=2000">
+
+    <!-- BOOTSTRAP -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
+    <!-- BOOTSTRAP -->
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- Google -->
+
+    <!-- Icon Font AWESOME Bắt buộc có hai bản 5.10 và 6.2 -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <!-- table icon -->
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <!-- table icon -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link th:href="@{/static/css/staff/thanh-toan-staff.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/static/css/staff/danh-sach-hoa-don-staff.css}"/>
+</head>
+<body>
+<header th:insert="~{fragments/header-admin}"></header>
+
+<section class="mains">
+            <!-- Other content of your page goes here -->
+    <div class="card m-0 p-0">
+        <div
+                id="toastContainer"
+                class="position-fixed osition-absolute top-0 end-0 p-3"
+                style="z-index: 9999"
+        >
+            <div id="toasts" class="d-flex flex-column-reverse"></div>
+        </div>
+        <div class="card-header">
+            <h2>Nhân Viên Giao Ca</h2>
+        </div>
+        <!--        -->
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="row mt-3">
+                        <div class="col-md-12 d-flex justify-content-start">
+                            <div class="header-row-col">
+                                <h1 class="">Thông tin</h1>
+                            </div>
+                        </div>
+                        <hr/>
+                    </div>
+
+                    <div>
+                        <!-- Thông tin -->
+                        <form class="row g-3">
+                            <div class="col-md-4">
+                                <label for="tenKhachHang" class="form-label"
+                                >Tên khách hàng</label
+                                >
+                                <input
+                                        readonly
+                                        type="text"
+                                        name="tenKhachHang"
+                                        class="form-control"
+                                        id="tenKhachHang"
+                                />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="soDienThoai" class="form-label"
+                                >Số điện thoại</label
+                                >
+                                <input
+                                        readonly
+                                        type="text"
+                                        name="soDienThoai"
+                                        class="form-control"
+                                        id="soDienThoai"
+                                />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="tenSanCa" class="form-label">Tên Sân Ca: </label>
+                                <input readonly type="text" class="form-control" id="tenSanCa" name="tenSanCa"/>
+                            </div>
+
+                            <!--  -->
+                            <div class="col-md-6">
+                                <label for="thoiGianNhanSan" class="form-label">Thời Gian Nhận Sân: </label>
+                                <input
+                                        readonly
+                                        type="text"
+                                        class="form-control"
+                                        name="thoiGianNhanSan"
+                                        id="thoiGianNhanSan"
+                                />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="thoiGianDa" class="form-label">Thời Gian Đá: </label>
+                                <input
+                                        readonly
+                                        type="text"
+                                        name="thoiGianDa"
+                                        class="form-control"
+                                        id="thoiGianDa"
+                                />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="giaSan" class="form-label">Giá Sân (1)</label>
+                                <div class="input-group">
+                                    <input
+                                            readonly
+                                            type="text"
+                                            class="form-control"
+                                            name="giaSan"
+                                            id="giaSan"
+                                    />
+                                    <span
+                                            class="input-group-text"
+                                            style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                    >VND</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="giaDichVu" class="form-label">Giá Dịch Vụ (2)</label>
+                                <div class="input-group">
+                                    <input
+                                            readonly
+                                            type="text"
+                                            class="form-control"
+                                            name="giaDichVu"
+                                            id="giaDichVu"
+                                    />
+                                    <span
+                                            class="input-group-text"
+                                            style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                    >VND</span
+                                    >
+                                </div>
+                            </div>
+
+                            <!--  -->
+                            <div class="col-md-4">
+                                <label for="giaPhuPhiShow" class="form-label">Giá Phụ Phí (3)</label>
+                                <div class="input-group">
+                                    <input
+                                            readonly
+                                            type="text"
+                                            class="form-control"
+                                            name="giaPhuPhiShow"
+                                            id="giaPhuPhiShow"
+                                    />
+                                    <span
+                                            class="input-group-text"
+                                            style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                    >VND</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tienCocSan" class="form-label">Tiền Cọc Sân (4)</label>
+                                <div class="input-group">
+                                    <input
+                                            readonly
+                                            type="text"
+                                            class="form-control"
+                                            name="tienCocSan"
+                                            id="tienCocSan"
+                                    />
+                                    <span
+                                            class="input-group-text"
+                                            style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                    >VND</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tienCocThua" class="form-label">Tiền Cọc Thừa (5)</label>
+                                <div class="input-group">
+                                    <input
+                                            readonly
+                                            type="text"
+                                            class="form-control"
+                                            name="tienCocThua"
+                                            id="tienCocThua"
+                                    />
+                                    <span
+                                            class="input-group-text"
+                                            style="
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                              "
+                                    >VND</span
+                                    >
+                                </div>
+                            </div>
+
+                            <!-- Thanh toán -->
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <h1>Thanh toán</h1>
+                                </div>
+                                <hr/>
+
+                                <div class="col-md-12">
+                                    <!-- phương thức chuyển khoản -->
+                                    <!--Phụ Phí  -->
+                                    <div class="row mb-3">
+                                        <label
+                                                for="selectPhuPhi"
+                                                class="col-md-4 col-form-label"
+                                        >Phụ phí:</label
+                                        >
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <select id="selectPhuPhi" class="form-select"
+                                                        aria-label="Default select example">
+                                                    <option selected>Chọn Phụ Phí</option>
+                                                </select>
+                                                <!--  -->
+                                                <button
+                                                        class="btn btn-success btn-outline-success"
+                                                        type="button"
+                                                        id="buttonThemPhuPhiHoaDon"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalThemPhuPhi"
+                                                        style="
+                                                              border-top-right-radius: 5px;
+                                                              border-bottom-right-radius: 5px;
+                                                            "
+                                                >
+                                                    <i
+                                                            class="fas fa-plus fa-lg"
+                                                            style="color: #ffffff"
+                                                    ></i>
+                                                </button>
+                                                <!-- MODAL -->
+                                                <div
+                                                        class="modal fade"
+                                                        id="modalThemPhuPhi"
+                                                        data-bs-backdrop="static"
+                                                        data-bs-keyboard="false"
+                                                        tabindex="-1"
+                                                        aria-labelledby="staticBackdropLabel"
+                                                        aria-hidden="true"
+                                                >
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5
+                                                                        class="modal-title"
+                                                                        id="staticBackdropLabel"
+                                                                >
+                                                                    Thêm phụ phí
+                                                                </h5>
+                                                                <button
+                                                                        type="button"
+                                                                        class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"
+                                                                ></button>
+                                                            </div>
+
+                                                            <form>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <label
+                                                                                    for="tenPhuPhi"
+                                                                                    class="form-label"
+                                                                            >Tên phụ phí</label
+                                                                            >
+                                                                            <div class="input-group">
+                                                                                <input
+                                                                                        type="text"
+                                                                                        class="form-control"
+                                                                                        id="tenPhuPhi"
+
+                                                                                />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <label
+                                                                                    for="giaPhuPhi"
+                                                                                    class="form-label"
+                                                                            >Giá phụ phí</label
+                                                                            >
+                                                                            <div class="input-group">
+                                                                                <input
+                                                                                        type="number"
+                                                                                        class="form-control"
+                                                                                        id="giaPhuPhi"
+                                                                                        min="1"
+                                                                                />
+                                                                                <span
+                                                                                        class="input-group-text"
+                                                                                        style="
+                                                                                              border-top-right-radius: 5px;
+                                                                                              border-bottom-right-radius: 5px;
+                                                                                            "
+                                                                                        id="basic-addon2"
+                                                                                >VND</span
+                                                                                >
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <button type="button" class="btn btn-success btn-labeled-sm"
+                                                                            id="saveNewPhuPhi">
+                                                                        Thêm Vào Phụ Phí
+                                                                    </button>
+                                                                    <hr>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th scope="col"></th>
+                                                                            <th scope="col">Tên Phụ Phí</th>
+                                                                            <th scope="col">Gía Phụ Phí</th>
+                                                                            <th scope="col">Thao Tác</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody id="dataPhuPhiHoaDon">
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button
+                                                                            type="button"
+                                                                            data-bs-dismiss="modal"
+                                                                            class="btn btn-success btn-labeled-sm"
+                                                                    >
+                                                                        Xác Nhận
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END MODAL -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Tiền khách đưa -->
+                                    <fieldset class="row mb-3">
+                                        <legend class="col-form-label col-md-4 pt-0">
+                                            Hình Thức :
+                                        </legend>
+                                        <div class="col-md-8">
+                                            <div class="form-check form-check-inline">
+                                                <input
+                                                        class="form-check-input"
+                                                        type="radio"
+                                                        name="phuongThucChuyenKhoan"
+                                                        id="chuyenKhoan"
+                                                        value="chuyenKhoan"
+                                                        checked
+                                                        onchange="toggleInputs()"
+                                                />
+                                                <label class="form-check-label" for="chuyenKhoan">
+                                                    Chuyển khoản
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input
+                                                        class="form-check-input"
+                                                        type="radio"
+                                                        name="phuongThucChuyenKhoan"
+                                                        id="tienMat"
+                                                        value="tienMat"
+                                                        onchange="toggleInputs()"
+                                                />
+                                                <label class="form-check-label" for="tienMat">
+                                                    Tiền mặt
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+                                <!-- Tiền khách đưa -->
+                                <div class="col-md-12" id="tienKhachDuaContainer">
+                                    <div class="row mb-3" >
+                                        <label for="tienKhachDua" class="col-md-4 col-form-label"
+                                        >Tiền Khách Đưa:</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input
+                                                        type="number"
+                                                        class="form-control"
+                                                        id="tienKhachDua"
+                                                        min="0"
+                                                        oninput="calculateChange()"
+                                                />
+                                                <span
+                                                        class="input-group-text"
+                                                        style="
+                              border-top-right-radius: 5px;
+                              border-bottom-right-radius: 5px;
+                            "
+                                                        id="basic-addon3"
+                                                >VND</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="tienTraLai" class="col-md-4 col-form-label"
+                                        >Tiền Trả Lại: </label
+                                        >
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input
+                                                        readonly
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="tienTraLai"
+                                                />
+                                                <span
+                                                        class="input-group-text"
+                                                        style="
+                                                              border-top-right-radius: 5px;
+                                                              border-bottom-right-radius: 5px;
+                                                            "
+                                                >VND</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- tổng tiền -->
+                                <div class="col-md-12">
+                                    <hr/>
+                                    <h3
+                                            style="
+                                                font-size: 19px;
+                                                font-family: Tahoma;
+                                                font-weight: 600;
+                                                text-align: center;
+                                                color: rgb(215, 92, 92);
+                                              "
+                                    >
+                                        ((1 + 2 + 3) - (4 + 5)) :
+                                    </h3>
+                                    <h1
+                                            style="
+                                                font-size: 22px;
+                                                font-family: Tahoma;
+                                                font-weight: 900;
+                                                text-align: center;
+                                                color: rgb(215, 92, 92);
+                                              "
+                                    >
+                                        <br>
+                                        Tổng Thanh Toán: <span id="tongThanhToan" name="tongThanhToan">0</span>
+                                    </h1>
+                                </div>
+                            </div>
+                            <!-- BUTTON NEW 2/11 -->
+                            <hr/>
+                            <div class="mt-2 d-grid gap-2 d-md-block d-flex justify-content-center text-center">
+                                <button
+                                        type="submit "
+                                        id="btnQuayLai"
+                                        class="m-2 btn btn-danger btn-labeled"
+                                >
+                                    Trở Về
+                                    <span class="btn-label">
+                                        <i class="fa fa-remove"></i>
+                                         </span>
+                                </button>
+                                <button
+                                        type="submit"
+                                        id="btnThanhToanHoaDon"
+                                        class="m-2 btn btn-success btn-labeled"
+                                >
+                                    Thanh Toán
+                                    <span class="btn-label"
+                                    ><i class="fas fa-money-bill fa-lg"></i
+                                    ></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="col-md-12 mt-0 mb-2">
+                        <div class="body-row-col">
+                            <div class="row">
+                                <div class="col-md-4 d-flex justify-content-start">
+                                    <div class="header-row-col">
+                                        <h1 class="">Dịch vụ sử dụng</h1>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="row g-2 align-items-center">
+                                        <div class="col-md-6"></div>
+                                        <div class="col-md-5 col-sm-auto">
+                                            <select id="select-san-staff" class="form-select"
+                                                    style="border-radius: 5px">
+                                                <option selected value="0">Tất cả</option>
+                                                <option value="1">Nước Uống</option>
+                                                <option value="2">Đồ Thuê</option>
+                                            </select>
+
+                                        </div>
+                                        <!-- BUTTON ADD DỊCH VỤ -->
+                                        <div
+                                                class="col-md-1 col-sm-auto d-flex justify-content-end"
+                                        >
+                                            <button
+                                                    id="addDichVu"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalAddDichVuHoaDon"
+                                                    type="button"
+                                                    class="btn btn-secondary btn-labeled-sm"
+                                            >
+                                                <i
+                                                        class="fas fa-plus fa-lg"
+                                                        style="color: #f0f2f4"
+                                                ></i>
+                                            </button>
+                                            <!-- MODAL ADD DỊCH VỤ -->
+                                            <div
+                                                    class="modal fade"
+                                                    id="modalAddDichVuHoaDon"
+                                                    data-bs-backdrop="static"
+                                                    data-bs-keyboard="false"
+                                                    tabindex="-1"
+                                                    aria-labelledby="staticBackdropLabel"
+                                                    aria-hidden="true"
+                                            >
+                                                <div class="modal-dialog modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5
+                                                                    class="modal-title"
+                                                            >
+                                                                Thêm dịch vụ
+                                                            </h5>
+                                                            <button
+                                                                    type="button"
+                                                                    class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                            ></button>
+                                                        </div>
+                                                        <!-- BODY DICH VU-->
+                                                        <div class="modal-body m-0">
+                                                            <div class="body-row-col">
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        <form>
+                                                                            <div class="row g-2 align-items-center">
+                                                                                <!-- Sân filter -->
+                                                                                <!-- Loại Sân -->
+                                                                                <div class="col-auto">
+                                                                                    <label for="select-service-list-order"
+                                                                                           class="col-form-label label-filter-list-order">Dịch
+                                                                                        vụ:</label>
+                                                                                </div>
+                                                                                <div class="col-md-3 col-sm-auto">
+                                                                                    <select id="select-service-list-order"
+                                                                                            class="form-select"
+                                                                                            style="border-radius: 5px">
+                                                                                        <option selected value="0">
+                                                                                            Tất cả
+                                                                                        </option>
+                                                                                        <option value="1">Nước
+                                                                                        </option>
+                                                                                        <option value="2">Đồ Thuê
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+
+                                                                    </div>
+                                                                    <!-- BUTTON CHECK BOX -->
+                                                                    <div class="col-md-3">
+                                                                        <div
+                                                                                class="d-flex justify-content-end"
+                                                                        >
+                                                                            <button
+                                                                                    type="button"
+                                                                                    id="showCheckboxButtonList"
+                                                                                    class="button-header-check-box"
+                                                                            >
+                                                                                  <span
+                                                                                          class="button-icon-check-list"
+                                                                                  >
+                                                                                    <i
+                                                                                            class="far fa-check-square fa-lg"
+                                                                                    ></i>
+                                                                                  </span>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  -->
+                                                            <div class="row mt-3 scrollable-content"
+                                                                 id="dataDichVuDoThueNuocUong">
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- END BODY -->
+                                                        <div class="modal-footer">
+                                                            <button
+                                                                    id="xacNhanDichVuAddNew"
+                                                                    type="button"
+                                                                    class="btn btn-primary btn-labeled-sm"
+                                                                    data-bs-dismiss="modal"
+                                                            >
+                                                                Xác Nhận
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--  -->
+                                        </div>
+                                        <!-- END BUTTON ADD DỊCH VỤ -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="body-dich-vu header-border-content-dich-vu">
+                                <div class="row mt-3 scrollable-content" id="dataNuocUong">
+                                </div>
+                                <hr>
+                                <div class="row mt-3 scrollable-content" id="dataDoThue">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var getId;
+    var tongTienSanCa;
+    var tongTienCocThua;
+    var tongTienSanCaSaveThongKe;
+    var tongTienDichVu;
+    var tongTienPhuPhi;
+    var tongTienHoaDonPhaiTra;
+    var tongTienCoc;
+    $(document).ready(function () {
+        var currentURL = window.location.href;
+        var parts = currentURL.split('/');
+        getId = parts[parts.length - 1];
+
+        $.get("/api/v1/staff/thanh-toan-hoa-don/" + getId, function (response) {
+            displayPhuPhiHoaDon(getId);
+            $("input[id='tenKhachHang']").val(response.tenKhachHang);
+            $("input[id='soDienThoai']").val(response.soDienThoai);
+            $("input[id='tienCocThua']").val(formatCurrencyVND(response.tienCocThua));
+            $("input[id='tenSanCa']").val(response.tenSanBong + ' - ' + response.tenLoaiSan + ' - ' + response.tenCa);
+            $("input[id='thoiGianNhanSan']").val(response.thoiGianCheckIn);
+            $("input[id='thoiGianDa']").val(response.thoiGianBatDau + ' - ' + response.thoiGianKetThuc);
+            $("input[id='giaSan']").val(formatCurrencyVND(response.tongTienSanCa));
+            $("input[id='tienCocSan']").val(formatCurrencyVND(response.tienCoc));
+            tongTienSanCa = response.tongTienSanCa;
+            tongTienCoc = response.tienCoc;
+            tongTienCocThua = response.tienCocThua;
+            tongTienSanCaSaveThongKe = (tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi));
+            tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc + tongTienCocThua));
+            $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc + tongTienCocThua))) + '.VNĐ');
+        });
+    });
+    $('#addDichVu').on('click', function () {
+        processSelectChange();
+    });
+
+    $('#xacNhanDichVuAddNew').on('click', function () {
+        displayDichVu();
+    });
+    $(document).on('click', '#addDichVuHoaDon', function () {
+        var card = $(this).closest('.card-product');
+        var soLuong = card.find('.soluong').val();
+        var tenDichVu = $(this).data('ten-dich-vu');
+        var idDichVuSuDung = $(this).data('id');
+        var trangThaiDichVu = $(this).data('trang-thai');
+        var giaDichVu = $(this).data('gia-dich-vu');
+        clearTienKhachDua();
+        $.ajax({
+            url: '/api/v1/staff/dich-vu-san-bong/them-dich-vu-hoa-don/' + getId,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                soLuong: soLuong,
+                id: idDichVuSuDung,
+                trangThai: trangThaiDichVu
+            }),
+            success: function (response) {
+                processSelectChange();
+                displayDichVu();
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
+        });
+        createAndShowToast('bg-success', 'Thêm Dịch Vụ Thành Công :', tenDichVu + ' : ' + formatCurrencyVND(giaDichVu) + '.VNĐ' + ' sl: ' + soLuong);
+    });
+    $(document).on('click', '#buttonXoa', function () {
+        var idDichVuSuDung = $(this).data('id');
+        var card = $(this).closest('.card-product');
+        var soLuong = card.find('.soluong').val();
+        var tenDichVu = $(this).data('ten-dich-vu');
+        var trangThaiDichVu = $(this).data('trang-thai');
+        $.ajax({
+            url: '/api/v1/staff/dich-vu-san-bong/xoa-dich-vu/' + getId,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: idDichVuSuDung,
+                soLuong: soLuong,
+                trangThai: trangThaiDichVu
+            }),
+            success: function (response) {
+                displayDichVu();
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
+        });
+        createAndShowToast('bg-success', 'Xóa Dịch Vu Thành Công :', tenDichVu + ' : ' + ' sl: ' + soLuong);
+    });
+    $(document).on('click', '#buttonCapNhat', function () {
+        var idDichVuSuDung = $(this).data('id');
+        var card = $(this).closest('.card-product');
+        var soLuong = card.find('.soluong').val();
+        var trangThaiDichVu = $(this).data('trang-thai');
+        var tenDichVu = $(this).data('ten-dich-vu');
+        var giaDichVu = $(this).data('gia-dich-vu');
+        $.ajax({
+            url: '/api/v1/staff/dich-vu-san-bong/cap-nhat-so-luong-dich-vu/' + getId,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: idDichVuSuDung,
+                soLuong: soLuong,
+                trangThai: trangThaiDichVu
+            }),
+            success: function (response) {
+                displayDichVu();
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
+        });
+        createAndShowToast('bg-success', 'Cập Nhật Số Lượng Thành Công :', tenDichVu + ' : ' + formatCurrencyVND(giaDichVu) + '.VNĐ' + ' sl: ' + soLuong);
+    });
+
+    function displayDichVu() {
+        tongTienDichVu = 0;
+        clearTienKhachDua();
+        $.ajax({
+            url: '/api/v1/staff/dich-vu-san-bong/dich-vu-thanh-toan/' + getId,
+            method: 'GET',
+            success: function (apiResponse) {
+                $('#dataNuocUong').empty();
+                $('#dataDoThue').empty();
+                $('#tienTraLai').empty();
+                $('#tienKhachDua').empty();
+                apiResponse.forEach(function (item) {
+                    var idNuocUong = item.idNuocUong;
+                    if (idNuocUong != null && idNuocUong != '') {
+                        var imageNuocUong = item.imageNuocUong;
+                        var tenNuocUong = item.tenNuocUong;
+                        var giaNuocUong = item.giaNuocUong;
+                        var soLuongNuocUong = item.soLuongNuocUong;
+                        tongTienDichVu += (soLuongNuocUong * giaNuocUong);
+
+                        var htmlContent = '<div class="col-md-3 col-sm-3 col-4">';
+                        htmlContent += '<div class="card card-product">';
+                        htmlContent += '<img src="/static/img/' + imageNuocUong + '" class="card-img-top" alt="..." />';
+                        htmlContent += '<div class="card-body">';
+                        htmlContent += '<h5 class="card-title text-center">' + tenNuocUong + '</h5>';
+                        htmlContent += '<span class="price" type="number">' + formatCurrencyVND(giaNuocUong) + ' VNĐ</span>';
+                        htmlContent += '<div class="form-group form-group-list-service-order">';
+                        htmlContent += '<label class="form-label" for="quantity">Số Lượng :</label>';
+                        htmlContent += '<input min="1" value="' + soLuongNuocUong + '" type="number" class="soluong" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + soLuongNuocUong + '"/>';
+                        htmlContent += '</div>';
+                        htmlContent += '</div>';
+                        htmlContent += '<div class="card-footer bg-white">';
+                        htmlContent += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+                        htmlContent += '<button id="buttonXoa" data-ten-dich-vu="' + tenNuocUong + '" data-id="' + idNuocUong + '" data-trang-thai="' + 1 + '" class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                        htmlContent += '<button id="buttonCapNhat" data-gia-dich-vu="' + giaNuocUong + '" data-ten-dich-vu="' + tenNuocUong + '" data-id="' + idNuocUong + '" data-trang-thai="' + 1 + '"  class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
+                        htmlContent += '</div>';
+                        htmlContent += '</div>';
+                        htmlContent += '</div>';
+                        htmlContent += '</div>';
+                        $('#dataNuocUong').append(htmlContent);
+                    }
+                    var idDoThue = item.idDoThue;
+                    if (idDoThue != null && idDoThue != '') {
+                        var imageDoThue = item.imageDoThue;
+                        var giaDoThue = item.giaDoThue;
+                        var tenDoThue = item.tenDoThue;
+                        var soLuongDoThue = item.soLuongDoThue;
+                        tongTienDichVu += (soLuongDoThue * giaDoThue);
+
+                        var htmldoThue = '<div class="col-md-3 col-sm-3 col-4">';
+                        htmldoThue += '<div class="card card-product">';
+                        htmldoThue += '<img src="/static/img/' + imageDoThue + '" class="card-img-top" alt="..." />';
+                        htmldoThue += '<div class="card-body">';
+                        htmldoThue += '<h5 class="card-title text-center">' + tenDoThue + '</h5>';
+                        htmldoThue += '<span class="price" type="number">' + formatCurrencyVND(giaDoThue) + ' VNĐ</span>';
+                        htmldoThue += '<div class="form-group form-group-list-service-order">';
+                        htmldoThue += '<label class="form-label" for="quantity">Số Lượng :</label>';
+                        htmldoThue += '<input min="1" value="' + soLuongDoThue + '" type="number" class="soluong" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + soLuongDoThue + '"/>';
+                        htmldoThue += '</div>';
+                        htmldoThue += '</div>';
+                        htmldoThue += '<div class="card-footer bg-white">';
+                        htmldoThue += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+                        htmldoThue += '<button id="buttonXoa" data-ten-dich-vu="' + tenDoThue + '" data-id="' + idDoThue + '" data-trang-thai="' + 2 + '" class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                        htmldoThue += '<button id="buttonCapNhat" data-gia-dich-vu="' + giaDoThue + '" data-ten-dich-vu="' + tenDoThue + '" data-id="' + idDoThue + '" data-trang-thai="' + 2 + '"  class="btn btn-success btn-labeled-sm">Cập Nhập</button>';
+                        htmldoThue += '</div>';
+                        htmldoThue += '</div>';
+                        htmldoThue += '</div>';
+                        htmldoThue += '</div>';
+                        $('#dataDoThue').append(htmldoThue);
+                    }
+                });
+                tongTienSanCaSaveThongKe = (tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi));
+                tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc + tongTienCocThua));
+                $("input[id='giaDichVu']").val(formatCurrencyVND(tongTienDichVu));
+                $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc + tongTienCocThua))) + '.VNĐ');
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
+        });
+    }
+
+    $('#select-san-staff').on('change', function () {
+        var selectedValue = $(this).val();
+        if (selectedValue === "0") {
+            $('#dataNuocUong').show();
+            $('#dataDoThue').show();
+        } else if (selectedValue === "1") {
+            $('#dataNuocUong').show();
+            $('#dataDoThue').hide();
+        } else if (selectedValue === "2") {
+            $('#dataNuocUong').hide();
+            $('#dataDoThue').show();
+        }
+    });
+    $(document).ready(function () {
+        displayDichVu();
+    });
+    $('#select-service-list-order').change(function () {
+        processSelectChange();
+    });
+
+    function processSelectChange() {
+        var selectedValue = $('#select-service-list-order').val();
+        console.log(selectedValue);
+        $.ajax({
+            url: '/api/v1/staff/dich-vu-san-bong/danh-sach-dich-vu',
+            method: 'GET',
+            success: function (apiResponse) {
+                if (apiResponse && Array.isArray(apiResponse)) {
+                    $('#dataDichVuDoThueNuocUong').empty();
+                    apiResponse.forEach(function (item) {
+                        //Nuoc Uong
+                        var id = item.id;
+                        var image = item.image;
+                        var gia = item.donGia;
+                        var soLuong = item.soLuong;
+                        var tenDichVu = item.tenDichVu;
+                        var trangThai = item.trangThai;
+                        if (selectedValue == 0) {
+                            var htmlContent2 = '<div class="col-md-3 col-sm-3 col-4">';
+                            htmlContent2 += '<div class="card card-product">';
+                            htmlContent2 += '<div id="checkboxContainerList" style="display: none; position: absolute; top: 10px; left: 10px">';
+                            htmlContent2 += '<input type="checkbox" style="width: 20px; height: 20px; margin-right: 5px" id="checkBoxListService"/>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '<img src="/static/img/' + image + '" class="card-img-top" alt="..." />';
+                            htmlContent2 += '<div class="card-body">';
+                            htmlContent2 += '<h5 class="card-title text-center">' + tenDichVu + '</h5>';
+                            htmlContent2 += '<span class="price" type="number">' + formatCurrencyVND(gia) + ' VNĐ</span>';
+                            htmlContent2 += '<div class="form-group form-group-list-service-order">';
+                            htmlContent2 += '<label class="form-label" for="quantity">Kho Còn : ' + soLuong + '</label>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '<div class="card-footer bg-white">';
+                            htmlContent2 += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+                            htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + 1 + '"/>';
+                            htmlContent2 += '<button id="addDichVuHoaDon" type="button" class="btn btn-success btn-labeled-sm" data-ten-dich-vu="' + tenDichVu + '" data-gia-dich-vu="' + gia + '" data-id="' + id + '" data-trang-thai="' + trangThai + '">Thêm</button>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+
+                            $('#dataDichVuDoThueNuocUong').append(htmlContent2);
+                        } else if (trangThai == selectedValue) {
+                            // Tạo chuỗi HTML cho thẻ <div class="card card-product"> cho từng đối tượng
+                            var htmlContent2 = '<div class="col-md-3 col-sm-3 col-4">';
+                            htmlContent2 += '<div class="card card-product">';
+                            htmlContent2 += '<div id="checkboxContainerList" style="display: none; position: absolute; top: 10px; left: 10px">';
+                            htmlContent2 += '<input type="checkbox" style="width: 20px; height: 20px; margin-right: 5px" id="checkBoxListService"/>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '<img src="/static/img/' + image + '" class="card-img-top" alt="..." />';
+                            htmlContent2 += '<div class="card-body">';
+                            htmlContent2 += '<h5 class="card-title text-center">' + tenDichVu + '</h5>';
+                            htmlContent2 += '<span class="price" type="number">' + formatCurrencyVND(gia) + ' VNĐ</span>';
+                            htmlContent2 += '<div class="form-group form-group-list-service-order">';
+                            htmlContent2 += '<label class="form-label" for="quantity">Kho Còn : ' + soLuong + '</label>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '<div class="card-footer bg-white">';
+                            htmlContent2 += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+                            htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + 1 + '"/>';
+                            htmlContent2 += '<button id="addDichVuHoaDon" type="button" class="btn btn-success btn-labeled-sm" data-ten-dich-vu="' + tenDichVu + '" data-gia-dich-vu="' + gia + '" data-id="' + id + '" data-trang-thai="' + trangThai + '">Thêm</button>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+                            htmlContent2 += '</div>';
+
+                            $('#dataDichVuDoThueNuocUong').append(htmlContent2);
+                        }
+                    });
+                }
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
+        });
+    }
+
+    $(document).on('click', '#buttonThemPhuPhiHoaDon', function () {
+        displayPhuPhiHoaDon(getId);
+    });
+    $(document).on('click', '#saveNewPhuPhi', function () {
+        var tenPhuPhi = $("#tenPhuPhi").val();
+        var giaPhuPhi = parseFloat(document.getElementById('giaPhuPhi').value) || 0;
+        $('#tienTraLai').val();
+        $('#tienKhachDua').val();
+
+        console.log(giaPhuPhi);
+        if (tenPhuPhi == '') {
+            $('#tenPhuPhi').val('').css('border-color', 'red');
+        } else {
+            $('#tenPhuPhi').css('border-color', '');
+        }
+        if (giaPhuPhi === 0) {
+            $('#giaPhuPhi').val(0).css('border-color', 'red');
+        } else {
+            $('#giaPhuPhi').css('border-color', '');
+        }
+        if (tenPhuPhi != '' && giaPhuPhi !== 0) {
+            $('#tenPhuPhi').val('');
+            createAndShowToast('bg-success', 'Thêm Phụ Phí Thành Công :', tenPhuPhi + ' ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
+            $.ajax({
+                url: "/api/v1/staff/phu-phi-hoa-don/luu-phu-phi/" + getId,
+                method: "POST",
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    tenPhuPhi: tenPhuPhi,
+                    giaPhuPhi: giaPhuPhi
+                }),
+                success: function (data) {
+                    displayPhuPhiHoaDon(getId);
+                },
+                error: function (error) {
+                    console.log("Error:", error);
+                }
+            });
+            $('#tenPhuPhi').val('');
+            $('#giaPhuPhi').val(0);
+        }
+    });
+
+    $(document).on('click', '#buttonXoaPhuPhiHoaDon', function () {
+        var idPhuPhiHoaDon = $(this).data('id');
+        var tenPhuPhi = $(this).data('ten-phu-phi');
+        var giaPhuPhi = $(this).data('gia-phu-phi');
+        $('#tienTraLai').empty();
+        $('#tienKhachDua').empty();
+        $.ajax({
+            url: '/api/v1/staff/phu-phi-hoa-don/xoa-phu-phi/' + idPhuPhiHoaDon,
+            method: 'DELETE',
+            success: function (response) {
+                displayPhuPhiHoaDon(getId);
+            },
+            error: function (error) {
+                console.error('API Request Failed:', error);
+            }
+        });
+        createAndShowToast('bg-success', 'Xóa Phụ Phí Thành Công :', tenPhuPhi + ' ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
+    });
+
+    function displayPhuPhiHoaDon(getId) {
+        $('#dataPhuPhiHoaDon').empty();
+        $('#selectPhuPhi').empty();
+        $('#tienTraLai').empty();
+        $('#tienKhachDua').empty();
+        $('#giaPhuPhi').val(0);
+        $('#giaPhuPhiShow').val(0);
+        tongTienPhuPhi = 0;
+        $.ajax({
+            url: "/api/v1/staff/phu-phi-hoa-don/get-by-id-hoa-don/" + getId,
+            method: "GET",
+            success: function (data) {
+                if (data.length > 0) {
+                    // Dữ liệu không null và có ít nhất một phần tử
+                    $.each(data, function (index, item) {
+                        var htmlHoaDonPhuPhi = '<tr>';
+                        htmlHoaDonPhuPhi += '<th scope="row">' + (index + 1) + '</th>';
+                        htmlHoaDonPhuPhi += '<td>' + item.tenPhuPhi + '</td>';
+                        htmlHoaDonPhuPhi += '<td>' + formatCurrencyVND(item.giaPhuPhi) + '.VNĐ' + '</td>';
+                        htmlHoaDonPhuPhi += '<td>';
+                        htmlHoaDonPhuPhi += '<button type="button" id="buttonXoaPhuPhiHoaDon" data-gia-phu-phi="' + item.giaPhuPhi + '" data-ten-phu-phi="' + item.tenPhuPhi + '" data-id="' + item.idPhuPhiHoaDon + '" data-phu-phi="' + item.idPhuPhi + '"  class="btn btn-danger btn-labeled-sm">Xóa</button>';
+                        htmlHoaDonPhuPhi += '</td>';
+                        htmlHoaDonPhuPhi += '</tr>';
+                        $('#dataPhuPhiHoaDon').append(htmlHoaDonPhuPhi);
+                        var option = $('<option>', {
+                            value: item.idPhuPhi,
+                            text: (item.tenPhuPhi + ' GIÁ ' + [formatCurrencyVND(item.giaPhuPhi) + '.VNĐ'])
+                        });
+                        $('#selectPhuPhi').append(option);
+                        tongTienPhuPhi += item.giaPhuPhi;
+                    });
+                    tongTienSanCaSaveThongKe = (tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi));
+                    tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc + tongTienCocThua));
+                    $('#giaPhuPhiShow').val(formatCurrencyVND(tongTienPhuPhi));
+                    $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc + tongTienCocThua))) + '.VNĐ');
+                } else {
+                    var htmlHoaDonPhuPhi = '<h5>' + 'CHƯA CÓ PHỤ PHÍ' + '</h5>';
+                    $('#dataPhuPhiHoaDon').append(htmlHoaDonPhuPhi);
+                }
+            },
+
+            error: function (error) {
+                console.log("Error:", error);
+            }
+        });
+    }
+
+    function formatCurrencyVND(amount, locale = 'vi-VN') {
+        const formatter = new Intl.NumberFormat(locale, {style: 'currency', currency: 'VND'});
+        const parts = formatter.formatToParts(amount);
+
+        const formattedAmount = parts.map(part => {
+            switch (part.type) {
+                case 'currency':
+                    return '';
+                case 'decimal':
+                    return '.';
+                default:
+                    return part.value;
+            }
+        }).join('');
+
+        return formattedAmount;
+    }
+
+    function clearTienKhachDua() {
+        document.getElementById('tienKhachDua').value = "";
+        document.getElementById('tienTraLai').value = "";
+    }
+
+    function calculateChange() {
+        var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
+
+        if (tienKhachDua > tongTienHoaDonPhaiTra) {
+            var tienTraLai = tienKhachDua - tongTienHoaDonPhaiTra;
+            document.getElementById('tienTraLai').value = formatCurrencyVND(tienTraLai);
+        } else {
+            document.getElementById('tienTraLai').value = "Chưa đủ tiền trả";
+        }
+    }
+
+
+    function formatDate(inputDateString) {
+        var date = new Date(inputDateString);
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var formattedDate = day + ' - ' + month + ' - ' + year;
+        return formattedDate;
+    }
+
+    $(document).ready(function () {
+        $("#btnThanhToanHoaDon").click(function () {
+            var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+            if (paymentMethod == "tienMat") {
+                var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
+                console.log(tienKhachDua);
+                if (tienKhachDua === 0) {
+                    showMessageThanhToanWarning();
+                    $('#tienKhachDua').css('border-color', 'red');
+                }
+                if (tienKhachDua < tongTienHoaDonPhaiTra) {
+                    showMessageThanhToanWarning();
+                    $('#tienKhachDua').css('border-color', 'red');
+                }
+                if (tienKhachDua >= tongTienHoaDonPhaiTra) {
+                    thanhToanTienMat();
+                    showMessageThanhToan();
+                    $('#tienKhachDua').css('border-color', '')
+                }
+            } else if (paymentMethod == "chuyenKhoan") {
+                thanhToanChuyenKhoan();
+            }
+        });
+    });
+    $(document).ready(function () {
+        $("#btnQuayLai").click(function () {
+            window.location.href = "/api/v1/staff/view-dat-lich";
+        });
+    });
+
+    function clearForm() {
+        $('#dataNuocUong').empty();
+        $('#dataDoThue').empty();
+        $('#thoiGianNhanSan').val('');
+        $('#tienTraLai').val('');
+        $('#tienKhachDua').val('');
+        $('#tenSanCa').val('');
+        $('#tienCocSan').val(0);
+        $('#tenKhachHang').val('');
+        $('#giaDichVu').val(0);
+        $('#selectPhuPhi').empty();
+        $('#giaPhuPhiShow').val(0);
+        $('#soDienThoai').val('');
+        $('#tienCocThua').val(0);
+        $('#giaSan').val(0);
+        $('#thoiGianDa').val('');
+        $('#thoiGianCheckIn').val('');
+        $('#tongThanhToan').text('0' + '.VNĐ');
+    }
+
+    function showMessageThanhToan() {
+        var tenKhachHang = $("#tenKhachHang").val();
+        var tenSan = $("#tenSanCa").val();
+        clearForm();
+        createAndShowToast('bg-success', 'Thanh Toán Thành Công :', tenKhachHang + ' : ' + tenSan + ' : ' + formatCurrencyVND(tongTienHoaDonPhaiTra) + '.VNĐ');
+    }
+
+    function showMessageThanhToanWarning() {
+        var tenKhachHang = $("#tenKhachHang").val();
+        var tenSan = $("#tenSanCa").val();
+        createAndShowToast('bg-warning', 'Thanh Toán Chưa Thành Công :', tenKhachHang + ' : ' + tenSan + ' : ' + formatCurrencyVND(tongTienHoaDonPhaiTra) + '.VNĐ');
+    }
+
+    function thanhToanChuyenKhoan() {
+        var tenKhachHang = $("#tenKhachHang").val();
+        var soDienThoai = $("#soDienThoai").val();
+        $.ajax({
+            type: "POST",
+            url: "/api/v1/staff/thanh-toan-chuyen-khoan",
+            data: {
+                idHoaDonSanCa: getId,
+                amount: tongTienHoaDonPhaiTra,
+                orderInfo: soDienThoai,
+            },
+            success: function (response) {
+                window.open(response);
+            },
+            error: function (error) {
+                console.error("Lỗi Ajax: ", error);
+            }
+        });
+    }
+
+    function thanhToanTienMat() {
+        var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
+        var tongTien = tongTienSanCaSaveThongKe;
+        console.log(tongTien);
+        $.ajax({
+            type: "POST",
+            url: "/api/v1/staff/thanh-toan-tien-mat/" + getId,
+            data: {
+                paymentMethod: paymentMethod,
+                tongTienSave: tongTien
+            },
+            success: function (response) {
+
+            },
+            error: function (error) {
+                console.error("Lỗi Ajax: ", error);
+            }
+        });
+    }
+
+    function createAndShowToast(backGround, headerText, bodyText) {
+        const toastContainer = document.getElementById("toastContainer");
+        const toastsContainer = document.getElementById("toasts");
+        const maxToasts = 5;
+        const toastsArray = [];
+        let toastCounter = 1;
+
+        toastCounter++;
+        const toast = document.createElement("div");
+        toast.className = "toast mb-2";
+        toast.setAttribute("role", "alert");
+        toast.setAttribute("aria-live", "assertive");
+        toast.setAttribute("aria-atomic", "true");
+
+        toast.innerHTML = `
+          <div class="toast-header  ${backGround}" style="border-radius:5px 5px 0px 0px">
+            <div class="mx-1">
+              <i class="far fa-futbol fa-lg" style="color: #ffffff"></i>
+            </div>
+            <strong class="me-auto" style="color: #ffffff">${headerText}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body p-2" style="color: black; font-size: 14px;background-color: #ffffff;border-radius:0px 0px 5px 5px ">
+            ${bodyText}
+          </div>
+        `;
+
+        // thằng bố add thằng toast là con
+        toastContainer.appendChild(toast);
+
+        // hiển thị toast
+        const toastInstance = new bootstrap.Toast(toast, {
+            animation: true,
+            autohide: true,
+            delay: 5000,
+        });
+
+        // hiển thị ra toast
+        toastInstance.show();
+
+        toastsArray.forEach((toast) => {
+            toast.addEventListener("hidden.bs.toast", function () {
+                toast.remove();
+                if (toastInnerContainer.childElementCount === 0) {
+                    toastContainer.remove();
+                }
+            });
+        });
+
+        toastsArray.push(toast);
+    }
+</script>
+<script>
+    function toggleInputs() {
+        var tienKhachDuaContainer = document.getElementById('tienKhachDuaContainer');
+
+        var tienMatRadio = document.getElementById('tienMat');
+        if (tienMatRadio.checked) {
+            tienKhachDuaContainer.style.display = 'block';
+        } else {
+            tienKhachDuaContainer.style.display = 'none';
+        }
+    }
+
+    toggleInputs();
+
+    function validatePositiveNumberInput(input) {
+        // Get the input value
+        var inputValue = $(input).val();
+        if (isNaN(inputValue) || parseFloat(inputValue) <= 0) {
+            var initialQuantity = $(input).data('initial-quantity');
+            $(input).val(initialQuantity);
+            createAndShowToast('bg-success', 'Nhập Số Lượng Sai :', inputValue);
+        }
+    }
+</script>
+<!-- Add Bootstrap JS and jQuery links -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- UPDATE 2/11/023 -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
