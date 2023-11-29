@@ -5,6 +5,8 @@ import com.example.pro2111_dat_lich_san_bong.core.admin.model.response.DoThueRes
 import com.example.pro2111_dat_lich_san_bong.entity.DoThue;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -21,11 +23,15 @@ public interface DoThueService {
 
     void deleteById(String id);
 
-    boolean updateById(String id, DoThueRequest doThueRequest) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException;
+    boolean update(DoThueRequest doThueRequest) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException;
 
     boolean save(DoThueRequest doThueRequest) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException;
 
     boolean nuocUongImportExcel(MultipartFile file) throws IOException;
 
-    void exprotExcel(HttpServletResponse response,List<DoThue> doThueList) throws IOException;
+    void exprotExcel(HttpServletResponse response, List<DoThue> doThueList) throws IOException;
+
+    DoThue findById(String id);
+
+    Page<DoThueResponse> findAllByName(int page, int size, String tenDoThue);
 }

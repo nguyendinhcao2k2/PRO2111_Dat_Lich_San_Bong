@@ -15,8 +15,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author caodinh
@@ -36,9 +38,8 @@ public class DoThueExportExcel {
 
         createCell(row, 0, "STT", cellStyle);
         createCell(row, 1, "Tên Đồ Thuê", cellStyle);
-        createCell(row, 2, "Ảnh", cellStyle);
-        createCell(row, 3, "Đơn Giá", cellStyle);
-        createCell(row, 4, "Số Lượng", cellStyle);
+        createCell(row, 2, "Đơn Giá", cellStyle);
+        createCell(row, 3, "Số Lượng", cellStyle);
 
     }
 
@@ -70,7 +71,6 @@ public class DoThueExportExcel {
             int columnCount = 0;
             createCell(row, columnCount++, index++, style);
             createCell(row, columnCount++, items.getTenDoThue(), style);
-            createCell(row, columnCount++, items.getImage(), style);
             createCell(row, columnCount++, items.getDonGia(), style);
             createCell(row, columnCount++, items.getSoLuong(), style);
 

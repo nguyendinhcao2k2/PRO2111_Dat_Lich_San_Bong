@@ -74,6 +74,13 @@ function createMultipleToasts(toastsArray) {
 
     // Append the main container to the body
     document.body.appendChild(toastContainer);
+
+    // Thêm sự kiện click cho nút đóng của toast
+    const closeButton = toast.querySelector(".btn-close");
+    closeButton.addEventListener("click", function () {
+        // Ẩn toast khi nút đóng được click
+        toastInstance.hide();
+    });
 }
 
 function createAndShowToast(backGround, headerText, bodyText) {
@@ -127,4 +134,11 @@ function createAndShowToast(backGround, headerText, bodyText) {
         });
 
         toastsArray.push(toast);
+
+    // Thêm sự kiện click cho nút đóng của toast
+    const closeButton = toast.querySelector(".btn-close");
+    closeButton.addEventListener("click", function () {
+        // Ẩn toast khi nút đóng được click
+        toastInstance.hide();
+    });
 }

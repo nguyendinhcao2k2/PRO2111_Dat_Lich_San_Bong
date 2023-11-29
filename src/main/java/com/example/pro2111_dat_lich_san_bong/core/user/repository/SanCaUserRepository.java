@@ -23,8 +23,10 @@ public interface SanCaUserRepository extends SanCaRepository {
         sc.gia,sc.trang_thai as'trangThai',
         c.ten_ca as'tenCa', c.thoi_gian_bat_dau as 'thoiGianBatDau',
         c.thoi_gian_ket_thuc as 'thoiGianKetThuc',
-        sc.ngay_den_san as 'thoiGianDat'
+        sc.ngay_den_san as 'thoiGianDat',
+        hd_sc.dem_so_lan_doi_lich as 'soLanDoiLich'
         from san_ca sc 
+        join hoa_don_san_ca hd_sc on hd_sc.id_san_ca = sc.id
         join ca c on sc.id_ca = c.id
         join san_bong sb on sb.id = sc.id_san_bong
         where sc.user_id =:#{#request.idAcount} 

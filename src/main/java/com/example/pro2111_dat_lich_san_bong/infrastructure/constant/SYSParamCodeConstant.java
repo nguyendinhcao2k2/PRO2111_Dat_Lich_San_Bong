@@ -24,7 +24,12 @@ public class SYSParamCodeConstant {
     //code để lấy thời gian đổi lịch trước ngày đến sân (cột value) trong bảng sys_param
     public static String THOI_GIAN_DOI_LICH = "THOI_GIAN_DOI_LICH";
 
+<<<<<<< HEAD
     public static String THOI_GIAN_CHO_PHEP_DAT_LICH = "THOI_GIAN_CHO_PHEP_DAT_LICH";
+=======
+    //code để lấy thời gian cho phép check in (cột value) trong bảng sys_param
+    public static String THOI_GIAN_DUOC_PHEP_CHECK_IN = "THOI_GIAN_DUOC_PHEP_CHECK_IN";
+>>>>>>> 151f4be53e3a8b3481a5b846149304201462a008
 
     //chuyen thành danh sach
     public static List<Object> LIST_PARAM_CODES = Arrays.asList(
@@ -33,6 +38,10 @@ public class SYSParamCodeConstant {
             THOI_GIAN_HET_GD,
             THOI_GIAN_THONG_BAO,
             THOI_GIAN_DOI_LICH,
+<<<<<<< HEAD
             THOI_GIAN_CHO_PHEP_DAT_LICH
+=======
+            THOI_GIAN_DUOC_PHEP_CHECK_IN
+>>>>>>> 151f4be53e3a8b3481a5b846149304201462a008
     );
 }

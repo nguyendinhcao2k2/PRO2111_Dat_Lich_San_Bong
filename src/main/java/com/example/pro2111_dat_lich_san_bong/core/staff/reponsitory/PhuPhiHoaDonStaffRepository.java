@@ -14,4 +14,6 @@ public interface PhuPhiHoaDonStaffRepository extends JpaRepository<PhuPhiHoaDon,
             "FROM PhuPhiHoaDon PPHD JOIN PhuPhi PP ON PPHD.idPhuPhi = PP.id " +
             "WHERE PPHD.idHoaDonSanCa = :idHoaDonSanCa AND PPHD.trangThai = :trangThai")
     List<PhuPhiHoaDonRequest> getPhuPhiHoaDonByIdSanCa(@Param("idHoaDonSanCa") String idHoaDonSanCa, @Param("trangThai") int trangThai);
+
+    List<PhuPhiHoaDon> findPhuPhiHoaDonsByIdHoaDonSanCa(String idHoaDonSanCa);
 }
