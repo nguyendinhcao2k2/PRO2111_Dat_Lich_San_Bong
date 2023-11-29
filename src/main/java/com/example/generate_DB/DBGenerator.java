@@ -126,6 +126,7 @@ public class DBGenerator implements CommandLineRunner {
         param5.setValue("30");
         param5.setNote("giá trị (cột value) để tính thời gian cho phép người dùng đặt lịch trước thời gian ca");
         param5.setType("phút"); //đơn vị của value
+        param5.setId(sysParamRepository.save(param5).getId());
 
         SysParam param6 = new SysParam();
         param6.setCode(SYSParamCodeConstant.THOI_GIAN_DUOC_PHEP_CHECK_IN);
