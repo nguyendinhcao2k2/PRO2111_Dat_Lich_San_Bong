@@ -45,8 +45,10 @@ public class TrangChuUserController extends BaseController {
     public String getAllListLichDat(Model model) {
        List<LoaiSan> loaiSanList = loaiSanUserService.getAllLoaiSan();
        String thamSoTienCoc = sysParamUserService.findSysParamByCode(SYSParamCodeConstant.PHAN_TRAM_GIA_TIEN_COC).getValue();
+       String thoiGianDuocDatLich= sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_CHO_PHEP_DAT_LICH).getValue();
        model.addAttribute("listLoaiSan",loaiSanList);
        model.addAttribute("thamSoTienCoc",thamSoTienCoc);
+        model.addAttribute("thoiGianDuocDatLich",thoiGianDuocDatLich);
         return "/user/dat-lich";
     }
 }
