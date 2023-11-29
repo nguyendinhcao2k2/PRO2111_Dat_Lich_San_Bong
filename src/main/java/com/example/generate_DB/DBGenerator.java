@@ -120,6 +120,12 @@ public class DBGenerator implements CommandLineRunner {
         param4.setId(sysParamRepository.save(param4).getId());
 
         SysParam param5 = new SysParam();
+        param5.setCode(SYSParamCodeConstant.THOI_GIAN_CHO_PHEP_DAT_LICH);
+        param5.setTrangThai(0); //đang hoạt động
+        param5.setName("Thời gian cho phép đặt lịch");
+        param5.setValue("30");
+        param5.setNote("giá trị (cột value) để tính thời gian cho phép người dùng đặt lịch trước thời gian ca");
+        param5.setType("phút"); //đơn vị của value
         param5.setCode(SYSParamCodeConstant.THOI_GIAN_DUOC_PHEP_CHECK_IN);
         param5.setTrangThai(0);
         param5.setName("Thời gian cho phép check-in");
@@ -342,7 +348,7 @@ public class DBGenerator implements CommandLineRunner {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMuuuu");
         String dateId = localDateTime.format(formatter);
 
-        SanCa san1Ca1 = new SanCa();
+       /* SanCa san1Ca1 = new SanCa();
         san1Ca1.setIdSanBong(sanBong1.getId());
         san1Ca1.setIdCa(ca1.getId());
         san1Ca1.setTrangThai(TrangThaiSanCa.CHO_NHAN_SAN.ordinal()); //0 chờ nhận sân
@@ -384,7 +390,7 @@ public class DBGenerator implements CommandLineRunner {
         san2Ca2.setGia(sanBong2.getGiaSan() + ca2.getGiaCa());
         san2Ca2.setId(getIdSanCa(sanBong2, ca2, dateId));
         san2Ca2.setUserId(kh1.getId());
-        sanCaRepository.save(san2Ca2).getId();
+        sanCaRepository.save(san2Ca2).getId();*/
 
         //end san ca
 
