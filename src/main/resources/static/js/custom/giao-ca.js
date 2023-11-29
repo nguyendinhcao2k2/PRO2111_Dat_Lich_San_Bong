@@ -134,11 +134,12 @@ $(document).ready(() => {
                         }, 4000);
                         return;
                     }
-                    createAndShowToast("bg-warning", "Thông báo!", "Lỗi!");
+                    createAndShowToast("bg-warning", "Thông báo!", "Bàn giao ca thất bại!");
                     return;
                 },
                 error: (error) => {
-                    console.log(error)
+                    console.log(error);
+                    createAndShowToast("bg-warning", "Thông báo!", "Lỗi!");
                 }
             });
         }
