@@ -12,6 +12,7 @@ import com.example.pro2111_dat_lich_san_bong.entity.NuocUong;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.NotFoundException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +32,9 @@ public class DoThueServiceImpl implements DoThueService {
     @Autowired
     private DoThueAdminRepository doThueAdminRepository;
 
+    @Autowired
+    private ModelMapper mapper;
+
     @Override
     public List<DoThue> findAll() {
         try {
@@ -43,7 +47,13 @@ public class DoThueServiceImpl implements DoThueService {
 
     @Override
     public Page<DoThueResponse> getDoThuePagaeble(int page, int size) {
-        return doThueAdminRepository.findAllDoThue(PageRequest.of(page, size));
+        try {
+            return doThueAdminRepository.findAllDoThue(PageRequest.of(page, size));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
@@ -56,15 +66,10 @@ public class DoThueServiceImpl implements DoThueService {
     }
 
     @Override
-    public boolean updateById(String id, DoThueRequest doThueRequest) {
-        Optional<DoThue> doThueOptional = doThueAdminRepository.findById(id);
-        if (!doThueOptional.isPresent()) {
-            throw new NotFoundException("Khong tim thay nuoc uong");
-        }
+    public boolean update(DoThueRequest doThueRequest) {
         try {
-            DoThue doThue = doThueOptional.get();
-            PropertyUtils.copyProperties(doThue, doThueRequest);
-            doThueAdminRepository.save(doThue);
+            DoThue doThue = mapper.map(doThueRequest, DoThue.class);
+            doThueAdminRepository.saveAndFlush(doThue);
             return true;
         } catch (Exception e) {
             return false;
@@ -74,11 +79,13 @@ public class DoThueServiceImpl implements DoThueService {
     @Override
     public boolean save(DoThueRequest doThueRequest) {
         try {
-            DoThue doThue = new DoThue();
-            PropertyUtils.copyProperties(doThue, doThueRequest);
-            doThue.setTrangThai(0);
-            doThueAdminRepository.save(doThue);
-            return true;
+            if (doThueRequest != null) {
+                DoThue doThue = mapper.map(doThueRequest, DoThue.class);
+                doThue.setTrangThai(0);
+                doThueAdminRepository.save(doThue);
+                return true;
+            }
+            return false;
         } catch (Exception e) {
             return false;
         }
@@ -96,7 +103,27 @@ public class DoThueServiceImpl implements DoThueService {
     }
 
     @Override
-    public void exprotExcel(HttpServletResponse response,List<DoThue> doThueList) throws IOException {
-        DoThueExportExcel.exportData(response,doThueList);
+    public void exprotExcel(HttpServletResponse response, List<DoThue> doThueList) throws IOException {
+        DoThueExportExcel.exportData(response, doThueList);
+    }
+
+    @Override
+    public DoThue findById(String id) {
+        try {
+            return doThueAdminRepository.findById(id).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Page<DoThueResponse> findAllByName(int page, int size, String tenDoThue) {
+        try {
+            return doThueAdminRepository.findAllByName(PageRequest.of(page, size), tenDoThue);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
