@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-                xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html"
 >
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>SÂN BÓNG ĐỒNG ĐẾ</title>
     <link
             rel="website icon"
@@ -21,8 +21,8 @@
     />
     <!--  -->
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
@@ -39,8 +39,8 @@
     />
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
@@ -88,8 +88,8 @@
     <!--    library quan li giao ca-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-    <link th:href="@{/static/css/owner/quan-ly-giao-ca.css}" rel="stylesheet" />
-    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet" />
+    <link th:href="@{/static/css/owner/quan-ly-giao-ca.css}" rel="stylesheet"/>
+    <link th:href="@{/static/lib/animate/animate.min.css}" rel="stylesheet"/>
     <link
             th:href="@{/static/lib/owlcarousel/assets/owl.carousel.min.css}"
             rel="stylesheet"
@@ -140,6 +140,7 @@
             color: #000;
             background-color: #eee;
         }
+
         /* trinh soan thao */
         #editor-container .ql-editor {
             font-size: 16px; /* Đặt kích thước chữ mặc định */
@@ -148,12 +149,13 @@
         #editor-container .ql-editor:focus {
             font-size: 20px; /* Đặt kích thước chữ khi trình soạn thảo được tập trung (focus) */
         }
+
         /* trinh soan thao */
     </style>
 </head>
 <body>
 <header th:insert="~{fragments/header-admin}"></header>
-<br />
+<br/>
 <div class="container-fluid mt-4 formThongBao">
     <div class="fixed-form">
         <h4></h4>
@@ -253,7 +255,7 @@
                 role="tabpanel"
                 aria-labelledby="tab1-tab"
         >
-            <br />
+            <br/>
             <div class="input-group flex-nowrap container">
             <span
                     class="input-group-text"
@@ -273,7 +275,7 @@
                         @input="search"
                 />
             </div>
-            <br />
+            <br/>
             <form class="container" @submit.prevent="confirmSave">
                 <div class="row">
                     <div class="col-md-6">
@@ -291,7 +293,7 @@
                                     v-model="account.email"
                             />
                         </div>
-                        <br />
+                        <br/>
                     </div>
                     <div class="col-md-6">
                         <div class="input-group flex-nowrap">
@@ -308,8 +310,8 @@
                                     v-model="account.taiKhoan"
                             />
                         </div>
-                        <br />
-                        <br />
+                        <br/>
+                        <br/>
                     </div>
                     <div class="col-md-6">
                         <div class="input-group flex-nowrap">
@@ -326,8 +328,8 @@
                                     v-model="account.matKhau"
                             />
                         </div>
-                        <br />
-                        <br />
+                        <br/>
+                        <br/>
                     </div>
                     <div class="col-md-6">
                         <div class="input-group flex-nowrap">
@@ -344,13 +346,13 @@
                                     v-model="account.soDienThoai"
                             />
                         </div>
-                        <br />
-                        <br />
+                        <br/>
+                        <br/>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success">SAVE</button>
             </form>
-            <br />
+            <br/>
             <table class="table table-header table-bordered table-hover">
                 <thead>
                 <tr>
@@ -397,7 +399,7 @@
                 </tr>
                 </tbody>
             </table>
-            <br />
+            <br/>
             <div class="row" style="display: flex; margin: 0 auto">
                 <div class="col-md-4"></div>
                 <div class="col-md-1">
@@ -433,7 +435,7 @@
                 role="tabpanel"
                 aria-labelledby="tab2-tab"
         >
-            <br />
+            <br/>
             <div class="input-group flex-nowrap container">
             <span
                     class="input-group-text"
@@ -453,7 +455,7 @@
                         @input="searchByTenSanBong"
                 />
             </div>
-            <br />
+            <br/>
             <form class="container" @submit.prevent="confirmSanBongSave">
                 <div class="row">
                     <div class="col-md-12">
@@ -469,7 +471,7 @@
                                     v-model="sanBong.tenSanBong"
                             />
                         </div>
-                        <br />
+                        <br/>
                     </div>
                     <div class="col-md-6">
                         <div class="row">
@@ -507,8 +509,8 @@
                             </div>
                         </div>
 
-                        <br />
-                        <br />
+                        <br/>
+                        <br/>
                     </div>
                     <div class="col-md-6 radioTrangThai">
                         <div class="form-check form-check-inline">
@@ -566,7 +568,7 @@
                         </div>
                         <form @submit.prevent="confirmCreateLS">
                             <div class="modal-body">
-                                <input type="text" hidden v-model="loaiSan.id" />
+                                <input type="text" hidden v-model="loaiSan.id"/>
                                 <div class="input-group mb-3">
                                     <input
                                             type="text"
@@ -645,7 +647,7 @@
                 </div>
             </div>
             <!-- modal end -->
-            <br />
+            <br/>
             <table class="table table-header table-bordered table-hover">
                 <thead>
                 <tr>
@@ -719,7 +721,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="input-group flex-nowrap">
-                                    <input type="text" v-model="sanBongUpdate.id" hidden />
+                                    <input type="text" v-model="sanBongUpdate.id" hidden/>
                                     <input
                                             type="text"
                                             class="form-control"
@@ -730,7 +732,7 @@
                                             v-model="sanBongUpdate.tenSanBong"
                                     />
                                 </div>
-                                <br />
+                                <br/>
                                 <div class="input-group flex-nowrap">
                       <span class="input-group-text" id="addon-wrapping"
                       >Loại sân</span
@@ -750,7 +752,7 @@
                                         </option>
                                     </select>
                                 </div>
-                                <br />
+                                <br/>
                                 <div class="form-check form-check-inline">
                                     <input
                                             class="form-check-input"
@@ -801,7 +803,7 @@
                 </div>
             </div>
             <!-- Modal update end -->
-            <br />
+            <br/>
             <div class="row" style="display: flex; margin: 0 auto">
                 <div class="col-md-4"></div>
                 <div class="col-md-1">
@@ -838,9 +840,9 @@
                 role="tabpanel"
                 aria-labelledby="tab3-tab"
         >
-            <br />
+            <br/>
             <section class="container">
-                <br />
+                <br/>
                 <div class="row">
                     <div class="col-3">
                         <p
@@ -874,9 +876,9 @@
                         </button>
                     </div>
                 </div>
-                <hr />
+                <hr/>
                 <div id="editor-container"></div>
-                <hr />
+                <hr/>
                 <div class="row">
                     <div class="col-3">
                         <p style="text-transform: uppercase; font-size: 20px">
@@ -894,7 +896,7 @@
                     </div>
                 </div>
 
-                <br />
+                <br/>
                 <div class="thongTinLuatSan" id="thongTinLuatSan"></div>
             </section>
         </div>
@@ -908,9 +910,9 @@
         >
             <section class="" id="app">
                 <div class="card border-0 m-0 p-1">
-<!--                    <div class="card-header" style="border-radius: 0 0 0 0">-->
-<!--                        <h1 class="text-header-man">Quản Lý Giao Ca</h1>-->
-<!--                    </div>-->
+                    <!--                    <div class="card-header" style="border-radius: 0 0 0 0">-->
+                    <!--                        <h1 class="text-header-man">Quản Lý Giao Ca</h1>-->
+                    <!--                    </div>-->
                     <!--  -->
                     <div class="col-12 col-md-12 p-1">
                         <div class="body-row-col mt-1">
@@ -979,7 +981,8 @@
                                         </div>
                                         <!-- excel -->
                                         <div class="col-auto">
-                                            <button type="button" class="btn btn-light exportExcelGC">Export Excel</button>
+                                            <button type="button" class="btn btn-light exportExcelGC">Export Excel
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -1232,7 +1235,7 @@
                 role="tabpanel"
                 aria-labelledby="tab5-tab"
         >
-            <br />
+            <br/>
             <form class="container" @submit.prevent="confirmCreate">
                 <div class="row">
                     <div class="col-6">
@@ -1262,7 +1265,7 @@
                         </div>
                     </div>
                 </div>
-                <br />
+                <br/>
                 <div class="row">
                     <div class="col-6">
                         TYPE
@@ -1289,7 +1292,7 @@
                         </div>
                     </div>
                 </div>
-                <br />
+                <br/>
                 Status
                 <!-- Default radio -->
                 <div class="form-check form-check-inline" style="margin-left: 30px">
@@ -1320,8 +1323,8 @@
                     >Dừng hoạt động</label
                     >
                 </div>
-                <br />
-                <br />
+                <br/>
+                <br/>
                 NOTE
                 <div class="form-floating">
               <textarea
@@ -1333,7 +1336,7 @@
               ></textarea>
                     <label for="floatingTextarea">Ghi chú....</label>
                 </div>
-                <br />
+                <br/>
                 <div
                         style="
                 display: flex;
@@ -1344,7 +1347,7 @@
                     <button type="submit" class="btn btn-success">Lưu</button>
                 </div>
             </form>
-            <br />
+            <br/>
             <section>
                 Danh sách tham số
                 <table class="table table-bordered table-header table-header">
@@ -1360,7 +1363,7 @@
                     </tr>
                     <tr v-for="(items,index) in listParam">
                         <td>{{index}}</td>
-                        <td>{{items.chucNang}}</td>
+                        <td>{{items.name}}</td>
                         <td>{{items.code}}</td>
                         <td>{{items.type}}</td>
                         <td>{{items.value}}</td>
@@ -1376,13 +1379,13 @@
                             >
                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                             </button>
-<!--                            <button-->
-<!--                                    type="button"-->
-<!--                                    class="btn btn-outline-danger"-->
-<!--                                    @click="confirmDelete(items.id)"-->
-<!--                            >-->
-<!--                                <i class="fa fa-trash" aria-hidden="true"></i>-->
-<!--                            </button>-->
+                            <!--                            <button-->
+                            <!--                                    type="button"-->
+                            <!--                                    class="btn btn-outline-danger"-->
+                            <!--                                    @click="confirmDelete(items.id)"-->
+                            <!--                            >-->
+                            <!--                                <i class="fa fa-trash" aria-hidden="true"></i>-->
+                            <!--                            </button>-->
                         </td>
                     </tr>
                 </table>
@@ -1410,9 +1413,9 @@
                                 </div>
                                 <div class="modal-body">
                                     <div>Chức Năng: {{paramUpdate.chucNang}}</div>
-                                    <br />
+                                    <br/>
                                     <div>Mã Code: {{paramUpdate.code}}</div>
-                                    <br />
+                                    <br/>
                                     <div class="input-group flex-nowrap">
                         <span class="input-group-text" id="addon-wrapping"
                         >VALUE</span
@@ -1427,7 +1430,7 @@
                                                 @input="checkValidaValueUpdate"
                                         />
                                     </div>
-                                    <br />
+                                    <br/>
                                     <div class="input-group flex-nowrap">
                         <span class="input-group-text" id="addon-wrapping"
                         >TYPE</span
@@ -1453,7 +1456,7 @@
                         ></textarea>
                                         <label for="floatingTextarea">Ghi chú....</label>
                                     </div>
-                                    <br />
+                                    <br/>
                                     <!-- Default radio -->
                                     <div
                                             class="form-check form-check-inline"
@@ -1514,19 +1517,29 @@
                 role="tabpanel"
                 aria-labelledby="tab6-tab"
         >
-            <br />
+            <br/>
             <section class="container">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="cursor: pointer" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" v-model="tenDoThueSearch" @input="tiemKiemTheoTenDoThue($event)" placeholder="Tìm kiếm theo tên......."  aria-describedby="basic-addon1">
+                </div>
                 <div class="row">
-                    <div class="col-6"><button type="button" class="btn btn-light exportDoThue">Export Execl</button></div>
                     <div class="col-6">
-                        <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn file import:</label>
-                        <input style="margin: 0.4rem 0;" class="importExcelDoThue" type="file" id="avatar" @change="handelExcel($event)" /></div>
+                        <button type="button" class="btn btn-light exportDoThue">Export Execl</button>
+                    </div>
+                    <div class="col-6">
+                        <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
+                            file import:</label>
+                        <input style="margin: 0.4rem 0;" class="importExcelDoThue" type="file" id="avatar"
+                               @change="handelExcel($event)"/>
+                    </div>
                 </div>
 
 
                 <form
                         enctype="multipart/form-data"
                         @submit.prevent="confirmSaveDoThue"
+                        rel="formCreate"
                 >
                     <div class="row">
                         <div class="col-6">
@@ -1554,6 +1567,7 @@
                                         class="form-control"
                                         placeholder="Đơn giá.."
                                         required
+                                        id="idDonGiaCreate"
                                         aria-describedby="addon-wrapping"
                                         min="0"
                                         @input="handleDonGia($event)"
@@ -1562,7 +1576,7 @@
                             </div>
                         </div>
                     </div>
-                    <br />
+                    <br/>
                     <div class="row">
                         <div class="col-6">
                             <div class="input-group flex-nowrap">
@@ -1571,7 +1585,8 @@
                                         required
                                         ref="fileInput"
                                         class="form-control"
-                                        @change="handelImg"
+                                        id="idFileAnhCreate"
+                                        @change="handelImg($event)"
                                         aria-describedby="addon-wrapping"
                                         accept="image/*"
                                 />
@@ -1588,13 +1603,15 @@
                                         placeholder="Số lượng.."
                                         aria-describedby="addon-wrapping"
                                         min="0"
+                                        id="idSoLuongCreate"
+                                        required
                                         @input="handleSoLuong($event)"
                                         v-model="doThue.soLuong"
                                 />
                             </div>
                         </div>
                     </div>
-                    <br />
+                    <br/>
                     <div
                             style="
                   display: flex;
@@ -1606,11 +1623,19 @@
                     </div>
                 </form>
             </section>
-            <br />
-            <hr />
-            <section>
+            <br/>
+            <hr/>
+            <div v-if="isLoading" style="display: flex;justify-content: center;align-items: center;">
+                <div  class="spinner-border text-warning" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <section v-else>
                 <p>Danh Sách Đồ Thuê</p>
-                <table class="table table-bordered table-header table-hover">
+                <div class="alert alert-danger " v-if="listDoThue.length == 0">
+                    <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
+                </div>
+                <table class="table table-bordered table-header table-hover" v-else>
                     <tr>
                         <th>#</th>
                         <th>Tên</th>
@@ -1630,17 +1655,150 @@
                                     :src="imgSrc(items.image)"
                             />
                         </td>
-                        <td>{{items.donGia}}</td>
+                        <td>{{currenlyNumBerDoThue(items.donGia)}} Vnd</td>
                         <td>{{items.soLuong}}</td>
-                        <td></td>
+                        <td>
+                            <button type="button" class="btn btn-outline-info" @click="detailDoThue(items.id)"
+                                    data-bs-toggle="modal" data-bs-target="#modalDetailDoThua"><i
+                                    class="fa fa-info-circle" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-outline-danger"><i
+                                    class="fa fa-trash"
+                                    style="color: red"
+                                    @click="deleteDoThue(items.id)"
+                                    aria-hidden="true"
+                            ></i></button>
+                        </td>
                     </tr>
                 </table>
+
+<!--                paging-->
+                <br/>
+                <div class="row" style="display: flex; margin: 0 auto" v-if="listDoThue.length != 0">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-1">
+                        <select class="pageSizeSelectDoThue" @change="pageSizeSelectDoThue">
+                            <option value="5" selected>5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item previousPageDT" @click="previuosDT">
+                                    <a class="page-link" style="cursor: pointer">Previous</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link">{{pageNumberDoThue + 1}} / {{totalPageDoThue}}</a>
+                                </li>
+                                <li class="page-item nextPageDT" @click="nextPageDT">
+                                    <a class="page-link" style="cursor: pointer">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+<!--                paging-->
+                <!-- Modal detail-->
+                <div class="modal fade" id="modalDetailDoThua" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <form @submit.prevent="updateDoThue" enctype="multipart/form-data" rel="formUpdate">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Đồ thuê</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div style="text-align: center;">
+                                        <span v-if="detailDoThueEntity.image == null">Chưa cập nhật ảnh</span>
+                                        <img v-else :src="imgSrc(detailDoThueEntity.image)"
+                                             style="width: 200px;height: 100px;border: 1px solid black;border-radius: 40% 40% 40% 40%">
+                                    </div>
+                                    <br>
+                                    <input type="hidden" v-model="detailDoThueEntity.id">
+                                    <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping"
+                    >Tên</span
+                    >
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Tên đồ thuê.."
+                                                required
+                                                aria-describedby="addon-wrapping"
+                                                v-model="detailDoThueEntity.tenDoThue"
+                                        />
+                                    </div>
+                                    <br>
+                                    <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping"
+                    >Đơn giá</span
+                    >
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Đơn giá.."
+                                                required
+                                                id="idDonGiaUpdate"
+                                                aria-describedby="addon-wrapping"
+                                                min="0"
+                                                @input="handleDonGia($event)"
+                                                v-model="detailDoThueEntity.donGia"
+                                        />
+                                        <span class="input-group-text" id="addon-wrapping"
+                                        >Vnd</span>
+                                    </div>
+                                    <br>
+                                    <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping"
+                    >Số lượng</span
+                    >
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                placeholder="Số lượng.."
+                                                aria-describedby="addon-wrapping"
+                                                min="0"
+                                                id="idSoLuongUpdate"
+                                                required
+                                                @input="handleSoLuong($event)"
+                                                v-model="detailDoThueEntity.soLuong"
+                                        />
+                                    </div>
+                                    <br>
+                                    <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
+                                        ảnh:</label>
+                                    <input
+                                            type="file"
+                                            required
+                                            ref="fileInput"
+                                            class="form-control"
+                                            id="idFileAnhUpdate"
+                                            @change="handelImg($event)"
+                                            aria-describedby="addon-wrapping"
+                                            accept="image/*"
+                                    />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary huyModalUpdate" data-bs-dismiss="modal">Hủy</button>
+                                    <button type="submit" class="btn btn-success">Đổi lịch</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <!-- Modal detail-->
             </section>
         </div>
         <!-- tab 6 -->
     </div>
 
-    </div>
+</div>
 </div>
 <!--quan li giao ca start-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

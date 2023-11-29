@@ -7,6 +7,7 @@ import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.DoThueService;
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.NuocUongService;
 import com.example.pro2111_dat_lich_san_bong.core.common.base.PageableObject;
 import com.example.pro2111_dat_lich_san_bong.core.utils.UploadImg;
+import com.example.pro2111_dat_lich_san_bong.entity.DoThue;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServletResponse;
@@ -53,6 +54,17 @@ public class DoThueRestController {
 
     }
 
+    @GetMapping("/find/{id}")
+    public BaseResponse<?> findById(@PathVariable("id") String id) {
+        try {
+            DoThue doThue = doThueService.findById(id);
+            return new BaseResponse<>(HttpStatus.OK, doThue);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new BaseResponse<>(HttpStatus.NOT_FOUND, "Error");
+        }
+    }
+
     @PostMapping(value = "/save")
     public BaseResponse<?> save(@RequestBody DoThueRequest doThueRequest) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         try {
@@ -75,16 +87,21 @@ public class DoThueRestController {
 
     }
 
-    @PutMapping("/update/{id}")
-    public BaseResponse<?> update(@PathVariable("id") String id, @RequestBody DoThueRequest doThueRequest) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-        doThueService.updateById(id, doThueRequest);
+    @PutMapping("/update")
+    public BaseResponse<?> update(@RequestBody DoThueRequest doThueRequest) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        doThueService.update(doThueRequest);
         return new BaseResponse<>(HttpStatus.OK, "Ok");
     }
 
     @PostMapping("/import")
     public BaseResponse<?> importEcel(@RequestBody MultipartFile file) throws IOException {
-        doThueService.nuocUongImportExcel(file);
-        return new BaseResponse<>(HttpStatus.OK, "Ok");
+        try {
+            doThueService.nuocUongImportExcel(file);
+            return new BaseResponse<>(HttpStatus.OK, "Ok");
+        } catch (Exception e) {
+            return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error");
+        }
+
     }
 
     @GetMapping("/export")
@@ -103,7 +120,24 @@ public class DoThueRestController {
 
     @DeleteMapping("/delete/{id}")
     public BaseResponse<?> delete(@PathVariable("id") String id) {
-        doThueService.deleteById(id);
-        return new BaseResponse<>(HttpStatus.OK, "Ok");
+        try {
+            doThueService.deleteById(id);
+            return new BaseResponse<>(HttpStatus.OK, "Ok");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new BaseResponse<>(HttpStatus.NOT_FOUND, "Invalid id");
+        }
+    }
+
+    @GetMapping("find-by-name")
+    public BaseResponse<?> findByName(@RequestParam("tenDoThue") String name, @RequestParam(value = "size", defaultValue = "10") Integer size, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+        try {
+            Page<DoThueResponse> doThueResponses = doThueService.findAllByName(page, size, name);
+            PageableObject<DoThueResponse> pageableObject = new PageableObject<DoThueResponse>(doThueResponses);
+            return new BaseResponse<>(HttpStatus.OK, pageableObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new BaseResponse<>(HttpStatus.NOT_FOUND, "Invalid");
+        }
     }
 }

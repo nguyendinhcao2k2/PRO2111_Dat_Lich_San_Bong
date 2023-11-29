@@ -119,6 +119,15 @@ public class DBGenerator implements CommandLineRunner {
         param4.setType("ngày"); //đơn vị của value
         param4.setId(sysParamRepository.save(param4).getId());
 
+        SysParam param5 = new SysParam();
+        param5.setCode(SYSParamCodeConstant.THOI_GIAN_DUOC_PHEP_CHECK_IN);
+        param5.setTrangThai(0);
+        param5.setName("Thời gian cho phép check-in");
+        param5.setValue("30");
+        param5.setNote("giá trị (cột value) để tính thời gian cho phép người dùng check in");
+        param5.setType("Phút");
+        param5.setId(sysParamRepository.save(param5).getId());
+
         //end bảng sys_param cấu hình phần mền
 
         //start chuc vu
