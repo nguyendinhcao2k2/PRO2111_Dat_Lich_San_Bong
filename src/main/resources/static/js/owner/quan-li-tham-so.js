@@ -35,19 +35,6 @@ var tabParam = new Vue({
             if (this.param.code != "" || this.param.code != null) {
                 this.checkLaSo(event, this.param.value);
             }
-            if (this.param.code == "PHAN_TRAM_GIA_TIEN_COC") {
-                this.checkThamSo(event);
-            }
-        },
-        checkThamSo(event) {
-            if (
-                parseInt(event.target.value) < 0 ||
-                parseInt(event.target.value) > 100
-            ) {
-                alert("% tiền cọc chỉ nằm trong khoảng 0% - 100%");
-                this.param.value = event.target.value.slice(0, -1);
-                return;
-            }
         },
         checkLaSo(event, valueInput) {
             const regex = /^[0-9]+$/;
@@ -70,23 +57,23 @@ var tabParam = new Vue({
                     code: tabParam.param.code,
                     value: tabParam.param.value,
                     type: tabParam.param.type,
-                    chucNang: tabParam.param.chucNang,
+                    name: tabParam.param.chucNang,
                     note: tabParam.param.note,
                     trangThai: parseInt(tabParam.param.trangThai),
                 }),
                 success: function (response) {
                     if (response.statusCode == "OK") {
-                        alert(tabParam.success);
+                        createAndShowToast("bg-success","Thông báo",tabParam.success);
                         callApiListParam();
                         return;
                     }
                     if (response.statusCode == "ACCEPTED") {
-                        alert("Bạn chỉ có thể tạo 1 lần với loại tham số này!");
+                        createAndShowToast("bg-warning","Thông báo","Bạn chỉ có thể tạo 1 lần với loại tham số này!");
                         return;
                     }
                 },
                 error: function (error) {
-                    alert(tabParam.error);
+                    createAndShowToast("bg-warning","Thông báo","Không thể thực hiện hành động! Vui lòng thử lại");
                     console.log(error);
                 },
             });
@@ -113,7 +100,6 @@ var tabParam = new Vue({
                     ) {
                         $(".valueParamUpdate").attr("type", "number");
                     }
-                    console.log(response.content);
                 },
                 error: function (error) {
                     console.log(error);
@@ -122,15 +108,19 @@ var tabParam = new Vue({
         },
         checkValidaValueUpdate(event) {
             this.checkLaSo(event, this.paramUpdate.value);
-            if (
-                parseInt(event.target.value) < 0 ||
-                parseInt(event.target.value) > 100
-            ) {
-                alert("% tiền cọc chỉ nằm trong khoảng 0% - 100%");
-                this.paramUpdate.value = event.target.value.slice(0, -1);
+        },
+        checkValidValueSysParam(event){
+            if (event.target.value === "" || event.target.value === null) {
+                tabParam.paramUpdate.value = 0;
                 return;
             }
-        },
+            const regex = /^[0-9]+$/;
+            if (!regex.test(event.target.value)) {
+                tabParam.paramUpdate.value = event.target.value.replace(/\D/g, '');
+                return;
+            }
+        }
+        ,
         confirmUpdate() {
             if (confirm(tabParam.thongBao)) {
                 this.updateParam();
@@ -154,7 +144,7 @@ var tabParam = new Vue({
                 }),
                 success: function (response) {
                     if (response.statusCode == "OK") {
-                        alert(tabParam.success);
+                        createAndShowToast("bg-success","Thông báo",tabParam.success);
                         $("#detailParam").modal("toggle");
                         $(".modal-backdrop").remove();
                         callApiListParam();
@@ -162,7 +152,7 @@ var tabParam = new Vue({
                     }
                 },
                 error: function (error) {
-                    alert(tabParam.error);
+                    createAndShowToast("bg-warning","Thông báo","Không thể thực hiện hành động! Vui lòng thử lại");
                     console.log(error);
                 },
             });
@@ -175,12 +165,12 @@ var tabParam = new Vue({
                         "http://localhost:8081/api/v1/admin/sys-param/delete/" + id,
                     success: function (response) {
                         if (response.statusCode == "OK") {
-                            alert(tabParam.success);
+                            createAndShowToast("bg-success","Thông báo",tabParam.success);
                             callApiListParam();
                         }
                     },
                     error: function (error) {
-                        alert(tabParam.error);
+                        createAndShowToast("bg-warning","Thông báo","Không thể thực hiện hành động! Vui lòng thử lại");
                         console.log(error);
                     },
                 });
@@ -201,7 +191,6 @@ function callApiListParam() {
         url: "http://localhost:8081/api/v1/admin/sys-param/find-all",
         success: function (response) {
             tabParam.listParam = response.content;
-            console.log(response);
         },
         error: function (error) {
             console.log(error);

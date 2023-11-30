@@ -1,37 +1,37 @@
 <!-- tab 6 start -->
-var urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-all";
-var tabDoThue = new Vue({
-    el: ".tabDoThue",
+var urlNuocUong = "http://localhost:8081/api/v1/admin/nuoc-uong/find-all";
+var tabNuocUong = new Vue({
+    el: ".tabNuocUong",
     data: {
-        listDoThue: [],
+        listNuocUong: [],
         thongBao: "Bạn có chắc chắn thực hiện thao tác?",
         success: "Thao tác thành công!",
         error: "Thao tác thất bại!",
         imageFile: null,
-        isLoading: true,
-        indexSearchDoThue: 0,
-        pageNumberDoThue: 0,
-        pageSizeDoThue: 0,
-        totalPageDoThue: 0,
-        tenDoThueSearch: "",
-        doThue: {
-            tenDoThue: "",
+        isLoadingNuocUong: true,
+        indexSearchNuocUong: 0,
+        pageNumberNuocUong: 0,
+        pageSizeNuocUong: 0,
+        totalPageNuocUong: 0,
+        tenNuocUongSearch: "",
+        NuocUong: {
+            tenNuocUong: "",
             soLuong: 0,
             donGia: 0,
             image: null,
         },
-        detailDoThueEntity: {
+        detailNuocUongEntity: {
             id: "",
-            tenDoThue: "",
+            tenNuocUong: "",
             soLuong: 0,
             donGia: 0,
             image: null,
         },
     },
     methods: {
-        confirmSaveDoThue() {
+        confirmSaveNuocUong() {
             Swal.fire({
-                title: tabDoThue.thongBao,
+                title: tabNuocUong.thongBao,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Xác nhận',
@@ -40,39 +40,39 @@ var tabDoThue = new Vue({
                     try {
                         $.ajax({
                             type: "POST",
-                            url: "http://localhost:8081/api/v1/admin/do-thue/save",
+                            url: "http://localhost:8081/api/v1/admin/nuoc-uong/save",
                             contentType: "application/json",
                             data: JSON.stringify({
-                                tenDoThue: tabDoThue.doThue.tenDoThue,
-                                soLuong: tabDoThue.doThue.soLuong,
-                                image: tabDoThue.doThue.image,
-                                donGia: tabDoThue.doThue.donGia == 0 ? 0 : tabDoThue.doThue.donGia.replace(/\D/g, ''),
+                                tenNuocUong: tabNuocUong.NuocUong.tenNuocUong,
+                                soLuong: tabNuocUong.NuocUong.soLuong,
+                                image: tabNuocUong.NuocUong.image,
+                                donGia: tabNuocUong.NuocUong.donGia == 0 ? 0 : tabNuocUong.NuocUong.donGia.replace(/\D/g, ''),
                             }),
                             success: function (response) {
                                 console.log(response)
                                 if (response.statusCode == 'OK') {
-                                    $('[rel="formCreate"]').trigger('reset');
-                                    tabDoThue.doThue.tenDoThue = "";
-                                    tabDoThue.doThue.soLuong = 0;
-                                    tabDoThue.doThue.donGia = 0;
-                                    createAndShowToast("bg-success", "Thông báo!", tabDoThue.success);
-                                    callApiGetDoThue(urlDoThue);
+                                    $('[rel="formCreateNuocUong"]').trigger('reset');
+                                    tabNuocUong.NuocUong.tenNuocUong = "";
+                                    tabNuocUong.NuocUong.soLuong = 0;
+                                    tabNuocUong.NuocUong.donGia = 0;
+                                    createAndShowToast("bg-success", "Thông báo!", tabNuocUong.success);
+                                    callApiGetNuocUong(urlNuocUong);
                                 } else {
-                                    createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
+                                    createAndShowToast("bg-danger", "Thông báo!", tabNuocUong.error);
                                 }
                             },
                         });
                     } catch (error) {
-                        createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
+                        createAndShowToast("bg-danger", "Thông báo!", tabNuocUong.error);
                         console.log(error);
                     }
 
                 }
             })
         },
-        updateDoThue() {
+        updateNuocUong() {
             Swal.fire({
-                title: tabDoThue.thongBao,
+                title: tabNuocUong.thongBao,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Xác nhận',
@@ -81,37 +81,37 @@ var tabDoThue = new Vue({
                     try {
                         $.ajax({
                             type: "PUT",
-                            url: "http://localhost:8081/api/v1/admin/do-thue/update",
+                            url: "http://localhost:8081/api/v1/admin/nuoc-uong/update",
                             contentType: "application/json",
                             data: JSON.stringify({
-                                id: tabDoThue.detailDoThueEntity.id,
-                                tenDoThue: tabDoThue.detailDoThueEntity.tenDoThue,
-                                soLuong: tabDoThue.detailDoThueEntity.soLuong,
-                                image: tabDoThue.detailDoThueEntity.image,
-                                donGia: tabDoThue.detailDoThueEntity.donGia == 0 ? 0 : tabDoThue.detailDoThueEntity.donGia.replace(/\D/g, ''),
+                                id: tabNuocUong.detailNuocUongEntity.id,
+                                tenNuocUong: tabNuocUong.detailNuocUongEntity.tenNuocUong,
+                                soLuong: tabNuocUong.detailNuocUongEntity.soLuong,
+                                image: tabNuocUong.detailNuocUongEntity.image,
+                                donGia: tabNuocUong.detailNuocUongEntity.donGia == 0 ? 0 : tabNuocUong.detailNuocUongEntity.donGia.replace(/\D/g, ''),
                             }),
                             success: function (response) {
                                 if (response.statusCode === 'OK') {
-                                    callApiGetDoThue(urlDoThue);
-                                    createAndShowToast("bg-success", "Thông báo!", tabDoThue.success);
+                                    callApiGetNuocUong(urlNuocUong);
+                                    createAndShowToast("bg-success", "Thông báo!", tabNuocUong.success);
                                     $(".huyModalUpdate").click();
-                                    $('[rel="formUpdate"]').trigger('reset');
+                                    $('[rel="formUpdateNuocUong"]').trigger('reset');
                                 } else {
-                                    createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
+                                    createAndShowToast("bg-danger", "Thông báo!", tabNuocUong.error);
                                 }
                             },
                         });
                     } catch (error) {
-                        createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
+                        createAndShowToast("bg-danger", "Thông báo!", tabNuocUong.error);
                         console.log(error);
                     }
 
                 }
             })
         },
-        deleteDoThue(id) {
+        deleteNuocUong(id) {
             Swal.fire({
-                title: tabDoThue.thongBao,
+                title: tabNuocUong.thongBao,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Xác nhận',
@@ -120,25 +120,25 @@ var tabDoThue = new Vue({
                     try {
                         $.ajax({
                             type: "DELETE",
-                            url: "http://localhost:8081/api/v1/admin/do-thue/delete/" + id,
+                            url: "http://localhost:8081/api/v1/admin/nuoc-uong/delete/" + id,
                             success: function (response) {
                                 if (response.statusCode === 'OK') {
-                                    callApiGetDoThue(urlDoThue);
-                                    createAndShowToast("bg-success", "Thông báo!", tabDoThue.success);
+                                    callApiGetNuocUong(urlNuocUong);
+                                    createAndShowToast("bg-success", "Thông báo!", tabNuocUong.success);
                                 } else {
-                                    createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
+                                    createAndShowToast("bg-danger", "Thông báo!", tabNuocUong.error);
                                 }
                             },
                         });
                     } catch (error) {
-                        createAndShowToast("bg-danger", "Thông báo!", tabDoThue.error);
+                        createAndShowToast("bg-danger", "Thông báo!", tabNuocUong.error);
                         console.log(error);
                     }
 
                 }
             })
         },
-        handelImg(event) {
+        handelImgNuocUong(event) {
 
             const file = event.target.files[0]; // Sử dụng event.target.files thay vì truy cập trực tiếp biến fileInput
 
@@ -147,10 +147,10 @@ var tabDoThue = new Vue({
                 const render = new FileReader();
                 render.onload = function () {
                     const base64String = render.result.split(',')[1];
-                    if (event.target.id === 'idFileAnhCreate') {
-                        tabDoThue.doThue.image = base64String;
+                    if (event.target.id === 'idFileAnhCreateNuocUong') {
+                        tabNuocUong.NuocUong.image = base64String;
                     } else {
-                        tabDoThue.detailDoThueEntity.image = base64String;
+                        tabNuocUong.detailNuocUongEntity.image = base64String;
                     }
 
                 }
@@ -163,7 +163,7 @@ var tabDoThue = new Vue({
             //image check
         }
         ,
-        handelExcel(event) {
+        handelExcelNuocUong(event) {
             // Thay đổi cách bạn lấy selectedFile
             this.selectedFile = event.target.files[0];
             const formData = new FormData();
@@ -179,7 +179,7 @@ var tabDoThue = new Vue({
             if (file && (fileExtension === 'xlsx' || fileExtension === 'xls')) {
                 // Đây là một tệp Excel, bạn có thể thực hiện xử lý tiếp theo ở đây
                 Swal.fire({
-                    title: tabDoThue.thongBao,
+                    title: tabNuocUong.thongBao,
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonText: 'Xác nhận',
@@ -187,14 +187,14 @@ var tabDoThue = new Vue({
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "POST",
-                            url: "http://localhost:8081/api/v1/admin/do-thue/import",
+                            url: "http://localhost:8081/api/v1/admin/nuoc-uong/import",
                             dataType: "json",
                             contentType: false,
                             processData: false,
                             data: formData,
                             success: function (reponse) {
                                 if (reponse.statusCode === 'OK') {
-                                    callApiGetDoThue(urlDoThue);
+                                    callApiGetNuocUong(urlNuocUong);
                                     createAndShowToast("bg-success", "Thông báo!", "Import file thành công!");
                                     event.target.value = "";
                                 } else {
@@ -210,7 +210,7 @@ var tabDoThue = new Vue({
                             }
                         })
                     } else {
-                        $(".importExcelDoThue").val(null);
+                        $(".importExcelNuocUong").val(null);
                     }
                 });
 
@@ -224,8 +224,8 @@ var tabDoThue = new Vue({
         uploadImage() {
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8081/api/v1/admin/do-thue/upload-image",
-                data: tabDoThue.imageFile,
+                url: "http://localhost:8081/api/v1/admin/nuoc-uong/upload-image",
+                data: tabNuocUong.imageFile,
                 processData: false, // Important!
                 contentType: false, // Important!
                 success: function (response) {
@@ -233,37 +233,37 @@ var tabDoThue = new Vue({
                 },
                 error: function (error) {
                     console.error("Error uploading file: ", error);
-                    $(".importExcelDoThue").val(null);
+                    $(".importExcelNuocUong").val(null);
                 },
             });
         }
         ,
-        handleSoLuong(event) {
+        handleSoLuongNuocUong(event) {
             if (event.target.value === "" || event.target.value === null) {
-                if (event.target.id === 'idSoLuongCreate') {
-                    tabDoThue.doThue.soLuong = 0;
+                if (event.target.id === 'idSoLuongCreateNuocUong') {
+                    tabNuocUong.NuocUong.soLuong = 0;
                 } else {
-                    tabDoThue.detailDoThueEntity.soLuong = 0;
+                    tabNuocUong.detailNuocUongEntity.soLuong = 0;
                 }
                 return;
             }
             const regex = /^[0-9]+$/;
             if (!regex.test(event.target.value)) {
-                if (event.target.id === 'idSoLuongCreate') {
-                    tabDoThue.doThue.soLuong = event.target.value.replace(/\D/g, '');
+                if (event.target.id === 'idSoLuongCreateNuocUong') {
+                    tabNuocUong.NuocUong.soLuong = event.target.value.replace(/\D/g, '');
                 } else {
-                    tabDoThue.detailDoThueEntity.soLuong = event.target.value.replace(/\D/g, '');
+                    tabNuocUong.detailNuocUongEntity.soLuong = event.target.value.replace(/\D/g, '');
                 }
                 return;
             }
         }
         ,
-        handleDonGia(event) {
+        handleDonGiaNuocUong(event) {
             if (event.target.value === "" || event.target.value === null) {
                 if (event.target.id === 'idDonGiaCreate') {
-                    tabDoThue.doThue.donGia = 0;
+                    tabNuocUong.NuocUong.donGia = 0;
                 } else {
-                    tabDoThue.detailDoThueEntity.donGia = 0;
+                    tabNuocUong.detailNuocUongEntity.donGia = 0;
                 }
 
                 return;
@@ -271,127 +271,128 @@ var tabDoThue = new Vue({
             const regex = /^[0-9]+$/;
             if (!regex.test(event.target.value)) {
                 if (event.target.id === 'idDonGiaCreate') {
-                    tabDoThue.doThue.donGia = event.target.value.replace(/\D/g, '');
-                    tabDoThue.doThue.donGia = parseInt(tabDoThue.doThue.donGia).toLocaleString("vi-VN");
+                    tabNuocUong.NuocUong.donGia = event.target.value.replace(/\D/g, '');
+                    tabNuocUong.NuocUong.donGia = parseInt(tabNuocUong.NuocUong.donGia).toLocaleString("vi-VN");
                 } else {
-                    tabDoThue.detailDoThueEntity.donGia = event.target.value.replace(/\D/g, '');
-                    tabDoThue.detailDoThueEntity.donGia = parseInt(tabDoThue.detailDoThueEntity.donGia).toLocaleString("vi-VN");
+                    tabNuocUong.detailNuocUongEntity.donGia = event.target.value.replace(/\D/g, '');
+                    tabNuocUong.detailNuocUongEntity.donGia = parseInt(tabNuocUong.detailNuocUongEntity.donGia).toLocaleString("vi-VN");
                 }
 
                 return;
             }
             if (event.target.id === 'idDonGiaCreate') {
-                tabDoThue.doThue.donGia = parseInt(event.target.value).toLocaleString("vi-VN");
+                tabNuocUong.NuocUong.donGia = parseInt(event.target.value).toLocaleString("vi-VN");
                 return;
             }
-            tabDoThue.detailDoThueEntity.donGia = parseInt(event.target.value).toLocaleString("vi-VN");
+            tabNuocUong.detailNuocUongEntity.donGia = parseInt(event.target.value).toLocaleString("vi-VN");
         }
         ,
-        imgSrc(value) {
+        imgSrcNuocUong(value) {
             return `data:image/png;base64,${value}`;
         },
-        detailDoThue(id) {
+        detailNuocUong(id) {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8081/api/v1/admin/do-thue/find/" + id,
+                url: "http://localhost:8081/api/v1/admin/nuoc-uong/find/" + id,
                 success: function (response) {
-                    tabDoThue.detailDoThueEntity.id = response.content.id;
-                    tabDoThue.detailDoThueEntity.tenDoThue = response.content.tenDoThue;
-                    tabDoThue.detailDoThueEntity.donGia = tabDoThue.currenlyNumBerDoThue(parseInt(response.content.donGia));
-                    tabDoThue.detailDoThueEntity.soLuong = response.content.soLuong;
-                    tabDoThue.detailDoThueEntity.image = response.content.image;
+                    tabNuocUong.detailNuocUongEntity.id = response.content.id;
+                    tabNuocUong.detailNuocUongEntity.tenNuocUong = response.content.tenNuocUong;
+                    tabNuocUong.detailNuocUongEntity.donGia = tabNuocUong.currenlyNumBerNuocUong(parseInt(response.content.donGia));
+                    tabNuocUong.detailNuocUongEntity.soLuong = response.content.soLuong;
+                    tabNuocUong.detailNuocUongEntity.image = response.content.image;
                 },
                 error: function (error) {
                     console.log(error);
                 }
             })
         },
-        currenlyNumBerDoThue(number) {
+        currenlyNumBerNuocUong(number) {
             return number.toLocaleString("vi-VN");
         },
-        tiemKiemTheoTenDoThue(event) {
+        tiemKiemTheoTenNuocUong(event) {
 
-            var url = "http://localhost:8081/api/v1/admin/do-thue/find-by-name?tenDoThue=" + event.target.value;
-            callApiGetDoThue(url);
-            tabDoThue.indexSearchDoThue = 1;
+            var url = "http://localhost:8081/api/v1/admin/nuoc-uong/find-by-name?tenNuocUong=" + event.target.value;
+            callApiGetNuocUong(url);
+            tabNuocUong.indexSearchNuocUong = 1;
             if (event.target.value === "" || event.target.value == null) {
-                tabDoThue.indexSearchDoThue = 0;
-                callApiGetDoThue("http://localhost:8081/api/v1/admin/do-thue/find-all");
+                tabNuocUong.indexSearchNuocUong = 0;
+                callApiGetNuocUong("http://localhost:8081/api/v1/admin/nuoc-uong/find-all");
             }
         },
-        pageTionDT(value) {
-            if (parseInt(tabDoThue.indexSearchDoThue) === 1) {
-                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-by-name?tenDoThue=" +
-                    tabDoThue.tenDoThueSearch +
+        pageTionNU(value) {
+            if (parseInt(tabNuocUong.indexSearchNuocUong) === 1) {
+                urlNuocUong = "http://localhost:8081/api/v1/admin/nuoc-uong/find-by-name?tenNuocUong=" +
+                    tabNuocUong.tenNuocUongSearch +
                     "&page=" +
-                    value + "&size=" + tabDoThue.pageSizeDoThue;
+                    value + "&size=" + tabNuocUong.pageSizeNuocUong;
             } else {
-                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-all?page=" + value + "&size=" + tabDoThue.pageSizeDoThue;
+                urlNuocUong = "http://localhost:8081/api/v1/admin/nuoc-uong/find-all?page=" + value + "&size=" + tabNuocUong.pageSizeNuocUong;
 
             }
-            callApiGetDoThue(urlDoThue);
+            callApiGetNuocUong(urlNuocUong);
         },
-        nextPageDT() {
-            if (parseInt(tabDoThue.pageNumberDoThue) + 1 == parseInt(tabDoThue.totalPageDoThue)) {
+        nextPageNU() {
+            if (parseInt(tabNuocUong.pageNumberNuocUong) + 1 == parseInt(tabNuocUong.totalPageNuocUong)) {
                 return;
             }
-            this.pageTionDT(parseInt(tabDoThue.pageNumberDoThue) + 1);
+            this.pageTionNU(parseInt(tabNuocUong.pageNumberNuocUong) + 1);
         },
-        previuosDT() {
-            if (parseInt(tabDoThue.pageNumberDoThue) == 0) {
+        previuosNU() {
+            if (parseInt(tabNuocUong.pageNumberNuocUong) == 0) {
                 return;
             }
-            this.pageTionDT(parseInt(tabDoThue.pageNumberDoThue) - 1);
+            this.pageTionNU(parseInt(tabNuocUong.pageNumberNuocUong) - 1);
         },
-        pageSizeSelectDoThue(event) {
-            if (parseInt(tabDoThue.indexSearchDoThue) === 1) {
-                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-by-name?tenDoThue=" +
-                    tabDoThue.tenDoThueSearch +
+        pageSizeSelectNuocUong(event) {
+            if (parseInt(tabNuocUong.indexSearchNuocUong) === 1) {
+                urlNuocUong = "http://localhost:8081/api/v1/admin/nuoc-uong/find-by-name?tenNuocUong=" +
+                    tabNuocUong.tenNuocUongSearch +
                     "&size=" + event.target.value;
             } else {
-                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-all?size=" + event.target.value;
+                urlNuocUong = "http://localhost:8081/api/v1/admin/nuoc-uong/find-all?size=" + event.target.value;
 
             }
-            callApiGetDoThue(urlDoThue);
+            callApiGetNuocUong(urlNuocUong);
         }
     },
 
 });
 $(document).ready(function () {
-    callApiGetDoThue(urlDoThue);
-    exportExcelDoThue();
+    callApiGetNuocUong(urlNuocUong);
+    exportExcelNuocUong();
 });
 
-function callApiGetDoThue(url) {
+function callApiGetNuocUong(url) {
     $.ajax({
         type: "GET",
         url: url,
         dataType: "json",
         success: function (response) {
+            console.log(response);
             if (response.content.data <= 0) {
-                tabDoThue.pageNumberDoThue = -1;
-                tabDoThue.pageSizeDoThue = 0;
-                tabDoThue.totalPageDoThue = 0;
-                tabDoThue.listDoThue = [];
-                tabDoThue.isLoading = false;
+                tabNuocUong.pageNumberNuocUong = -1;
+                tabNuocUong.pageSizeNuocUong = 0;
+                tabNuocUong.totalPageNuocUong = 0;
+                tabNuocUong.listNuocUong = [];
+                tabNuocUong.isLoadingNuocUong = false;
                 return;
             }
-            tabDoThue.listDoThue = response.content.data;
-            tabDoThue.isLoading = false;
-            tabDoThue.pageSizeDoThue = response.content.pageSize;
-            tabDoThue.pageNumberDoThue = response.content.currentPage;
-            tabDoThue.totalPageDoThue = response.content.totalPages;
+            tabNuocUong.listNuocUong = response.content.data;
+            tabNuocUong.isLoadingNuocUong = false;
+            tabNuocUong.pageSizeNuocUong = response.content.pageSize;
+            tabNuocUong.pageNumberNuocUong = response.content.currentPage;
+            tabNuocUong.totalPageNuocUong = response.content.totalPages;
         },
         error: function (error) {
             console.log(error);
-            tabDoThue.isLoading = false;
+            tabNuocUong.isLoadingNuocUong = false;
         },
     });
 }
 
-function exportExcelDoThue() {
-    $(".exportDoThue").click(() => {
-        window.location.href = "http://localhost:8081/api/v1/admin/do-thue/export";
+function exportExcelNuocUong() {
+    $(".exportNuocUong").click(() => {
+        window.location.href = "http://localhost:8081/api/v1/admin/nuoc-uong/export";
     });
 }
 

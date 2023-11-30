@@ -96,7 +96,6 @@ public class DoThueServiceImpl implements DoThueService {
     public boolean nuocUongImportExcel(MultipartFile file) throws IOException {
         List<DoThue> doThueList = DoThueImportExcel.readExcel(file);
         try {
-
             doThueAdminRepository.saveAll(doThueList);
             return true;
         } catch (Exception e) {
@@ -106,7 +105,11 @@ public class DoThueServiceImpl implements DoThueService {
 
     @Override
     public void exprotExcel(HttpServletResponse response, List<DoThue> doThueList) throws IOException {
-        DoThueExportExcel.exportData(response, doThueList);
+        try {
+            DoThueExportExcel.exportData(response, doThueList);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

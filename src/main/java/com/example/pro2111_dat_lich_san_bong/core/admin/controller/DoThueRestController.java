@@ -96,7 +96,10 @@ public class DoThueRestController {
     @PostMapping("/import")
     public BaseResponse<?> importEcel(@RequestBody MultipartFile file) throws IOException {
         try {
-            doThueService.nuocUongImportExcel(file);
+            boolean check = doThueService.nuocUongImportExcel(file);
+            if (!check) {
+                return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error");
+            }
             return new BaseResponse<>(HttpStatus.OK, "Ok");
         } catch (Exception e) {
             return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error");

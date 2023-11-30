@@ -35,7 +35,6 @@ function callApiLuatSan() {
                 $(".thongTinLuatSan").html(response.content[0].thongTin);
                 tab3.idLuatSan = response.content[0].id;
             }
-            console.log(response);
         },
         error: function (error) {
             console.log(error);
