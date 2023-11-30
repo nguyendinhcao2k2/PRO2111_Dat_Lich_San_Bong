@@ -652,13 +652,13 @@
                                                                             Thêm Vào Phụ Phí
                                                                         </button>
                                                                         <hr>
-                                                                        <table class="table">
+                                                                        <table class="table" id="tablePhuPhi">
                                                                             <thead>
                                                                             <tr>
-                                                                                <th scope="col">STT</th>
-                                                                                <th scope="col">TÊN PHỤ PHÍ</th>
-                                                                                <th scope="col">GIÁ PHỤ PHÍ</th>
-                                                                                <th scope="col">CHỌN</th>
+                                                                                <th scope="col">Stt</th>
+                                                                                <th scope="col">Tên Phụ Phí</th>
+                                                                                <th scope="col">Gía Phụ Phí</th>
+                                                                                <th scope="col">Chọn</th>
                                                                             </tr>
                                                                             </thead>
                                                                             <tbody id="dataPhuPhiHoaDon">
@@ -938,7 +938,7 @@
         });
         $(document).on('click', '#buttonCapNhat', function () {
             Swal.fire({
-                title: 'Xác Nhận Cập Nhật Diịch Vụ!',
+                title: 'Xác Nhận Cập Nhật Dịch Vụ!',
                 text: 'Xin chào!',
                 icon: 'success',
                 confirmButtonText: 'Đồng Ý'
@@ -990,6 +990,7 @@
                                 var imageNuocUong = item.imageNuocUong;
                                 var tenNuocUong = item.tenNuocUong;
                                 var giaNuocUong = item.giaNuocUong;
+                                var soLuongMax = item.soLuongNuocUongMax;
                                 var soLuongNuocUong = item.soLuongNuocUong;
                                 tongTienDichVu += (soLuongNuocUong * giaNuocUong);
 
@@ -1001,7 +1002,7 @@
                                 htmlContent += '<span class="price" type="number">' + formatCurrencyVND(giaNuocUong) + ' VNĐ</span>';
                                 htmlContent += '<div class="form-group form-group-list-service-order">';
                                 htmlContent += '<label class="form-label" for="quantity">Số Lượng :</label>';
-                                htmlContent += '<input min="1" value="' + soLuongNuocUong + '" type="number" class="soluong" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + soLuongNuocUong + '"/>';
+                                htmlContent += '<input min="1" value="' + soLuongNuocUong + '" type="number" class="soluong" onchange="validatePositiveNumberInput(this, ' + soLuongMax + ')"  data-initial-quantity="' + soLuongNuocUong + '"/>';
                                 htmlContent += '</div>';
                                 htmlContent += '</div>';
                                 htmlContent += '<div class="card-footer bg-white">';
@@ -1019,6 +1020,7 @@
                                 var imageDoThue = item.imageDoThue;
                                 var giaDoThue = item.giaDoThue;
                                 var tenDoThue = item.tenDoThue;
+                                var soLuongMax = item.soLuongDoThueMax;
                                 var soLuongDoThue = item.soLuongDoThue;
                                 tongTienDichVu += (soLuongDoThue * giaDoThue);
 
@@ -1030,7 +1032,7 @@
                                 htmldoThue += '<span class="price" type="number">' + formatCurrencyVND(giaDoThue) + ' VNĐ</span>';
                                 htmldoThue += '<div class="form-group form-group-list-service-order">';
                                 htmldoThue += '<label class="form-label" for="quantity">Số Lượng :</label>';
-                                htmldoThue += '<input min="1" value="' + soLuongDoThue + '" type="number" class="soluong" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + soLuongDoThue + '"/>';
+                                htmldoThue += '<input min="1" value="' + soLuongDoThue + '" type="number" class="soluong" onchange="validatePositiveNumberInput(this, ' + soLuongMax + ')"  data-initial-quantity="' + soLuongDoThue + '"/>';
                                 htmldoThue += '</div>';
                                 htmldoThue += '</div>';
                                 htmldoThue += '<div class="card-footer bg-white">';
@@ -1281,13 +1283,12 @@
                                 htmlContent2 += '</div>';
                                 htmlContent2 += '<div class="card-footer bg-white">';
                                 htmlContent2 += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
-                                htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + 1 + '"/>';
+                                htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" onchange="validatePositiveNumberInput(this, ' + soLuong + ')"  data-initial-quantity="' + 1 + '"/>';
                                 htmlContent2 += '<button id="addDichVuHoaDon" type="button" class="btn btn-success btn-labeled-sm" data-ten-dich-vu="' + tenDichVu + '" data-gia-dich-vu="' + gia + '" data-id="' + id + '" data-trang-thai="' + trangThai + '">Thêm</button>';
                                 htmlContent2 += '</div>';
                                 htmlContent2 += '</div>';
                                 htmlContent2 += '</div>';
                                 htmlContent2 += '</div>';
-
                                 $('#dataDichVuDoThueNuocUong').append(htmlContent2);
                             } else if (trangThai == selectedValue) {
                                 // Tạo chuỗi HTML cho thẻ <div class="card card-product"> cho từng đối tượng
@@ -1306,13 +1307,12 @@
                                 htmlContent2 += '</div>';
                                 htmlContent2 += '<div class="card-footer bg-white">';
                                 htmlContent2 += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
-                                htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" onchange="validatePositiveNumberInput(this)"  data-initial-quantity="' + 1 + '"/>';
+                                htmlContent2 += '<input max="12" min="1" value="1" type="number" class="soluong" id="quantity" onchange="validatePositiveNumberInput(this,' + soLuong + ')"  data-initial-quantity="' + 1 + '"/>';
                                 htmlContent2 += '<button id="addDichVuHoaDon" type="button" class="btn btn-success btn-labeled-sm" data-ten-dich-vu="' + tenDichVu + '" data-gia-dich-vu="' + gia + '" data-id="' + id + '" data-trang-thai="' + trangThai + '">Thêm</button>';
                                 htmlContent2 += '</div>';
                                 htmlContent2 += '</div>';
                                 htmlContent2 += '</div>';
                                 htmlContent2 += '</div>';
-
                                 $('#dataDichVuDoThueNuocUong').append(htmlContent2);
                             }
                         });
@@ -1418,6 +1418,7 @@
                 success: function (data) {
                     if (data.length > 0) {
                         $('#thongBaoPhuPhi').empty();
+                        $('#tablePhuPhi').show();
                         $.each(data, function (index, item) {
                             var htmlHoaDonPhuPhi = '<tr>';
                             htmlHoaDonPhuPhi += '<th scope="row">' + (index + 1) + '</th>';
@@ -1440,10 +1441,15 @@
                         $('#tongThanhToan').text(formatCurrencyVND((parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)))) + '.VNĐ');
                     } else {
                         $('#thongBaoPhuPhi').empty();
+                        $('#tablePhuPhi').hide();
                         var htmlHoaDonPhuPhi = '<div class="alert alert-danger noContent" role="alert">';
                         htmlHoaDonPhuPhi += '<h1 class="" style="font-size: 20px">Chưa Phát Sinh Phụ Phí!</h1>';
                         htmlHoaDonPhuPhi += '</div>';
                         $('#thongBaoPhuPhi').append(htmlHoaDonPhuPhi);
+                        var option = $('<option>', {
+                            text: 'Chưa Có Phụ Phí Được Thêm Vào!',
+                        });
+                        $('#selectPhuPhi').append(option);
                     }
                 },
                 error: function (error) {
@@ -1455,16 +1461,16 @@
         $(document).ready(function () {
             $("#btnThanhToanHoaDon").click(function () {
                 var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
-
                 if (paymentMethod == "tienMat") {
-                    var tienKhachDua = parseFloat($('#tienKhachDua').val()) || 0;
-
+                    var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
+                    console.log(tienKhachDua);
                     if (tienKhachDua === 0 || tienKhachDua < tongTienHoaDonPhaiTra) {
                         showMessageThanhToanWarning();
                         $('#tienKhachDua').css('border-color', 'red');
-                    } else {
+                    }
+                    if (tienKhachDua >= tongTienHoaDonPhaiTra) {
                         thanhToanTienMat();
-                        $('#tienKhachDua').css('border-color', '');
+                        $('#tienKhachDua').css('border-color', '')
                     }
                 } else if (paymentMethod == "chuyenKhoan") {
                     thanhToanChuyenKhoan();
@@ -1558,9 +1564,8 @@
                             tongTienSave: tongTien
                         },
                         success: function (response) {
-                            showMessageThanhToan();
                             showDataTableViewThanhToan();
-                        },
+                            showMessageThanhToan();                        },
                         error: function (error) {
                             console.error("Lỗi Ajax: ", error);
                         }
@@ -1681,13 +1686,17 @@
 
     toggleInputs();
 
-    function validatePositiveNumberInput(input) {
+    function validatePositiveNumberInput(input, maxValue) {
         // Get the input value
         var inputValue = $(input).val();
         if (isNaN(inputValue) || parseFloat(inputValue) <= 0) {
             var initialQuantity = $(input).data('initial-quantity');
             $(input).val(initialQuantity);
-            createAndShowToast('bg-success', 'Nhập Số Lượng Sai :', inputValue);
+            createAndShowToast('bg-warning', 'Số Lượng Sai :', inputValue);
+        }
+        if (isNaN(inputValue) || parseFloat(inputValue) >= maxValue) {
+            $(input).val(maxValue);
+            createAndShowToast('bg-warning', 'Qúa Số Lượng :', 'Số Lượng Lớn Nhất: ' + maxValue);
         }
     }
 
