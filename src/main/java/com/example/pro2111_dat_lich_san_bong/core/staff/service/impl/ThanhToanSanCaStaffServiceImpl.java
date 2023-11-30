@@ -66,20 +66,27 @@ public class ThanhToanSanCaStaffServiceImpl implements IThanhToanSanCaStaffServi
         if (hoaDonThanhToanRequest != null) {
             Double tienCoc = hoaDonThanhToanRequest.getTienCoc();
             ViTienCoc viTienCoc = viTienStaffRepository.getViTienCocByIdHoaDon(hoaDonSanCa.getIdHoaDon());
-            Double soTienViCoc = viTienCoc.getSoTien();
-            Double soTienCocNew = soTienViCoc - tienCoc;
+            double soTienViCoc;
+            double soTienCocNew = 0;
+            if(viTienCoc != null){
+                if (viTienCoc.getSoTien() != null) {
+                    soTienViCoc = viTienCoc.getSoTien();
+                    soTienCocNew = soTienViCoc - tienCoc;
+                    viTienCoc.setSoTien(soTienCocNew);
+                    viTienStaffRepository.saveAndFlush(viTienCoc);
 
-            viTienCoc.setSoTien(soTienCocNew);
-            viTienStaffRepository.saveAndFlush(viTienCoc);
-
-            LichSuViTien lichSuViTien = new LichSuViTien();
-            lichSuViTien.setSoTien(tienCoc);
-            lichSuViTien.setIdViTienCoc(viTienCoc.getId());
-            lichSuViTien.setThoiGian(currentDateTime);
-            lichSuViTien.setLoaiBienDong(TrangThaiLoaiBienDong.TRU_TIEN);
-            lichSuViTien.setTaiKhoanVi(viTienCoc.getId());
-            lichSuViTien.setNguoiNhan(hoaDonSanCa.getId());
-            lichSuViTienRepository.saveAndFlush(lichSuViTien);
+                    LichSuViTien lichSuViTien = new LichSuViTien();
+                    lichSuViTien.setSoTien(tienCoc);
+                    lichSuViTien.setIdViTienCoc(viTienCoc.getId());
+                    lichSuViTien.setThoiGian(currentDateTime);
+                    lichSuViTien.setLoaiBienDong(TrangThaiLoaiBienDong.TRU_TIEN);
+                    lichSuViTien.setTaiKhoanVi(viTienCoc.getId());
+                    lichSuViTien.setNguoiNhan(hoaDonSanCa.getId());
+                    lichSuViTienRepository.saveAndFlush(lichSuViTien);
+                }else {
+                    System.out.println("LỖI Ở THANH TOÁN SÂN CA SERVICE:");
+                }
+            }
         }
     }
 }

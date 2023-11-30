@@ -126,7 +126,6 @@ public class DichVuSanBongStaffRestController {
                         double donGia = 0;
                         DichVuSanBong dichVuSanBongFind = getOneDichVuSanBong(dichVuSanBongIndex.getId());
                         int soLuongCu = dichVuSanBongIndex.getSoLuongNuocUong();
-                        dichVuSanBongFind.setSoLuongNuocUong(soLuongCu + soLuongDoThueNuocUong);
                         if (dichVuSanBongIndex.getIdDoThue() != null) {
                             DoThue doThue = doThueStaffService.getOneDoThue(dichVuSanBongFind.getIdDoThue());
                             int soLuongDoThue = dichVuSanBongFind.getSoLuongDoThue();
@@ -144,7 +143,6 @@ public class DichVuSanBongStaffRestController {
                             NuocUong nuocUong = getOneNuocUong(doThueNuocUongDichVuRequest.getId());
                             dichVuSanBongNull.setIdNuocUong(doThueNuocUongDichVuRequest.getId());
                             dichVuSanBongNull.setSoLuongNuocUong(doThueNuocUongDichVuRequest.getSoLuong());
-                            dichVuSanBongNull.setDonGia(nuocUong.getDonGia() * doThueNuocUongDichVuRequest.getSoLuong());
                             dichVuSanBongNull.setId(null);
                             dichVuSanBongNull.setIdHoaDonSanCa(idHoaDonSanCa);
                             dichVuSanBongNull.setTrangThai(0);
@@ -179,8 +177,7 @@ public class DichVuSanBongStaffRestController {
                             DoThue doThue = getOneDoThue(doThueNuocUongDichVuRequest.getId());
                             dichVuSanBongNull.setIdDoThue(doThueNuocUongDichVuRequest.getId());
                             dichVuSanBongNull.setSoLuongDoThue(doThueNuocUongDichVuRequest.getSoLuong());
-                            dichVuSanBongNull.setDonGia(doThue.getDonGia() * doThueNuocUongDichVuRequest.getSoLuong());
-                            dichVuSanBongNull.setId(null);
+                            updateDonGiaTuDong(dichVuSanBongNull);
                             dichVuSanBongNull.setIdHoaDonSanCa(idHoaDonSanCa);
                             dichVuSanBongNull.setTrangThai(0);
                             dichVuSanBongStaffRepository.save(dichVuSanBongNull);
@@ -240,6 +237,7 @@ public class DichVuSanBongStaffRestController {
                         if (listDichVuSanBongs.get(i).getIdNuocUong().equals(idDichVuDoThue)) {
                             dichVuSanBongUpdate.setIdNuocUong(null);
                             dichVuSanBongUpdate.setSoLuongNuocUong(null);
+                            updateDonGiaTuDong(dichVuSanBongUpdate);
                             dichVuSanBongStaffRepository.save(dichVuSanBongUpdate);
                             int soLuongCon = nuocUong.getSoLuong();
                             nuocUong.setSoLuong(soLuongCon + soLuongCongDon);
@@ -248,7 +246,6 @@ public class DichVuSanBongStaffRestController {
                         }
 
                     }
-
                 }
                 if (trangThai == 2) {
                     DoThue doThue = doThueStaffService.getOneDoThue(idDichVuDoThue);
@@ -265,6 +262,7 @@ public class DichVuSanBongStaffRestController {
                             if (listDichVuSanBongs.get(i).getIdDoThue().equals(idDichVuDoThue)) {
                                 dichVuSanBongUpdate.setIdDoThue(null);
                                 dichVuSanBongUpdate.setSoLuongDoThue(null);
+                                updateDonGiaTuDong(dichVuSanBongUpdate);
                                 dichVuSanBongStaffRepository.save(dichVuSanBongUpdate);
                                 int soLuongCon = doThue.getSoLuong();
                                 doThue.setSoLuong(soLuongCon + soLuongCongDon);
@@ -312,6 +310,7 @@ public class DichVuSanBongStaffRestController {
                             } else if (soLuongBanDau == soLuongCapNhat) {
                                 nuocUong.setSoLuong(nuocUong.getSoLuong());
                             }
+                            updateDonGiaTuDong(dichVuSanBongUpdate);
                             dichVuSanBongStaffRepository.save(dichVuSanBongUpdate);
                         }
                     }
@@ -331,11 +330,32 @@ public class DichVuSanBongStaffRestController {
                             } else if (soLuongBanDau == soLuongCapNhat) {
                                 doThue.setSoLuong(doThue.getSoLuong());
                             }
+                            updateDonGiaTuDong(dichVuSanBongUpdate);
                             dichVuSanBongStaffRepository.save(dichVuSanBongUpdate);
                         }
                     }
                 }
             }
         }
+    }
+
+    private void updateDonGiaTuDong(DichVuSanBong dichVuSanBong) {
+        NuocUong nuocUong = nuocUongStaffService.getOneNuocUong(dichVuSanBong.getIdNuocUong());
+        DoThue doThue = doThueStaffService.getOneDoThue(dichVuSanBong.getIdDoThue());
+        Integer soDoThue = dichVuSanBong.getSoLuongDoThue();
+        Integer soNuocUong = dichVuSanBong.getSoLuongNuocUong();
+        if (nuocUong == null) {
+            Double donGiaDoThue = doThue.getDonGia();
+            dichVuSanBong.setDonGia(soDoThue * donGiaDoThue);
+        } else if (doThue == null) {
+            Double donGiaNuocUong = nuocUong.getDonGia();
+            dichVuSanBong.setDonGia(soNuocUong * donGiaNuocUong);
+        } else {
+            Double donGiaDoThue = doThue.getDonGia();
+            Double donGiaNuocUong = nuocUong.getDonGia();
+            double donGia = (soDoThue * donGiaDoThue) + (soNuocUong * donGiaNuocUong);
+            dichVuSanBong.setDonGia(donGia);
+        }
+        dichVuSanBongStaffRepository.save(dichVuSanBong);
     }
 }

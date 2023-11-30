@@ -26,6 +26,8 @@ public class DichVuSanBongRequest {
     private Double tongTien;
     private Long soLuongDoThue;
     private Long soLuongNuocUong;
+    private Integer soLuongDoThueMax;
+    private Integer soLuongNuocUongMax;
 
 
 }
