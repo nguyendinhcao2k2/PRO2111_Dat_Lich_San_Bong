@@ -1248,7 +1248,7 @@
                     tooltipElement.style.top = info.jsEvent.pageY - tooltipElement.offsetHeight / 2 + 'px'; // Hiển thị bên phải
 
                     document.body.appendChild(tooltipElement);
-                }, 1500);
+                }, 500);
 
             },
             eventMouseLeave: function () {
@@ -1285,14 +1285,71 @@
 
             //sự kiện kéo qua ngày khác
             eventDrop: function (info) {
+                clearTimeout(timeoutId);
+                var tooltips = document.getElementsByClassName('event-tooltip');
+                while (tooltips[0]) {
+                    tooltips[0].parentNode.removeChild(tooltips[0]);
+                }
 
-                debugger
                 var eventDeful = calendar.getEventById(info.event.id);
 
                 if(isPastDateTime(info.event.start)){
                     eventDeful.setProp('classNames', 'event-class-over-time');
                     eventDeful.setExtendedProp('trangThai', 'OVER-TIME');
                     eventDeful.setExtendedProp('classCustom', 'event-class-over-time');
+                    var listCheck = [];
+                    var eventsClickShowEvent = calendar.getEvents();
+                    var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+                        event
+                    ) {
+                        return event.extendedProps.trangThai === 'NEW' || event.extendedProps.trangThai === 'NEW-FULL';
+                    });
+
+                    eventsForSelectedDate.forEach(value => {
+
+                        var objectCheck = {};
+                        objectCheck.id = value.id;
+                        objectCheck.idLoaiSan = selectedValue;
+                        objectCheck.idCa = value.extendedProps.idSanCa;
+                        // Lấy ngày từ thời gian bắt đầu của sự kiện
+                        const eventStart = new Date(value.start); // Chuyển đổi sang kiểu Date
+
+                        const year = eventStart.getFullYear();
+                        const month = eventStart.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0, cần cộng thêm 1
+                        const day = eventStart.getDate();
+
+                        const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+
+                        objectCheck.ngayDat = formattedDate;
+
+                        listCheck.unshift(objectCheck);
+                    })
+
+                    $.ajax({
+                        url: "/api/v1/user/san-ca/check-list-san-ca",
+                        type: "POST",
+                        data: JSON.stringify(listCheck),
+                        contentType: "application/json",
+                        success: function (data) {
+                            debugger
+                            for (const event of eventsForSelectedDate) {
+
+                                const foundData = data.find(EExist => event.id === EExist.id);
+                                if (foundData) {
+                                    calendar.getEventById(event.id).setProp('classNames', 'event-class-full');
+                                    calendar.getEventById(event.id).setExtendedProp('trangThai', 'NEW-FULL');
+                                    calendar.getEventById(event.id).setExtendedProp('classCustom', 'event-class-full');
+                                } else {
+                                    calendar.getEventById(event.id).setProp('classNames', 'event-class');
+                                    calendar.getEventById(event.id).setExtendedProp('trangThai', 'NEW');
+                                    calendar.getEventById(event.id).setExtendedProp('classCustom', 'event-class');
+                                }
+                            }
+                        },
+                        error: function (error) {
+
+                        }
+                    });
                 }else {
 
                     eventDeful.setProp('classNames', 'event-class');
@@ -2687,37 +2744,46 @@
                             success: function (data) {
                                 var sanBong = data;
                                 var thoiGianDat = new Date(selectedDate);
-                                var event = {
-                                    id: generateEventId(),
-                                    title: sanBong.tenCa,
-                                    start: new Date(
-                                        thoiGianDat.getFullYear(),
-                                        thoiGianDat.getMonth(),
-                                        thoiGianDat.getDate(),
-                                        parseInt(sanBong.thoiGianBatDau.split(":")[0]),
-                                        parseInt(sanBong.thoiGianBatDau.split(":")[1])
-                                    ),
-                                    end: new Date(
-                                        thoiGianDat.getFullYear(),
-                                        thoiGianDat.getMonth(),
-                                        thoiGianDat.getDate(),
-                                        parseInt(sanBong.thoiGianKetThuc.split(":")[0]),
-                                        parseInt(sanBong.thoiGianKetThuc.split(":")[1])
-                                    ),
-                                    allDay: false,
-                                    editable: true,
-                                    className: 'event-class',
-                                    extendedProps: {
-                                        trangThai: 'NEW',
-                                        classCustom: 'event-class',
-                                        giaSan: formatCurrencyVND(sanBong.giaSanCa ) ,
-                                        idSanCa: sanBong.id,
-                                    },
-                                };
-                                calendar.addEvent(event);
-                                calendar.render();
-                                var eventNew = getEventNew();
-                                addDateToFormDatLich(eventNew);
+                                var dateCheck=  new Date(thoiGianDat.getFullYear(),thoiGianDat.getMonth(),thoiGianDat.getDate(),parseInt(sanBong.thoiGianBatDau.split(":")[0]),
+                                    parseInt(sanBong.thoiGianBatDau.split(":")[1])
+                                );
+                                if(isPastDateTime(dateCheck)){
+                                    createAndShowToast("bg-warning", "Thông báo", sanBong.tenCa +' Ngày: '+
+                                        thoiGianDat.getDate()+'/'+thoiGianDat.getMonth()+'/'+thoiGianDat.getFullYear()+' đã hết thời gian cho ' +
+                                        'phép đặt lịch.');
+                                }else {
+                                    var event = {
+                                        id: generateEventId(),
+                                        title: sanBong.tenCa,
+                                        start: new Date(
+                                            thoiGianDat.getFullYear(),
+                                            thoiGianDat.getMonth(),
+                                            thoiGianDat.getDate(),
+                                            parseInt(sanBong.thoiGianBatDau.split(":")[0]),
+                                            parseInt(sanBong.thoiGianBatDau.split(":")[1])
+                                        ),
+                                        end: new Date(
+                                            thoiGianDat.getFullYear(),
+                                            thoiGianDat.getMonth(),
+                                            thoiGianDat.getDate(),
+                                            parseInt(sanBong.thoiGianKetThuc.split(":")[0]),
+                                            parseInt(sanBong.thoiGianKetThuc.split(":")[1])
+                                        ),
+                                        allDay: false,
+                                        editable: true,
+                                        className: 'event-class',
+                                        extendedProps: {
+                                            trangThai: 'NEW',
+                                            classCustom: 'event-class',
+                                            giaSan: formatCurrencyVND(sanBong.giaSanCa ) ,
+                                            idSanCa: sanBong.id,
+                                        },
+                                    };
+                                    calendar.addEvent(event);
+                                    calendar.render();
+                                    var eventNew = getEventNew();
+                                    addDateToFormDatLich(eventNew);
+                                }
                             },
                             error: function (e) {
                                 console.log("ERROR: ", e);
