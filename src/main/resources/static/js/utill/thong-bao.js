@@ -48,6 +48,13 @@ function createMultipleToasts(toastsArray) {
             // Append each toast to the inner container
             toastInnerContainer.appendChild(toast);
 
+            // Thêm sự kiện click cho nút đóng của mỗi toast
+            const closeButton = toast.querySelector(".btn-close");
+            closeButton.addEventListener("click", function () {
+                const toastInstance = bootstrap.Toast.getInstance(toast);
+                toastInstance.hide(); // Ẩn toast khi nút đóng được click
+            });
+
             // Initialize and show each toast with a delay
             setTimeout(() => {
                 const toastInstance = new bootstrap.Toast(toast, {
@@ -75,12 +82,6 @@ function createMultipleToasts(toastsArray) {
     // Append the main container to the body
     document.body.appendChild(toastContainer);
 
-    // Thêm sự kiện click cho nút đóng của toast
-    const closeButton = toast.querySelector(".btn-close");
-    closeButton.addEventListener("click", function () {
-        // Ẩn toast khi nút đóng được click
-        toastInstance.hide();
-    });
 }
 
 function createAndShowToast(backGround, headerText, bodyText) {
