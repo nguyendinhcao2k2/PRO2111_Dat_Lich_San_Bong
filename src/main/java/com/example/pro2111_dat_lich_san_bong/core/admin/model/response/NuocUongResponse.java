@@ -22,8 +22,8 @@ public interface NuocUongResponse {
     @Value("#{target.tenNuocUong}")
     String getTenNuocUong();
 
-    @Value("#{target.trangThai}")
-    Integer getTrangThai();
+    @Value("#{target.image}")
+    String getImage();
 
 
 }

@@ -114,8 +114,8 @@ public class SercurityConfig {
 
     public void redirectUrl(String role, HttpServletResponse response) throws IOException {
         if (role.equalsIgnoreCase(RoleConstant.roleAdmin)) {
-//            response.sendRedirect("/api/v1/admin/manage/list-manage");
-            response.sendRedirect("/test/thong-ke");
+            response.sendRedirect("/api/v1/admin/manage/list-manage");
+//            response.sendRedirect("/test/thong-ke");
         } else if (role.equalsIgnoreCase(RoleConstant.roleStaff)) {
             //auto source /api/v1/staff/all
             response.sendRedirect("api/v1/staff/account/display");
