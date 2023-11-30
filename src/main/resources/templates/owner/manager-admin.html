@@ -234,7 +234,7 @@
         </li>
         <li class="nav-item" role="presentation">
             <a
-                    class="nav-link active"
+                    class="nav-link"
                     id="tab6-tab"
                     data-bs-toggle="tab"
                     href="#tab6"
@@ -242,6 +242,18 @@
                     aria-controls="tab6"
                     aria-selected="false"
             >QUẢN LÍ ĐỒ THUÊ</a
+            >
+        </li>
+        <li class="nav-item" role="presentation">
+            <a
+                    class="nav-link active"
+                    id="tab7-tab"
+                    data-bs-toggle="tab"
+                    href="#tab7"
+                    role="tab"
+                    aria-controls="tab7"
+                    aria-selected="false"
+            >QUẢN LÍ NƯỚC UỐNG</a
             >
         </li>
     </ul>
@@ -1236,117 +1248,117 @@
                 aria-labelledby="tab5-tab"
         >
             <br/>
-            <form class="container" @submit.prevent="confirmCreate">
-                <div class="row">
-                    <div class="col-6">
-                        LOẠI THAM SỐ
-                        <select
-                                class="form-select loaiThamSo"
-                                aria-label="Default select example "
-                                required
-                                v-model="param.code"
-                        >
-                            <option v-bind:value="item" v-for="item in listCodeParam">
-                                {{item}}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-6">
-                        VALUE
-                        <div class="input-group flex-nowrap">
-                            <input
-                                    type="text"
-                                    class="form-control valueParam"
-                                    required
-                                    aria-describedby="addon-wrapping"
-                                    v-model="param.value"
-                                    @input="checkValue"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-6">
-                        TYPE
-                        <div class="input-group flex-nowrap">
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    required
-                                    aria-describedby="addon-wrapping"
-                                    v-model="param.type"
-                            />
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        TEN CHUC NANG
-                        <div class="input-group flex-nowrap">
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    required
-                                    aria-describedby="addon-wrapping"
-                                    v-model="param.chucNang"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                Status
-                <!-- Default radio -->
-                <div class="form-check form-check-inline" style="margin-left: 30px">
-                    <input
-                            class="form-check-input"
-                            type="radio"
-                            name="inlineRadioOptions"
-                            id="inlineRadio1"
-                            value="0"
-                            checked
-                            v-model="param.trangThai"
-                    />
-                    <label class="form-check-label" for="inlineRadio1"
-                    >Hoạt động</label
-                    >
-                </div>
+<!--            <form class="container" @submit.prevent="confirmCreate">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-6">-->
+<!--                        LOẠI THAM SỐ-->
+<!--                        <select-->
+<!--                                class="form-select loaiThamSo"-->
+<!--                                aria-label="Default select example "-->
+<!--                                required-->
+<!--                                v-model="param.code"-->
+<!--                        >-->
+<!--                            <option v-bind:value="item" v-for="item in listCodeParam">-->
+<!--                                {{item}}-->
+<!--                            </option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <div class="col-6">-->
+<!--                        VALUE-->
+<!--                        <div class="input-group flex-nowrap">-->
+<!--                            <input-->
+<!--                                    type="text"-->
+<!--                                    class="form-control valueParam"-->
+<!--                                    required-->
+<!--                                    aria-describedby="addon-wrapping"-->
+<!--                                    v-model="param.value"-->
+<!--                                    @input="checkValue"-->
+<!--                            />-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <br/>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-6">-->
+<!--                        TYPE-->
+<!--                        <div class="input-group flex-nowrap">-->
+<!--                            <input-->
+<!--                                    type="text"-->
+<!--                                    class="form-control"-->
+<!--                                    required-->
+<!--                                    aria-describedby="addon-wrapping"-->
+<!--                                    v-model="param.type"-->
+<!--                            />-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-6">-->
+<!--                        TEN CHUC NANG-->
+<!--                        <div class="input-group flex-nowrap">-->
+<!--                            <input-->
+<!--                                    type="text"-->
+<!--                                    class="form-control"-->
+<!--                                    required-->
+<!--                                    aria-describedby="addon-wrapping"-->
+<!--                                    v-model="param.chucNang"-->
+<!--                            />-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <br/>-->
+<!--                Status-->
+<!--                &lt;!&ndash; Default radio &ndash;&gt;-->
+<!--                <div class="form-check form-check-inline" style="margin-left: 30px">-->
+<!--                    <input-->
+<!--                            class="form-check-input"-->
+<!--                            type="radio"-->
+<!--                            name="inlineRadioOptions"-->
+<!--                            id="inlineRadio1"-->
+<!--                            value="0"-->
+<!--                            checked-->
+<!--                            v-model="param.trangThai"-->
+<!--                    />-->
+<!--                    <label class="form-check-label" for="inlineRadio1"-->
+<!--                    >Hoạt động</label-->
+<!--                    >-->
+<!--                </div>-->
 
-                <div class="form-check form-check-inline">
-                    <input
-                            class="form-check-input"
-                            type="radio"
-                            name="inlineRadioOptions"
-                            id="inlineRadio2"
-                            value="1"
-                            v-model="param.trangThai"
-                    />
-                    <label class="form-check-label" for="inlineRadio2"
-                    >Dừng hoạt động</label
-                    >
-                </div>
-                <br/>
-                <br/>
-                NOTE
-                <div class="form-floating">
-              <textarea
-                      class="form-control"
-                      placeholder="Leave a comment here"
-                      id="floatingTextarea"
-                      required
-                      v-model="param.note"
-              ></textarea>
-                    <label for="floatingTextarea">Ghi chú....</label>
-                </div>
-                <br/>
-                <div
-                        style="
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              "
-                >
-                    <button type="submit" class="btn btn-success">Lưu</button>
-                </div>
-            </form>
+<!--                <div class="form-check form-check-inline">-->
+<!--                    <input-->
+<!--                            class="form-check-input"-->
+<!--                            type="radio"-->
+<!--                            name="inlineRadioOptions"-->
+<!--                            id="inlineRadio2"-->
+<!--                            value="1"-->
+<!--                            v-model="param.trangThai"-->
+<!--                    />-->
+<!--                    <label class="form-check-label" for="inlineRadio2"-->
+<!--                    >Dừng hoạt động</label-->
+<!--                    >-->
+<!--                </div>-->
+<!--                <br/>-->
+<!--                <br/>-->
+<!--                NOTE-->
+<!--                <div class="form-floating">-->
+<!--              <textarea-->
+<!--                      class="form-control"-->
+<!--                      placeholder="Leave a comment here"-->
+<!--                      id="floatingTextarea"-->
+<!--                      required-->
+<!--                      v-model="param.note"-->
+<!--              ></textarea>-->
+<!--                    <label for="floatingTextarea">Ghi chú....</label>-->
+<!--                </div>-->
+<!--                <br/>-->
+<!--                <div-->
+<!--                        style="-->
+<!--                display: flex;-->
+<!--                align-items: center;-->
+<!--                justify-content: center;-->
+<!--              "-->
+<!--                >-->
+<!--                    <button type="submit" class="btn btn-success">Lưu</button>-->
+<!--                </div>-->
+<!--            </form>-->
             <br/>
             <section>
                 Danh sách tham số
@@ -1412,7 +1424,7 @@
                                     ></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div>Chức Năng: {{paramUpdate.chucNang}}</div>
+                                    <div>Chức Năng: {{paramUpdate.name}}</div>
                                     <br/>
                                     <div>Mã Code: {{paramUpdate.code}}</div>
                                     <br/>
@@ -1427,7 +1439,7 @@
                                                 min="0"
                                                 aria-describedby="addon-wrapping"
                                                 v-model="paramUpdate.value"
-                                                @input="checkValidaValueUpdate"
+                                                @input="checkValidValueSysParam($event)"
                                         />
                                     </div>
                                     <br/>
@@ -1440,6 +1452,7 @@
                                                 class="form-control "
                                                 required
                                                 min="0"
+                                                readonly
                                                 aria-describedby="addon-wrapping"
                                                 v-model="paramUpdate.type"
                                         />
@@ -1512,7 +1525,7 @@
         <!-- Tab 5 end  -->
         <!-- tab 6 -->
         <div
-                class="tab-pane fade show active tabDoThue"
+                class="tab-pane fade tabDoThue"
                 id="tab6"
                 role="tabpanel"
                 aria-labelledby="tab6-tab"
@@ -1796,6 +1809,292 @@
             </section>
         </div>
         <!-- tab 6 -->
+<!--        tab 7 tab do uong-->
+        <div
+                class="tab-pane fade show active tabNuocUong"
+                id="tab7"
+                role="tabpanel"
+                aria-labelledby="tab7-tab"
+        >
+            <br/>
+            <section class="container">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="cursor: pointer" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" v-model="tenNuocUongSearch" @input="tiemKiemTheoTenNuocUong($event)" placeholder="Tìm kiếm theo tên......."  aria-describedby="basic-addon1">
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-light exportNuocUong">Export Execl</button>
+                    </div>
+                    <div class="col-6">
+                        <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
+                            file import:</label>
+                        <input style="margin: 0.4rem 0;" class="importExcelNuocUong" type="file" id="avatar"
+                               @change="handelExcelNuocUong($event)"/>
+                    </div>
+                </div>
+
+
+                <form
+                        enctype="multipart/form-data"
+                        @submit.prevent="confirmSaveNuocUong"
+                        rel="formCreateNuocUong"
+                >
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping"
+                    >Tên</span
+                    >
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Tên nước uống.."
+                                        required
+                                        aria-describedby="addon-wrapping"
+                                        v-model="NuocUong.tenNuocUong"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping"
+                    >Đơn giá</span
+                    >
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Đơn giá.."
+                                        required
+                                        id="idDonGiaCreate"
+                                        aria-describedby="addon-wrapping"
+                                        min="0"
+                                        @input="handleDonGiaNuocUong($event)"
+                                        v-model="NuocUong.donGia"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="input-group flex-nowrap">
+                                <input
+                                        type="file"
+                                        required
+                                        ref="fileInput"
+                                        class="form-control"
+                                        id="idFileAnhCreateNuocUong"
+                                        @change="handelImgNuocUong($event)"
+                                        aria-describedby="addon-wrapping"
+                                        accept="image/*"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping"
+                    >Số lượng</span
+                    >
+                                <input
+                                        type="number"
+                                        class="form-control"
+                                        placeholder="Số lượng.."
+                                        aria-describedby="addon-wrapping"
+                                        min="0"
+                                        id="idSoLuongCreateNuocUong"
+                                        required
+                                        @input="handleSoLuongNuocUong($event)"
+                                        v-model="NuocUong.soLuong"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div
+                            style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+                    >
+                        <button type="submit" class="btn btn-success">Lưu</button>
+                    </div>
+                </form>
+            </section>
+            <br/>
+            <hr/>
+            <div v-if="isLoadingNuocUong" style="display: flex;justify-content: center;align-items: center;">
+                <div  class="spinner-border text-warning" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <section v-else>
+                <p>Danh Sách Nước Uống</p>
+                <div class="alert alert-danger " v-if="listNuocUong.length == 0">
+                    <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
+                </div>
+                <table class="table table-bordered table-header table-hover" v-else>
+                    <tr>
+                        <th>#</th>
+                        <th>Tên</th>
+                        <th>Ảnh</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    <tr v-for="(items,index) in listNuocUong">
+                        <td>{{index}}</td>
+                        <td>{{items.tenNuocUong}}</td>
+                        <td>
+                            <span v-if="items.image == null">Chưa cập nhật</span>
+                            <img
+                                    style="width: 100px; height: 100px"
+                                    v-else
+                                    :src="imgSrcNuocUong(items.image)"
+                            />
+                        </td>
+                        <td>{{currenlyNumBerNuocUong(items.donGia)}} Vnd</td>
+                        <td>{{items.soLuong}}</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-info" @click="detailNuocUong(items.id)"
+                                    data-bs-toggle="modal" data-bs-target="#modalDetailNuocUong"><i
+                                    class="fa fa-info-circle" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-outline-danger"><i
+                                    class="fa fa-trash"
+                                    style="color: red"
+                                    @click="deleteNuocUong(items.id)"
+                                    aria-hidden="true"
+                            ></i></button>
+                        </td>
+                    </tr>
+                </table>
+
+                <!--                paging-->
+                <br/>
+                <div class="row" style="display: flex; margin: 0 auto" v-if="listNuocUong.length != 0">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-1">
+                        <select class="pageSizeSelectNuocUong" @change="pageSizeSelectNuocUong">
+                            <option value="5" selected>5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" @click="previuosNU">
+                                    <a class="page-link" style="cursor: pointer">Previous</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link">{{pageNumberNuocUong + 1}} / {{totalPageNuocUong}}</a>
+                                </li>
+                                <li class="page-item " @click="nextPageNU">
+                                    <a class="page-link" style="cursor: pointer">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!--                paging-->
+                <!-- Modal detail-->
+                <div class="modal fade" id="modalDetailNuocUong" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <form @submit.prevent="updateNuocUong" enctype="multipart/form-data" rel="formUpdateNuocUong">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Đồ thuê</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div style="text-align: center;">
+                                        <span v-if="detailNuocUongEntity.image == null">Chưa cập nhật ảnh</span>
+                                        <img v-else :src="imgSrcNuocUong(detailNuocUongEntity.image)"
+                                             style="width: 200px;height: 100px;border: 1px solid black;border-radius: 40% 40% 40% 40%">
+                                    </div>
+                                    <br>
+                                    <input type="hidden" v-model="detailNuocUongEntity.id">
+                                    <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping"
+                    >Tên</span
+                    >
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Tên đồ thuê.."
+                                                required
+                                                aria-describedby="addon-wrapping"
+                                                v-model="detailNuocUongEntity.tenNuocUong"
+                                        />
+                                    </div>
+                                    <br>
+                                    <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping"
+                    >Đơn giá</span
+                    >
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Đơn giá.."
+                                                required
+                                                id="idDonGiaUpdate"
+                                                aria-describedby="addon-wrapping"
+                                                min="0"
+                                                @input="handleDonGiaNuocUong($event)"
+                                                v-model="detailNuocUongEntity.donGia"
+                                        />
+                                        <span class="input-group-text" id="addon-wrapping"
+                                        >Vnd</span>
+                                    </div>
+                                    <br>
+                                    <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping"
+                    >Số lượng</span
+                    >
+                                        <input
+                                                type="number"
+                                                class="form-control"
+                                                placeholder="Số lượng.."
+                                                aria-describedby="addon-wrapping"
+                                                min="0"
+                                                id="idSoLuongUpdate"
+                                                required
+                                                @input="handleSoLuongNuocUong($event)"
+                                                v-model="detailNuocUongEntity.soLuong"
+                                        />
+                                    </div>
+                                    <br>
+                                    <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
+                                        ảnh:</label>
+                                    <input
+                                            type="file"
+                                            required
+                                            ref="fileInput"
+                                            class="form-control"
+                                            id="idFileAnhUpdateNuocUong"
+                                            @change="handelImgNuocUong($event)"
+                                            aria-describedby="addon-wrapping"
+                                            accept="image/*"
+                                    />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary huyModalUpdate" data-bs-dismiss="modal">Hủy</button>
+                                    <button type="submit" class="btn btn-success">Đổi lịch</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <!-- Modal detail-->
+            </section>
+        </div>
+<!--        tab 7 tab do uong-->
     </div>
 
 </div>
@@ -1811,6 +2110,7 @@
 <script th:src="@{/static/js/owner/luat-san-admin.js}"></script>
 <script th:src="@{/static/js/owner/quan-li-tham-so.js}"></script>
 <script th:src="@{/static/js/owner/quan-li-do-thue.js}"></script>
+<script th:src="@{/static/js/owner/quan-li-nuoc-uong.js}"></script>
 <script th:src="@{/static/js/utill/thong-bao.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script

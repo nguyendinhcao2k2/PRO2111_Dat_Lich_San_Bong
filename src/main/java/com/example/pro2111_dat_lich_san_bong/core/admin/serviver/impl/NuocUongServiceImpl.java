@@ -10,6 +10,7 @@ import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.NotFoundEx
 import com.example.pro2111_dat_lich_san_bong.core.admin.model.request.NuocUongRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +31,19 @@ public class NuocUongServiceImpl implements NuocUongService {
     @Autowired
     private NuocUongAdminRepository nuocUongRepository;
 
+    @Autowired
+    private ModelMapper mapper;
+
+
+    @Override
+    public List<NuocUong> findAllList() {
+        try {
+            return nuocUongRepository.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
     public void deleteById(String id) {
@@ -41,14 +55,10 @@ public class NuocUongServiceImpl implements NuocUongService {
     }
 
     @Override
-    public boolean updateById(String id, NuocUongRequest nuocUongRequest) {
-        Optional<NuocUong> nuocUongOptional = nuocUongRepository.findById(id);
-        if (!nuocUongOptional.isPresent()) {
-            throw new NotFoundException("Khong tim thay nuoc uong");
-        }
+    public boolean updateById(NuocUongRequest nuocUongRequest) {
         try {
-            NuocUong nuocUong = nuocUongOptional.get();
-            PropertyUtils.copyProperties(nuocUong, nuocUongRequest);
+            NuocUong nuocUong = mapper.map(nuocUongRequest, NuocUong.class);
+            nuocUong.setTrangThai(0);
             nuocUongRepository.save(nuocUong);
             return true;
         } catch (Exception e) {
@@ -58,16 +68,27 @@ public class NuocUongServiceImpl implements NuocUongService {
 
     @Override
     public boolean save(NuocUongRequest nuocUongRequest) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-        NuocUong nuocUong = new NuocUong();
-        PropertyUtils.copyProperties(nuocUong, nuocUongRequest);
-        nuocUong.setTrangThai(0);
-        nuocUongRepository.save(nuocUong);
-        return true;
+        try {
+            NuocUong nuocUong = mapper.map(nuocUongRequest, NuocUong.class);
+            nuocUong.setTrangThai(0);
+            nuocUongRepository.save(nuocUong);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     @Override
     public Page<NuocUongResponse> getNuocUongNyPagaeble(int page, int size) {
-        return nuocUongRepository.findAllNuocUong(PageRequest.of(page, size));
+        try {
+            return nuocUongRepository.findAllNuocUong(PageRequest.of(page, size));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
@@ -82,7 +103,31 @@ public class NuocUongServiceImpl implements NuocUongService {
     }
 
     @Override
-    public void exprotExcel(HttpServletResponse response) throws IOException {
-        NuocUongExportExcel.exportData(response);
+    public void exprotExcel(HttpServletResponse response, List<NuocUong> nuocUongList) throws IOException {
+        try {
+            NuocUongExportExcel.exportData(response, nuocUongList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public NuocUong findById(String id) {
+        try {
+            return nuocUongRepository.findById(id).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Page<NuocUongResponse> findAllByName(int page, int size, String tenNuocUong) {
+        try {
+            return nuocUongRepository.findAllByName(PageRequest.of(page, size), tenNuocUong);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

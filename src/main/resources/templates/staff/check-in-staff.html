@@ -124,6 +124,7 @@
                                         aria-describedby="button-addon2"
                                 />
                                 <button
+                                        th:attr="onclick=|search()|"
                                         class="btn btn-success btn-outline-success"
                                         type="button"
                                         id="button-addon2"
@@ -146,74 +147,21 @@
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Họ Tên</th>
-                                <th>Location</th>
-                                <th>Order Date</th>
-                                <th>Status</th>
-                                <th>Net Amount</th>
+                                <th>Họ và tên</th>
+                                <th>Số điện thoại</th>
+                                <th>Tên sân bóng</th>
+                                <th>Tên ca</th>
+                                <th>Tiền cọc</th>
+                                <th>Tiền sân</th>
+                                <th>Ngày dến sân</th>
+                                <th>Thời gian</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>5</td>
-                                <td>Martin Sommer ></td>
-                                <td>Paris</td>
-                                <td>Aug 04, 2017</td>
-                                <td>trạng thái</td>
-                                <td>$580</td>
-                                <td>
-                                    <div class="d-flex flex-column">
-                                        <button class="btn btn-success  btn-sm " type="button">
-                                            Check in
-                                        </button>
-                                        <button class="btn btn-primary   btn-sm mt-1" type="button">
-                                            Đổi sân
-                                        </button>
-                                        <button class="btn btn-outline-danger btn-sm mt-1" type="button">
-                                            Hủy lịch
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                            <tbody th:id="tbody">
+
                             </tbody>
                         </table>
-                        <div class="row">
-                            <div class="col">
-                                <div class="hint-text">
-                                    <p style="color: #333">
-                                        Hiển thị <b>5</b> / <b>25</b> bản ghi
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-6 d-flex justify-content-end">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination ">
-                                        <li class="page-item disabled">
-                                            <a
-                                                    class="page-link"
-                                                    href="#"
-                                                    tabindex="-1"
-                                                    aria-disabled="true"
-                                            >Previous</a
-                                            >
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -221,7 +169,7 @@
     </div>
 </section>
 
-
+<script th:src="@{/static/js/staff/check-in.js}"></script>
 <!-- Add Bootstrap JS and jQuery links -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- UPDATE 2/11/023 -->
