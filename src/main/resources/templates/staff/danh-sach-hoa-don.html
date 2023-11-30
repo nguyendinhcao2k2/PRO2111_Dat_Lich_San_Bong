@@ -663,6 +663,7 @@
                                                                             </thead>
                                                                             <tbody id="dataPhuPhiHoaDon">
                                                                             </tbody>
+                                                                            <div id="thongBaoPhuPhi"></div>
                                                                         </table>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -1416,6 +1417,7 @@
                 method: "GET",
                 success: function (data) {
                     if (data.length > 0) {
+                        $('#thongBaoPhuPhi').empty();
                         $.each(data, function (index, item) {
                             var htmlHoaDonPhuPhi = '<tr>';
                             htmlHoaDonPhuPhi += '<th scope="row">' + (index + 1) + '</th>';
@@ -1437,8 +1439,11 @@
                         $('#tienPhuPhi').val(formatCurrencyVND(tongGiaTienPhuPhi));
                         $('#tongThanhToan').text(formatCurrencyVND((parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)))) + '.VNĐ');
                     } else {
-                        var htmlHoaDonPhuPhi = '<h5>' + 'CHƯA CÓ PHỤ PHÍ' + '</h5>';
-                        $('#dataPhuPhiHoaDon').append(htmlHoaDonPhuPhi);
+                        $('#thongBaoPhuPhi').empty();
+                        var htmlHoaDonPhuPhi = '<div class="alert alert-danger noContent" role="alert">';
+                        htmlHoaDonPhuPhi += '<h1 class="" style="font-size: 20px">Chưa Phát Sinh Phụ Phí!</h1>';
+                        htmlHoaDonPhuPhi += '</div>';
+                        $('#thongBaoPhuPhi').append(htmlHoaDonPhuPhi);
                     }
                 },
                 error: function (error) {
