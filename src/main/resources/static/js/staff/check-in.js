@@ -1,6 +1,6 @@
 const apiUrl = "http://localhost:8081/api/v1/staff";
 
-function search(){
+function search() {
     let param = $('#inputSearch').val();
     $.ajax({
         type: "GET",
@@ -19,11 +19,11 @@ function search(){
                                 <td>${ck.tenCa}</td>
                                 <td>${ck.tienCoc}</td>
                                 <td>${ck.tienSan}</td>
-                                 <td>${ck.ngayDenSan}</td>
+                                <td>${ck.ngayDenSan}</td>
                                 <td>${ck.thoiGianBatDau} - ${ck.thoiGianKetThuc}</td>                       
                                 <td>
                                     <div class="d-flex flex-column">
-                                        <button onclick="checkInLichDat(${ck.idHDSanCa})" class="btn btn-success  btn-sm " type="button">
+                                        <button onclick="checkInLichDat('${ck.idHDSanCa}')" class="btn btn-success  btn-sm " type="button">
                                             Check in
                                         </button>
                                     </div>
@@ -38,13 +38,13 @@ function search(){
     })
 }
 
-function checkInLichDat(param){
+function checkInLichDat(param) {
     $.ajax({
         type: "GET",
         contentType: "application/json",
         url: apiUrl + "/check-in/" + param,
         success: function (responseData) {
-            alert(responseData)
+            alert(responseData.content)
         },
         error: function (e) {
             console.log(e)
