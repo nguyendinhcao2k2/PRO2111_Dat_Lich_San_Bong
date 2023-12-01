@@ -456,7 +456,7 @@
                                                                             {{items.ngayDenSan}}
                                                                         </td>
                                                                         <td class="tong-tien">
-                                                                            {{items.tienSan}}
+                                                                            {{currenlyNumberVue(items.tienSan)}}
                                                                         </td>
                                                                         <td>
                                                                             <select class="form-select ca-sb">
@@ -489,7 +489,7 @@
                                                                             </select>
                                                                         </td>
                                                                         <td class="giaDuKienPhaiTra">
-                                                                            {{items.tienSan}}
+                                                                            {{currenlyNumberVue(items.tienSan)}}
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -497,25 +497,25 @@
 
                                                                         <td style="color: red;size: 25px"
                                                                             colspan="4">
-                                                                            {{tongTienSanCu}}
+                                                                            {{currenlyNumberVue(tongTienSanCu)}}
                                                                         </td>
                                                                         <td style="color: red;size: 25px"
                                                                             colspan="4">
-                                                                            {{tongTienSanMoi}}
+                                                                            {{currenlyNumberVue(tongTienSanMoi)}}
                                                                         </td>
                                                                     </tr>
                                                                     <tr v-if="checkTienDoiLichNhieu() === 0">
                                                                         <td>Tiền cọc còn thiếu</td>
                                                                         <td colspan="9"
                                                                             style="font-size: 30px;color: red">
-                                                                            {{tinhTienCocLichNhieu()}}
+                                                                            {{currenlyNumberVue(tinhTienCocLichNhieu())}}
                                                                         </td>
                                                                     </tr>
                                                                     <tr v-if="checkTienDoiLichNhieu() === 1">
                                                                         <td>Tiền cọc thừa</td>
                                                                         <td colspan="9"
                                                                             style="font-size: 30px;color: red">
-                                                                            {{tinhTienCocLichNhieu()}}
+                                                                            {{currenlyNumberVue(tinhTienCocLichNhieu())}}
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -3194,8 +3194,8 @@
             },
             currenNumberVNLichOne(number) {
                 if (number !== undefined && number !== null) {
-                    // return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
-                    return number.toLocaleString("vi-VN");
+                    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
+                    // return number.toLocaleString("vi-VN");
                 } else {
                     return 0;// hoặc có thể trả về giá trị mặc định khác
                 }
@@ -3227,9 +3227,10 @@
             listCheck: [],
         },
         methods: {
-            // currenlyNumberVue(number) {
-            //     return number.toLocaleString("vi-VN");
-            // },
+            currenlyNumberVue(number) {
+                // return number.toLocaleString("vi-VN");
+                return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
+            },
             getByIdCa(id) {
                 var ca = null;
                 this.arrCaDL.forEach((item) => {
@@ -3278,6 +3279,7 @@
                 let phanTramTienCoc = parseInt(this.phanTramTienCocLichNhieu);
                 if (this.checkTienDoiLichNhieu() === 0) {
                     this.tienCocThieuDoiLichNhieu = (parseFloat(this.tongTienSanMoi) - parseFloat(this.tongTienSanCu)) * (phanTramTienCoc / 100);
+                    console.log(this.tienCocThieuDoiLichNhieu)
                     return this.tienCocThieuDoiLichNhieu;
                 }
                 if (this.checkTienDoiLichNhieu() === 1) {
@@ -3486,7 +3488,8 @@
             giaDuKien = giaCa + giaLoaiSan;
             app.giaDukienChung = giaDuKien;
             // Cập nhật giá dự kiến chỉ cho dòng hiện tại
-            $row.find(".giaDuKienPhaiTra").text(giaDuKien);
+            var giaDuKienFormat = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(parseInt(giaDuKien));;
+            $row.find(".giaDuKienPhaiTra").text(giaDuKienFormat);
             listCheckBoxCheckKed();
         });
     }
@@ -3591,7 +3594,7 @@
                         idCa: caNew,
                         idLoaiSan: loaiSanNew,
                         ngayDoi: ngayNew,
-                        tienSan: giaNew,
+                        tienSan: giaNew.replace(/\D/g, ''),
                         tienCocThieu: tienCocThieu,
                         tienCocThua: tienCocThua
                     };
@@ -3730,9 +3733,9 @@
             if (checkbox.checked) {
                 var row = checkbox.closest("tr");
                 var giaCu = row.querySelector("td.tong-tien").textContent;
-                app.tongTienSanCu += parseFloat(giaCu);
+                app.tongTienSanCu += parseFloat(giaCu.replace(/\D/g, ''));
                 var giaNew = row.querySelector("td.giaDuKienPhaiTra").textContent;
-                app.tongTienSanMoi += parseFloat(giaNew);
+                app.tongTienSanMoi += parseFloat(giaNew.replace(/\D/g, ''));
             }
 
         });
@@ -3772,7 +3775,8 @@
         giaDuKien = giaCa + giaLoaiSan;
         app.tongTienSanMoi = 0;
         app.tongTienSanMoi = parseFloat(giaDuKien) * app.arrLichCanDoi.length;
-        $(".giaDuKienPhaiTra").text(giaDuKien);
+        var giaDuKienFormatVN = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(giaDuKien);
+        $(".giaDuKienPhaiTra").text(giaDuKienFormatVN);
     };
 
     function callApiPhanTramTienCocDoiLichNhieu() {
@@ -3813,6 +3817,7 @@
                     createAndShowToast("bg-success", "Thông báo", "Thao tác thành công!");
                     resetEventByIdLoaiSan(selectedValue);
                     $(".huyXacNhan").click();
+                    $('.modal-backdrop').remove();
                     return;
                 }
                 createAndShowToast("bg-warning", "Thông báo", "Thao tác thất bại, vui lòng thử lại sau!");

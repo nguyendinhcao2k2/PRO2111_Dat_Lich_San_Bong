@@ -13,9 +13,9 @@ import org.springframework.data.repository.query.Param;
  */
 public interface DoThueAdminRepository extends JpaRepository<DoThue, String> {
 
-    @Query(value = "SELECT id as id,don_gia as donGia,so_luong as soLuong,ten_do_thue as tenDoThue,image as image FROM do_thue;", nativeQuery = true)
+    @Query(value = "SELECT id as id,don_gia as donGia,so_luong as soLuong,ten_do_thue as tenDoThue,image as image, trang_thai as trangThai FROM do_thue;", nativeQuery = true)
     Page<DoThueResponse> findAllDoThue(PageRequest request);
 
-    @Query(value = "SELECT id as id,don_gia as donGia,so_luong as soLuong,ten_do_thue as tenDoThue,image as image FROM do_thue where ten_do_thue like LOWER(CONCAT('%', :tenDoThue, '%'))", nativeQuery = true)
+    @Query(value = "SELECT id as id,don_gia as donGia,so_luong as soLuong,ten_do_thue as tenDoThue,image as image,  trang_thai as trangThai FROM do_thue where ten_do_thue like LOWER(CONCAT('%', :tenDoThue, '%'))", nativeQuery = true)
     Page<DoThueResponse> findAllByName(PageRequest request, @Param("tenDoThue") String tenDoThue);
 }

@@ -88,6 +88,7 @@ public class DoiLichOneThanhToanController {
     public ResponseEntity<?> findLichDat(@RequestBody DoiLichOneRequest doiLichOneRequestUpdate) {
         try {
             doiLichOneRequest = doiLichOneRequestUpdate;
+            System.out.println("hello:"+doiLichOneRequest.getNgayDoi());
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, doiLichOneRequestUpdate));
         } catch (Exception e) {
             e.printStackTrace();

@@ -21,4 +21,5 @@ public class DoThueRequest {
     private Integer soLuong;
     private String image;
     private Double donGia;
+    private Integer trangThai;
 }
