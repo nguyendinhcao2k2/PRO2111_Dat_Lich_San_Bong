@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 
 
 @RestController
-@RequestMapping("/api/invoice")
+@RequestMapping("/api/v1/staff/invoice")
 public class InvoiceController {
 
     @Autowired
