@@ -312,7 +312,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
             hoaDonSanCa.setMaQR(UUID.randomUUID().toString());
             hoaDonSanCa.setIdSanCa(sanCa.getId());
             hoaDonSanCa.setNgayDenSan(sanCa.getNgayDenSan());
-            hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal());
+            hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.CHO_NHAN_SAN.ordinal());
             hoaDonSanCas.add(hoaDonSanCa);
         }
         try {
