@@ -133,10 +133,10 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-java8time</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- Logback (implementation của SLF4J) -->
         <dependency>
