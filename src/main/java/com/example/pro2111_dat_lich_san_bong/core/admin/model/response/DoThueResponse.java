@@ -24,4 +24,7 @@ public interface DoThueResponse {
 
     @Value("#{target.image}")
     String getImage();
+
+    @Value("#{target.trangThai}")
+    String getTrangThai();
 }

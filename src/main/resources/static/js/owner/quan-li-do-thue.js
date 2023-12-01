@@ -26,6 +26,7 @@ var tabDoThue = new Vue({
             soLuong: 0,
             donGia: 0,
             image: null,
+            trangThai: 0,
         },
     },
     methods: {
@@ -49,7 +50,6 @@ var tabDoThue = new Vue({
                                 donGia: tabDoThue.doThue.donGia == 0 ? 0 : tabDoThue.doThue.donGia.replace(/\D/g, ''),
                             }),
                             success: function (response) {
-                                console.log(response)
                                 if (response.statusCode == 'OK') {
                                     $('[rel="formCreate"]').trigger('reset');
                                     tabDoThue.doThue.tenDoThue = "";
@@ -87,8 +87,9 @@ var tabDoThue = new Vue({
                                 id: tabDoThue.detailDoThueEntity.id,
                                 tenDoThue: tabDoThue.detailDoThueEntity.tenDoThue,
                                 soLuong: tabDoThue.detailDoThueEntity.soLuong,
-                                image: tabDoThue.detailDoThueEntity.image,
+                                image: tabDoThue.detailDoThueEntity.image == ""?null:tabDoThue.detailDoThueEntity.image,
                                 donGia: tabDoThue.detailDoThueEntity.donGia == 0 ? 0 : tabDoThue.detailDoThueEntity.donGia.replace(/\D/g, ''),
+                                trangThai: tabDoThue.detailDoThueEntity.trangThai,
                             }),
                             success: function (response) {
                                 if (response.statusCode === 'OK') {
@@ -300,6 +301,7 @@ var tabDoThue = new Vue({
                     tabDoThue.detailDoThueEntity.donGia = tabDoThue.currenlyNumBerDoThue(parseInt(response.content.donGia));
                     tabDoThue.detailDoThueEntity.soLuong = response.content.soLuong;
                     tabDoThue.detailDoThueEntity.image = response.content.image;
+                    tabDoThue.detailDoThueEntity.trangThai = response.content.trangThai;
                 },
                 error: function (error) {
                     console.log(error);

@@ -58,7 +58,6 @@ public class NuocUongServiceImpl implements NuocUongService {
     public boolean updateById(NuocUongRequest nuocUongRequest) {
         try {
             NuocUong nuocUong = mapper.map(nuocUongRequest, NuocUong.class);
-            nuocUong.setTrangThai(0);
             nuocUongRepository.save(nuocUong);
             return true;
         } catch (Exception e) {
