@@ -26,6 +26,7 @@ var tabNuocUong = new Vue({
             soLuong: 0,
             donGia: 0,
             image: null,
+            trangThai: 0,
         },
     },
     methods: {
@@ -49,7 +50,6 @@ var tabNuocUong = new Vue({
                                 donGia: tabNuocUong.NuocUong.donGia == 0 ? 0 : tabNuocUong.NuocUong.donGia.replace(/\D/g, ''),
                             }),
                             success: function (response) {
-                                console.log(response)
                                 if (response.statusCode == 'OK') {
                                     $('[rel="formCreateNuocUong"]').trigger('reset');
                                     tabNuocUong.NuocUong.tenNuocUong = "";
@@ -87,8 +87,9 @@ var tabNuocUong = new Vue({
                                 id: tabNuocUong.detailNuocUongEntity.id,
                                 tenNuocUong: tabNuocUong.detailNuocUongEntity.tenNuocUong,
                                 soLuong: tabNuocUong.detailNuocUongEntity.soLuong,
-                                image: tabNuocUong.detailNuocUongEntity.image,
+                                image: tabNuocUong.detailNuocUongEntity.image == "" ? null : tabNuocUong.detailNuocUongEntity.image,
                                 donGia: tabNuocUong.detailNuocUongEntity.donGia == 0 ? 0 : tabNuocUong.detailNuocUongEntity.donGia.replace(/\D/g, ''),
+                                trangThai: tabNuocUong.detailNuocUongEntity.trangThai,
                             }),
                             success: function (response) {
                                 if (response.statusCode === 'OK') {
@@ -300,6 +301,7 @@ var tabNuocUong = new Vue({
                     tabNuocUong.detailNuocUongEntity.donGia = tabNuocUong.currenlyNumBerNuocUong(parseInt(response.content.donGia));
                     tabNuocUong.detailNuocUongEntity.soLuong = response.content.soLuong;
                     tabNuocUong.detailNuocUongEntity.image = response.content.image;
+                    tabNuocUong.detailNuocUongEntity.trangThai = response.content.trangThai;
                 },
                 error: function (error) {
                     console.log(error);
@@ -368,7 +370,6 @@ function callApiGetNuocUong(url) {
         url: url,
         dataType: "json",
         success: function (response) {
-            console.log(response);
             if (response.content.data <= 0) {
                 tabNuocUong.pageNumberNuocUong = -1;
                 tabNuocUong.pageSizeNuocUong = 0;

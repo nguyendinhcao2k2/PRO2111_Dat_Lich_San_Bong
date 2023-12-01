@@ -14,9 +14,9 @@ import org.springframework.data.repository.query.Param;
  */
 public interface NuocUongAdminRepository extends JpaRepository<NuocUong, String> {
 
-    @Query(value = "SELECT id as 'id',don_gia as 'donGia',so_luong as 'soLuong',ten_nuoc_uong as 'tenNuocUong',image as image FROM nuoc_uong", nativeQuery = true)
+    @Query(value = "SELECT id as 'id',don_gia as 'donGia',so_luong as 'soLuong',ten_nuoc_uong as 'tenNuocUong',image as image,trang_thai as trangThai FROM nuoc_uong", nativeQuery = true)
     Page<NuocUongResponse> findAllNuocUong(PageRequest request);
 
-    @Query(value = "SELECT id as id,don_gia as donGia,so_luong as soLuong,ten_nuoc_uong as tenNuocUong,image as image FROM nuoc_uong where ten_nuoc_uong like LOWER(CONCAT('%', :tenNuocUong, '%'))", nativeQuery = true)
+    @Query(value = "SELECT id as id,don_gia as donGia,so_luong as soLuong,ten_nuoc_uong as tenNuocUong,image as image,trang_thai as trangThai FROM nuoc_uong where ten_nuoc_uong like LOWER(CONCAT('%', :tenNuocUong, '%'))", nativeQuery = true)
     Page<NuocUongResponse> findAllByName(PageRequest request, @Param("tenNuocUong") String tenNuocUong);
 }

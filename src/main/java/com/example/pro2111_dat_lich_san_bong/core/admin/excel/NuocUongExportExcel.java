@@ -14,6 +14,7 @@ import java.text.NumberFormat;
 import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class NuocUongExportExcel {
     private static void writeHeader(XSSFWorkbook workbook) {
@@ -70,6 +71,13 @@ public class NuocUongExportExcel {
         cell.setCellStyle(style);
     }
 
+    private static boolean checkBase64(String base64) {
+        // Biểu thức chính quy để kiểm tra chuỗi có phải là base64 không
+        String base64Pattern = "^(data:image/[^;]+;base64,)?[A-Za-z0-9+/]+={0,2}$";
+
+        // Kiểm tra sự khớp với biểu thức chính quy
+        return Pattern.matches(base64Pattern, base64);
+    }
 
     public static void writeData(XSSFWorkbook workbook, List<NuocUong> nuocUongList) {
         Locale locale = new Locale("vi", "VN");
@@ -88,8 +96,15 @@ public class NuocUongExportExcel {
             createCell(row, columnCount++, items.getTenNuocUong(), style);
 
             // Chèn hình ảnh vào ô
-            int imageColumn = columnCount++;
-            createImageCell(row, imageColumn, items.getImage(), workbook, style);
+            if ( items.getImage() == null || items.getImage().equals("") || items.getImage().isEmpty() || items.getImage().isBlank()) {
+                createCell(row, columnCount++, "Chưa cập nhật", style);
+            } else {
+                if (!checkBase64(items.getImage())) {
+                    createCell(row, columnCount++, "Chưa cập nhật", style);
+                } else {
+                    createImageCell(row, columnCount++, items.getImage(), workbook, style);
+                }
+            }
 
             createCell(row, columnCount++, currencyFormat.format(items.getDonGia()), style);
             createCell(row, columnCount++, items.getSoLuong(), style);

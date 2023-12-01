@@ -22,4 +22,5 @@ public class NuocUongRequest {
     private Integer soLuong;
     private Double donGia;
     private String image;
+    private String trangThai;
 }

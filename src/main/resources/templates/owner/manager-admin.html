@@ -1655,6 +1655,7 @@
                         <th>Ảnh</th>
                         <th>Đơn giá</th>
                         <th>Số lượng</th>
+                        <th>Trạng thái</th>
                         <th>Thao tác</th>
                     </tr>
                     <tr v-for="(items,index) in listDoThue">
@@ -1670,6 +1671,7 @@
                         </td>
                         <td>{{currenlyNumBerDoThue(items.donGia)}} Vnd</td>
                         <td>{{items.soLuong}}</td>
+                        <td>{{items.trangThai == 0?'Đang kinh doanh':'Ngừng kinh doanh'}}</td>
                         <td>
                             <button type="button" class="btn btn-outline-info" @click="detailDoThue(items.id)"
                                     data-bs-toggle="modal" data-bs-target="#modalDetailDoThua"><i
@@ -1787,7 +1789,6 @@
                                         ảnh:</label>
                                     <input
                                             type="file"
-                                            required
                                             ref="fileInput"
                                             class="form-control"
                                             id="idFileAnhUpdate"
@@ -1795,10 +1796,44 @@
                                             aria-describedby="addon-wrapping"
                                             accept="image/*"
                                     />
+                                    <br>
+                                    <div
+                                            class="form-check form-check-inline"
+                                            style="margin-left: 30px"
+                                    >
+                                        <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="inlineRadioOptions"
+                                                id="inlineRadio1"
+                                                value="0"
+                                                checked
+                                                v-model="detailDoThueEntity.trangThai"
+                                                :checked="detailDoThueEntity.trangThai == 0?'checked':''"
+                                        />
+                                        <label class="form-check-label" for="inlineRadio1"
+                                        >Đang kinh doanh</label
+                                        >
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="inlineRadioOptions"
+                                                id="inlineRadio2"
+                                                value="1"
+                                                v-model="detailDoThueEntity.trangThai"
+                                                :checked="detailDoThueEntity.trangThai == 1?'checked':''"
+                                        />
+                                        <label class="form-check-label" for="inlineRadio2"
+                                        >Dừng kinh doanh</label
+                                        >
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary huyModalUpdate" data-bs-dismiss="modal">Hủy</button>
-                                    <button type="submit" class="btn btn-success">Đổi lịch</button>
+                                    <button type="submit" class="btn btn-success">Cập nhật</button>
                                 </div>
                             </div>
                         </form>
@@ -1941,6 +1976,7 @@
                         <th>Ảnh</th>
                         <th>Đơn giá</th>
                         <th>Số lượng</th>
+                        <th>Trạng Thái</th>
                         <th>Thao tác</th>
                     </tr>
                     <tr v-for="(items,index) in listNuocUong">
@@ -1956,6 +1992,7 @@
                         </td>
                         <td>{{currenlyNumBerNuocUong(items.donGia)}} Vnd</td>
                         <td>{{items.soLuong}}</td>
+                        <td>{{items.trangThai}}</td>
                         <td>
                             <button type="button" class="btn btn-outline-info" @click="detailNuocUong(items.id)"
                                     data-bs-toggle="modal" data-bs-target="#modalDetailNuocUong"><i
@@ -2073,7 +2110,6 @@
                                         ảnh:</label>
                                     <input
                                             type="file"
-                                            required
                                             ref="fileInput"
                                             class="form-control"
                                             id="idFileAnhUpdateNuocUong"
@@ -2081,10 +2117,44 @@
                                             aria-describedby="addon-wrapping"
                                             accept="image/*"
                                     />
+                                    <br>
+                                    <div
+                                            class="form-check form-check-inline"
+                                            style="margin-left: 30px"
+                                    >
+                                        <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="inlineRadioOptions"
+                                                id="inlineRadio1"
+                                                value="0"
+                                                checked
+                                                v-model="detailNuocUongEntity.trangThai"
+                                                :checked="detailNuocUongEntity.trangThai == '0'?'checked':''"
+                                        />
+                                        <label class="form-check-label" for="inlineRadio1"
+                                        >Đang kinh doanh</label
+                                        >
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input
+                                                class="form-check-input"
+                                                type="radio"
+                                                name="inlineRadioOptions"
+                                                id="inlineRadio2"
+                                                value="1"
+                                                v-model="detailNuocUongEntity.trangThai"
+                                                :checked="detailNuocUongEntity.trangThai == '1'?'checked':''"
+                                        />
+                                        <label class="form-check-label" for="inlineRadio2"
+                                        >Dừng kinh doanh</label
+                                        >
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary huyModalUpdate" data-bs-dismiss="modal">Hủy</button>
-                                    <button type="submit" class="btn btn-success">Đổi lịch</button>
+                                    <button type="submit" class="btn btn-success">Cập nhật</button>
                                 </div>
                             </div>
                         </form>
