@@ -23,11 +23,17 @@ function callApiLuatSan() {
         data: "json",
         success: function (response) {
             if (response.content.length == 0) {
+                $(".thongBaoLS").append(`
+                                    <div class="alert alert-danger ">
+                        <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
+                    </div>
+                `);
                 $(".btnCreateLuatSan").prop("hidden", false);
                 $(".btnDeleteLuatSan").prop("hidden", true);
                 $(".btnDetailLuatSan").prop("hidden", true);
                 $(".btnUpdateLuatSan").prop("hidden", true);
             } else {
+                $(".thongBaoLS").remove();
                 $(".btnCreateLuatSan").prop("hidden", true);
                 $(".btnDeleteLuatSan").prop("hidden", false);
                 $(".btnDetailLuatSan").prop("hidden", false);
@@ -94,6 +100,11 @@ function deleteLuatSan() {
                         createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                         callApiLuatSan();
                         $(".thongTinLuatSan").text("");
+                        $(".thongBaoLS").append(`
+                                    <div class="alert alert-danger ">
+                        <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
+                    </div>
+                `);
                     }
                 },
                 error: function (error) {

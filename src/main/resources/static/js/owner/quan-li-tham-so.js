@@ -140,7 +140,7 @@ var tabParam = new Vue({
                     code: tabParam.paramUpdate.code,
                     name: tabParam.paramUpdate.name,
                     type: tabParam.paramUpdate.type,
-                    trangThai: parseInt(tabParam.paramUpdate.trangThai),
+                    trangThai: 0,
                 }),
                 success: function (response) {
                     if (response.statusCode == "OK") {
