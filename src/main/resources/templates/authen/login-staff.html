@@ -45,6 +45,12 @@
     <link th:href="@{/static/css/authen/login-staff.css}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
+    <style>
+        .form-label {
+            font-size: 16px;
+            color: black;
+        }
+    </style>
 </head>
 <body>
 <link rel="stylesheet" href="https://cdn.lineicons.com/2.0/LineIcons.css">
@@ -54,17 +60,17 @@
             <div class="col-lg-6 col-12 mx-auto">
                 <div class="text-center image-size-small position-relative">
                     <img src="https://annedece.sirv.com/Images/user-vector.jpg" class="rounded-circle p-2 bg-white">
-                    <div class="icon-camera">
-                        <a href="" class="text-primary"><i class="lni lni-camera"></i></a>
-                    </div>
+<!--                    <div class="icon-camera">-->
+<!--                        <a href="" class="text-primary"><i class="lni lni-camera"></i></a>-->
+<!--                    </div>-->
                 </div>
                 <div class="p-5 bg-white rounded shadow-lg">
                     <h3 class="mb-2 text-center pt-5">Nhân Viên Đăng Nhập</h3>
                     <h6 class="text-center lead">Đăng Nhập Với Vai Trò Là Nhân Viên</h6>
                     <form th:action="@{/login}" method="post">
-                        <label class="font-500">Tên Tài Khoản</label>
+                        <label class="font-500 form-label">Tên Tài Khoản</label>
                         <input th:name="username" class="form-control form-control-lg mb-3" value="nhanVien1" type="text">
-                        <label class="font-500">Mật Khẩu</label>
+                        <label class="font-500 form-label">Mật Khẩu</label>
                         <input th:name="password" class="form-control form-control-lg" type="password">
                         <a th:href="@{/authentication/home-login}">Quay lại !</a>
                         <p th:text="${thongBao}"></p>
