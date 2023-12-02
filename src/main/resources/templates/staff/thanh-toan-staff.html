@@ -412,6 +412,16 @@
                                             </div>
                                         </div>
                                     </fieldset>
+                                    <fieldset class="row mb-3">
+                                        <legend class="col-form-label col-md-4 pt-0">
+                                            In Hóa Đơn :
+                                        </legend>
+                                        <div class="col-md-8">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="checkInHoaDon">
+                                            </div>
+                                        </div>
+                                    </fieldset>
 
                                 </div>
                                 <!-- Tiền khách đưa -->
@@ -1301,6 +1311,7 @@
                     },
                     success: function (response) {
                         showMessageThanhToan();
+                        inHoaDonThanhToan();
                     },
                     error: function (error) {
                         console.error("Lỗi Ajax: ", error);
@@ -1309,7 +1320,21 @@
             }
         });
     }
-
+    function inHoaDonThanhToan() {
+        const inputElement = document.getElementById('checkInHoaDon');
+        if (inputElement) {
+            if (inputElement.checked) {
+                console.log('Checkbox đã được chọn.');
+                if (getId) {
+                    window.location.href = "/api/v1/staff/invoice/generate/" + getId;
+                } else {
+                    console.error("getId không được định nghĩa hoặc không có giá trị.");
+                }
+            }
+        } else {
+            console.log('Không tìm thấy thẻ input với ID đã chỉ định.');
+        }
+    }
     function createAndShowToast(backGround, headerText, bodyText) {
         const toastContainer = document.getElementById("toastContainer");
         const toastsContainer = document.getElementById("toasts");

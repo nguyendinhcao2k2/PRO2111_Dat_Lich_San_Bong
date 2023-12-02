@@ -14,6 +14,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
+
 
 @RestController
 @RequestMapping("/api/v1/staff/invoice")
@@ -27,7 +29,7 @@ public class InvoiceController {
 
 
         @GetMapping("/generate/{id}")
-        public ResponseEntity<byte[]> generatePdf(@PathVariable("id") String id) {
+        public ResponseEntity<byte[]> generatePdf(@PathVariable("id") String id) throws IOException {
             HoaDonThanhToanRequest hoaDonThanhToanRequest = iThanhToanSanCaStaffService.getOneHoaDonThanhToan(id);
             byte[] pdfBytes = invoiceService.generatePdf(hoaDonThanhToanRequest);
 

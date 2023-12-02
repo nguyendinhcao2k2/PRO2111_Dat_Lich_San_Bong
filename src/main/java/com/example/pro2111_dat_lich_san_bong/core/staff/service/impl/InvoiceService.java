@@ -1,8 +1,20 @@
 package com.example.pro2111_dat_lich_san_bong.core.staff.service.impl;
 
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.DichVuSanBongRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest;
+import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.HoaDonSanCaStaffRepository;
+import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.HoaDonStaffRepository;
+import com.example.pro2111_dat_lich_san_bong.core.staff.service.IDichVuSanBongStaffService;
+import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
+import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiDichVu;
+import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.io.font.FontProgramFactory;
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.colors.DeviceGray;
 import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -13,64 +25,81 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 
+import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
+import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
 
 @Service
 public class InvoiceService {
+    @Autowired
+    private HoaDonSanCaStaffRepository hoaDonSanCaStaffRepository;
 
-    public byte[] generatePdf(HoaDonThanhToanRequest id) {
+    @Autowired
+    private HoaDonStaffRepository hoaDonStaffRepository;
+    @Autowired
+    private static IDichVuSanBongStaffService iDichVuSanBongStaffService;
+
+    public byte[] generatePdf(HoaDonThanhToanRequest hoaDonThanhToanRequest) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
+        PdfFont font = PdfFontFactory.createFont("src/main/resources/static/fontPDF/UVNHaiBaTrung.TTF", "Identity-H", true);
         try (PdfWriter writer = new PdfWriter(outputStream);
              PdfDocument pdf = new PdfDocument(writer);
              Document document = new Document(pdf)) {
-            pdf.setDefaultPageSize(PageSize.A4);
-
-
-            Paragraph headerTitle = new Paragraph("HOA DON THANH TOAN")
-                    .setFontSize(20)
+            pdf.setDefaultPageSize(com.itextpdf.kernel.geom.PageSize.A4);
+            Paragraph headerTitle = new Paragraph("HÓA ĐƠN THANH TOÁN")
+                    .setFont(font)
+                    .setFontSize(40)
                     .setBold()
                     .setTextAlignment(com.itextpdf.layout.property.TextAlignment.CENTER);
             document.add(headerTitle);
 
-            Paragraph name = new Paragraph("SAN BONG DONG DE")
+            Paragraph name = new Paragraph("SÂN BÓNG ĐỒNG ĐẾ")
                     .setItalic()
-                    .setFontSize(16)
+                    .setFont(font)
+                    .setFontSize(30)
                     .setBold()
                     .setMarginBottom(10)
-                    .setTextAlignment(TextAlignment.RIGHT);
+                    .setTextAlignment(TextAlignment.CENTER);
             document.add(name);
 
             Paragraph storeAddress = new Paragraph("SD-107 / FPT POLYTECHNIC")
-                    .setFontSize(10)
+                    .setFontSize(19)
+                    .setFont(font)
                     .setItalic()
-                    .setTextAlignment(TextAlignment.RIGHT);
+                    .setTextAlignment(TextAlignment.CENTER);
             document.add(storeAddress);
 
-            document.add(createHeader("Thong Tin Khach Hang"));
-            document.add(new Paragraph("\n"));
-            document.add(createFieldAndShiftInfo("SAN THI DAU: ", String.valueOf(id.getTenSanBong())));
-            String ngayBatDau = String.valueOf(id.getThoiGianBatDau());
-            String ngayKetThuc = String.valueOf(id.getThoiGianKetThuc());
-            document.add(createFieldAndShiftInfo("Ca: ",ngayBatDau+" - "+ngayKetThuc));
-            document.add(new Paragraph("\n"));
-            document.add(createCustomerInfo(String.valueOf(id.getTenKhachHang()), "San Bong Dong De", "Emai", String.valueOf(id.getSoDienThoai()), "Cityville"));
+            document.add(createHeader("THÔNG TIN KHÁCH HÀNG")
+                    .setFont(font)
+                    .setFontSize(40));
+            document.add(createFieldAndShiftInfo("Sân Thi Đấu: ", String.valueOf(hoaDonThanhToanRequest.getTenSanBong() + " - " + hoaDonThanhToanRequest.getTenLoaiSan() + hoaDonThanhToanRequest.getTenCa()))
+                    .setFont(font)
+                    .setFontSize(25));
+            String thoiGianBatDau = String.valueOf(hoaDonThanhToanRequest.getThoiGianBatDau());
+            String thoiGianKetThuc = String.valueOf(hoaDonThanhToanRequest.getThoiGianKetThuc());
+            document.add(createFieldAndShiftInfo("Thời Gian: ", thoiGianBatDau + " - " + thoiGianKetThuc)
+                    .setFont(font)
+                    .setFontSize(25));
+            document.add(createCustomerInfo(String.valueOf(hoaDonThanhToanRequest.getTenKhachHang()), "San Bong Dong De", "Emai", String.valueOf(hoaDonThanhToanRequest.getSoDienThoai())));
 
 
             document.add(new Paragraph("\n"));
-            document.add(createHeader("Dich Vu"));
+            document.add(createHeader("DỊCH VU SỬ DỤNG").setFont(font)
+                    .setFontSize(40));
             document.add(new Paragraph("\n"));
-            document.add(createServiceUsageTable(id));
-            document.add(new Paragraph("\n"));
-            document.add(createClosingMessage("Cam On Ban Da Su Dung San Bong!"));
-            document.add(createClosingMessage("Lien He: 0356169620"));
-
+            document.add(createServiceUsageTable(hoaDonThanhToanRequest));
+            document.add(createClosingMessage("CẢM ƠN VÌ ĐÃ CHỌN CHÚNG TÔI! - - LIÊN HỆ: 0356169620")
+                    .setFont(font)
+                    .setFontSize(25));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,62 +113,63 @@ public class InvoiceService {
         Cell cell = new Cell()
                 .add(new Paragraph(name)
                         .setFontColor(new DeviceRgb(Color.BLACK))
-                        .setBold()
                         .setFontSize(18)
                         .setTextAlignment(TextAlignment.CENTER))
-                        .setMarginBottom(25)
+                .setMarginBottom(25)
                 .setBorder(Border.NO_BORDER)
                 .setBackgroundColor(new DeviceRgb(Color.GRAY));
         header.addCell(cell);
         return header;
     }
 
-    private static Table createCustomerInfo(String name, String address, String email, String phone, String city) {
+    private static Table createCustomerInfo(String name, String address, String email, String phone) throws IOException {
+        PdfFont font = PdfFontFactory.createFont("src/main/resources/static/fontPDF/UVNHaiBaTrung.TTF", "Identity-H", true);
         Table customerInfo = new Table(UnitValue.createPercentArray(new float[]{2, 2}));
         customerInfo.setWidth(UnitValue.createPercentValue(100));
 
-        customerInfo.addCell(createCell("Ten Khach Hang", name));
-        customerInfo.addCell(createCell("Dia Chi", address));
-        customerInfo.addCell(createCell("Email", email));
-        customerInfo.addCell(createCell("So Dien Thoai", phone));
-        customerInfo.addCell(createCell("City", city));
-
+        customerInfo.addCell(createCell("TÊN KHÁCH HÀNG", name).setFont(font));
+        customerInfo.addCell(createCell("ĐỊA CHỈ", address).setFont(font));
+        customerInfo.addCell(createCell("EMAIL", email).setFont(font));
+        customerInfo.addCell(createCell("SỐ ĐIỆN THOẠI", phone).setFont(font));
         // Add more rows as needed
 
         return customerInfo;
     }
 
 
-    private static Table createServiceUsageTable(HoaDonThanhToanRequest id) {
+    private static Table createServiceUsageTable(HoaDonThanhToanRequest hoaDonThanhToanRequest) {
+        List<DichVuSanBong> listDichVuSanBongs = iDichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(hoaDonThanhToanRequest.getId(), TrangThaiDichVu.Dang_Su_Dung.ordinal());
         Table serviceTable = new Table(UnitValue.createPercentArray(new float[]{2, 1, 1, 1}));
         serviceTable.setWidth(UnitValue.createPercentValue(100));
 
         // Table Header
-        serviceTable.addHeaderCell(createHeaderCell("Service Description"));
-        serviceTable.addHeaderCell(createHeaderCell("Quantity"));
-        serviceTable.addHeaderCell(createHeaderCell("Unit Price"));
-        serviceTable.addHeaderCell(createHeaderCell("Total"));
+        serviceTable.addHeaderCell(createHeaderCell("TÊN DỊCH VỤ"));
+        serviceTable.addHeaderCell(createHeaderCell("SỐ LƯỢNG"));
+        serviceTable.addHeaderCell(createHeaderCell("GIÁ"));
+        serviceTable.addHeaderCell(createHeaderCell("TỔNG"));
 
         // Sample Service Data
-        serviceTable.addCell(createCellData("Service 1"));
-        serviceTable.addCell(createCellData("Service 1"));
-        serviceTable.addCell(createCellData("Service 1"));
-        serviceTable.addCell(createCellData("Service 1"));
+        for (DichVuSanBong dichVuSanBong : listDichVuSanBongs){
+            serviceTable.addCell(createCellData(dichVuSanBong.getIdDoThue() + " - " + dichVuSanBong.getIdNuocUong()));
+            serviceTable.addCell(createCellData("Service 1"));
+            serviceTable.addCell(createCellData("Service 1"));
+            serviceTable.addCell(createCellData("Service 1"));
+        }
 
-        serviceTable.addCell(createTotalCell("Tong Tien", String.valueOf(id.getTongTienSanCa())));
+        serviceTable.addCell(createTotalCell("Tong Tien", String.valueOf(hoaDonThanhToanRequest.getTongTienSanCa())));
 
         return serviceTable;
     }
 
     private static Cell createCell(String header, String content) {
-        return new Cell().add(new Paragraph(header))
+        return new Cell().add(new Paragraph(header).setFontSize(20))
                 .setBorder(new SolidBorder(DeviceGray.BLACK, 1))
                 .setVerticalAlignment(VerticalAlignment.MIDDLE)
                 .setTextAlignment(TextAlignment.CENTER)
-                .add(new Paragraph(content).setBold());
+                .add(new Paragraph(content).setFontSize(20));
     }
 
-    private static Cell createCellData( String data) {
+    private static Cell createCellData(String data) {
         return new Cell().add(new Paragraph(data))
                 .setBorder(new SolidBorder(DeviceGray.BLACK, 1))
                 .setVerticalAlignment(VerticalAlignment.MIDDLE)
@@ -154,7 +184,7 @@ public class InvoiceService {
     }
 
     private static Cell createTotalCell(String header, String total) {
-        return new Cell(1, 4).add(new Paragraph(header).setBold())
+        return new Cell(1, 4).add(new Paragraph(header))
                 .setBorder(new SolidBorder(DeviceGray.BLACK, 1))
                 .setVerticalAlignment(VerticalAlignment.MIDDLE)
                 .setTextAlignment(TextAlignment.RIGHT)
@@ -163,8 +193,8 @@ public class InvoiceService {
 
     private static Paragraph createFieldAndShiftInfo(String fieldInfo, String title) {
         Paragraph info = new Paragraph()
-                .add(new Paragraph(fieldInfo).setFontSize(12).setBold())
-                .add(new Paragraph(title).setFontSize(12).setBold()).setFontColor(new DeviceRgb(Color.RED));
+                .add(new Paragraph(fieldInfo).setFontSize(12))
+                .add(new Paragraph(title).setFontSize(12)).setFontColor(new DeviceRgb(Color.BLACK));
         return info;
     }
 
