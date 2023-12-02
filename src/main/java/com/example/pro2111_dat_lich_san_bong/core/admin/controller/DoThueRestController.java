@@ -23,9 +23,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * @author caodinh
- */
+
 
 @RestController
 @RequestMapping("/api/v1/admin/do-thue")

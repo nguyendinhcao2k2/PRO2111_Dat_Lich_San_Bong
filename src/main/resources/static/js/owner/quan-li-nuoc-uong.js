@@ -316,6 +316,7 @@ var tabNuocUong = new Vue({
             var url = "http://localhost:8081/api/v1/admin/nuoc-uong/find-by-name?tenNuocUong=" + event.target.value;
             callApiGetNuocUong(url);
             tabNuocUong.indexSearchNuocUong = 1;
+
             if (event.target.value === "" || event.target.value == null) {
                 tabNuocUong.indexSearchNuocUong = 0;
                 callApiGetNuocUong("http://localhost:8081/api/v1/admin/nuoc-uong/find-all");
