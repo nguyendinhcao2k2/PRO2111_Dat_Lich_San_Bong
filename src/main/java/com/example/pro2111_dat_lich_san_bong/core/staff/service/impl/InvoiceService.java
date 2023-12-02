@@ -138,7 +138,6 @@ public class InvoiceService {
 
 
     private static Table createServiceUsageTable(HoaDonThanhToanRequest hoaDonThanhToanRequest) {
-        List<DichVuSanBong> listDichVuSanBongs = iDichVuSanBongStaffService.findAllByIdHoaDonSanCaAndTrangThai(hoaDonThanhToanRequest.getId(), TrangThaiDichVu.Dang_Su_Dung.ordinal());
         Table serviceTable = new Table(UnitValue.createPercentArray(new float[]{2, 1, 1, 1}));
         serviceTable.setWidth(UnitValue.createPercentValue(100));
 
@@ -149,13 +148,10 @@ public class InvoiceService {
         serviceTable.addHeaderCell(createHeaderCell("TỔNG"));
 
         // Sample Service Data
-        for (DichVuSanBong dichVuSanBong : listDichVuSanBongs){
-            serviceTable.addCell(createCellData(dichVuSanBong.getIdDoThue() + " - " + dichVuSanBong.getIdNuocUong()));
-            serviceTable.addCell(createCellData("Service 1"));
-            serviceTable.addCell(createCellData("Service 1"));
-            serviceTable.addCell(createCellData("Service 1"));
-        }
-
+        serviceTable.addCell(createCellData("Service 1"));
+        serviceTable.addCell(createCellData("Service 1"));
+        serviceTable.addCell(createCellData("Service 1"));
+        serviceTable.addCell(createCellData("Service 1"));
         serviceTable.addCell(createTotalCell("Tong Tien", String.valueOf(hoaDonThanhToanRequest.getTongTienSanCa())));
 
         return serviceTable;
