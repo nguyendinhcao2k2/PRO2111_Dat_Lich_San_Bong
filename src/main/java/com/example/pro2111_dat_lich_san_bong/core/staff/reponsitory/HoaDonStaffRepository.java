@@ -82,4 +82,6 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "        and tb2.trang_thai = 2 ", nativeQuery = true)
     List<CheckInResponse> listCheckIn(String param);
 
+    HoaDon findHoaDonById(String idHoaDon);
+
 }

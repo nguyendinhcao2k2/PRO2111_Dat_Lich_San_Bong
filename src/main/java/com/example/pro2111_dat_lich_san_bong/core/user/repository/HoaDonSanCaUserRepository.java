@@ -77,10 +77,10 @@ public interface HoaDonSanCaUserRepository extends HoaDonSanCaReponsitory {
            c.ten_ca as 'tenCa'
        FROM hoa_don_san_ca hd_sc
        join hoa_don hd on hd.id = hd_sc.id_hoa_don
-       join account acc on acc.id = hd.id_account
        JOIN san_ca sc ON sc.id = hd_sc.id_san_ca
        join ca c on c.id = sc.id_ca
        WHERE hd_sc.id_hoa_don = :req
+       order by hd_sc.ngay_den_san , c.ten_ca
     """,nativeQuery = true)
     List<HoaDonSendMailResponse> getLisTHDSC(@Param("req") String idHoaDon);
 
@@ -101,6 +101,7 @@ public interface HoaDonSanCaUserRepository extends HoaDonSanCaReponsitory {
        JOIN san_ca sc ON sc.id = hd_sc.id_san_ca
        join ca c on c.id = sc.id_ca
        WHERE hd_sc.id_hoa_don = :req
+       order by hd_sc.ngay_den_san , c.ten_ca
     """,nativeQuery = true)
     List<HoaDonSendMailResponse> getListHoaDonSanCa(@Param("req") String idHoaDon);
 }

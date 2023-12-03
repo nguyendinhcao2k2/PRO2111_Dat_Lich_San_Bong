@@ -86,6 +86,7 @@
 
         /*màu của trạng thái của sân ca và đặt lịch*/
         .event-class-1 {
+            /* 1 là trạng thái đang đá*/
             background-color: #7cd28f; /* Example color */
             color: #fff;
         }
@@ -103,7 +104,7 @@
         }
 
         .event-class-4 {
-            /* 3 là trạng thái Đặt nhưng không đá*/
+            /* 4 là trạng thái Đặt nhưng không đá*/
             background-color: #dc3545; /* Example color */
             color: #fff;
         }
@@ -113,20 +114,18 @@
             background-color: #d35400; /* Example color */
             color: #fff;
         }
-
-        /*màu của trạng thái của sân ca và đặt lịch*/
-
-
         .event-class {
+            /*trạng thái tạo mới*/
             background-color: #009578; /* Example color */
             color: #fff;
         }
 
         .event-class-full {
+            /*trạng thái sân đã full*/
             background-color: #fbc12d; /* Example color */
             color: #fff;
         }
-
+        /*màu của trạng thái của sân ca và đặt lịch*/
         /*LAMNP UPDATE 28/10*/
         /* Đảm bảo tooltip có z-index cao hơn */
         .event-tooltip {
@@ -768,8 +767,8 @@
                     <div class="row">
                         <!--Mobiscroll-->
                         <div
-                                class="col-12 col-sm-12 col-md-2 p-1"
-                                style="border-right: #171717 1px"
+                                class="col-12 col-sm-12 col-md-3 p-1"
+                                style="border-right: #171717 1px;    width: 20%;"
                         >
                             <div class="demo-multiple-select">
                                 <div class="mbsc-form-group">
@@ -788,7 +787,7 @@
                             </div>
                         </div>
                         <!-- FULL CALENDAR -->
-                        <div class="col-12 col-sm-12 col-md-7 p-1">
+                        <div class="col-12 col-sm-12 col-md-6 p-1" style="width: 55%;">
                             <div class="body-row-col">
                                 <div>
                                     <div id="calendar"></div>
@@ -2272,6 +2271,16 @@
 
                     var newDate = new Date(year, month, day);
                     //chọn ngày trên lịch nhỏ Đặt ngày trên FullCalendar
+                    var eventsClickShowEvent = calendar.getEvents();
+
+                    // Lọc sự kiện cho ngày được click
+                    var eventsForSelectedDate = eventsClickShowEvent.filter(function (
+                        event
+                    ) {
+                        return isSameDay(event.start, newDate);
+                    });
+                    // Hiển thị các sự kiện trong bảng
+                    displayEventsInTable(eventsForSelectedDate);
                     calendar.gotoDate(newDate);
                     calendar.select(newDate);
                 },
@@ -2447,9 +2456,7 @@
     function resetEventByIdLoaiSan(idLoaiSan) {
         $('#tableShow').html('');
         selectedValue = idLoaiSan;
-        calendar.getEvents().forEach(function (event) {
-            event.remove();
-        });
+        calendar.removeAllEvents();
 
         findEventByLoaiSan(idLoaiSan)
             .then(function (events) {

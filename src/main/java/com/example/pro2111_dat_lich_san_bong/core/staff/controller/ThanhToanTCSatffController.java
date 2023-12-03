@@ -1,10 +1,9 @@
-package com.example.pro2111_dat_lich_san_bong.core.user.controller;
+package com.example.pro2111_dat_lich_san_bong.core.staff.controller;
 
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.LichSuSanBongAdminService;
 import com.example.pro2111_dat_lich_san_bong.core.common.base.BaseController;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.runSchedule.RunJobHuyHDByOutTab;
-import com.example.pro2111_dat_lich_san_bong.core.schedule.runSchedule.RunJobHuyLichSanCa;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.HoDonDatLichResponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonSanCaUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonUserService;
@@ -26,27 +25,21 @@ import com.example.pro2111_dat_lich_san_bong.model.request.SendMailRequest;
 import com.example.pro2111_dat_lich_san_bong.model.response.MaillListResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.thymeleaf.context.Context;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -57,9 +50,9 @@ import java.util.List;
  * @author thepvph20110
  */
 @Controller
-@RequestMapping("/api/v1/user/thanh-toan")
+@RequestMapping("/api/v1/staff/thanh-toan")
 @SessionAttributes("HDCreateBill")
-public class ThanhToanTCUserController extends BaseController {
+public class ThanhToanTCSatffController extends BaseController {
 
     @Autowired
     private VNPayService vnPayService;
