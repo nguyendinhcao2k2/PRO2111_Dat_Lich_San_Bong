@@ -290,7 +290,7 @@
                                         style="font-size: 20px; font-weight: 200; color: black"
                                 >Giá tiền</label
                                 >
-                                <span th:text="${item.tienSan+' VND'}">500.000 VND</span>
+                                <span id="giaSanId">500.000 VND</span>
                             </p>
                         </div>
                     </div>
@@ -349,6 +349,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"
 ></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
     var maQRValue = '[[${item.maQR}]]';
     var qrcode = new QRCode("qrcode", {
@@ -358,7 +359,16 @@
         colorDark: "black", // Màu của ô vuông khi có dữ liệu
         colorLight: "whitesmoke",
     });
+    var giaSan = '[[${item.tienSan}]]';
+    function formatCurrencyVND(amount) {
+        const formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        });
 
+        return formatter.format(amount);
+    }
+    $('#giaSanId').html(formatCurrencyVND(giaSan));
 </script>
 </body>
 </html>

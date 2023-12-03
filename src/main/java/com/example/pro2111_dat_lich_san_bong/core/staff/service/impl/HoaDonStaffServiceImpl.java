@@ -12,6 +12,7 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.service.HoaDonStaffServi
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IGiaoCaStaffService;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IHoaDonSanCaStaffQRCodeService;
 import com.example.pro2111_dat_lich_san_bong.entity.Ca;
+import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.entity.LichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
@@ -111,5 +112,15 @@ public class HoaDonStaffServiceImpl implements HoaDonStaffService {
         } catch (Exception e) {
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.NOT_FOUND, "NOT_FOUND"));
         }
+    }
+
+    @Override
+    public HoaDon getHoaDonById(String idHoaDon) {
+        return hoaDonStaffRepository.findHoaDonById(idHoaDon);
+    }
+
+    @Override
+    public HoaDon updateHoaDon(HoaDon hoaDon) {
+        return hoaDonStaffRepository.saveAndFlush(hoaDon);
     }
 }
