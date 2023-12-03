@@ -85,10 +85,19 @@
                         <img
                                 class="rounded-circle mt-5"
                                 width="150px"
+                               th:if="${account.image != null and account.image != ''}"
+                                th:src="'data:image/png;base64,' + ${account.image}" alt="Hình ảnh"
+                        />
+                        <img
+                                th:if="${account.image == null or account.image == ''}"
+                                class="rounded-circle mt-5"
+                                width="150px"
                                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                        /><span class="font-weight-bold form-label">Nguyễn Anh Thy</span
-                    ><span class="text-black-50 form-label">edogaru@mail.com.my</span
-                    ><span> </span>
+                        /><span class="font-weight-bold form-label" th:text="${account.displayName}">Nguyễn Anh Thy</span
+                    ><span class="text-black-50 form-label" th:if="${account.email != null and account.email !=''}" th:text="${account.email}" >edogaru@mail.com.my</span
+                    ><span class="text-black-50 form-label"  th:if="${account.email == null or account.email ==''}">Chưa cập nhật</span
+                    >
+                        <span> </span>
                     </div>
                 </div>
                 <div class="col-md-6 border-right">
@@ -105,7 +114,7 @@
                                     type="text"
                                     class="form-control"
                                     placeholder="first name"
-                                    value=""
+                                    th:value="${account.displayName}"
                             />
                             </div>
                             <div class="col-md-6">
@@ -113,7 +122,8 @@
                                 ><input
                                     type="text"
                                     class="form-control"
-                                    value=""
+                                    th:value="${account.taiKhoan}"
+                                    readonly
                                     placeholder="surname"
                             />
                             </div>
@@ -125,56 +135,20 @@
                                     type="text"
                                     class="form-control"
                                     placeholder="enter phone number"
-                                    value=""
+                                    th:value="${account.soDienThoai}"
                             />
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label class="form-label">Email</label
-                                ><input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="enter email id"
-                                    value=""
-                            />
+                                <label class="form-label">Email</label>
+
+                                <input type="text" class="form-control"
+                                       th:if="${account.email != null and account.email != ''}"
+                                       th:value="${account.email}" />
+
+                                <input type="text" class="form-control" placeholder="Chưa cập nhật"
+                                       th:if="${account.email == null or account.email == ''}" />
                             </div>
-                            <div class="col-md-12 mb-3">
-                                <label class="form-label">Địa Chỉ</label
-                                ><input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="enter address line 1"
-                                    value=""
-                            />
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <label class="form-label">Education</label
-                                ><input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="education"
-                                    value=""
-                            />
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Country</label
-                                ><input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="country"
-                                    value=""
-                            />
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">State/Region</label
-                                ><input
-                                    type="text"
-                                    class="form-control"
-                                    value=""
-                                    placeholder="state"
-                            />
-                            </div>
+
                         </div>
                         <div class="mt-5 text-center">
                             <button class="btn btn-success btn-labeled" type="button">
@@ -185,36 +159,49 @@
                 </div>
                 <div class="col-md-3">
                     <div class="p-3 py-5">
+                        <form>
                         <div
                                 class="d-flex justify-content-between align-items-center experience"
                         >
-                <span>Edit Experience</span
+
+                <span>Đổi mật khẩu</span
                 ><span class="border px-3 p-1 add-experience"
-                        ><i class="fa fa-plus"></i>&nbsp;Experience</span
+                        ><i class="fa fa-plus"></i>&nbsp;Xác nhận</span
                         >
                         </div>
                         <br />
                         <div class="col-md-12">
-                            <label class="labels">Experience in Designing</label
-                            ><input
-                                type="text"
-                                class="form-control"
-                                placeholder="experience"
-                                value=""
-                        />
+                            <label class="labels">Mật khẩu cũ</label>
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" aria-label="Text input with checkbox">
+                                <div class="input-group-text">
+                                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
                         </div>
                         <br />
                         <div class="col-md-12">
-                            <label class="labels">Additional Details</label
-                            ><input
-                                type="text"
-                                class="form-control"
-                                placeholder="additional details"
-                                value=""
-                        />
+                            <label class="labels">Mật khẩu Mới</label>
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" aria-label="Text input with checkbox">
+                                <div class="input-group-text">
+                                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-md-12">
+                            <label class="labels"> Xác Nhận Mật khẩu</label>
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" aria-label="Text input with checkbox">
+                                <div class="input-group-text">
+                                    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

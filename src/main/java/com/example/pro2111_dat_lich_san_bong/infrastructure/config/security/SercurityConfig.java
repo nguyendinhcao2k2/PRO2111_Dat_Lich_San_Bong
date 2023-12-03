@@ -74,8 +74,9 @@ public class SercurityConfig {
         http
                 .cors().and().csrf().disable().authorizeHttpRequests()
                 .requestMatchers("/authentication/**", "/error").permitAll()
-                .requestMatchers("/chi-tiet/hoa-don","/api/v1/trang-chu").permitAll()
+                .requestMatchers("/chi-tiet/hoa-don", "/api/v1/trang-chu").permitAll()
                 .requestMatchers("/static/**").permitAll()
+                .requestMatchers("/api/v1/profile").hasAnyAuthority(RoleConstant.roleAdmin, RoleConstant.roleStaff, RoleConstant.roleUser)
                 .requestMatchers("/api/v1/admin/**").hasAuthority(RoleConstant.roleAdmin)
                 .requestMatchers("/api/v1/staff/**").hasAuthority(RoleConstant.roleStaff)
                 .requestMatchers("/api/v1/user/**").hasAuthority(RoleConstant.roleUser)
