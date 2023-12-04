@@ -10,7 +10,7 @@ public class ForgotPassController {
 
     @GetMapping("/forgot-pass")
     public String getForgetPassword() {
-        return "authen/forgot-pass";
+        return "authen/reset-password";
     }
 
     @GetMapping("/otp-form")

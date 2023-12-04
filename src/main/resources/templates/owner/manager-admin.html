@@ -601,6 +601,7 @@
                             <div class="modal-body">
                                 <input type="text" hidden v-model="loaiSan.id"/>
                                 <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Tên loại sân</span>
                                     <input
                                             type="text"
                                             class="form-control"
@@ -611,6 +612,7 @@
                                     />
                                 </div>
                                 <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Giá loại sân</span>
                                     <input
                                             type="text"
                                             class="form-control"
@@ -621,6 +623,7 @@
                                             v-model="loaiSan.giaSan"
                                             min="0"
                                     />
+                                    <span class="input-group-text" id="basic-addon1">Vnd</span>
                                 </div>
                                 Danh sách loại sân
                                 <table class="table table-bordered table-header table-container">
@@ -631,7 +634,7 @@
                                     </tr>
                                     <tr v-for="items in arrLoaiSan">
                                         <td>{{items.tenLoaiSan}}</td>
-                                        <td>{{items.giaSan}}</td>
+                                        <td>{{currenlyNumberSB(items.giaSan)}}</td>
                                         <td>
                                             <button
                                                     style="
@@ -649,15 +652,11 @@
                                                 ></i>
                                             </button>
                                             <button
-                                                    style="
-                              background-color: white;
-                              border: 1px solid red;
-                            "
                                                     type="button"
-                                                    class="deletebtn btn btn-primary"
+                                                    class=" btn btn-outline-info"
                                                     @click="detailLoaiSan(items.id)"
                                             >
-                                                <i class="fa fa-refresh" aria-hidden="true"></i>
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -696,7 +695,7 @@
                     <td>{{index+1}}</td>
                     <td>{{items.tenSanBong}}</td>
                     <td>{{findByIdLoaiSan(items.idLoaiSan).tenLoaiSan}}</td>
-                    <td>{{currenNumber(items.giaSan)}}</td>
+                    <td>{{currenlyNumberSB(items.giaSan)}}</td>
                     <td>
                         {{parseInt(items.trangThai) == 0?"Bình thường":"Sửa chữa"}}
                     </td>
@@ -714,8 +713,7 @@
                         </button>
                         <button
                                 type="button"
-                                style="background-color: white; border: 1px solid red"
-                                class="deletebtn btn btn-primary"
+                                class=" btn btn-outline-info"
                                 data-bs-toggle="modal"
                                 data-bs-target="#detailSanBong"
                                 @click="detailSanBong(items.id)"
@@ -992,7 +990,7 @@
                                                     style="border-radius: 5px"
                                             >
                                                 <option selected value="0">Tất cả</option>
-                                                <option value="1">Giao ca có rú tiền</option>
+                                                <option value="1">Giao ca có rút tiền</option>
                                             </select>
                                         </div>
                                         <!-- Ngày -->
@@ -1141,16 +1139,29 @@
                 <!-- offcanvas body  -->
                 <div class="offcanvas-body">
                     <form>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Tên nhân viên</label>
-                            <input
-                                    type="text"
-                                    class="form-control tenNVCT"
-                                    readonly
-                                    id="name"
-                                    name="name"
-                            />
+                        <div class="row">
+                            <div class=" col-6 mb-3">
+                                <label for="name" class="form-label">Tên nhân viên trong ca</label>
+                                <input
+                                        type="text"
+                                        class="form-control tenNVTC"
+                                        readonly
+                                        id="name"
+                                        name="name"
+                                />
+                            </div>
+                            <div class="col-6  mb-3">
+                                <label for="name" class="form-label">Tên nhân viên ca tiếp theo</label>
+                                <input
+                                        type="text"
+                                        class="form-control tenNVCTT"
+                                        readonly
+                                        id="name"
+                                        name="name"
+                                />
+                            </div>
                         </div>
+
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label for="time" class="form-label">Thời gian nhận ca</label>
@@ -1189,6 +1200,7 @@
                         <div class="mb-3">
                             <label for="time" class="form-label">Tiền phát sinh</label>
                             <input
+                                    style="background-color: wheat"
                                     type="text"
                                     class="form-control tienPhatSinhCT"
                                     id="time"

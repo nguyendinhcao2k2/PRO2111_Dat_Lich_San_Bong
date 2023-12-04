@@ -1,22 +1,32 @@
 $(document).ready(() => {
-    $(".senMail").click(() => {
+    $(".guiThongTin").click(() => {
         var email = $("#typeEmail").val();
-        if (email == "" || email == null) {
-            $(".thongBao").text("*Vui lòng không để trống");
+        var taiKhoan = $("#userName").val();
+        if(taiKhoan == "" || taiKhoan == null){
+            $(".thongBaoTenTaiKhoan").text("*Vui lòng không để trống");
+            $(".thongBaoEmail").text("");
             return;
         }
+        if (email == "" || email == null) {
+            $(".thongBaoEmail").text("*Vui lòng không để trống");
+            $(".thongBaoTenTaiKhoan").text("");
+            return;
+        }
+
         var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!regex.test(email)) {
-            $(".thongBao").text("*Email không đúng định dạng");
+            $(".thongBaoEmail").text("*Email không đúng định dạng");
             return;
         }
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/static/check-email?email=" + email,
+            url: "http://localhost:8081/static/check-email?email=" + email+"&taiKhoan="+taiKhoan,
             success: function (response) {
                 console.log(response)
                 if (response.statusCode === 'NOT_FOUND') {
-                    $(".thongBao").text("*Không tìm thấy email này");
+                    $(".thongBaoTenTaiKhoan").text("");
+                    $(".thongBaoEmail").text("");
+                    $(".thongBaoTong").text("*Không tìm thấy tài khoản với email này!");
                     return;
                 }
                 // Lấy thời gian hiện tại
@@ -31,7 +41,7 @@ $(document).ready(() => {
             },
             error: function (error) {
                 console.log(error);
-                $(".thongBao").text("*Không tìm thấy email này");
+                $(".thongBaoEmail").text("*Không tìm thấy email này");
             }
         })
     });

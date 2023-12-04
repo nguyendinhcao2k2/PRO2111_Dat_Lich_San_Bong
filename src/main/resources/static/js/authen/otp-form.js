@@ -28,7 +28,7 @@ $(document).ready(() => {
                     success: function (response) {
                         if (response.statusCode === 'OK') {
                             alert("Mật khẩu mới đã được gửi về mail của bạn!");
-                            window.location.href = "http://localhost:8081/authentication/user-login";
+                            window.location.href = "http://localhost:8081/authentication/home-login";
                             return;
                         }
                     },

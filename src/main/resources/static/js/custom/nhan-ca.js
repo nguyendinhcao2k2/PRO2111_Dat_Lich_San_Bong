@@ -87,6 +87,9 @@ var app = new Vue({
     },
     methods: {
         validatePrice(event) {
+            if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
+                event.target.value = 0;
+            }
             try {
                 this.checkTrong(event);
                 event.target.value = parseInt(event.target.value).toLocaleString(

@@ -26,7 +26,7 @@ public class SanBongAdminServiceImpl implements SanBongAdminService {
     @Override
     public Page<SanBongAdminRespone> getAll(Pageable pageable) {
         try {
-            Page<SanBong> listSanBong = sanBongAdminRepository.findAll(pageable);
+            Page<SanBong> listSanBong = sanBongAdminRepository.findAllSanBongAndLuatSan(pageable);
             TypeToken<Page<SanBongAdminRespone>> token = new TypeToken<Page<SanBongAdminRespone>>() {
             };
             return modelMapper.map(listSanBong, token.getType());
