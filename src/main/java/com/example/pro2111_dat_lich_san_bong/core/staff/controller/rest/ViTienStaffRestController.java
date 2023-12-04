@@ -12,6 +12,7 @@ import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.entity.LichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.LoaiHinhThanhToan;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiViTien;
@@ -71,6 +72,7 @@ public class ViTienStaffRestController {
             viTienCoc.setTrangThai(TrangThaiViTien.BINH_THUONG.ordinal());
             viTienCoc.setThoiGianTao(new Timestamp(System.currentTimeMillis()));
             viTienCoc.setIdHoaDon(request.getIdHoaDon());
+            viTienCoc.setTypePayment(LoaiHinhThanhToan.TIEN_MAT.ordinal());
             viTienStaffService.saveViTien(viTienCoc);
 
             HoaDon hoaDon = hoaDonStaffService.getHoaDonById(request.getIdHoaDon());
