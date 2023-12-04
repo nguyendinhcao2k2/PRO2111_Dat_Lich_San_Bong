@@ -283,82 +283,105 @@
     <div class="tab-content" id="myTabContent">
         <!-- Tab 1 -->
         <div
-                class="tab-pane fade tabAccount mt-2"
+                class="tab-pane fade  tabAccount"
                 id="tab1"
                 role="tabpanel"
                 aria-labelledby="tab1-tab"
         >
-            <div class="row">
-                <div class="col-md-5 border-right">
-                    <form class="container" @submit.prevent="confirmSave">
-                        <div class="row mt-4">
-                            <div class="col-md-12 mt-2">
-                                <div class="input-group flex-nowrap">
-                                      <span class="input-group-text" id="addon-wrapping"
-                                      >Email
-                                      </span>
-                                    <input
-                                            type="email"
-                                            class="form-control"
-                                            name="tenSanPham"
-                                            required
-                                            placeholder="Email"
-                                            aria-describedby="addon-wrapping"
-                                            v-model="account.email"
-                                    />
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-2">
-                                <div class="input-group flex-nowrap">
-                                          <span class="input-group-text" id="addon-wrapping"
-                                          >UserName</span>
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            name="tenSanPham"
-                                            required
-                                            placeholder="Tài khoản"
-                                            aria-describedby="addon-wrapping"
-                                            v-model="account.taiKhoan"
-                                    />
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-2">
-                                <div class="input-group flex-nowrap">
-                                      <span class="input-group-text" id="addon-wrapping"
-                                      >Mật Khẩu</span
-                                      >
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            name="tenSanPham"
-                                            required
-                                            placeholder="Mật Khẩu"
-                                            aria-describedby="addon-wrapping"
-                                            v-model="account.matKhau"
-                                    />
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-2">
-                                <div class="input-group flex-nowrap">
-                                      <span class="input-group-text" id="addon-wrapping"
-                                      >Số điện thoại</span>
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            name="tenSanPham"
-                                            required
-                                            placeholder="Số điện thoại"
-                                            aria-describedby="addon-wrapping"
-                                            v-model="account.soDienThoai"
-                                    />
-                                </div>
-                            </div>
+            <br/>
+            <div class="input-group flex-nowrap container">
+            <span
+                    class="input-group-text"
+                    id="addon-wrapping"
+                    style="cursor: pointer"
+                    @click="search"
+            ><i class="fa fa-search" aria-hidden="true"></i
+            ></span>
+                <input
+                        type="email"
+                        class="form-control"
+                        name="tenSanPham"
+                        required
+                        placeholder="Nhập số điện thoại"
+                        aria-describedby="addon-wrapping"
+                        v-model="searchSDT"
+                        @input="search"
+                />
+            </div>
+            <br/>
+            <form class="container" @submit.prevent="confirmSave">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Email</span
+                  >
+                            <input
+                                    type="email"
+                                    class="form-control"
+                                    name="tenSanPham"
+                                    required
+                                    placeholder="Email"
+                                    aria-describedby="addon-wrapping"
+                                    v-model="account.email"
+                            />
                         </div>
-                        <div style="display: flex;justify-content: center;align-items: center">
-                            <button type="submit" class="btn btn-success mt-2">Lưu</button>
+                        <br/>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >UserName</span
+                  >
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="tenSanPham"
+                                    required
+                                    placeholder="Tài khoản"
+                                    aria-describedby="addon-wrapping"
+                                    v-model="account.taiKhoan"
+                            />
                         </div>
-                    </form>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Mật Khẩu</span
+                  >
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="tenSanPham"
+                                    required
+                                    placeholder="Mật Khẩu"
+                                    aria-describedby="addon-wrapping"
+                                    v-model="account.matKhau"
+                            />
+                        </div>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping"
+                  >Số điện thoại</span
+                  >
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="tenSanPham"
+                                    required
+                                    placeholder="Số điện thoại"
+                                    aria-describedby="addon-wrapping"
+                                    v-model="account.soDienThoai"
+                            />
+                        </div>
+                        <br/>
+                        <br/>
+                    </div>
                 </div>
                 <div style="display: flex;justify-content: center;align-items: center">
                     <button type="submit" class="btn btn-success">Lưu</button>
@@ -392,101 +415,52 @@
                         <span v-if="items.image === null">Chưa cập nhật</span>
                         <img
                                 v-else
-                                :src="`data:image/png;base64,${items.image}`" alt="Ảnh Base64"
-                                style="width: 50px; height: 50px">
-                <div class="col-md-7 ">
-                    <div class="input-group flex-nowrap container">
-                        <span
-                                class="input-group-text"
-                                id="addon-wrapping"
-                                style="cursor: pointer"
-                                @click="search"
-                        ><i class="fa fa-search" aria-hidden="true"></i>
-                        </span>
-                        <input
-                                type="email"
-                                class="form-control"
-                                name="tenSanPham"
-                                required
-                                placeholder="Nhập số điện thoại"
-                                aria-describedby="addon-wrapping"
-                                v-model="searchSDT"
-                                @input="search">
+                                :src="`data:image/png;base64,${items.image}`"
+                                style="width: 50px; height: 50px"
                         />
-                    </div>
-                    <table class="table table-header table-hover mt-5">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">UserName</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Số điện thoại</th>
-                            <th scope="col">Tên hiện thị</th>
-                            <th scope="col">Image</th>
-                            <th scope="col">Thao tác</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr v-for="(items,index) in arrayAccount">
-                            <td>{{index +1}}</td>
-                            <td>{{items.taiKhoan}}</td>
-                            <td>{{items.email}}</td>
-                            <td>
-                                {{items.soDienThoai ==null?"Chưa cập nhật":items.soDienThoai}}
-                            </td>
-                            <td>{{items.displayName}}</td>
-                            <td>
-                                <span v-if="items.image === null">Chưa cập nhật</span>
-                                <img
-                                        v-else
-                                        :src="`http://localhost:8081/static/img/${items.image}`"
-                                        style="width: 50px; height: 50px"
-                                />
-                            </td>
-                            <td>
-                                <button
-                                        style="background-color: white; border: 1px solid red"
-                                        class="deletebtn btn btn-primary"
-                                        @click="confirmDeleteById(items.id)"
-                                >
-                                    <i
-                                            class="fa fa-trash"
-                                            style="color: red"
-                                            aria-hidden="true"
-                                    ></i>
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div class="row" style="display: flex; margin: 0 auto">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-1">
-                            <select class="pageSizeSelect">
-                                <option value="5" selected>5</option>
-                                <option value="10">10</option>
-                                <option value="15">15</option>
-                                <option value="20">20</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item previousPage">
-                                        <a class="page-link" style="cursor: pointer">Previous</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link">{{curentPage +1}}/{{totalPage}}</a>
-                                    </li>
-                                    <li class="page-item nextPage">
-                                        <a class="page-link" style="cursor: pointer">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
+                    </td>
+                    <td>
+                        <button
+                                style="background-color: white; border: 1px solid red"
+                                class="deletebtn btn btn-primary"
+                                @click="confirmDeleteById(items.id)"
+                        >
+                            <i
+                                    class="fa fa-trash"
+                                    style="color: red"
+                                    aria-hidden="true"
+                            ></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br/>
+            <div class="row" style="display: flex; margin: 0 auto">
+                <div class="col-md-4"></div>
+                <div class="col-md-1">
+                    <select class="pageSizeSelect">
+                        <option value="5" >5</option>
+                        <option value="10" selected>10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item previousPage">
+                                <a class="page-link" style="cursor: pointer">Previous</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link">{{curentPage +1}}/{{totalPage}}</a>
+                            </li>
+                            <li class="page-item nextPage">
+                                <a class="page-link" style="cursor: pointer">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -871,8 +845,8 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-1">
                     <select class="pageSizeSelect">
-                        <option value="5" selected>5</option>
-                        <option value="10">10</option>
+                        <option value="5" >5</option>
+                        <option value="10" selected>10</option>
                         <option value="15">15</option>
                         <option value="20">20</option>
                         <option value="100">100</option>
@@ -1726,8 +1700,8 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-1">
                         <select class="pageSizeSelectDoThue" @change="pageSizeSelectDoThue">
-                            <option value="5" selected>5</option>
-                            <option value="10">10</option>
+                            <option value="5" >5</option>
+                            <option value="10" selected>10</option>
                             <option value="15">15</option>
                             <option value="20">20</option>
                             <option value="100">100</option>
@@ -2047,8 +2021,8 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-1">
                         <select class="pageSizeSelectNuocUong" @change="pageSizeSelectNuocUong">
-                            <option value="5" selected>5</option>
-                            <option value="10">10</option>
+                            <option value="5" >5</option>
+                            <option value="10" selected>10</option>
                             <option value="15">15</option>
                             <option value="20">20</option>
                             <option value="100">100</option>
@@ -2328,8 +2302,8 @@
                         <div class="col-md-4"></div>
                         <div class="col-md-1">
                             <select  @change="pageSizeSelectCa">
-                                <option value="5" selected>5</option>
-                                <option value="10">10</option>
+                                <option value="5" >5</option>
+                                <option value="10" selected>10</option>
                                 <option value="15">15</option>
                                 <option value="20">20</option>
                                 <option value="100">100</option>

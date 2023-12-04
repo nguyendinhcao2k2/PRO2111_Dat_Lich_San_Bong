@@ -83,6 +83,7 @@
             <input type="text" value="account1" th:name="username" placeholder="Tên Tài Khoản"/>
             <input type="password" value="1111" th:name="password" placeholder="Mật Khẩu"/>
             <a th:href="@{/authentication/home-login}">Quay lại !</a>
+            <a th:href="@{/static/forgot-pass}">Quên mật khẩu!</a>
             <div th:if="${param.error}">
                 <span style="color: red">Tài Khoản hoặc Mật Khẩu không hợp lệ</span>
             </div>
