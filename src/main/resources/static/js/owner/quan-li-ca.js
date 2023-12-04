@@ -76,7 +76,7 @@ var  tabCa = new Vue({
                             tenCa: this.caCreate.tenCa,
                             thoiGianBatDau: thoiGianBatDau,
                             thoiGianKetThuc: thoiGianKetThuc,
-                            giaCa: this.caDetail.giaCa==0?0:this.caDetail.giaCa.replace(/\D/g, ''),
+                            giaCa: this.caCreate.giaCa==0?0:this.caCreate.giaCa.replace(/\D/g, ''),
                             trangThai: this.caCreate.trangThai
                         }),
                         success: function(response){
@@ -254,6 +254,10 @@ var  tabCa = new Vue({
             }
         },
         handleDonGiaCa(event) {
+            if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
+                this.caCreate.giaCa = 0;
+                return;
+            }
             if (event.target.value === "" || event.target.value === null) {
                 this.caCreate.giaCa = 0;
                 return;
@@ -267,6 +271,10 @@ var  tabCa = new Vue({
             this.caCreate.giaCa = parseInt(event.target.value).toLocaleString("vi-VN");
         },
         handleGiaCaDetail(event) {
+            if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
+                this.caDetail.giaCa = 0;
+                return;
+            }
             if (event.target.value === "" || event.target.value === null) {
                 this.caDetail.giaCa = 0;
                 return;

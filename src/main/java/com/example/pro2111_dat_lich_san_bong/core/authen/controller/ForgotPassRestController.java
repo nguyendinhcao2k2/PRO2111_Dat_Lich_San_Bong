@@ -20,9 +20,9 @@ public class ForgotPassRestController {
     private SenMailForgotPass senMailForgotPass;
 
     @GetMapping("/check-email")
-    public BaseResponse<?> checkByEmail(@RequestParam("email") String email) {
+    public BaseResponse<?> checkByEmail(@RequestParam("email") String email, @RequestParam("taiKhoan") String taiKhoan) {
         try {
-            Account account = accountServiceForgotPass.getAccountByUsername(email);
+            Account account = accountServiceForgotPass.getAccountByUsername(email, taiKhoan);
             if (account != null) {
                 Integer random = (int) Math.floor((Math.random() * 899999) + 100000);
                 senMailForgotPass.sendMailForGotPass("Code xác thực mail: " + random, account.getEmail(), "Code xác thực mail");

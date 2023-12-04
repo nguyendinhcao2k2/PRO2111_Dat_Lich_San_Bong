@@ -280,7 +280,7 @@
                                                                             <div class="modal-footer">
 
                                                                                 <div v-if="checkTienDoiLichNhieu()===0">
-                                                                                    <form action="/api/v1/user/thanh-toan-nhieu/submitOrder"
+                                                                                    <form action="/api/v1/staff/thanh-toan-nhieu/submitOrder"
                                                                                           method="post">
                                                                                         <input type="hidden"
                                                                                                name="amount"
@@ -981,7 +981,7 @@
                                 <div class="modal fade" id="modalConfirmDoiLich"
                                      aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <form id="formDoiLichOne" action="/api/v1/user/tien-coc/create-payment"
+                                        <form id="formDoiLichOne" action="/api/v1/staff/tien-coc/create-payment"
                                               method="post">
                                             <input type="hidden" name="amount" v-model="tienCocThieu">
                                             <input type="hidden" name="orderInfo" v-model="noiDung">
@@ -3009,7 +3009,7 @@
         // }
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/api/v1/user/doi-lich/one/" + id,
+            url: "http://localhost:8081/api/v1/staff/doi-lich/one/" + id,
             success: function (response) {
                 debugger
                 if (response.statusCode == 'ALREADY_REPORTED') {
@@ -3063,7 +3063,7 @@
     function callApiLoaiSanAndCaOne() {
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/api/v1/user/doi-lich/list-san-list-ca",
+            url: "http://localhost:8081/api/v1/staff/doi-lich/list-san-list-ca",
             success: function (response) {
                 modalDL.listCa = response.content.ca,
                     modalDL.listLoaiSan = response.content.loaiSan
@@ -3078,7 +3078,7 @@
     function callApiPhanTramTienCoc() {
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/api/v1/user/doi-lich/find-by-tien-coc",
+            url: "http://localhost:8081/api/v1/staff/doi-lich/find-by-tien-coc",
             success: function (response) {
                 modalDL.phanTramCoc = parseInt(response.content);
             },
@@ -3158,7 +3158,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:8081/api/v1/user/doi-lich/check-lick-dat?idLS=" + this.lichDatCu.idLoaiSan + "&idCa=" + this.lichDatCu.idCa + "&ngayDoi=" + $(".ngayMuonDoi").val(),
+                    url: "http://localhost:8081/api/v1/staff/doi-lich/check-lick-dat?idLS=" + this.lichDatCu.idLoaiSan + "&idCa=" + this.lichDatCu.idCa + "&ngayDoi=" + $(".ngayMuonDoi").val(),
                     success: function (response) {
                         if (response.content === 1) {
                             $(".modalCon").prop("hidden", true);
@@ -3188,7 +3188,7 @@
             updateLichOne() {
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8081/api/v1/user/doi-lich/update-lich",
+                    url: "http://localhost:8081/api/v1/staff/doi-lich/update-lich",
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify({
@@ -3214,7 +3214,7 @@
             findLichDat() {
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8081/api/v1/user/tien-coc/one",
+                    url: "http://localhost:8081/api/v1/staff/tien-coc/one",
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify({
@@ -3369,7 +3369,7 @@
                     type: "POST",
                     dataType: "json",
                     contentType: "application/json",
-                    url: "http://localhost:8081/api/v1/user/san-ca/check-list-san-ca",
+                    url: "http://localhost:8081/api/v1/staff/san-ca/check-list-san-ca",
                     data: JSON.stringify(this.sanCaCheckRequest),
                     success: function (response) {
                         if (response.length > 0) {
@@ -3405,7 +3405,7 @@
                     type: 'POST',
                     dataType: 'JSON',
                     contentType: 'application/json',
-                    url: "http://localhost:8081/api/v1/user/thanh-toan-nhieu/find-list-doi-lich",
+                    url: "http://localhost:8081/api/v1/staff/thanh-toan-nhieu/find-list-doi-lich",
                     data: JSON.stringify(app.listDataDoiLichNhieuRequest),
                     success: function (response) {
                         console.log(response);
@@ -3567,7 +3567,7 @@
                 type: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                url: "http://localhost:8081/api/v1/user/san-ca/check-list-san-ca",
+                url: "http://localhost:8081/api/v1/staff/san-ca/check-list-san-ca",
                 data: JSON.stringify(app.sanCaCheckRequest),
                 success: function (response) {
                     if (response.length > 0) {
@@ -3593,7 +3593,7 @@
             type: 'POST',
             dataType: 'JSON',
             contentType: 'application/json',
-            url: "http://localhost:8081/api/v1/user/doi-lich/update-lich-nhieu",
+            url: "http://localhost:8081/api/v1/staff/doi-lich/update-lich-nhieu",
             data: JSON.stringify(app.listDataDoiLichNhieuRequest),
             success: function (response) {
                 if (response.statusCode === 'OK') {
@@ -3703,7 +3703,7 @@
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/api/v1/user/doi-lich/list-lich-doi",
+            url: "http://localhost:8081/api/v1/staff/doi-lich/list-lich-doi",
             dataType: "json",
             success: function (response) {
                 console.log(response)
@@ -3722,7 +3722,7 @@
     function callApiLoaiSanAndCaNhieu() {
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/api/v1/user/doi-lich/find-all-loai-san-ca",
+            url: "http://localhost:8081/api/v1/staff/doi-lich/find-all-loai-san-ca",
             dataType: "json",
             success: function (response) {
                 app.arrCaDL = response.content.ca;
@@ -3846,7 +3846,7 @@
     function callApiPhanTramTienCocDoiLichNhieu() {
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/api/v1/user/doi-lich/find-by-tien-coc",
+            url: "http://localhost:8081/api/v1/staff/doi-lich/find-by-tien-coc",
             success: function (response) {
                 app.phanTramTienCocLichNhieu = parseInt(response.content);
             },
@@ -3875,7 +3875,7 @@
     function deleteLichSan(id) {
         $.ajax({
             type: "DELETE",
-            url: "http://localhost:8081/api/v1/user/huy-lich-dat-san/" + id,
+            url: "http://localhost:8081/api/v1/staff/huy-lich-dat-san/" + id,
             success: function (response) {
                 if(response.statusCode == 'OK'){
                     createAndShowToast("bg-success", "Thông báo", "Thao tác thành công!");

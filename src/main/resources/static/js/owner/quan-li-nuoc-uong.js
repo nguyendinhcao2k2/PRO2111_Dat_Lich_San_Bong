@@ -240,6 +240,14 @@ var tabNuocUong = new Vue({
         }
         ,
         handleSoLuongNuocUong(event) {
+            if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
+                if (event.target.id === 'idSoLuongCreateNuocUong') {
+                    tabNuocUong.NuocUong.soLuong = 0;
+                } else {
+                    tabNuocUong.detailNuocUongEntity.soLuong = 0;
+                }
+            }
+
             if (event.target.value === "" || event.target.value === null) {
                 if (event.target.id === 'idSoLuongCreateNuocUong') {
                     tabNuocUong.NuocUong.soLuong = 0;
@@ -260,6 +268,14 @@ var tabNuocUong = new Vue({
         }
         ,
         handleDonGiaNuocUong(event) {
+            if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
+                if (event.target.id === 'idDonGiaCreate') {
+                    tabNuocUong.NuocUong.donGia = 0;
+                } else {
+                    tabNuocUong.detailNuocUongEntity.donGia = 0;
+                }
+            }
+
             if (event.target.value === "" || event.target.value === null) {
                 if (event.target.id === 'idDonGiaCreate') {
                     tabNuocUong.NuocUong.donGia = 0;

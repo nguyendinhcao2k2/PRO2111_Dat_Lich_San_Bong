@@ -58,11 +58,16 @@ function createLuatSan() {
             createAndShowToast("bg-warning","Thông báo!","Vui lòng không để trống!");
             return;
         }
-        if (confirm(tab3.thongBao)) {
-            apiCreateLuatSan();
-
-            return;
-        }
+        Swal.fire({
+            title: "Bạn có chắc chắn thực hiện thao tác này?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Xác nhận',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                apiCreateLuatSan();
+            }
+        });
     });
 }
 
@@ -89,31 +94,37 @@ function apiCreateLuatSan() {
 
 function deleteLuatSan() {
     $(".btnDeleteLuatSan").click(() => {
-        if (confirm(tab3.thongBao)) {
-            $.ajax({
-                type: "DELETE",
-                url:
-                    "http://localhost:8081/api/v1/admin/luat-san/delete/" +
-                    tab3.idLuatSan,
-                success: function (response) {
-                    if (response.statusCode == "OK") {
-                        createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
-                        callApiLuatSan();
-                        $(".thongTinLuatSan").text("");
-                        $(".thongBaoLS").append(`
+        Swal.fire({
+            title: "Bạn có chắc chắn thực hiện thao tác này?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Xác nhận',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "DELETE",
+                    url:
+                        "http://localhost:8081/api/v1/admin/luat-san/delete/" +
+                        tab3.idLuatSan,
+                    success: function (response) {
+                        if (response.statusCode == "OK") {
+                            createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
+                            callApiLuatSan();
+                            $(".thongTinLuatSan").text("");
+                            $(".thongBaoLS").append(`
                                     <div class="alert alert-danger ">
                         <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
                     </div>
                 `);
-                    }
-                },
-                error: function (error) {
-                    createAndShowToast("bg-success","Thông báo!","Thao tác thất bại!");
-                    console.log(error);
-                },
-            });
-            return;
-        }
+                        }
+                    },
+                    error: function (error) {
+                        createAndShowToast("bg-success","Thông báo!","Thao tác thất bại!");
+                        console.log(error);
+                    },
+                });
+            }
+        });
     });
 }
 
@@ -140,9 +151,16 @@ function callApiFindById(id) {
 
 function updateLuatSan() {
     $(".btnUpdateLuatSan").click(() => {
-        if (confirm(tab3.thongBao)) {
-            apiUpdateLoaiSan();
-        }
+        Swal.fire({
+            title: "Bạn có chắc chắn thực hiện thao tác này?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Xác nhận',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                apiUpdateLoaiSan();
+            }
+        });
     });
 }
 

@@ -12,9 +12,9 @@ public class AccountServiceForgotPassImpl implements AccountServiceForgotPass {
     private AccountRepository accountRepositoryAuthen;
 
     @Override
-    public Account getAccountByUsername(String email) {
+    public Account getAccountByUsername(String email, String taiKhoan) {
         try {
-            return accountRepositoryAuthen.getAccountByUsername(email);
+            return accountRepositoryAuthen.getAccountByEmailAndTaiKhoan(email, taiKhoan);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

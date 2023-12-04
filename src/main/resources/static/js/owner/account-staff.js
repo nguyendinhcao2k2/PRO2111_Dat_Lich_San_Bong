@@ -15,9 +15,16 @@ var tab1 = new Vue({
     },
     methods: {
         confirmDeleteById(id) {
-            if (confirm("BẠN CÓ CHẮC CHẮN THỰC HIỆN THAO TÁC!")) {
-                this.deleteById(id);
-            }
+            Swal.fire({
+                title: "Bạn có chắc chắn thực hiện thao tác này?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.deleteById(id);
+                }
+            });
         },
         deleteById(id) {
             $.ajax({
@@ -47,9 +54,24 @@ var tab1 = new Vue({
                 createAndShowToast("bg-warning","Thông báo!","Email không đúng định dạng!");
                 return;
             }
-            if (confirm("BẠN CÓ CHẮC CHẮN THỰC HIỆN THAO TÁC!")) {
-                this.save();
+            if(this.account.taiKhoan.length > 20){
+                createAndShowToast("bg-warning","Thông báo!","Tài khoản vui lòng không quá 20 kí tự!");
+                return;
             }
+            if(this.account.matKhau.length < 6){
+                createAndShowToast("bg-warning","Thông báo!","Mật khẩu tối thiểu 6 kí tự!");
+                return;
+            }
+            Swal.fire({
+                title: "Bạn có chắc chắn thực hiện thao tác này?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.save();
+                }
+            });
         },
         save() {
             $.ajax({
