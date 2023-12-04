@@ -16,6 +16,7 @@ import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.entity.LichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.LoaiHinhThanhToan;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiViTien;
@@ -30,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -114,7 +116,7 @@ public class ThanhToanTCSatffController extends BaseController {
         thread.start();
 
         //đường dẫn kết quả thanh toán
-        baseUrl += "/api/v1/user/thanh-toan/resul-payment";
+        baseUrl += "/api/v1/staff/thanh-toan/resul-payment/"+HDCreateBill.getIdHoaDon();
         String vnpayUrl = vnPayService.createOrder(HDCreateBill.getTienCoc().intValue(),
                 HDCreateBill.getRemark(), baseUrl, miuteParam);
 
@@ -122,11 +124,10 @@ public class ThanhToanTCSatffController extends BaseController {
 
     }
 
-    @GetMapping("/resul-payment")
-    public String GetBillPayMent(HttpServletRequest request, Model model) throws ParseException {
+    @GetMapping("/resul-payment/{id}")
+    public String GetBillPayMent(@PathVariable("id") String idHoaDon, HttpServletRequest request, Model model) throws ParseException {
         int paymentStatus = vnPayService.orderReturn(request);
 
-        String idAccount = session.getUserId();
 
         String orderInfo = request.getParameter("vnp_OrderInfo");
         String paymentTime = request.getParameter("vnp_PayDate");
@@ -158,7 +159,7 @@ public class ThanhToanTCSatffController extends BaseController {
         model.addAttribute("paymentTime", paymentTime);
         model.addAttribute("transactionId", transactionId);
 
-        HoaDon hoaDon = (HoaDon) hoaDonUserService.findAllByIdAccountAndTrangThai(idAccount, TrangThaiHoaDon.MOI_TAO.ordinal()).get(0);
+        HoaDon hoaDon = (HoaDon) hoaDonUserService.findHoaDonById(idHoaDon);
         if (paymentStatus == 1) {
             hoaDon.setTrangThai(TrangThaiHoaDon.DA_COC.ordinal());
             hoaDonUserService.updateHoaDon(hoaDon);
@@ -181,6 +182,7 @@ public class ThanhToanTCSatffController extends BaseController {
 
             viTienCoc.setThoiGianTao(Timestamp.valueOf(thoiGianGD));
             viTienCoc.setSoTien(soTienGD);
+            viTienCoc.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
 
             viTienUserService.saveViTen(viTienCoc);
 
@@ -188,7 +190,7 @@ public class ThanhToanTCSatffController extends BaseController {
             try {
 
                 List<HoaDonSendMailResponse> list = hoaDonSanCaUserService.getLisTHDSC(hoaDon.getId());
-                DecimalFormat decimalFormat = new DecimalFormat("#.###");
+                DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                 DateTimeFormatter formatterNgayDa = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -237,7 +239,7 @@ public class ThanhToanTCSatffController extends BaseController {
                 e.printStackTrace();
             }
 
-            return "DemoVNPay/SuccessOder";
+            return "staff/success-oder";
         } else {// thanh toán thất bại hoặc hết tg thanh toán
             huyLichByThatBai(hoaDon.getId());
 

@@ -749,7 +749,7 @@
                                                         <i class="fas fa-times fa-lg"></i>
                                                     </button>
                                                     <button type="submit" class="btn btn-success btn-labeled"
-                                                            onclick="getFormLichDat()">
+                                                            onclick="xacNhanDatLich()">
                                                         Đặt lịch và thanh toán
                                                         <i class="fas fa-check fa-lg"></i>
                                                     </button>
@@ -1067,6 +1067,7 @@
 <script th:src="@{/static/js/utill/thong-bao.js}"/>
 <script th:src="@{/static/js/main.js}"></script>
 <script th:src="@{/static/js/lib/mobiscroll.jquery.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // Biến lưu trữ đối tượng lịch để sử dụng trong openModal
     var calendar;
@@ -2544,6 +2545,18 @@
                 }
             });
         }
+    }
+    function xacNhanDatLich() {
+        Swal.fire({
+            title: "Quý khách có chắc chắn đặt lịch và thanh toán?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Xác nhận',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                getFormLichDat()
+            }
+        });
     }
 
     function getFormLichDat() {
