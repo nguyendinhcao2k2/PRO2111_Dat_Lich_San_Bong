@@ -24,6 +24,8 @@
             crossorigin="anonymous"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
     <style>
 
@@ -87,6 +89,13 @@
 <div th:insert="~{fragments/header}"></div>
 <!---->
 <div class="mains">
+    <div
+            id="toastContainer"
+            class="position-fixed osition-absolute top-0 end-0 p-3"
+            style="z-index: 9999"
+    >
+        <div id="toasts" class="d-flex flex-column-reverse"></div>
+    </div>
     <div class="card mb-xl-0">
         <div class="card-header">
             <h4 class="text-right text-primary">Trang Cá Nhân</h4>
@@ -117,7 +126,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 border-right">
-                  <form>
+                  <form >
                       <div class="p-3 py-2">
                           <div
                                   class="d-flex justify-content-between align-items-center mb-3"
@@ -175,7 +184,7 @@
                       </div>
                   </form>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" id="profileChangePass">
                     <div class="p-3 py-2">
                         <div
                                 class="d-flex justify-content-between align-items-center mb-3"
@@ -183,12 +192,12 @@
                             <h4 class="text-right text-primary">Đổi Mật Khẩu</h4>
                         </div>
                         <!--                        -->
-                        <form>
+                        <form @submit.prevent="confirmChangePass($event)">
                             <div class="col-md-12">
                                 <label class="form-label">Mật khẩu cũ</label>
                                 <div class="input-group mb-3">
-                                    <input type="password" class="form-control" id="passwordInput"
-                                           aria-label="Text input with checkbox">
+                                    <input type="password" class="form-control" required id="passwordInput"
+                                           aria-label="Text input with checkbox" v-model="passwordCurrency">
                                     <span class="input-group-text" id="togglePassword">
                                         <i class="fa fa-eye-slash" id="hidePass" aria-hidden="true"></i>
                                           <i class="fa fa-eye" id="showPass" style="display:none;" aria-hidden="true"></i>
@@ -199,7 +208,7 @@
                             <div class="col-md-12">
                                 <label class="form-label">Mật khẩu Mới</label>
                                 <div class="input-group mb-3">
-                                    <input type="password" id="inputPassNew" class="form-control" aria-label="Text input with checkbox">
+                                    <input v-model="passwordNew" type="password" id="inputPassNew" required class="form-control" aria-label="Text input with checkbox">
                                     <span class="input-group-text" id="spanPassNew">
                                         <i class="fa fa-eye-slash" id="hidePassNew" aria-hidden="true"></i>
                                           <i class="fa fa-eye" id="showPassNew" style="display:none;" aria-hidden="true"></i>
@@ -210,7 +219,7 @@
                             <div class="col-md-12">
                                 <label class="form-label"> Xác Nhận Mật khẩu</label>
                                 <div class="input-group mb-3">
-                                    <input type="password" class="form-control" id="inputPassConfirm" aria-label="Text input with checkbox">
+                                    <input type="password" v-model="passwordConfirm" class="form-control" required id="inputPassConfirm" aria-label="Text input with checkbox">
                                     <span class="input-group-text" id="spanPassConfirm">
                                           <i class="fa fa-eye-slash" id="hidePassConfirm" aria-hidden="true"></i>
                                           <i class="fa fa-eye" id="showPassConfirm" style="display:none;" aria-hidden="true"></i>
@@ -232,6 +241,7 @@
 </div>
 <!---->
 <div th:insert="~{fragments/footer}"></div>
+<script th:src="@{/static/js/utill/thong-bao.js}"></script>
 <script th:src="@{/static/js/user/profile.js}"></script>
 <!-- Thêm Bootstrap JS và Popper.js (nếu cần) -->
 <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->

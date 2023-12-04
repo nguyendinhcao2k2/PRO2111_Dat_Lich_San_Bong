@@ -3,6 +3,7 @@ package com.example.pro2111_dat_lich_san_bong.core.user.service.impl;
 import com.example.pro2111_dat_lich_san_bong.core.user.repository.AccountUserRepository;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.AccountUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.Account;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,16 @@ public class AccountUserServiceImpl implements AccountUserService {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    @Transactional
+    public void saveAccount(Account account) {
+        try {
+            accountUserRepository.saveAndFlush(account);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
