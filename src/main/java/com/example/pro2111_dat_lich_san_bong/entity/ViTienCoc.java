@@ -53,4 +53,7 @@ public class ViTienCoc {
 
     @Column(name = "noi_dung")
     private String noiDung;
+
+    @Column(name = "type_payment")
+    private Integer typePayment;
 }

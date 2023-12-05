@@ -33,7 +33,7 @@ public class Account {
     @Column(name = "email", length = 225)
     private String email;
 
-    @Column(name = "image", length = 2000)
+    @Column(name = "image",columnDefinition = "LONGTEXT")
     private String image;
 
     @Column(name = "tai_khoan")

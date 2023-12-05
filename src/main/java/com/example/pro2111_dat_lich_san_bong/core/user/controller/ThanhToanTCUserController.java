@@ -17,6 +17,7 @@ import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.entity.LichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.LoaiHinhThanhToan;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiViTien;
@@ -142,6 +143,7 @@ public class ThanhToanTCUserController extends BaseController {
         String currCode = request.getParameter("vnp_CurrCode");
 
 
+
         // Định dạng mong muốn
         String outputDateFormat = "yyyy-MM-dd hh:mm:ss";
 
@@ -187,6 +189,7 @@ public class ThanhToanTCUserController extends BaseController {
 
             viTienCoc.setThoiGianTao(Timestamp.valueOf(thoiGianGD));
             viTienCoc.setSoTien(soTienGD);
+            viTienCoc.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
 
             viTienUserService.saveViTen(viTienCoc);
 
@@ -194,7 +197,7 @@ public class ThanhToanTCUserController extends BaseController {
             try {
 
                 List<HoaDonSendMailResponse> list = hoaDonSanCaUserService.getLisTHDSC(hoaDon.getId());
-                DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+                DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                 DateTimeFormatter formatterNgayDa = DateTimeFormatter.ofPattern("dd/MM/yyyy");

@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
- * @author phongtt35
+ * @author thepv
  */
 
 @SpringBootApplication
@@ -157,7 +157,7 @@ public class DBGenerator implements CommandLineRunner {
         //end chuc vu
 
         //start vi tien
-        ViTienCoc viTienCocKH1 = new ViTienCoc();
+       /* ViTienCoc viTienCocKH1 = new ViTienCoc();
         viTienCocKH1.setSoGiaoDich("004444444444");
         viTienCocKH1.setLoaiTien("VND");
         viTienCocKH1.setTrangThai(0);
@@ -171,7 +171,7 @@ public class DBGenerator implements CommandLineRunner {
         viTienCocKH2.setTrangThai(0);
         viTienCocKH2.setThoiGianTao(Timestamp.valueOf("2023-09-17 10:09:00"));
         viTienCocKH2.setSoTien(200000.0);
-        viTienCocKH2.setId(viTienRepository.save(viTienCocKH2).getId());
+        viTienCocKH2.setId(viTienRepository.save(viTienCocKH2).getId());*/
 
 
         //end vi tien

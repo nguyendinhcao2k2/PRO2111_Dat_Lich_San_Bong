@@ -99,8 +99,13 @@
             rel="stylesheet"
     />
     <!--    library quan li giao ca-->
+<!--    quan li ca-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <!--    quan li ca-->
     <style>
-        .col-md-4 {
+       .col-md-4 {
             flex: 0 0 33.3333%;
         }
 
@@ -150,6 +155,10 @@
             font-size: 20px; /* Đặt kích thước chữ khi trình soạn thảo được tập trung (focus) */
         }
 
+        .border-right {
+            border-right: 1px solid rgba(0, 0, 0, 0.125);
+        }
+
         /* trinh soan thao */
     </style>
 </head>
@@ -181,7 +190,7 @@
                     role="tab"
                     aria-controls="tab1"
                     aria-selected="true"
-            >QUẢN LÍ TÀI KHOẢN NHÂN VIÊN</a
+            >Quản Lý Tài Khoản Nhân Viên</a
             >
         </li>
         <li class="nav-item" role="presentation">
@@ -193,7 +202,7 @@
                     role="tab"
                     aria-controls="tab2"
                     aria-selected="false"
-            >QUẢN LÍ SÂN BÓNG</a
+            >Quản Lý Sân Bóng</a
             >
         </li>
         <li class="nav-item" role="presentation">
@@ -205,7 +214,7 @@
                     role="tab"
                     aria-controls="tab3"
                     aria-selected="false"
-            >QUẢN LÍ LUẬT SÂN</a
+            >Quản Lý Luật Sân</a
             >
         </li>
         <li class="nav-item" role="presentation">
@@ -217,7 +226,7 @@
                     role="tab"
                     aria-controls="tab4"
                     aria-selected="false"
-            >QUẢN LÍ GIAO CA</a
+            >Quản Lý Giao Ca</a
             >
         </li>
         <li class="nav-item" role="presentation">
@@ -229,7 +238,7 @@
                     role="tab"
                     aria-controls="tab5"
                     aria-selected="false"
-            >QUẢN LÍ THAM SỐ</a
+            >Quản Lý Tham Số</a
             >
         </li>
         <li class="nav-item" role="presentation">
@@ -241,19 +250,31 @@
                     role="tab"
                     aria-controls="tab6"
                     aria-selected="false"
-            >QUẢN LÍ ĐỒ THUÊ</a
+            >Quản Lý Đồ Thuê</a
             >
         </li>
         <li class="nav-item" role="presentation">
             <a
-                    class="nav-link active"
+                    class="nav-link"
                     id="tab7-tab"
                     data-bs-toggle="tab"
                     href="#tab7"
                     role="tab"
                     aria-controls="tab7"
                     aria-selected="false"
-            >QUẢN LÍ NƯỚC UỐNG</a
+            >Quản Lý Nước Uống</a
+            >
+        </li>
+        <li class="nav-item" role="presentation">
+            <a
+                    class="nav-link active"
+                    id="tab8-tab"
+                    data-bs-toggle="tab"
+                    href="#tab8"
+                    role="tab"
+                    aria-controls="tab8"
+                    aria-selected="false"
+            >Quản Lý Ca</a
             >
         </li>
     </ul>
@@ -362,10 +383,13 @@
                         <br/>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">SAVE</button>
+                <div style="display: flex;justify-content: center;align-items: center">
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                </div>
+
             </form>
             <br/>
-            <table class="table table-header table-bordered table-hover">
+            <table class="table table-header table-bordered table-hover table-container">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -391,7 +415,7 @@
                         <span v-if="items.image === null">Chưa cập nhật</span>
                         <img
                                 v-else
-                                :src="`http://localhost:8081/static/img/${items.image}`"
+                                :src="`data:image/png;base64,${items.image}`"
                                 style="width: 50px; height: 50px"
                         />
                     </td>
@@ -416,8 +440,8 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-1">
                     <select class="pageSizeSelect">
-                        <option value="5" selected>5</option>
-                        <option value="10">10</option>
+                        <option value="5" >5</option>
+                        <option value="10" selected>10</option>
                         <option value="15">15</option>
                         <option value="20">20</option>
                         <option value="100">100</option>
@@ -555,7 +579,10 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">SAVE</button>
+                <div style="display: flex;justify-content: center;align-items: center">
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                </div>
+
             </form>
             <!-- Modal loai san start-->
             <div
@@ -582,6 +609,7 @@
                             <div class="modal-body">
                                 <input type="text" hidden v-model="loaiSan.id"/>
                                 <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Tên loại sân</span>
                                     <input
                                             type="text"
                                             class="form-control"
@@ -592,6 +620,7 @@
                                     />
                                 </div>
                                 <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Giá loại sân</span>
                                     <input
                                             type="text"
                                             class="form-control"
@@ -602,9 +631,10 @@
                                             v-model="loaiSan.giaSan"
                                             min="0"
                                     />
+                                    <span class="input-group-text" id="basic-addon1">Vnd</span>
                                 </div>
                                 Danh sách loại sân
-                                <table class="table table-bordered table-header">
+                                <table class="table table-bordered table-header table-container">
                                     <tr>
                                         <th>Tên</th>
                                         <th>Giá</th>
@@ -612,7 +642,7 @@
                                     </tr>
                                     <tr v-for="items in arrLoaiSan">
                                         <td>{{items.tenLoaiSan}}</td>
-                                        <td>{{items.giaSan}}</td>
+                                        <td>{{currenlyNumberSB(items.giaSan)}}</td>
                                         <td>
                                             <button
                                                     style="
@@ -630,15 +660,11 @@
                                                 ></i>
                                             </button>
                                             <button
-                                                    style="
-                              background-color: white;
-                              border: 1px solid red;
-                            "
                                                     type="button"
-                                                    class="deletebtn btn btn-primary"
+                                                    class=" btn btn-outline-info"
                                                     @click="detailLoaiSan(items.id)"
                                             >
-                                                <i class="fa fa-refresh" aria-hidden="true"></i>
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -660,7 +686,7 @@
             </div>
             <!-- modal end -->
             <br/>
-            <table class="table table-header table-bordered table-hover">
+            <table class="table table-header table-bordered table-hover table-container">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -677,7 +703,7 @@
                     <td>{{index+1}}</td>
                     <td>{{items.tenSanBong}}</td>
                     <td>{{findByIdLoaiSan(items.idLoaiSan).tenLoaiSan}}</td>
-                    <td>{{currenNumber(items.giaSan)}}</td>
+                    <td>{{currenlyNumberSB(items.giaSan)}}</td>
                     <td>
                         {{parseInt(items.trangThai) == 0?"Bình thường":"Sửa chữa"}}
                     </td>
@@ -695,8 +721,7 @@
                         </button>
                         <button
                                 type="button"
-                                style="background-color: white; border: 1px solid red"
-                                class="deletebtn btn btn-primary"
+                                class=" btn btn-outline-info"
                                 data-bs-toggle="modal"
                                 data-bs-target="#detailSanBong"
                                 @click="detailSanBong(items.id)"
@@ -820,8 +845,8 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-1">
                     <select class="pageSizeSelect">
-                        <option value="5" selected>5</option>
-                        <option value="10">10</option>
+                        <option value="5" >5</option>
+                        <option value="10" selected>10</option>
                         <option value="15">15</option>
                         <option value="20">20</option>
                         <option value="100">100</option>
@@ -907,7 +932,8 @@
                         </button>
                     </div>
                 </div>
-
+                <br>
+                <div class="thongBaoLS"></div>
                 <br/>
                 <div class="thongTinLuatSan" id="thongTinLuatSan"></div>
             </section>
@@ -972,7 +998,7 @@
                                                     style="border-radius: 5px"
                                             >
                                                 <option selected value="0">Tất cả</option>
-                                                <option value="1">Giao ca có rú tiền</option>
+                                                <option value="1">Giao ca có rút tiền</option>
                                             </select>
                                         </div>
                                         <!-- Ngày -->
@@ -1019,7 +1045,7 @@
                     border-radius: 0 0 0 0;
                   "
                                     >
-                                        <table class="table table-bordered table-hover">
+                                        <table class="table table-bordered table-hover table-container">
                                             <thead>
                                             <tr>
                                                 <th scope="col">STT</th>
@@ -1121,16 +1147,29 @@
                 <!-- offcanvas body  -->
                 <div class="offcanvas-body">
                     <form>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Tên nhân viên</label>
-                            <input
-                                    type="text"
-                                    class="form-control tenNVCT"
-                                    readonly
-                                    id="name"
-                                    name="name"
-                            />
+                        <div class="row">
+                            <div class=" col-6 mb-3">
+                                <label for="name" class="form-label">Tên nhân viên trong ca</label>
+                                <input
+                                        type="text"
+                                        class="form-control tenNVTC"
+                                        readonly
+                                        id="name"
+                                        name="name"
+                                />
+                            </div>
+                            <div class="col-6  mb-3">
+                                <label for="name" class="form-label">Tên nhân viên ca tiếp theo</label>
+                                <input
+                                        type="text"
+                                        class="form-control tenNVCTT"
+                                        readonly
+                                        id="name"
+                                        name="name"
+                                />
+                            </div>
                         </div>
+
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label for="time" class="form-label">Thời gian nhận ca</label>
@@ -1169,6 +1208,7 @@
                         <div class="mb-3">
                             <label for="time" class="form-label">Tiền phát sinh</label>
                             <input
+                                    style="background-color: wheat"
                                     type="text"
                                     class="form-control tienPhatSinhCT"
                                     id="time"
@@ -1362,7 +1402,7 @@
             <br/>
             <section>
                 Danh sách tham số
-                <table class="table table-bordered table-header table-header">
+                <table class="table table-bordered table-header table-container">
                     <tr>
                         <th>#</th>
                         <th>Chức Năng</th>
@@ -1470,38 +1510,6 @@
                                         <label for="floatingTextarea">Ghi chú....</label>
                                     </div>
                                     <br/>
-                                    <!-- Default radio -->
-                                    <div
-                                            class="form-check form-check-inline"
-                                            style="margin-left: 30px"
-                                    >
-                                        <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="inlineRadioOptions"
-                                                id="inlineRadio1"
-                                                value="0"
-                                                checked
-                                                v-model="paramUpdate.trangThai"
-                                        />
-                                        <label class="form-check-label" for="inlineRadio1"
-                                        >Hoạt động</label
-                                        >
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="inlineRadioOptions"
-                                                id="inlineRadio2"
-                                                value="1"
-                                                v-model="paramUpdate.trangThai"
-                                        />
-                                        <label class="form-check-label" for="inlineRadio2"
-                                        >Dừng hoạt động</label
-                                        >
-                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button
@@ -1648,7 +1656,7 @@
                 <div class="alert alert-danger " v-if="listDoThue.length == 0">
                     <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
                 </div>
-                <table class="table table-bordered table-header table-hover" v-else>
+                <table class="table table-bordered table-header table-hover table-container" v-else>
                     <tr>
                         <th>#</th>
                         <th>Tên</th>
@@ -1692,8 +1700,8 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-1">
                         <select class="pageSizeSelectDoThue" @change="pageSizeSelectDoThue">
-                            <option value="5" selected>5</option>
-                            <option value="10">10</option>
+                            <option value="5" >5</option>
+                            <option value="10" selected>10</option>
                             <option value="15">15</option>
                             <option value="20">20</option>
                             <option value="100">100</option>
@@ -1846,7 +1854,7 @@
         <!-- tab 6 -->
 <!--        tab 7 tab do uong-->
         <div
-                class="tab-pane fade show active tabNuocUong"
+                class="tab-pane fade show  tabNuocUong"
                 id="tab7"
                 role="tabpanel"
                 aria-labelledby="tab7-tab"
@@ -1969,7 +1977,7 @@
                 <div class="alert alert-danger " v-if="listNuocUong.length == 0">
                     <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
                 </div>
-                <table class="table table-bordered table-header table-hover" v-else>
+                <table class="table table-bordered table-header table-hover table-container" v-else>
                     <tr>
                         <th>#</th>
                         <th>Tên</th>
@@ -2013,8 +2021,8 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-1">
                         <select class="pageSizeSelectNuocUong" @change="pageSizeSelectNuocUong">
-                            <option value="5" selected>5</option>
-                            <option value="10">10</option>
+                            <option value="5" >5</option>
+                            <option value="10" selected>10</option>
                             <option value="15">15</option>
                             <option value="20">20</option>
                             <option value="100">100</option>
@@ -2165,10 +2173,238 @@
             </section>
         </div>
 <!--        tab 7 tab do uong-->
+<!--        tab 8 tab ca-->
+        <div
+                class="tab-pane fade show active tabCa"
+                id="tab8"
+                role="tabpanel"
+                aria-labelledby="tab8-tab"
+        >
+            <br>
+            <section >
+              <form class="container" @submit.prevent="createCaConfirm($event)">
+                  <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                      <input type="text" class="form-control" @input="searchByNameCa($event)" v-model="nameSearchCa" placeholder="Tìm kiếm theo tên......." aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+                  <br>
+                  <div class="row">
+                      <div class="col-6">
+                          <button type="button" class="btn btn-light exportExcelCa">Export Excel</button>
+                      </div>
+                      <div class="col-6">
+                          <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
+                              file import:</label>
+                          <input style="margin: 0.4rem 0;" class="caImportExcel" @change="handleImportExcelCa($event)"  type="file"
+                          />
+                      </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                      <div class="col-6">
+                          <div class="input-group mb-3">
+                              <span class="input-group-text" id="basic-addon1">Tên ca</span>
+                              <input type="text" required class="form-control" v-model="caCreate.tenCa" placeholder="Tên ca...." aria-label="Username" aria-describedby="basic-addon1">
+                          </div>
+                      </div>
+                      <div class="col-6">
+                          <div class="input-group mb-3">
+                              <span class="input-group-text" id="basic-addon1">Giá ca</span>
+                              <input type="text" min="0" v-model="caCreate.giaCa" @input="handleDonGiaCa($event)" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                              <span class="input-group-text" id="basic-addon1">Vnd</span>
+                          </div>
+                      </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                      <div class="col-6">
+                          <div class="input-group mb-3">
+                              <span class="input-group-text" id="basic-addon1">Thời gian bắt đầu</span>
+                              <input type="time" @input="inputThoiGianBatDau($event)" v-model="caCreate.thoiGianBatDau" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                          </div>
+                      </div>
+                      <div class="col-6">
+                          <div class="input-group mb-3">
+                              <span class="input-group-text" id="basic-addon1">Thời gian kết thúc</span>
+                              <input type="time" @input="inputThoiGianKetThucCa($event)" :readonly="isReadOnly" v-model="caCreate.thoiGianKetThuc" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                          </div>
+                      </div>
+                  </div>
+                  <br>
+                 <div style="text-align: center">
+                     <div class="form-check form-check-inline" style="margin-left: 30px">
+                         <input
+                                 class="form-check-input"
+                                 type="radio"
+                                 name="inlineRadioOptions"
+                                 id="inlineRadio1"
+                                 value="0"
+                                 checked
+                                 v-model="caCreate.trangThai"
+                         />
+                         <label class="form-check-label" for="inlineRadio1"
+                         >Hoạt động</label
+                         >
+                     </div>
+
+                     <div class="form-check form-check-inline">
+                         <input
+                                 class="form-check-input"
+                                 type="radio"
+                                 name="inlineRadioOptions"
+                                 id="inlineRadio2"
+                                 value="1"
+                                 v-model="caCreate.trangThai"
+                         />
+                         <label class="form-check-label" for="inlineRadio2"
+                         >Dừng hoạt động</label
+                         >
+                     </div>
+                 </div>
+                  <br>
+                  <div style="display: flex;justify-content: center;align-items: center">
+                      <button type="submit" class="btn btn-success">Lưu</button>
+                  </div>
+              </form>
+                <br>
+                <section>
+                    Danh sách ca
+                    <div class="alert alert-danger " v-if="listCaAdminResponse.length == 0">
+                        <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
+                    </div>
+                    <table class="table table-bordered table-hover table-header table-container" v-else>
+                        <tr>
+                            <th>#</th>
+                            <th>Tên Ca</th>
+                            <th>Thời Gian Bắt Đầu</th>
+                            <th>Thời Gian Kết Thúc</th>
+                            <th>Giá Ca</th>
+                            <th>Trạng Thái</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                        <tr v-for="(items,index) in listCaAdminResponse">
+                            <td>{{index}}</td>
+                            <td>{{items.tenCa}}</td>
+                            <td>{{items.thoiGianBatDau}}</td>
+                            <td>{{items.thoiGianKetThuc}}</td>
+                            <td>{{currencyVnCa(items.giaCa)}}</td>
+                            <td>{{items.trangThai == 0?'Đang hoạt động':'Dừng hoạt động'}}</td>
+                            <td>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#detailModalCa" @click="detailCaAdmin(items.id)" class="btn btn-outline-info"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
+                                <button type="button" @click="deleteCaConfirm(items.id)" class="btn btn-outline-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <!--                paging-->
+                    <br/>
+                    <div class="row" style="display: flex; margin: 0 auto" v-if="listCaAdminResponse.length != 0">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-1">
+                            <select  @change="pageSizeSelectCa">
+                                <option value="5" >5</option>
+                                <option value="10" selected>10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item" @click="previuosCa">
+                                        <a class="page-link" style="cursor: pointer">Previous</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link">{{pageNumberCa + 1}} / {{totalPageCa}}</a>
+                                    </li>
+                                    <li class="page-item " @click="nextPageCa">
+                                        <a class="page-link" style="cursor: pointer">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--                paging-->
+                    <!-- Modal detail-->
+                    <div class="modal fade" id="detailModalCa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form @submit.prevent="updateCaConfirm($event)">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Quản lí ca</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Tên ca</span>
+                                            <input type="text" required class="form-control" v-model="caDetail.tenCa" placeholder="Tên ca...." aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <br>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Giá ca</span>
+                                            <input type="text" min="0" v-model="caDetail.giaCa" @input="handleGiaCaDetail($event)" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                            <span class="input-group-text" id="basic-addon1">Vnd</span>
+                                        </div>
+                                        <br>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Thời gian bắt đầu</span>
+                                            <input type="time" @input="inputDetailThoiGianBatDau($event)" v-model="caDetail.thoiGianBatDau" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <br>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Thời gian kết thúc</span>
+                                            <input type="time" @input="inputDetailThoiGianKetThuc($event)"  v-model="caDetail.thoiGianKetThuc" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <br>
+                                        <div style="text-align: center">
+                                            <div class="form-check form-check-inline" style="margin-left: 30px">
+                                                <input
+                                                        class="form-check-input"
+                                                        type="radio"
+                                                        name="inlineRadioOptions"
+                                                        id="inlineRadio1"
+                                                        value="0"
+                                                        checked
+                                                        v-model="caDetail.trangThai"
+                                                />
+                                                <label class="form-check-label" for="inlineRadio1"
+                                                >Hoạt động</label
+                                                >
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input
+                                                        class="form-check-input"
+                                                        type="radio"
+                                                        name="inlineRadioOptions"
+                                                        id="inlineRadio2"
+                                                        value="1"
+                                                        v-model="caDetail.trangThai"
+                                                />
+                                                <label class="form-check-label" for="inlineRadio2"
+                                                >Dừng hoạt động</label
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btnModalCloseDetailCa" data-bs-dismiss="modal">Hủy</button>
+                                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal detail-->
+                </section>
+            </section>
+        </div>
+<!--        tab 8 tab ca-->
     </div>
 
 </div>
-</div>
+
 <!--quan li giao ca start-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:src="@{/static/js/owner/choices.js}"></script>
@@ -2181,6 +2417,10 @@
 <script th:src="@{/static/js/owner/quan-li-tham-so.js}"></script>
 <script th:src="@{/static/js/owner/quan-li-do-thue.js}"></script>
 <script th:src="@{/static/js/owner/quan-li-nuoc-uong.js}"></script>
+<!--quan li ca-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script th:src="@{/static/js/owner/quan-li-ca.js}"></script>
+<!--quan li ca-->
 <script th:src="@{/static/js/utill/thong-bao.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script

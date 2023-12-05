@@ -43,9 +43,16 @@ var tabParam = new Vue({
             }
         },
         confirmCreate() {
-            if (confirm(tabParam.thongBao)) {
-                this.createSysParam();
-            }
+            Swal.fire({
+                title: "Bạn có chắc chắn thực hiện thao tác này?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.createSysParam();
+                }
+            });
         },
         createSysParam() {
             $.ajax({
@@ -110,6 +117,10 @@ var tabParam = new Vue({
             this.checkLaSo(event, this.paramUpdate.value);
         },
         checkValidValueSysParam(event){
+            if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
+                tabParam.paramUpdate.value = 0;
+                return;
+            }
             if (event.target.value === "" || event.target.value === null) {
                 tabParam.paramUpdate.value = 0;
                 return;
@@ -122,9 +133,16 @@ var tabParam = new Vue({
         }
         ,
         confirmUpdate() {
-            if (confirm(tabParam.thongBao)) {
-                this.updateParam();
-            }
+            Swal.fire({
+                title: "Bạn có chắc chắn thực hiện thao tác này?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.updateParam();
+                }
+            });
         },
         updateParam() {
             $.ajax({
@@ -140,7 +158,7 @@ var tabParam = new Vue({
                     code: tabParam.paramUpdate.code,
                     name: tabParam.paramUpdate.name,
                     type: tabParam.paramUpdate.type,
-                    trangThai: parseInt(tabParam.paramUpdate.trangThai),
+                    trangThai: 0,
                 }),
                 success: function (response) {
                     if (response.statusCode == "OK") {
@@ -158,23 +176,30 @@ var tabParam = new Vue({
             });
         },
         confirmDelete(id) {
-            if (confirm(tabParam.thongBao)) {
-                $.ajax({
-                    type: "DELETE",
-                    url:
-                        "http://localhost:8081/api/v1/admin/sys-param/delete/" + id,
-                    success: function (response) {
-                        if (response.statusCode == "OK") {
-                            createAndShowToast("bg-success","Thông báo",tabParam.success);
-                            callApiListParam();
-                        }
-                    },
-                    error: function (error) {
-                        createAndShowToast("bg-warning","Thông báo","Không thể thực hiện hành động! Vui lòng thử lại");
-                        console.log(error);
-                    },
-                });
-            }
+            Swal.fire({
+                title: "Bạn có chắc chắn thực hiện thao tác này?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "DELETE",
+                        url:
+                            "http://localhost:8081/api/v1/admin/sys-param/delete/" + id,
+                        success: function (response) {
+                            if (response.statusCode == "OK") {
+                                createAndShowToast("bg-success","Thông báo",tabParam.success);
+                                callApiListParam();
+                            }
+                        },
+                        error: function (error) {
+                            createAndShowToast("bg-warning","Thông báo","Không thể thực hiện hành động! Vui lòng thử lại");
+                            console.log(error);
+                        },
+                    });
+                }
+            });
         },
     },
 });
