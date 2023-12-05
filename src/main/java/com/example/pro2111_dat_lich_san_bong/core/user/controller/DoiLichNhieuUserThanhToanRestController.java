@@ -11,10 +11,7 @@ import com.example.pro2111_dat_lich_san_bong.core.user.service.*;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailUtils;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
 import com.example.pro2111_dat_lich_san_bong.entity.*;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuDoiLich;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLoaiBienDong;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.*;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.model.request.SendMailRequest;
@@ -324,6 +321,7 @@ public class DoiLichNhieuUserThanhToanRestController {
                                 listHoaDonMail.add(hoaDon.getId());
                                 ViTienCoc viTienCoc = viTienUserService.findByIdHoaDon(hoaDon.getId());
                                 viTienCoc.setSoTien(hoaDon.getTienCoc());
+                                viTienCoc.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
                                 viTienUserService.updateViTien(viTienCoc);
                                 Double tienDaoDong = listHoaDonSanCaUpdate.get(i).getTienSan() - listHoaDonSanCaCu.get(i).getTienSan();
                                 if (tienDaoDong > 0) {

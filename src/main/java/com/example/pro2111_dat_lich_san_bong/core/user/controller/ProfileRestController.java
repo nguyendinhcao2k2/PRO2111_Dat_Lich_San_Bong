@@ -2,6 +2,7 @@ package com.example.pro2111_dat_lich_san_bong.core.user.controller;
 
 import com.example.pro2111_dat_lich_san_bong.core.common.session.CommonSession;
 import com.example.pro2111_dat_lich_san_bong.core.user.controller.rest.PassChangRequest;
+import com.example.pro2111_dat_lich_san_bong.core.user.model.request.ProfileRequest;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.AccountUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.Account;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
@@ -30,9 +31,7 @@ public class ProfileRestController {
             if (account == null) {
                 return new BaseResponse<>(HttpStatus.NOT_FOUND, "Invalid");
             }
-            System.out.println("HELLO"+passChangRequest.getPassCurrency());
-            System.out.println("HELLO"+passChangRequest.getPassNew());
-            boolean checkPass = passwordEncoder.matches(passChangRequest.getPassCurrency(),account.getMatKhau());
+            boolean checkPass = passwordEncoder.matches(passChangRequest.getPassCurrency(), account.getMatKhau());
             if (checkPass) {
                 account.setMatKhau(passwordEncoder.encode(passChangRequest.getPassNew()));
                 accountUserService.saveAccount(account);
@@ -42,6 +41,33 @@ public class ProfileRestController {
         } catch (Exception e) {
             e.printStackTrace();
             return new BaseResponse<>(HttpStatus.NOT_FOUND, "Invalid");
+        }
+    }
+
+    @GetMapping("/thong-tin")
+    public BaseResponse<?> getThongTin() {
+        try {
+            Account account = accountUserService.findById(commonSession.getUserId());
+            if (account == null) {
+                return new BaseResponse<>(HttpStatus.NOT_FOUND, "Invalid");
+            }
+            return new BaseResponse<>(HttpStatus.OK, account);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new BaseResponse<>(HttpStatus.NOT_FOUND, "Invalid");
+        }
+    }
+
+    ;
+
+    @PutMapping("/update")
+    public BaseResponse<?> updateThongTin(@RequestBody ProfileRequest profileRequest) {
+        try {
+            accountUserService.saveAccountOdt(profileRequest);
+            return new BaseResponse<>(HttpStatus.OK, profileRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error");
         }
     }
 

@@ -406,7 +406,7 @@ public class DoiLichNhieuStaffThanhToanRestController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return "DemoVNPay/SuccessOder";
+            return "staff/success-oder";
         }
         try {
             //xóa sân mới đi

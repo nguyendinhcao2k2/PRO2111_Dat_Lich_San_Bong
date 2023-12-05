@@ -88,6 +88,7 @@ public class DoiLichOneThanhToanStaffRestController {
     public ResponseEntity<?> findLichDat(@RequestBody DoiLichOneRequest doiLichOneRequestUpdate) {
         try {
             doiLichOneRequest = doiLichOneRequestUpdate;
+            System.out.println("hello:"+doiLichOneRequestUpdate.getNgayDoi());
             System.out.println("hello:"+doiLichOneRequest.getNgayDoi());
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, doiLichOneRequestUpdate));
         } catch (Exception e) {
@@ -325,7 +326,7 @@ public class DoiLichOneThanhToanStaffRestController {
                 sendMailWithBookings.sendEmailBookings(hoaDon.getEmail(), context, request);
             }
             //gửi mail
-            return "DemoVNPay/SuccessOder";
+            return "staff/success-oder";
         }
         hoaDonSanCaCu.setTrangThai(TrangThaiHoaDonSanCa.CHO_NHAN_SAN.ordinal());
 //        //delete sân vừa tạo

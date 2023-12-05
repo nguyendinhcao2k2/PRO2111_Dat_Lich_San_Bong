@@ -190,7 +190,16 @@
                                                     <div class="col-md-12">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <h5 style="font-size: 35px" class="text-primary my-auto">Danh sách</h5>
+                                                                <div class="row">
+                                                                    <div class="col-6"><h5 style="font-size: 35px" class="text-primary my-auto">Danh sách</h5></div>
+                                                                    <div class="col-6">
+                                                                        <div class="input-group mb-3">
+                                                                            <span class="input-group-text" id="basic-addon1" ><i class="fa fa-search" aria-hidden="true"></i></span>
+                                                                            <input type="text" @input="timKiemLichDatTheoSDT($event)" v-model="soDienThoaiDoiLichSearch"  class="form-control" placeholder="Tìm kiếm lịch theo số điện thoại....."  aria-describedby="basic-addon1">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
 
                                                             <div class="col-md-6 d-md-flex justify-content-md-end">
@@ -337,6 +346,8 @@
                                                                             aria-label="Checkbox for following text input"
                                                                     />
                                                                 </th>
+                                                                <th>Người đặt</th>
+                                                                <th>Số điện thoại</th>
                                                                 <th>Ca hiện tại</th>
                                                                 <th>Loại sân</th>
                                                                 <th>Ngày đá dự kiến</th>
@@ -355,6 +366,8 @@
                                                                             v-bind:value="items.id"
                                                                     />
                                                                 </td>
+                                                                <td class="ca-ht">{{items.nguoiDat}}</td>
+                                                                <td class="ca-ht">{{items.soDienThoaiNguoiDat}}</td>
                                                                 <td class="ca-ht">{{items.tenCa}}</td>
                                                                 <td class="loai-san-ht">
                                                                     {{items.tenLoaiSan}}
@@ -403,7 +416,7 @@
                                                                 <td>Tổng tiền</td>
 
                                                                 <td style="color: red;size: 25px"
-                                                                    colspan="4">
+                                                                    colspan="6">
                                                                     {{currenlyNumberVue(tongTienSanCu)}}
                                                                 </td>
                                                                 <td style="color: red;size: 25px"
@@ -413,14 +426,14 @@
                                                             </tr>
                                                             <tr v-if="checkTienDoiLichNhieu() === 0">
                                                                 <td>Tiền cọc còn thiếu</td>
-                                                                <td colspan="9"
+                                                                <td colspan="11"
                                                                     style="font-size: 30px;color: red">
                                                                     {{currenlyNumberVue(tinhTienCocLichNhieu())}}
                                                                 </td>
                                                             </tr>
                                                             <tr v-if="checkTienDoiLichNhieu() === 1">
                                                                 <td>Tiền cọc thừa</td>
-                                                                <td colspan="9"
+                                                                <td colspan="11"
                                                                     style="font-size: 30px;color: red">
                                                                     {{currenlyNumberVue(tinhTienCocLichNhieu())}}
                                                                 </td>
@@ -510,9 +523,38 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!--                                        paging-->
+                                            <div class="row" style="display: flex; margin: 0 auto">
+                                                <div class="col-md-4"></div>
+                                                <div class="col-md-1">
+                                                    <select @change="pageSizeSelectDoiLich($event)">
+                                                        <option value="5" >5</option>
+                                                        <option value="10" selected>10</option>
+                                                        <option value="15">15</option>
+                                                        <option value="20">20</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <nav aria-label="Page navigation example">
+                                                        <ul class="pagination justify-content-center">
+                                                            <li class="page-item " @click="previuosDoiLich()">
+                                                                <a class="page-link" style="cursor: pointer">Previous</a>
+                                                            </li>
+                                                            <li class="page-item">
+                                                                <a class="page-link" v-if="arrLichCanDoi.length >0">{{pageNumberDoiLich + 1}} / {{totalPageDoiLich}}</a>
+                                                                <a class="page-link" v-if="arrLichCanDoi.length <= 0">0 / 0</a>
+                                                            </li>
+                                                            <li class="page-item ">
+                                                                <a class="page-link" style="cursor: pointer" @click="nextPageDoiLich()">Next</a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                            <!--                                        paging-->
                                         </section>
                                         <!-- Nội dung modal -->
-                                        <p>...</p>
                                     </div>
                                 </div>
                             </div>
@@ -999,8 +1041,7 @@
                                                         <i class="fa fa-ban" aria-hidden="true"></i>
                                                         Hủy
                                                     </button>
-                                                    <button type="submit" class="btn btn-success"
-                                                            @click="findLichDat">
+                                                    <button type="submit" class="btn btn-success">
                                                         <i class="fa fa-check" aria-hidden="true"></i>
                                                         Đổi lịch và thanh toán
                                                     </button>
@@ -3154,6 +3195,7 @@
                 })
             },
             btnXacNhanDoiLich() {
+                this.findLichDat();
                 if (this.lichDatCu.ngayDaDuKien == $(".ngayMuonDoi").val()
                     && this.lichDatCu.idLoaiSan == this.checkLich.idLoaiSan
                     && this.lichDatCu.idCa == this.checkLich.idCa) {
@@ -3188,9 +3230,16 @@
                         }
                         $(".modalCon").prop("hidden", true);
                         $('.modal-backdrop').remove();
-                        if (confirm("Bạn có chắc chắn thực hiện không?")) {
-                            modalDL.updateLichOne();
-                        }
+                        Swal.fire({
+                            title: "Bạn có chắc chắn thực hiện thao tác này?",
+                            icon: 'question',
+                            showCancelButton: true,
+                            confirmButtonText: 'Xác nhận',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                modalDL.updateLichOne();
+                            }
+                            });
                     }, error: function (error) {
                         createAndShowToast("bg-danger", "Thông báo", "Lỗi");
                         console.log(error);
@@ -3302,6 +3351,11 @@
             listDataDoiLichNhieuRequest: [],
             boolCheckLich: false,
             listCheck: [],
+            totalPageDoiLich:0,
+            pageNumberDoiLich:0,
+            pageSizeDoiLich:0,
+            countIndexDoiLichNhieu:0,
+            soDienThoaiDoiLichSearch:"",
         },
         methods: {
             currenlyNumberVue(number) {
@@ -3428,6 +3482,138 @@
                         console.log(error);
                     }
                 });
+            },
+            timKiemLichDatTheoSDT(event){
+                if(event.target.value == "" || event.target.value == null){
+                    callApiDoiLich();
+                    return;
+                }
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8081/api/v1/staff/doi-lich/search-by-phone?phone="+event.target.value,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response)
+                        if(response.statusCode === 'OK'){
+                            app.arrLichCanDoi = response.content.data;
+                            app.totalPageDoiLich = response.content.totalPages;
+                            app.pageNumberDoiLich = response.content.currentPage;
+                            app.pageSizeDoiLich = response.content.pageSize;
+                            app.countIndexDoiLichNhieu = 1;
+                        }else{
+                            callApiDoiLich();
+                        }
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                });
+            },
+            pageTionDoiLichNhanh(value) {
+                if (parseInt(app.countIndexDoiLichNhieu) === 1) {
+                    var url = "http://localhost:8081/api/v1/staff/doi-lich/search-by-phone?phone=" +
+                        app.soDienThoaiDoiLichSearch +
+                        "&page=" +
+                        value + "&size=" + app.pageSizeDoiLich;
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response)
+                            if(response.statusCode === 'OK'){
+                                app.arrLichCanDoi = response.content.data;
+                                app.totalPageDoiLich = response.content.totalPages;
+                                app.pageNumberDoiLich = response.content.currentPage;
+                                app.pageSizeDoiLich = response.content.pageSize;
+                                app.countIndexDoiLichNhieu = 1;
+                            }else{
+                                callApiDoiLich();
+                            }
+
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        },
+                    });
+                } else {
+                    var url = "http://localhost:8081/api/v1/staff/doi-lich/list-lich-doi?page=" + value + "&size=" + app.pageSizeDoiLich;
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response)
+                            app.arrLichCanDoi = response.content.data;
+                            app.totalPageDoiLich = response.content.totalPages;
+                            app.pageNumberDoiLich = response.content.currentPage;
+                            app.pageSizeDoiLich = response.content.pageSize;
+                            app.countIndexDoiLichNhieu = 0;
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        },
+                    });
+                }
+            },
+            nextPageDoiLich() {
+                if (parseInt(app.pageNumberDoiLich) + 1 == parseInt(app.totalPageDoiLich)) {
+                    return;
+                }
+                this.pageTionDoiLichNhanh(parseInt(app.pageNumberDoiLich) + 1);
+            },
+            previuosDoiLich() {
+                if (parseInt(app.pageNumberDoiLich) == 0) {
+                    return;
+                }
+                this.pageTionDoiLichNhanh(parseInt(app.pageNumberDoiLich) - 1);
+            },
+            pageSizeSelectDoiLich(event) {
+                if (parseInt(app.countIndexDoiLichNhieu) === 1) {
+                    var url  = "http://localhost:8081/api/v1/staff/doi-lich/search-by-phone?phone=" +
+                        app.soDienThoaiDoiLichSearch +
+                        "&size=" + event.target.value;
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response)
+                            if(response.statusCode === 'OK'){
+                                app.arrLichCanDoi = response.content.data;
+                                app.totalPageDoiLich = response.content.totalPages;
+                                app.pageNumberDoiLich = response.content.currentPage;
+                                app.pageSizeDoiLich = response.content.pageSize;
+                                app.countIndexDoiLichNhieu = 1;
+                            }else{
+                                callApiDoiLich();
+                            }
+
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        },
+                    });
+                } else {
+                    var url  = "http://localhost:8081/api/v1/staff/doi-lich/list-lich-doi?size=" + event.target.value;
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response)
+                            app.arrLichCanDoi = response.content.data;
+                            app.totalPageDoiLich = response.content.totalPages;
+                            app.pageNumberDoiLich = response.content.currentPage;
+                            app.pageSizeDoiLich = response.content.pageSize;
+                            app.countIndexDoiLichNhieu = 0;
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        },
+                    });
+                }
             }
         }
     });
@@ -3720,10 +3906,11 @@
             dataType: "json",
             success: function (response) {
                 console.log(response)
-                app.arrLichCanDoi = response.content;
-                response.content.forEach((items) => {
-
-                });
+                app.arrLichCanDoi = response.content.data;
+                app.totalPageDoiLich = response.content.totalPages;
+                app.pageNumberDoiLich = response.content.currentPage;
+                app.pageSizeDoiLich = response.content.pageSize;
+                app.countIndexDoiLichNhieu = 0;
             },
             error: function (error) {
                 console.log(error);

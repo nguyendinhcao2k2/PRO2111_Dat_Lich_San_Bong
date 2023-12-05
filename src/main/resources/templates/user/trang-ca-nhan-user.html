@@ -100,7 +100,7 @@
         <div class="card-header">
             <h4 class="text-right text-primary">Trang Cá Nhân</h4>
         </div>
-        <div class="card-body">
+        <div class="card-body" id="thongTinCaNhan">
             <div class="row">
                 <div class="col-md-3 border-right">
                     <div
@@ -109,80 +109,88 @@
                         <img
                                 class="rounded-circle mt-5"
                                 width="150px"
-                                th:if="${account.image != null and account.image != ''}"
-                                th:src="'data:image/png;base64,' + ${account.image}" alt="Hình ảnh"
+                                v-if="profile.image !== null"
+                                alt="Hình ảnh"
+                                :src="srcImage(profile.image)"
                         />
                         <img
-                                th:if="${account.image == null or account.image == ''}"
+
                                 class="rounded-circle mt-5"
                                 width="150px"
+                                v-if="profile.image === null"
                                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                        /><span class="font-weight-bold form-label"
-                                th:text="${account.displayName}">Nguyễn Anh Thy</span
-                    ><span class="text-black-50 form-label" th:if="${account.email != null and account.email !=''}"
-                           th:text="${account.email}">edogaru@mail.com.my</span
-                    ><span class="text-black-50 form-label" th:if="${account.email == null or account.email ==''}">Chưa cập nhật</span>
+                        />
+                        <span class="font-weight-bold form-label"  v-if="profile.email != null">{{profile.email}}</span>
+                        <span class="text-black-50 form-label" v-if="profile.email == null" >Chưa cập nhật</span>
                         <span> </span>
                     </div>
                 </div>
-                <div class="col-md-6 border-right">
-                  <form >
-                      <div class="p-3 py-2">
-                          <div
-                                  class="d-flex justify-content-between align-items-center mb-3"
-                          >
-                              <h4 class="text-right text-primary">Thông Tin</h4>
-                          </div>
-                          <div class="row mt-2">
-                              <div class="col-md-6">
-                                  <label class="form-label">Họ Tên</label
-                                  ><input
-                                      type="text"
-                                      class="form-control"
-                                      placeholder="first name"
-                                      th:value="${account.displayName}"
-                              />
-                              </div>
-                              <div class="col-md-6">
-                                  <label class="form-label">Tên Tài Khoản</label
-                                  ><input
-                                      type="text"
-                                      class="form-control"
-                                      th:value="${account.taiKhoan}"
-                                      readonly
-                                      placeholder="surname"
-                              />
-                              </div>
-                          </div>
-                          <div class="row mt-3">
-                              <div class="col-md-12 mb-3">
-                                  <label class="form-label">Số Điện Thoại</label
-                                  ><input
-                                      type="text"
-                                      class="form-control"
-                                      placeholder="enter phone number"
-                                      th:value="${account.soDienThoai}"
-                              />
-                              </div>
-                              <div class="col-md-12 mb-3">
-                                  <label class="form-label">Email</label>
+                <div class="col-md-6 border-right" >
+                    <form @submit.prevent="confirmThayDoiThongTin($event)">
+                        <div class="p-3 py-2">
+                            <div
+                                    class="d-flex justify-content-between align-items-center mb-3"
+                            >
+                                <h4 class="text-right text-primary">Thông Tin</h4>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <input type="text" hidden v-model="profile.id" class="idAC">
+                                    <label class="form-label">Họ Tên</label
+                                    ><input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="first name"
+                                        required
+                                        v-model="profile.displayName"
+                                />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Tên Tài Khoản</label
+                                    ><input
+                                        type="text"
+                                        class="form-control"
+                                        readonly
+                                        placeholder="surname"
+                                        v-model="profile.taiKhoan"
+                                />
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Số Điện Thoại</label
+                                    ><input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="enter phone number"
+                                        required
+                                        v-model="profile.soDienThoai"
+                                />
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Email</label>
 
-                                  <input type="text" class="form-control"
-                                         th:if="${account.email != null and account.email != ''}"
-                                         th:value="${account.email}"/>
+                                    <input type="text" class="form-control"
+                                           required
+                                           v-model="profile.email"/>
+                                </div>
+                                <br>
+                                <div class="col-6">
+                                    <label for="avatar"
+                                           style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
+                                        ảnh mới:</label>
+                                    <input style="margin: 0.4rem 0;" class="anhMoi" @change="handleImageProfile($event)" type="file"
+                                    />
+                                </div>
 
-                                  <input type="text" class="form-control" placeholder="Chưa cập nhật"
-                                         th:if="${account.email == null or account.email == ''}"/>
-                              </div>
-
-                          </div>
-                          <div class="mt-5 text-center">
-                              <button class="btn btn-success btn-labeled" type="submit">
-                                  Cập Nhập Thông Tin
-                              </button>
-                          </div>
-                      </div>
-                  </form>
+                            </div>
+                            <div class="mt-5 text-center">
+                                <button class="btn btn-success btn-labeled" type="submit">
+                                    Cập Nhập Thông Tin
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3" id="profileChangePass">
                     <div class="p-3 py-2">
@@ -200,7 +208,8 @@
                                            aria-label="Text input with checkbox" v-model="passwordCurrency">
                                     <span class="input-group-text" id="togglePassword">
                                         <i class="fa fa-eye-slash" id="hidePass" aria-hidden="true"></i>
-                                          <i class="fa fa-eye" id="showPass" style="display:none;" aria-hidden="true"></i>
+                                          <i class="fa fa-eye" id="showPass" style="display:none;"
+                                             aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
@@ -208,10 +217,12 @@
                             <div class="col-md-12">
                                 <label class="form-label">Mật khẩu Mới</label>
                                 <div class="input-group mb-3">
-                                    <input v-model="passwordNew" type="password" id="inputPassNew" required class="form-control" aria-label="Text input with checkbox">
+                                    <input v-model="passwordNew" type="password" id="inputPassNew" required
+                                           class="form-control" aria-label="Text input with checkbox">
                                     <span class="input-group-text" id="spanPassNew">
                                         <i class="fa fa-eye-slash" id="hidePassNew" aria-hidden="true"></i>
-                                          <i class="fa fa-eye" id="showPassNew" style="display:none;" aria-hidden="true"></i>
+                                          <i class="fa fa-eye" id="showPassNew" style="display:none;"
+                                             aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
@@ -219,10 +230,12 @@
                             <div class="col-md-12">
                                 <label class="form-label"> Xác Nhận Mật khẩu</label>
                                 <div class="input-group mb-3">
-                                    <input type="password" v-model="passwordConfirm" class="form-control" required id="inputPassConfirm" aria-label="Text input with checkbox">
+                                    <input type="password" v-model="passwordConfirm" class="form-control" required
+                                           id="inputPassConfirm" aria-label="Text input with checkbox">
                                     <span class="input-group-text" id="spanPassConfirm">
                                           <i class="fa fa-eye-slash" id="hidePassConfirm" aria-hidden="true"></i>
-                                          <i class="fa fa-eye" id="showPassConfirm" style="display:none;" aria-hidden="true"></i>
+                                          <i class="fa fa-eye" id="showPassConfirm" style="display:none;"
+                                             aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
