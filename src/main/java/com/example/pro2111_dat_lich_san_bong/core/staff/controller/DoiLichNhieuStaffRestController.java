@@ -1,8 +1,10 @@
 package com.example.pro2111_dat_lich_san_bong.core.staff.controller;
 
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.LichSuSanBongAdminService;
+import com.example.pro2111_dat_lich_san_bong.core.common.base.PageableObject;
 import com.example.pro2111_dat_lich_san_bong.core.common.session.CommonSession;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.model.response.HoaDonSendMailResponse;
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.DoiLichNhieuStaffReponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.request.DoiLichNhieuRequest;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.DoiLichDatResponse;
 import com.example.pro2111_dat_lich_san_bong.core.user.model.response.DoiLichNhieuUserResponse;
@@ -18,6 +20,9 @@ import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
 import com.example.pro2111_dat_lich_san_bong.model.response.MaillListResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -72,11 +77,27 @@ public class DoiLichNhieuStaffRestController {
     private LichSuSanBongAdminService lichSuSanBongAdminService;
 
     @GetMapping("list-lich-doi")
-    public ResponseEntity<?> getAllLichCoTheDoi() {
+    public ResponseEntity<?> getAllLichCoTheDoi(@RequestParam("page")Optional<Integer> page, @RequestParam("size")Optional<Integer> size) {
         try {
+            Pageable pageable = PageRequest.of(page.orElse(0),size.orElse(10));
             SysParam param = sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_DOI_LICH);
-            List<DoiLichNhieuUserResponse> responses = doiLichNhieuUserService.findListLichDoi(Integer.valueOf(param.getValue()), commonSession.getUserId());
-            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, responses));
+            Page<DoiLichNhieuStaffReponse> responses = doiLichNhieuUserService.findListLichDoiDatHo(Integer.valueOf(param.getValue()),pageable);
+            PageableObject pageableObject = new PageableObject(responses);
+            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, pageableObject));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.BAD_REQUEST, "Invalid"));
+        }
+    }
+
+    @GetMapping("search-by-phone")
+    public ResponseEntity<?> getAllLichCoTheDoi(@RequestParam("phone") String phone,@RequestParam("page")Optional<Integer> page, @RequestParam("size")Optional<Integer> size) {
+        try {
+            Pageable pageable = PageRequest.of(page.orElse(0),size.orElse(10));
+            SysParam param = sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_DOI_LICH);
+            Page<DoiLichNhieuStaffReponse> responses = doiLichNhieuUserService.tinKiemLichDatHoTheoSDT(Integer.valueOf(param.getValue()), phone,pageable);
+            PageableObject pageableObject = new PageableObject(responses);
+            return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, pageableObject));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.BAD_REQUEST, "Invalid"));

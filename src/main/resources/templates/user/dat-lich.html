@@ -1013,8 +1013,7 @@
                                                                 <i class="fa fa-ban" aria-hidden="true"></i>
                                                                 Hủy
                                                             </button>
-                                                            <button type="submit" class="btn btn-success"
-                                                                    @click="findLichDat">
+                                                            <button type="submit" class="btn btn-success">
                                                                 <i class="fa fa-check" aria-hidden="true"></i>
                                                                 Đổi lịch và thanh toán
                                                             </button>
@@ -3097,6 +3096,7 @@
                 })
             },
             btnXacNhanDoiLich() {
+                this.findLichDat();
                 if (this.lichDatCu.ngayDaDuKien == $(".ngayMuonDoi").val()
                     && this.lichDatCu.idLoaiSan == this.checkLich.idLoaiSan
                     && this.lichDatCu.idCa == this.checkLich.idCa) {
