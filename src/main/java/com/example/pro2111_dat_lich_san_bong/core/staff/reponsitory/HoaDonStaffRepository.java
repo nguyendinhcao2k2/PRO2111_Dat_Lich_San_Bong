@@ -39,8 +39,8 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "    hd.ma_tien_coc as maTienCoc, " +
             "    hd.email as email " +
             "FROM hoa_don as hd " +
-            "WHERE hd.so_dien_thoai_nguoi_dat LIKE ?1 " +
-            "   OR hd.ten_nguoi_dat LIKE ?1" +
+            "WHERE hd.so_dien_thoai_nguoi_dat LIKE  ?1 " +
+            "   OR hd.ten_nguoi_dat LIKE  ?1 " +
             "   AND hd.trang_thai = 0")
     List<HoaDonStaffResponse> filterHoaDon(String stringText);
 
@@ -76,10 +76,10 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "        dat_lich_san_bong.san_bong tb5 " +
             "            on tb5.id = tb3.id_san_bong " +
             "    where " +
-            "        so_dien_thoai_nguoi_dat = ?1 " +
-            "        or tb1.ten_nguoi_dat = ?1 " +
+            "        so_dien_thoai_nguoi_dat LIKE ?1 " +
+            "        or tb1.ten_nguoi_dat LIKE ?1 " +
             "        and tb3.trang_thai = 0 " +
-            "        and tb2.trang_thai = 2 ", nativeQuery = true)
+            "        and tb2.trang_thai = 0 ", nativeQuery = true)
     List<CheckInResponse> listCheckIn(String param);
 
     HoaDon findHoaDonById(String idHoaDon);

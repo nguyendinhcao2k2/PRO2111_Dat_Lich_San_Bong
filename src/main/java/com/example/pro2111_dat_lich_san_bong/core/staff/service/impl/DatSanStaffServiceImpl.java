@@ -350,7 +350,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         hoaDon.setTenNguoiDat(thongTinNguoiDatRequest.getHoVaTen());
         hoaDon.setTrangThai(TrangThaiHoaDon.MOI_TAO.ordinal());
         hoaDon.setTongTien(tongTien);
-        hoaDon.setTienCoc(tongTien * 0.2);
+        hoaDon.setTienCoc(tongTien * 0.5);
         String maTienCoc = generateRandomString();
         hoaDon.setMaTienCoc(maTienCoc);
         try {
