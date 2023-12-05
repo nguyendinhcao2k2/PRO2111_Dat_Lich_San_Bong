@@ -469,6 +469,13 @@
                                                                     ></button>
                                                                 </div>
                                                                 <div class="modal-body">
+                                                                    <div
+                                                                            id="toastContainer"
+                                                                            class="position-fixed osition-absolute top-0 end-0 p-3"
+                                                                            style="z-index: 9999"
+                                                                    >
+                                                                        <div id="toasts" class="d-flex flex-column-reverse"></div>
+                                                                    </div>
                                                                     <div class="row">
                                                                         <div class="col-md-3">
                                                                             <div class="">
@@ -928,6 +935,7 @@
 <script th:src="@{/static/js/staff/dat-lich.js}"></script>
 <!--QR code-->
 <script th:src="@{/static/js/custom/read-qrcode.js}"></script>
+<script th:src="@{/static/js/utill/thong-bao.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
 
 <script>
