@@ -4,49 +4,35 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThan
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.DichVuSanBongStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.HoaDonSanCaStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.PhuPhiHoaDonStaffRepository;
-import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.PhuPhiStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.SanCaStaffRepository;
-import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.ViTienStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.impl.ThanhToanSanCaStaffServiceImpl;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
 import com.example.pro2111_dat_lich_san_bong.entity.HinhThucThanhToan;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.LichSuViTien;
 import com.example.pro2111_dat_lich_san_bong.entity.PhuPhiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.LoaiHinhThanhToan;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiDichVu;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLoaiBienDong;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiPhuPhiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
-import com.example.pro2111_dat_lich_san_bong.repository.DichVuSanBongRepository;
 import com.example.pro2111_dat_lich_san_bong.repository.HinhThucThanhToanRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.HoaDonRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.HoaDonSanCaReponsitory;
-import com.example.pro2111_dat_lich_san_bong.repository.LichSuViTienRepository;
-import com.example.pro2111_dat_lich_san_bong.repository.ViTienRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 
 @RestController
 @RequestMapping("/api/v1/staff")
@@ -141,4 +127,9 @@ public class ThanhToanHoaDonStaffRestController {
         return vnpayUrl;
     }
 
+    @GetMapping("/search-by-phone")
+    public ResponseEntity<List<HoaDonThanhToanRequest>> getAllHoaDonThanhToanBySoDienThoai(@RequestParam(name = "numberPhone") String numberPhone) {
+        List<HoaDonThanhToanRequest> listHoaDonThanhToanRequests = thanhToanStaffService.getAllHoaDonSanCaByPhone(numberPhone);
+        return ResponseEntity.ok(listHoaDonThanhToanRequests);
+    }
 }

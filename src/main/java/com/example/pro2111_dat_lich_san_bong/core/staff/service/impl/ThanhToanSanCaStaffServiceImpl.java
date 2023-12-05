@@ -28,21 +28,26 @@ public class ThanhToanSanCaStaffServiceImpl implements IThanhToanSanCaStaffServi
     @Autowired
     private LichSuViTienRepository lichSuViTienRepository;
 
+    private void processHoaDonList(List<HoaDonThanhToanRequest> list) {
+        list.forEach(this::processHoaDonThanhToanRequest);
+    }
+
     @Override
     public List<HoaDonThanhToanRequest> getAllHoaDonSanCas() {
         List<HoaDonThanhToanRequest> listHoaDonThanhToanRequest = hoaDonSanCaStaffRepository.findAllByTrangThai(
                 TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal(),
                 TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal()
         );
+        processHoaDonList(listHoaDonThanhToanRequest);
+        return listHoaDonThanhToanRequest;
+    }
 
-        listHoaDonThanhToanRequest.forEach(request -> {
-            Double tongTienCoc = request.getTongTienSanCa();
-            request.setTienCoc(sysParamUserService.getTienCoc(tongTienCoc));
-            if (request.getTienCocThua() == null) {
-                request.setTienCocThua(Double.valueOf(0));
-            }
-        });
-
+    @Override
+    public List<HoaDonThanhToanRequest> getAllHoaDonSanCaByPhone(String numberPhone) {
+        List<HoaDonThanhToanRequest> listHoaDonThanhToanRequest = hoaDonSanCaStaffRepository.findAllBySoDienThoai(numberPhone,
+                TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal(),
+                TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal());
+        processHoaDonList(listHoaDonThanhToanRequest);
         return listHoaDonThanhToanRequest;
     }
 
@@ -59,16 +64,23 @@ public class ThanhToanSanCaStaffServiceImpl implements IThanhToanSanCaStaffServi
         return null;
     }
 
+    private void processHoaDonThanhToanRequest(HoaDonThanhToanRequest request) {
+        Double tongTienCoc = request.getTongTienSanCa();
+        request.setTienCoc(sysParamUserService.getTienCoc(tongTienCoc));
+        if (request.getTienCocThua() == null) {
+            request.setTienCocThua(Double.valueOf(0));
+        }
+    }
+
     public void saveViTienCocAndLichSu(HoaDonSanCa hoaDonSanCa) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         HoaDonThanhToanRequest hoaDonThanhToanRequest = getOneHoaDonThanhToan(hoaDonSanCa.getId());
-
         if (hoaDonThanhToanRequest != null) {
             Double tienCoc = hoaDonThanhToanRequest.getTienCoc();
             ViTienCoc viTienCoc = viTienStaffRepository.getViTienCocByIdHoaDon(hoaDonSanCa.getIdHoaDon());
             double soTienViCoc;
             double soTienCocNew = 0;
-            if(viTienCoc != null){
+            if (viTienCoc != null) {
                 if (viTienCoc.getSoTien() != null) {
                     soTienViCoc = viTienCoc.getSoTien();
                     soTienCocNew = soTienViCoc - tienCoc;
@@ -83,7 +95,7 @@ public class ThanhToanSanCaStaffServiceImpl implements IThanhToanSanCaStaffServi
                     lichSuViTien.setTaiKhoanVi(viTienCoc.getId());
                     lichSuViTien.setNguoiNhan(hoaDonSanCa.getId());
                     lichSuViTienRepository.saveAndFlush(lichSuViTien);
-                }else {
+                } else {
                     System.out.println("LỖI Ở THANH TOÁN SÂN CA SERVICE:");
                 }
             }
