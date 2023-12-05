@@ -23,7 +23,8 @@ public class CheckInStaffRescontroller {
 
     @GetMapping("/list-check-in")
     public ResponseEntity<?> listHoaDon(@RequestParam("param") String param) {
-        return new ResponseEntity<>(hoaDonStaffService.listCheckIn(param), HttpStatus.OK);
+        String newParam = "%" + param + "%";
+        return new ResponseEntity<>(hoaDonStaffService.listCheckIn(newParam), HttpStatus.OK);
     }
 
     @GetMapping("/check-in/{param}")

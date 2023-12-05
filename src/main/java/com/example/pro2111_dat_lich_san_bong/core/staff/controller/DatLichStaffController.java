@@ -53,6 +53,7 @@ public class DatLichStaffController {
                     throw new RestApiException("Có lỗi !");
                 }
             }
+            session.removeAttribute("thongTinNguoiDat");
             return "staff/success-oder";
         }
         return "DemoVNPay/FailOder";
