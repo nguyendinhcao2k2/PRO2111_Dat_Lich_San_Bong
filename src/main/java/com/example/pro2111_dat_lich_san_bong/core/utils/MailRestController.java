@@ -53,6 +53,8 @@ public class MailRestController {
     private HoaDonSanCaThongKeAdminService hoaDonSanCaThongKeAdminService;
     @Autowired
     private GiaoCaThongKeAdminService giaoCaThongKeAdminService;
+    @Autowired
+    private ViTienCocAdminService viTienCocAdminService;
 
     @GetMapping("/send-mail-bookings")
     public String sendMailWithBookings(HttpServletRequest request) {
@@ -108,6 +110,9 @@ public class MailRestController {
 
         Double tongDoanhThuTheoNgay = hoaDonSanCaThongKeAdminService.tongTienTheoNgay(localDate);
         Double tongTienMatTheoNgay = hoaDonSanCaThongKeAdminService.tongTienMatTheoNgayVaHinhThucThanhToan(localDate, LoaiHinhThanhToan.TIEN_MAT.ordinal());
+        Double tongTienMatTienCocTheoNgay = viTienCocAdminService.tongTienThanhToanCocTheoHinhThucThanhToanNgay(LoaiHinhThanhToan.TIEN_MAT.ordinal(),localDate);
+         Double tongTienChuyenKhoanTheoNgay = hoaDonSanCaThongKeAdminService.tongTienMatTheoNgayVaHinhThucThanhToan(localDate, LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
+        Double tongTienChuyenKhoanTienCocTheoNgay = viTienCocAdminService.tongTienThanhToanCocTheoHinhThucThanhToanNgay(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal(),localDate);
         Double tongTienPhatSinhTrongCaTheoNgay = giaoCaThongKeAdminService.tongTienPhatSinhCuaCacCaTheoNgay(localDate);
         Integer luotSanDatOnlineTheoNgay = lichSuSanBongAdminService.thongKeSoLuot(TrangThaiLichSuSanBong.DAT_LICH_ONLINE.ordinal(), localDate);
         Integer luotSanDatNhoTheoNgay = lichSuSanBongAdminService.thongKeSoLuot(TrangThaiLichSuSanBong.DAT_LICH_HO.ordinal(), localDate);
@@ -122,7 +127,8 @@ public class MailRestController {
             context.setVariable("soLuotDaTrongNgay", tongSoLuotDaTrongNgay);
             context.setVariable("soLuotLichChuyen", tongSoLuotChuyenLichTrongNgay);
             context.setVariable("soLichHuy", tongSoLuotHuyTrongNgay);
-            context.setVariable("tongTienMat", currencyFormat.format(tongTienMatTheoNgay));
+            context.setVariable("tongTienMat", currencyFormat.format(tongTienMatTheoNgay +tongTienMatTienCocTheoNgay));
+            context.setVariable("tongTienChuyenKhoan", currencyFormat.format(tongTienChuyenKhoanTheoNgay +tongTienChuyenKhoanTienCocTheoNgay));
             context.setVariable("tongTienPhatSinh", currencyFormat.format(tongTienPhatSinhTrongCaTheoNgay));
             context.setVariable("tongDoanhThu", currencyFormat.format(tongDoanhThuTheoNgay));
             if (accountThongKeReponses != null) {

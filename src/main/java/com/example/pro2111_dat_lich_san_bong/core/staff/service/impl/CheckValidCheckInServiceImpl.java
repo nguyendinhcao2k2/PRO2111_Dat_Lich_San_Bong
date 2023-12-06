@@ -31,7 +31,10 @@ public class CheckValidCheckInServiceImpl implements CheckValidCheckInService {
 //            Thời gian giữa 2 ngày
             Duration khoangTHoiGian = Duration.between(ngayGioDenSan,ngayGioHienTai);
 //            số phút
-            long soPhut = Math.abs(khoangTHoiGian.toMinutes());
+            long soPhut = khoangTHoiGian.toMinutes();
+            if(soPhut < 0){
+                return false;
+            }
             System.out.println("HelloA:"+soPhut);
 //            if (!ngayHienTai.isEqual(ngayDenSan)) {
 //                return false;
@@ -39,7 +42,7 @@ public class CheckValidCheckInServiceImpl implements CheckValidCheckInService {
 //            LocalTime gioBatDauLocalTime = thoiGianBatDau.toLocalTime();
 //            long soPhutGiuaHaiGio = Math.abs(TimeUnit.HOURS.toMinutes(gioHienTai.until(gioBatDauLocalTime, ChronoUnit.HOURS)));
             Integer thoiGianChoPhepCheckIn = Integer.valueOf(sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_DUOC_PHEP_CHECK_IN).getValue());
-            if (soPhut > thoiGianChoPhepCheckIn) {
+            if (Math.abs(soPhut) > thoiGianChoPhepCheckIn) {
                 return false;
             }
             return true;

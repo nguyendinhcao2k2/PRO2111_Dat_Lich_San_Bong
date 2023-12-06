@@ -88,8 +88,14 @@
                   >Nguyễn Anh Thư</span
                   >
                             <img
+                                    th:if="${session.Account.image == null}"
                                     class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg"
+                                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                            />
+                            <img
+                                    th:if="${session.Account.image != null}"
+                                    class="img-profile rounded-circle"
+                                    th:src="'data:image/png;base64,' + ${session.Account.image}" alt="Ảnh"
                             />
                         </a>
                         <!-- Dropdown - User Information -->
