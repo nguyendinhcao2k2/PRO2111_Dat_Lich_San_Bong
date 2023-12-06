@@ -195,7 +195,7 @@ var listTK = new Vue({
     },
     methods: {
         currenNumberListTK(number) {
-            return number.toLocaleString("vi-VN");
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
         }
     }
 })

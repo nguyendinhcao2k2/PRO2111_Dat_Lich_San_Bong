@@ -145,7 +145,7 @@ public class ThanhToanTCUserController extends BaseController {
 
 
         // Định dạng mong muốn
-        String outputDateFormat = "yyyy-MM-dd hh:mm:ss";
+        String outputDateFormat = "yyyy-MM-dd HH:mm:ss";
 
         // Tạo đối tượng SimpleDateFormat cho định dạng ban đầu
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -246,11 +246,11 @@ public class ThanhToanTCUserController extends BaseController {
                 e.printStackTrace();
             }
 
-            return "DemoVNPay/SuccessOder";
+            return "user/success-order-user";
         } else {// thanh toán thất bại hoặc hết tg thanh toán
             huyLichByThatBai(hoaDon.getId());
 
-            return "DemoVNPay/FailOder";
+            return "user/fail-order-user";
         }
 
     }

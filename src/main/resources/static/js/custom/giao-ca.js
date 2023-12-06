@@ -193,6 +193,11 @@ var app = new Vue({
     },
     methods: {
         checkValid(event) {
+            if(this.giaoCaStaff.tongTienMatTrongCa === 0){
+                event.target.value = 0;
+                createAndShowToast("bg-warning", "Thông báo!", "Xin lỗi, Bạn không đủ tiền!");
+                return ;
+            }
             if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
                 event.target.value = 0;
             }

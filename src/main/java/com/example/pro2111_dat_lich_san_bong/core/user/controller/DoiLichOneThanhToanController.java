@@ -323,7 +323,7 @@ public class DoiLichOneThanhToanController {
                 sendMailWithBookings.sendEmailBookings(hoaDon.getEmail(), context, request);
             }
             //gửi mail
-            return "DemoVNPay/SuccessOder";
+            return "user/success-order-user";
         }
         hoaDonSanCaCu.setTrangThai(TrangThaiHoaDonSanCa.CHO_NHAN_SAN.ordinal());
 //        //delete sân vừa tạo
@@ -331,7 +331,7 @@ public class DoiLichOneThanhToanController {
         sanCaUserService.deleteSanCaById(sanCaNew.getId());
         //xóa lịch sử đổi lịch
         lichSuDoiLichUserService.deleteById(lichSuDoiLich.getId());
-        return "DemoVNPay/FailOder";
+        return "user/fail-order-user";
     }
 
 

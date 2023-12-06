@@ -406,7 +406,7 @@ public class DoiLichNhieuUserThanhToanRestController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return "DemoVNPay/SuccessOder";
+            return "user/success-order-user";
         }
         try {
             //xóa sân mới đi
@@ -429,7 +429,7 @@ public class DoiLichNhieuUserThanhToanRestController {
             e.printStackTrace();
         }
 
-        return "DemoVNPay/FailOder";
+        return "user/fail-order-user";
 
     }
 }
