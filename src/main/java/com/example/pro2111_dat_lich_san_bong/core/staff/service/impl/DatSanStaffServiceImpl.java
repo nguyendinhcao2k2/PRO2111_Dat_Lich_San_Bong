@@ -353,6 +353,10 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         double tongTien = 0;
         for (ThongTinLichDatRequest thongTinLichDatRequest : thongTinNguoiDatRequest.getThongTinLichDatRequests()) {
             tongTien += Double.parseDouble(thongTinLichDatRequest.getPrice());
+            LichSuSanBong lichSuSanBong = new LichSuSanBong();
+            lichSuSanBong.setNgayThucHien(LocalDateTime.now());
+            lichSuSanBong.setTrangThai(TrangThaiLichSuSanBong.DAT_LICH_HO.ordinal());
+            lichSuSanBongAdminService.createOrUpdate(lichSuSanBong);
         }
         hoaDon.setNgayTao(LocalDateTime.now());
         hoaDon.setEmail(thongTinNguoiDatRequest.getEmail());
@@ -376,10 +380,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
             viTienCoc.setThoiGianTao(Timestamp.valueOf(LocalDateTime.now()));
             viTienUserService.saveViTen(viTienCoc);
 
-            LichSuSanBong lichSuSanBong = new LichSuSanBong();
-            lichSuSanBong.setNgayThucHien(LocalDateTime.now());
-            lichSuSanBong.setTrangThai(TrangThaiLichSuSanBong.DAT_LICH_HO.ordinal());
-            lichSuSanBongAdminService.createOrUpdate(lichSuSanBong);
+
             return hoaDonA.getId();
         } catch (Exception e) {
             e.printStackTrace();
