@@ -22,13 +22,13 @@ import com.example.pro2111_dat_lich_san_bong.core.staff.service.IDatSanStaffServ
 import com.example.pro2111_dat_lich_san_bong.core.user.repository.HoaDonSanCaUserRepository;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonSanCaUserService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.HoaDonUserService;
+import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
+import com.example.pro2111_dat_lich_san_bong.core.user.service.ViTienUserService;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailUtils;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
 import com.example.pro2111_dat_lich_san_bong.entity.*;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDon;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.*;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.exception.RestApiException;
 import com.example.pro2111_dat_lich_san_bong.model.request.SendMailRequest;
 import com.example.pro2111_dat_lich_san_bong.model.response.MaillListResponse;
@@ -39,6 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.context.Context;
 
 import java.security.SecureRandom;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -87,6 +88,13 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
 
     @Autowired
     private LichSuSanBongAdminService lichSuSanBongAdminService;
+
+    @Autowired
+    private SYSParamUserService sysParamUserService;
+
+    @Autowired
+    private ViTienUserService viTienUserService;
+
 
     @Override
     public List<LoadSanBongRespose> loadSanBong() {
@@ -339,10 +347,16 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
     }
 
     private String createHoaDon(ThongTinNguoiDatRequest thongTinNguoiDatRequest) {
+        SysParam param = sysParamUserService.findSysParamByCode(SYSParamCodeConstant.PHAN_TRAM_GIA_TIEN_COC);
         HoaDon hoaDon = new HoaDon();
+        ViTienCoc viTienCoc = new ViTienCoc();
         double tongTien = 0;
         for (ThongTinLichDatRequest thongTinLichDatRequest : thongTinNguoiDatRequest.getThongTinLichDatRequests()) {
             tongTien += Double.parseDouble(thongTinLichDatRequest.getPrice());
+            LichSuSanBong lichSuSanBong = new LichSuSanBong();
+            lichSuSanBong.setNgayThucHien(LocalDateTime.now());
+            lichSuSanBong.setTrangThai(TrangThaiLichSuSanBong.DAT_LICH_HO.ordinal());
+            lichSuSanBongAdminService.createOrUpdate(lichSuSanBong);
         }
         hoaDon.setNgayTao(LocalDateTime.now());
         hoaDon.setEmail(thongTinNguoiDatRequest.getEmail());
@@ -350,11 +364,24 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         hoaDon.setTenNguoiDat(thongTinNguoiDatRequest.getHoVaTen());
         hoaDon.setTrangThai(TrangThaiHoaDon.MOI_TAO.ordinal());
         hoaDon.setTongTien(tongTien);
-        hoaDon.setTienCoc(tongTien * 0.5);
+        hoaDon.setTienCoc(tongTien * (Integer.valueOf(param.getValue()) / 100));
         String maTienCoc = generateRandomString();
         hoaDon.setMaTienCoc(maTienCoc);
+
+
         try {
-            return hoaDonStaffRepository.save(hoaDon).getId();
+            HoaDon hoaDonA = hoaDonStaffRepository.save(hoaDon);
+            viTienCoc.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
+            viTienCoc.setSoTien(tongTien * (Integer.valueOf(param.getValue()) / 100));
+            viTienCoc.setIdHoaDon(hoaDonA.getId());
+            viTienCoc.setNoiDung("Tien coc san bong");
+            viTienCoc.setLoaiTien("VNd");
+            viTienCoc.setTrangThai(TrangThaiViTien.BINH_THUONG.ordinal());
+            viTienCoc.setThoiGianTao(Timestamp.valueOf(LocalDateTime.now()));
+            viTienUserService.saveViTen(viTienCoc);
+
+
+            return hoaDonA.getId();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

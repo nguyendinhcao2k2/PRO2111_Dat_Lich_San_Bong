@@ -82,7 +82,10 @@ public class HoaDonStaffServiceImpl implements HoaDonStaffService {
             Ca ca = caStaffRepository.findById(sanCa.getIdCa()).get();
             boolean check = checkValidCheckInService.checkNgayGioCheckIn(hoaDonSanCa.get().getNgayDenSan(), ca.getThoiGianBatDau());
             if (!check) {
-                return ResponseEntity.ok(new BaseResponse<>(HttpStatus.LOCKED, "Chưa đến thời gian check in"));
+                return ResponseEntity.ok(new BaseResponse<>(HttpStatus.LOCKED, "Bạn chưa đến thời gian check-in hoặc phiếu check-in đã quá hạn! "));
+            }
+            if (hoaDonSanCa.get().getTrangThai() == TrangThaiHoaDonSanCa.DA_THANH_TOAN.ordinal()) {
+                return ResponseEntity.ok(new BaseResponse<>(HttpStatus.PAYMENT_REQUIRED, "Phiếu đã được thanh toán"));
             }
             //check đến thời gian check in chưa
             GiaoCaResponse giaoCa = giaoCaStaffService.findGiaoCaByTrangThai(TrangThaiGiaoCa.NHAN_CA);
