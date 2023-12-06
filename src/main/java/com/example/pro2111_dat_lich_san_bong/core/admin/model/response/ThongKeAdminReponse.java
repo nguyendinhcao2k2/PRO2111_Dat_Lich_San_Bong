@@ -18,6 +18,7 @@ public class ThongKeAdminReponse {
     private Integer tongSoLuotChuyenLich;
     private Integer tongSoHuyLich;
     private Double tongSoTienMat;
+    private Double tongSoTienChuyenKhoan;
     private Double tongTienPhatSinhKhiGiaoCa;
 
 

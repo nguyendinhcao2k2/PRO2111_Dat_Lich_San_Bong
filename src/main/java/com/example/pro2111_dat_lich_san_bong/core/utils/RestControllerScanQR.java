@@ -72,6 +72,9 @@ public class RestControllerScanQR {
             if (hoaDonSanCa.getTrangThai() == TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal()) {
                 return ResponseEntity.ok(new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Đã được check-in"));
             }
+            if (hoaDonSanCa.getTrangThai() == TrangThaiHoaDonSanCa.DA_THANH_TOAN.ordinal()) {
+                return ResponseEntity.ok(new BaseResponse<>(HttpStatus.PAYMENT_REQUIRED, "Phiếu đã được thanh toán"));
+            }
             SanCa sanCa = sanCaStaffRepository.findById(hoaDonSanCa.getIdSanCa()).get();
             //check đến thời gian check in chưa
             Ca ca = caStaffRepository.findById(sanCa.getIdCa()).get();

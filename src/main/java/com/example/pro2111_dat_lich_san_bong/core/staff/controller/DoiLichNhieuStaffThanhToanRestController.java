@@ -320,22 +320,22 @@ public class DoiLichNhieuStaffThanhToanRestController {
                                 hoaDon.setTienCoc(hoaDon.getTongTien() * (phanTramTienCoc / 100));
                                 hoaDonUserService.updateHoaDon(hoaDon);
                                 listHoaDonMail.add(hoaDon.getId());
-//                                ViTienCoc viTienCoc = viTienUserService.findByIdHoaDon(hoaDon.getId());
-//                                viTienCoc.setSoTien(hoaDon.getTienCoc());
-//                                viTienUserService.updateViTien(viTienCoc);
-//                                Double tienDaoDong = listHoaDonSanCaUpdate.get(i).getTienSan() - listHoaDonSanCaCu.get(i).getTienSan();
-//                                if (tienDaoDong > 0) {
-//                                    LichSuViTien lichSuViTien = new LichSuViTien();
-//                                    lichSuViTien.setIdViTienCoc(viTienCoc.getId());
-//                                    lichSuViTien.setSoTien((tienDaoDong) * (phanTramTienCoc / 100));
-//                                    lichSuViTien.setLoaiTien("VND");
-//                                    lichSuViTien.setThoiGian(LocalDateTime.now());
-//                                    lichSuViTien.setTaiKhoanVi("TK" + Math.floor((Math.random() * 899999) + 100000));
-//                                    lichSuViTien.setLoaiBienDong(TrangThaiLoaiBienDong.CONG_TIEN);
-//                                    lichSuViTien.setTrangThai("0");
-//                                    lichSuViTien.setNguoiNhan("Công ty TNHH Đồng Đế");
-//                                    lichSuViTienUserService.saveOrUpdate(lichSuViTien);
-//                                }
+                                ViTienCoc viTienCoc = viTienUserService.findByIdHoaDon(hoaDon.getId());
+                                viTienCoc.setSoTien(hoaDon.getTienCoc());
+                                viTienUserService.updateViTien(viTienCoc);
+                                Double tienDaoDong = listHoaDonSanCaUpdate.get(i).getTienSan() - listHoaDonSanCaCu.get(i).getTienSan();
+                                if (tienDaoDong > 0) {
+                                    LichSuViTien lichSuViTien = new LichSuViTien();
+                                    lichSuViTien.setIdViTienCoc(viTienCoc.getId());
+                                    lichSuViTien.setSoTien((tienDaoDong) * (phanTramTienCoc / 100));
+                                    lichSuViTien.setLoaiTien("VND");
+                                    lichSuViTien.setThoiGian(LocalDateTime.now());
+                                    lichSuViTien.setTaiKhoanVi("TK" + Math.floor((Math.random() * 899999) + 100000));
+                                    lichSuViTien.setLoaiBienDong(TrangThaiLoaiBienDong.CONG_TIEN);
+                                    lichSuViTien.setTrangThai("0");
+                                    lichSuViTien.setNguoiNhan("Công ty TNHH Đồng Đế");
+                                    lichSuViTienUserService.saveOrUpdate(lichSuViTien);
+                                }
 
 
                             }
@@ -429,7 +429,7 @@ public class DoiLichNhieuStaffThanhToanRestController {
             e.printStackTrace();
         }
 
-        return "DemoVNPay/FailOder";
+        return "staff/fail-order-staff";
 
     }
 }

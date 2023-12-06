@@ -255,21 +255,21 @@ public class DoiLichOneThanhToanStaffRestController {
             hoaDon.setTienCoc(hoaDon.getTienCoc() + doiLichOneRequest.getTienCocThieu());
             hoaDonDoiLichUserService.update(hoaDon);
             // cap nhat vi tien
-//            ViTienCoc viTienCoc = viTienUserService.findByIdHoaDon(hoaDon.getId());
-//            viTienCoc.setSoTien(viTienCoc.getSoTien() + doiLichOneRequest.getTienCocThieu());
-//            viTienUserService.updateViTien(viTienCoc);
+            ViTienCoc viTienCoc = viTienUserService.findByIdHoaDon(hoaDon.getId());
+            viTienCoc.setSoTien(viTienCoc.getSoTien() + doiLichOneRequest.getTienCocThieu());
+            viTienUserService.updateViTien(viTienCoc);
 
-//            //create lịch su vi tien
-//            LichSuViTien lichSuViTien = new LichSuViTien();
-//            lichSuViTien.setSoTien(doiLichOneRequest.getTienCocThieu());
-//            lichSuViTien.setTrangThai("0");
-//            lichSuViTien.setLoaiBienDong(TrangThaiLoaiBienDong.CONG_TIEN);
-//            lichSuViTien.setLoaiTien("VND");
-//            lichSuViTien.setNguoiNhan("Sân Bóng Đồng Đế");
-//            lichSuViTien.setThoiGian(LocalDateTime.now());
-//            lichSuViTien.setTaiKhoanVi("TK" + Math.floor((Math.random() * 899999) + 100000));
-//            lichSuViTien.setIdViTienCoc(viTienCoc.getId());
-//            lichSuViTienUserService.saveOrUpdate(lichSuViTien);
+            //create lịch su vi tien
+            LichSuViTien lichSuViTien = new LichSuViTien();
+            lichSuViTien.setSoTien(doiLichOneRequest.getTienCocThieu());
+            lichSuViTien.setTrangThai("0");
+            lichSuViTien.setLoaiBienDong(TrangThaiLoaiBienDong.CONG_TIEN);
+            lichSuViTien.setLoaiTien("VND");
+            lichSuViTien.setNguoiNhan("Sân Bóng Đồng Đế");
+            lichSuViTien.setThoiGian(LocalDateTime.now());
+            lichSuViTien.setTaiKhoanVi("TK" + Math.floor((Math.random() * 899999) + 100000));
+            lichSuViTien.setIdViTienCoc(viTienCoc.getId());
+            lichSuViTienUserService.saveOrUpdate(lichSuViTien);
 
             //xóa lịch sử đổi lịch
             lichSuDoiLichUserService.deleteById(lichSuDoiLich.getId());
@@ -334,7 +334,7 @@ public class DoiLichOneThanhToanStaffRestController {
         sanCaUserService.deleteSanCaById(sanCaNew.getId());
         //xóa lịch sử đổi lịch
         lichSuDoiLichUserService.deleteById(lichSuDoiLich.getId());
-        return "DemoVNPay/FailOder";
+        return "staff/fail-order-staff";
     }
 
 

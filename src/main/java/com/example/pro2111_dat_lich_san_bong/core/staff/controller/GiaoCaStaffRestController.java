@@ -1,5 +1,6 @@
 package com.example.pro2111_dat_lich_san_bong.core.staff.controller;
 
+import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.ViTienCocAdminService;
 import com.example.pro2111_dat_lich_san_bong.core.common.base.PageableObject;
 import com.example.pro2111_dat_lich_san_bong.core.common.session.CommonSession;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.KetCaRequest;
@@ -46,6 +47,9 @@ public class GiaoCaStaffRestController {
     @Autowired
     private CurrencyConfig currencyConfig;
 
+    @Autowired
+    private ViTienCocAdminService viTienCocAdminService;
+
     @GetMapping
     public ResponseEntity<?> getGiaoCaStaff() {
         try {
@@ -73,21 +77,23 @@ public class GiaoCaStaffRestController {
             }
             giaoCaStaffResponse.setTongHoaDonChuaThanhToan(countHDCTT);
             //tong tien bang tien mat
+            Double tongTienCocTienMat = viTienCocAdminService.tongTienThanhToanCocTheoHinhThucThanhToanTrongCaLamViec(LoaiHinhThanhToan.TIEN_MAT.ordinal(),giaoCaResponse.getThoiGianNhanCa());
             Double totalCash = _giaoCaStaffService.tongTienTrongCaTheoHinhThucThanhToan(LoaiHinhThanhToan.TIEN_MAT.ordinal());
             if (totalCash == null) {
                 totalCash = 0.0;
             }
-            giaoCaStaffResponse.setTongTientThanhToanBangTienMat(totalCash);
+            giaoCaStaffResponse.setTongTientThanhToanBangTienMat(totalCash + tongTienCocTienMat);
             //tong tien bang chuyen khoan
+            Double tongTienCocChuyenKhoan = viTienCocAdminService.tongTienThanhToanCocTheoHinhThucThanhToanTrongCaLamViec(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal(),giaoCaResponse.getThoiGianNhanCa());
             Double totalTransfer = _giaoCaStaffService.tongTienTrongCaTheoHinhThucThanhToan(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
             if (totalTransfer == null) {
                 totalTransfer = 0.0;
             }
-            giaoCaStaffResponse.setTongTientThanhToanBangChuyenKhoan(totalTransfer);
+            giaoCaStaffResponse.setTongTientThanhToanBangChuyenKhoan(totalTransfer + tongTienCocChuyenKhoan);
             //tong tien mat trong ca
-            giaoCaStaffResponse.setTongTienMatTrongCa(totalCash + giaoCaStaffResponse.getTienBanDau());
+            giaoCaStaffResponse.setTongTienMatTrongCa(totalCash + giaoCaStaffResponse.getTienBanDau() + tongTienCocTienMat);
             //tong tien thu trong ca
-            Double total = Double.valueOf(totalCash) + Double.valueOf(totalTransfer);
+            Double total = Double.valueOf(totalCash) + Double.valueOf(totalTransfer) +tongTienCocTienMat + tongTienCocChuyenKhoan;
             giaoCaStaffResponse.setTongTienThuTrongCa(total);
             return ResponseEntity.ok(new BaseResponse<Object>(HttpStatus.OK, giaoCaStaffResponse));
         } catch (Exception e) {
