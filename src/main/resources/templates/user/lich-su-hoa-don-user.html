@@ -125,7 +125,8 @@
   }
 </style>
 <body>
-<header th:insert="~{fragments/header-admin}"></header>
+<header th:insert="~{fragments/header}"></header>
+
 <section class="mains">
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
@@ -157,26 +158,6 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="row g-3 align-items-center">
-                  <div class="col-md-5 col-sm-auto">
-                    <div class="input-group">
-                          <span
-                                  class="input-group-text"
-                                  style="
-                              border-bottom-left-radius: 5px;
-                              border-top-left-radius: 5px;
-                            "
-                          >
-                            <i class="fas fa-search fa-lg"></i>
-                          </span>
-                      <input
-                              id="input-search-danh-sach-cho"
-                              style="color: black"
-                              type="text"
-                              class="form-control"
-                              placeholder="Tên, số điện thoại khách"
-                      />
-                    </div>
-                  </div>
                   <!--Trạng thái  -->
                   <div class="col-auto">
                     <label
@@ -196,128 +177,109 @@
                       <option value="3">...</option>
                     </select>
                   </div>
-
-                  <!-- Ngày -->
-                  <div class="col-auto">
-                    <button
-                            type="button"
-                            class="btn btn-labeled btn-success"
-                    >
-                      Tìm kiếm
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <table
-                class="table table-bordered mt-2"
-                id="dataTable"
-                width="100%"
-                cellspacing="0"
-        >
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
-            <th>Thao tác</th>
-          </tr>
-          </thead>
-          <!-- <tfoot>
-            <tr>
-              <th>Name</th>
-              <th>Position</th>
-              <th>Office</th>
-              <th>Age</th>
-              <th>Start date</th>
-              <th>Salary</th>
-              <th>Thao tác</th>
-            </tr>
-          </tfoot> -->
-          <tbody>
-          <tr>
-            <td>Lael Greer</td>
-            <td>Systems Administrator</td>
-            <td>London</td>
-            <td>21</td>
-            <td>2009/02/27</td>
-            <td>$103,500</td>
-            <td>
-              <button type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
-                      data-bs-target="#offcanvasRight"
-                      aria-controls="offcanvasRight">
-                Xem chi tiết
+
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button p-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <table
+                        class="table border-0 mt-2"
+                        id="dataTable"
+                        width="100%"
+                        cellspacing="0"
+                >
+                  <tbody>
+                    <tr>
+                      <td><h5>Tên khách hàng:</h5> Lael Greer</td>
+                      <td><h5>Tên khách hàng:</h5> Systems Administrator</td>
+                      <td><h5>Tên khách hàng:</h5> London</td>
+                      <td><h5>Tên khách hàng:</h5> 21</td>
+                      <td><h5>Tên khách hàng:</h5> 2009/02/27</td>
+                    </tr>
+                  </tbody>
+                </table>
               </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Jonas Alexander</td>
-            <td>Developer</td>
-            <td>San Francisco</td>
-            <td>30</td>
-            <td>2010/07/14</td>
-            <td>$86,500</td>
-            <td>
-              <button type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
-                      data-bs-target="#offcanvasRight"
-                      aria-controls="offcanvasRight">
-                Xem chi tiết
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Shad Decker</td>
-            <td>Regional Director</td>
-            <td>Edinburgh</td>
-            <td>51</td>
-            <td>2008/11/13</td>
-            <td>$183,000</td>
-            <td>
-              <button type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
-                      data-bs-target="#offcanvasRight"
-                      aria-controls="offcanvasRight">
-                Xem chi tiết
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Michael Bruce</td>
-            <td>Javascript Developer</td>
-            <td>Singapore</td>
-            <td>29</td>
-            <td>2011/06/27</td>
-            <td>$183,000</td>
-            <td>
-              <button type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
-                      data-bs-target="#offcanvasRight"
-                      aria-controls="offcanvasRight">
-                Xem chi tiết
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Donna Snider</td>
-            <td>Customer Support</td>
-            <td>New York</td>
-            <td>27</td>
-            <td>2011/01/25</td>
-            <td>$112,000</td>
-            <td>
-              <button type="button" class="btn btn-primary btn-labeled " data-bs-toggle="offcanvas"
-                      data-bs-target="#offcanvasRight"
-                      aria-controls="offcanvasRight">
-                Xem chi tiết
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <div class="row">
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body p-1">
+                <table
+                        class="table table-bordered mt-2"
+                        id="dataTable"
+                        width="100%"
+                        cellspacing="0"
+                >
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                    <th>Thao tác</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>Lael Greer</td>
+                    <td>Systems Administrator</td>
+                    <td>London</td>
+                    <td>21</td>
+                    <td>2009/02/27</td>
+                    <td>$103,500</td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
+                              data-bs-target="#offcanvasRight"
+                              aria-controls="offcanvasRight">
+                        Xem chi tiết
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Jonas Alexander</td>
+                    <td>Developer</td>
+                    <td>San Francisco</td>
+                    <td>30</td>
+                    <td>2010/07/14</td>
+                    <td>$86,500</td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
+                              data-bs-target="#offcanvasRight"
+                              aria-controls="offcanvasRight">
+                        Xem chi tiết
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Shad Decker</td>
+                    <td>Regional Director</td>
+                    <td>Edinburgh</td>
+                    <td>51</td>
+                    <td>2008/11/13</td>
+                    <td>$183,000</td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
+                              data-bs-target="#offcanvasRight"
+                              aria-controls="offcanvasRight">
+                        Xem chi tiết
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row pt-4">
           <div class="col-sm-12 col-md-5">
             <div
                     class="dataTables-info form-label"
