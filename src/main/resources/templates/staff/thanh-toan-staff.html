@@ -693,7 +693,6 @@
     var getId;
     var tongTienSanCa;
     var tongTienCocThua;
-    var tongTienSanCaSaveThongKe;
     var tongTienDichVu;
     var tongTienPhuPhi;
     var tongTienHoaDonPhaiTra;
@@ -716,7 +715,6 @@
             tongTienSanCa = response.tongTienSanCa;
             tongTienCoc = response.tienCoc;
             tongTienCocThua = response.tienCocThua;
-            tongTienSanCaSaveThongKe = (tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi));
             tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc + tongTienCocThua));
             $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc + tongTienCocThua))) + '.VNĐ');
         });
@@ -914,7 +912,6 @@
                     htmlThongBao += '</div>';
                     $('#dataThongBao').append(htmlThongBao);
                 }
-                tongTienSanCaSaveThongKe = (tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi));
                 tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc + tongTienCocThua));
                 $("input[id='giaDichVu']").val(formatCurrencyVND(tongTienDichVu));
                 $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc + tongTienCocThua))) + '.VNĐ');
@@ -1132,7 +1129,6 @@
                         $('#selectPhuPhi').append(option);
                         tongTienPhuPhi += item.giaPhuPhi;
                     });
-                    tongTienSanCaSaveThongKe = (tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi));
                     tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc + tongTienCocThua));
                     $('#giaPhuPhiShow').val(formatCurrencyVND(tongTienPhuPhi));
                     $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc + tongTienCocThua))) + '.VNĐ');
@@ -1301,7 +1297,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
-                var tongTien = tongTienSanCaSaveThongKe;
+                var tongTien = tongTienHoaDonPhaiTra;
                 $.ajax({
                     type: "POST",
                     url: "/api/v1/staff/thanh-toan-tien-mat/" + getId,
