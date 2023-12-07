@@ -17,8 +17,8 @@ function search() {
                                 <td>${ck.soDienThoai}</td>
                                 <td>${ck.tenSanBong}</td>
                                 <td>${ck.tenCa}</td>
-                                <td>${ck.tienCoc}</td>
-                                <td>${ck.tienSan}</td>
+                                <td>${formatCurrencyVND(ck.tienCoc)}</td>
+                                <td>${formatCurrencyVND(ck.tienSan)}</td>
                                 <td>${ck.ngayDenSan}</td>
                                 <td>${ck.thoiGianBatDau} - ${ck.thoiGianKetThuc}</td>                       
                                 <td>
@@ -51,4 +51,13 @@ function checkInLichDat(param) {
             alert("Có lỗi !!")
         }
     })
+}
+
+function formatCurrencyVND(amount) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
+    return formatter.format(amount);
 }
