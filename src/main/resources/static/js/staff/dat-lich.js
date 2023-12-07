@@ -140,7 +140,7 @@ function reloadSanBong() {
                                             <span class="badge bg-primary badge-icon">
                                                 <i class="fas fa-dollar-sign fa-lg icon-content"></i>
                                             </span>
-                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${formatCurrencyVND(ca.gia)}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -349,7 +349,7 @@ function filterSanBong() {
                                             <span class="badge bg-primary badge-icon">
                                                 <i class="fas fa-dollar-sign fa-lg icon-content"></i>
                                             </span>
-                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${formatCurrencyVND(ca.gia)}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -534,7 +534,7 @@ window.onload = function () {
                                             <span class="badge bg-primary badge-icon">
                                                 <i class="fas fa-dollar-sign fa-lg icon-content"></i>
                                             </span>
-                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${formatCurrencyVND(ca.gia)}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -587,7 +587,7 @@ function checkBoxFunction(sanContent, cardCa, cb) {
             tenCa: tc,
             ngay: date,
             time: thoiGian,
-            price: gia.split(" ")[0],
+            price: convertCurrencyStringToNumber(gia),
         };
         let thongTinSanBongList = JSON.parse(localStorage.getItem("thongTin"));
         if (thongTinSanBongList === null) {
@@ -618,7 +618,7 @@ function genDataTable(tt) {
         newRow.append('<td>' + row.ngay + '</td>');
         newRow.append('<td>' + row.tenCa + '</td>');
         newRow.append('<td>' + row.time + '</td>');
-        newRow.append('<td>' + row.price + ' VND</td>');
+        newRow.append('<td>' + formatCurrencyVND(row.price) + '</td>');
         newRow.append(`<td><button onclick="deleteRow('${tt[i].cbId}-${tt[i].ngay}')" class="btn btn-primary">Xóa</button></td>`);
 
         // Thêm hàng mới vào tbody
@@ -715,7 +715,7 @@ function datSan() {
                 thongTinLichDatRequests: thongTin
             }
             $.ajax({
-                url: apiUrl + "/submit-order",
+                url: apiUrl + "/dat-lich",
                 type: "POST",
                 data: JSON.stringify(dataSend),
                 contentType: "application/json",
@@ -723,7 +723,7 @@ function datSan() {
                     localStorage.setItem("thongTin", JSON.stringify([]));
                     $('#modalInfo').modal('hide');
                     $('#idTable').empty();
-                    window.location.href = data;
+                    reloadSanBong();
                 },
                 error: function (error) {
                     alert(error.responseJSON.message);
@@ -749,8 +749,8 @@ function openModalDanhSachCho() {
                             <td>${dt.soDienThoaiNguoiDat}</td>
                             <td>${dt.email}</td>
                             <td>${dt.ngay}</td>
-                            <td>${dt.tongTien} VND</td>
-                            <td>${dt.tienCoc} VND</td>
+                            <td>${formatCurrencyVND(dt.tongTien)} VND</td>
+                            <td>${formatCurrencyVND(dt.tienCoc)} VND</td>
                             <td>${dt.maTienCoc}</td>
                             <td>
                                  <div class="d-flex flex-column">
@@ -837,7 +837,7 @@ function searchDanhSachCho() {
                             <td>${dt.soDienThoaiNguoiDat}</td>
                             <td>${dt.email}</td>
                             <td>${dt.ngay}</td>
-                            <td>${dt.tongTien} VND</td>
+                            <td>${formatCurrencyVND(dt.tongTien)} VND</td>
                             <td>${dt.tienCoc} VND</td>
                             <td>${dt.maTienCoc}</td>
                             <td>
@@ -1013,7 +1013,7 @@ function callApiFilter(param) {
                                             <span class="badge bg-primary badge-icon">
                                                 <i class="fas fa-dollar-sign fa-lg icon-content"></i>
                                             </span>
-                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${ca.gia} VND</label>
+                                            <label id="label-gia" style="color: black; font-size: 18px; margin-left: 5px">${formatCurrencyVND(ca.gia)}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -1081,4 +1081,20 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
                                         </ul>`
     }
     return ``;
+}
+
+function formatCurrencyVND(amount) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
+    return formatter.format(amount);
+}
+
+function convertCurrencyStringToNumber(currencyString) {
+    // Remove non-numeric characters and convert to a number
+    const numericValue = parseInt(currencyString.replace(/[^\d]/g, ''), 10);
+
+    return numericValue;
 }
