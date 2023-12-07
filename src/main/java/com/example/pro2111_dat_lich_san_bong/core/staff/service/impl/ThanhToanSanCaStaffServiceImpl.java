@@ -78,15 +78,8 @@ public class ThanhToanSanCaStaffServiceImpl implements IThanhToanSanCaStaffServi
         if (hoaDonThanhToanRequest != null) {
             Double tienCoc = hoaDonThanhToanRequest.getTienCoc();
             ViTienCoc viTienCoc = viTienStaffRepository.getViTienCocByIdHoaDon(hoaDonSanCa.getIdHoaDon());
-            double soTienViCoc;
-            double soTienCocNew = 0;
             if (viTienCoc != null) {
                 if (viTienCoc.getSoTien() != null) {
-                    soTienViCoc = viTienCoc.getSoTien();
-                    soTienCocNew = soTienViCoc - tienCoc;
-                    viTienCoc.setSoTien(soTienCocNew);
-                    viTienStaffRepository.saveAndFlush(viTienCoc);
-
                     LichSuViTien lichSuViTien = new LichSuViTien();
                     lichSuViTien.setSoTien(tienCoc);
                     lichSuViTien.setIdViTienCoc(viTienCoc.getId());
