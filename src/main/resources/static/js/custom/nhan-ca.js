@@ -42,7 +42,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 title: 'Nhận ca thành công!',
                                 icon: 'success',
-                                confirmButtonText: 'OKE'
+                                confirmButtonText: 'Xác nhận'
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     confirm = true;
