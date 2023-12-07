@@ -364,7 +364,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         hoaDon.setTenNguoiDat(thongTinNguoiDatRequest.getHoVaTen());
         hoaDon.setTrangThai(TrangThaiHoaDon.MOI_TAO.ordinal());
         hoaDon.setTongTien(tongTien);
-        hoaDon.setTienCoc(tongTien * (Integer.valueOf(param.getValue()) / 100));
+        hoaDon.setTienCoc(tongTien * (Double.valueOf(param.getValue()) / 100));
         String maTienCoc = generateRandomString();
         hoaDon.setMaTienCoc(maTienCoc);
 
@@ -372,7 +372,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
         try {
             HoaDon hoaDonA = hoaDonStaffRepository.save(hoaDon);
             viTienCoc.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
-            viTienCoc.setSoTien(tongTien * (Integer.valueOf(param.getValue()) / 100));
+            viTienCoc.setSoTien(tongTien * (Double.valueOf(param.getValue()) / 100));
             viTienCoc.setIdHoaDon(hoaDonA.getId());
             viTienCoc.setNoiDung("Tien coc san bong");
             viTienCoc.setLoaiTien("VNd");
