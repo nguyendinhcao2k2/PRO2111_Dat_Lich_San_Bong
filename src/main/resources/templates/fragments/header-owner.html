@@ -27,7 +27,7 @@
                 class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3"
                 style="background-color: #343a40"
         >
-            <a href="" class="navbar-brand p-0">
+            <a th:href="@{/api/v1/admin/manage/thong-ke}" class="navbar-brand p-0">
                 <h1 class="m-0">
                     <i
                             class="fa-solid fa-futbol"
@@ -57,20 +57,20 @@
                         class="navbar-nav ms-auto py-0"
                         style="color: white; font-size: 18px"
                 >
-<!--                    <a-->
-<!--                            th:href="@{/api/v1/trang-chu}"-->
-<!--                            class="nav-item nav-link active"-->
-<!--                            style="color: white"-->
-<!--                    >Trang Chủ</a-->
-<!--                    >-->
                     <a
-                            th:href="@{/api/v1/staff/account/display}"
+                            th:href="@{/api/v1/admin/manage/list-manage}"
                             class="nav-item nav-link"
                             style="color: white"
-                    >Nhận Ca</a>
+                    >Quản Lý</a>
+                    <a
+                            th:href="@{/api/v1/admin/manage/thong-ke}"
+                            class="nav-item nav-link"
+                            style="color: white"
+                    >Thống Kê</a>
                     <div class="topbar-divider d-none d-sm-block"></div>
 
                     <!-- Nav Item - User Information -->
+
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
@@ -85,8 +85,9 @@
                           class="mr-2 d-lg-inline text-gray-600"
                           style="color: white; font-size: 18px"
                           th:text="${session.Account.displayName}"
-                  >Nguyễn Anh Thư</span
                   >
+                      Nguyễn Anh Thư
+                  </span>
                             <img
                                     th:if="${session.Account.image == null}"
                                     class="img-profile rounded-circle"
@@ -106,10 +107,6 @@
                             <a class="dropdown-item" th:href="@{/api/v1/profile}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Trang cá nhân
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-history fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Lịch sử giao dịch
                             </a>
                             <div class="dropdown-divider"></div>
                             <a
