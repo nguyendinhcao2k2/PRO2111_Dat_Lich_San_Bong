@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -84,7 +85,7 @@ public class RestControllerScanQR {
             }
             //check đến thời gian check in chưa
             GiaoCaResponse giaoCa = giaoCaStaffService.findGiaoCaByTrangThai(TrangThaiGiaoCa.NHAN_CA);
-
+            hoaDonSanCa.setThoiGianCheckIn(Time.valueOf(LocalTime.now()));
             hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal());
             if (giaoCa != null) {
 //            hoaDonSanCa.setThoiGianCheckIn(new Time(new Date().getTime()));

@@ -33,9 +33,9 @@ public class HoaDonSanCa {
     @Column(name = "thoi_giam_check_in")
     private Time thoiGianCheckIn;
     @Column(name = "tien_san")
-    private Double tienSan;
+    private Double tienSan = 0.0;
     @Column(name = "tong_tien_hoa_don_san_ca")
-    private Double tongTienHoaDonSanCa;
+    private Double tongTienHoaDonSanCa = 0.0;
     @Column(name = "id_hoa_don")
     private String idHoaDon;
     @Column(name = "id_san_ca")

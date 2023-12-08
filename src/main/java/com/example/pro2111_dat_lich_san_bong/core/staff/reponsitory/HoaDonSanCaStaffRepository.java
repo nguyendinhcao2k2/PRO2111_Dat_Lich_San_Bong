@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory;
 
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest;
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LichSuHoaDonSanCaStaffReponse;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -52,4 +53,16 @@ public interface HoaDonSanCaStaffRepository extends JpaRepository<HoaDonSanCa, S
 
     @Query(value = "SELECT hdsc.id FROM hoa_don_san_ca hdsc where hdsc.id_san_ca = ?1", nativeQuery = true)
     String findByIdSanCa(String idSanCa);
+
+
+    @Query("""
+                    select  new com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LichSuHoaDonSanCaStaffReponse(
+                        hdsc.id,hdsc.ngayDenSan,hdsc.thoiGianCheckIn,hdsc.tienSan,hdsc.tongTienHoaDonSanCa,hdsc.idHoaDon,hdsc.trangThai,hdsc.ngayThanhToan,
+                        hdsc.countLich,hdsc.tienCocThua,httt.loaiHinhThanhToan
+                    )
+                     from HoaDonSanCa hdsc
+                        left outer join HinhThucThanhToan httt on hdsc.id = httt.idHoaDonSanCa
+                     where hdsc.idHoaDon = :idHoaDon 
+            """)
+    List<LichSuHoaDonSanCaStaffReponse> findAllLichSuHoaDonSanCaTheoIdHD(@Param("idHoaDon") String idHoaDon);
 }
