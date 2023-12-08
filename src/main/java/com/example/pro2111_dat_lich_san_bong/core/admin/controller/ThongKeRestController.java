@@ -197,7 +197,6 @@ public class ThongKeRestController {
         caAdminResponses.add(baseEntityTK("ca2", ca2 + tienCocCa2));
         caAdminResponses.add(baseEntityTK("ca3", ca3 + tienCocCa3));
         caAdminResponses.add(baseEntityTK("ca4", ca4 + tienCocCa4));
-        caAdminResponses.add(baseEntityTK("ca4", ca4));
         return caAdminResponses;
     }
     private Double sumTienCocTheoCa(Optional<LocalDate> dateOptional, String timeStart, String timeEnd){
