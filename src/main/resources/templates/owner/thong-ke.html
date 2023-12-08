@@ -64,7 +64,7 @@
 
 
 <body id="page-top">
-<header th:insert="~{fragments/header-admin}"></header>
+<header th:insert="~{fragments/header-owner}"></header>
 <main>
     <div class="row m-1">
         <!-- Earnings (Monthly) Card Example -->
@@ -132,7 +132,7 @@
                         </div>
                         <hr class="mt-2"/>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
-                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeNgay.tongDoanhThu)}} Vnd</span>
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeNgay.tongDoanhThu)}}</span>
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng số lịch đặt online: <span style="color: red">{{thongKeNgay.tongSanDatOnline}} </span>
@@ -141,24 +141,28 @@
                             Tổng số lịch đặt hộ: <span style="color: red">{{thongKeNgay.tongSoLuotSanDatNho}} </span>
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
-                            Tổng số lượt đá trong ngày:
+                            Tổng số lượt đá:
                             <span style="color: red">{{thongKeNgay.tongSoLuotDa}} </span>
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
-                            Tổng số lượt chuyển lịch:
+                            Tổng số lịch đã đổi:
                             <span style="color: red">{{thongKeNgay.tongSoLuotChuyenLich}} </span>
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
-                            Tổng số huỷ lịch:
+                            Tổng số lịch bị hủy:
                             <span style="color: red">{{thongKeNgay.tongSoHuyLich}} </span>
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng tiền mặt:
-                            <span style="color: red">{{currenNumberListTK(thongKeNgay.tongSoTienMat)}} Vnd</span>
+                            <span style="color: red">{{currenNumberListTK(thongKeNgay.tongSoTienMat)}}</span>
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            Tổng tiền chuyển khoản:
+                            <span style="color: red">{{currenNumberListTK(thongKeNgay.tongSoTienChuyenKhoan)}}</span>
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng tiền phát sinh khi giao ca:
-                            <span style="color: red">{{currenNumberListTK(thongKeNgay.tongTienPhatSinhKhiGiaoCa)}} Vnd</span>
+                            <span style="color: red">{{currenNumberListTK(thongKeNgay.tongTienPhatSinhKhiGiaoCa)}}</span>
                         </div>
                     </div>
                 </div>
@@ -182,7 +186,7 @@
                         </div>
                         <hr class="mt-2"/>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
-                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeTuan.tongDoanhThu)}} Vnd</span>
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeTuan.tongDoanhThu)}} </span>
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng số lịch đặt online: <span style="color: red">{{thongKeTuan.tongSanDatOnline}}</span>
@@ -204,7 +208,7 @@
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng tiền mặt:
-                            <span style="color: red">{{currenNumberListTK(thongKeTuan.tongSoTienMat)}} Vnd</span>
+                            <span style="color: red">{{currenNumberListTK(thongKeTuan.tongSoTienMat)}} </span>
                         </div>
                     </div>
                 </div>
@@ -228,7 +232,7 @@
                         </div>
                         <hr class="mt-2"/>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
-                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeThang.tongDoanhThu)}} Vnd</span>
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeThang.tongDoanhThu)}} </span>
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng số lịch đặt online: <span style="color: red">{{thongKeThang.tongSanDatOnline}} </span>
@@ -250,7 +254,7 @@
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng tiền mặt:
-                            <span style="color: red">{{currenNumberListTK(thongKeThang.tongSoTienMat)}}  Vnd</span>
+                            <span style="color: red">{{currenNumberListTK(thongKeThang.tongSoTienMat)}}  </span>
                         </div>
                     </div>
                 </div>
@@ -274,7 +278,7 @@
                         </div>
                         <hr class="mt-2"/>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
-                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeNam.tongDoanhThu)}}Vnd</span>
+                            Tổng doanh thu: <span style="color: red">{{currenNumberListTK(thongKeNam.tongDoanhThu)}}</span>
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng số lịch đặt online: <span style="color: red">{{thongKeNam.tongSanDatOnline}}</span>
@@ -296,7 +300,7 @@
                         </div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
                             Tổng tiền mặt:
-                            <span style="color: red">{{currenNumberListTK(thongKeNam.tongSoTienMat)}} Vnd</span>
+                            <span style="color: red">{{currenNumberListTK(thongKeNam.tongSoTienMat)}} </span>
                         </div>
                     </div>
                 </div>
@@ -413,21 +417,9 @@
 <script th:src="@{/static/js/owner/thong-ke.js}"></script>
 <script th:src="@{/static/js/owner/thong-ke-list.js}"></script>
 
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"
-></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"
-></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
-        crossorigin="anonymous"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script th:src="@{/static/js/yearpicker.js}"></script>
 <script>
     const week = ["Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];

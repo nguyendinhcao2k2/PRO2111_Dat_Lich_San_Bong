@@ -89,8 +89,14 @@
                   >Nguyễn Anh Thư</span
                   >
               <img
+                      th:if="${session.Account.image == null}"
                       class="img-profile rounded-circle"
-                      src="img/undraw_profile.svg"
+                      src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+              />
+              <img
+                      th:if="${session.Account.image != null}"
+                      class="img-profile rounded-circle"
+                      th:src="'data:image/png;base64,' + ${session.Account.image}" alt="Ảnh"
               />
             </a>
             <!-- Dropdown - User Information -->
@@ -98,12 +104,12 @@
                     class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                     aria-labelledby="userDropdown"
             >
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" th:href="@{/api/v1/profile}">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Trang cá nhân
               </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+              <a class="dropdown-item"th:href="@{/user/lich-su-giao-dich}">
+                <i class="fas fa-history fa-sm fa-fw mr-2 text-gray-400"></i>
                 Lịch sử giao dịch
               </a>
               <div class="dropdown-divider"></div>

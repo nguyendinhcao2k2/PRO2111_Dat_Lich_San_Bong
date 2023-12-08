@@ -33,6 +33,8 @@
             crossorigin="anonymous"
     />
     <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <!-- BOOTSTRAP -->
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -125,40 +127,44 @@
     }
 </style>
 <body>
-<header th:insert="~{fragments/header-admin}"></header>
-<section class="mains">
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h2 class="m-0 font-weight-bold text-primary">Lịch Sử Hóa Đơn</h2>
-        </div>
-        <div class="card-body">
-            <div class="">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="dataTables-length" id="dataTable-length">
-                            <label class="form-label"
-                            >Hiển thị
-                                <select
-                                        name="dataTable-length"
-                                        aria-controls="dataTable"
-                                        class="custom-select form-control form-control-sm"
-                                >
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                                Bản ghi
-                            </label>
+<header th:insert="~{fragments/header}"></header>
+
+<main id="appLichSuGiaoDich">
+    <section class="mains">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h2 class="m-0 font-weight-bold text-primary">Lịch Sử Hóa Đơn</h2>
+            </div>
+            <div class="card-body">
+                <div class="">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6" v-if="hoaDon.length !== 0">
+                            <div class="dataTables-length" id="dataTable-length">
+                                <label class="form-label"
+                                >Hiển thị
+                                    <select
+                                            name="dataTable-length"
+                                            aria-controls="dataTable"
+                                            class="custom-select form-control form-control-sm"
+                                            @change="pageSizeSelectLS($event)"
+                                    >
+                                        <option value="10" selected>10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    Bản ghi
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row g-3 align-items-center">
-                                    <div class="col-md-5 col-sm-auto">
-                                        <div class="input-group">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row g-3 align-items-center">
+                                        <!--Tìm kiếm số điện thoại-->
+                                        <div class="col-md-5 col-sm-auto">
+                                            <div class="input-group">
                           <span
                                   class="input-group-text"
                                   style="
@@ -168,270 +174,242 @@
                           >
                             <i class="fas fa-search fa-lg"></i>
                           </span>
-                                            <input
-                                                    id="input-search-danh-sach-cho"
-                                                    style="color: black"
-                                                    type="text"
-                                                    class="form-control"
-                                                    placeholder="Tên, số điện thoại khách"
-                                            />
+                                                <input
+                                                        id="input-search-danh-sach-cho"
+                                                        style="color: black"
+                                                        type="text"
+                                                        class="form-control"
+                                                        placeholder="Tên, số điện thoại khách"
+                                                        @input="searchByNamAndSdt($event)"
+                                                        v-model="valueSeach"
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!--Trạng thái  -->
-                                    <div class="col-auto">
-                                        <label
-                                                for="select-trang-thai-danh-sach-cho"
-                                                class="col-form-label label-danh-sach"
-                                        >Trạng thái :
-                                        </label>
-                                    </div>
-                                    <div class="col-md-3 col-sm-auto">
-                                        <select
-                                                id="select-trang-thai-danh-sach-cho"
-                                                class="form-select"
-                                        >
-                                            <option selected value="0">Tất cả</option>
-                                            <option value="1">thanh toán</option>
-                                            <option value="2">...</option>
-                                            <option value="3">...</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Ngày -->
-                                    <div class="col-auto">
-                                        <button
-                                                type="button"
-                                                class="btn btn-labeled btn-success"
-                                        >
-                                            Tìm kiếm
-                                        </button>
+                                        <!--Trạng thái  -->
+<!--                                        <div class="col-auto">-->
+<!--                                            <label-->
+<!--                                                    for="select-trang-thai-danh-sach-cho"-->
+<!--                                                    class="col-form-label label-danh-sach"-->
+<!--                                            >Trạng thái :-->
+<!--                                            </label>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-3 col-sm-auto">-->
+<!--                                            <select-->
+<!--                                                    id="select-trang-thai-danh-sach-cho"-->
+<!--                                                    class="form-select"-->
+<!--                                            >-->
+<!--                                                <option selected value="0">Tất cả</option>-->
+<!--                                                <option value="0">Chờ Nhận Sân</option>-->
+<!--                                                <option value="1">Đã Check In</option>-->
+<!--                                                <option value="2">Chưa Thanh Toán</option>-->
+<!--                                                <option value="3">Đã Thanh Toán</option>-->
+<!--                                                <option value="4">Đã Hủy</option>-->
+<!--                                                <option value="5">Chờ Đổi Sân</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <table
-                        class="table table-bordered mt-2"
-                        id="dataTable"
-                        width="100%"
-                        cellspacing="0"
-                >
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                        <th>Thao tác</th>
-                    </tr>
-                    </thead>
-                    <!-- <tfoot>
-                      <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                        <th>Thao tác</th>
-                      </tr>
-                    </tfoot> -->
-                    <tbody>
-                    <tr>
-                        <td>Lael Greer</td>
-                        <td>Systems Administrator</td>
-                        <td>London</td>
-                        <td>21</td>
-                        <td>2009/02/27</td>
-                        <td>$103,500</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasRight"
-                                    aria-controls="offcanvasRight">
-                                Xem chi tiết
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Jonas Alexander</td>
-                        <td>Developer</td>
-                        <td>San Francisco</td>
-                        <td>30</td>
-                        <td>2010/07/14</td>
-                        <td>$86,500</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasRight"
-                                    aria-controls="offcanvasRight">
-                                Xem chi tiết
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Shad Decker</td>
-                        <td>Regional Director</td>
-                        <td>Edinburgh</td>
-                        <td>51</td>
-                        <td>2008/11/13</td>
-                        <td>$183,000</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasRight"
-                                    aria-controls="offcanvasRight">
-                                Xem chi tiết
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Michael Bruce</td>
-                        <td>Javascript Developer</td>
-                        <td>Singapore</td>
-                        <td>29</td>
-                        <td>2011/06/27</td>
-                        <td>$183,000</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasRight"
-                                    aria-controls="offcanvasRight">
-                                Xem chi tiết
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Donna Snider</td>
-                        <td>Customer Support</td>
-                        <td>New York</td>
-                        <td>27</td>
-                        <td>2011/01/25</td>
-                        <td>$112,000</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-labeled " data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasRight"
-                                    aria-controls="offcanvasRight">
-                                Xem chi tiết
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="row">
-                    <div class="col-sm-12 col-md-5">
-                        <div
-                                class="dataTables-info form-label"
-                                id="dataTable-info"
-                                role="status"
-                                aria-live="polite"
-                        >
-                            Hiển thị 10/100 bản ghi
-                        </div>
+
+                    <br>
+                    <div class="alert alert-danger noContent" v-if="hoaDon.length === 0" role="alert">
+                        <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
                     </div>
-                    <div class="col-sm-12 col-md-7">
-                        <div class="dataTables-paginate paing-simple-numbers">
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                    <div v-if="hoaDon.length !== 0" class="accordion" id="accordionExample" v-for="(items,index) in hoaDon">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button p-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <table
+                                            class="table border-0 mt-2"
+                                            id="dataTable"
+                                            width="100%"
+                                            cellspacing="0"
+                                    >
+                                        <tbody>
+                                        <tr>
+                                            <td><h5>STT</h5>{{index +1}}</td>
+                                            <td><h5>Tên Khách Hàng</h5>{{items.tenNguoiDat}}</td>
+                                            <td><h5>Số Điện Thoại</h5>{{items.soDienThoaiNguoiDat}}</td>
+                                            <td><h5>Email</h5>{{items.email}}</td>
+                                            <td><h5>Ngày Đặt</h5>{{formatDate(items.ngayTao)}}</td>
+                                            <td><h5>Tiền Cọc</h5>{{currencyNumberVN(items.tienCoc)}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </button>
+                            </h2>
+                            <br>
+                            <div  id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body p-1">
+                                    <table
+                                            class="table table-bordered table-container table-hover mt-2"
+                                            id="dataTable"
+                                            width="100%"
+                                            cellspacing="0"
+                                            style="background-color: #6caae5;text-align: center"
+                                    >
+                                        <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Ngày Đến Sân</th>
+                                            <th>Số Lần Đổi Lịch</th>
+                                            <th>Tiền Thanh Toán</th>
+                                            <th>Ngày Thanh Toán</th>
+                                            <th>Tiền Cọc Thừa</th>
+                                            <th>Trạng Thái</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(element,index) in hoaDon[index].hoaDonSanCaStaffList">
+                                            <td>{{index +1}}</td>
+                                            <td>{{formatDate(element.ngayDenSan)}}</td>
+                                            <td v-if="element.countLich === 0">Chưa Đổi Lịch Lần Nào</td>
+                                            <td v-if="element.countLich === 1">Đã Đổi Lịch 1 Lần</td>
+                                            <td>{{currencyNumberVN(element.tongTienHoaDonSanCa)}}</td>
+                                            <td v-if="element.ngayThanhToan === null">Chưa Cập Nhật</td>
+                                            <td v-if="element.ngayThanhToan !== null">{{formatNgayGio(element.ngayThanhToan)}}</td>
+                                            <td>{{element.tienCocThua}}</td>
+                                            <td >{{valueTrangThaiHoaDonSanCa(element.trangThai)}}</td>
+                                            <td>
+                                                <button v-if="element.trangThai === 3" @click="findByIdHoaDonSanCa(element.id)" type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
+                                                        data-bs-target="#offcanvasRight"
+                                                        aria-controls="offcanvasRight">
+                                                    Xem chi tiết
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+
+
+
+                    <div class="row pt-4" v-if="hoaDon.length !== 0">
+<!--                        <div class="col-sm-12 col-md-5">-->
+<!--                            <div-->
+<!--                                    class="dataTables-info form-label"-->
+<!--                                    id="dataTable-info"-->
+<!--                                    role="status"-->
+<!--                                    aria-live="polite"-->
+<!--                            >-->
+<!--                                Hiển thị {{pageSize}}/{{hoaDon.length}} bản ghi-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables-paginate paing-simple-numbers">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-end">
+                                        <li class="page-item" @click="previuosLS($event)">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item active">
+                                            <a class="page-link">{{pageNumber + 1}} / {{totalPage}}</a>
+                                        </li>
+                                        <li class="page-item" @click="nextPageLS($event)">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <div
+            class="offcanvas offcanvas-end"
+            tabindex="-1"
+            id="offcanvasRight"
+            aria-labelledby="offcanvasRightLabel"
+            style="width: 500px"
+    >
+        <div class="offcanvas-header border-bottom bg">
+            <h5 id="offcanvasRightLabel">Thông tin chi tiết</h5>
+            <button
+                    type="button"
+                    class="btn-close text-reset"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+            ></button>
+        </div>
+        <!-- offcanvas body  -->
+        <div class="offcanvas-body">
+            <form>
+
+                <div class="mb-3">
+                    <label for="time" class="form-label">Thời Gian Check In</label>
+                    <input
+                            v-bind:value="listDichVuSanBong.thoiGianCheckIn"
+                            type="text"
+                            class="form-control "
+                            id="time"
+                            name="time"
+                            readonly
+                    />
+                </div>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Loại Hình Thanh Toán</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            readonly
+                            id="name"
+                            name="name"
+                            v-bind:value="listDichVuSanBong.hinhThucThanhToan"
+                    />
+                </div>
+
+                <div class="mb-3">
+                    <label for="time" class="form-label">Dịch Vụ Đã Sử Dụng</label>
+                   <table style="text-align: center" class="table table-bordered table-hover table-container">
+                       <tr>
+                           <th>Tên</th>
+                           <th>Số Lượng</th>
+                       </tr>
+                       <tr v-for="items in listDichVuSanBong.dichVuSuDungStaffReponses">
+                           <td>{{items.tenDichVu}}</td>
+                           <td>{{items.soLuongDichVu}}</td>
+                       </tr>
+                   </table>
+                </div>
+
+                <div class="mb-3">
+                    <label for="time" class="form-label">Phụ Phí Đã Trả</label>
+                    <table style="text-align: center" class="table table-bordered table-hover table-container">
+                        <tr>
+                            <th>Tên</th>
+                            <th>Giá</th>
+                        </tr>
+                        <tr v-for="items in listDichVuSanBong.phuPhiHoaDonReponse">
+                            <td>{{items.tenPhuPhi}}</td>
+                            <td>{{currencyNumberVN(items.giaPhuPhi)}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </form>
+        </div>
     </div>
-</section>
+</main>
 
-<div
-        class="offcanvas offcanvas-end"
-        tabindex="-1"
-        id="offcanvasRight"
-        aria-labelledby="offcanvasRightLabel"
-        style="width: 500px"
->
-    <div class="offcanvas-header border-bottom bg">
-        <h5 id="offcanvasRightLabel">Thông tin chi tiết</h5>
-        <button
-                type="button"
-                class="btn-close text-reset"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-        ></button>
-    </div>
-    <!-- offcanvas body  -->
-    <div class="offcanvas-body">
-        <form>
-            <div class="mb-3">
-                <label for="name" class="form-label">Tên nhân viên</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        readonly
-                        id="name"
-                        name="name"
-                />
-            </div>
-
-            <div class="mb-3">
-                <label for="time" class="form-label">Thời gian nhận ca</label>
-                <input
-                        type="text"
-                        class="form-control thoiGianNhanCa"
-                        id="time"
-                        name="time"
-                        value="{{items.thoiGianNhanCa}}"
-                        readonly
-                />
-            </div>
-
-            <div class="mb-3">
-                <label for="time" class="form-label">Thời gian kết ca</label>
-                <input
-                        type="text"
-                        class="form-control thoiGianNhanCa"
-                        id="time"
-                        name="time"
-                        value="{{items.thoiGianKetCa}}"
-                        readonly
-                />
-            </div>
-
-            <div class="mb-3">
-                <label for="time" class="form-label">Tiền ban đầu</label>
-                <input
-                        type="text"
-                        class="form-control thoiGianNhanCa"
-                        id="time"
-                        name="time"
-                        value="{{items.tienBanDau}}"
-                        readonly
-                />
-            </div>
-        </form>
-    </div>
-</div>
 
 <!-- Add Bootstrap JS and jQuery links -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/static/js/staff/lich-su-hoa-don-staff.js}"></script>
 <!-- UPDATE 2/11/023 -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>

@@ -1,0 +1,128 @@
+
+<style>
+    .nav-link.dropdown-toggle::after {
+        display: none !important;
+    }
+
+    .topbar-divider {
+        width: 0;
+        border-right: 1px solid #e3e6f0;
+        height: calc(4.375rem - 2rem);
+        margin: auto 1rem;
+    }
+    .nav-link .img-profile {
+        height: 2rem;
+        width: 2rem;
+    }
+    .navbar-expand {
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+    }
+</style>
+<!-- Header admin -->
+<div>
+    <!-- Navbar & Hero Start -->
+    <div class="p-0">
+        <nav
+                class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3"
+                style="background-color: #343a40"
+        >
+            <a th:href="@{/api/v1/admin/manage/thong-ke}" class="navbar-brand p-0">
+                <h1 class="m-0">
+                    <i
+                            class="fa-solid fa-futbol"
+                            style="color: rgb(244, 238, 238); font-size: 40px"
+                    ></i>
+                    <span style="font-style: italic; font-size: 35px; color: white; font-weight: bold"
+                    >DONGDE</span
+                    >
+                    <span
+                            class="fs-5"
+                            style="font-style: italic; font-size: 18px; color: white"
+                    >STADIUM</span
+                    >
+                </h1>
+                <!-- <img src="img/logo.png" alt="Logo"> -->
+            </a>
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse"
+            >
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div
+                        class="navbar-nav ms-auto py-0"
+                        style="color: white; font-size: 18px"
+                >
+                    <a
+                            th:href="@{/api/v1/admin/manage/list-manage}"
+                            class="nav-item nav-link"
+                            style="color: white"
+                    >Quản Lý</a>
+                    <a
+                            th:href="@{/api/v1/admin/manage/thong-ke}"
+                            class="nav-item nav-link"
+                            style="color: white"
+                    >Thống Kê</a>
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+
+                    <li class="nav-item dropdown">
+                        <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="userDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                        >
+                  <span
+                          class="mr-2 d-lg-inline text-gray-600"
+                          style="color: white; font-size: 18px"
+                          th:text="${session.Account.displayName}"
+                  >
+                      Nguyễn Anh Thư
+                  </span>
+                            <img
+                                    th:if="${session.Account.image == null}"
+                                    class="img-profile rounded-circle"
+                                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                            />
+                            <img
+                                    th:if="${session.Account.image != null}"
+                                    class="img-profile rounded-circle"
+                                    th:src="'data:image/png;base64,' + ${session.Account.image}" alt="Ảnh"
+                            />
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div
+                                class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown"
+                        >
+                            <a class="dropdown-item" th:href="@{/api/v1/profile}">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Trang cá nhân
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a
+                                    class="dropdown-item"
+                                    th:href="@{/logout}"
+                            >
+                                <i
+                                        class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                                ></i>
+                                Đăng Xuất
+                            </a>
+                        </div>
+                    </li>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+

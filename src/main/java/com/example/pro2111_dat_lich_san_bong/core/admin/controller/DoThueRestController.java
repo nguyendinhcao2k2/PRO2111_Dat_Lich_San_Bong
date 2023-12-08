@@ -23,9 +23,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * @author caodinh
- */
+
 
 @RestController
 @RequestMapping("/api/v1/admin/do-thue")
@@ -96,7 +94,10 @@ public class DoThueRestController {
     @PostMapping("/import")
     public BaseResponse<?> importEcel(@RequestBody MultipartFile file) throws IOException {
         try {
-            doThueService.nuocUongImportExcel(file);
+            boolean check = doThueService.nuocUongImportExcel(file);
+            if (!check) {
+                return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error");
+            }
             return new BaseResponse<>(HttpStatus.OK, "Ok");
         } catch (Exception e) {
             return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error");

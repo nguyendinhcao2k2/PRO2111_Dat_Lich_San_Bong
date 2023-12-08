@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
@@ -24,13 +26,21 @@ public class CheckValidCheckInServiceImpl implements CheckValidCheckInService {
     @Override
     public boolean checkNgayGioCheckIn(LocalDate ngayDenSan, Time thoiGianBatDau) {
         try {
-            if (!ngayHienTai.isEqual(ngayDenSan)) {
-                return false;
-            }
-            LocalTime gioBatDauLocalTime = thoiGianBatDau.toLocalTime();
-            long soPhutGiuaHaiGio = Math.abs(TimeUnit.HOURS.toMinutes(gioHienTai.until(gioBatDauLocalTime, ChronoUnit.HOURS)));
+            LocalDateTime ngayGioHienTai = LocalDateTime.now();
+            LocalDateTime ngayGioDenSan = ngayDenSan.atTime(thoiGianBatDau.toLocalTime());
+//            Thời gian giữa 2 ngày
+            Duration khoangTHoiGian = Duration.between(ngayGioDenSan,ngayGioHienTai);
+//            số phút
+            long soPhut = Math.abs(khoangTHoiGian.toMinutes());
+            System.out.println("HelloA:"+soPhut);
+
+//            if (!ngayHienTai.isEqual(ngayDenSan)) {
+//                return false;
+//            }
+//            LocalTime gioBatDauLocalTime = thoiGianBatDau.toLocalTime();
+//            long soPhutGiuaHaiGio = Math.abs(TimeUnit.HOURS.toMinutes(gioHienTai.until(gioBatDauLocalTime, ChronoUnit.HOURS)));
             Integer thoiGianChoPhepCheckIn = Integer.valueOf(sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_DUOC_PHEP_CHECK_IN).getValue());
-            if (soPhutGiuaHaiGio > thoiGianChoPhepCheckIn) {
+            if (soPhut > thoiGianChoPhepCheckIn) {
                 return false;
             }
             return true;

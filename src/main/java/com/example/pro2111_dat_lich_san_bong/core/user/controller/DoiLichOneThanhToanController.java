@@ -8,10 +8,7 @@ import com.example.pro2111_dat_lich_san_bong.core.user.service.*;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailUtils;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
 import com.example.pro2111_dat_lich_san_bong.entity.*;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuDoiLich;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLoaiBienDong;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.*;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.model.request.SendMailRequest;
@@ -88,6 +85,7 @@ public class DoiLichOneThanhToanController {
     public ResponseEntity<?> findLichDat(@RequestBody DoiLichOneRequest doiLichOneRequestUpdate) {
         try {
             doiLichOneRequest = doiLichOneRequestUpdate;
+            System.out.println("hello:"+doiLichOneRequest.getNgayDoi());
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, doiLichOneRequestUpdate));
         } catch (Exception e) {
             e.printStackTrace();
@@ -255,6 +253,7 @@ public class DoiLichOneThanhToanController {
             // cap nhat vi tien
             ViTienCoc viTienCoc = viTienUserService.findByIdHoaDon(hoaDon.getId());
             viTienCoc.setSoTien(viTienCoc.getSoTien() + doiLichOneRequest.getTienCocThieu());
+            viTienCoc.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
             viTienUserService.updateViTien(viTienCoc);
 
             //create lịch su vi tien
@@ -324,7 +323,7 @@ public class DoiLichOneThanhToanController {
                 sendMailWithBookings.sendEmailBookings(hoaDon.getEmail(), context, request);
             }
             //gửi mail
-            return "DemoVNPay/SuccessOder";
+            return "user/success-order-user";
         }
         hoaDonSanCaCu.setTrangThai(TrangThaiHoaDonSanCa.CHO_NHAN_SAN.ordinal());
 //        //delete sân vừa tạo
@@ -332,7 +331,7 @@ public class DoiLichOneThanhToanController {
         sanCaUserService.deleteSanCaById(sanCaNew.getId());
         //xóa lịch sử đổi lịch
         lichSuDoiLichUserService.deleteById(lichSuDoiLich.getId());
-        return "DemoVNPay/FailOder";
+        return "user/fail-order-user";
     }
 
 

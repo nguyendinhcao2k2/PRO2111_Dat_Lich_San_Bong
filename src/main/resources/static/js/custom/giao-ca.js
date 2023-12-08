@@ -66,7 +66,7 @@ $(document).ready(() => {
                         Swal.fire({
                             title: 'Bàn giao ca thành công!',
                             icon: 'success',
-                            confirmButtonText: 'OKE'
+                            confirmButtonText: 'Xác nhận'
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 confirm = true;
@@ -92,57 +92,67 @@ $(document).ready(() => {
     });
     //reset và kết ca
     $(".resetCa").click(() => {
-        if ($("#tienPhatSinh").val() != 0 && $(".ghiChuPhatSinh").val() == "") {
-            document.title = "Thông báo!";
-            createAndShowToast("bg-warning", "Thông báo!", "Bạn có tiền phát sinh! Vui lòng nhập ghi chú phát sinh!");
-        } else {
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                url: "http://localhost:8081/api/v1/staff/giao-ca/ket-ca",
-                contentType: "application/json",
-                data: JSON.stringify({
-                    thoiGianKetCa: app.formatDateTimeStamps($("#NowTime").val()),
-                    tienPhatSinh: $("#tienPhatSinh").val() == 0 ? $("#tienPhatSinh").val() : app.repleaPriceDouble($("#tienPhatSinh").val()),
-                    ghiChuPhatSinh: $(".ghiChuPhatSinh").val() == "" ? null : $(".ghiChuPhatSinh").val(),
-                    idNhanVienCaTiepTheo: $("#nhanVienNhanCaTiepTheo").val(),
-                    tongTienMat: $("#tongTienMatTrongCa").val() == 0 ? $("#tongTienMatTrongCa").val() : app.repleaPriceDouble($("#tongTienMatTrongCa").val()),
-                    tongTienTrongCa: app.repleaPriceDouble(app.giaoCaStaff.tongTienTrongCa),
-                    thoiGianReset: app.formatDateTimeStamps($("#NowTime").val()),
-                    tongTienMatRut: $("#tienMatRut").val() == 0 ? $("#tienMatRut").val() : app.repleaPriceDouble($("#tienMatRut").val()),
-                    tongTienKhac: $(".tienChuyenKhoan").val() == 0 ? $(".tienChuyenKhoan").val() : app.repleaPriceDouble($(".tienChuyenKhoan").val()),
-                }),
-                success: (response) => {
-                    var confirm = false;
-                    if (response.statusCode === 'OK') {
-                        sendMailThongKe();
-                        Swal.fire({
-                            title: 'Rút tiền và Bàn giao ca thành công!',
-                            text: 'Hẹn gặp lại!',
-                            icon: 'success',
-                            confirmButtonText: 'OKE'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                confirm = true;
-                                window.location.href = "/authentication/staff-login";
+        Swal.fire({
+            title: "Bạn có chắc chắn thực hiện thao tác này?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Xác nhận',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if ($("#tienPhatSinh").val() != 0 && $(".ghiChuPhatSinh").val() == "") {
+                    document.title = "Thông báo!";
+                    createAndShowToast("bg-warning", "Thông báo!", "Bạn có tiền phát sinh! Vui lòng nhập ghi chú phát sinh!");
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "http://localhost:8081/api/v1/staff/giao-ca/ket-ca",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            thoiGianKetCa: app.formatDateTimeStamps($("#NowTime").val()),
+                            tienPhatSinh: $("#tienPhatSinh").val() == 0 ? $("#tienPhatSinh").val() : app.repleaPriceDouble($("#tienPhatSinh").val()),
+                            ghiChuPhatSinh: $(".ghiChuPhatSinh").val() == "" ? null : $(".ghiChuPhatSinh").val(),
+                            idNhanVienCaTiepTheo: $("#nhanVienNhanCaTiepTheo").val(),
+                            tongTienMat: $("#tongTienMatTrongCa").val() == 0 ? $("#tongTienMatTrongCa").val() : app.repleaPriceDouble($("#tongTienMatTrongCa").val()),
+                            tongTienTrongCa: app.repleaPriceDouble(app.giaoCaStaff.tongTienTrongCa),
+                            thoiGianReset: app.formatDateTimeStamps($("#NowTime").val()),
+                            tongTienMatRut: $("#tienMatRut").val() == 0 ? $("#tienMatRut").val() : app.repleaPriceDouble($("#tienMatRut").val()),
+                            tongTienKhac: $(".tienChuyenKhoan").val() == 0 ? $(".tienChuyenKhoan").val() : app.repleaPriceDouble($(".tienChuyenKhoan").val()),
+                        }),
+                        success: (response) => {
+                            var confirm = false;
+                            if (response.statusCode === 'OK') {
+                                sendMailThongKe();
+                                Swal.fire({
+                                    title: 'Rút tiền và Bàn giao ca thành công!',
+                                    text: 'Hẹn gặp lại!',
+                                    icon: 'success',
+                                    confirmButtonText: 'OKE'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        confirm = true;
+                                        window.location.href = "/authentication/staff-login";
+                                    }
+                                });
+                                setTimeout(() => {
+                                    if (!confirm) {
+                                        window.location.href = "/authentication/staff-login";
+                                    }
+                                }, 4000);
+                                return;
                             }
-                        });
-                        setTimeout(() => {
-                            if (!confirm) {
-                                window.location.href = "/authentication/staff-login";
-                            }
-                        }, 4000);
-                        return;
-                    }
-                    createAndShowToast("bg-warning", "Thông báo!", "Bàn giao ca thất bại!");
-                    return;
-                },
-                error: (error) => {
-                    console.log(error);
-                    createAndShowToast("bg-warning", "Thông báo!", "Lỗi!");
+                            createAndShowToast("bg-warning", "Thông báo!", "Bàn giao ca thất bại!");
+                            return;
+                        },
+                        error: (error) => {
+                            console.log(error);
+                            createAndShowToast("bg-warning", "Thông báo!", "Lỗi!");
+                        }
+                    });
                 }
-            });
-        }
+            }
+        });
+
 
     });
 });
@@ -183,6 +193,14 @@ var app = new Vue({
     },
     methods: {
         checkValid(event) {
+            if(this.giaoCaStaff.tongTienMatTrongCa === 0){
+                event.target.value = 0;
+                createAndShowToast("bg-warning", "Thông báo!", "Xin lỗi, Bạn không đủ tiền!");
+                return ;
+            }
+            if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
+                event.target.value = 0;
+            }
             this.checkTrong(event);
             event.target.value = parseInt(event.target.value).toLocaleString(
                 "vi-VN"
@@ -230,6 +248,9 @@ var app = new Vue({
             return price.replace(/\./g, "");
         },
         checkPriceReset(event) {
+            if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
+                event.target.value = 0;
+            }
             this.checkTrong(event);
             event.target.value = parseInt(event.target.value).toLocaleString(
                 "vi-VN"

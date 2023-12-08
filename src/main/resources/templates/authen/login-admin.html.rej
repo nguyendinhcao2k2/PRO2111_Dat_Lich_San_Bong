@@ -1,0 +1,9 @@
+diff a/src/main/resources/templates/authen/login-admin.html b/src/main/resources/templates/authen/login-admin.html	(rejected hunks)
+@@ -54,6 +54,7 @@
+     <style>
+         .form-label {
+             font-size: 16px;
++            color: black;
+         }
+     </style>
+ </head>

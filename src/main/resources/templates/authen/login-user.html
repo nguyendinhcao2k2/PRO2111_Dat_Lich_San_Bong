@@ -46,24 +46,30 @@
 
     <link th:href="@{/static/css/style.css}" rel="stylesheet">
     <!-- Template Stylesheet -->
+    <style>
+        .form-label {
+            font-size: 16px;
+            color: black;
+        }
+    </style>
 </head>
 <body>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
         <form>
-            <h1>Create Account</h1>
+            <h1>Đăng ký</h1>
             <span>or use your email for registration</span>
-            <input type="text" th:id="account" placeholder="Account"/>
+            <input type="text" th:id="account" placeholder="Tên tài khoản"/>
             <span style="color: red" th:id="account_error"></span>
-            <input type="text" th:id="display_name" placeholder="DisplayName"/>
+            <input type="text" th:id="display_name" placeholder="Tên hiển thị"/>
             <span style="color: red" th:id="display_name_error"></span>
-            <input type="text" th:id="phone_number" placeholder="PhoneNumber"/>
+            <input type="text" th:id="phone_number" placeholder="Số điện thoại"/>
             <span style="color: red" th:id="phone_number_error"></span>
-            <input type="password" th:id="password" placeholder="Password"/>
+            <input type="password" th:id="password" placeholder="Mật khẩu"/>
             <span style="color: red" th:id="password_error"></span>
-            <input type="password" th:id="re_password" placeholder="RePassword"/>
+            <input type="password" th:id="re_password" placeholder="Nhập lại mật khẩu"/>
             <span style="color: red" th:id="re_password_error"></span>
-            <button th:attr="onclick=|signUp()|">Sign Up</button>
+            <button th:attr="onclick=|signUp()|">Đăng Ký</button>
         </form>
     </div>
     <div class="form-container sign-in-container">
@@ -77,6 +83,7 @@
             <input type="text" value="account1" th:name="username" placeholder="Tên Tài Khoản"/>
             <input type="password" value="1111" th:name="password" placeholder="Mật Khẩu"/>
             <a th:href="@{/authentication/home-login}">Quay lại !</a>
+            <a th:href="@{/static/forgot-pass}">Quên mật khẩu!</a>
             <div th:if="${param.error}">
                 <span style="color: red">Tài Khoản hoặc Mật Khẩu không hợp lệ</span>
             </div>

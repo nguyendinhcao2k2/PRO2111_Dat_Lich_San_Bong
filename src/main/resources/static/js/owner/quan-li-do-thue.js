@@ -26,6 +26,7 @@ var tabDoThue = new Vue({
             soLuong: 0,
             donGia: 0,
             image: null,
+            trangThai: 0,
         },
     },
     methods: {
@@ -49,7 +50,6 @@ var tabDoThue = new Vue({
                                 donGia: tabDoThue.doThue.donGia == 0 ? 0 : tabDoThue.doThue.donGia.replace(/\D/g, ''),
                             }),
                             success: function (response) {
-                                console.log(response)
                                 if (response.statusCode == 'OK') {
                                     $('[rel="formCreate"]').trigger('reset');
                                     tabDoThue.doThue.tenDoThue = "";
@@ -87,8 +87,9 @@ var tabDoThue = new Vue({
                                 id: tabDoThue.detailDoThueEntity.id,
                                 tenDoThue: tabDoThue.detailDoThueEntity.tenDoThue,
                                 soLuong: tabDoThue.detailDoThueEntity.soLuong,
-                                image: tabDoThue.detailDoThueEntity.image,
+                                image: tabDoThue.detailDoThueEntity.image == ""?null:tabDoThue.detailDoThueEntity.image,
                                 donGia: tabDoThue.detailDoThueEntity.donGia == 0 ? 0 : tabDoThue.detailDoThueEntity.donGia.replace(/\D/g, ''),
+                                trangThai: tabDoThue.detailDoThueEntity.trangThai,
                             }),
                             success: function (response) {
                                 if (response.statusCode === 'OK') {
@@ -193,12 +194,12 @@ var tabDoThue = new Vue({
                             processData: false,
                             data: formData,
                             success: function (reponse) {
-                                if(reponse.content == 'OK'){
+                                if (reponse.statusCode === 'OK') {
                                     callApiGetDoThue(urlDoThue);
                                     createAndShowToast("bg-success", "Thông báo!", "Import file thành công!");
                                     event.target.value = "";
-                                }else{
-                                    createAndShowToast("bg-warning", "Thông báo!", "Lỗi không thể import file");
+                                } else {
+                                    createAndShowToast("bg-warning", "Thông báo!", "Vui lòng để đúng thứ tự các trường và kiểu dữ liệu(Với đơn giá có thể tùy biến) như file export excel! Không bạn sẽ không import được đâu");
                                     event.target.value = "";
                                 }
 
@@ -239,6 +240,14 @@ var tabDoThue = new Vue({
         }
         ,
         handleSoLuong(event) {
+            if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
+                if (event.target.id === 'idSoLuongCreate') {
+                    tabDoThue.doThue.soLuong = 0;
+                } else {
+                    tabDoThue.detailDoThueEntity.soLuong = 0;
+                }
+                return;
+            }
             if (event.target.value === "" || event.target.value === null) {
                 if (event.target.id === 'idSoLuongCreate') {
                     tabDoThue.doThue.soLuong = 0;
@@ -259,6 +268,14 @@ var tabDoThue = new Vue({
         }
         ,
         handleDonGia(event) {
+            if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
+                if (event.target.id === 'idDonGiaCreate') {
+                    tabDoThue.doThue.donGia = 0;
+                } else {
+                    tabDoThue.detailDoThueEntity.donGia = 0;
+                }
+                return;
+            }
             if (event.target.value === "" || event.target.value === null) {
                 if (event.target.id === 'idDonGiaCreate') {
                     tabDoThue.doThue.donGia = 0;
@@ -300,6 +317,7 @@ var tabDoThue = new Vue({
                     tabDoThue.detailDoThueEntity.donGia = tabDoThue.currenlyNumBerDoThue(parseInt(response.content.donGia));
                     tabDoThue.detailDoThueEntity.soLuong = response.content.soLuong;
                     tabDoThue.detailDoThueEntity.image = response.content.image;
+                    tabDoThue.detailDoThueEntity.trangThai = response.content.trangThai;
                 },
                 error: function (error) {
                     console.log(error);
@@ -311,10 +329,10 @@ var tabDoThue = new Vue({
         },
         tiemKiemTheoTenDoThue(event) {
 
-             var url = "http://localhost:8081/api/v1/admin/do-thue/find-by-name?tenDoThue=" + event.target.value;
+            var url = "http://localhost:8081/api/v1/admin/do-thue/find-by-name?tenDoThue=" + event.target.value;
             callApiGetDoThue(url);
             tabDoThue.indexSearchDoThue = 1;
-            if(event.target.value === ""||event.target.value == null){
+            if (event.target.value === "" || event.target.value == null) {
                 tabDoThue.indexSearchDoThue = 0;
                 callApiGetDoThue("http://localhost:8081/api/v1/admin/do-thue/find-all");
             }
@@ -324,9 +342,9 @@ var tabDoThue = new Vue({
                 urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-by-name?tenDoThue=" +
                     tabDoThue.tenDoThueSearch +
                     "&page=" +
-                    value+"&size="+tabDoThue.pageSizeDoThue;
+                    value + "&size=" + tabDoThue.pageSizeDoThue;
             } else {
-                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-all?page=" + value+"&size="+tabDoThue.pageSizeDoThue;
+                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-all?page=" + value + "&size=" + tabDoThue.pageSizeDoThue;
 
             }
             callApiGetDoThue(urlDoThue);
@@ -343,13 +361,13 @@ var tabDoThue = new Vue({
             }
             this.pageTionDT(parseInt(tabDoThue.pageNumberDoThue) - 1);
         },
-        pageSizeSelectDoThue(event){
+        pageSizeSelectDoThue(event) {
             if (parseInt(tabDoThue.indexSearchDoThue) === 1) {
                 urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-by-name?tenDoThue=" +
                     tabDoThue.tenDoThueSearch +
-                    "&size="+event.target.value;
+                    "&size=" + event.target.value;
             } else {
-                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-all?size=" +event.target.value;
+                urlDoThue = "http://localhost:8081/api/v1/admin/do-thue/find-all?size=" + event.target.value;
 
             }
             callApiGetDoThue(urlDoThue);
@@ -368,7 +386,7 @@ function callApiGetDoThue(url) {
         url: url,
         dataType: "json",
         success: function (response) {
-            if(response.content.data <= 0){
+            if (response.content.data <= 0) {
                 tabDoThue.pageNumberDoThue = -1;
                 tabDoThue.pageSizeDoThue = 0;
                 tabDoThue.totalPageDoThue = 0;

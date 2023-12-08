@@ -103,10 +103,13 @@ $(document).ready(() => {
                                             return alert("Check-in thành công!");
                                         } else if (response.statusCode === "NOT_FOUND") {
                                             return alert("Không tìm thấy phiếu đặt!");
-                                        } else if (response.statusCode === "ALREADY_REPORTED") {
+                                        }else if (response.statusCode === "PAYMENT_REQUIRED") {
+                                            return alert("Phiếu đã được thanh toán rồi!");
+                                        }
+                                        else if (response.statusCode === "ALREADY_REPORTED") {
                                             return alert("Phiếu đã được check in!");
                                         } else if (response.statusCode === "LOCKED") {
-                                            return alert("Bạn chưa đến thời gian check-in! Bạn sẽ được check in trước thời gian bắt đầu trận đấu " + timCheckIn + " phút!");
+                                            return alert("Bạn chưa đến thời gian check-in hoặc phiếu check-in đã quá hạn! Nếu không quá hạn bạn sẽ được check in trước thời gian bắt đầu trận đấu " + timCheckIn + " phút!");
                                         } else {
                                             return console.log("Server Error");
                                         }

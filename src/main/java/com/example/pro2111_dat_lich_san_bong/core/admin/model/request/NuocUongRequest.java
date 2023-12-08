@@ -16,11 +16,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NuocUongRequest {
-    @NotNull
-    @NotBlank
+
+    private String id;
     private String tenNuocUong;
-    @NotNull
     private Integer soLuong;
-    @NotNull
     private Double donGia;
+    private String image;
+    private String trangThai;
 }

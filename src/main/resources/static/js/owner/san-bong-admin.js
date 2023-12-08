@@ -27,15 +27,27 @@ var tab2 = new Vue({
         },
     },
     methods: {
+        //chung
+        currenlyNumberSB(number){
+           return  new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
+        },
+        //chung
         // loai san start
         confirmCreateLS() {
-            if (confirm("Bạn có chắc chắn với điều này!")) {
-                if (tab2.loaiSan.id != null) {
-                    this.updateLoaiSan();
-                } else {
-                    this.saveLoaiSan();
+            Swal.fire({
+                title: "Bạn có chắc chắn thực hiện thao tác này?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (tab2.loaiSan.id != null) {
+                        this.updateLoaiSan();
+                    } else {
+                        this.saveLoaiSan();
+                    }
                 }
-            }
+            });
         },
         saveLoaiSan() {
             $.ajax({
@@ -45,17 +57,20 @@ var tab2 = new Vue({
                 contentType: "application/json",
                 data: JSON.stringify({
                     tenLoaiSan: tab2.loaiSan.tenLoaiSan,
-                    giaSan: parseInt(tab2.loaiSan.giaSan.replace(/\D/g, "")),
+                    giaSan:parseInt(tab2.loaiSan.giaSan.replace(/\D/g, "")),
                 }),
                 success: function (response) {
-                    // $("#modalLoaiSan").modal("toggle");
-                    // $(".modal-backdrop").remove();
                     createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                     callApiLoaiSan();
+                    callApiSanBong("http://localhost:8081/api/v1/admin/san-bong/find-all");
                 },
             });
         },
         validationPriceLS(event) {
+            if(event.target.value.replace(/\D/g, "") == null || event.target.value.replace(/\D/g, "") == ''){
+                event.target.value = 0;
+            }
+
             if (event.target.value == "" || event.target.value == null) {
                 this.loaiSan.giaSan = 0;
                 return;
@@ -70,9 +85,16 @@ var tab2 = new Vue({
             return parseInt(number).toLocaleString("vi-VN");
         },
         confirmDeleteLoaiSan(id) {
-            if (confirm("Bạn có chắc chắn!")) {
-                this.deleteLoaiSan(id);
-            }
+            Swal.fire({
+                title: "Bạn có chắc chắn thực hiện thao tác này?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.deleteLoaiSan(id);
+                }
+            });
         },
         deleteLoaiSan(id) {
             $.ajax({
@@ -81,6 +103,7 @@ var tab2 = new Vue({
                 success: function (response) {
                     createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                     callApiLoaiSan();
+                    callApiSanBong("http://localhost:8081/api/v1/admin/san-bong/find-all");
                 },
             });
         },
@@ -110,6 +133,7 @@ var tab2 = new Vue({
                 success: function (response) {
                     createAndShowToast("bg-success","Thông báo!","Thao tác thành công!");
                     callApiLoaiSan();
+                    callApiSanBong("http://localhost:8081/api/v1/admin/san-bong/find-all");
                 },
             });
         },
@@ -125,9 +149,16 @@ var tab2 = new Vue({
             return result ? result : "Không tồn tại";
         },
         confirmSanBongSave() {
-            if (confirm("Bạn có chắc chắn thực hiện")) {
-                this.createSanBong();
-            }
+            Swal.fire({
+                title: "Bạn có chắc chắn thực hiện thao tác này?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.createSanBong();
+                }
+            });
         },
         createSanBong() {
             $.ajax({
@@ -152,9 +183,17 @@ var tab2 = new Vue({
             });
         },
         confirmDeleteSanBong(id) {
-            if (confirm("Bạn có chắc chắn thực hiện?")) {
-                this.deleteSanBong(id);
-            }
+            Swal.fire({
+                title: "Bạn có chắc chắn thực hiện thao tác này?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.deleteSanBong(id);
+                }
+            });
+
         },
         deleteSanBong(id) {
             $.ajax({
@@ -186,9 +225,16 @@ var tab2 = new Vue({
             });
         },
         confirmUpdate() {
-            if (confirm("Bạn có chắc chắn thực hiện")) {
-                this.updateSanBong();
-            }
+            Swal.fire({
+                title: "Bạn có chắc chắn thực hiện thao tác này?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.updateSanBong();
+                }
+            });
         },
         updateSanBong() {
             $.ajax({

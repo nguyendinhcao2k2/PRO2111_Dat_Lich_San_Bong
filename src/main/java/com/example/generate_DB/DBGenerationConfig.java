@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * @author phongtt35
+ * @author thepv
  */
 
 @Configuration

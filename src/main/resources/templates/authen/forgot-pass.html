@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous"
+    />
+    <link
+            rel="stylesheet"
+            href="path/to/font-awesome/css/font-awesome.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/static/css/authen/forgot-pass.css}" />
+</head>
+<body
+        class="container"
+        style="display: flex; justify-content: center; align-items: center"
+>
+<div class="card text-center formSend" style="width: 300px">
+    <div class="card-header h5 text-white bg-primary">Forgot Password</div>
+    <div class="card-body px-5">
+        <p class="card-text py-2">Nhập email để nhận code!</p>
+        <div class="form-outline">
+            <input
+                    type="email"
+                    name="email"
+                    required
+                    id="typeEmail"
+                    placeholder="Email"
+                    class="form-control my-3"
+            />
+        </div>
+        <span class="thongBao" style="color: red;font-size: 10px"></span>
+        <button type="button" class="btn btn-primary senMail w-100">
+            Send
+        </button>
+        <div class="d-flex justify-content-between mt-4">
+            <a class="" th:href="@{/authentication/user-login}">Login</a>
+        </div>
+    </div>
+</div>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"
+></script>
+</body>
+</html>

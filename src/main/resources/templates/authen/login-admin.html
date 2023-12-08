@@ -45,6 +45,13 @@
     <link th:href="@{/static/css/authen/login-admin.css}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
+    <!-- Template Stylesheet -->
+    <style>
+        .form-label {
+            font-size: 16px;
+            color: black;
+        }
+    </style>
 </head>
 <body>
 <link rel="stylesheet" href="https://cdn.lineicons.com/2.0/LineIcons.css">
@@ -55,25 +62,25 @@
                 <div class="text-center image-size-small position-relative">
                     <img src="https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"
                          class="rounded-circle p-2 bg-white">
-                    <div class="icon-camera">
-                        <a href="" class="text-primary"><i class="lni lni-camera"></i></a>
-                    </div>
+<!--                    <div class="icon-camera">-->
+<!--                        <a href="" class="text-primary"><i class="lni lni-camera"></i></a>-->
+<!--                    </div>-->
                 </div>
                 <div class="p-5 bg-white rounded shadow-lg">
                     <h3 class="mb-2 text-center pt-5">Quản Lý Đăng Nhập</h3>
                     <h6 class="text-center lead">Đăng Nhập Với Vai Trò Là Quản Lý</h6>
                     <form th:action="@{/login}" method="post">
-                        <label class="font-500">Tên Tài Khoản</label>
+                        <label class="font-500 form-label">Tên Tài Khoản</label>
                         <input th:name="username" value="admin1" class="form-control form-control-lg mb-3" type="text">
-                        <label class="font-500">Mật Khẩu</label>
+                        <label class="font-500 form-label">Mật Khẩu</label>
                         <input th:name="password" value="1111" class="form-control form-control-lg" type="password">
                         <a th:href="@{/authentication/home-login}">Quay lại !</a>
+                        <p></p>
                         <div th:if="${param.error}">
                             <span style="color: red">Invalid User or Password</span>
                         </div>
                         <button class="btn btn-primary btn-lg w-100 shadow-lg">Đăng Nhập</button>
                     </form>
-
                 </div>
             </div>
         </div>

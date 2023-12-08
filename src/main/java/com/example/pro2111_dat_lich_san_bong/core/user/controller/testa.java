@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class testa {
     @GetMapping("")
     public  String getA(){
-        return "user/doi-lich";
+        return "user/lich-su-hoa-don-user";
     }
 }

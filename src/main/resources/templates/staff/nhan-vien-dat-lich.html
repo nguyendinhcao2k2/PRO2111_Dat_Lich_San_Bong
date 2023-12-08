@@ -43,6 +43,9 @@
     <!-- Quan Trọng  -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <!--  -->
     <title>Document</title>
 </head>
@@ -102,11 +105,11 @@
                                     Ngày</a
                                 >
                             </li>
-                            <li>
-                                <a href="#menu_3"
-                                ><i class="fas fa-cogs fa-fw me-2"></i>Tab 3</a
-                                >
-                            </li>
+<!--                            <li>-->
+<!--                                <a href="#menu_3"-->
+<!--                                ><i class="fas fa-cogs fa-fw me-2"></i>Tab 3</a-->
+<!--                                >-->
+<!--                            </li>-->
                         </ul>
                         <div class="tab-content">
                             <div id="menu_1" class="tab-content-item">
@@ -466,6 +469,13 @@
                                                                     ></button>
                                                                 </div>
                                                                 <div class="modal-body">
+                                                                    <div
+                                                                            id="toastContainer"
+                                                                            class="position-fixed osition-absolute top-0 end-0 p-3"
+                                                                            style="z-index: 9999"
+                                                                    >
+                                                                        <div id="toasts" class="d-flex flex-column-reverse"></div>
+                                                                    </div>
                                                                     <div class="row">
                                                                         <div class="col-md-3">
                                                                             <div class="">
@@ -906,7 +916,7 @@
     </div>
 </section>
 <!-- Start Footer -->
-<div th:insert="~{fragments/footer}"></div>
+<div th:insert="~{fragments/footer-owner-staff}"></div>
 <!-- End Footer -->
 <!-- mobiscroll -->
 <!-- mobiscroll -->
@@ -925,6 +935,7 @@
 <script th:src="@{/static/js/staff/dat-lich.js}"></script>
 <!--QR code-->
 <script th:src="@{/static/js/custom/read-qrcode.js}"></script>
+<script th:src="@{/static/js/utill/thong-bao.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
 
 <script>

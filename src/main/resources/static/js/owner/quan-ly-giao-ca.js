@@ -289,7 +289,8 @@ var app = new Vue({
                 type: "GET",
                 url: "http://localhost:8081/api/v1/admin/giao-ca/by-id/" + items,
                 success: function (data) {
-                    $(".tenNVCT").val(data.content.displayNameNhanVienTrongCa);
+                    $(".tenNVTC").val(data.content.displayNameNhanVienTrongCa);
+                    $(".tenNVCTT").val(data.content.displayNameNhanVienCaTiepTheo);
                     $(".thoiGianNhanCaCT").val(formatDate(data.content.thoiGianNhanCa));
                     $(".thoiGianKetCaCT").val(formatDate(data.content.thoiGianKetCa));
                     $(".tienBanDauCT").val(curenlyNumber(data.content.tienBanDau));

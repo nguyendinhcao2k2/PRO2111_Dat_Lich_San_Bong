@@ -2,6 +2,7 @@ package com.example.pro2111_dat_lich_san_bong.core.staff.service.impl;
 
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.DichVuSanBongRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.DoThueNuocUongDichVuRequest;
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LichSuDichVuSuDungStaffReponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.DichVuSanBongStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.DoThueStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.NuocUongStaffRepository;
@@ -71,6 +72,16 @@ public class DichVuSanBongStaffServiceImpl implements IDichVuSanBongStaffService
         }
         System.out.println(listDoThueNuocUongDichVuRequests.size());
         return listDoThueNuocUongDichVuRequests;
+    }
+
+    @Override
+    public List<DichVuSanBong> findAllByLichSuSuDungDichVu(String idHoaDonSanCa) {
+        try {
+            return dichVuSanBongStaffRepository.findAllByLichSuSuDungDichVu(idHoaDonSanCa);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

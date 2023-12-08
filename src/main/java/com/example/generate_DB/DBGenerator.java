@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
- * @author phongtt35
+ * @author thepv
  */
 
 @SpringBootApplication
@@ -157,7 +157,7 @@ public class DBGenerator implements CommandLineRunner {
         //end chuc vu
 
         //start vi tien
-        ViTienCoc viTienCocKH1 = new ViTienCoc();
+       /* ViTienCoc viTienCocKH1 = new ViTienCoc();
         viTienCocKH1.setSoGiaoDich("004444444444");
         viTienCocKH1.setLoaiTien("VND");
         viTienCocKH1.setTrangThai(0);
@@ -171,7 +171,7 @@ public class DBGenerator implements CommandLineRunner {
         viTienCocKH2.setTrangThai(0);
         viTienCocKH2.setThoiGianTao(Timestamp.valueOf("2023-09-17 10:09:00"));
         viTienCocKH2.setSoTien(200000.0);
-        viTienCocKH2.setId(viTienRepository.save(viTienCocKH2).getId());
+        viTienCocKH2.setId(viTienRepository.save(viTienCocKH2).getId());*/
 
 
         //end vi tien
@@ -208,6 +208,16 @@ public class DBGenerator implements CommandLineRunner {
         nhanVien1.setIdChucVu(nhanVienRole.getId());
         nhanVien1.setTaiKhoan("nhanVien1");
         nhanVien1.setId(accountRepository.save(nhanVien1).getId());
+
+        Account nhanVien2 = new Account();
+        nhanVien2.setEmail("nhanVien2@gamil.com");
+        nhanVien2.setSoDienThoai("0312345678");
+        nhanVien2.setDisplayName("nhan vien 2");
+        nhanVien2.setMatKhau("$2a$12$7gE1Gmxw86zKOsv1HE6EWu5fADdikTRzbAYrdeHNYjMwso9G3cko2"); // pass: 1111
+        nhanVien2.setTrangThai(0); //trang thái 0: hoạt động
+        nhanVien2.setIdChucVu(nhanVienRole.getId());
+        nhanVien2.setTaiKhoan("nhanVien2");
+        nhanVien2.setId(accountRepository.save(nhanVien2).getId());
 
         Account admin1 = new Account();
         admin1.setEmail("sydvph19885@fpt.edu.vn");
@@ -421,7 +431,7 @@ public class DBGenerator implements CommandLineRunner {
 
         //END PHỤ PHÍ
 
-        NuocUong nuocUong1 = new NuocUong();
+       /* NuocUong nuocUong1 = new NuocUong();
         nuocUong1.setTenNuocUong("STING ĐỎ");
         nuocUong1.setSoLuong(11200);
         nuocUong1.setDonGia(8000d);
@@ -495,9 +505,9 @@ public class DBGenerator implements CommandLineRunner {
         doThue4.setTrangThai(0); //0:CÒN ĐỒ THUÊ -- 1: HẾT ĐỒ THUÊ
         doThue4.setId(doThueRepository.save(doThue4).getId());
 
-        //END ĐỒ THUÊ
+        //END ĐỒ THUÊ*/
 
-        DichVuSanBong dichVu1 = new DichVuSanBong();
+        /*DichVuSanBong dichVu1 = new DichVuSanBong();
         dichVu1.setIdDoThue(doThue1.getId());
         dichVu1.setIdNuocUong(nuocUong1.getId());
         dichVu1.setSoLuongNuocUong(5);
@@ -531,7 +541,7 @@ public class DBGenerator implements CommandLineRunner {
         dichVu4.setSoLuongDoThue(2);
         dichVu4.setDonGia((doThue4.getDonGia() * dichVu4.getSoLuongDoThue()) + (nuocUong4.getDonGia() * dichVu4.getSoLuongNuocUong()));
         dichVu4.setTrangThai(0); //1: DỊCH VỤ SẴN SÀNG
-        dichVu4.setId(dichVuRepository.save(dichVu4).getId());
+        dichVu4.setId(dichVuRepository.save(dichVu4).getId());*/
 
         // END DỊCH VỤ
 

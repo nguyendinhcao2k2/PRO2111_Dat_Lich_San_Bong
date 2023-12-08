@@ -31,17 +31,18 @@ public class GiaoCaExportExcel {
         font.setFontHeight(12);
         style.setFont(font);
 
-        createCell(row, 0, "Nhân Viên", style);
-        createCell(row, 1, "Thời Gian Nhận Ca", style);
-        createCell(row, 2, "Thời Gian Kết Ca", style);
-        createCell(row, 3, "Thời Gian Reset", style);
-        createCell(row, 4, "Tiền Ban Đầu", style);
-        createCell(row, 5, "Tiền Phát Sinh", style);
-        createCell(row, 6, "Tổng Tiền Mặt", style);
-        createCell(row, 7, "Tổng Tiền Chuyển Khoản", style);
-        createCell(row, 8, "Tiền Đã Rút", style);
-        createCell(row, 9, "Tổng Tiền", style);
-        createCell(row, 10, "Ghi Chú", style);
+        createCell(row, 0, "Nhân Viên Trong Ca", style);
+        createCell(row, 1, "Nhân Viên Ca Tiếp Theo", style);
+        createCell(row, 2, "Thời Gian Nhận Ca", style);
+        createCell(row, 3, "Thời Gian Kết Ca", style);
+        createCell(row, 4, "Thời Gian Reset", style);
+        createCell(row, 5, "Tiền Ban Đầu", style);
+        createCell(row, 6, "Tiền Phát Sinh", style);
+        createCell(row, 7, "Tổng Tiền Mặt", style);
+        createCell(row, 8, "Tổng Tiền Chuyển Khoản", style);
+        createCell(row, 9, "Tiền Đã Rút", style);
+        createCell(row, 10, "Tổng Tiền", style);
+        createCell(row, 11, "Ghi Chú", style);
     }
 
     private static void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -76,6 +77,7 @@ public class GiaoCaExportExcel {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
             createCell(row, columnCount++, items.getDisplayNameNhanVienTrongCa(), style);
+            createCell(row, columnCount++, items.getDisplayNameNhanVienCaTiepTheo(), style);
             createCell(row, columnCount++, format.format(items.getThoiGianNhanCa()), style);
             createCell(row, columnCount++, format.format(items.getThoiGianKetCa()), style);
             createCell(row, columnCount++, items.getThoiGianReset() == null ? "" : format.format(items.getThoiGianReset()), style);

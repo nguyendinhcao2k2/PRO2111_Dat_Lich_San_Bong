@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface IThanhToanSanCaStaffService {
     List<HoaDonThanhToanRequest> getAllHoaDonSanCas();
+    List<HoaDonThanhToanRequest> getAllHoaDonSanCaByPhone(String numberPhone);
 
     HoaDonThanhToanRequest getOneHoaDonThanhToan(String id);
 }

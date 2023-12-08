@@ -74,8 +74,9 @@ public class SercurityConfig {
         http
                 .cors().and().csrf().disable().authorizeHttpRequests()
                 .requestMatchers("/authentication/**", "/error").permitAll()
-                .requestMatchers("/chi-tiet/hoa-don","/api/v1/trang-chu").permitAll()
+                .requestMatchers("/chi-tiet/hoa-don", "/api/v1/trang-chu").permitAll()
                 .requestMatchers("/static/**").permitAll()
+                .requestMatchers("/api/v1/profile").hasAnyAuthority(RoleConstant.roleAdmin, RoleConstant.roleStaff, RoleConstant.roleUser)
                 .requestMatchers("/api/v1/admin/**").hasAuthority(RoleConstant.roleAdmin)
                 .requestMatchers("/api/v1/staff/**").hasAuthority(RoleConstant.roleStaff)
                 .requestMatchers("/api/v1/user/**").hasAuthority(RoleConstant.roleUser)
@@ -114,8 +115,8 @@ public class SercurityConfig {
 
     public void redirectUrl(String role, HttpServletResponse response) throws IOException {
         if (role.equalsIgnoreCase(RoleConstant.roleAdmin)) {
-//            response.sendRedirect("/api/v1/admin/manage/list-manage");
-            response.sendRedirect("/test/thong-ke");
+            response.sendRedirect("/api/v1/admin/manage/list-manage");
+//            response.sendRedirect("/test/thong-ke");
         } else if (role.equalsIgnoreCase(RoleConstant.roleStaff)) {
             //auto source /api/v1/staff/all
             response.sendRedirect("api/v1/staff/account/display");
