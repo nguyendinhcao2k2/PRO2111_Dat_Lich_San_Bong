@@ -71,3 +71,19 @@ table th {
 #floatingTextarea {
     height: 100px;
 }
+
+.form-label {
+    font-size: 18px;
+    color: black;
+}
+
+h5{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.header-table-giao-ca{
+    padding: 5px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #6e6e6e;
+}

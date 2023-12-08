@@ -303,6 +303,9 @@
                   "
                         >
                             <form action="/submit" method="post">
+                                <div class="header-table-giao-ca">
+                                    <h5 class="text-primary text-center">Thông Tin Nhận Ca</h5>
+                                </div>
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên nhân viên</label>
                                     <input
@@ -360,22 +363,20 @@
                           margin-bottom: 10px;
                         "
                                     >
-                        <span
-                                class="btn-label"
-                                style="
-                            position: relative;
-                            left: -12px;
-                            display: inline-block;
-                            padding: 6px 12px;
-                            background: rgba(0, 0, 0, 0.15);
-                            border-radius: 3px 0 0 3px;
-                          "
-                        ><i class="fa fa-check"></i></span
-                        >Lưu
+                                        <span
+                                                class="btn-label"
+                                                style="
+                                            position: relative;
+                                            left: -12px;
+                                            display: inline-block;
+                                            padding: 6px 12px;
+                                            background: rgba(0, 0, 0, 0.15);
+                                            border-radius: 3px 0 0 3px;
+                                          "
+                                        ><i class="fa fa-check"></i></span
+                                        >Lưu Thông Tin
                                     </button>
                                 </div>
-
-                                <br />
                             </form>
                         </div>
                     </div>
@@ -420,7 +421,7 @@
     </div>
     <!-- modal end -->
     <!-- Start Header -->
-    <div th:insert="~{fragments/footer}"></div>
+    <div th:insert="~{fragments/footer-owner-staff}"></div>
     <!-- End Header -->
 <script th:src="@{/static/js/custom/nhan-ca.js}"></script>
     <script th:src="@{/static/js/utill/thong-bao.js}"></script>

@@ -154,14 +154,17 @@
             color: black;
         }
 
-        .form-label {
-            font-size: 16px;
+        .form-label, .col-form-label {
+            font-size: 18px;
             color: black;
         }
         .body-row-col {
             padding: 5px;
             background: #fff;
             box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        }
+        .btn-labeled{
+            border-radius: 5px;
         }
         /* trinh soan thao */
     </style>
@@ -381,7 +384,7 @@
                             <span
                                     class="input-group-text"
                                     id="addon-wrapping"
-                                    style="cursor: pointer; border-radius: 5px"
+                                    style="cursor: pointer; border-top-left-radius: 5px; border-bottom-left-radius: 5px"
                                     @click="search"
                             ><i class="fa fa-search" aria-hidden="true"></i
                             ></span>
@@ -401,7 +404,7 @@
                         <table class="table table-header table-bordered table-hover table-container mt-2">
                             <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">STT</th>
                                 <th scope="col">UserName</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Số điện thoại</th>
@@ -482,401 +485,414 @@
                 role="tabpanel"
                 aria-labelledby="tab2-tab"
         >
-            <br/>
-            <div class="input-group flex-nowrap container">
-            <span
-                    class="input-group-text"
-                    id="addon-wrapping"
-                    style="cursor: pointer"
-                    @click="searchByTenSanBong"
-            ><i class="fa fa-search" aria-hidden="true"></i
-            ></span>
-                <input
-                        type="email"
-                        class="form-control"
-                        name="tenSanPham"
-                        required
-                        placeholder="Tìm kiếm tên sân bóng..."
-                        aria-describedby="addon-wrapping"
-                        v-model="searchModelTenSB"
-                        @input="searchByTenSanBong"
-                />
-            </div>
-            <br/>
-            <form class="container" @submit.prevent="confirmSanBongSave">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="input-group flex-nowrap">
-                            <span class="input-group-text" id="addon-wrapping">Tên</span>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    name="tenSanPham"
-                                    required
-                                    placeholder="Tên sân bóng"
-                                    aria-describedby="addon-wrapping"
-                                    v-model="sanBong.tenSanBong"
-                            />
-                        </div>
-                        <br/>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-9">
-                                <div class="input-group flex-nowrap">
-                      <span class="input-group-text" id="addon-wrapping"
-                      >Loại sân</span
-                      >
-                                    <select
-                                            class="form-select selectLoaiSan"
-                                            aria-label="Default select example"
-                                            required
-                                            v-model="sanBong.loaiSan"
-                                    >
-                                        <option
-                                                v-for="items in arrLoaiSan"
-                                                v-bind:value="items.id"
-                                                selected
+            <div class="row body-row-col m-1">
+                <div class="col-md-4 col-sm-12 mt-2 mb-2">
+                    <form class="container" @submit.prevent="confirmSanBongSave">
+                        <div class="row mb-3">
+                            <div class="row mb-3">
+                                <div class="">
+                                    <h5 class="text-primary">Thông Tin</h5>
+                                </div>
+                                <hr class="mt-1" />
+                                <div class="col-md-12 col-sm-12 mt-3">
+                                    <label class="form-label">Tên Sân Bóng</label>
+                                    <div class="input-group flex-nowrap">
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                name="tenSanPham"
+                                                required
+                                                placeholder="Tên sân bóng"
+                                                aria-describedby="addon-wrapping"
+                                                v-model="sanBong.tenSanBong"
+                                        />
+                                    </div>
+                                    <br/>
+                                </div>
+                                <div class="col-md-12 col-sm-12 mt-3">
+                                    <label class="form-label">Loại Sân Bóng</label>
+                                    <div class="input-group flex-nowrap">
+                                        <select
+                                                class="form-select selectLoaiSan"
+                                                aria-label="Default select example"
+                                                required
+                                                v-model="sanBong.loaiSan"
                                         >
-                                            {{items.tenLoaiSan}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <button
-                                        type="button"
-                                        class="btn btn-outline-danger"
-                                        @click="themNhanh"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#modalLoaiSan"
-                                >
-                                    +
-                                </button>
-                            </div>
-                        </div>
-
-                        <br/>
-                        <br/>
-                    </div>
-                    <div class="col-md-6 radioTrangThai">
-                        <div class="form-check form-check-inline">
-                            <input
-                                    class="form-check-input"
-                                    type="radio"
-                                    name="inlineRadioOptions"
-                                    id="inlineRadio1"
-                                    value="0"
-                                    checked
-                                    v-model="sanBong.trangThai"
-                            />
-                            <label class="form-check-label" for="inlineRadio1"
-                            >Bình thường</label
-                            >
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input
-                                    class="form-check-input"
-                                    type="radio"
-                                    name="inlineRadioOptions"
-                                    id="inlineRadio2"
-                                    value="1"
-                                    v-model="sanBong.trangThai"
-                            />
-                            <label class="form-check-label" for="inlineRadio2"
-                            >Sửa chữa</label
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div style="display: flex;justify-content: center;align-items: center">
-                    <button type="submit" class="btn btn-success">Lưu</button>
-                </div>
-
-            </form>
-            <!-- Modal loai san start-->
-            <div
-                    class="modal fade detailModal"
-                    id="modalLoaiSan"
-                    tabindex="-1"
-                    aria-labelledby="exampleModalLabel"
-                    aria-hidden="true"
-            >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                Thêm nhanh loại sân
-                            </h1>
-                            <button
-                                    type="button"
-                                    class="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                            ></button>
-                        </div>
-                        <form @submit.prevent="confirmCreateLS">
-                            <div class="modal-body">
-                                <input type="text" hidden v-model="loaiSan.id"/>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Tên loại sân</span>
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Tên loại sân"
-                                            required
-                                            aria-describedby="basic-addon1"
-                                            v-model="loaiSan.tenLoaiSan"
-                                    />
-                                </div>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Giá loại sân</span>
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Giá loại sân"
-                                            required
-                                            aria-describedby="basic-addon1"
-                                            @input="validationPriceLS"
-                                            v-model="loaiSan.giaSan"
-                                            min="0"
-                                    />
-                                    <span class="input-group-text" id="basic-addon1">Vnd</span>
-                                </div>
-                                Danh sách loại sân
-                                <table class="table table-bordered table-header table-container">
-                                    <tr>
-                                        <th>Tên</th>
-                                        <th>Giá</th>
-                                        <th>Acction</th>
-                                    </tr>
-                                    <tr v-for="items in arrLoaiSan">
-                                        <td>{{items.tenLoaiSan}}</td>
-                                        <td>{{currenlyNumberSB(items.giaSan)}}</td>
-                                        <td>
-                                            <button
-                                                    style="
-                              background-color: white;
-                              border: 1px solid red;
-                            "
-                                                    type="button"
-                                                    class="deletebtn btn btn-primary"
-                                                    @click="confirmDeleteLoaiSan(items.id)"
+                                            <option
+                                                    v-for="items in arrLoaiSan"
+                                                    v-bind:value="items.id"
+                                                    selected
                                             >
-                                                <i
-                                                        class="fa fa-trash"
-                                                        style="color: red"
-                                                        aria-hidden="true"
-                                                ></i>
+                                                {{items.tenLoaiSan}}
+                                            </option>
+                                        </select>
+                                        <button
+                                                type="button"
+                                                class="btn btn-success"
+                                                @click="themNhanh"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalLoaiSan"
+                                                style="border-bottom-right-radius: 5px; border-top-right-radius: 5px"
+                                        >
+                                            <i class="fas fa-plus fa-lg" style="color: #ffffff"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 radioTrangThai mt-3">
+                                    <div class="row mb-3">
+                                        <label class="col-form-label col-md-4 pt-0">Trạng Thái:</label>
+                                        <div class="col-md-8">
+                                            <div class="form-check form-check-inline">
+                                                <input
+                                                        class="form-check-input"
+                                                        type="radio"
+                                                        name="inlineRadioOptions"
+                                                        id="inlineRadio1"
+                                                        value="0"
+                                                        checked
+                                                        v-model="sanBong.trangThai"
+                                                />
+                                                <label class="form-check-label" for="inlineRadio1"
+                                                >Bình thường</label
+                                                >
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input
+                                                        class="form-check-input"
+                                                        type="radio"
+                                                        name="inlineRadioOptions"
+                                                        id="inlineRadio2"
+                                                        value="1"
+                                                        v-model="sanBong.trangThai"
+                                                />
+                                                <label class="form-check-label" for="inlineRadio2"
+                                                >Sửa chữa</label
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button type="submit" class="btn btn-success btn-labeled">Lưu</button>
+                        </div>
+                    </form>
+                    <!-- Modal loai san start-->
+                    <div
+                            class="modal fade detailModal"
+                            id="modalLoaiSan"
+                            tabindex="-1"
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true"
+                    >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                        Thêm nhanh loại sân
+                                    </h1>
+                                    <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                    ></button>
+                                </div>
+                                <form @submit.prevent="confirmCreateLS">
+                                    <div class="modal-body">
+                                        <input type="text" hidden v-model="loaiSan.id"/>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Tên loại sân</span>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Tên loại sân"
+                                                    required
+                                                    aria-describedby="basic-addon1"
+                                                    v-model="loaiSan.tenLoaiSan"
+                                            />
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Giá loại sân</span>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Giá loại sân"
+                                                    required
+                                                    aria-describedby="basic-addon1"
+                                                    @input="validationPriceLS"
+                                                    v-model="loaiSan.giaSan"
+                                                    min="0"
+                                            />
+                                            <span class="input-group-text" id="basic-addon1">Vnd</span>
+                                        </div>
+                                        Danh sách loại sân
+                                        <table class="table table-bordered table-header table-container">
+                                            <tr>
+                                                <th>Tên</th>
+                                                <th>Giá</th>
+                                                <th>Acction</th>
+                                            </tr>
+                                            <tr v-for="items in arrLoaiSan">
+                                                <td>{{items.tenLoaiSan}}</td>
+                                                <td>{{currenlyNumberSB(items.giaSan)}}</td>
+                                                <td>
+                                                    <button
+                                                        style="
+                                                              background-color: white;
+                                                              border: 1px solid red;
+                                                            "
+                                                            type="button"
+                                                            class="deletebtn btn btn-primary"
+                                                            @click="confirmDeleteLoaiSan(items.id)"
+                                                    >
+                                                        <i
+                                                                class="fa fa-trash"
+                                                                style="color: red"
+                                                                aria-hidden="true"
+                                                        ></i>
+                                                    </button>
+                                                    <button
+                                                            type="button"
+                                                            class=" btn btn-outline-info"
+                                                            @click="detailLoaiSan(items.id)"
+                                                    >
+                                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button
+                                                type="button"
+                                                class="btn btn-danger btn-labeled"
+                                                data-bs-dismiss="modal"
+                                        >
+                                            Hủy
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">Lưu</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal end -->
+                </div>
+                <div class="col-md-8 col-sm-12 mt-2">
+                    <div class="row">
+                        <div class="">
+                            <h5 class="text-primary">Danh Sách Sân</h5>
+                        </div>
+                        <hr class="mt-1" />
+<!--Search-->
+                        <div class="col-auto">
+                            <label class="col-form-label">Tìm Kiếm:</label>
+                        </div>
+                        <div class="col-md-6 col-sm-auto">
+                            <div class="input-group flex-nowrap">
+                            <span
+                                    class="input-group-text"
+                                    id="addon-wrapping"
+                                    style="cursor: pointer; border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+                                    @click="searchByTenSanBong"
+                            ><i class="fa fa-search" aria-hidden="true"></i
+                            ></span>
+                                <input
+                                        type="email"
+                                        class="form-control"
+                                        name="tenSanPham"
+                                        required
+                                        placeholder="Tìm kiếm tên sân bóng..."
+                                        aria-describedby="addon-wrapping"
+                                        v-model="searchModelTenSB"
+                                        @input="searchByTenSanBong"
+                                />
+                            </div>
+                        </div>
+<!--Table-->
+                        <table class="table table-header table-bordered table-hover table-container mt-2">
+                            <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên</th>
+                                <th scope="col">Loại sân</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Thao tác</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr v-for="(items,index) in arrSanBong">
+                                <td>{{index+1}}</td>
+                                <td>{{items.tenSanBong}}</td>
+                                <td>{{findByIdLoaiSan(items.idLoaiSan).tenLoaiSan}}</td>
+                                <td>{{currenlyNumberSB(items.giaSan)}}</td>
+                                <td>
+                                    {{parseInt(items.trangThai) == 0?"Bình thường":"Sửa chữa"}}
+                                </td>
+                                <td>
+                                    <button
+                                            style="background-color: white; border: 1px solid red"
+                                            class="deletebtn btn btn-primary"
+                                            @click="confirmDeleteSanBong(items.id)"
+                                    >
+                                        <i
+                                                class="fa fa-trash"
+                                                style="color: red"
+                                                aria-hidden="true"
+                                        ></i>
+                                    </button>
+                                    <button
+                                            type="button"
+                                            class=" btn btn-outline-info"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#detailSanBong"
+                                            @click="detailSanBong(items.id)"
+                                    >
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- Modal update start -->
+                        <div
+                                class="modal fade"
+                                id="detailSanBong"
+                                data-bs-backdrop="static"
+                                data-bs-keyboard="false"
+                                tabindex="-1"
+                                aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true"
+                        >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form @submit.prevent="confirmUpdate">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                                CẬP NHẬT SÂN BÓNG
+                                            </h1>
+                                            <button
+                                                    type="button"
+                                                    class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                            ></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group flex-nowrap">
+                                                <input type="text" v-model="sanBongUpdate.id" hidden/>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="tenSanPham"
+                                                        required
+                                                        placeholder="Tên sân bóng"
+                                                        aria-describedby="addon-wrapping"
+                                                        v-model="sanBongUpdate.tenSanBong"
+                                                />
+                                            </div>
+                                            <br/>
+                                            <div class="input-group flex-nowrap">
+                                                  <span class="input-group-text" id="addon-wrapping"
+                                                  >Loại sân</span
+                                                  >
+                                                <select
+                                                        class="form-select selectLoaiSan"
+                                                        aria-label="Default select example"
+                                                        required
+                                                        v-model="sanBongUpdate.loaiSan"
+                                                >
+                                                    <option
+                                                            v-for="items in arrLoaiSan"
+                                                            v-bind:value="items.id"
+                                                            selected
+                                                    >
+                                                        {{items.tenLoaiSan}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <br/>
+                                            <div class="form-check form-check-inline">
+                                                <input
+                                                        class="form-check-input"
+                                                        type="radio"
+                                                        name="inlineRadioOptions"
+                                                        id="inlineRadio1"
+                                                        value="0"
+                                                        checked
+                                                        v-model="sanBongUpdate.trangThai"
+                                                />
+                                                <label class="form-check-label" for="inlineRadio1"
+                                                >Bình thường</label
+                                                >
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input
+                                                        class="form-check-input"
+                                                        type="radio"
+                                                        name="inlineRadioOptions"
+                                                        id="inlineRadio2"
+                                                        value="1"
+                                                        v-model="sanBongUpdate.trangThai"
+                                                />
+                                                <label class="form-check-label" for="inlineRadio2"
+                                                >Sửa chữa</label
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button
+                                                    type="button"
+                                                    class="btn btn-danger btn-labeled"
+                                                    data-bs-dismiss="modal"
+                                            >
+                                                Close
                                             </button>
                                             <button
                                                     type="button"
-                                                    class=" btn btn-outline-info"
-                                                    @click="detailLoaiSan(items.id)"
+                                                    class="btn btn-primary btn-labeled"
+                                                    @click="confirmUpdate"
                                             >
-                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                Cập nhật
                                             </button>
-                                        </td>
-                                    </tr>
-                                </table>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        data-bs-dismiss="modal"
-                                >
-                                    Close
-                                </button>
-                                <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                        <!-- Modal update end -->
+                        <div class="row" >
+                            <div class="col-md-6">
+                                <select class="pageSizeSelect" style="width: 100px">
+                                    <option value="5" >5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="100">100</option>
+                                </select>
                             </div>
-                        </form>
+                            <div class="col-md-6 d-flex justify-content-end">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item previousPageSB">
+                                            <a class="page-link" style="cursor: pointer">Previous</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link">{{currentPageSB+1}}/{{totalPageSB}}</a>
+                                        </li>
+                                        <li class="page-item nextPageSB">
+                                            <a class="page-link" style="cursor: pointer">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- modal end -->
-            <br/>
-            <table class="table table-header table-bordered table-hover table-container">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Tên</th>
-                    <th scope="col">Loại sân</th>
-                    <th scope="col">Giá</th>
-                    <th scope="col">Trạng thái</th>
-                    <th scope="col">Thao tác</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr v-for="(items,index) in arrSanBong">
-                    <td>{{index+1}}</td>
-                    <td>{{items.tenSanBong}}</td>
-                    <td>{{findByIdLoaiSan(items.idLoaiSan).tenLoaiSan}}</td>
-                    <td>{{currenlyNumberSB(items.giaSan)}}</td>
-                    <td>
-                        {{parseInt(items.trangThai) == 0?"Bình thường":"Sửa chữa"}}
-                    </td>
-                    <td>
-                        <button
-                                style="background-color: white; border: 1px solid red"
-                                class="deletebtn btn btn-primary"
-                                @click="confirmDeleteSanBong(items.id)"
-                        >
-                            <i
-                                    class="fa fa-trash"
-                                    style="color: red"
-                                    aria-hidden="true"
-                            ></i>
-                        </button>
-                        <button
-                                type="button"
-                                class=" btn btn-outline-info"
-                                data-bs-toggle="modal"
-                                data-bs-target="#detailSanBong"
-                                @click="detailSanBong(items.id)"
-                        >
-                            <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-<!-- Modal update start -->
-            <div
-                    class="modal fade"
-                    id="detailSanBong"
-                    data-bs-backdrop="static"
-                    data-bs-keyboard="false"
-                    tabindex="-1"
-                    aria-labelledby="staticBackdropLabel"
-                    aria-hidden="true"
-            >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form @submit.prevent="confirmUpdate">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                    CẬP NHẬT SÂN BÓNG
-                                </h1>
-                                <button
-                                        type="button"
-                                        class="btn-close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                ></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="input-group flex-nowrap">
-                                    <input type="text" v-model="sanBongUpdate.id" hidden/>
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            name="tenSanPham"
-                                            required
-                                            placeholder="Tên sân bóng"
-                                            aria-describedby="addon-wrapping"
-                                            v-model="sanBongUpdate.tenSanBong"
-                                    />
-                                </div>
-                                <br/>
-                                <div class="input-group flex-nowrap">
-                      <span class="input-group-text" id="addon-wrapping"
-                      >Loại sân</span
-                      >
-                                    <select
-                                            class="form-select selectLoaiSan"
-                                            aria-label="Default select example"
-                                            required
-                                            v-model="sanBongUpdate.loaiSan"
-                                    >
-                                        <option
-                                                v-for="items in arrLoaiSan"
-                                                v-bind:value="items.id"
-                                                selected
-                                        >
-                                            {{items.tenLoaiSan}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <br/>
-                                <div class="form-check form-check-inline">
-                                    <input
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="inlineRadioOptions"
-                                            id="inlineRadio1"
-                                            value="0"
-                                            checked
-                                            v-model="sanBongUpdate.trangThai"
-                                    />
-                                    <label class="form-check-label" for="inlineRadio1"
-                                    >Bình thường</label
-                                    >
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="inlineRadioOptions"
-                                            id="inlineRadio2"
-                                            value="1"
-                                            v-model="sanBongUpdate.trangThai"
-                                    />
-                                    <label class="form-check-label" for="inlineRadio2"
-                                    >Sửa chữa</label
-                                    >
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        data-bs-dismiss="modal"
-                                >
-                                    Close
-                                </button>
-                                <button
-                                        type="button"
-                                        class="btn btn-primary"
-                                        @click="confirmUpdate"
-                                >
-                                    Cập nhật
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal update end -->
-            <br/>
-            <div class="row" style="display: flex; margin: 0 auto">
-                <div class="col-md-4"></div>
-                <div class="col-md-1">
-                    <select class="pageSizeSelect">
-                        <option value="5" >5</option>
-                        <option value="10" selected>10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                        <option value="100">100</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item previousPageSB">
-                                <a class="page-link" style="cursor: pointer">Previous</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link">{{currentPageSB+1}}/{{totalPageSB}}</a>
-                            </li>
-                            <li class="page-item nextPageSB">
-                                <a class="page-link" style="cursor: pointer">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
@@ -888,65 +904,64 @@
                 role="tabpanel"
                 aria-labelledby="tab3-tab"
         >
-            <br/>
-            <section class="container">
-                <br/>
-                <div class="row">
-                    <div class="col-3">
-                        <p
-                                style="text-transform: uppercase; font-size: 20px; color: red"
-                        >
-                            Các loại Thao tác
-                        </p>
-                    </div>
-                    <div class="col-5">
-                        <button
-                                type="button"
-                                class="btn btn-outline-success btnCreateLuatSan"
-                                hidden
-                        >
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </button>
+            <section class="body-row-col m-1">
+                <div class="container">
+                    <div class="row mb-3 mt-3">
+                        <div class="col-3 ">
+                            <h5
+                                    class="text-primary"
+                            >
+                                Các Loại Thao Tác
+                            </h5>
+                        </div>
+                        <div class="col-5">
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-success btnCreateLuatSan"
+                                    hidden
+                            >
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
 
-                        <button
-                                type="button"
-                                class="btn btn-outline-info btnUpdateLuatSan"
-                                hidden
-                        >
-                            <i class="fa fa-refresh" aria-hidden="true"></i>
-                        </button>
-                        <button
-                                type="button"
-                                class="btn btn-outline-danger btnDeleteLuatSan"
-                                hidden
-                        >
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-info btnUpdateLuatSan"
+                                    hidden
+                            >
+                                <i class="fa fa-refresh" aria-hidden="true"></i>
+                            </button>
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-danger btnDeleteLuatSan"
+                                    hidden
+                            >
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <hr/>
-                <div id="editor-container"></div>
-                <hr/>
-                <div class="row">
-                    <div class="col-3">
-                        <p style="text-transform: uppercase; font-size: 20px">
-                            Thông tin luật sân
-                        </p>
+
+                    <div id="editor-container"></div>
+
+                    <div class="row mb-3 mt-3">
+                        <div class="col-3">
+                            <h5 class="text-primary">
+                                Thông Tin Luật Sân
+                            </h5>
+                        </div>
+                        <div class="col-1">
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-secondary btnDetailLuatSan"
+                                    hidden
+                            >
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-1">
-                        <button
-                                type="button"
-                                class="btn btn-outline-secondary btnDetailLuatSan"
-                                hidden
-                        >
-                            <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-                <br>
-                <div class="thongBaoLS"></div>
-                <br/>
-                <div class="thongTinLuatSan" id="thongTinLuatSan"></div>
+
+                    <div class="thongBaoLS"></div>
+                    <div class="thongTinLuatSan" id="thongTinLuatSan"></div>
+                </div>>
             </section>
         </div>
         <!-- Tab 3  -->
@@ -976,16 +991,16 @@
                                         </div>
                                         <div class="col-md-4 col-sm-auto">
                                             <div class="input-group">
-                      <span class="input-group-text">
-                        <lord-icon
-                                src="https://cdn.lordicon.com/ybaojceo.json"
-                                trigger="in"
-                                delay="1500"
-                                state="in-reveal"
-                                style="width: 20px; height: 20px"
-                        >
-                        </lord-icon>
-                      </span>
+                                                  <span class="input-group-text">
+                                                        <lord-icon
+                                                                src="https://cdn.lordicon.com/ybaojceo.json"
+                                                                trigger="in"
+                                                                delay="1500"
+                                                                state="in-reveal"
+                                                                style="width: 20px; height: 20px; border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+                                                        >
+                                                        </lord-icon>
+                                                  </span>
                                                 <input
                                                         id="search "
                                                         type="text"
@@ -1030,7 +1045,7 @@
                                         </div>
                                         <!-- excel -->
                                         <div class="col-auto">
-                                            <button type="button" class="btn btn-light exportExcelGC">Export Excel
+                                            <button type="button" class="btn btn-primary btn-labeled exportExcelGC">Export Excel
                                             </button>
                                         </div>
                                     </div>
@@ -1041,7 +1056,7 @@
                         <!-- // LAMNP Update 24/10/2023 Table and aler -->
                         <div class="body-row-col">
                             <div class="header-table-giao-ca">
-                                <h5 class="header-text-body">Danh sách giao ca</h5>
+                                <h5 class="text-primary">Danh Sách Giao Ca</h5>
                             </div>
                             <div class="alert alert-danger noContent" hidden role="alert">
                                 <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
@@ -1050,11 +1065,11 @@
                                 <div class="col-md-12 col-sm-auto">
                                     <div
                                             style="
-                    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-                    box-sizing: border-box;
-                    background: #fff;
-                    border-radius: 0 0 0 0;
-                  "
+                                                    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+                                                    box-sizing: border-box;
+                                                    background: #fff;
+                                                    border-radius: 0 0 0 0;
+                                                  "
                                     >
                                         <table class="table table-bordered table-hover table-container">
                                             <thead>
@@ -1088,7 +1103,7 @@
                                                 <td>{{items.thoiGianKetCa}}</td>
                                                 <td>
                                                     <button
-                                                            class="btn btn-primary thongTinCT"
+                                                            class="btn btn-primary btn-labeled thongTinCT"
                                                             type="button"
                                                             @click="findGiaoCaByid(items.id)"
                                                             data-bs-toggle="offcanvas"
@@ -1298,7 +1313,6 @@
                 role="tabpanel"
                 aria-labelledby="tab5-tab"
         >
-            <br/>
 <!--            <form class="container" @submit.prevent="confirmCreate">-->
 <!--                <div class="row">-->
 <!--                    <div class="col-6">-->
@@ -1410,12 +1424,13 @@
 <!--                    <button type="submit" class="btn btn-success">Lưu</button>-->
 <!--                </div>-->
 <!--            </form>-->
-            <br/>
-            <section>
-                Danh sách tham số
+            <section class="body-row-col m-1">
+                <div class="header-table-giao-ca">
+                    <h5 class="text-primary">Danh Sách Tham Số</h5>
+                </div>
                 <table class="table table-bordered table-header table-container">
                     <tr>
-                        <th>#</th>
+                        <th>STT</th>
                         <th>Chức Năng</th>
                         <th>Mã Code</th>
                         <th>Type</th>
@@ -1525,12 +1540,12 @@
                                 <div class="modal-footer">
                                     <button
                                             type="button"
-                                            class="btn btn-secondary"
+                                            class="btn btn-danger btn-labeled"
                                             data-bs-dismiss="modal"
                                     >
                                         Close
                                     </button>
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary btn-labeled">
                                         Cập nhật
                                     </button>
                                 </div>
@@ -1549,639 +1564,750 @@
                 role="tabpanel"
                 aria-labelledby="tab6-tab"
         >
-            <br/>
-            <section class="container">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" style="cursor: pointer" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" v-model="tenDoThueSearch" @input="tiemKiemTheoTenDoThue($event)" placeholder="Tìm kiếm theo tên......."  aria-describedby="basic-addon1">
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <button type="button" class="btn btn-light exportDoThue">Export Execl</button>
-                    </div>
-                    <div class="col-6">
-                        <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
-                            file import:</label>
-                        <input style="margin: 0.4rem 0;" class="importExcelDoThue" type="file" id="avatar"
-                               @change="handelExcel($event)"/>
-                    </div>
-                </div>
 
-
-                <form
-                        enctype="multipart/form-data"
-                        @submit.prevent="confirmSaveDoThue"
-                        rel="formCreate"
-                >
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Tên</span
+            <div class="row body-row-col m-1">
+                <div class="col-md-4 col-sm-12 mt-2 mb-2">
+                    <form
+                            class="container"
+                            enctype="multipart/form-data"
+                            @submit.prevent="confirmSaveDoThue"
+                            rel="formCreate"
                     >
-                                <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Tên đồ thuê.."
-                                        required
-                                        aria-describedby="addon-wrapping"
-                                        v-model="doThue.tenDoThue"
-                                />
+                        <div class="row mb-3">
+                            <div class="">
+                                <h5 class="text-primary">Thông Tin</h5>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Đơn giá</span
-                    >
-                                <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Đơn giá.."
-                                        required
-                                        id="idDonGiaCreate"
-                                        aria-describedby="addon-wrapping"
-                                        min="0"
-                                        @input="handleDonGia($event)"
-                                        v-model="doThue.donGia"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group flex-nowrap">
-                                <input
-                                        type="file"
-                                        required
-                                        ref="fileInput"
-                                        class="form-control"
-                                        id="idFileAnhCreate"
-                                        @change="handelImg($event)"
-                                        aria-describedby="addon-wrapping"
-                                        accept="image/*"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Số lượng</span
-                    >
-                                <input
-                                        type="number"
-                                        class="form-control"
-                                        placeholder="Số lượng.."
-                                        aria-describedby="addon-wrapping"
-                                        min="0"
-                                        id="idSoLuongCreate"
-                                        required
-                                        @input="handleSoLuong($event)"
-                                        v-model="doThue.soLuong"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <br/>
-                    <div
-                            style="
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                "
-                    >
-                        <button type="submit" class="btn btn-success">Lưu</button>
-                    </div>
-                </form>
-            </section>
-            <br/>
-            <hr/>
-            <div v-if="isLoading" style="display: flex;justify-content: center;align-items: center;">
-                <div  class="spinner-border text-warning" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
-            <section v-else>
-                <p>Danh Sách Đồ Thuê</p>
-                <div class="alert alert-danger " v-if="listDoThue.length == 0">
-                    <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
-                </div>
-                <table class="table table-bordered table-header table-hover table-container" v-else>
-                    <tr>
-                        <th>#</th>
-                        <th>Tên</th>
-                        <th>Ảnh</th>
-                        <th>Đơn giá</th>
-                        <th>Số lượng</th>
-                        <th>Trạng thái</th>
-                        <th>Thao tác</th>
-                    </tr>
-                    <tr v-for="(items,index) in listDoThue">
-                        <td>{{index}}</td>
-                        <td>{{items.tenDoThue}}</td>
-                        <td>
-                            <span v-if="items.image == null">Chưa cập nhật</span>
-                            <img
-                                    style="width: 100px; height: 100px"
-                                    v-else
-                                    :src="imgSrc(items.image)"
-                            />
-                        </td>
-                        <td>{{currenlyNumBerDoThue(items.donGia)}} Vnd</td>
-                        <td>{{items.soLuong}}</td>
-                        <td>{{items.trangThai == 0?'Đang kinh doanh':'Ngừng kinh doanh'}}</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-info" @click="detailDoThue(items.id)"
-                                    data-bs-toggle="modal" data-bs-target="#modalDetailDoThua"><i
-                                    class="fa fa-info-circle" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-outline-danger"><i
-                                    class="fa fa-trash"
-                                    style="color: red"
-                                    @click="deleteDoThue(items.id)"
-                                    aria-hidden="true"
-                            ></i></button>
-                        </td>
-                    </tr>
-                </table>
-
-<!--                paging-->
-                <br/>
-                <div class="row" style="display: flex; margin: 0 auto" v-if="listDoThue.length != 0">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-1">
-                        <select class="pageSizeSelectDoThue" @change="pageSizeSelectDoThue">
-                            <option value="5" >5</option>
-                            <option value="10" selected>10</option>
-                            <option value="15">15</option>
-                            <option value="20">20</option>
-                            <option value="100">100</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item previousPageDT" @click="previuosDT">
-                                    <a class="page-link" style="cursor: pointer">Previous</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link">{{pageNumberDoThue + 1}} / {{totalPageDoThue}}</a>
-                                </li>
-                                <li class="page-item nextPageDT" @click="nextPageDT">
-                                    <a class="page-link" style="cursor: pointer">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-<!--                paging-->
-                <!-- Modal detail-->
-                <div class="modal fade" id="modalDetailDoThua" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable">
-                        <form @submit.prevent="updateDoThue" enctype="multipart/form-data" rel="formUpdate">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Đồ thuê</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                            <hr class="mt-1" />
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label">Tên đồ thuê</label>
+                                <div class="input-group flex-nowrap">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Tên đồ thuê.."
+                                            required
+                                            aria-describedby="addon-wrapping"
+                                            v-model="doThue.tenDoThue"
+                                    />
                                 </div>
-                                <div class="modal-body">
-                                    <div style="text-align: center;">
-                                        <span v-if="detailDoThueEntity.image == null">Chưa cập nhật ảnh</span>
-                                        <img v-else :src="imgSrc(detailDoThueEntity.image)"
-                                             style="width: 200px;height: 100px;border: 1px solid black;border-radius: 40% 40% 40% 40%">
-                                    </div>
-                                    <br>
-                                    <input type="hidden" v-model="detailDoThueEntity.id">
-                                    <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Tên</span
-                    >
-                                        <input
-                                                type="text"
-                                                class="form-control"
-                                                placeholder="Tên đồ thuê.."
-                                                required
-                                                aria-describedby="addon-wrapping"
-                                                v-model="detailDoThueEntity.tenDoThue"
-                                        />
-                                    </div>
-                                    <br>
-                                    <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Đơn giá</span
-                    >
-                                        <input
-                                                type="text"
-                                                class="form-control"
-                                                placeholder="Đơn giá.."
-                                                required
-                                                id="idDonGiaUpdate"
-                                                aria-describedby="addon-wrapping"
-                                                min="0"
-                                                @input="handleDonGia($event)"
-                                                v-model="detailDoThueEntity.donGia"
-                                        />
-                                        <span class="input-group-text" id="addon-wrapping"
-                                        >Vnd</span>
-                                    </div>
-                                    <br>
-                                    <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Số lượng</span
-                    >
-                                        <input
-                                                type="number"
-                                                class="form-control"
-                                                placeholder="Số lượng.."
-                                                aria-describedby="addon-wrapping"
-                                                min="0"
-                                                id="idSoLuongUpdate"
-                                                required
-                                                @input="handleSoLuong($event)"
-                                                v-model="detailDoThueEntity.soLuong"
-                                        />
-                                    </div>
-                                    <br>
-                                    <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
-                                        ảnh:</label>
+                            </div>
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label" for="idDonGiaCreate">Đơn giá</label>
+                                <div class="input-group flex-nowrap">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Đơn giá.."
+                                            required
+                                            id="idDonGiaCreate"
+                                            aria-describedby="addon-wrapping"
+                                            min="0"
+                                            @input="handleDonGia($event)"
+                                            v-model="doThue.donGia"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label">Ảnh Đồ Thuê</label>
+                                <div class="input-group flex-nowrap">
                                     <input
                                             type="file"
+                                            required
                                             ref="fileInput"
                                             class="form-control"
-                                            id="idFileAnhUpdate"
+                                            id="idFileAnhCreate"
                                             @change="handelImg($event)"
                                             aria-describedby="addon-wrapping"
                                             accept="image/*"
                                     />
-                                    <br>
-                                    <div
-                                            class="form-check form-check-inline"
-                                            style="margin-left: 30px"
-                                    >
-                                        <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="inlineRadioOptions"
-                                                id="inlineRadio1"
-                                                value="0"
-                                                checked
-                                                v-model="detailDoThueEntity.trangThai"
-                                                :checked="detailDoThueEntity.trangThai == 0?'checked':''"
-                                        />
-                                        <label class="form-check-label" for="inlineRadio1"
-                                        >Đang kinh doanh</label
-                                        >
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="inlineRadioOptions"
-                                                id="inlineRadio2"
-                                                value="1"
-                                                v-model="detailDoThueEntity.trangThai"
-                                                :checked="detailDoThueEntity.trangThai == 1?'checked':''"
-                                        />
-                                        <label class="form-check-label" for="inlineRadio2"
-                                        >Dừng kinh doanh</label
-                                        >
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary huyModalUpdate" data-bs-dismiss="modal">Hủy</button>
-                                    <button type="submit" class="btn btn-success">Cập nhật</button>
                                 </div>
                             </div>
-                        </form>
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label">Số Lượng</label>
+                                <div class="input-group flex-nowrap">
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            placeholder="Số lượng.."
+                                            aria-describedby="addon-wrapping"
+                                            min="0"
+                                            id="idSoLuongCreate"
+                                            required
+                                            @input="handleSoLuong($event)"
+                                            v-model="doThue.soLuong"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button type="submit" class="btn btn-success btn-labeled">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-8 col-sm-12 mt-2">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-primary">Danh Sách Đồ Thuê</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <button
+                                    type="button"
+                                    class="btn btn-sm btn-primary btn-labeled exportDoThue"
+                            >
+                                Export Execl
+                            </button>
+                        </div>
+                        <hr class="mt-1" />
+                        <div class="col-auto">
+                            <label class="col-form-label">Tìm Kiếm:</label>
+                        </div>
+                        <div class="col-md-5 col-sm-auto">
+                            <div class="input-group">
+                                <span class="input-group-text" style="cursor: pointer; border-top-left-radius: 5px; border-bottom-left-radius: 5px" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" v-model="tenDoThueSearch" @input="tiemKiemTheoTenDoThue($event)" placeholder="Tìm kiếm theo tên......."  aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <label class="col-form-label">Import Excel:</label>
+                        </div>
+                        <div class="col-md-4 col-sm-auto">
+                            <input style="margin: 0.4rem 0;" class="importExcelDoThue" type="file" id="avatar"
+                                   @change="handelExcel($event)"/>
+                        </div>
+<!--                        table-->
+                        <div v-if="isLoading" class="d-flex justify-content-center mt-1">
+                            <div  class="spinner-border text-warning" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="alert alert-danger mt-2" v-if="listDoThue.length == 0">
+                                <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
+                            </div>
+                            <table class="table table-bordered table-header table-hover table-container mt-2" v-else>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên</th>
+                                    <th>Ảnh</th>
+                                    <th>Đơn Giá</th>
+                                    <th>Số Lượng</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                                <tr v-for="(items,index) in listDoThue">
+                                    <td>{{index}}</td>
+                                    <td>{{items.tenDoThue}}</td>
+                                    <td>
+                                        <span v-if="items.image == null">Chưa cập nhật</span>
+                                        <img
+                                                style="width: 100px; height: 100px"
+                                                v-else
+                                                :src="imgSrc(items.image)"
+                                        />
+                                    </td>
+                                    <td>{{currenlyNumBerDoThue(items.donGia)}} Vnd</td>
+                                    <td>{{items.soLuong}}</td>
+                                    <td>{{items.trangThai == 0?'Đang kinh doanh':'Ngừng kinh doanh'}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-info" @click="detailDoThue(items.id)"
+                                                data-bs-toggle="modal" data-bs-target="#modalDetailDoThua"><i
+                                                class="fa fa-info-circle" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <i
+                                                class="fa fa-trash"
+                                                style="color: red"
+                                                @click="deleteDoThue(items.id)"
+                                                aria-hidden="true"
+                                            ></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
 
+                            <div class="row" style="display: flex; margin: 0 auto" v-if="listDoThue.length != 0">
+                                <div class="col-md-6 d-flex justify-content-start">
+                                    <select style="width: 100px" class="pageSizeSelectDoThue" @change="pageSizeSelectDoThue">
+                                        <option value="5" >5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 d-flex justify-content-end">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item previousPageDT" @click="previuosDT">
+                                                <a class="page-link" style="cursor: pointer">Previous</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link">{{pageNumberDoThue + 1}} / {{totalPageDoThue}}</a>
+                                            </li>
+                                            <li class="page-item nextPageDT" @click="nextPageDT">
+                                                <a class="page-link" style="cursor: pointer">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!--                paging-->
+                            <!-- Modal detail-->
+                            <div class="modal fade" id="modalDetailDoThua" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable">
+                                    <form @submit.prevent="updateDoThue" enctype="multipart/form-data" rel="formUpdate">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Đồ thuê</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div style="text-align: center;">
+                                                    <span v-if="detailDoThueEntity.image == null">Chưa cập nhật ảnh</span>
+                                                    <img v-else :src="imgSrc(detailDoThueEntity.image)"
+                                                         style="width: 200px;height: 100px;border: 1px solid black;border-radius: 40% 40% 40% 40%">
+                                                </div>
+                                                <br>
+                                                <input type="hidden" v-model="detailDoThueEntity.id">
+                                                <div class="input-group flex-nowrap">
+                                                        <span class="input-group-text" id="addon-wrapping"
+                                                        >Tên</span
+                                                        >
+                                                    <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            placeholder="Tên đồ thuê.."
+                                                            required
+                                                            aria-describedby="addon-wrapping"
+                                                            v-model="detailDoThueEntity.tenDoThue"
+                                                    />
+                                                </div>
+                                                <br>
+                                                <div class="input-group flex-nowrap">
+                                                    <span class="input-group-text" id="addon-wrapping"
+                                                    >Đơn giá</span
+                                                    >
+                                                    <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            placeholder="Đơn giá.."
+                                                            required
+                                                            id="idDonGiaUpdate"
+                                                            aria-describedby="addon-wrapping"
+                                                            min="0"
+                                                            @input="handleDonGia($event)"
+                                                            v-model="detailDoThueEntity.donGia"
+                                                    />
+                                                    <span class="input-group-text" id="addon-wrapping"
+                                                    >Vnd</span>
+                                                </div>
+                                                <br>
+                                                <div class="input-group flex-nowrap">
+                                                        <span class="input-group-text" id="addon-wrapping"
+                                                        >Số lượng</span
+                                                        >
+                                                    <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            placeholder="Số lượng.."
+                                                            aria-describedby="addon-wrapping"
+                                                            min="0"
+                                                            id="idSoLuongUpdate"
+                                                            required
+                                                            @input="handleSoLuong($event)"
+                                                            v-model="detailDoThueEntity.soLuong"
+                                                    />
+                                                </div>
+                                                <br>
+                                                <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
+                                                    ảnh:</label>
+                                                <input
+                                                        type="file"
+                                                        ref="fileInput"
+                                                        class="form-control"
+                                                        id="idFileAnhUpdate"
+                                                        @change="handelImg($event)"
+                                                        aria-describedby="addon-wrapping"
+                                                        accept="image/*"
+                                                />
+                                                <br>
+                                                <div
+                                                        class="form-check form-check-inline"
+                                                        style="margin-left: 30px"
+                                                >
+                                                    <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="inlineRadioOptions"
+                                                            id="inlineRadio1"
+                                                            value="0"
+                                                            checked
+                                                            v-model="detailDoThueEntity.trangThai"
+                                                            :checked="detailDoThueEntity.trangThai == 0?'checked':''"
+                                                    />
+                                                    <label class="form-check-label" for="inlineRadio1"
+                                                    >Đang kinh doanh</label
+                                                    >
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="inlineRadioOptions"
+                                                            id="inlineRadio2"
+                                                            value="1"
+                                                            v-model="detailDoThueEntity.trangThai"
+                                                            :checked="detailDoThueEntity.trangThai == 1?'checked':''"
+                                                    />
+                                                    <label class="form-check-label" for="inlineRadio2"
+                                                    >Dừng kinh doanh</label
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger huyModalUpdate btn-labeled" data-bs-dismiss="modal">Hủy</button>
+                                                <button type="submit" class="btn btn-success btn-labeled">Cập nhật</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <!-- Modal detail-->
+                        </div>
                     </div>
                 </div>
-                <!-- Modal detail-->
-            </section>
+            </div>
         </div>
-        <!-- tab 6 -->
-<!--        tab 7 tab do uong-->
+<!-- tab 6 -->
+<!--tab 7 tab do uong-->
         <div
                 class="tab-pane fade show  tabNuocUong"
                 id="tab7"
                 role="tabpanel"
                 aria-labelledby="tab7-tab"
         >
-            <br/>
-            <section class="container">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" style="cursor: pointer" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" v-model="tenNuocUongSearch" @input="tiemKiemTheoTenNuocUong($event)" placeholder="Tìm kiếm theo tên......."  aria-describedby="basic-addon1">
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <button type="button" class="btn btn-light exportNuocUong">Export Execl</button>
-                    </div>
-                    <div class="col-6">
-                        <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
-                            file import:</label>
-                        <input style="margin: 0.4rem 0;" class="importExcelNuocUong" type="file" id="avatar"
-                               @change="handelExcelNuocUong($event)"/>
-                    </div>
-                </div>
-
-
-                <form
-                        enctype="multipart/form-data"
-                        @submit.prevent="confirmSaveNuocUong"
-                        rel="formCreateNuocUong"
-                >
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Tên</span
+<!--Form new -->
+            <div class="row body-row-col m-1">
+                <div class="col-md-4 col-sm-12 mt-2 mb-2">
+                    <!--  -->
+                    <form
+                            class="container"
+                            enctype="multipart/form-data"
+                            @submit.prevent="confirmSaveNuocUong"
+                            rel="formCreateNuocUong"
                     >
-                                <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Tên nước uống.."
-                                        required
-                                        aria-describedby="addon-wrapping"
-                                        v-model="NuocUong.tenNuocUong"
-                                />
+                        <div class="row mb-3">
+                            <div class="">
+                                <h5 class="text-primary">Thông Tin</h5>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Đơn giá</span
-                    >
-                                <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Đơn giá.."
-                                        required
-                                        id="idDonGiaCreate"
-                                        aria-describedby="addon-wrapping"
-                                        min="0"
-                                        @input="handleDonGiaNuocUong($event)"
-                                        v-model="NuocUong.donGia"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group flex-nowrap">
-                                <input
-                                        type="file"
-                                        required
-                                        ref="fileInput"
-                                        class="form-control"
-                                        id="idFileAnhCreateNuocUong"
-                                        @change="handelImgNuocUong($event)"
-                                        aria-describedby="addon-wrapping"
-                                        accept="image/*"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Số lượng</span
-                    >
-                                <input
-                                        type="number"
-                                        class="form-control"
-                                        placeholder="Số lượng.."
-                                        aria-describedby="addon-wrapping"
-                                        min="0"
-                                        id="idSoLuongCreateNuocUong"
-                                        required
-                                        @input="handleSoLuongNuocUong($event)"
-                                        v-model="NuocUong.soLuong"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <br/>
-                    <div
-                            style="
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                "
-                    >
-                        <button type="submit" class="btn btn-success">Lưu</button>
-                    </div>
-                </form>
-            </section>
-            <br/>
-            <hr/>
-            <div v-if="isLoadingNuocUong" style="display: flex;justify-content: center;align-items: center;">
-                <div  class="spinner-border text-warning" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
-            <section v-else>
-                <p>Danh Sách Nước Uống</p>
-                <div class="alert alert-danger " v-if="listNuocUong.length == 0">
-                    <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
-                </div>
-                <table class="table table-bordered table-header table-hover table-container" v-else>
-                    <tr>
-                        <th>#</th>
-                        <th>Tên</th>
-                        <th>Ảnh</th>
-                        <th>Đơn giá</th>
-                        <th>Số lượng</th>
-                        <th>Trạng Thái</th>
-                        <th>Thao tác</th>
-                    </tr>
-                    <tr v-for="(items,index) in listNuocUong">
-                        <td>{{index}}</td>
-                        <td>{{items.tenNuocUong}}</td>
-                        <td>
-                            <span v-if="items.image == null">Chưa cập nhật</span>
-                            <img
-                                    style="width: 100px; height: 100px"
-                                    v-else
-                                    :src="imgSrcNuocUong(items.image)"
-                            />
-                        </td>
-                        <td>{{currenlyNumBerNuocUong(items.donGia)}} Vnd</td>
-                        <td>{{items.soLuong}}</td>
-                        <td>{{items.trangThai == 0?'Đang kinh doanh':'Ngừng kinh doanh'}}</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-info" @click="detailNuocUong(items.id)"
-                                    data-bs-toggle="modal" data-bs-target="#modalDetailNuocUong"><i
-                                    class="fa fa-info-circle" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-outline-danger"><i
-                                    class="fa fa-trash"
-                                    style="color: red"
-                                    @click="deleteNuocUong(items.id)"
-                                    aria-hidden="true"
-                            ></i></button>
-                        </td>
-                    </tr>
-                </table>
-
-                <!--                paging-->
-                <br/>
-                <div class="row" style="display: flex; margin: 0 auto" v-if="listNuocUong.length != 0">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-1">
-                        <select class="pageSizeSelectNuocUong" @change="pageSizeSelectNuocUong">
-                            <option value="5" >5</option>
-                            <option value="10" selected>10</option>
-                            <option value="15">15</option>
-                            <option value="20">20</option>
-                            <option value="100">100</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item" @click="previuosNU">
-                                    <a class="page-link" style="cursor: pointer">Previous</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link">{{pageNumberNuocUong + 1}} / {{totalPageNuocUong}}</a>
-                                </li>
-                                <li class="page-item " @click="nextPageNU">
-                                    <a class="page-link" style="cursor: pointer">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <!--                paging-->
-                <!-- Modal detail-->
-                <div class="modal fade" id="modalDetailNuocUong" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable">
-                        <form @submit.prevent="updateNuocUong" enctype="multipart/form-data" rel="formUpdateNuocUong">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Đồ thuê</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                            <hr class="mt-1" />
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label">Tên Nước Uống</label>
+                                <div class="input-group">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Tên nước uống.."
+                                            required
+                                            aria-describedby="addon-wrapping"
+                                            v-model="NuocUong.tenNuocUong"
+                                    />
                                 </div>
-                                <div class="modal-body">
-                                    <div style="text-align: center;">
-                                        <span v-if="detailNuocUongEntity.image == null">Chưa cập nhật ảnh</span>
-                                        <img v-else :src="imgSrcNuocUong(detailNuocUongEntity.image)"
-                                             style="width: 200px;height: 100px;border: 1px solid black;border-radius: 40% 40% 40% 40%">
-                                    </div>
-                                    <br>
-                                    <input type="hidden" v-model="detailNuocUongEntity.id">
-                                    <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Tên</span
-                    >
-                                        <input
-                                                type="text"
-                                                class="form-control"
-                                                placeholder="Tên đồ thuê.."
-                                                required
-                                                aria-describedby="addon-wrapping"
-                                                v-model="detailNuocUongEntity.tenNuocUong"
-                                        />
-                                    </div>
-                                    <br>
-                                    <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Đơn giá</span
-                    >
-                                        <input
-                                                type="text"
-                                                class="form-control"
-                                                placeholder="Đơn giá.."
-                                                required
-                                                id="idDonGiaUpdate"
-                                                aria-describedby="addon-wrapping"
-                                                min="0"
-                                                @input="handleDonGiaNuocUong($event)"
-                                                v-model="detailNuocUongEntity.donGia"
-                                        />
-                                        <span class="input-group-text" id="addon-wrapping"
-                                        >Vnd</span>
-                                    </div>
-                                    <br>
-                                    <div class="input-group flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping"
-                    >Số lượng</span
-                    >
-                                        <input
-                                                type="number"
-                                                class="form-control"
-                                                placeholder="Số lượng.."
-                                                aria-describedby="addon-wrapping"
-                                                min="0"
-                                                id="idSoLuongUpdate"
-                                                required
-                                                @input="handleSoLuongNuocUong($event)"
-                                                v-model="detailNuocUongEntity.soLuong"
-                                        />
-                                    </div>
-                                    <br>
-                                    <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
-                                        ảnh:</label>
+                            </div>
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label">Đơn Giá</label>
+                                <div class="input-group">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Đơn giá.."
+                                            required
+                                            id="idDonGiaCreate"
+                                            aria-describedby="addon-wrapping"
+                                            min="0"
+                                            @input="handleDonGiaNuocUong($event)"
+                                            v-model="NuocUong.donGia"
+                                    />
+                                    <span class="input-group-text" id="basic-addon1"
+                                          style="border-bottom-right-radius: 5px; border-top-right-radius: 5px"
+                                    >Vnd</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label">Hình Ảnh Nước Uống</label>
+                                <div class="input-group">
                                     <input
                                             type="file"
+                                            required
                                             ref="fileInput"
                                             class="form-control"
-                                            id="idFileAnhUpdateNuocUong"
+                                            id="idFileAnhCreateNuocUong"
                                             @change="handelImgNuocUong($event)"
                                             aria-describedby="addon-wrapping"
                                             accept="image/*"
                                     />
-                                    <br>
-                                    <div
-                                            class="form-check form-check-inline"
-                                            style="margin-left: 30px"
-                                    >
-                                        <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="inlineRadioOptions"
-                                                id="inlineRadio1"
-                                                value="0"
-                                                checked
-                                                v-model="detailNuocUongEntity.trangThai"
-                                                :checked="detailNuocUongEntity.trangThai == '0'?'checked':''"
-                                        />
-                                        <label class="form-check-label" for="inlineRadio1"
-                                        >Đang kinh doanh</label
-                                        >
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input
-                                                class="form-check-input"
-                                                type="radio"
-                                                name="inlineRadioOptions"
-                                                id="inlineRadio2"
-                                                value="1"
-                                                v-model="detailNuocUongEntity.trangThai"
-                                                :checked="detailNuocUongEntity.trangThai == '1'?'checked':''"
-                                        />
-                                        <label class="form-check-label" for="inlineRadio2"
-                                        >Dừng kinh doanh</label
-                                        >
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary huyModalUpdate" data-bs-dismiss="modal">Hủy</button>
-                                    <button type="submit" class="btn btn-success">Cập nhật</button>
                                 </div>
                             </div>
-                        </form>
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label">Số Lượng</label>
+                                <div class="input-group">
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            placeholder="Số lượng.."
+                                            aria-describedby="addon-wrapping"
+                                            min="0"
+                                            id="idSoLuongCreateNuocUong"
+                                            required
+                                            @input="handleSoLuongNuocUong($event)"
+                                            v-model="NuocUong.soLuong"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button type="submit" class="btn btn-success btn-labeled">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-8 col-sm-12 mt-2">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-primary">Danh Sách Nước Uống</h5>
+                        </div>
+                        <!-- Import excel -->
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <button
+                                    type="button"
+                                    class="btn btn-sm btn-primary exportNuocUong btn-labeled"
+                            >
+                                Export Execl
+                            </button>
+                        </div>
+                        <hr class="mt-1" />
+                        <!-- search tk -->
+                        <div class="col-auto">
+                            <label class="col-form-label">Tìm Kiếm:</label>
+                        </div>
+                        <div class="col-md-5 col-sm-auto">
+                            <div class="input-group mb-3">
+                    <span
+                            class="input-group-text"
+                            style="cursor: pointer border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+                            id="basic-addon1"
+                    ><i class="fa fa-search" aria-hidden="true"></i
+                    ></span>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        v-model="tenNuocUongSearch"
+                                        @input="tiemKiemTheoTenNuocUong($event)"
+                                        placeholder="Tìm kiếm theo tên......."
+                                        aria-describedby="basic-addon1"
+                                />
+                            </div>
+                        </div>
+                        <!-- import -->
+                        <div class="col-auto">
+                            <label class="col-form-label">Import File:</label>
+                        </div>
+                        <div class="col-md-4 col-sm-auto">
+                            <input
+                                    class="importExcelNuocUong form-control"
+                                    type="file"
+                                    id="avatar"
+                                    @change="handelExcelNuocUong($event)"
+                            />
+                        </div>
+                        <!-- Warning -->
+                        <div
+                                v-if="isLoadingNuocUong"
+                                style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  "
+                        >
+                            <div class="spinner-border text-warning" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <section v-else>
+                            <div
+                                    class="alert alert-danger mt-2"
+                                    v-if="listNuocUong.length == 0"
+                            >
+                                <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
+                            </div>
+                            <table
+                                    class="table table-bordered table-header table-hover table-container"
+                                    v-else
+                            >
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên</th>
+                                    <th>Ảnh</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                                <tr v-for="(items,index) in listNuocUong">
+                                    <td>{{index}}</td>
+                                    <td>{{items.tenNuocUong}}</td>
+                                    <td>
+                                        <span v-if="items.image == null">Chưa cập nhật</span>
+                                        <img
+                                                style="width: 100px; height: 100px"
+                                                v-else
+                                                :src="imgSrcNuocUong(items.image)"
+                                        />
+                                    </td>
+                                    <td>{{currenlyNumBerNuocUong(items.donGia)}} Vnd</td>
+                                    <td>{{items.soLuong}}</td>
+                                    <td>{{items.trangThai == 0?'Đang kinh doanh':'Ngừng kinh doanh'}}</td>
+                                    <td>
+                                        <button
+                                                type="button"
+                                                class="btn btn-outline-info"
+                                                @click="detailNuocUong(items.id)"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalDetailNuocUong"
+                                        >
+                                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <i
+                                                    class="fa fa-trash"
+                                                    style="color: red"
+                                                    @click="deleteNuocUong(items.id)"
+                                                    aria-hidden="true"
+                                            ></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!--                paging-->
+                            <div
+                                    class="row"
+                                    style="display: flex; margin: 0 auto"
+                                    v-if="listNuocUong.length != 0"
+                            >
+                                <div class="col-md-6">
+                                    <select
+                                            style="width: 100px"
+                                            class="pageSizeSelectNuocUong form-select"
+                                            @change="pageSizeSelectNuocUong"
+                                    >
+                                        <option value="5">5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 d-flex justify-content-end">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item" @click="previuosNU">
+                                                <a class="page-link" style="cursor: pointer"
+                                                >Previous</a
+                                                >
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                >{{pageNumberNuocUong + 1}} /
+                                                    {{totalPageNuocUong}}</a
+                                                >
+                                            </li>
+                                            <li class="page-item" @click="nextPageNU">
+                                                <a class="page-link" style="cursor: pointer"
+                                                >Next</a
+                                                >
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!--                paging-->
+                            <!-- Modal detail-->
+                            <div
+                                    class="modal fade"
+                                    id="modalDetailNuocUong"
+                                    tabindex="-1"
+                                    aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true"
+                            >
+                                <div class="modal-dialog modal-dialog-scrollable">
+                                    <form
+                                            @submit.prevent="updateNuocUong"
+                                            enctype="multipart/form-data"
+                                            rel="formUpdateNuocUong"
+                                    >
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                    Đồ thuê
+                                                </h1>
+                                                <button
+                                                        type="button"
+                                                        class="btn-close"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Close"
+                                                ></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div style="text-align: center">
+                              <span v-if="detailNuocUongEntity.image == null"
+                              >Chưa cập nhật ảnh</span
+                              >
+                                                    <img
+                                                            v-else
+                                                            :src="imgSrcNuocUong(detailNuocUongEntity.image)"
+                                                            style="
+                                  width: 200px;
+                                  height: 100px;
+                                  border: 1px solid black;
+                                  border-radius: 40% 40% 40% 40%;
+                                "
+                                                    />
+                                                </div>
+                                                <br />
+                                                <input
+                                                        type="hidden"
+                                                        v-model="detailNuocUongEntity.id"
+                                                />
+                                                <div class="input-group flex-nowrap">
+                              <span class="input-group-text" id="addon-wrapping"
+                              >Tên</span
+                              >
+                                                    <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            placeholder="Tên đồ thuê.."
+                                                            required
+                                                            aria-describedby="addon-wrapping"
+                                                            v-model="detailNuocUongEntity.tenNuocUong"
+                                                    />
+                                                </div>
+                                                <div class="input-group flex-nowrap">
+                              <span class="input-group-text" id="addon-wrapping"
+                              >Đơn giá</span
+                              >
+                                                    <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            placeholder="Đơn giá.."
+                                                            required
+                                                            id="idDonGiaUpdate"
+                                                            aria-describedby="addon-wrapping"
+                                                            min="0"
+                                                            @input="handleDonGiaNuocUong($event)"
+                                                            v-model="detailNuocUongEntity.donGia"
+                                                    />
+                                                    <span class="input-group-text" id="addon-wrapping"
+                                                    >Vnd</span
+                                                    >
+                                                </div>
+                                                <br />
+                                                <div class="input-group flex-nowrap">
+                              <span class="input-group-text" id="addon-wrapping"
+                              >Số lượng</span
+                              >
+                                                    <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            placeholder="Số lượng.."
+                                                            aria-describedby="addon-wrapping"
+                                                            min="0"
+                                                            id="idSoLuongUpdate"
+                                                            required
+                                                            @input="handleSoLuongNuocUong($event)"
+                                                            v-model="detailNuocUongEntity.soLuong"
+                                                    />
+                                                </div>
+                                                <br />
+                                                <label
+                                                        for="avatar"
+                                                        style="
+                                display: block;
+                                font: 1rem 'Fira Sans', sans-serif;
+                                margin: 0.4rem 0;
+                              "
+                                                >Chọn ảnh:</label
+                                                >
+                                                <input
+                                                        type="file"
+                                                        ref="fileInput"
+                                                        class="form-control"
+                                                        id="idFileAnhUpdateNuocUong"
+                                                        @change="handelImgNuocUong($event)"
+                                                        aria-describedby="addon-wrapping"
+                                                        accept="image/*"
+                                                />
+                                                <br />
+                                                <div
+                                                        class="form-check form-check-inline"
+                                                        style="margin-left: 30px"
+                                                >
+                                                    <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="inlineRadioOptions"
+                                                            id="inlineRadio1"
+                                                            value="0"
+                                                            checked
+                                                            v-model="detailNuocUongEntity.trangThai"
+                                                            :checked="detailNuocUongEntity.trangThai == '0'?'checked':''"
+                                                    />
+                                                    <label class="form-check-label" for="inlineRadio1"
+                                                    >Đang kinh doanh</label
+                                                    >
+                                                </div>
 
+                                                <div class="form-check form-check-inline">
+                                                    <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="inlineRadioOptions"
+                                                            id="inlineRadio2"
+                                                            value="1"
+                                                            v-model="detailNuocUongEntity.trangThai"
+                                                            :checked="detailNuocUongEntity.trangThai == '1'?'checked':''"
+                                                    />
+                                                    <label class="form-check-label" for="inlineRadio2"
+                                                    >Dừng kinh doanh</label
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button
+                                                        type="button"
+                                                        class="btn btn-danger huyModalUpdate btn-labeled"
+                                                        data-bs-dismiss="modal"
+                                                >
+                                                    Hủy
+                                                </button>
+                                                <button type="submit" class="btn btn-success btn-labeled">
+                                                    Cập nhật
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Modal detail-->
+                        </section>
+                        <!-- End table -->
+                        <!-- pageing -->
                     </div>
                 </div>
-                <!-- Modal detail-->
-            </section>
+            </div>
+<!--            -->
         </div>
 <!--        tab 7 tab do uong-->
 <!--        tab 8 tab ca-->
@@ -2191,230 +2317,301 @@
                 role="tabpanel"
                 aria-labelledby="tab8-tab"
         >
-            <br>
-            <section >
-              <form class="container" @submit.prevent="createCaConfirm($event)">
-                  <div class="input-group mb-3">
-                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
-                      <input type="text" class="form-control" @input="searchByNameCa($event)" v-model="nameSearchCa" placeholder="Tìm kiếm theo tên......." aria-label="Username" aria-describedby="basic-addon1">
-                  </div>
-                  <br>
-                  <div class="row">
-                      <div class="col-6">
-                          <button type="button" class="btn btn-light exportExcelCa">Export Excel</button>
-                      </div>
-                      <div class="col-6">
-                          <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
-                              file import:</label>
-                          <input style="margin: 0.4rem 0;" class="caImportExcel" @change="handleImportExcelCa($event)"  type="file"
-                          />
-                      </div>
-                  </div>
-                  <br>
-                  <div class="row">
-                      <div class="col-6">
-                          <div class="input-group mb-3">
-                              <span class="input-group-text" id="basic-addon1">Tên ca</span>
-                              <input type="text" required class="form-control" v-model="caCreate.tenCa" placeholder="Tên ca...." aria-label="Username" aria-describedby="basic-addon1">
-                          </div>
-                      </div>
-                      <div class="col-6">
-                          <div class="input-group mb-3">
-                              <span class="input-group-text" id="basic-addon1">Giá ca</span>
-                              <input type="text" min="0" v-model="caCreate.giaCa" @input="handleDonGiaCa($event)" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                              <span class="input-group-text" id="basic-addon1">Vnd</span>
-                          </div>
-                      </div>
-                  </div>
-                  <br>
-                  <div class="row">
-                      <div class="col-6">
-                          <div class="input-group mb-3">
-                              <span class="input-group-text" id="basic-addon1">Thời gian bắt đầu</span>
-                              <input type="time" @input="inputThoiGianBatDau($event)" v-model="caCreate.thoiGianBatDau" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                          </div>
-                      </div>
-                      <div class="col-6">
-                          <div class="input-group mb-3">
-                              <span class="input-group-text" id="basic-addon1">Thời gian kết thúc</span>
-                              <input type="time" @input="inputThoiGianKetThucCa($event)" :readonly="isReadOnly" v-model="caCreate.thoiGianKetThuc" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                          </div>
-                      </div>
-                  </div>
-                  <br>
-                 <div style="text-align: center">
-                     <div class="form-check form-check-inline" style="margin-left: 30px">
-                         <input
-                                 class="form-check-input"
-                                 type="radio"
-                                 name="inlineRadioOptions"
-                                 id="inlineRadio1"
-                                 value="0"
-                                 checked
-                                 v-model="caCreate.trangThai"
-                         />
-                         <label class="form-check-label" for="inlineRadio1"
-                         >Hoạt động</label
-                         >
-                     </div>
-
-                     <div class="form-check form-check-inline">
-                         <input
-                                 class="form-check-input"
-                                 type="radio"
-                                 name="inlineRadioOptions"
-                                 id="inlineRadio2"
-                                 value="1"
-                                 v-model="caCreate.trangThai"
-                         />
-                         <label class="form-check-label" for="inlineRadio2"
-                         >Dừng hoạt động</label
-                         >
-                     </div>
-                 </div>
-                  <br>
-                  <div style="display: flex;justify-content: center;align-items: center">
-                      <button type="submit" class="btn btn-success">Lưu</button>
-                  </div>
-              </form>
-                <br>
-                <section>
-                    Danh sách ca
-                    <div class="alert alert-danger " v-if="listCaAdminResponse.length == 0">
-                        <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
-                    </div>
-                    <table class="table table-bordered table-hover table-header table-container" v-else>
-                        <tr>
-                            <th>#</th>
-                            <th>Tên Ca</th>
-                            <th>Thời Gian Bắt Đầu</th>
-                            <th>Thời Gian Kết Thúc</th>
-                            <th>Giá Ca</th>
-                            <th>Trạng Thái</th>
-                            <th>Thao Tác</th>
-                        </tr>
-                        <tr v-for="(items,index) in listCaAdminResponse">
-                            <td>{{index}}</td>
-                            <td>{{items.tenCa}}</td>
-                            <td>{{items.thoiGianBatDau}}</td>
-                            <td>{{items.thoiGianKetThuc}}</td>
-                            <td>{{currencyVnCa(items.giaCa)}}</td>
-                            <td>{{items.trangThai == 0?'Đang hoạt động':'Dừng hoạt động'}}</td>
-                            <td>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#detailModalCa" @click="detailCaAdmin(items.id)" class="btn btn-outline-info"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
-                                <button type="button" @click="deleteCaConfirm(items.id)" class="btn btn-outline-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                            </td>
-                        </tr>
-                    </table>
-                    <br>
-                    <!--                paging-->
-                    <br/>
-                    <div class="row" style="display: flex; margin: 0 auto" v-if="listCaAdminResponse.length != 0">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-1">
-                            <select  @change="pageSizeSelectCa">
-                                <option value="5" >5</option>
-                                <option value="10" selected>10</option>
-                                <option value="15">15</option>
-                                <option value="20">20</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item" @click="previuosCa">
-                                        <a class="page-link" style="cursor: pointer">Previous</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link">{{pageNumberCa + 1}} / {{totalPageCa}}</a>
-                                    </li>
-                                    <li class="page-item " @click="nextPageCa">
-                                        <a class="page-link" style="cursor: pointer">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    <!--                paging-->
-                    <!-- Modal detail-->
-                    <div class="modal fade" id="detailModalCa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form @submit.prevent="updateCaConfirm($event)">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Quản lí ca</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Tên ca</span>
-                                            <input type="text" required class="form-control" v-model="caDetail.tenCa" placeholder="Tên ca...." aria-label="Username" aria-describedby="basic-addon1">
+            <div class="row body-row-col m-1">
+                <div class="col-md-4 col-sm-12 mt-2 mb-2">
+                    <form class="container" @submit.prevent="createCaConfirm($event)">
+                        <div class="row mb-3">
+                            <div class="">
+                                <h5 class="text-primary">Thông Tin</h5>
+                            </div>
+                            <hr class="mt-1" />
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label">Tên Ca</label>
+                                <div class="input-group">
+                                    <input
+                                            type="text"
+                                            required
+                                            class="form-control"
+                                            v-model="caCreate.tenCa"
+                                            placeholder="Tên ca...."
+                                            aria-label="Username"
+                                            aria-describedby="basic-addon1"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label">Giá Ca</label>
+                                <div class="input-group">
+                                    <input
+                                            type="text"
+                                            min="0"
+                                            v-model="caCreate.giaCa"
+                                            @input="handleDonGiaCa($event)"
+                                            required
+                                            class="form-control"
+                                            aria-label="Username"
+                                            aria-describedby="basic-addon1"
+                                    />
+                                    <span class="input-group-text" id="basic-addon1"
+                                    >Vnd</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label">Thời Gian Bắt Đầu</label>
+                                <div class="input-group">
+                                    <input
+                                            type="time"
+                                            @input="inputThoiGianBatDau($event)"
+                                            v-model="caCreate.thoiGianBatDau"
+                                            required
+                                            class="form-control"
+                                            aria-label="Username"
+                                            aria-describedby="basic-addon1"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <label class="form-label">Thời Gian Kết Thúc</label>
+                                <div class="input-group">
+                                    <input
+                                            type="time"
+                                            @input="inputThoiGianKetThucCa($event)"
+                                            :readonly="isReadOnly"
+                                            v-model="caCreate.thoiGianKetThuc"
+                                            required
+                                            class="form-control"
+                                            aria-label="Username"
+                                            aria-describedby="basic-addon1"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div class="row mb-3">
+                                    <label class="col-form-label col-md-3 pt-0"
+                                    >Trạng Thái :
+                                    </label>
+                                    <div class="col-md-9">
+                                        <div
+                                                class="form-check form-check-inline"
+                                                style="margin-left: 30px"
+                                        >
+                                            <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    name="inlineRadioOptions"
+                                                    id="inlineRadio1"
+                                                    value="0"
+                                                    checked
+                                                    v-model="caCreate.trangThai"
+                                            />
+                                            <label class="form-check-label" for="inlineRadio1"
+                                            >Hoạt động</label
+                                            >
                                         </div>
-                                        <br>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Giá ca</span>
-                                            <input type="text" min="0" v-model="caDetail.giaCa" @input="handleGiaCaDetail($event)" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                            <span class="input-group-text" id="basic-addon1">Vnd</span>
-                                        </div>
-                                        <br>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Thời gian bắt đầu</span>
-                                            <input type="time" @input="inputDetailThoiGianBatDau($event)" v-model="caDetail.thoiGianBatDau" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        </div>
-                                        <br>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">Thời gian kết thúc</span>
-                                            <input type="time" @input="inputDetailThoiGianKetThuc($event)"  v-model="caDetail.thoiGianKetThuc" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        </div>
-                                        <br>
-                                        <div style="text-align: center">
-                                            <div class="form-check form-check-inline" style="margin-left: 30px">
-                                                <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="inlineRadioOptions"
-                                                        id="inlineRadio1"
-                                                        value="0"
-                                                        checked
-                                                        v-model="caDetail.trangThai"
-                                                />
-                                                <label class="form-check-label" for="inlineRadio1"
-                                                >Hoạt động</label
-                                                >
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="inlineRadioOptions"
-                                                        id="inlineRadio2"
-                                                        value="1"
-                                                        v-model="caDetail.trangThai"
-                                                />
-                                                <label class="form-check-label" for="inlineRadio2"
-                                                >Dừng hoạt động</label
-                                                >
-                                            </div>
+                                        <div class="form-check form-check-inline">
+                                            <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    name="inlineRadioOptions"
+                                                    id="inlineRadio2"
+                                                    value="1"
+                                                    v-model="caCreate.trangThai"
+                                            />
+                                            <label class="form-check-label" for="inlineRadio2">
+                                                Dừng hoạt động</label
+                                            >
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary btnModalCloseDetailCa" data-bs-dismiss="modal">Hủy</button>
-                                        <button type="submit" class="btn btn-primary">Cập nhật</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button type="submit" class="btn btn-success btn-labeled">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-8 col-sm-12 mt-2">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-primary">Danh Sách Ca</h5>
+                        </div>
+                        <!-- Import excel -->
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <button
+                                    type="button"
+                                    class="btn btn-primary btn-sm exportExcelCa"
+                            >
+                                Export Excel
+                            </button>
+                        </div>
+                        <hr class="mt-1">
+<!--                        search-->
+                        <div class="col-auto">
+                            <label class="col-form-label">Tìm Kiếm:</label>
+                        </div>
+                        <div class="col-md-5 col-sm-auto">
+                            <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                    ><i class="fa fa-search" aria-hidden="true"></i
+                    ></span>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        @input="searchByNameCa($event)"
+                                        v-model="nameSearchCa"
+                                        placeholder="Tìm kiếm theo tên......."
+                                        aria-label="Username"
+                                        aria-describedby="basic-addon1"
+                                />
+                            </div>
+                        </div>
+                        <!-- import -->
+                        <div class="col-auto">
+                            <label class="col-form-label">Import File:</label>
+                        </div>
+                        <div class="col-md-4 col-sm-auto">
+                            <input
+                                    class="caImportExcel form-control"
+                                    @change="handleImportExcelCa($event)"
+                                    type="file"
+                            />
+                        </div>
+<!--                        aler-->
+                        <div class="alert alert-danger mt-2" v-if="listCaAdminResponse.length == 0">
+                            <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
+                        </div>
+                        <table class="table table-bordered table-hover table-header table-container mt-2" v-else>
+                            <tr>
+                                <th>#</th>
+                                <th>Tên Ca</th>
+                                <th>Thời Gian Bắt Đầu</th>
+                                <th>Thời Gian Kết Thúc</th>
+                                <th>Giá Ca</th>
+                                <th>Trạng Thái</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                            <tr v-for="(items,index) in listCaAdminResponse">
+                                <td>{{index}}</td>
+                                <td>{{items.tenCa}}</td>
+                                <td>{{items.thoiGianBatDau}}</td>
+                                <td>{{items.thoiGianKetThuc}}</td>
+                                <td>{{currencyVnCa(items.giaCa)}}</td>
+                                <td>{{items.trangThai == 0?'Đang hoạt động':'Dừng hoạt động'}}</td>
+                                <td>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#detailModalCa" @click="detailCaAdmin(items.id)" class="btn btn-outline-info"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
+                                    <button type="button" @click="deleteCaConfirm(items.id)" class="btn btn-outline-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                        </table>
+                        <!--                paging-->
+                        <div class="row" v-if="listCaAdminResponse.length != 0">
+                            <div class="col-md-6">
+                                <select style="width: 100px"  @change="pageSizeSelectCa">
+                                    <option value="5" >5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-end">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item" @click="previuosCa">
+                                            <a class="page-link" style="cursor: pointer">Previous</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link">{{pageNumberCa + 1}} / {{totalPageCa}}</a>
+                                        </li>
+                                        <li class="page-item " @click="nextPageCa">
+                                            <a class="page-link" style="cursor: pointer">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <!--                paging-->
+                        <!-- Modal detail-->
+                        <div class="modal fade" id="detailModalCa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form @submit.prevent="updateCaConfirm($event)">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Quản lí ca</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Tên ca</span>
+                                                <input type="text" required class="form-control" v-model="caDetail.tenCa" placeholder="Tên ca...." aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                            <br>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Giá ca</span>
+                                                <input type="text" min="0" v-model="caDetail.giaCa" @input="handleGiaCaDetail($event)" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                                <span class="input-group-text" id="basic-addon1">Vnd</span>
+                                            </div>
+                                            <br>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Thời gian bắt đầu</span>
+                                                <input type="time" @input="inputDetailThoiGianBatDau($event)" v-model="caDetail.thoiGianBatDau" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                            <br>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Thời gian kết thúc</span>
+                                                <input type="time" @input="inputDetailThoiGianKetThuc($event)"  v-model="caDetail.thoiGianKetThuc" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                            <br>
+                                            <div style="text-align: center">
+                                                <div class="form-check form-check-inline" style="margin-left: 30px">
+                                                    <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="inlineRadioOptions"
+                                                            id="inlineRadio1"
+                                                            value="0"
+                                                            checked
+                                                            v-model="caDetail.trangThai"
+                                                    />
+                                                    <label class="form-check-label" for="inlineRadio1"
+                                                    >Hoạt động</label
+                                                    >
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="inlineRadioOptions"
+                                                            id="inlineRadio2"
+                                                            value="1"
+                                                            v-model="caDetail.trangThai"
+                                                    />
+                                                    <label class="form-check-label" for="inlineRadio2"
+                                                    >Dừng hoạt động</label
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger btnModalCloseDetailCa" data-bs-dismiss="modal">Hủy</button>
+                                            <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal detail-->
                     </div>
-                    <!-- Modal detail-->
-                </section>
-            </section>
+                </div>
+            </div>
+
         </div>
 <!--        tab 8 tab ca-->
     </div>
-
 </div>
+<div th:insert="~{fragments/footer-owner-staff}"></div>
 
 <!--quan li giao ca start-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
