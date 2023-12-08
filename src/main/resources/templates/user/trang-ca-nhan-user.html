@@ -91,7 +91,17 @@
     </style>
 </head>
 <body>
-<div th:insert="~{fragments/header}"></div>
+<div th:switch="${session.role}">
+    <div th:case="ROLE_USER">
+        <div th:insert="~{fragments/header}"></div>
+    </div>
+    <div th:case="ROLE_STAFF">
+        <div th:insert="~{fragments/header-admin}"></div>
+    </div>
+    <div th:case="ROLE_ADMIN">
+        <div th:insert="~{fragments/header-owner}"></div>
+    </div>
+</div>
 <!---->
 <div class="mains">
     <div
@@ -258,7 +268,18 @@
     </div>
 </div>
 <!---->
-<div th:insert="~{fragments/footer}"></div>
+<div th:switch="${session.role}">
+    <div th:case="ROLE_USER">
+        <div th:insert="~{fragments/footer}"></div>
+    </div>
+    <div th:case="ROLE_STAFF">
+        <div th:insert="~{fragments/footer-owner-staff}"></div>
+    </div>
+    <div th:case="ROLE_ADMIN">
+        <div th:insert="~{fragments/footer-owner-staff}"></div>
+    </div>
+</div>
+
 <script th:src="@{/static/js/utill/thong-bao.js}"></script>
 <script th:src="@{/static/js/user/profile.js}"></script>
 <!-- Thêm Bootstrap JS và Popper.js (nếu cần) -->
