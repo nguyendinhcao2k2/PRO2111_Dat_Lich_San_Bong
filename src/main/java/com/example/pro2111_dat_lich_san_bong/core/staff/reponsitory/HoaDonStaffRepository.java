@@ -2,9 +2,13 @@ package com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory;
 
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.CheckInResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.HoaDonStaffResponse;
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LichSuHoaDonStaffReponse;
 import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +18,7 @@ import java.util.List;
  */
 public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
 
-    @Query(nativeQuery = true,value = "SELECT " +
+    @Query(nativeQuery = true, value = "SELECT " +
             "    row_number() OVER() as Stt, " +
             "    hd.id as idHoaDon," +
             "    hd.ten_nguoi_dat as tenNguoiDat ," +
@@ -84,4 +88,52 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
 
     HoaDon findHoaDonById(String idHoaDon);
 
+    @Query("""
+                    select new com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LichSuHoaDonStaffReponse(
+                       hd.id,hd.ngayTao,hd.soDienThoaiNguoiDat,hd.tienCoc,hd.tongTien,hd.email,hd.tenNguoiDat,hd.trangThai
+                    )  
+                     from HoaDon hd 
+                     where hd.idAccount  = :idAccount
+            """)
+    Page<LichSuHoaDonStaffReponse> findAllDataHoaDonAndHoaDonSanCaUser(Pageable pageable,@Param("idAccount") String idAccount);
+
+
+    @Query("""
+                    select new com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LichSuHoaDonStaffReponse(
+                       hd.id,hd.ngayTao,hd.soDienThoaiNguoiDat,hd.tienCoc,hd.tongTien,hd.email,hd.tenNguoiDat,hd.trangThai
+                    )  
+                     from HoaDon hd 
+                     where hd.idAccount is null
+            """)
+    Page<LichSuHoaDonStaffReponse> findAllDataHoaDonAndHoaDonSanCa(Pageable pageable);
+
+    @Query("""
+                    select new com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LichSuHoaDonStaffReponse(
+                       hd.id,hd.ngayTao,hd.soDienThoaiNguoiDat,hd.tienCoc,hd.tongTien,hd.email,hd.tenNguoiDat,hd.trangThai
+                    )  
+                     from HoaDon hd 
+                     where hd.idAccount is null
+                        and (
+                        (hd.tenNguoiDat is not null and hd.tenNguoiDat  LIKE LOWER(CONCAT('%',:ten,'%') ))
+                        or
+                        (hd.soDienThoaiNguoiDat is not null and hd.soDienThoaiNguoiDat LIKE LOWER(CONCAT('%',:soDienThoaiNguoiDat,'%') ))
+                        ) 
+                         
+            """)
+    Page<LichSuHoaDonStaffReponse> searchLichSuHoaDon(Pageable pageable, @Param("ten") String ten,@Param("soDienThoaiNguoiDat") String soDienThoaiNguoiDat);
+
+    @Query("""
+                    select new com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LichSuHoaDonStaffReponse(
+                       hd.id,hd.ngayTao,hd.soDienThoaiNguoiDat,hd.tienCoc,hd.tongTien,hd.email,hd.tenNguoiDat,hd.trangThai
+                    )  
+                     from HoaDon hd 
+                     where hd.idAccount = :idAccount
+                        and (
+                        (hd.tenNguoiDat is not null and hd.tenNguoiDat  LIKE LOWER(CONCAT('%',:ten,'%') ))
+                        or
+                        (hd.soDienThoaiNguoiDat is not null and hd.soDienThoaiNguoiDat LIKE LOWER(CONCAT('%',:soDienThoaiNguoiDat,'%') ))
+                        ) 
+                         
+            """)
+    Page<LichSuHoaDonStaffReponse> searchLichSuHoaDonUser(Pageable pageable,@Param("idAccount")String idAccount, @Param("ten") String ten,@Param("soDienThoaiNguoiDat") String soDienThoaiNguoiDat);
 }
