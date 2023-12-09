@@ -71,7 +71,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="">
-                        <h5>Quét QR</h5>
+                        <h5 class="text-primary">Quét QR</h5>
                     </div>
                     <hr />
                     <div>
@@ -92,7 +92,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="body-row-col mt-2" style="height: 350px">
+                    <div class="body-row-col mt-2" style="height: 550px">
                         <div class="camera-selection" style="display: none">
                             <select id="cameraList" class="form-select mt-2"></select>
                             <div class="qr">
@@ -104,7 +104,7 @@
                 </div>
                 <div class="col-md-9">
                     <div class="">
-                        <h5>Danh sách</h5>
+                        <h5 class="text-primary">Danh Sách</h5>
                     </div>
                     <hr />
                     <form class="row mb-3">
@@ -168,6 +168,8 @@
         </div>
     </div>
 </section>
+<footer th:insert="~{fragments/footer-owner-staff}"></footer>
+
 
 <script th:src="@{/static/js/staff/check-in.js}"></script>
 <!-- Add Bootstrap JS and jQuery links -->
