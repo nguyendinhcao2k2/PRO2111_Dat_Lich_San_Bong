@@ -271,7 +271,7 @@
                                             <td>{{currencyNumberVN(element.tongTienHoaDonSanCa)}}</td>
                                             <td v-if="element.ngayThanhToan === null">Chưa Cập Nhật</td>
                                             <td v-if="element.ngayThanhToan !== null">{{formatNgayGio(element.ngayThanhToan)}}</td>
-                                            <td>{{element.tienCocThua}}</td>
+                                            <td>{{currencyNumberVN(element.tienCocThua)}}</td>
                                             <td >{{valueTrangThaiHoaDonSanCa(element.trangThai)}}</td>
                                             <td>
                                                 <button v-if="element.trangThai === 3" @click="findByIdHoaDonSanCa(element.id)" type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
