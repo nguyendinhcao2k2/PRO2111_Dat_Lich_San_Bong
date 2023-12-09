@@ -129,7 +129,8 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
                 if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                     LocalTime localTimeCompare = LocalTime.parse(loadCaResponse.getThoiGianBatDau(), formatter);
-                    if (localTime.isAfter(localTimeCompare)) {
+                    LocalTime localTimeComparePlus45Minutes = localTimeCompare.plusMinutes(45);
+                    if (localTime.isAfter(localTimeComparePlus45Minutes)) {
                         loadCaResponse.setTrangThai(4);
                     }
                 }
@@ -186,7 +187,8 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
                 if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                     LocalTime localTimeCompare = LocalTime.parse(loadCaResponse.getThoiGianBatDau(), formatter);
-                    if (localTime.isAfter(localTimeCompare)) {
+                    LocalTime localTimeComparePlus45Minutes = localTimeCompare.plusMinutes(45);
+                    if (localTime.isAfter(localTimeComparePlus45Minutes)) {
                         loadCaResponse.setTrangThai(4);
                     }
                 }
