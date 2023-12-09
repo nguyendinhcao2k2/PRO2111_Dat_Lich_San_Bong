@@ -5,6 +5,7 @@ import com.example.pro2111_dat_lich_san_bong.core.user.service.ViTienUserService
 import com.example.pro2111_dat_lich_san_bong.entity.ViTienCoc;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,7 +37,7 @@ public class ViTienUserServiceImpl implements ViTienUserService {
     @Override
     public ViTienCoc findByIdHoaDon(String idHoaDon) {
         try {
-            return viTienUserRepository.findAllByIdHoaDon(idHoaDon);
+            return viTienUserRepository.findFirstByIdHoaDon(idHoaDon);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
