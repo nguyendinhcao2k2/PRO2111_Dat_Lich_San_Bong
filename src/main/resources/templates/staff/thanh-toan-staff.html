@@ -48,7 +48,7 @@
 <header th:insert="~{fragments/header-admin}"></header>
 
 <section class="mains">
-            <!-- Other content of your page goes here -->
+    <!-- Other content of your page goes here -->
     <div class="card m-0 p-0">
         <div
                 id="toastContainer"
@@ -232,7 +232,7 @@
                             </div>
 
                             <!-- Thanh toán -->
-                            <div class="row mt-4">
+                            <div class="row mt-4" id="showThanhToan">
                                 <div class="col-md-12">
                                     <h1>Thanh toán</h1>
                                 </div>
@@ -341,7 +341,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <hr>
-                                                                    <button type="button" class="btn btn-success btn-labeled-sm"
+                                                                    <button type="button"
+                                                                            class="btn btn-success btn-labeled-sm"
                                                                             id="saveNewPhuPhi">
                                                                         Thêm Vào Phụ Phí
                                                                     </button>
@@ -418,7 +419,8 @@
                                         </legend>
                                         <div class="col-md-8">
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" role="switch" id="checkInHoaDon">
+                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                       id="checkInHoaDon">
                                             </div>
                                         </div>
                                     </fieldset>
@@ -426,7 +428,7 @@
                                 </div>
                                 <!-- Tiền khách đưa -->
                                 <div class="col-md-12" id="tienKhachDuaContainer">
-                                    <div class="row mb-3" >
+                                    <div class="row mb-3">
                                         <label for="tienKhachDua" class="col-md-4 col-form-label"
                                         >Tiền Khách Đưa:</label>
                                         <div class="col-md-8">
@@ -531,7 +533,8 @@
                 </div>
 
                 <div class="col-md-7">
-                    <div class="col-md-12 mt-0 mb-2">
+                    <div class="col-md-12 mt-0 mb-3" id="showDataThongBao"></div>
+                    <div class="col-md-12 mt-0 mb-2" id="showDataDichVu">
                         <div class="body-row-col">
                             <div class="row">
                                 <div class="col-md-4 d-flex justify-content-start">
@@ -704,6 +707,21 @@
 
         $.get("/api/v1/staff/thanh-toan-hoa-don/" + getId, function (response) {
             displayPhuPhiHoaDon(getId);
+            console.log(parseInt(response.trangThai));
+            if (parseInt(response.trangThai) != 1 && parseInt(response.trangThai) != 2) {
+                $('#showDataDichVu').hide();
+                $('#showThanhToan').hide();
+                $('#btnThanhToanHoaDon').hide();
+                $('#showDataThongBao').show();
+                $('#showDataThongBao').empty();
+                var htmlThongBao = '<div class="alert alert-danger noContent" role="alert">';
+                htmlThongBao += '<h1 class="" style="font-size: 20px">Hóa Đơn Này Không Thể Thanh Toán: Chú Ý!</h1>';
+                htmlThongBao += '</div>';
+                $('#showDataThongBao').append(htmlThongBao);
+            } else {
+                $('#showDataDichVu').show();
+                $('#showThanhToan').show();
+            }
             $("input[id='tenKhachHang']").val(response.tenKhachHang);
             $("input[id='soDienThoai']").val(response.soDienThoai);
             $("input[id='tienCocThua']").val(formatCurrencyVND(response.tienCocThua));
@@ -1096,6 +1114,7 @@
         });
 
     });
+
     function displayPhuPhiHoaDon(getId) {
         $('#dataPhuPhiHoaDon').empty();
         $('#selectPhuPhi').empty();
@@ -1249,7 +1268,7 @@
     }
 
     function showMessageThanhToanWarning() {
-        var tenKhachHang = $("#tenKhachHang").val();
+        var tenKhachHang = $("#").val();
         var tenSan = $("#tenSanCa").val();
         createAndShowToast('bg-warning', 'Thanh Toán Chưa Thành Công :', tenKhachHang + ' : ' + tenSan + ' : ' + formatCurrencyVND(tongTienHoaDonPhaiTra) + '.VNĐ');
     }
@@ -1316,6 +1335,7 @@
             }
         });
     }
+
     function inHoaDonThanhToan() {
         const inputElement = document.getElementById('checkInHoaDon');
         if (inputElement) {
@@ -1331,6 +1351,7 @@
             console.log('Không tìm thấy thẻ input với ID đã chỉ định.');
         }
     }
+
     function createAndShowToast(backGround, headerText, bodyText) {
         const toastContainer = document.getElementById("toastContainer");
         const toastsContainer = document.getElementById("toasts");

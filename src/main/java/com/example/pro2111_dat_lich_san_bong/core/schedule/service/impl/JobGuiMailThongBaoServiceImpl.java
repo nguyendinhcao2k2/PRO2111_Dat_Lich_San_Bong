@@ -48,7 +48,7 @@ public class JobGuiMailThongBaoServiceImpl implements JobGuiMailthongBaoService 
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                 DateTimeFormatter formatterNgayDa = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                DecimalFormat decimalFormat = new DecimalFormat("#.###");
+                DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
                 logger.info("---------- bắt đầu chạy job gửi mail thông báo trước thời gian bắt đầu ca --------");
                 List<HoaDonSendMailResponse> hoaDonSanCaList = hoaDonSanCaReponsitory.listHoaDonSanCaByIdCaAndNow(idCa, TrangThaiHoaDonSanCa.CHO_NHAN_SAN.ordinal());

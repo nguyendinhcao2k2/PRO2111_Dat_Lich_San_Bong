@@ -160,17 +160,17 @@
             </div>
             <div class="col-sm-12 col-md-6">
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 d-flex justify-content-end">
                   <div class="row g-3 align-items-center">
                     <!--Tìm kiếm số điện thoại-->
-                    <div class="col-md-5 col-sm-auto">
+                    <div class="col-md-12">
                       <div class="input-group">
                           <span
                                   class="input-group-text"
                                   style="
-                              border-bottom-left-radius: 5px;
-                              border-top-left-radius: 5px;
-                            "
+                                        border-bottom-left-radius: 5px;
+                                        border-top-left-radius: 5px;
+                                      "
                           >
                             <i class="fas fa-search fa-lg"></i>
                           </span>
@@ -271,7 +271,7 @@
                       <td>{{currencyNumberVN(element.tongTienHoaDonSanCa)}}</td>
                       <td v-if="element.ngayThanhToan === null">Chưa Cập Nhật</td>
                       <td v-if="element.ngayThanhToan !== null">{{formatNgayGio(element.ngayThanhToan)}}</td>
-                      <td>{{element.tienCocThua}}</td>
+                      <td>{{currencyNumberVN(element.tienCocThua)}}</td>
                       <td >{{valueTrangThaiHoaDonSanCa(element.trangThai)}}</td>
                       <td>
                         <button v-if="element.trangThai === 3" @click="findByIdHoaDonSanCa(element.id)" type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
@@ -302,7 +302,7 @@
             <!--                                Hiển thị {{pageSize}}/{{hoaDon.length}} bản ghi-->
             <!--                            </div>-->
             <!--                        </div>-->
-            <div class="col-sm-12 col-md-7">
+            <div class="col-sm-12 col-md-12 justify-content-end">
               <div class="dataTables-paginate paing-simple-numbers">
                 <nav aria-label="Page navigation">
                   <ul class="pagination justify-content-end">
@@ -406,7 +406,7 @@
   </div>
 </main>
 
-
+<footer th:insert="~{fragments/footer}"></footer>
 <!-- Add Bootstrap JS and jQuery links -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:src="@{/static/js/user/lich-su-hoa-don-user.js}"></script>

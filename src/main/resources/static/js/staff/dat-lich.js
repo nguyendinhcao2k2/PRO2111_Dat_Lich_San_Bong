@@ -55,7 +55,7 @@ function reloadSanBong() {
                         waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                         outOfTimeField++;
                     } else if (ca.trangThai === 4) {
@@ -92,7 +92,7 @@ function reloadSanBong() {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
+                                        ${setSelectBox(ca.trangThai, ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -264,7 +264,7 @@ function filterSanBong() {
                         waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                         outOfTimeField++;
                     } else if (ca.trangThai === 4) {
@@ -301,7 +301,7 @@ function filterSanBong() {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
+                                        ${setSelectBox(ca.trangThai, ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -450,7 +450,7 @@ window.onload = function () {
                         waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                         outOfTimeField++;
                     } else if (ca.trangThai === 4) {
@@ -486,7 +486,7 @@ window.onload = function () {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                         ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
+                                         ${setSelectBox(ca.trangThai, ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -702,35 +702,45 @@ function datSan() {
     }
 
     if (check) {
-        let tt = JSON.parse(localStorage.getItem("thongTin"));
-        if (tt.length === 0 || tt === null) {
-            alert("Vui lòng chọn sân bóng");
-        } else {
-            let thongTin = JSON.parse(localStorage.getItem("thongTin"));
-            let dataSend = {
-                hoVaTen: hoTen,
-                soDienThoai: sdt,
-                email: emailSend,
-                ghiChu: ghiChuSend,
-                thongTinLichDatRequests: thongTin
-            }
-            $.ajax({
-                url: apiUrl + "/dat-lich",
-                type: "POST",
-                data: JSON.stringify(dataSend),
-                contentType: "application/json",
-                success: function (data) {
-                    localStorage.setItem("thongTin", JSON.stringify([]));
-                    $('#modalInfo').modal('hide');
-                    $('#idTable').empty();
-                    reloadSanBong();
-                },
-                error: function (error) {
-                    alert(error.responseJSON.message);
-                    $('#modalInfo').modal('hide');
+        Swal.fire({
+            title: "Bạn có chắc chắn muốn đặt đặt lịch không ?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Xác nhận',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let tt = JSON.parse(localStorage.getItem("thongTin"));
+                if (tt.length === 0 || tt === null) {
+                    alert("Vui lòng chọn sân bóng");
+                } else {
+                    let thongTin = JSON.parse(localStorage.getItem("thongTin"));
+                    let dataSend = {
+                        hoVaTen: hoTen,
+                        soDienThoai: sdt,
+                        email: emailSend,
+                        ghiChu: ghiChuSend,
+                        thongTinLichDatRequests: thongTin
+                    }
+                    $.ajax({
+                        url: apiUrl + "/dat-lich",
+                        type: "POST",
+                        data: JSON.stringify(dataSend),
+                        contentType: "application/json",
+                        success: function (data) {
+                            localStorage.setItem("thongTin", JSON.stringify([]));
+                            $('#modalInfo').modal('hide');
+                            $('#idTable').empty();
+                            reloadSanBong();
+                        },
+                        error: function (error) {
+                            alert(error.responseJSON.message);
+                            $('#modalInfo').modal('hide');
+                        }
+                    });
+
                 }
-            });
-        }
+            }
+        });
     }
 }
 
@@ -932,7 +942,7 @@ function callApiFilter(param) {
                                       </div>`
                         } else if (ca.trangThai === 3) {
                             trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                         } else if (ca.trangThai === 4) {
                             trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
@@ -965,7 +975,7 @@ function callApiFilter(param) {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
+                                        ${setSelectBox(ca.trangThai, ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -1059,9 +1069,9 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#" class="dropdown-item">
+                                                <button style="border: none" onclick="huyLich(${idHoaDonSanCa})"  class="dropdown-item">
                                                     Hủy
-                                                </a>
+                                                </button>
                                             </li>
                                             <li>
                                                 <a href="#" class="dropdown-item">
@@ -1081,6 +1091,10 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
                                         </ul>`
     }
     return ``;
+}
+
+function huyLich(idSanCa) {
+    alert(idSanCa)
 }
 
 function formatCurrencyVND(amount) {

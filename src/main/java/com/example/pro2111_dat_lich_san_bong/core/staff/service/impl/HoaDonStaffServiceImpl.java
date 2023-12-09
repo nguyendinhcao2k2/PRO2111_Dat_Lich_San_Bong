@@ -63,6 +63,11 @@ public class HoaDonStaffServiceImpl implements HoaDonStaffService {
     private HoaDonStaffRepository hoaDonStaffRepository;
 
     @Override
+    public List<CheckInResponse> loadHoaDonCheckIn() {
+        return hoaDonStaffRepository.loadHoaDonCheckIn();
+    }
+
+    @Override
     public List<CheckInResponse> listCheckIn(String param) {
         return hoaDonStaffRepository.listCheckIn(param);
     }

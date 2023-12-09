@@ -27,6 +27,11 @@ public class CheckInStaffRescontroller {
         return new ResponseEntity<>(hoaDonStaffService.listCheckIn(newParam), HttpStatus.OK);
     }
 
+    @GetMapping("/load-hoa-don-check-in")
+    public ResponseEntity<?> checkInHoaDon() {
+        return new ResponseEntity<>(hoaDonStaffService.loadHoaDonCheckIn(), HttpStatus.OK);
+    }
+
     @GetMapping("/check-in/{param}")
     public ResponseEntity<?> checkIn(@PathVariable("param") String param) {
         return hoaDonStaffService.checkIn(param);

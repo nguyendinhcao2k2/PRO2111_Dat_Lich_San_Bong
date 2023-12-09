@@ -117,7 +117,7 @@
                                     </div>
                                     <div class="col-md-5">
                                         <div class="header-row-col">
-                                            <button type="button" class="btn btn-success" onclick="thongBao()">
+                                            <button type="button" class="btn btn-success" onclick="reloadPage()">
                                                 ReLoad Page
                                                 <i class="bi bi-arrow-clockwise"></i>
                                             </button>
@@ -224,7 +224,7 @@
                         </div>
                         <!-- END col-md-12  -->
                         <!-- col-md-12 DỊCH VỤ SỬ DỤNG -->
-                        <div class="col-md-12 mt-4 mb-2">
+                        <div class="col-md-12 mt-4 mb-2" id="showDataDichVuHoaDon">
                             <div class="body-row-col">
                                 <div class="row">
                                     <div class="col-md-4 d-flex justify-content-start">
@@ -978,7 +978,91 @@
                                 <div class="row mt-4">
                                     <div class="col-md-12">
                                         <h1>Thanh Toán</h1>
+                                        <fieldset class="row mb-3">
+                                            <legend class="col-form-label col-md-4 pt-0">
+                                                Hình Thức :
+                                            </legend>
+                                            <div class="col-md-8">
+                                                <div class="form-check form-check-inline">
+                                                    <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="phuongThucChuyenKhoan2"
+                                                            id="chuyenKhoan2"
+                                                            value="chuyenKhoan2"
+                                                            checked
+                                                            onchange="toggleInput2s()"
+                                                    />
+                                                    <label class="form-check-label" for="chuyenKhoan">
+                                                        Chuyển khoản
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="phuongThucChuyenKhoan2"
+                                                            id="tienMat2"
+                                                            value="tienMat2"
+                                                            onchange="toggleInput2s()"
+                                                    />
+                                                    <label class="form-check-label" for="tienMat2">
+                                                        Tiền mặt
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div id="tienKhachDuaContainer2">
+                                            <div class="row mb-3">
+                                                <label for="tienKhachDua2" class="col-md-4 col-form-label"
+                                                >Tiền khách đưa</label
+                                                >
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input
+                                                                type="number"
+                                                                class="form-control"
+                                                                id="tienKhachDua2"
+                                                                min="0"
+                                                                oninput="calculateChange2()"
+                                                        />
+                                                        <span
+                                                                class="input-group-text"
+                                                                style="
+                              border-top-right-radius: 5px;
+                              border-bottom-right-radius: 5px;
+                            "
+                                                                id="basic-addon32"
+                                                        >VND</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="tienTraLai2" class="col-md-4 col-form-label"
+                                                >Tiền trả lại</label
+                                                >
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input
+                                                                readonly
+                                                                type="text"
+                                                                class="form-control"
+                                                                id="tienTraLai2"
+                                                        />
+                                                        <span
+                                                                class="input-group-text"
+                                                                style="
+                                                              border-top-right-radius: 5px;
+                                                              border-bottom-right-radius: 5px;
+                                                            "
+                                                        >VND</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <!-- tổng tiền -->
                                     <div class="col-md-12">
                                         <hr/>
@@ -1012,16 +1096,17 @@
                                 <hr/>
                                 <div class="mt-2 d-grid gap-2 d-md-block d-flex justify-content-center text-center">
                                     <button
+                                            id="btnTroVeNhieu"
                                             type="button "
                                             class="m-2 btn btn-danger btn-labeled"
                                     >
-                                        Hủy
+                                        Trở Về
                                         <span class="btn-label">
                                         <i class="fa fa-remove"></i>
                                          </span>
                                     </button>
                                     <button
-                                            type="submit"
+                                            type="button"
                                             id="btnThanhToanHoaDonNhieu"
                                             class="m-2 btn btn-success btn-labeled"
                                     >
@@ -1057,7 +1142,9 @@
         }
     });
     //
+    var selectedIds = [];
     var tongTienHoaDonPhaiTra = 0;
+    var tongTienHoaDonPhaiTraNhieuHoaDon = 0;
     var tongTienSanCaSaveThongKe = 0;
     $(document).ready(function () {
         clearTienKhachDua();
@@ -1424,10 +1511,16 @@
                     $('#selectAllCheckbox').on('click', function () {
                         $('.checkbox-select').prop('checked', true);
                         handleCheckboxEvent();
+                        getSelectedIds();
                     });
                     $('#deselectAllCheckbox').on('click', function () {
                         $('.checkbox-select').prop('checked', false);
-                        handleCheckboxEvent();
+                        $('#tongThanhToanNhieu').text(formatCurrencyVND(0));
+                        $('#tienSanNhieu').val(formatCurrencyVND(0));
+                        $('#tienCocSanNhieu').val(formatCurrencyVND(0));
+                        $('#tienCocThuaNhieu').val(formatCurrencyVND(0));
+                        $('#tienPhuPhiNhieu').val(formatCurrencyVND(0));
+                        $('#tienDichVuNhieu').val(formatCurrencyVND(0));
                     });
                     $('.checkbox-select').on('click', handleCheckboxEvent);
                 });
@@ -1469,8 +1562,8 @@
                     $('#tenKhachHangNhieu').val(response.tenKhachHang);
                     $('#soDienThoaiNhieu').val(response.soDienThoai);
                     $('#tenSanNhieu').val(response.tenSanBong);
-                    var tongTienThanhToan = ((response.tongTienSanBong + response.tongTienPhuPhi + response.tongTienDichVu) - (response.tongTienCoc - response.tongTienCocThua));
-                    $('#tongThanhToanNhieu').text(formatCurrencyVND(tongTienThanhToan));
+                    tongTienHoaDonPhaiTraNhieuHoaDon = ((response.tongTienSanBong + response.tongTienPhuPhi + response.tongTienDichVu) - (response.tongTienCoc - response.tongTienCocThua));
+                    $('#tongThanhToanNhieu').text(formatCurrencyVND(tongTienHoaDonPhaiTraNhieuHoaDon));
                 }
 
                 var combobox = document.getElementById("thanhToanNhieu");
@@ -1479,12 +1572,14 @@
                     if (selectedValue == 2) {
                         $('#selectAllCheckbox').show();
                         $('#deselectAllCheckbox').show();
+                        $('#showDataDichVuHoaDon').hide();
                         $('.checkbox-select').show();
                         $('#thongTinThanhToanNhieu').show();
                         $('#thongTinThanhToanMot').hide();
-                        $('.checkbox-select').prop('checked', false);
+                        $('.checkbox-select').prop('checked', true);
                         handleCheckboxEvent();
                     } else {
+                        $('#showDataDichVuHoaDon').show();
                         $('#selectAllCheckbox').hide();
                         $('#deselectAllCheckbox').hide();
                         $('.checkbox-select').hide();
@@ -1494,7 +1589,6 @@
                 });
 
                 function searchFunction() {
-                    $('#thanhToanNhieu').show();
                     $('.checkbox-select').hide();
                     var searchText = document.getElementById('textTimKiem').value;
                     if (!containsOnlySpaces(searchText) && isInputNumber(searchText) && isValidVietnamesePhoneNumber(searchText)) {
@@ -1556,24 +1650,13 @@
                                         var checkbox = document.createElement('input');
                                         checkbox.type = 'checkbox';
                                         checkbox.className = 'form-check-input checkbox-select';
-                                        checkbox.value = item.id; // Đặt giá trị của checkbox là ID hoặc giá trị tương ứng từ dữ liệu
+                                        checkbox.value = item.id;
                                         checkbox.dataset.itemId = item.id;
-                                        var selectedItems = [];
                                         checkbox.onclick = function () {
-                                            var itemId = this.dataset.itemId;
                                             if (this.checked) {
-                                                console.log('Checkbox được chọn. ID:', itemId);
-                                                selectedItems.push(itemId);
-                                                console.log('List được chọn. ID:', selectedItems);
-                                                handleCheckboxEvent();
+                                                getSelectedIds();
                                             } else {
-                                                console.log('Checkbox bị bỏ chọn. ID:', itemId);
-                                                var index = selectedItems.indexOf(itemId);
-                                                if (index !== -1) {
-                                                    selectedItems.splice(index, 1);
-                                                    handleCheckboxEvent();
-                                                    console.log('List được chọn. ID:', selectedItems);
-                                                }
+                                                getSelectedIds();
                                             }
                                         };
                                         checkboxDiv.appendChild(checkbox);
@@ -1619,6 +1702,7 @@
                                         });
                                         tableBody.append(row);
                                     }
+                                    $('#thanhToanNhieu').show();
                                     autoSelectFirstRow();
                                     updatePagination();
                                     $('.checkbox-select').hide();
@@ -1926,7 +2010,6 @@
                 var paymentMethod = $("input[name='phuongThucChuyenKhoan']:checked").val();
                 if (paymentMethod == "tienMat") {
                     var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
-                    console.log(tienKhachDua);
                     if (tienKhachDua === 0 || tienKhachDua < tongTienHoaDonPhaiTra) {
                         showMessageThanhToanWarning();
                         $('#tienKhachDua').css('border-color', 'red');
@@ -2137,6 +2220,19 @@
 
 </script>
 <script>
+    function toggleInput2s() {
+        var tienKhachDuaContainer = document.getElementById('tienKhachDuaContainer2');
+
+        var tienMatRadio = document.getElementById('tienMat2');
+        if (tienMatRadio.checked) {
+            tienKhachDuaContainer.style.display = 'block';
+        } else {
+            tienKhachDuaContainer.style.display = 'none';
+        }
+    }
+
+    toggleInput2s();
+
     function toggleInputs() {
         var tienKhachDuaContainer = document.getElementById('tienKhachDuaContainer');
 
@@ -2164,26 +2260,178 @@
         }
     }
 
-    function getSelectedIds() {
-        var selectedIds = [];
+    function calculateChange2() {
+        var tienKhachDua = parseFloat(document.getElementById('tienKhachDua2').value) || 0;
 
-        // Lặp qua tất cả các ô checkbox trong bảng ------------------------------------------------------------------------
+        if (tienKhachDua >= tongTienHoaDonPhaiTraNhieuHoaDon) {
+            var tienTraLai = tienKhachDua - tongTienHoaDonPhaiTraNhieuHoaDon;
+
+            document.getElementById('tienTraLai2').value = formatCurrencyVND(tienTraLai);
+        } else {
+            document.getElementById('tienTraLai2').value = "Chưa đủ tiền trả";
+        }
+    }
+
+    function thanhToanChuyenKhoanNhieu() {
+        selectedIds = [];
         var checkboxes = document.querySelectorAll('input[type="checkbox"].form-check-input');
         checkboxes.forEach(function (checkbox) {
             if (checkbox.checked) {
                 selectedIds.push(checkbox.value);
             }
         });
+        var tenKhachHang = $("#tenKhachHangNhieu").val();
+        var sodienThoai = $("#soDienThoaiNhieu").val();
+        Swal.fire({
+            title: 'Xác Nhận Thanh Toán Hóa Đơn : \n' + tenKhachHang + '   ' + formatCurrencyVND(tongTienHoaDonPhaiTraNhieuHoaDon) + '.VNĐ',
+            text: 'Xin chào!',
+            icon: 'success',
+            confirmButtonText: 'Đồng Ý'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var paymentMethod = $("input[name='phuongThucChuyenKhoan2']:checked").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/api/v1/staff/thanh-toan-chuyen-khoan-nhieu-hoa-don",
+                    data: {
+                        amount: tongTienHoaDonPhaiTraNhieuHoaDon,
+                        paymentMethod: paymentMethod,
+                        listId: selectedIds.join(","),
+                        orderInfo: sodienThoai,
+                    },
+                    success: function (response) {
+                        var encodedList = encodeURIComponent(JSON.stringify(selectedIds));
+                        document.cookie = "listThanhToans=" + encodedList + "; path=/";
+                        window.open(response);
+                    },
+                    error: function (error) {
+                        console.error("Lỗi Ajax: ", error);
+                    }
+                });
+            }
+        });
+    }
 
+    function thanhToanTienMatNhieu() {
+        selectedIds = [];
+        var checkboxes = document.querySelectorAll('input[type="checkbox"].form-check-input');
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                selectedIds.push(checkbox.value);
+            }
+        });
+        var tenKhachHang = $("#tenKhachHangNhieu").val();
+        Swal.fire({
+            title: 'Xác Nhận Thanh Toán Hóa Đơn : \n' + tenKhachHang + '   ' + formatCurrencyVND(tongTienHoaDonPhaiTraNhieuHoaDon) + '.VNĐ',
+            text: 'Xin chào!',
+            icon: 'success',
+            confirmButtonText: 'Đồng Ý'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var paymentMethod = $("input[name='phuongThucChuyenKhoan2']:checked").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/api/v1/staff/thanh-toan-tien-mat-nhieu",
+                    data: {
+                        paymentMethod: paymentMethod,
+                        listId: selectedIds.join(","),
+                    },
+                    success: function (response) {
+                        showMessageThanhToanNhieu();
+                        location.reload();
+                    },
+                    error: function (error) {
+                        console.error("Lỗi Ajax: ", error);
+                    }
+                });
+            }
+        });
+    }
+
+    function showMessageThanhToanNhieu() {
+        var tenKhachHang = $("#tenKhachHangNhieu").val();
+        createAndShowToast('bg-success', 'Thanh Toán Thành Công :', tenKhachHang + '  ' + formatCurrencyVND(tongTienHoaDonPhaiTraNhieuHoaDon) + '.VNĐ');
+        clearTienKhachDuaNhieu();
+    }
+
+    function clearTienKhachDuaNhieu() {
+        document.getElementById('tienKhachDua2').value = "";
+        document.getElementById('tienTraLai2').value = "";
+    }
+
+    function showMessageThanhToanWarningNhieu() {
+        var tenKhachHang = $("#tenKhachHangNhieu").val();
+        createAndShowToast('bg-warning', 'Thanh Toán Chưa Thành Công :', tenKhachHang + ' : ' + formatCurrencyVND(tongTienHoaDonPhaiTraNhieuHoaDon) + '.VNĐ');
+        clearTienKhachDuaNhieu();
+    }
+
+    $(document).ready(function () {
+
+        $("#btnThanhToanHoaDonNhieu").click(function () {
+            var paymentMethod = $("input[name='phuongThucChuyenKhoan2']:checked").val();
+            if (paymentMethod == "tienMat2") {
+                var tienKhachDua = parseFloat(document.getElementById('tienKhachDua2').value) || 0;
+                if (tienKhachDua === 0 || tienKhachDua < tongTienHoaDonPhaiTraNhieuHoaDon) {
+                    showMessageThanhToanWarningNhieu();
+                    $('#tienKhachDua2').css('border-color', 'red');
+                }
+                if (tienKhachDua >= tongTienHoaDonPhaiTraNhieuHoaDon) {
+                    $('#tienKhachDua2').css('border-color', '');
+                    thanhToanTienMatNhieu();
+                }
+            } else if (paymentMethod == "chuyenKhoan2") {
+                thanhToanChuyenKhoanNhieu();
+            }
+        });
+    });
+
+    function getSelectedIds() {
+        selectedIds = [];
+        var checkboxes = document.querySelectorAll('input[type="checkbox"].form-check-input');
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                selectedIds.push(checkbox.value);
+            }
+        });
+        if (selectedIds.length == 0) {
+            $('#tienSanNhieu').val(formatCurrencyVND(0));
+            $('#tienCocSanNhieu').val(formatCurrencyVND(0));
+            $('#tienCocThuaNhieu').val(formatCurrencyVND(0));
+            $('#tienPhuPhiNhieu').val(formatCurrencyVND(0));
+            $('#tienDichVuNhieu').val(formatCurrencyVND(0));
+            $('#tongThanhToanNhieu').text(formatCurrencyVND(0));
+        } else {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/api/v1/staff/thanh-toan-hoa-don-nhieu",
+                data: JSON.stringify(selectedIds),
+                success: function (response) {
+                    $('#tienSanNhieu').val(formatCurrencyVND(response.tongTienSanBong));
+                    $('#tienCocSanNhieu').val(formatCurrencyVND(response.tongTienCoc));
+                    $('#tienCocThuaNhieu').val(formatCurrencyVND(response.tongTienCocThua));
+                    $('#tienPhuPhiNhieu').val(formatCurrencyVND(response.tongTienPhuPhi));
+                    $('#tienDichVuNhieu').val(formatCurrencyVND(response.tongTienDichVu));
+                    $('#tenKhachHangNhieu').val(response.tenKhachHang);
+                    $('#soDienThoaiNhieu').val(response.soDienThoai);
+                    $('#tenSanNhieu').val(response.tenSanBong);
+                    tongTienHoaDonPhaiTraNhieuHoaDon = ((response.tongTienSanBong + response.tongTienPhuPhi + response.tongTienDichVu) - (response.tongTienCoc - response.tongTienCocThua));
+                    $('#tongThanhToanNhieu').text(formatCurrencyVND(tongTienHoaDonPhaiTraNhieuHoaDon));
+                },
+                error: function (error) {
+                    console.error("Error:", error);
+                }
+            });
+        }
         return selectedIds;
     }
 
-    function thongBao() {
+    function reloadPage() {
         Swal.fire({
-            title: 'Chắc Chắn Xác Nhận!',
+            title: 'Xác Nhận Tải Lại Trang!',
             text: 'Xin chào!',
             icon: 'success',
-            confirmButtonText: 'OKE'
+            confirmButtonText: 'Đồng Ý'
         }).then((result) => {
             if (result.isConfirmed) {
                 location.reload();
