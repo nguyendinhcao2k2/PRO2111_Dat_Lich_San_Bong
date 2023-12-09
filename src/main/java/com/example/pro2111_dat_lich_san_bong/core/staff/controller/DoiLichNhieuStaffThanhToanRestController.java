@@ -319,21 +319,9 @@ public class DoiLichNhieuStaffThanhToanRestController {
                                 hoaDonUserService.updateHoaDon(hoaDon);
                                 listHoaDonMail.add(hoaDon.getId());
                                 ViTienCoc viTienCoc = viTienUserService.findByIdHoaDon(hoaDon.getId());
-                                if(viTienCoc.getTypePayment() == LoaiHinhThanhToan.TIEN_MAT.ordinal()){
-                                    ViTienCoc viTienCocNew = new ViTienCoc();
-                                    viTienCocNew.setSoTien(doiLichNhieuRequestList.get(0).getTienCocThieu());
-                                    viTienCocNew.setLoaiTien("VND");
-                                    viTienCocNew.setThoiGianTao(Timestamp.valueOf(LocalDateTime.now()));
-                                    viTienCocNew.setTrangThai(TrangThaiViTien.BINH_THUONG.ordinal());
-                                    viTienCocNew.setNoiDung("Tiền cọc đổi lịch sân bóng");
-                                    viTienCocNew.setIdHoaDon(viTienCoc.getIdHoaDon());
-                                    viTienCocNew.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
-                                    viTienCocNew.setSoGiaoDich(transactionId);
-                                    viTienUserService.saveViTen(viTienCocNew);
-                                }else{
-                                    viTienCoc.setSoTien(viTienCoc.getSoTien() + doiLichNhieuRequestList.get(0).getTienCocThieu());
+                                    viTienCoc.setSoTien(hoaDon.getTienCoc());
                                     viTienUserService.updateViTien(viTienCoc);
-                                }
+
                                 Double tienDaoDong = listHoaDonSanCaUpdate.get(i).getTienSan() - listHoaDonSanCaCu.get(i).getTienSan();
                                 if (tienDaoDong > 0) {
                                     LichSuViTien lichSuViTien = new LichSuViTien();
@@ -353,6 +341,7 @@ public class DoiLichNhieuStaffThanhToanRestController {
                         }
 
                     }
+
                     //gửi mail
                     for (String items : listHoaDonMail) {
                         HoaDon hoaDonMail = hoaDonUserService.findHoaDonById(items);
@@ -403,16 +392,17 @@ public class DoiLichNhieuStaffThanhToanRestController {
                     }
 
                     //gửi mail
-
                 }
-
-
                 //xoa san cu
                 for (String idSanCaCu : listSanCaCu) {
                     HoaDonSanCa hoaDonSanCa = hoaDonSanCaUserService.findByIdSanCa(idSanCaCu);
                     hoaDonSanCaUserService.deleteByIdHoaDonSanCa(hoaDonSanCa.getId());
                     sanCaUserService.deleteSanCaById(idSanCaCu);
                 }
+
+
+
+
 
             } catch (Exception e) {
                 e.printStackTrace();
