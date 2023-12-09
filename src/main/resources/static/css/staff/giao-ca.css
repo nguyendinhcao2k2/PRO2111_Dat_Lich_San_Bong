@@ -56,3 +56,19 @@ label {
     font-size: 15px;
     color: #171717;
 }
+
+h1{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.btn-labeled {
+    /* padding-top: 0;
+    padding-bottom: 0; */
+    border-radius: 5px;
+}
+
+.col-form-label{
+    font-size: 18px;
+    color: black;
+}

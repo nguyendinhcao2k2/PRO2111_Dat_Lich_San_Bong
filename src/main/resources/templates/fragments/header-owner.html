@@ -27,7 +27,7 @@
                 class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3"
                 style="background-color: #343a40"
         >
-            <a th:href="@{/api/v1/staff/view-dat-lich}" class="navbar-brand p-0">
+            <a th:href="@{/api/v1/admin/manage/thong-ke}" class="navbar-brand p-0">
                 <h1 class="m-0">
                     <i
                             class="fa-solid fa-futbol"
@@ -58,22 +58,15 @@
                         style="color: white; font-size: 18px"
                 >
                     <a
-                            th:href="@{/api/v1/staff/view-dat-lich}"
-                            class="nav-item nav-link active"
-                            style="color: white"
-                    >Đặt Lịch</a
-                    >
-                    <a
-                            th:href="@{/api/v1/staff/giao-ca/display}"
+                            th:href="@{/api/v1/admin/manage/list-manage}"
                             class="nav-item nav-link"
                             style="color: white"
-                    >Giao Ca</a>
+                    >Quản Lý</a>
                     <a
-                            th:href="@{/api/v1/staff/check-in}"
+                            th:href="@{/api/v1/admin/manage/thong-ke}"
                             class="nav-item nav-link"
-                            style="color: white; font-weight: bold"
-                    >Check In</a
-                    >
+                            style="color: white"
+                    >Thống Kê</a>
                     <div class="topbar-divider d-none d-sm-block"></div>
 
                     <!-- Nav Item - User Information -->
@@ -114,10 +107,6 @@
                             <a class="dropdown-item" th:href="@{/api/v1/profile}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Trang cá nhân
-                            </a>
-                            <a class="dropdown-item"  th:href="@{/staff/lich-su-giao-dich}">
-                                <i class="fas fa-history fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Lịch sử giao dịch
                             </a>
                             <div class="dropdown-divider"></div>
                             <a

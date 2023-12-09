@@ -568,7 +568,7 @@ table th {
 
 /* SCROLL CONtent San */
 .wrap-div {
-    max-height: 500px; /* Điều chỉnh chiều cao tối đa của content-san theo mong muốn */
+    max-height: 650px; /* Điều chỉnh chiều cao tối đa của content-san theo mong muốn */
     overflow-y: auto; /* Only vertical scrollbar */
     overflow-x: hidden; /* Hide horizontal scrollbar */
 }
