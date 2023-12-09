@@ -13,6 +13,7 @@ import java.util.List;
 
 public interface HoaDonStaffService {
 
+    List<CheckInResponse> loadHoaDonCheckIn();
     List<CheckInResponse> listCheckIn(String param);
 
     ResponseEntity<?> checkIn(String param);
