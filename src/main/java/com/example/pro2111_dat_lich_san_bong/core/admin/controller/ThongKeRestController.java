@@ -167,14 +167,22 @@ public class ThongKeRestController {
                                                         @RequestParam(value = "date") Optional<LocalDate> valueDate) {
         List<ViTienCocNamReponse> viTienCocNamReponses = viTienCocAdminService.findListTienCocNam(year.orElse(date.getYear()));
         List<ThongKeTheoNamAdminResponse> sum = thongKeAdminService.sumTongTienByMonthAndYear(year.orElse(date.getYear()));
+
         if(viTienCocNamReponses != null){
-            for (ThongKeTheoNamAdminResponse response:sum) {
+            if(sum.size() == 0){
                 for(ViTienCocNamReponse viTienCoc : viTienCocNamReponses){
-                    if(response.getMonthName() == viTienCoc.getMonthName()){
-                        response.setTotalPrice(response.getTotalPrice() + viTienCoc.getTotalPrice());
+                    sum.add(new ThongKeTheoNamAdminResponse(viTienCoc.getMonthName(),viTienCoc.getTotalPrice()));
+                }
+            }else{
+                for (ThongKeTheoNamAdminResponse response:sum) {
+                    for(ViTienCocNamReponse viTienCoc : viTienCocNamReponses){
+                        if(response.getMonthName() == viTienCoc.getMonthName()){
+                            response.setTotalPrice(response.getTotalPrice() + viTienCoc.getTotalPrice());
+                        }
                     }
                 }
             }
+
         }
 
         ThongKeCaNamCaTrongNgayResponse thongKeAll = new ThongKeCaNamCaTrongNgayResponse(sum, caAdminResponses(valueDate), caAdminResponses(Optional.of(date)));
