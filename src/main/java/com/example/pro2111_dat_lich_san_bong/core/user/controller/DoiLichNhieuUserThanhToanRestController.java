@@ -307,18 +307,24 @@ public class DoiLichNhieuUserThanhToanRestController {
                     listHoaDonSanCaCu.add(hoaDonSanCa);
                 }
 
+                //xoa san cu
+                for (String idSanCaCu : listSanCaCu) {
+                    HoaDonSanCa hoaDonSanCa = hoaDonSanCaUserService.findByIdSanCa(idSanCaCu);
+                    hoaDonSanCaUserService.deleteByIdHoaDonSanCa(hoaDonSanCa.getId());
+                    sanCaUserService.deleteSanCaById(idSanCaCu);
+                }
 
                 //update lại hoa don
                 Set<String> listHoaDonMail = new HashSet<>();
                 for (String idHD : hoaDonListSanCaMoi) {
                     HoaDon hoaDon = hoaDonUserService.findHoaDonById(idHD);
+                    listHoaDonMail.add(hoaDon.getId());
                     for (int i = 0; i < listHoaDonSanCaUpdate.size(); i++) {
                         if (listHoaDonSanCaUpdate.size() == listHoaDonSanCaCu.size()) {
                             if (hoaDon.getId().equals(listHoaDonSanCaCu.get(i).getIdHoaDon())) {
                                 hoaDon.setTongTien(hoaDon.getTongTien() - listHoaDonSanCaCu.get(i).getTienSan() + listHoaDonSanCaUpdate.get(i).getTienSan());
                                 hoaDon.setTienCoc(hoaDon.getTongTien() * (phanTramTienCoc / 100));
                                 hoaDonUserService.updateHoaDon(hoaDon);
-                                listHoaDonMail.add(hoaDon.getId());
                                 ViTienCoc viTienCoc = viTienUserService.findByIdHoaDon(hoaDon.getId());
                                 viTienCoc.setSoTien(hoaDon.getTienCoc());
                                 viTienCoc.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
@@ -395,13 +401,6 @@ public class DoiLichNhieuUserThanhToanRestController {
 
                 }
 
-
-                //xoa san cu
-                for (String idSanCaCu : listSanCaCu) {
-                    HoaDonSanCa hoaDonSanCa = hoaDonSanCaUserService.findByIdSanCa(idSanCaCu);
-                    hoaDonSanCaUserService.deleteByIdHoaDonSanCa(hoaDonSanCa.getId());
-                    sanCaUserService.deleteSanCaById(idSanCaCu);
-                }
 
             } catch (Exception e) {
                 e.printStackTrace();
