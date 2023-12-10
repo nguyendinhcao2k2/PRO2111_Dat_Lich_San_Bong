@@ -730,6 +730,7 @@ function datSan() {
                             localStorage.setItem("thongTin", JSON.stringify([]));
                             $('#modalInfo').modal('hide');
                             $('#idTable').empty();
+                            alert(data.content)
                             reloadSanBong();
                         },
                         error: function (error) {
@@ -1069,7 +1070,7 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
                                                 </a>
                                             </li>
                                             <li>
-                                                <button style="border: none" onclick="huyLich(${idHoaDonSanCa})"  class="dropdown-item">
+                                                <button type="submit" style="border: none" onclick="huyLich('${idHoaDonSanCa}')"  class="dropdown-item">
                                                     Hủy
                                                 </button>
                                             </li>
@@ -1094,7 +1095,28 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
 }
 
 function huyLich(idSanCa) {
-    alert(idSanCa)
+    Swal.fire({
+        title: "Bạn có chắc chắn muốn hủy lịch không ?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Xác nhận',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: apiUrl + "/huy-san/" + idSanCa,
+                type: "DELETE",
+                contentType: "application/json",
+                success: function (data) {
+                    alert(data.content);
+                    reloadSanBong();
+                },
+                error: function (error) {
+                    alert(error.responseJSON.message);
+                    $('#modalInfo').modal('hide');
+                }
+            });
+        }
+    });
 }
 
 function formatCurrencyVND(amount) {
