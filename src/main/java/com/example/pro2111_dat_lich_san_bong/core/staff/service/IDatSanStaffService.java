@@ -25,6 +25,8 @@ public interface IDatSanStaffService {
 
      void huySanBong(String idHoaDon);
 
+    void huySan(String idHDSanca);
+
     List<HoaDonStaffResponse> filterHoaDon(FilterLichDatRequest filterSanBongRequest);
 
     void sendMailDatLich(HttpServletRequest request, String idhoaDon);

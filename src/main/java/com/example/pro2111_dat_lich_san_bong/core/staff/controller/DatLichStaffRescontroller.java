@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,6 +94,12 @@ public class DatLichStaffRescontroller {
     @DeleteMapping("/delete-hoa-don")
     public BaseResponse<String> deleteHoaDon(@RequestParam("idHoaDon") String idHoaDon) {
         iDatSanStaffService.huySanBong(idHoaDon);
+        return new BaseResponse<>(HttpStatus.OK, "Hủy thành công");
+    }
+
+    @DeleteMapping("/huy-san/{id}")
+    public BaseResponse<String> huySan(@PathVariable("id") String idHDSanCa) {
+        iDatSanStaffService.huySan(idHDSanCa);
         return new BaseResponse<>(HttpStatus.OK, "Hủy thành công");
     }
 }
