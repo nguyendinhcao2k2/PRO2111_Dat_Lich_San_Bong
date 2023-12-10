@@ -115,29 +115,10 @@
                                             <h1>Danh Sách Hóa Đơn</h1>
                                         </div>
                                     </div>
-                                    <div class="col-md-5">
-                                        <div class="header-row-col">
-                                            <button type="button" class="btn btn-success" onclick="reloadPage()">
-                                                ReLoad Page
-                                                <i class="bi bi-arrow-clockwise"></i>
-                                            </button>
-                                            <button id="selectAllCheckbox" class="btn btn-success" type="submit">
-                                                Select All
-                                            </button>
-                                            <button id="deselectAllCheckbox" class="btn btn-success" type="submit">
-                                                Deselect All
-                                            </button>
-                                        </div>
+                                    <div class="col-md-1">
+
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="header-row-col">
-                                            <select id="thanhToanNhieu" class="form-select" style="width: 100%">
-                                                <option selected value="1">Một Hóa Đơn</option>
-                                                <option value="2">Nhiều Hóa Đơn</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 d-flex justify-content-end">
+                                    <div class="col-md-4 d-flex justify-content-end">
                                         <div class="input-group mb-3">
                                             <input
                                                     type="number"
@@ -163,14 +144,49 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="header-row-col">
+                                            <select id="thanhToanNhieu" class="form-select" style="width: 100%">
+                                                <option selected value="1"> - Chọn Thanh Toán Một Hóa Đơn -</option>
+                                                <option value="2"> - Chọn Thanh Toán Nhiều Hóa Đơn -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="header-row-col">
+                                            <button
+                                                    class="btn btn-success btn-outline-success"
+                                                    type="button"
+                                                    id="reload"
+                                                    onclick="reloadPage()"
+                                                    style="border-radius: 5px; margin-left: 50px;">
+                                                <i class="fa-solid fa-arrows-rotate" style="color: #ffffff"></i>
+                                            </button>
+                                            <button id="selectAllCheckbox" class="btn btn-success" type="submit"
+                                                    style="border-radius: 5px; margin-left: 30px;">
+                                                <i class="fa-regular fa-square-check" style="color: #ffffff"></i>
+                                            </button>
+                                            <button id="deselectAllCheckbox" class="btn btn-success" type="submit"
+                                                    style="border-radius: 5px; margin-left: 30px;">
+                                                <i class="fa-regular fa-rectangle-xmark" style="color: #ffffff"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
                                 </div>
 
-                                <div class="table-responsive ">
+                                <div class="table-responsive">
                                     <table
-                                            class="table table-striped table-hover"
                                             id="myTable"
                                     >
                                         <tbody id="myTableBody">
+                                        <!-- Nội dung cập nhật bằng JavaScript -->
+                                        </tbody>
+                                    </table>
+                                    <table
+                                            id="yourTable"
+                                    >
+                                        <tbody id="yourTableBody">
                                         <!-- Nội dung cập nhật bằng JavaScript -->
                                         </tbody>
                                     </table>
@@ -182,36 +198,9 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 d-flex justify-content-end">
+                                            <div class="col-md-6 d-flex justify-content-end" id="updateSoTrang">
                                                 <nav aria-label="Page navigation">
                                                     <ul class="pagination">
-                                                        <li class="page-item">
-                                                            <a
-                                                                    class="page-link"
-                                                                    href="#"
-                                                                    aria-label="Previous"
-                                                            >
-                                                                <span aria-hidden="true">&laquo;</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="page-item active">
-                                                            <a class="page-link" href="#">1</a>
-                                                        </li>
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#">2</a>
-                                                        </li>
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#">3</a>
-                                                        </li>
-                                                        <li class="page-item">
-                                                            <a
-                                                                    class="page-link"
-                                                                    href="#"
-                                                                    aria-label="Next"
-                                                            >
-                                                                <span aria-hidden="true">&raquo;</span>
-                                                            </a>
-                                                        </li>
                                                     </ul>
                                                 </nav>
                                             </div>
@@ -229,7 +218,7 @@
                                 <div class="row">
                                     <div class="col-md-4 d-flex justify-content-start">
                                         <div class="header-row-col">
-                                            <h1 class="">Dịch vụ sử dụng</h1>
+                                            <h1 class="">Dịch Vụ Sử Dụng</h1>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
@@ -238,7 +227,7 @@
                                             <div class="col-md-3 col-sm-auto">
                                                 <select id="select-san-staff" class="form-select"
                                                         style="border-radius: 5px">
-                                                    <option selected value="0">Tất cả</option>
+                                                    <option selected value="0">Tất Cả</option>
                                                     <option value="1">Nước Uống</option>
                                                     <option value="2">Đồ Thuê</option>
                                                 </select>
@@ -276,7 +265,7 @@
                                                                 <h5
                                                                         class="modal-title"
                                                                 >
-                                                                    Thêm dịch vụ
+                                                                    Thêm Dịch Vụ
                                                                 </h5>
                                                                 <button
                                                                         type="button"
@@ -304,9 +293,9 @@
                                                                                                 class="form-select"
                                                                                                 style="border-radius: 5px">
                                                                                             <option selected value="0">
-                                                                                                Tất cả
+                                                                                                Tất Cả
                                                                                             </option>
-                                                                                            <option value="1">Nước
+                                                                                            <option value="1">Nước Uống
                                                                                             </option>
                                                                                             <option value="2">Đồ Thuê
                                                                                             </option>
@@ -606,7 +595,7 @@
                                                                             class="modal-title"
                                                                             id="staticBackdropLabel"
                                                                     >
-                                                                        Thêm phụ phí
+                                                                        Thêm Phụ Phí
                                                                     </h5>
                                                                     <button
                                                                             type="button"
@@ -623,7 +612,7 @@
                                                                                 <label
                                                                                         for="tenPhuPhi"
                                                                                         class="form-label"
-                                                                                >Tên phụ phí</label
+                                                                                >Tên Phụ Phí</label
                                                                                 >
                                                                                 <div class="input-group">
                                                                                     <input
@@ -638,7 +627,7 @@
                                                                                 <label
                                                                                         for="giaPhuPhi"
                                                                                         class="form-label"
-                                                                                >Giá phụ phí</label
+                                                                                >Giá Phụ Phí</label
                                                                                 >
                                                                                 <div class="input-group">
                                                                                     <input
@@ -668,7 +657,7 @@
                                                                         <table class="table" id="tablePhuPhi">
                                                                             <thead>
                                                                             <tr>
-                                                                                <th scope="col">Stt</th>
+                                                                                <th scope="col">#</th>
                                                                                 <th scope="col">Tên Phụ Phí</th>
                                                                                 <th scope="col">Gía Phụ Phí</th>
                                                                                 <th scope="col">Chọn</th>
@@ -715,7 +704,7 @@
                                                             onchange="toggleInputs()"
                                                     />
                                                     <label class="form-check-label" for="chuyenKhoan">
-                                                        Chuyển khoản
+                                                        Chuyển Khoản
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
@@ -728,7 +717,7 @@
                                                             onchange="toggleInputs()"
                                                     />
                                                     <label class="form-check-label" for="tienMat">
-                                                        Tiền mặt
+                                                        Tiền Mặt
                                                     </label>
                                                 </div>
                                             </div>
@@ -737,7 +726,7 @@
                                         <div id="tienKhachDuaContainer">
                                             <div class="row mb-3">
                                                 <label for="tienKhachDua" class="col-md-4 col-form-label"
-                                                >Tiền khách đưa</label
+                                                >Tiền Khách Đưa</label
                                                 >
                                                 <div class="col-md-8">
                                                     <div class="input-group">
@@ -762,7 +751,7 @@
                                             </div>
                                             <div class="row mb-3">
                                                 <label for="tienTraLai" class="col-md-4 col-form-label"
-                                                >Tiền trả lại</label
+                                                >Tiền Trả Lại</label
                                                 >
                                                 <div class="col-md-8">
                                                     <div class="input-group">
@@ -818,8 +807,9 @@
                                     <button
                                             type="button "
                                             class="m-2 btn btn-danger btn-labeled"
+                                            onclick="viewDatLich()"
                                     >
-                                        Hủy
+                                        Home
                                         <span class="btn-label">
                                         <i class="fa fa-remove"></i>
                                          </span>
@@ -994,7 +984,7 @@
                                                             onchange="toggleInput2s()"
                                                     />
                                                     <label class="form-check-label" for="chuyenKhoan">
-                                                        Chuyển khoản
+                                                        Chuyển Khoản
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
@@ -1007,7 +997,7 @@
                                                             onchange="toggleInput2s()"
                                                     />
                                                     <label class="form-check-label" for="tienMat2">
-                                                        Tiền mặt
+                                                        Tiền Mặt
                                                     </label>
                                                 </div>
                                             </div>
@@ -1015,7 +1005,7 @@
                                         <div id="tienKhachDuaContainer2">
                                             <div class="row mb-3">
                                                 <label for="tienKhachDua2" class="col-md-4 col-form-label"
-                                                >Tiền khách đưa</label
+                                                >Tiền Khách Đưa</label
                                                 >
                                                 <div class="col-md-8">
                                                     <div class="input-group">
@@ -1040,7 +1030,7 @@
                                             </div>
                                             <div class="row mb-3">
                                                 <label for="tienTraLai2" class="col-md-4 col-form-label"
-                                                >Tiền trả lại</label
+                                                >Tiền Trả Lại</label
                                                 >
                                                 <div class="col-md-8">
                                                     <div class="input-group">
@@ -1097,9 +1087,9 @@
                                 <div class="mt-2 d-grid gap-2 d-md-block d-flex justify-content-center text-center">
                                     <button
                                             id="btnTroVeNhieu"
-                                            type="button "
+                                            type="button"
                                             class="m-2 btn btn-danger btn-labeled"
-                                    >
+                                            onclick="reloadPage()">
                                         Trở Về
                                         <span class="btn-label">
                                         <i class="fa fa-remove"></i>
@@ -1393,15 +1383,18 @@
 
                 var table = $("#myTable");
                 // Tạo phần <thead> và các thẻ tiêu đề
+                table.addClass('table table-bordered');
+                table.css('border', '1px solid black');
                 if (table.find('thead').length === 0) {
                     // Nếu chưa có, thêm mới thead
                     var thead = document.createElement('thead');
                     var headerRow = document.createElement('tr');
-                    var headers = ['Tên khách', 'Số điện thoại', 'Sân ca', 'Thời gian ', 'Ngày đặt lịch', 'Trạng thái', 'Chọn Nhiều'];
+                    var headers = ['#', 'Tên khách', 'Số điện thoại', 'Sân ca', 'Thời gian ', 'Ngày đặt lịch', 'Trạng thái'];
                     for (var i = 0; i < headers.length; i++) {
                         var th = document.createElement('th');
                         th.scope = 'col';
                         th.textContent = headers[i];
+                        $(th).css('border', '1px solid gray');
                         headerRow.appendChild(th);
                     }
                     thead.appendChild(headerRow);
@@ -1411,9 +1404,8 @@
                 //<tbody> với dữ liệu
                 var tableBody = $("#myTableBody");
                 tableBody.empty();
-
                 //mục trang và trang hiện tại
-                var pageSize = 8;
+                var pageSize = 5;
                 var currentPage = 1;
                 var totalPages = Math.ceil(data.length / pageSize);
                 if (data.length < pageSize) {
@@ -1425,6 +1417,7 @@
 
                 //hiển thị dữ liệu dựa trên trang hiện tại
                 function displayData() {
+                    $('#yourTable').hide();
                     $('#selectAllCheckbox').hide();
                     $('#deselectAllCheckbox').hide();
                     tableBody.empty();
@@ -1452,6 +1445,8 @@
 
 
                         //ô dữ liệu và thêm dữ liệu vào
+                        var cell0 = document.createElement('td');
+                        cell0.textContent = parseInt(i + 1);
                         var cell1 = document.createElement('td');
                         cell1.textContent = item.tenKhachHang;
                         var cell2 = document.createElement('td');
@@ -1464,17 +1459,22 @@
                         cell5.textContent = formatDate(item.ngayDatLich);
                         var cell6 = document.createElement('td');
                         //trạng thái và hiển thị 'true' nếu trạng thái là 1
-                        cell6.textContent = item.trangThai === 1 ? 'Đã Check In' : 'Chờ Thanh Toán';
-                        var cell7 = document.createElement('td');
-
+                        cell6.textContent = item.trangThai === 1 ? 'Đã nhận sân' : 'Chờ thanh toán';
+                        $(cell0).css('border', '1px solid gray');
+                        $(cell1).css('border', '1px solid gray');
+                        $(cell2).css('border', '1px solid gray');
+                        $(cell3).css('border', '1px solid gray');
+                        $(cell4).css('border', '1px solid gray');
+                        $(cell5).css('border', '1px solid gray');
+                        $(cell6).css('border', '1px solid gray');
                         //các ô vào hàng
+                        row.appendChild(cell0);
                         row.appendChild(cell1);
                         row.appendChild(cell2);
                         row.appendChild(cell3);
                         row.appendChild(cell4);
                         row.appendChild(cell5);
                         row.appendChild(cell6);
-                        row.appendChild(cell7);
 
                         row.addEventListener('click', function () {
                             clearTienKhachDua();
@@ -1590,6 +1590,7 @@
 
                 function searchFunction() {
                     $('.checkbox-select').hide();
+                    $('.pagination').hide();
                     var searchText = document.getElementById('textTimKiem').value;
                     if (!containsOnlySpaces(searchText) && isInputNumber(searchText) && isValidVietnamesePhoneNumber(searchText)) {
                         $.ajax({
@@ -1599,17 +1600,40 @@
                                 numberPhone: searchText
                             },
                             success: function (data) {
-                                displayData(data);
+                                $('#yourTable').show();
+                                $('#myTable').hide();
+                                displayDataNhieu(data);
 
-                                function displayData(data) {
+                                function displayDataNhieu(data) {
+                                    var table = $("#yourTable");
+                                    table.addClass('table table-bordered');
+                                    table.css('border', '1px solid black');
+                                    if (table.find('thead').length === 0) {
+                                        // Nếu chưa có, thêm mới thead
+                                        var thead = document.createElement('thead');
+                                        var headerRow = document.createElement('tr');
+                                        var headers = ['#', 'Tên khách', 'Số điện thoại', 'Sân ca', 'Thời gian ', 'Ngày đặt lịch', 'Trạng thái', 'Chọn'];
+                                        for (var i = 0; i < headers.length; i++) {
+                                            var th = document.createElement('th');
+                                            th.scope = 'col';
+                                            th.textContent = headers[i];
+                                            $(th).css('border', '1px solid gray');
+                                            headerRow.appendChild(th);
+                                        }
+                                        thead.appendChild(headerRow);
+                                        table.prepend(thead);
+                                    }
+                                    var tableBody = $("#yourTableBody");
                                     tableBody.empty();
-                                    var startIndex = (currentPage - 1) * pageSize;
-                                    var endIndex = Math.min(startIndex + pageSize, data.length);
+                                    var pageSize = data.length;
+                                    var currentPage = 1;
                                     if (data.length < pageSize) {
                                         displayPage(data.length, data.length);
                                     } else {
                                         displayPage(pageSize, data.length);
                                     }
+                                    var startIndex = (currentPage - 1) * pageSize;
+                                    var endIndex = Math.min(startIndex + pageSize, data.length);
                                     for (var i = startIndex; i < endIndex; i++) {
                                         var item = data[i];
                                         var row = document.createElement('tr');
@@ -1629,7 +1653,8 @@
                                         row.dataset.thoiGianCheckIn = item.thoiGianCheckIn;
                                         row.dataset.ngayDenSan = item.ngayDenSan;
 
-
+                                        var cell0 = document.createElement('td');
+                                        cell0.textContent = parseInt(i + 1);
                                         //ô dữ liệu và thêm dữ liệu vào
                                         var cell1 = document.createElement('td');
                                         cell1.textContent = item.tenKhachHang;
@@ -1671,6 +1696,14 @@
 
                                         // ... (các sự kiện và cập nhật khác)
                                         //các ô vào hàng
+                                        $(cell0).css('border', '1px solid gray');
+                                        $(cell1).css('border', '1px solid gray');
+                                        $(cell2).css('border', '1px solid gray');
+                                        $(cell3).css('border', '1px solid gray');
+                                        $(cell4).css('border', '1px solid gray');
+                                        $(cell5).css('border', '1px solid gray');
+                                        $(cell6).css('border', '1px solid gray');
+                                        row.appendChild(cell0);
                                         row.appendChild(cell1);
                                         row.appendChild(cell2);
                                         row.appendChild(cell3);
@@ -1702,10 +1735,9 @@
                                         });
                                         tableBody.append(row);
                                     }
+                                    $('.checkbox-select').hide();
                                     $('#thanhToanNhieu').show();
                                     autoSelectFirstRow();
-                                    updatePagination();
-                                    $('.checkbox-select').hide();
                                 }
                             },
                             error: function (error) {
@@ -1742,7 +1774,6 @@
                     $('#hienThiBanGhi').append(htmlPage);
                 }
 
-                // hàm để cập nhật phân trang
                 function updatePagination() {
                     var pagination = $(".pagination");
                     pagination.empty();
@@ -2060,8 +2091,9 @@
         function thanhToanChuyenKhoan() {
             var tenKhachHang = $("#tenKhachHang").val();
             var tenSan = $("#tenSan").val();
+            var tongTien = tongTienHoaDonPhaiTra;
             Swal.fire({
-                title: 'Chắc Chắn Xác Nhận Thanh Toán Hóa Đơn : ' + tenKhachHang + ' : ' + tenSan,
+                title: 'Xác Nhận Thanh Toán Hóa Đơn : \n' + tenKhachHang + ' \n ' + tenSan + ' - ' + formatCurrencyVND(tongTien) + '.VNĐ',
                 text: 'Xin chào!',
                 icon: 'success',
                 confirmButtonText: 'Đồng Ý'
@@ -2079,6 +2111,7 @@
                         },
                         success: function (response) {
                             window.open(response);
+                            reloadPage();
                         },
                         error: function (error) {
                             console.error("Lỗi Ajax: ", error);
@@ -2091,9 +2124,10 @@
 
         function thanhToanTienMat() {
             var tenKhachHang = $("#tenKhachHang").val();
-            var tenSan = $("#tenSan").val();
+            var tenSan = $("#").val();
+            var tongTien = tongTienHoaDonPhaiTra;
             Swal.fire({
-                title: 'Chắc Chắn Xác Nhận Thanh Toán Hóa Đơn : ' + tenKhachHang + ' : ' + tenSan,
+                title: 'Xác Nhận Thanh Toán Hóa Đơn : \n' + tenKhachHang + ' \n ' + tenSan + ' - ' + formatCurrencyVND(tongTien) + '.VNĐ',
                 text: 'Xin chào!',
                 icon: 'success',
                 confirmButtonText: 'Đồng Ý'
@@ -2283,7 +2317,7 @@
         var tenKhachHang = $("#tenKhachHangNhieu").val();
         var sodienThoai = $("#soDienThoaiNhieu").val();
         Swal.fire({
-            title: 'Xác Nhận Thanh Toán Hóa Đơn : \n' + tenKhachHang + '   ' + formatCurrencyVND(tongTienHoaDonPhaiTraNhieuHoaDon) + '.VNĐ',
+            title: 'Xác Nhận Thanh Toán Hóa Đơn : \n' + tenKhachHang + '\n' + formatCurrencyVND(tongTienHoaDonPhaiTraNhieuHoaDon) + '.VNĐ',
             text: 'Xin chào!',
             icon: 'success',
             confirmButtonText: 'Đồng Ý'
@@ -2303,6 +2337,7 @@
                         var encodedList = encodeURIComponent(JSON.stringify(selectedIds));
                         document.cookie = "listThanhToans=" + encodedList + "; path=/";
                         window.open(response);
+                        reloadPage();
                     },
                     error: function (error) {
                         console.error("Lỗi Ajax: ", error);
@@ -2322,7 +2357,7 @@
         });
         var tenKhachHang = $("#tenKhachHangNhieu").val();
         Swal.fire({
-            title: 'Xác Nhận Thanh Toán Hóa Đơn : \n' + tenKhachHang + '   ' + formatCurrencyVND(tongTienHoaDonPhaiTraNhieuHoaDon) + '.VNĐ',
+            title: 'Xác Nhận Thanh Toán Hóa Đơn : \n' + tenKhachHang + '\n' + formatCurrencyVND(tongTienHoaDonPhaiTraNhieuHoaDon) + '.VNĐ',
             text: 'Xin chào!',
             icon: 'success',
             confirmButtonText: 'Đồng Ý'
@@ -2435,6 +2470,19 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 location.reload();
+            }
+        });
+    }
+
+    function viewDatLich() {
+        Swal.fire({
+            title: 'Xác Nhận Trở Lại Trang Đặt Lịch!',
+            text: 'Xin chào!',
+            icon: 'success',
+            confirmButtonText: 'Đồng Ý'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/api/v1/staff/view-dat-lich";
             }
         });
     }

@@ -58,7 +58,7 @@
             <div id="toasts" class="d-flex flex-column-reverse"></div>
         </div>
         <div class="card-header">
-            <h2>Thanh Toán Hóa Đơn</h2>
+            <br>
         </div>
         <!--        -->
         <div class="card-body">
@@ -67,7 +67,7 @@
                     <div class="row mt-3">
                         <div class="col-md-12 d-flex justify-content-start">
                             <div class="header-row-col">
-                                <h1 class="">Thông tin</h1>
+                                <h1 class="">Thông Tin Hóa Đơn Thanh Toán</h1>
                             </div>
                         </div>
                         <hr/>
@@ -78,7 +78,7 @@
                         <form class="row g-3">
                             <div class="col-md-4">
                                 <label for="tenKhachHang" class="form-label"
-                                >Tên khách hàng</label
+                                >Tên Khách Hàng</label
                                 >
                                 <input
                                         readonly
@@ -90,7 +90,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="soDienThoai" class="form-label"
-                                >Số điện thoại</label
+                                >Số Điện Thoại</label
                                 >
                                 <input
                                         readonly
@@ -107,7 +107,7 @@
                             </div>
 
                             <!--  -->
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="thoiGianNhanSan" class="form-label">Thời Gian Nhận Sân </label>
                                 <input
                                         readonly
@@ -118,7 +118,7 @@
                                 />
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="thoiGianDa" class="form-label">Thời Gian Đá </label>
                                 <input
                                         readonly
@@ -126,6 +126,16 @@
                                         name="thoiGianDa"
                                         class="form-control"
                                         id="thoiGianDa"
+                                />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="thoiGianDa" class="form-label">Loại Sân: </label>
+                                <input
+                                        readonly
+                                        type="text"
+                                        name="loaiSan"
+                                        class="form-control"
+                                        id="loaiSan"
                                 />
                             </div>
                             <div class="col-md-6">
@@ -234,7 +244,7 @@
                             <!-- Thanh toán -->
                             <div class="row mt-4" id="showThanhToan">
                                 <div class="col-md-12">
-                                    <h1>Thanh toán</h1>
+                                    <h1>Thanh Toán</h1>
                                 </div>
                                 <hr/>
 
@@ -245,7 +255,7 @@
                                         <label
                                                 for="selectPhuPhi"
                                                 class="col-md-4 col-form-label"
-                                        >Phụ phí:</label
+                                        >Phụ Phí:</label
                                         >
                                         <div class="col-md-8">
                                             <div class="input-group">
@@ -287,7 +297,7 @@
                                                                         class="modal-title"
                                                                         id="staticBackdropLabel"
                                                                 >
-                                                                    Thêm phụ phí
+                                                                    Thêm Phụ Phí
                                                                 </h5>
                                                                 <button
                                                                         type="button"
@@ -304,7 +314,7 @@
                                                                             <label
                                                                                     for="tenPhuPhi"
                                                                                     class="form-label"
-                                                                            >Tên phụ phí</label
+                                                                            >Tên Phụ Phí</label
                                                                             >
                                                                             <div class="input-group">
                                                                                 <input
@@ -319,7 +329,7 @@
                                                                             <label
                                                                                     for="giaPhuPhi"
                                                                                     class="form-label"
-                                                                            >Giá phụ phí</label
+                                                                            >Giá Phụ Phí</label
                                                                             >
                                                                             <div class="input-group">
                                                                                 <input
@@ -350,7 +360,7 @@
                                                                     <table class="table" id="tablePhuPhi">
                                                                         <thead>
                                                                         <tr>
-                                                                            <th scope="col">Stt</th>
+                                                                            <th scope="col">#</th>
                                                                             <th scope="col">Tên Phụ Phí</th>
                                                                             <th scope="col">Gía Phụ Phí</th>
                                                                             <th scope="col">Chọn</th>
@@ -395,7 +405,7 @@
                                                         onchange="toggleInputs()"
                                                 />
                                                 <label class="form-check-label" for="chuyenKhoan">
-                                                    Chuyển khoản
+                                                    Chuyển Khoản
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-inline">
@@ -408,7 +418,7 @@
                                                         onchange="toggleInputs()"
                                                 />
                                                 <label class="form-check-label" for="tienMat">
-                                                    Tiền mặt
+                                                    Tiền Mặt
                                                 </label>
                                             </div>
                                         </div>
@@ -511,8 +521,9 @@
                                         type="submit "
                                         id="btnQuayLai"
                                         class="m-2 btn btn-danger btn-labeled"
+                                        onclick="viewDatLich()"
                                 >
-                                    Trở Về
+                                    Home
                                     <span class="btn-label">
                                         <i class="fa fa-remove"></i>
                                          </span>
@@ -539,7 +550,7 @@
                             <div class="row">
                                 <div class="col-md-4 d-flex justify-content-start">
                                     <div class="header-row-col">
-                                        <h1 class="">Dịch vụ sử dụng</h1>
+                                        <h1 class="">Dịch Vụ Sử Dụng</h1>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -548,7 +559,7 @@
                                         <div class="col-md-5 col-sm-auto">
                                             <select id="select-san-staff" class="form-select"
                                                     style="border-radius: 5px">
-                                                <option selected value="0">Tất cả</option>
+                                                <option selected value="0">Tất Cả Dịch Vụ</option>
                                                 <option value="1">Nước Uống</option>
                                                 <option value="2">Đồ Thuê</option>
                                             </select>
@@ -586,7 +597,7 @@
                                                             <h5
                                                                     class="modal-title"
                                                             >
-                                                                Thêm dịch vụ
+                                                                Thêm Dịch Vụ
                                                             </h5>
                                                             <button
                                                                     type="button"
@@ -607,16 +618,16 @@
                                                                                 <div class="col-auto">
                                                                                     <label for="select-service-list-order"
                                                                                            class="col-form-label label-filter-list-order">Dịch
-                                                                                        vụ:</label>
+                                                                                        Vụ:</label>
                                                                                 </div>
                                                                                 <div class="col-md-3 col-sm-auto">
                                                                                     <select id="select-service-list-order"
                                                                                             class="form-select"
                                                                                             style="border-radius: 5px">
                                                                                         <option selected value="0">
-                                                                                            Tất cả
+                                                                                            Tất Cả Dịch Vụ
                                                                                         </option>
-                                                                                        <option value="1">Nước
+                                                                                        <option value="1">Nước Uống
                                                                                         </option>
                                                                                         <option value="2">Đồ Thuê
                                                                                         </option>
@@ -725,7 +736,8 @@
             $("input[id='tenKhachHang']").val(response.tenKhachHang);
             $("input[id='soDienThoai']").val(response.soDienThoai);
             $("input[id='tienCocThua']").val(formatCurrencyVND(response.tienCocThua));
-            $("input[id='tenSanCa']").val(response.tenSanBong + ' - ' + response.tenLoaiSan + ' - ' + response.tenCa);
+            $("input[id='tenSanCa']").val(response.tenSanBong + ' - ' + response.tenCa);
+            $("input[id='loaiSan']").val(response.tenLoaiSan);
             $("input[id='thoiGianNhanSan']").val(response.thoiGianCheckIn);
             $("input[id='thoiGianDa']").val(response.thoiGianBatDau + ' - ' + response.thoiGianKetThuc);
             $("input[id='giaSan']").val(formatCurrencyVND(response.tongTienSanCa));
@@ -734,7 +746,7 @@
             tongTienCoc = response.tienCoc;
             tongTienCocThua = response.tienCocThua;
             tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc + tongTienCocThua));
-            $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc + tongTienCocThua))) + '.VNĐ');
+            $("span[name='tongThanhToan']").text((formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - (parseFloat(tongTienCoc + tongTienCocThua)))) + '.VNĐ');
         });
     });
     $('#addDichVu').on('click', function () {
@@ -776,7 +788,7 @@
                         console.error('API Request Failed:', error);
                     }
                 });
-                createAndShowToast('bg-success', 'Thêm Dịch Vụ Thành Công :', tenDichVu + ' : ' + formatCurrencyVND(giaDichVu) + '.VNĐ' + ' Số Lượng: ' + soLuong);
+                createAndShowToast('bg-success', 'Thêm Dịch Vụ Thành Công :', tenDichVu + ' - ' + formatCurrencyVND(giaDichVu) + '.VNĐ' + ' - Số Lượng: ' + soLuong);
             }
         });
     });
@@ -809,7 +821,7 @@
                         console.error('API Request Failed:', error);
                     }
                 });
-                createAndShowToast('bg-success', 'Xóa Dịch Vụ Thành Công :', tenDichVu + ' : ' + ' Số Lượng: ' + soLuong);
+                createAndShowToast('bg-success', 'Xóa Dịch Vụ Thành Công :', tenDichVu + ' : ' + ' - Số Lượng: ' + soLuong);
             }
         });
     });
@@ -843,7 +855,7 @@
                         console.error('API Request Failed:', error);
                     }
                 });
-                createAndShowToast('bg-success', 'Cập Nhật Số Lượng Thành Công :', tenDichVu + ' : ' + formatCurrencyVND(giaDichVu) + '.VNĐ' + ' Số Lượng: ' + soLuong);
+                createAndShowToast('bg-success', 'Cập Nhật Số Lượng Thành Công :', tenDichVu + ' - ' + formatCurrencyVND(giaDichVu) + '.VNĐ' + ' - Số Lượng: ' + soLuong);
             }
         });
     });
@@ -932,7 +944,7 @@
                 }
                 tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc + tongTienCocThua));
                 $("input[id='giaDichVu']").val(formatCurrencyVND(tongTienDichVu));
-                $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc + tongTienCocThua))) + '.VNĐ');
+                $("span[name='tongThanhToan']").text(formatCurrencyVND(((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - (parseFloat(tongTienCoc + tongTienCocThua)))) + '.VNĐ');
             },
             error: function (error) {
                 console.error('API Request Failed:', error);
@@ -1040,8 +1052,8 @@
     $(document).on('click', '#saveNewPhuPhi', function () {
         var tenPhuPhi = $("#tenPhuPhi").val();
         var giaPhuPhi = parseFloat(document.getElementById('giaPhuPhi').value) || 0;
-        $('#tienTraLai').val();
-        $('#tienKhachDua').val();
+        $('#tienTraLai').val(0);
+        $('#tienKhachDua').val(0);
 
         if (tenPhuPhi == '') {
             $('#tenPhuPhi').val('').css('border-color', 'red');
@@ -1055,7 +1067,7 @@
         }
         if (tenPhuPhi != '' && giaPhuPhi !== 0) {
             Swal.fire({
-                title: 'Chắc Chắn Xác Nhận Thêm Phụ Phí!',
+                title: 'Xác Nhận Thêm Phụ Phí!',
                 text: 'Xin chào!',
                 icon: 'success',
                 confirmButtonText: 'Đồng Ý'
@@ -1076,7 +1088,7 @@
                             console.log("Error:", error);
                         }
                     });
-                    createAndShowToast('bg-success', 'Thêm Phụ Phí Thành Công :', tenPhuPhi + ' ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
+                    createAndShowToast('bg-success', 'Thêm Phụ Phí Thành Công :', tenPhuPhi + ' - ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
                     $('#tenPhuPhi').val('');
                     $('#giaPhuPhi').val(0);
                 }
@@ -1088,7 +1100,7 @@
 
     $(document).on('click', '#buttonXoaPhuPhiHoaDon', function () {
         Swal.fire({
-            title: 'Chắc Chắn Xác Nhận Xóa Phụ Phí!',
+            title: 'Xác Nhận Xóa Phụ Phí!',
             text: 'Xin chào!',
             icon: 'success',
             confirmButtonText: 'Đồng Ý'
@@ -1097,8 +1109,8 @@
                 var idPhuPhiHoaDon = $(this).data('id');
                 var tenPhuPhi = $(this).data('ten-phu-phi');
                 var giaPhuPhi = $(this).data('gia-phu-phi');
-                $('#tienTraLai').empty();
-                $('#tienKhachDua').empty();
+                $('#tienTraLai').val(0);
+                $('#tienKhachDua').val(0);
                 $.ajax({
                     url: '/api/v1/staff/phu-phi-hoa-don/xoa-phu-phi/' + idPhuPhiHoaDon,
                     method: 'DELETE',
@@ -1109,7 +1121,7 @@
                         console.error('API Request Failed:', error);
                     }
                 });
-                createAndShowToast('bg-success', 'Xóa Phụ Phí Thành Công :', tenPhuPhi + ' ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
+                createAndShowToast('bg-success', 'Xóa Phụ Phí Thành Công :', tenPhuPhi + ' - ' + formatCurrencyVND(giaPhuPhi) + '.VNĐ');
             }
         });
 
@@ -1150,7 +1162,7 @@
                     });
                     tongTienHoaDonPhaiTra = ((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - parseFloat(tongTienCoc + tongTienCocThua));
                     $('#giaPhuPhiShow').val(formatCurrencyVND(tongTienPhuPhi));
-                    $("span[name='tongThanhToan']").text(formatCurrencyVND((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi) - parseFloat(tongTienCoc + tongTienCocThua))) + '.VNĐ');
+                    $("span[name='tongThanhToan']").text(formatCurrencyVND(((tongTienSanCa) + parseFloat(tongTienDichVu + parseFloat(tongTienPhuPhi)) - (parseFloat(tongTienCoc + tongTienCocThua)))) + '.VNĐ');
                 } else {
                     $('#thongBaoPhuPhi').empty();
                     $('#tablePhuPhi').hide();
@@ -1234,11 +1246,6 @@
             }
         });
     });
-    $(document).ready(function () {
-        $("#btnQuayLai").click(function () {
-            window.location.href = "/api/v1/staff/view-dat-lich";
-        });
-    });
 
     function clearForm() {
         $('#dataNuocUong').empty();
@@ -1256,6 +1263,7 @@
         $('#tienCocThua').val(0);
         $('#giaSan').val(0);
         $('#thoiGianDa').val('');
+        $('#loaiSan').val('');
         $('#thoiGianCheckIn').val('');
         $('#tongThanhToan').text('0' + '.VNĐ');
     }
@@ -1264,20 +1272,21 @@
         var tenKhachHang = $("#tenKhachHang").val();
         var tenSan = $("#tenSanCa").val();
         clearForm();
-        createAndShowToast('bg-success', 'Thanh Toán Thành Công :', tenKhachHang + ' : ' + tenSan + ' : ' + formatCurrencyVND(tongTienHoaDonPhaiTra) + '.VNĐ');
+        createAndShowToast('bg-success', 'Thanh Toán Thành Công :', tenKhachHang + ' - ' + tenSan + ' - ' + formatCurrencyVND(tongTienHoaDonPhaiTra) + '.VNĐ');
     }
 
     function showMessageThanhToanWarning() {
-        var tenKhachHang = $("#").val();
+        var tenKhachHang = $("#tenKhachHang").val();
         var tenSan = $("#tenSanCa").val();
-        createAndShowToast('bg-warning', 'Thanh Toán Chưa Thành Công :', tenKhachHang + ' : ' + tenSan + ' : ' + formatCurrencyVND(tongTienHoaDonPhaiTra) + '.VNĐ');
+        createAndShowToast('bg-warning', 'Thanh Toán Chưa Thành Công :', tenKhachHang + ' - ' + tenSan + ' - ' + formatCurrencyVND(tongTienHoaDonPhaiTra) + '.VNĐ');
     }
 
     function thanhToanChuyenKhoan() {
         var tenKhachHang = $("#tenKhachHang").val();
         var tenSan = $("#tenSanCa").val();
+        var tongTien = tongTienHoaDonPhaiTra;
         Swal.fire({
-            title: 'Xác Nhận Thanh Toán Hóa Đơn : ' + tenKhachHang + ' : ' + tenSan,
+            title: 'Thanh Toán Hóa Đơn : \n' + tenKhachHang + '\n' + tenSan + ' - ' + formatCurrencyVND(tongTien) + '.VNĐ',
             text: 'Xin chào!',
             icon: 'success',
             confirmButtonText: 'Đồng Ý'
@@ -1295,6 +1304,7 @@
                     },
                     success: function (response) {
                         window.open(response);
+                        viewDatLich();
                     },
                     error: function (error) {
                         console.error("Lỗi Ajax: ", error);
@@ -1308,8 +1318,9 @@
     function thanhToanTienMat() {
         var tenKhachHang = $("#tenKhachHang").val();
         var tenSan = $("#tenSanCa").val();
+        var tongTien = tongTienHoaDonPhaiTra;
         Swal.fire({
-            title: 'Xác Nhận Thanh Toán Hóa Đơn : ' + tenKhachHang + ' : ' + tenSan,
+            title: 'Thanh Toán Hóa Đơn : \n' + tenKhachHang + '\n' + tenSan + ' - ' + formatCurrencyVND(tongTien) + '.VNĐ',
             text: 'Xin chào!',
             icon: 'success',
             confirmButtonText: 'Đồng Ý'
@@ -1327,6 +1338,7 @@
                     success: function (response) {
                         showMessageThanhToan();
                         inHoaDonThanhToan();
+                        viewDatLich();
                     },
                     error: function (error) {
                         console.error("Lỗi Ajax: ", error);
@@ -1428,8 +1440,21 @@
         }
         if (isNaN(inputValue) || parseFloat(inputValue) >= maxValue) {
             $(input).val(maxValue);
-            createAndShowToast('bg-warning', 'Qúa Số Lượng :', 'Số Lượng Lớn Nhất: ' + maxValue);
+            createAndShowToast('bg-warning', 'Qúa Số Lượng :', ' - Số Lượng Lớn Nhất: ' + maxValue);
         }
+    }
+
+    function viewDatLich() {
+        Swal.fire({
+            title: 'Xác Nhận Trở Lại Trang Đặt Lịch!',
+            text: 'Xin chào!',
+            icon: 'success',
+            confirmButtonText: 'Đồng Ý'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/api/v1/staff/view-dat-lich";
+            }
+        });
     }
 </script>
 <!-- Add Bootstrap JS and jQuery links -->
