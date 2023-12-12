@@ -1306,6 +1306,7 @@
                     success: function (response) {
                         window.open(response);
                         viewDatLich();
+                        inHoaDonThanhToan();
                     },
                     error: function (error) {
                         console.error("Lỗi Ajax: ", error);
@@ -1317,6 +1318,7 @@
     }
 
     function thanhToanTienMat() {
+        inHoaDonThanhToan();
         var tenKhachHang = $("#tenKhachHang").val();
         var tenSan = $("#tenSanCa").val();
         var tongTien = tongTienHoaDonPhaiTra;
@@ -1338,7 +1340,6 @@
                     },
                     success: function (response) {
                         showMessageThanhToan();
-                        inHoaDonThanhToan();
                         viewDatLich();
                     },
                     error: function (error) {
@@ -1353,15 +1354,14 @@
         const inputElement = document.getElementById('checkInHoaDon');
         if (inputElement) {
             if (inputElement.checked) {
-                console.log('Checkbox đã được chọn.');
                 if (getId) {
                     window.location.href = "/api/v1/staff/invoice/generate/" + getId;
                 } else {
-                    console.error("getId không được định nghĩa hoặc không có giá trị.");
+                    console.error("không có giá trị.");
                 }
             }
         } else {
-            console.log('Không tìm thấy thẻ input với ID đã chỉ định.');
+            console.log('Không tìm thấy.');
         }
     }
 

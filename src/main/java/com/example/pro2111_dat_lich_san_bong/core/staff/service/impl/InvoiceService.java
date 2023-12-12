@@ -2,20 +2,20 @@ package com.example.pro2111_dat_lich_san_bong.core.staff.service.impl;
 
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.DichVuSanBongRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest;
-import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.HoaDonSanCaStaffRepository;
-import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.HoaDonStaffRepository;
+import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.PhuPhiHoaDonStaffRepository;
+import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.PhuPhiStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IDichVuSanBongStaffService;
-import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
+import com.example.pro2111_dat_lich_san_bong.core.staff.service.IDoThueStaffService;
+import com.example.pro2111_dat_lich_san_bong.core.staff.service.INuocUongStaffService;
+import com.example.pro2111_dat_lich_san_bong.entity.DoThue;
+import com.example.pro2111_dat_lich_san_bong.entity.NuocUong;
+import com.example.pro2111_dat_lich_san_bong.entity.PhuPhi;
+import com.example.pro2111_dat_lich_san_bong.entity.PhuPhiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiDichVu;
-import com.itextpdf.io.font.FontProgram;
-import com.itextpdf.io.font.FontProgramFactory;
-import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.colors.DeviceGray;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -25,30 +25,35 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 
-import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
-import com.itextpdf.styledxmlparser.resolver.font.BasicFontProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class InvoiceService {
     @Autowired
-    private HoaDonSanCaStaffRepository hoaDonSanCaStaffRepository;
-
+    private IDichVuSanBongStaffService dichVuSanBongStaffService;
     @Autowired
-    private HoaDonStaffRepository hoaDonStaffRepository;
+    private INuocUongStaffService nuocUongStaffService;
     @Autowired
-    private static IDichVuSanBongStaffService iDichVuSanBongStaffService;
+    private IDoThueStaffService doThueStaffService;
+    @Autowired
+    private PhuPhiStaffRepository phuPhiStaffRepository;
+    @Autowired
+    private PhuPhiHoaDonStaffRepository phuPhiHoaDonStaffRepository;
 
-    public byte[] generatePdf(HoaDonThanhToanRequest hoaDonThanhToanRequest) throws IOException {
+    public byte[] generatePdfMotHoaDon(HoaDonThanhToanRequest hoaDonThanhToanRequest) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PdfFont font = PdfFontFactory.createFont("src/main/resources/static/fontPDF/UVNThoiNay_R.TTF", "Identity-H", true);
         try (PdfWriter writer = new PdfWriter(outputStream);
@@ -72,28 +77,20 @@ public class InvoiceService {
 
 
             document.add(
-                    createFieldAndShiftInfo("Tên Nhân Viên: ", " "+"Nguyễn Phúc Lâm")
+                    createFieldAndShiftInfo("Tên Nhân Viên : ", " " + "Nguyễn Phúc Lâm")
                             .setFont(font)
                             .setTextAlignment(TextAlignment.RIGHT)
             );
+            Date currentDate = new Date();
 
-            document.add(
-                    createFieldAndShiftInfo("Sân Thi Đấu: ",
-                            String.valueOf(
-                                    " "+
-                                            hoaDonThanhToanRequest.getTenSanBong() + " - " +
-                                            hoaDonThanhToanRequest.getTenLoaiSan() + " - " +
-                                            hoaDonThanhToanRequest.getTenCa()
-                            )
-                    )
-                            .setFont(font)
-                            .setTextAlignment(TextAlignment.RIGHT)
-            );
+            // Định dạng ngày tháng năm
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
 
 //
             String thoiGianBatDau = String.valueOf(hoaDonThanhToanRequest.getThoiGianBatDau());
             String thoiGianKetThuc = String.valueOf(hoaDonThanhToanRequest.getThoiGianKetThuc());
-            document.add(createFieldAndShiftInfo("Thời Gian: "," "+ thoiGianBatDau + " - " + thoiGianKetThuc)
+            document.add(createFieldAndShiftInfo("Thời Gian : ", dateFormat.format(currentDate))
                     .setFont(font)
                     .setTextAlignment(TextAlignment.RIGHT)
             );
@@ -101,9 +98,9 @@ public class InvoiceService {
 
             document.add(
                     createHeader("Thông Tin Khách Hàng")
-                    .setFont(font)
-                    .setFontSize(20)
-                    .setBackgroundColor(new DeviceRgb(63, 169, 219))
+                            .setFont(font)
+                            .setFontSize(20)
+                            .setBackgroundColor(new DeviceRgb(63, 169, 219))
             );
 
 //            add địa chỉ khách hàng vào address, email (hiện tại đang fix cứng)
@@ -111,7 +108,10 @@ public class InvoiceService {
                     createCustomerInfo(
                             String.valueOf(hoaDonThanhToanRequest.getTenKhachHang()),
                             "Sân Bóng Đồng Đế", "Emai",
-                            String.valueOf(hoaDonThanhToanRequest.getSoDienThoai())
+                            String.valueOf(hoaDonThanhToanRequest.getSoDienThoai()),
+                            String.valueOf(hoaDonThanhToanRequest.getTenSanBong() + " - " + hoaDonThanhToanRequest.getTenCa()),
+                            hoaDonThanhToanRequest.getTienCoc(),
+                            hoaDonThanhToanRequest.getTienCocThua()
                     )
             );
 
@@ -123,9 +123,9 @@ public class InvoiceService {
             );
 
 
-            document.add(createServiceUsageTable(hoaDonThanhToanRequest,font));
+            document.add(createServiceUsageTable(hoaDonThanhToanRequest, font));
 
-            document.add(createClosingMessage("Xin Cảm Ơn Quý Khách! -- Liên Hệ: 0356169620")
+            document.add(createClosingMessage("Xin Cảm Ơn Quý Khách! -- Liên Hệ: 0356169620.")
                     .setFont(font)
                     .setFontSize(15));
         } catch (Exception e) {
@@ -134,7 +134,7 @@ public class InvoiceService {
         return outputStream.toByteArray();
     }
 
-    private static Table createHeader(String name) {
+    private Table createHeader(String name) {
         Table header = new Table(UnitValue.createPercentArray(new float[]{1}));
         header.setWidth(UnitValue.createPercentValue(100));
 
@@ -150,54 +150,93 @@ public class InvoiceService {
         return header;
     }
 
-    private static Table createCustomerInfo(String name, String address, String email, String phone) throws IOException {
+    private Table createCustomerInfo(String name, String address, String email, String phone, String sanCa, double tienCocSan, double tienCocSanThua) throws IOException {
         PdfFont font = PdfFontFactory.createFont("src/main/resources/static/fontPDF/UVNThoiNay_R.TTF", "Identity-H", true);
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
         Table customerInfo = new Table(UnitValue.createPercentArray(new float[]{2, 2}));
         customerInfo.setWidth(UnitValue.createPercentValue(100));
 
-        customerInfo.addCell(createHeaderCellInFo("Tên Khách Hàng").setFont(font));
+        customerInfo.addCell(createHeaderCellInFo("Tên Khách Hàng : ").setFont(font));
         customerInfo.addCell(createCellDataInFo(name).setFont(font));
 
-        customerInfo.addCell(createHeaderCellInFo("Địa Chỉ").setFont(font));
-        customerInfo.addCell(createCellDataInFo(address).setFont(font));
-
-        customerInfo.addCell(createHeaderCellInFo("Email").setFont(font));
-        customerInfo.addCell(createCellDataInFo(email).setFont(font));
-
-        customerInfo.addCell(createHeaderCellInFo("Số Điện Thoại").setFont(font));
+        customerInfo.addCell(createHeaderCellInFo("Số Điện Thoại : ").setFont(font));
         customerInfo.addCell(createCellDataInFo(phone).setFont(font));
 
-        // Add more rows as needed
+        customerInfo.addCell(createHeaderCellInFo("Tiền Cọc Sân : ").setFont(font));
+        customerInfo.addCell(createCellDataInFo(String.valueOf(currencyFormat.format(tienCocSan))).setFont(font));
+
+        customerInfo.addCell(createHeaderCellInFo("Tiền Cọc Sân Thừa: ").setFont(font));
+        customerInfo.addCell(createCellDataInFo(String.valueOf(currencyFormat.format(tienCocSanThua))).setFont(font));
+
+        customerInfo.addCell(createHeaderCellInFo("Địa Chỉ : ").setFont(font));
+        customerInfo.addCell(createCellDataInFo(address).setFont(font));
+
+        customerInfo.addCell(createHeaderCellInFo("Email : ").setFont(font));
+        customerInfo.addCell(createCellDataInFo(email).setFont(font));
+
+        customerInfo.addCell(createHeaderCellInFo("Sân Ca Hóa Đơn : ").setFont(font));
+        customerInfo.addCell(createCellDataInFo(sanCa).setFont(font));
 
         return customerInfo;
     }
 
 
-    private static Table createServiceUsageTable(HoaDonThanhToanRequest hoaDonThanhToanRequest,PdfFont font) {
+    private Table createServiceUsageTable(HoaDonThanhToanRequest hoaDonThanhToanRequest, PdfFont font) {
         Table serviceTable = new Table(UnitValue.createPercentArray(new float[]{2, 1, 1, 1}));
         serviceTable.setWidth(UnitValue.createPercentValue(100));
-
         // Table Header
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        System.out.println(hoaDonThanhToanRequest.getId());
+        List<DichVuSanBongRequest> listDichVuSanBongRequests = dichVuSanBongStaffService.dichVuSanBongSuDungByHoaDonSanCas(hoaDonThanhToanRequest.getId(), TrangThaiDichVu.Dang_Su_Dung.ordinal());
+
         serviceTable.addHeaderCell(createHeaderCell("Tên Dịch Vụ").setFont(font));
         serviceTable.addHeaderCell(createHeaderCell("Số Lượng").setFont(font));
         serviceTable.addHeaderCell(createHeaderCell("Giá").setFont(font));
         serviceTable.addHeaderCell(createHeaderCell("Tổng").setFont(font));
-
-        // Sample Service Data
-        serviceTable.addCell(createCellData("Nước Uống").setFont(font));
-        serviceTable.addCell(createCellData("5").setFont(font));
-        serviceTable.addCell(createCellData("500.000").setFont(font));
-        serviceTable.addCell(createCellData("250.000").setFont(font));
-
-        // Sample Service Data
-        serviceTable.addCell(createCellData("Áo Đấu").setFont(font));
-        serviceTable.addCell(createCellData("5").setFont(font));
-        serviceTable.addCell(createCellData("500.000").setFont(font));
-        serviceTable.addCell(createCellData("250.000").setFont(font));
-
-        serviceTable.addCell(createTotalCell("Tổng Tiền", String.valueOf(hoaDonThanhToanRequest.getTongTienSanCa())).setFont(font));
+        double tongTienDichVu = 0;
+        for (DichVuSanBongRequest dichVuSanBongRequest : listDichVuSanBongRequests) {
+            tongTienDichVu += dichVuSanBongRequest.getTongTien();
+            if (dichVuSanBongRequest.getIdNuocUong() != null) {
+                NuocUong nuocUong = nuocUongStaffService.getOneNuocUong(dichVuSanBongRequest.getIdNuocUong());
+                int soLuong = Integer.valueOf(Math.toIntExact(dichVuSanBongRequest.getSoLuongNuocUong()));
+                Double donGia = nuocUong.getDonGia();
+                Double tongTien = soLuong * donGia;
+                serviceTable.addCell(createCellData(nuocUong.getTenNuocUong()).setFont(font));
+                serviceTable.addCell(createCellData(String.valueOf(soLuong)).setFont(font));
+                serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(donGia))).setFont(font));
+                serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(tongTien))).setFont(font));
+            }
+            if (dichVuSanBongRequest.getGiaDoThue() != null) {
+                DoThue doThue = doThueStaffService.getOneDoThue(dichVuSanBongRequest.getIdDoThue());
+                int soLuong = Integer.valueOf(Math.toIntExact(dichVuSanBongRequest.getSoLuongDoThue()));
+                Double donGia = doThue.getDonGia();
+                Double tongTien = soLuong * donGia;
+                serviceTable.addCell(createCellData(doThue.getTenDoThue()).setFont(font));
+                serviceTable.addCell(createCellData(String.valueOf(soLuong)).setFont(font));
+                serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(donGia))).setFont(font));
+                serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(tongTien))).setFont(font));
+            }
+        }
+        double tongTienPhuPhi = calculateTongTienPhuPhi(hoaDonThanhToanRequest.getId());
+        serviceTable.addCell(createTotalCell("Tiền Dich Vụ : " + currencyFormat.format(tongTienDichVu) + " ; " + " Tiền Sân Bóng: " + currencyFormat.format(hoaDonThanhToanRequest.getTongTienSanCa()) + " ; " + " Tiền Phụ Phí: " + currencyFormat.format(tongTienPhuPhi), " ").setFont(font));
+        double tongThanhToan = ((hoaDonThanhToanRequest.getTongTienSanCa() + tongTienDichVu + tongTienPhuPhi) - (hoaDonThanhToanRequest.getTienCoc() + hoaDonThanhToanRequest.getTienCocThua()));
+        serviceTable.addCell(createTotalCell("Tổng Hóa Đơn Thanh Toán: " + currencyFormat.format(tongThanhToan), " ").setFont(font));
 
         return serviceTable;
+    }
+
+    private double calculateTongTienPhuPhi(String hoaDonId) {
+        List<PhuPhiHoaDon> listPhuPhiHoaDons = phuPhiHoaDonStaffRepository.findPhuPhiHoaDonsByIdHoaDonSanCa(hoaDonId);
+        double tongTienPhuPhi = 0;
+        if (listPhuPhiHoaDons != null && !listPhuPhiHoaDons.isEmpty()) {
+            for (PhuPhiHoaDon phuPhiHoaDon : listPhuPhiHoaDons) {
+                PhuPhi phuPhi = phuPhiStaffRepository.findById(phuPhiHoaDon.getIdPhuPhi()).orElse(null);
+                if (phuPhiHoaDon.getIdPhuPhi().equals(phuPhi.getId())) {
+                    tongTienPhuPhi += phuPhi.getGiaPhuPhi();
+                }
+            }
+        }
+        return tongTienPhuPhi;
     }
 
     private static Cell createCell(String header, String content) {
@@ -212,7 +251,7 @@ public class InvoiceService {
     private static Cell createHeaderCellInFo(String text) {
         return new Cell().add(new Paragraph(text))
                 .setBorder(Border.NO_BORDER)
-                .setTextAlignment(TextAlignment.CENTER)
+                .setTextAlignment(TextAlignment.RIGHT)
                 .setFontSize(13);
     }
 
@@ -221,7 +260,7 @@ public class InvoiceService {
         return new Cell().add(new Paragraph(data))
                 .setBorder(Border.NO_BORDER)
                 .setVerticalAlignment(VerticalAlignment.MIDDLE)
-                .setTextAlignment(TextAlignment.CENTER)
+                .setTextAlignment(TextAlignment.LEFT)
                 .setFontSize(13);
     }
 
@@ -242,23 +281,20 @@ public class InvoiceService {
                 .setFontSize(13);
     }
 
-//    Tổng tiền 1
+    //    Tổng tiền 1
     private static Cell createTotalCell(String header, String total) {
-        Cell cell = new Cell(1, 4).add(new Paragraph(header))
+        Cell cell = new Cell(4, 4).add(new Paragraph(header))
                 .setBorder(new SolidBorder(DeviceGray.BLACK, 1))
-                .setVerticalAlignment(VerticalAlignment.MIDDLE)
                 .setTextAlignment(TextAlignment.RIGHT)
-                .setBackgroundColor( new DeviceRgb(63, 169, 219))
                 .setFontSize(15);
 
         cell.add(new Paragraph(total));
-
         return cell;
     }
 
 //     Tổng tiền 2
 
-//
+    //
     private static Paragraph createFieldAndShiftInfo(String fieldInfo, String title) {
         Paragraph info = new Paragraph()
                 .add(new Paragraph(fieldInfo).setFontSize(13))
