@@ -666,3 +666,22 @@ canvas {
     font-size: 18px;
     color: black;
 }
+
+/*Croll table check in*/
+.table-container {
+    max-height: 500px; /* Điều chỉnh độ cao tối đa của phần body */
+    overflow-y: auto;
+}
+
+#table-dat-san th,
+#table-dat-san td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#table-dat-san th {
+    background-color: #f2f2f2;
+    position: sticky;
+    top: 0;
+}

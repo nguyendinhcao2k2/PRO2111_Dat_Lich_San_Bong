@@ -619,11 +619,15 @@ function genDataTable(tt) {
         newRow.append('<td>' + row.tenCa + '</td>');
         newRow.append('<td>' + row.time + '</td>');
         newRow.append('<td>' + formatCurrencyVND(row.price) + '</td>');
-        newRow.append(`<td><button onclick="deleteRow('${tt[i].cbId}-${tt[i].ngay}')" class="btn btn-primary">Xóa</button></td>`);
-
+        newRow.append(`<td>
+                                 <div class="d-flex flex-column">
+                                    <button onclick="deleteRow('${tt[i].cbId}-${tt[i].ngay}')" class="btn btn-danger btn-sm mt-2">Xóa</button>
+                                 </div>
+                    </td>`);
         // Thêm hàng mới vào tbody
         $('#idTable').append(newRow);
     }
+  // setPrice(tt);
 }
 
 function setSelectedCheckBox(date) {
@@ -1074,11 +1078,6 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
                                                     Hủy
                                                 </button>
                                             </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Đổi Sân
-                                                </a>
-                                            </li>
                                         </ul>`
     } else if (trangThai === 1) {
         return `<ul
@@ -1133,4 +1132,22 @@ function convertCurrencyStringToNumber(currencyString) {
     const numericValue = parseInt(currencyString.replace(/[^\d]/g, ''), 10);
 
     return numericValue;
+}
+
+function setPrice(tt) {
+    let spanTongTien = $('#spanTongTien');
+    let spanTienCoc = $('#spanTienCoc');
+    let tongTien = 0;
+    if (tt.length === 0) {
+        spanTongTien.val(formatCurrencyVND(0));
+        spanTienCoc.val(formatCurrencyVND(0));
+        return;
+    } else {
+        for (let i = 0; i < tt.length; i++) {
+            let row = tt[i];
+            tt += Number(row.price);
+        }
+    }
+    spanTongTien.val(formatCurrencyVND(tongTien));
+    spanTienCoc.val(formatCurrencyVND(tongTien * 0.5));
 }

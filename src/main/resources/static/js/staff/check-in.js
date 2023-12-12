@@ -9,9 +9,9 @@ window.onload = function () {
             if (responseData.length === 0) {
                 let tbody = $('#tbody');
                 tbody.empty();
-                tbody.append(`<div style="width: 100%" class="alert alert-danger noContent" role="alert">
+                tbody.append(`<td colspan="9" class="alert alert-danger noContent" role="alert">
                                     <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
-                               </div>`)
+                               </td>`)
             } else {
                 $('#tbody').empty();
                 let trRow = ``;
