@@ -185,6 +185,25 @@
         .event-tooltip {
             pointer-events: none; /* Không tương tác với con chuột */
         }
+
+        /*Croll table check in*/
+        .table-container {
+            max-height: 650px; /* Điều chỉnh độ cao tối đa của phần body */
+            overflow-y: auto;
+        }
+
+        #idTable th,
+        #idTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #idTable th {
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+        }
     </style>
 </head>
 <body>
@@ -882,16 +901,17 @@
                                     <h5>Sự Kiện</h5>
                                     <hr/>
                                 </div>
-                                <div>
+                                <div class="table-container">
                                     <table
                                             class="table table-bordered table-hover click-event-fullcalendar"
                                             style="color: black"
+                                            id="idTable"
                                     >
                                         <thead>
-                                        <tr>
-                                            <th>Thông tin ca</th>
-                                            <th>Thao tác</th>
-                                        </tr>
+                                            <tr>
+                                                <th>Thông tin ca</th>
+                                                <th>Thao tác</th>
+                                            </tr>
                                         </thead>
                                         <tbody id="tableShow"></tbody>
                                     </table>

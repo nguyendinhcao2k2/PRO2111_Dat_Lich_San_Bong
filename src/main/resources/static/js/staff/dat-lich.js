@@ -619,7 +619,11 @@ function genDataTable(tt) {
         newRow.append('<td>' + row.tenCa + '</td>');
         newRow.append('<td>' + row.time + '</td>');
         newRow.append('<td>' + formatCurrencyVND(row.price) + '</td>');
-        newRow.append(`<td><button onclick="deleteRow('${tt[i].cbId}-${tt[i].ngay}')" class="btn btn-primary">Xóa</button></td>`);
+        newRow.append(`<td>
+                                 <div class="d-flex flex-column">
+                                    <button onclick="deleteRow('${tt[i].cbId}-${tt[i].ngay}')" class="btn btn-danger btn-sm mt-2">Xóa</button>
+                                 </div>
+                    </td>`);
         // Thêm hàng mới vào tbody
         $('#idTable').append(newRow);
     }
