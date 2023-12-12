@@ -143,7 +143,6 @@ public class ThanhToanHoaDonStaffController {
                         hinhThucThanhToan.setIdHoaDonSanCa(hoaDonSanCa.getId());
                         sanCaStaffRepository.saveAndFlush(sanCa);
                         hinhThucThanhToanRepository.saveAndFlush(hinhThucThanhToan);
-
                         capNhatTrangThaiDichVu(hoaDonSanCa.getId());
                         capNhatTrangThaiPhuPhi(hoaDonSanCa.getId());
                     }

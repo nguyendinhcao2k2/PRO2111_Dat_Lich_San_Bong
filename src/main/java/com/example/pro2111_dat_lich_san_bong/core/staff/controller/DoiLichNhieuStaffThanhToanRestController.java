@@ -306,53 +306,30 @@ public class DoiLichNhieuStaffThanhToanRestController {
                     listHoaDonSanCaCu.add(hoaDonSanCa);
                 }
 
+                //xoa san cu
+                for (String idSanCaCu : listSanCaCu) {
+                    HoaDonSanCa hoaDonSanCa = hoaDonSanCaUserService.findByIdSanCa(idSanCaCu);
+                    hoaDonSanCaUserService.deleteByIdHoaDonSanCa(hoaDonSanCa.getId());
+                    sanCaUserService.deleteSanCaById(idSanCaCu);
+                }
 
                 //update lại hoa don
                 Set<String> listHoaDonMail = new HashSet<>();
+                HoaDon hoaDon = new HoaDon();
                 for (String idHD : hoaDonListSanCaMoi) {
-                    HoaDon hoaDon = hoaDonUserService.findHoaDonById(idHD);
+                    hoaDon = hoaDonUserService.findHoaDonById(idHD);
+                    listHoaDonMail.add(hoaDon.getId());
                     for (int i = 0; i < listHoaDonSanCaUpdate.size(); i++) {
                         if (listHoaDonSanCaUpdate.size() == listHoaDonSanCaCu.size()) {
                             if (hoaDon.getId().equals(listHoaDonSanCaCu.get(i).getIdHoaDon())) {
                                 hoaDon.setTongTien(hoaDon.getTongTien() - listHoaDonSanCaCu.get(i).getTienSan() + listHoaDonSanCaUpdate.get(i).getTienSan());
                                 hoaDon.setTienCoc(hoaDon.getTongTien() * (phanTramTienCoc / 100));
                                 hoaDonUserService.updateHoaDon(hoaDon);
-                                listHoaDonMail.add(hoaDon.getId());
-                                ViTienCoc viTienCoc = viTienUserService.findByIdHoaDon(hoaDon.getId());
-                                if(viTienCoc.getTypePayment() == LoaiHinhThanhToan.TIEN_MAT.ordinal()){
-                                    ViTienCoc viTienCocNew = new ViTienCoc();
-                                    viTienCocNew.setSoTien(doiLichNhieuRequestList.get(0).getTienCocThieu());
-                                    viTienCocNew.setLoaiTien("VND");
-                                    viTienCocNew.setThoiGianTao(Timestamp.valueOf(LocalDateTime.now()));
-                                    viTienCocNew.setTrangThai(TrangThaiViTien.BINH_THUONG.ordinal());
-                                    viTienCocNew.setNoiDung("Tiền cọc đổi lịch sân bóng");
-                                    viTienCocNew.setIdHoaDon(viTienCoc.getIdHoaDon());
-                                    viTienCocNew.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
-                                    viTienCocNew.setSoGiaoDich(transactionId);
-                                    viTienUserService.saveViTen(viTienCocNew);
-                                }else{
-                                    viTienCoc.setSoTien(viTienCoc.getSoTien() + doiLichNhieuRequestList.get(0).getTienCocThieu());
-                                    viTienUserService.updateViTien(viTienCoc);
-                                }
-                                Double tienDaoDong = listHoaDonSanCaUpdate.get(i).getTienSan() - listHoaDonSanCaCu.get(i).getTienSan();
-                                if (tienDaoDong > 0) {
-                                    LichSuViTien lichSuViTien = new LichSuViTien();
-                                    lichSuViTien.setIdViTienCoc(viTienCoc.getId());
-                                    lichSuViTien.setSoTien((tienDaoDong) * (phanTramTienCoc / 100));
-                                    lichSuViTien.setLoaiTien("VND");
-                                    lichSuViTien.setThoiGian(LocalDateTime.now());
-                                    lichSuViTien.setTaiKhoanVi("TK" + Math.floor((Math.random() * 899999) + 100000));
-                                    lichSuViTien.setLoaiBienDong(TrangThaiLoaiBienDong.CONG_TIEN);
-                                    lichSuViTien.setTrangThai("0");
-                                    lichSuViTien.setNguoiNhan("Công ty TNHH Đồng Đế");
-                                    lichSuViTienUserService.saveOrUpdate(lichSuViTien);
-                                }
-
-
                             }
                         }
 
                     }
+
                     //gửi mail
                     for (String items : listHoaDonMail) {
                         HoaDon hoaDonMail = hoaDonUserService.findHoaDonById(items);
@@ -403,16 +380,29 @@ public class DoiLichNhieuStaffThanhToanRestController {
                     }
 
                     //gửi mail
-
                 }
+                ViTienCoc viTienCocNew = new ViTienCoc();
+                viTienCocNew.setThoiGianTao(Timestamp.valueOf(LocalDateTime.now()));
+                viTienCocNew.setLoaiTien("VND");
+                viTienCocNew.setTrangThai(TrangThaiViTien.BINH_THUONG.ordinal());
+                viTienCocNew.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
+                viTienCocNew.setNoiDung("Tiền cọc đổi lịch");
+                viTienCocNew.setIdHoaDon(hoaDon.getId());
+                viTienCocNew.setSoGiaoDich(transactionId);
+                viTienCocNew.setSoTien((Double.valueOf(totalPrice) / 100));
+                ViTienCoc viTienSave = viTienUserService.updateViTien(viTienCocNew);
+                LichSuViTien lichSuViTien = new LichSuViTien();
+                lichSuViTien.setIdViTienCoc(viTienSave.getId());
+                lichSuViTien.setSoTien((Double.valueOf(totalPrice) / 100));
+                lichSuViTien.setLoaiTien("VND");
+                lichSuViTien.setThoiGian(LocalDateTime.now());
+                lichSuViTien.setTaiKhoanVi("TK" + Math.floor((Math.random() * 899999) + 100000));
+                lichSuViTien.setLoaiBienDong(TrangThaiLoaiBienDong.CONG_TIEN);
+                lichSuViTien.setTrangThai("0");
+                lichSuViTien.setNguoiNhan("Công ty TNHH Đồng Đế");
+                lichSuViTienUserService.saveOrUpdate(lichSuViTien);
 
 
-                //xoa san cu
-                for (String idSanCaCu : listSanCaCu) {
-                    HoaDonSanCa hoaDonSanCa = hoaDonSanCaUserService.findByIdSanCa(idSanCaCu);
-                    hoaDonSanCaUserService.deleteByIdHoaDonSanCa(hoaDonSanCa.getId());
-                    sanCaUserService.deleteSanCaById(idSanCaCu);
-                }
 
             } catch (Exception e) {
                 e.printStackTrace();
