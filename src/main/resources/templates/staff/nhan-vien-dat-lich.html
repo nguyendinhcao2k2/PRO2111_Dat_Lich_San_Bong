@@ -782,9 +782,9 @@
                                                                 data-bs-target="#modalInfo"
                                                         >
                                                             <span class="button__text">Thông Tin</span>
-                                                            <span class="button__icon">
-                                <i class="fas fa-info"></i>
-                              </span>
+                                                                <span class="button__icon">
+                                                                    <i class="fas fa-info"></i>
+                                                                </span>
                                                         </button>
                                                         <!-- Modal  -->
                                                         <div class="modal" id="modalInfo">
@@ -850,24 +850,61 @@
                                                                                 </form>
                                                                             </div>
                                                                             <!--   day la san ca-->
-                                                                            <div class="col-md-8 col-sm-auto">
-                                                                                <table
-                                                                                        class="table table-bordered table-hover"
-                                                                                        style="color: black"
-                                                                                >
-                                                                                    <thead>
-                                                                                    <tr>
-                                                                                        <th>Sân Bóng</th>
-                                                                                        <th>Ngày</th>
-                                                                                        <th>Ca</th>
-                                                                                        <th>Thời Gian</th>
-                                                                                        <th>Giá</th>
-                                                                                        <th>Thao tác</th>
-                                                                                    </tr>
-                                                                                    </thead>
-                                                                                    <tbody id="idTable">
-                                                                                    </tbody>
-                                                                                </table>
+                                                                            <div class="col-md-8 col-sm-auto ">
+                                                                                <div class="table-container">
+                                                                                    <table
+                                                                                            class="table table-bordered table-hover"
+                                                                                            style="color: black"
+                                                                                            id="table-dat-san"
+                                                                                    >
+                                                                                        <thead>
+                                                                                        <tr>
+                                                                                            <th>Sân Bóng</th>
+                                                                                            <th>Ngày</th>
+                                                                                            <th>Ca</th>
+                                                                                            <th>Thời Gian</th>
+                                                                                            <th>Giá</th>
+                                                                                            <th>Thao tác</th>
+                                                                                        </tr>
+                                                                                        </thead>
+                                                                                        <tbody id="idTable">
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+
+                                                                                <div class="card text-bg-light p-2" style="border-radius: 0px">
+                                                                                    <div class="row">
+                                                                                        <div class="col-6 col-md-6 col-sm-6">
+                                                                                            <h4
+                                                                                            >
+                                                                                                Tổng tiền sân:
+                                                                                            </h4>
+                                                                                        </div>
+                                                                                        <div class="col-6 col-md-6 col-sm-6">
+                                                                                            <h4
+                                                                                                    class=" text-center text-primary"
+                                                                                                    id="id_tongTien"
+                                                                                            >
+                                                                                                600000 VND
+                                                                                            </h4>
+                                                                                        </div>
+                                                                                        <div class="col-6 col-md-6 col-sm-6">
+                                                                                            <h4
+                                                                                            >
+                                                                                                Tổng tiền cọc:
+                                                                                            </h4>
+                                                                                        </div>
+                                                                                        <div class="col-6 col-md-6 col-sm-6">
+                                                                                            <h4
+                                                                                                    class=" text-center text-primary"
+                                                                                                    id="id_tienCoc"
+                                                                                            >
+                                                                                                600000 VND
+                                                                                            </h4>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                             <div style="margin-bottom: 10px; font-family: Arial, sans-serif; color: #333; font-size: 18px; font-weight: bold;">Tổng tiền: <span style="font-size: 15px" th:id="spanTongTien" th:text="0"></span></div>
                                                                             <div style="margin-bottom: 10px; font-family: Arial, sans-serif; color: #333; font-size: 18px; font-weight: bold;">Tiền cọc: <span style="font-size: 15px" th:id="spanTienCoc" th:text="0"></span></div>
