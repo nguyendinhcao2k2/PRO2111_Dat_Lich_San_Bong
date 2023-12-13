@@ -2988,8 +2988,8 @@
                 </tr>
                 `;
         }));
-        $('#id_tongTien').text(  formatCurrencyVND(tongTien));
-        $('#id_tienCoc').text( formatCurrencyVND(tongTien * (thamSoTienCoc / 100)));
+        $('#id_tongTien').html(formatCurrencyVND(tongTien));
+        $('#id_tienCoc').html(formatCurrencyVND(tongTien * (thamSoTienCoc / 100)));
     }
 
     function formatTime(inputTime) {
