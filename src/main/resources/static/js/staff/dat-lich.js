@@ -660,6 +660,7 @@ function deleteRow(id) {
             break;
         }
     }
+    setPrice(JSON.parse(localStorage.getItem("thongTin")));
 }
 
 function datSan() {
@@ -1135,19 +1136,26 @@ function convertCurrencyStringToNumber(currencyString) {
 }
 
 function setPrice(tt) {
-    let spanTongTien = $('#spanTongTien');
-    let spanTienCoc = $('#spanTienCoc');
-    let tongTien = 0;
+    let tongTien = $('#id_tongTien');
+    let tienCoc = $('#id_tienCoc');
+    let tongt = 0;
     if (tt.length === 0) {
-        spanTongTien.val(formatCurrencyVND(0));
-        spanTienCoc.val(formatCurrencyVND(0));
+        tongTien.text(formatCurrencyVND(0));
+        tienCoc.text(formatCurrencyVND(0));
         return;
     } else {
         for (let i = 0; i < tt.length; i++) {
             let row = tt[i];
-            tt += Number(row.price);
+            console.log(row);
+            tongt += Number(row.price);
         }
     }
-    spanTongTien.val(formatCurrencyVND(tongTien));
-    spanTienCoc.val(formatCurrencyVND(tongTien * 0.5));
+    tongTien.text(formatCurrencyVND(tongt));
+    tienCoc.text(formatCurrencyVND(tongt * 0.5));
 }
+
+function openModal(){
+    let thongTinSanBongList = JSON.parse(localStorage.getItem("thongTin"));
+    setPrice(thongTinSanBongList);
+}
+
