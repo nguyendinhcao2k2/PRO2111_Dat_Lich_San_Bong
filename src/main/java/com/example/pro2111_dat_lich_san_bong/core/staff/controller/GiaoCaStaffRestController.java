@@ -71,11 +71,13 @@ public class GiaoCaStaffRestController {
             }
             giaoCaStaffResponse.setTongHoaDonDaThanhToan(countHDTT);
             //tong so hoa don chua thanh toan trong ca
-            Integer countHDCTT = _giaoCaStaffService.tongSoHoaDonTrongCaFollowStatus(TrangThaiGiaoCa.NHAN_CA.ordinal(), TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal());
+            Integer countHDCTT = _giaoCaStaffService.tongSoHoaDonTrongCaFollowStatus(TrangThaiGiaoCa.NHAN_CA.ordinal(), TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal());
+            Integer countHDCTTConLai = _giaoCaStaffService.tongSoHoaDonChuaTT(TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal());
             if (countHDCTT == null) {
                 countHDCTT = 0;
             }
-            giaoCaStaffResponse.setTongHoaDonChuaThanhToan(countHDCTT);
+
+            giaoCaStaffResponse.setTongHoaDonChuaThanhToan(countHDCTT + countHDCTTConLai);
             //tong tien bang tien mat
             Double tongTienCocTienMat = viTienCocAdminService.tongTienThanhToanCocTheoHinhThucThanhToanTrongCaLamViec(LoaiHinhThanhToan.TIEN_MAT.ordinal(),giaoCaResponse.getThoiGianNhanCa());
             Double totalCash = _giaoCaStaffService.tongTienTrongCaTheoHinhThucThanhToan(LoaiHinhThanhToan.TIEN_MAT.ordinal());

@@ -23,6 +23,8 @@ public interface IGiaoCaStaffService {
     GiaoCaResponse findGiaoCaByTrangThaiAndIdAccount(TrangThaiGiaoCa trangThaiGiaoCa, String idAccount);
 
     Integer tongSoHoaDonTrongCaFollowStatus(Integer trangThaiGC, Integer trangThaiHDSC);
+    Integer tongSoHoaDonChuaTTTrongCa(Integer trangThaiGC, Integer trangThaiHDSC);
+    Integer tongSoHoaDonChuaTT(Integer trangThaiHDSC);
 
     Double tongTienTrongCaTheoHinhThucThanhToan(Integer loaiHinhThanhToan);
 
