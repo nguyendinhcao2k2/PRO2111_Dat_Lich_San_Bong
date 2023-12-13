@@ -104,12 +104,43 @@ public class GiaoCaStaffServiceImpl implements IGiaoCaStaffService {
     public Integer tongSoHoaDonTrongCaFollowStatus(Integer trangThaiGC, Integer trangThaiHDSC) {
         try {
             Integer soHoaDon = _giaoCaStaffReponsitory.tongSoHoaDonTrongCaFollowStatus(trangThaiGC, trangThaiHDSC);
-            return soHoaDon;
+            if(soHoaDon != null){
+                return soHoaDon;
+            }
+            return 0;
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
 
+    }
+
+    @Override
+    public Integer tongSoHoaDonChuaTTTrongCa(Integer trangThaiGC, Integer trangThaiHDSC) {
+        try {
+            Integer soHoaDon = _giaoCaStaffReponsitory.tongSoHoaDonChuaTTTrongCa(trangThaiGC, trangThaiHDSC);
+            if(soHoaDon != null){
+                return soHoaDon;
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
+    public Integer tongSoHoaDonChuaTT( Integer trangThaiHDSC) {
+        try {
+            Integer soHoaDon = _giaoCaStaffReponsitory.tongSoHoaDonChuaTT(trangThaiHDSC);
+            if(soHoaDon != null){
+                return soHoaDon;
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     @Override
