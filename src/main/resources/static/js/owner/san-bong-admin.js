@@ -329,17 +329,17 @@ function pageDirection() {
         if (parseInt(tab2.currentPageSB) + 1 == parseInt(tab2.totalPageSB)) {
             return;
         }
-        pageTion(parseInt(tab2.currentPageSB) + 1);
+        pageTionSB(parseInt(tab2.currentPageSB) + 1);
     });
     $(".previousPageSB").click(() => {
         if (parseInt(tab2.currentPageSB) == 0) {
             return;
         }
-        pageTion(parseInt(tab2.currentPageSB) - 1);
+        pageTionSB(parseInt(tab2.currentPageSB) - 1);
     });
 }
 
-function pageTion(value) {
+function pageTionSB(value) {
     var url = "";
     if (parseInt(tab2.indexSearch) == 0) {
         url =

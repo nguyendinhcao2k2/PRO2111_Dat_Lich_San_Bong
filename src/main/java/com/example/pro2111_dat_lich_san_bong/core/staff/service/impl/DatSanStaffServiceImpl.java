@@ -129,7 +129,8 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
                 if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                     LocalTime localTimeCompare = LocalTime.parse(loadCaResponse.getThoiGianBatDau(), formatter);
-                    if (localTime.isAfter(localTimeCompare)) {
+                    LocalTime localTimeComparePlusHours = localTimeCompare.plusMinutes(30).plusHours(1);
+                    if (localTime.isAfter(localTimeComparePlusHours)) {
                         loadCaResponse.setTrangThai(4);
                     }
                 }
@@ -186,7 +187,8 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
                 if (localDateCompare.compareTo(localDateTime.toLocalDate()) == 0) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                     LocalTime localTimeCompare = LocalTime.parse(loadCaResponse.getThoiGianBatDau(), formatter);
-                    if (localTime.isAfter(localTimeCompare)) {
+                    LocalTime localTimeComparePlusHours = localTimeCompare.plusMinutes(30).plusHours(1);
+                    if (localTime.isAfter(localTimeComparePlusHours)) {
                         loadCaResponse.setTrangThai(4);
                     }
                 }
@@ -292,6 +294,11 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
     }
 
     @Override
+    public void huySan(String idHDSanca) {
+        sanCaStaffRepository.deleteById(hoaDonSanCaStaffRepository.findById(idHDSanca).get().getIdSanCa());
+    }
+
+    @Override
     public List<HoaDonStaffResponse> filterHoaDon(FilterLichDatRequest filterLichDatRequest) {
         return hoaDonStaffRepository.filterHoaDon("%" + filterLichDatRequest.getTextString() + "%");
     }
@@ -371,7 +378,7 @@ public class DatSanStaffServiceImpl implements IDatSanStaffService {
 
         try {
             HoaDon hoaDonA = hoaDonStaffRepository.save(hoaDon);
-            viTienCoc.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
+            viTienCoc.setTypePayment(LoaiHinhThanhToan.TIEN_MAT.ordinal());
             viTienCoc.setSoTien(tongTien * (Double.valueOf(param.getValue()) / 100));
             viTienCoc.setIdHoaDon(hoaDonA.getId());
             viTienCoc.setNoiDung("Tien coc san bong");

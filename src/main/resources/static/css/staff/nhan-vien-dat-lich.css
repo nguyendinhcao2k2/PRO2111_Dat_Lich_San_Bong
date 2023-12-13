@@ -531,7 +531,7 @@ input[type="checkbox"].cho-thanh-toan:disabled
 
 /* table form coppy for giao ca  */
 .form-label {
-    font-size: 16px;
+    font-size: 18px;
     color: black;
 }
 
@@ -639,7 +639,7 @@ video {
     padding-top: 6%; /* Tỷ lệ chiều cao tùy thuộc vào thiết kế của bạn */
     margin-bottom: 10px; /* Khoảng cách bottom giữa camera và nút là 10px */
     width: 100%;
-    height: 100%;
+    height: 450px;
     object-fit: cover; /* Đảm bảo video không bị biến dạng khi kích thước không đúng */
     display: block;
 }
@@ -665,4 +665,23 @@ canvas {
 .col-form-label {
     font-size: 18px;
     color: black;
+}
+
+/*Croll table check in*/
+.table-container {
+    max-height: 500px; /* Điều chỉnh độ cao tối đa của phần body */
+    overflow-y: auto;
+}
+
+#table-dat-san th,
+#table-dat-san td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#table-dat-san th {
+    background-color: #f2f2f2;
+    position: sticky;
+    top: 0;
 }

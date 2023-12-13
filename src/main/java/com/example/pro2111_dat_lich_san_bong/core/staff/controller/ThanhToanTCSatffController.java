@@ -138,7 +138,7 @@ public class ThanhToanTCSatffController extends BaseController {
 
 
         // Định dạng mong muốn
-        String outputDateFormat = "yyyy-MM-dd hh:mm:ss";
+        String outputDateFormat = "yyyy-MM-dd HH:mm:ss";
 
         // Tạo đối tượng SimpleDateFormat cho định dạng ban đầu
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");

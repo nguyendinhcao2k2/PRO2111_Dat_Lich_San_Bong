@@ -55,7 +55,7 @@ function reloadSanBong() {
                         waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                         outOfTimeField++;
                     } else if (ca.trangThai === 4) {
@@ -92,7 +92,7 @@ function reloadSanBong() {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
+                                        ${setSelectBox(ca.trangThai, ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -264,7 +264,7 @@ function filterSanBong() {
                         waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                         outOfTimeField++;
                     } else if (ca.trangThai === 4) {
@@ -301,7 +301,7 @@ function filterSanBong() {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
+                                        ${setSelectBox(ca.trangThai, ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -450,7 +450,7 @@ window.onload = function () {
                         waitingForPayField++;
                     } else if (ca.trangThai === 3) {
                         trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                         outOfTimeField++;
                     } else if (ca.trangThai === 4) {
@@ -486,7 +486,7 @@ window.onload = function () {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                         ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
+                                         ${setSelectBox(ca.trangThai, ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -619,11 +619,15 @@ function genDataTable(tt) {
         newRow.append('<td>' + row.tenCa + '</td>');
         newRow.append('<td>' + row.time + '</td>');
         newRow.append('<td>' + formatCurrencyVND(row.price) + '</td>');
-        newRow.append(`<td><button onclick="deleteRow('${tt[i].cbId}-${tt[i].ngay}')" class="btn btn-primary">Xóa</button></td>`);
-
+        newRow.append(`<td>
+                                 <div class="d-flex flex-column">
+                                    <button onclick="deleteRow('${tt[i].cbId}-${tt[i].ngay}')" class="btn btn-danger btn-sm mt-2">Xóa</button>
+                                 </div>
+                    </td>`);
         // Thêm hàng mới vào tbody
         $('#idTable').append(newRow);
     }
+  // setPrice(tt);
 }
 
 function setSelectedCheckBox(date) {
@@ -656,6 +660,7 @@ function deleteRow(id) {
             break;
         }
     }
+    setPrice(JSON.parse(localStorage.getItem("thongTin")));
 }
 
 function datSan() {
@@ -702,35 +707,46 @@ function datSan() {
     }
 
     if (check) {
-        let tt = JSON.parse(localStorage.getItem("thongTin"));
-        if (tt.length === 0 || tt === null) {
-            alert("Vui lòng chọn sân bóng");
-        } else {
-            let thongTin = JSON.parse(localStorage.getItem("thongTin"));
-            let dataSend = {
-                hoVaTen: hoTen,
-                soDienThoai: sdt,
-                email: emailSend,
-                ghiChu: ghiChuSend,
-                thongTinLichDatRequests: thongTin
-            }
-            $.ajax({
-                url: apiUrl + "/dat-lich",
-                type: "POST",
-                data: JSON.stringify(dataSend),
-                contentType: "application/json",
-                success: function (data) {
-                    localStorage.setItem("thongTin", JSON.stringify([]));
-                    $('#modalInfo').modal('hide');
-                    $('#idTable').empty();
-                    reloadSanBong();
-                },
-                error: function (error) {
-                    alert(error.responseJSON.message);
-                    $('#modalInfo').modal('hide');
+        Swal.fire({
+            title: "Bạn có chắc chắn muốn đặt đặt lịch không ?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Xác nhận',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let tt = JSON.parse(localStorage.getItem("thongTin"));
+                if (tt.length === 0 || tt === null) {
+                    alert("Vui lòng chọn sân bóng");
+                } else {
+                    let thongTin = JSON.parse(localStorage.getItem("thongTin"));
+                    let dataSend = {
+                        hoVaTen: hoTen,
+                        soDienThoai: sdt,
+                        email: emailSend,
+                        ghiChu: ghiChuSend,
+                        thongTinLichDatRequests: thongTin
+                    }
+                    $.ajax({
+                        url: apiUrl + "/dat-lich",
+                        type: "POST",
+                        data: JSON.stringify(dataSend),
+                        contentType: "application/json",
+                        success: function (data) {
+                            localStorage.setItem("thongTin", JSON.stringify([]));
+                            $('#modalInfo').modal('hide');
+                            $('#idTable').empty();
+                            alert(data.content)
+                            reloadSanBong();
+                        },
+                        error: function (error) {
+                            alert(error.responseJSON.message);
+                            $('#modalInfo').modal('hide');
+                        }
+                    });
+
                 }
-            });
-        }
+            }
+        });
     }
 }
 
@@ -932,7 +948,7 @@ function callApiFilter(param) {
                                       </div>`
                         } else if (ca.trangThai === 3) {
                             trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
-                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ</span>
+                                        <span class="badge rounded-pill bg-danger badge-status">Quá giờ đặt</span>
                                       </div>`
                         } else if (ca.trangThai === 4) {
                             trangThai = `<div class="card-footer border-0" style="background-color: #ffff">
@@ -965,7 +981,7 @@ function callApiFilter(param) {
                                                 style="color: black; font-size: 18px; font-weight: bold;"
                                             >${ca.tenCa}</label>
                                         </button>
-                                        ${setSelectBox(ca.trangThai,ca.idHoaDonSanCa)}
+                                        ${setSelectBox(ca.trangThai, ca.idHoaDonSanCa)}
                                     </div>
                                 </div>
                                 <div
@@ -1059,14 +1075,9 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#" class="dropdown-item">
+                                                <button type="submit" style="border: none" onclick="huyLich('${idHoaDonSanCa}')"  class="dropdown-item">
                                                     Hủy
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">
-                                                    Đổi Sân
-                                                </a>
+                                                </button>
                                             </li>
                                         </ul>`
     } else if (trangThai === 1) {
@@ -1081,6 +1092,31 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
                                         </ul>`
     }
     return ``;
+}
+
+function huyLich(idSanCa) {
+    Swal.fire({
+        title: "Bạn có chắc chắn muốn hủy lịch không ?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Xác nhận',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: apiUrl + "/huy-san/" + idSanCa,
+                type: "DELETE",
+                contentType: "application/json",
+                success: function (data) {
+                    alert(data.content);
+                    reloadSanBong();
+                },
+                error: function (error) {
+                    alert(error.responseJSON.message);
+                    $('#modalInfo').modal('hide');
+                }
+            });
+        }
+    });
 }
 
 function formatCurrencyVND(amount) {
@@ -1098,3 +1134,28 @@ function convertCurrencyStringToNumber(currencyString) {
 
     return numericValue;
 }
+
+function setPrice(tt) {
+    let tongTien = $('#id_tongTien');
+    let tienCoc = $('#id_tienCoc');
+    let tongt = 0;
+    if (tt.length === 0) {
+        tongTien.text(formatCurrencyVND(0));
+        tienCoc.text(formatCurrencyVND(0));
+        return;
+    } else {
+        for (let i = 0; i < tt.length; i++) {
+            let row = tt[i];
+            console.log(row);
+            tongt += Number(row.price);
+        }
+    }
+    tongTien.text(formatCurrencyVND(tongt));
+    tienCoc.text(formatCurrencyVND(tongt * 0.5));
+}
+
+function openModal(){
+    let thongTinSanBongList = JSON.parse(localStorage.getItem("thongTin"));
+    setPrice(thongTinSanBongList);
+}
+

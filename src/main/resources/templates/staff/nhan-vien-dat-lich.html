@@ -91,6 +91,13 @@
             <div class="body-row-col">
                 <!-- Nav tab -->
                 <div class="wrapper">
+                    <div
+                            id="toastContainer"
+                            class="position-fixed osition-absolute top-0 end-0 p-3"
+                            style="z-index: 9999"
+                    >
+                        <div id="toasts" class="d-flex flex-column-reverse"></div>
+                    </div>
                     <div class="tabs">
                         <ul class="nav-tabs">
                             <li class="active">
@@ -434,19 +441,19 @@
                                         <div class="col-md-8 d-flex justify-content-end">
                                             <div class="row g-1">
                                                 <div class="col-md-auto col-sm-auto m-1 d-flex justify-content-end">
-                                                    <button
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalCheckIn"
-                                                            type="button"
-                                                            class="button-check-in"
-                                                    >
-                                                        <span class="button-icon-text-filter">
-                                                                Check In
-                                                        </span>
-                                                                <span class="button-icon-header">
-                                                              <i class="fa-solid fa-check fa-lg"></i>
-                                                        </span>
-                                                    </button>
+<!--                                                    <button-->
+<!--                                                            data-bs-toggle="modal"-->
+<!--                                                            data-bs-target="#modalCheckIn"-->
+<!--                                                            type="button"-->
+<!--                                                            class="button-check-in"-->
+<!--                                                    >-->
+<!--                                                        <span class="button-icon-text-filter">-->
+<!--                                                                Check In-->
+<!--                                                        </span>-->
+<!--                                                                <span class="button-icon-header">-->
+<!--                                                              <i class="fa-solid fa-check fa-lg"></i>-->
+<!--                                                        </span>-->
+<!--                                                    </button>-->
                                                     <!-- Modal -->
                                                     <div
                                                             class="modal fade"
@@ -469,17 +476,17 @@
                                                                     ></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <div
-                                                                            id="toastContainer"
-                                                                            class="position-fixed osition-absolute top-0 end-0 p-3"
-                                                                            style="z-index: 9999"
-                                                                    >
-                                                                        <div id="toasts" class="d-flex flex-column-reverse"></div>
-                                                                    </div>
+<!--                                                                    <div-->
+<!--                                                                            id="toastContainer"-->
+<!--                                                                            class="position-fixed osition-absolute top-0 end-0 p-3"-->
+<!--                                                                            style="z-index: 9999"-->
+<!--                                                                    >-->
+<!--                                                                        <div id="toasts" class="d-flex flex-column-reverse"></div>-->
+<!--                                                                    </div>-->
                                                                     <div class="row">
                                                                         <div class="col-md-3">
                                                                             <div class="">
-                                                                                <h5>Quét QR</h5>
+                                                                                <h5 class="text-primary" style="font-size: 28px; font-weight: bold">Quét QR</h5>
                                                                             </div>
                                                                             <hr />
                                                                             <div>
@@ -512,7 +519,7 @@
                                                                         </div>
                                                                         <div class="col-md-9">
                                                                             <div class="">
-                                                                                <h5>Danh sách</h5>
+                                                                                <h5 class="text-primary" style="font-size: 28px; font-weight: bold">Danh sách</h5>
                                                                             </div>
                                                                             <hr />
                                                                             <form class="row mb-3">
@@ -776,15 +783,16 @@
                                                 >
                                                     <div>
                                                         <button
+                                                                th:onclick="|openModal()|"
                                                                 type="button"
                                                                 class="button-header"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#modalInfo"
                                                         >
                                                             <span class="button__text">Thông Tin</span>
-                                                            <span class="button__icon">
-                                <i class="fas fa-info"></i>
-                              </span>
+                                                                <span class="button__icon">
+                                                                    <i class="fas fa-info"></i>
+                                                                </span>
                                                         </button>
                                                         <!-- Modal  -->
                                                         <div class="modal" id="modalInfo">
@@ -849,25 +857,60 @@
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
-                                                                            <!--                                                                    day la san ca-->
-                                                                            <div class="col-md-8 col-sm-auto">
-                                                                                <table
-                                                                                        class="table table-bordered table-hover"
-                                                                                        style="color: black"
-                                                                                >
-                                                                                    <thead>
-                                                                                    <tr>
-                                                                                        <th>Sân Bóng</th>
-                                                                                        <th>Ngày</th>
-                                                                                        <th>Ca</th>
-                                                                                        <th>Thời Gian</th>
-                                                                                        <th>Giá</th>
-                                                                                        <th>Thao tác</th>
-                                                                                    </tr>
-                                                                                    </thead>
-                                                                                    <tbody id="idTable">
-                                                                                    </tbody>
-                                                                                </table>
+                                                                            <!--   day la san ca-->
+                                                                            <div class="col-md-8 col-sm-auto ">
+                                                                                <div class="table-container">
+                                                                                    <table
+                                                                                            class="table table-bordered table-hover"
+                                                                                            style="color: black"
+                                                                                            id="table-dat-san"
+                                                                                    >
+                                                                                        <thead>
+                                                                                        <tr>
+                                                                                            <th>Sân Bóng</th>
+                                                                                            <th>Ngày</th>
+                                                                                            <th>Ca</th>
+                                                                                            <th>Thời Gian</th>
+                                                                                            <th>Giá</th>
+                                                                                            <th>Thao tác</th>
+                                                                                        </tr>
+                                                                                        </thead>
+                                                                                        <tbody id="idTable">
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+
+                                                                                <div class="card text-bg-light p-2" style="border-radius: 0px">
+                                                                                    <div class="row">
+                                                                                        <div class="col-6 col-md-6 col-sm-6">
+                                                                                            <h4
+                                                                                            >
+                                                                                                Tổng tiền sân:
+                                                                                            </h4>
+                                                                                        </div>
+                                                                                        <div class="col-6 col-md-6 col-sm-6">
+                                                                                            <h4
+                                                                                                    class=" text-center text-primary"
+                                                                                                    id="id_tongTien"
+                                                                                            >
+                                                                                            </h4>
+                                                                                        </div>
+                                                                                        <div class="col-6 col-md-6 col-sm-6">
+                                                                                            <h4
+                                                                                            >
+                                                                                                Tổng tiền cọc:
+                                                                                            </h4>
+                                                                                        </div>
+                                                                                        <div class="col-6 col-md-6 col-sm-6">
+                                                                                            <h4
+                                                                                                    class=" text-center text-primary"
+                                                                                                    id="id_tienCoc"
+                                                                                            >
+                                                                                            </h4>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -922,6 +965,7 @@
 <!-- mobiscroll -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script th:src="@{/static/js/lib/mobiscroll.jquery.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- END mobiscroll -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
@@ -936,6 +980,7 @@
 <!--QR code-->
 <script th:src="@{/static/js/custom/read-qrcode.js}"></script>
 <script th:src="@{/static/js/utill/thong-bao.js}"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
 
 <script>

@@ -154,7 +154,7 @@
             color: black;
         }
 
-        .form-label, .col-form-label {
+        .form-label, .col-form-label,.form-check-label,.input-group-text {
             font-size: 18px;
             color: black;
         }
@@ -166,6 +166,12 @@
         .btn-labeled{
             border-radius: 5px;
         }
+        .modal-header, .modal-title{
+            background: #f7941e;
+            color: #fff;
+            font-size: 25px;
+        }
+
         /* trinh soan thao */
     </style>
 </head>
@@ -290,7 +296,7 @@
     <div class="tab-content" id="myTabContent">
         <!-- Tab 1 -->
         <div
-                class="tab-pane fade  tabAccount"
+                class="tab-pane fade tabAccount"
                 id="tab1"
                 role="tabpanel"
                 aria-labelledby="tab1-tab"
@@ -450,7 +456,7 @@
 <!--pageing-->
                         <div class="row">
                             <div class="col-md-6">
-                                <select class="pageSizeSelect" style="width: 100px">
+                                <select class="pageSizeSelectTaiKhoan" style="width: 100px">
                                     <option value="5" >5</option>
                                     <option value="10" selected>10</option>
                                     <option value="15">15</option>
@@ -461,13 +467,13 @@
                             <div class="col-md-6 d-flex justify-content-end">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">
-                                        <li class="page-item previousPage">
+                                        <li class="page-item previousPageTaiKhoan">
                                             <a class="page-link" style="cursor: pointer">Previous</a>
                                         </li>
                                         <li class="page-item">
                                             <a class="page-link">{{curentPage +1}}/{{totalPage}}</a>
                                         </li>
-                                        <li class="page-item nextPage">
+                                        <li class="page-item nextPageTaiKhoan">
                                             <a class="page-link" style="cursor: pointer">Next</a>
                                         </li>
                                     </ul>
@@ -773,7 +779,7 @@
                                     <form @submit.prevent="confirmUpdate">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                CẬP NHẬT SÂN BÓNG
+                                                Thông Tin Sân Bóng
                                             </h1>
                                             <button
                                                     type="button"
@@ -783,7 +789,7 @@
                                             ></button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="input-group flex-nowrap">
+                                            <div class="input-group flex-nowrap mt-3 mb-3">
                                                 <input type="text" v-model="sanBongUpdate.id" hidden/>
                                                 <input
                                                         type="text"
@@ -795,9 +801,9 @@
                                                         v-model="sanBongUpdate.tenSanBong"
                                                 />
                                             </div>
-                                            <br/>
-                                            <div class="input-group flex-nowrap">
-                                                  <span class="input-group-text" id="addon-wrapping"
+
+                                            <div class="input-group flex-nowrap mb-3">
+                                                  <span class="input-group-text" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px" id="addon-wrapping"
                                                   >Loại sân</span
                                                   >
                                                 <select
@@ -815,8 +821,8 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <br/>
-                                            <div class="form-check form-check-inline">
+
+                                            <div class="form-check form-check-inline mb-3">
                                                 <input
                                                         class="form-check-input"
                                                         type="radio"
@@ -831,7 +837,7 @@
                                                 >
                                             </div>
 
-                                            <div class="form-check form-check-inline">
+                                            <div class="form-check form-check-inline mb-3">
                                                 <input
                                                         class="form-check-input"
                                                         type="radio"
@@ -851,14 +857,14 @@
                                                     class="btn btn-danger btn-labeled"
                                                     data-bs-dismiss="modal"
                                             >
-                                                Close
+                                                Hủy
                                             </button>
                                             <button
                                                     type="button"
                                                     class="btn btn-primary btn-labeled"
                                                     @click="confirmUpdate"
                                             >
-                                                Cập nhật
+                                                Cập Nhật
                                             </button>
                                         </div>
                                     </form>
@@ -1480,7 +1486,7 @@
                             <form @submit.prevent="confirmUpdate">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                        Thông tin
+                                        Thông Tin Tham Số
                                     </h1>
                                     <button
                                             type="button"
@@ -1490,14 +1496,12 @@
                                     ></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div>Chức Năng: {{paramUpdate.name}}</div>
-                                    <br/>
-                                    <div>Mã Code: {{paramUpdate.code}}</div>
-                                    <br/>
-                                    <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping"
-                        >VALUE</span
-                        >
+                                    <div class="form-label mt-3 mb-3">Chức Năng: {{paramUpdate.name}}</div>
+                                    <div class="form-label mb-3">Mã Code: {{paramUpdate.code}}</div>
+                                    <div class="input-group flex-nowrap mb-3">
+                                        <span class="input-group-text" id="addon-wrapping" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+                                        >Value</span
+                                        >
                                         <input
                                                 type="text"
                                                 class="form-control valueParam valueParamUpdate"
@@ -1508,11 +1512,11 @@
                                                 @input="checkValidValueSysParam($event)"
                                         />
                                     </div>
-                                    <br/>
-                                    <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping"
-                        >TYPE</span
-                        >
+
+                                    <div class="input-group flex-nowrap mb-3">
+                                        <span class="input-group-text" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px" id="addon-wrapping"
+                                        >Type</span
+                                        >
                                         <input
                                                 type="text"
                                                 class="form-control "
@@ -1523,19 +1527,19 @@
                                                 v-model="paramUpdate.type"
                                         />
                                     </div>
-                                    <br>
-                                    NOTE
-                                    <div class="form-floating">
-                        <textarea
-                                class="form-control"
-                                placeholder="Leave a comment here"
-                                id="floatingTextarea"
-                                required
-                                v-model="paramUpdate.note"
-                        ></textarea>
+
+                                    <label class="form-label">Ghi Chú</label>
+                                    <div class="form-floating mb-3">
+                                    <textarea
+                                            class="form-control"
+                                            placeholder="Leave a comment here"
+                                            id="floatingTextarea"
+                                            required
+                                            v-model="paramUpdate.note"
+                                    ></textarea>
                                         <label for="floatingTextarea">Ghi chú....</label>
                                     </div>
-                                    <br/>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button
@@ -1543,7 +1547,7 @@
                                             class="btn btn-danger btn-labeled"
                                             data-bs-dismiss="modal"
                                     >
-                                        Close
+                                        Hủy
                                     </button>
                                     <button type="submit" class="btn btn-primary btn-labeled">
                                         Cập nhật
@@ -1605,6 +1609,9 @@
                                             @input="handleDonGia($event)"
                                             v-model="doThue.donGia"
                                     />
+                                    <span class="input-group-text" id="basic-addon1"
+                                          style="border-bottom-right-radius: 5px; border-top-right-radius: 5px"
+                                    >Vnd</span>
                                 </div>
                             </div>
                             <div class="col-md-12 col-sm-12 mt-3">
@@ -1758,7 +1765,7 @@
                                     <form @submit.prevent="updateDoThue" enctype="multipart/form-data" rel="formUpdate">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Đồ thuê</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông Tin Đồ Thuê</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -1766,14 +1773,13 @@
                                                 <div style="text-align: center;">
                                                     <span v-if="detailDoThueEntity.image == null">Chưa cập nhật ảnh</span>
                                                     <img v-else :src="imgSrc(detailDoThueEntity.image)"
-                                                         style="width: 200px;height: 100px;border: 1px solid black;border-radius: 40% 40% 40% 40%">
+                                                         style="width: 200px;height: 100px;border: 1px solid black">
                                                 </div>
                                                 <br>
                                                 <input type="hidden" v-model="detailDoThueEntity.id">
-                                                <div class="input-group flex-nowrap">
-                                                        <span class="input-group-text" id="addon-wrapping"
-                                                        >Tên</span
-                                                        >
+                                                <div class="input-group flex-nowrap mt-3 mb-3">
+                                                        <span class="input-group-text" id="addon-wrapping" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+                                                        >Tên</span>
                                                     <input
                                                             type="text"
                                                             class="form-control"
@@ -1783,10 +1789,10 @@
                                                             v-model="detailDoThueEntity.tenDoThue"
                                                     />
                                                 </div>
-                                                <br>
-                                                <div class="input-group flex-nowrap">
-                                                    <span class="input-group-text" id="addon-wrapping"
-                                                    >Đơn giá</span
+
+                                                <div class="input-group flex-nowrap mb-3">
+                                                    <span class="input-group-text" id="addon-wrapping" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+                                                    >Đơn Giá</span
                                                     >
                                                     <input
                                                             type="text"
@@ -1799,13 +1805,13 @@
                                                             @input="handleDonGia($event)"
                                                             v-model="detailDoThueEntity.donGia"
                                                     />
-                                                    <span class="input-group-text" id="addon-wrapping"
+                                                    <span class="input-group-text" id="addon-wrapping" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px"
                                                     >Vnd</span>
                                                 </div>
-                                                <br>
-                                                <div class="input-group flex-nowrap">
-                                                        <span class="input-group-text" id="addon-wrapping"
-                                                        >Số lượng</span
+
+                                                <div class="input-group flex-nowrap mb-3">
+                                                        <span class="input-group-text" id="addon-wrapping" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+                                                        >Số Lượng</span
                                                         >
                                                     <input
                                                             type="number"
@@ -1819,21 +1825,21 @@
                                                             v-model="detailDoThueEntity.soLuong"
                                                     />
                                                 </div>
-                                                <br>
-                                                <label for="avatar" style="display: block;font:1rem 'Fira Sans',sans-serif;  margin: 0.4rem 0;">Chọn
-                                                    ảnh:</label>
+
+                                                <label  for="avatar" class="form-label ">Chọn
+                                                    Ảnh</label>
                                                 <input
                                                         type="file"
                                                         ref="fileInput"
-                                                        class="form-control"
+                                                        class="form-control input-group-text mb-3"
                                                         id="idFileAnhUpdate"
                                                         @change="handelImg($event)"
                                                         aria-describedby="addon-wrapping"
                                                         accept="image/*"
                                                 />
-                                                <br>
+
                                                 <div
-                                                        class="form-check form-check-inline"
+                                                        class="form-check form-check-inline mb-3"
                                                         style="margin-left: 30px"
                                                 >
                                                     <input
@@ -1851,7 +1857,7 @@
                                                     >
                                                 </div>
 
-                                                <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline mb-3">
                                                     <input
                                                             class="form-check-input"
                                                             type="radio"
@@ -1868,7 +1874,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger huyModalUpdate btn-labeled" data-bs-dismiss="modal">Hủy</button>
-                                                <button type="submit" class="btn btn-success btn-labeled">Cập nhật</button>
+                                                <button type="submit" class="btn btn-success btn-labeled">Cập Nhật</button>
                                             </div>
                                         </div>
                                     </form>
@@ -1997,7 +2003,7 @@
                             <div class="input-group mb-3">
                     <span
                             class="input-group-text"
-                            style="cursor: pointer border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+                            style="cursor: pointer ;border-top-left-radius: 5px; border-bottom-left-radius: 5px"
                             id="basic-addon1"
                     ><i class="fa fa-search" aria-hidden="true"></i
                     ></span>
@@ -2151,7 +2157,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                    Đồ thuê
+                                                    Thông Tin Nước Uống
                                                 </h1>
                                                 <button
                                                         type="button"
@@ -2162,27 +2168,26 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div style="text-align: center">
-                              <span v-if="detailNuocUongEntity.image == null"
-                              >Chưa cập nhật ảnh</span
-                              >
+                                                      <span v-if="detailNuocUongEntity.image == null"
+                                                      >Chưa cập nhật ảnh</span
+                                                      >
                                                     <img
                                                             v-else
                                                             :src="imgSrcNuocUong(detailNuocUongEntity.image)"
                                                             style="
-                                  width: 200px;
-                                  height: 100px;
-                                  border: 1px solid black;
-                                  border-radius: 40% 40% 40% 40%;
-                                "
+                                                      width: 200px;
+                                                      height: 100px;
+                                                      border: 1px solid black;
+                                                    "
                                                     />
                                                 </div>
-                                                <br />
+
                                                 <input
                                                         type="hidden"
                                                         v-model="detailNuocUongEntity.id"
                                                 />
-                                                <div class="input-group flex-nowrap">
-                              <span class="input-group-text" id="addon-wrapping"
+                                                <div class="input-group flex-nowrap mt-3 mb-3">
+                              <span class="input-group-text" id="addon-wrapping" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
                               >Tên</span
                               >
                                                     <input
@@ -2194,10 +2199,10 @@
                                                             v-model="detailNuocUongEntity.tenNuocUong"
                                                     />
                                                 </div>
-                                                <div class="input-group flex-nowrap">
-                              <span class="input-group-text" id="addon-wrapping"
-                              >Đơn giá</span
-                              >
+                                                <div class="input-group flex-nowrap mb-3">
+                                                  <span class="input-group-text" id="addon-wrapping" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+                                                  >Đơn Giá</span
+                                                  >
                                                     <input
                                                             type="text"
                                                             class="form-control"
@@ -2209,15 +2214,15 @@
                                                             @input="handleDonGiaNuocUong($event)"
                                                             v-model="detailNuocUongEntity.donGia"
                                                     />
-                                                    <span class="input-group-text" id="addon-wrapping"
+                                                    <span class="input-group-text" id="addon-wrapping" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px"
                                                     >Vnd</span
                                                     >
                                                 </div>
-                                                <br />
-                                                <div class="input-group flex-nowrap">
-                              <span class="input-group-text" id="addon-wrapping"
-                              >Số lượng</span
-                              >
+
+                                                <div class="input-group flex-nowrap mb-3">
+                                                  <span class="input-group-text" id="addon-wrapping" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px"
+                                                  >Số lượng</span
+                                                  >
                                                     <input
                                                             type="number"
                                                             class="form-control"
@@ -2230,28 +2235,23 @@
                                                             v-model="detailNuocUongEntity.soLuong"
                                                     />
                                                 </div>
-                                                <br />
+
                                                 <label
                                                         for="avatar"
-                                                        style="
-                                display: block;
-                                font: 1rem 'Fira Sans', sans-serif;
-                                margin: 0.4rem 0;
-                              "
-                                                >Chọn ảnh:</label
-                                                >
+                                                        class="form-label"
+                                                >Chọn Ảnh</label>
                                                 <input
                                                         type="file"
                                                         ref="fileInput"
-                                                        class="form-control"
+                                                        class="form-control mb-3"
                                                         id="idFileAnhUpdateNuocUong"
                                                         @change="handelImgNuocUong($event)"
                                                         aria-describedby="addon-wrapping"
                                                         accept="image/*"
                                                 />
-                                                <br />
+
                                                 <div
-                                                        class="form-check form-check-inline"
+                                                        class="form-check form-check-inline mb-3"
                                                         style="margin-left: 30px"
                                                 >
                                                     <input
@@ -2269,7 +2269,7 @@
                                                     >
                                                 </div>
 
-                                                <div class="form-check form-check-inline">
+                                                <div class="form-check form-check-inline mb-3">
                                                     <input
                                                             class="form-check-input"
                                                             type="radio"
@@ -2538,28 +2538,28 @@
                                 <div class="modal-content">
                                     <form @submit.prevent="updateCaConfirm($event)">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Quản lí ca</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thông Tin Ca</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">Tên ca</span>
+                                            <div class="input-group mb-3 mt-3">
+                                                <span class="input-group-text" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px" id="basic-addon1">Tên ca</span>
                                                 <input type="text" required class="form-control" v-model="caDetail.tenCa" placeholder="Tên ca...." aria-label="Username" aria-describedby="basic-addon1">
                                             </div>
                                             <br>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">Giá ca</span>
+                                                <span class="input-group-text" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px" id="basic-addon1">Giá ca</span>
                                                 <input type="text" min="0" v-model="caDetail.giaCa" @input="handleGiaCaDetail($event)" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                                <span class="input-group-text" id="basic-addon1">Vnd</span>
+                                                <span class="input-group-text" id="basic-addon1" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px">Vnd</span>
                                             </div>
                                             <br>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">Thời gian bắt đầu</span>
+                                                <span class="input-group-text" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px" id="basic-addon1">Thời gian bắt đầu</span>
                                                 <input type="time" @input="inputDetailThoiGianBatDau($event)" v-model="caDetail.thoiGianBatDau" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
                                             </div>
                                             <br>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">Thời gian kết thúc</span>
+                                                <span class="input-group-text" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px" id="basic-addon1">Thời gian kết thúc</span>
                                                 <input type="time" @input="inputDetailThoiGianKetThuc($event)"  v-model="caDetail.thoiGianKetThuc" required class="form-control" aria-label="Username" aria-describedby="basic-addon1">
                                             </div>
                                             <br>
@@ -2595,8 +2595,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger btnModalCloseDetailCa" data-bs-dismiss="modal">Hủy</button>
-                                            <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                            <button type="button" class="btn btn-danger  btn-labeled btnModalCloseDetailCa" data-bs-dismiss="modal">Hủy</button>
+                                            <button type="submit" class="btn btn-primary btn-labeled">Cập Nhật</button>
                                         </div>
                                     </form>
                                 </div>

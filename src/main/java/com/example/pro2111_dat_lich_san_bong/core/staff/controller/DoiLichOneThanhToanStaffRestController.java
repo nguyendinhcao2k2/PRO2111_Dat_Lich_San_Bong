@@ -8,10 +8,7 @@ import com.example.pro2111_dat_lich_san_bong.core.user.service.*;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailUtils;
 import com.example.pro2111_dat_lich_san_bong.core.utils.SendMailWithBookings;
 import com.example.pro2111_dat_lich_san_bong.entity.*;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuDoiLich;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLichSuSanBong;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiLoaiBienDong;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.*;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.model.request.SendMailRequest;
@@ -26,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.context.Context;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -256,8 +254,22 @@ public class DoiLichOneThanhToanStaffRestController {
             hoaDonDoiLichUserService.update(hoaDon);
             // cap nhat vi tien
             ViTienCoc viTienCoc = viTienUserService.findByIdHoaDon(hoaDon.getId());
-            viTienCoc.setSoTien(viTienCoc.getSoTien() + doiLichOneRequest.getTienCocThieu());
-            viTienUserService.updateViTien(viTienCoc);
+            if(viTienCoc.getTypePayment() == LoaiHinhThanhToan.TIEN_MAT.ordinal()){
+                ViTienCoc viTienCocNew = new ViTienCoc();
+                viTienCocNew.setSoTien( doiLichOneRequest.getTienCocThieu());
+                viTienCocNew.setLoaiTien("VND");
+                viTienCocNew.setThoiGianTao(Timestamp.valueOf(LocalDateTime.now()));
+                viTienCocNew.setTrangThai(TrangThaiViTien.BINH_THUONG.ordinal());
+                viTienCocNew.setNoiDung("Tiền cọc đổi lịch sân bóng");
+                viTienCocNew.setIdHoaDon(viTienCoc.getIdHoaDon());
+                viTienCocNew.setTypePayment(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
+                viTienCocNew.setSoGiaoDich(transactionId);
+                viTienUserService.saveViTen(viTienCocNew);
+            }else{
+                viTienCoc.setSoTien(viTienCoc.getSoTien() + doiLichOneRequest.getTienCocThieu());
+                viTienUserService.updateViTien(viTienCoc);
+            }
+
 
             //create lịch su vi tien
             LichSuViTien lichSuViTien = new LichSuViTien();

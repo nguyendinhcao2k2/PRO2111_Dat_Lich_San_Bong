@@ -133,21 +133,24 @@ var tab1 = new Vue({
 
 $(document).ready(function () {
     callApi("http://localhost:8081/api/v1/admin/account/find-all");
-    $(".nextPage").click(() => {
+    pagingCheck();
+    pageSizeTaiKhoan();
+});
+
+function pagingCheck(){
+    $(".nextPageTaiKhoan").click(() => {
         if (parseInt(tab1.curentPage + 1) == parseInt(tab1.totalPage)) {
             return;
         }
-        pageTion(parseInt(tab1.curentPage) + 1);
+        pageTionTaiKhoan(parseInt(tab1.curentPage) + 1);
     });
-    $(".previousPage").click(() => {
+    $(".previousPageTaiKhoan").click(() => {
         if (parseInt(tab1.curentPage) == 0) {
             return;
         }
-        pageTion(parseInt(tab1.curentPage) - 1);
+        pageTionTaiKhoan(parseInt(tab1.curentPage) - 1);
     });
-    pageSize();
-});
-
+}
 function callApi(url) {
     $.ajax({
         type: "GET",
@@ -163,7 +166,7 @@ function callApi(url) {
     });
 }
 
-function pageTion(value) {
+function pageTionTaiKhoan(value) {
     var url = "http://localhost:8081/api/v1/admin/account/find-all";
     if (tab1.countIndex == 0) {
         url =
@@ -178,8 +181,8 @@ function pageTion(value) {
     callApi(url);
 }
 
-function pageSize() {
-    $(".pageSizeSelect").change((event) => {
+function pageSizeTaiKhoan() {
+    $(".pageSizeSelectTaiKhoan").change((event) => {
         if (tab1.countIndex == 0) {
             url =
                 "http://localhost:8081/api/v1/admin/account/find-all?pageSize=" +

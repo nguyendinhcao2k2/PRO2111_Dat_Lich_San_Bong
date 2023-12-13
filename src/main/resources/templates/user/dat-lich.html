@@ -185,6 +185,25 @@
         .event-tooltip {
             pointer-events: none; /* Không tương tác với con chuột */
         }
+
+        /*Croll table check in*/
+        .table-container {
+            max-height: 650px; /* Điều chỉnh độ cao tối đa của phần body */
+            overflow-y: auto;
+        }
+
+        #idTable th,
+        #idTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #idTable th {
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+        }
     </style>
 </head>
 <body>
@@ -882,16 +901,17 @@
                                     <h5>Sự Kiện</h5>
                                     <hr/>
                                 </div>
-                                <div>
+                                <div class="table-container">
                                     <table
                                             class="table table-bordered table-hover click-event-fullcalendar"
                                             style="color: black"
+                                            id="idTable"
                                     >
                                         <thead>
-                                        <tr>
-                                            <th>Thông tin ca</th>
-                                            <th>Thao tác</th>
-                                        </tr>
+                                            <tr>
+                                                <th>Thông tin ca</th>
+                                                <th>Thao tác</th>
+                                            </tr>
                                         </thead>
                                         <tbody id="tableShow"></tbody>
                                     </table>
@@ -902,8 +922,8 @@
                         <div class="modal" id="doiLichOne" style="overflow-y: auto;">
                             <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Xác nhận đổi lịch</h5>
+                                    <div class="modal-header" style="background: #f7941e">
+                                        <h5 class="modal-title" style="color: #fff; font-size: 25px ">Xác Nhận Đổi Lịch</h5>
                                     </div>
                                     <div class="modal-body">
                                         <div class="table-responsive">
@@ -1694,31 +1714,15 @@
                 "beforeend",
                 `
                     <div class="d-flex flex-column">
-                      <button class="btn btn-outline-danger btn-sm xoa-san-button" data-bs-toggle="modal" data-bs-target="#huyLichSanBongDa" type="button" >
+                      <button class="btn btn-outline-danger btn-sm xoa-san-button " onclick="deleteLichSanBong('` + idSanCa + `')" type="button" >
                         Hủy lịch
                       </button>
                       <!-- Modal huy lich-->
-                <div class="modal fade" id="huyLichSanBongDa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
-                </div>
-                <div class="modal-body">
-                Bạn có chắc chắn xóa lịch đặt này? Bạn sẽ mất tiền cọc! Bạn suy nghĩ kỹ chứ?
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-danger huyXacNhan"  data-bs-dismiss="modal">Hủy <i class="fa fa-ban" aria-hidden="true"></i></button>
-                <button type="button" class="btn btn-success" onclick="deleteLichSanBong('` + idSanCa + `')">Xác nhận và hủy lịch <i class="fa fa-check" aria-hidden="true"></i></button>
-                </div>
-                </div>
-                </div>
-                </div>
                     <!-- Modal huy lich-->
-                <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button"  type="button" onclick="doiSanDetail('` + idSanCa + `')">
-                Đổi sân
-                </button>
-                </div>
+                        <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button"  type="button" onclick="doiSanDetail('` + idSanCa + `')">
+                        Đổi sân
+                        </button>
+                    </div>
                 `
                 );
             }
@@ -2855,7 +2859,9 @@
                 <td ><input type="date" class="form-control" id="datepicker" min="${today}"></td>
                 <td>New giá</td>
                 <td class="rowOrd">
-                <button class="btn btn-primary btn-sm add-row">Thêm ca</button>
+                <div class="d-flex flex-column">
+                      <button class="btn btn-primary btn-sm add-row">Thêm ca</button>
+                </div>
                 </td>
                 </tr>
                 `;
@@ -2903,7 +2909,9 @@
                 <td>${formattedDate}</td>
                 <td>${item.extendedProps.giaSan}</td>
                 <td>
-                <button class="btn btn-danger btn-sm xoa-san-button" onclick="deleteEventById('${item.id}')">Xóa</button>
+                    <div class="d-flex flex-column">
+                        <button class="btn btn-danger btn-sm xoa-san-button" onclick="deleteEventById('${item.id}')">Xóa</button>
+                    </div>
                 </td>
                 </tr>
                 `;
@@ -3825,7 +3833,17 @@
     });
 
     function deleteLichSanBong(id) {
-        deleteLichSan(id);
+        Swal.fire({
+            title: "Quý khách có chắc chắn hủy lịch này không? Nếu hủy bạn sẽ mất tiền cọc.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Xác nhận',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteLichSan(id);
+            }
+        });
+
     }
 
     function deleteLichSan(id) {
@@ -3836,8 +3854,6 @@
                 if(response.statusCode == 'OK'){
                     createAndShowToast("bg-success", "Thông báo", "Thao tác thành công!");
                     resetEventByIdLoaiSan(selectedValue);
-                    $(".huyXacNhan").click();
-                    $('.modal-backdrop').remove();
                     return;
                 }
                 createAndShowToast("bg-warning", "Thông báo", "Thao tác thất bại, vui lòng thử lại sau!");

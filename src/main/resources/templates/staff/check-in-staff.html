@@ -65,13 +65,13 @@
     </div>
     <div class="card m-0">
         <div class="card-header">
-            <h2 class="text-primary text-center">Check In</h2>
+            <h2 class="text-primary text-center">Nhân Viên Check In</h2>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3">
                     <div class="">
-                        <h5>Quét QR</h5>
+                        <h5 class="text-primary">Quét QR</h5>
                     </div>
                     <hr />
                     <div>
@@ -92,7 +92,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="body-row-col mt-2" style="height: 350px">
+                    <div class="body-row-col mt-2" style="height: 550px">
                         <div class="camera-selection" style="display: none">
                             <select id="cameraList" class="form-select mt-2"></select>
                             <div class="qr">
@@ -104,7 +104,7 @@
                 </div>
                 <div class="col-md-9">
                     <div class="">
-                        <h5>Danh sách</h5>
+                        <h5 class="text-primary">Danh Sách</h5>
                     </div>
                     <hr />
                     <form class="row mb-3">
@@ -119,7 +119,7 @@
                                         id="inputSearch"
                                         type="text"
                                         class="form-control"
-                                        placeholder="Tìm kiếm theo tên, số điện thoại..."
+                                        placeholder="Tìm kiếm theo tên"
                                         aria-label="Recipient's username"
                                         aria-describedby="button-addon2"
                                 />
@@ -142,33 +142,35 @@
                             </div>
                         </div>
                     </form>
-                    <div>
-                        <table class="table table-hover">
+                    <div th:id="divTable" class="table-container">
+                        <table class="table table-hover" th:id="idTable">
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Họ và tên</th>
-                                <th>Số điện thoại</th>
-                                <th>Tên sân bóng</th>
-                                <th>Tên ca</th>
-                                <th>Tiền cọc</th>
-                                <th>Tiền sân</th>
-                                <th>Ngày dến sân</th>
-                                <th>Thời gian</th>
-                                <th>Action</th>
+                                <th>Họ và Tên</th>
+                                <th>Số Điện Thoại</th>
+                                <th>Tên Sân Bóng</th>
+                                <th>Tên Ca</th>
+                                <th>Tiền Sân</th>
+                                <th>Ngày Đến Sân</th>
+                                <th>Thời Gian</th>
+                                <th>Thao Tác</th>
                             </tr>
                             </thead>
                             <tbody th:id="tbody">
-
                             </tbody>
                         </table>
+                    </div>
+                    <div>
+                        <a th:href="@{/api/v1/staff/view-dat-lich}"><i class="fas fa-arrow-left mx-1"></i>Đặt Lịch</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
+<footer th:insert="~{fragments/footer-owner-staff}"></footer>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script th:src="@{/static/js/staff/check-in.js}"></script>
 <!-- Add Bootstrap JS and jQuery links -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

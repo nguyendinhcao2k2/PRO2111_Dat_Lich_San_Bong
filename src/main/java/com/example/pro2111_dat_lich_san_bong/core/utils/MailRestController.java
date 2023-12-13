@@ -130,7 +130,7 @@ public class MailRestController {
             context.setVariable("tongTienMat", currencyFormat.format(tongTienMatTheoNgay +tongTienMatTienCocTheoNgay));
             context.setVariable("tongTienChuyenKhoan", currencyFormat.format(tongTienChuyenKhoanTheoNgay +tongTienChuyenKhoanTienCocTheoNgay));
             context.setVariable("tongTienPhatSinh", currencyFormat.format(tongTienPhatSinhTrongCaTheoNgay));
-            context.setVariable("tongDoanhThu", currencyFormat.format(tongDoanhThuTheoNgay + tongTienPhatSinhTrongCaTheoNgay +tongTienMatTheoNgay +tongTienMatTienCocTheoNgay + tongTienChuyenKhoanTheoNgay +tongTienChuyenKhoanTienCocTheoNgay));
+            context.setVariable("tongDoanhThu", currencyFormat.format(tongDoanhThuTheoNgay  +tongTienMatTienCocTheoNgay  +tongTienChuyenKhoanTienCocTheoNgay));
             if (accountThongKeReponses != null) {
                 sendMailUtilsThongKe.sendMailThongKe(accountThongKeReponses.get(0).getEmail(), context);
             } else {
