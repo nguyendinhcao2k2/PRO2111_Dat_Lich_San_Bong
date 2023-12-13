@@ -124,7 +124,7 @@
                         <img
                                 class="rounded-circle mt-5"
                                 width="150px"
-                                v-if="profile.image !== null"
+                                v-if="profile.image !== null && !profile.image.startsWith('https://lh3.googleusercontent.com')"
                                 alt="Hình ảnh"
                                 :src="srcImage(profile.image)"
                         />
@@ -135,6 +135,15 @@
                                 v-if="profile.image === null"
                                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                         />
+
+                        <img
+
+                                class="rounded-circle mt-5"
+                                width="150px"
+                                v-if="profile.image !== null && profile.image.startsWith('https://lh3.googleusercontent.com')"
+                                :src="profile.image"
+                        />
+
                         <span class="font-weight-bold form-label"  v-if="profile.email != null">{{profile.email}}</span>
                         <span class="text-black-50 form-label" v-if="profile.email == null" >Chưa cập nhật</span>
                         <span> </span>

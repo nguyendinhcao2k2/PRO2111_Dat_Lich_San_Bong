@@ -93,8 +93,15 @@
                       class="img-profile rounded-circle"
                       src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
               />
+
               <img
-                      th:if="${session.Account.image != null}"
+                      th:if="${session.Account.image != null and session.Account.image.startsWith('https://lh3.googleusercontent.com')}"
+                 class="img-profile rounded-circle"
+                      th:src="${session.Account.image}"
+              />
+
+              <img
+                      th:if="${session.Account.image != null and not session.Account.image.startsWith('https://lh3.googleusercontent.com')}"
                       class="img-profile rounded-circle"
                       th:src="'data:image/png;base64,' + ${session.Account.image}" alt="Ảnh"
               />
