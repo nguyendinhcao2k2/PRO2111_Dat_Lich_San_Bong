@@ -138,6 +138,25 @@
     .event-tooltip {
         pointer-events: none; /* Không tương tác với con chuột */
     }
+
+    /*Croll table check in*/
+    .table-container {
+        max-height: 650px; /* Điều chỉnh độ cao tối đa của phần body */
+        overflow-y: auto;
+    }
+
+    #idTableSuKien th,
+    #idTableSuKien td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    #idTableSuKien th {
+        background-color: #f2f2f2;
+        position: sticky;
+        top: 0;
+    }
 </style>
 
 <div class="card border-0 m-0 p-1">
@@ -190,30 +209,36 @@
                                                     <div class="col-md-12">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <div class="row">
-                                                                    <div class="col-6"><h5 style="font-size: 35px" class="text-primary my-auto">Danh sách</h5></div>
-                                                                    <div class="col-6">
-                                                                        <div class="input-group mb-3">
-                                                                            <span class="input-group-text" id="basic-addon1" ><i class="fa fa-search" aria-hidden="true"></i></span>
-                                                                            <input type="text" @input="timKiemLichDatTheoSDT($event)" v-model="soDienThoaiDoiLichSearch"  class="form-control" placeholder="Tìm kiếm lịch theo số điện thoại....."  aria-describedby="basic-addon1">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
+                                                                <h5 style="font-size: 28px" class="text-primary my-auto">Danh sách</h5>
                                                             </div>
 
-                                                            <div class="col-md-6 d-md-flex justify-content-md-end">
-                                                                <button
-                                                                        type="button"
-                                                                        class="button-header-confirm modalXacNhan"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#modalConfirm"
-                                                                >
-                                                                    <span class="button-text-confirm">Xác Nhận</span>
-                                                                    <span class="button-icon-confirm">
+                                                            <div class="col-md-6">
+                                                                <div class="row g-2 align-items-center">
+                                                                    <div class="col-md-4">
+
+                                                                    </div>
+                                                                    <div class="col-md-5">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-text" id="basic-addon1" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px">
+                                                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                                                            </span>
+                                                                            <input type="text" @input="timKiemLichDatTheoSDT($event)" v-model="soDienThoaiDoiLichSearch"  class="form-control" placeholder="Tìm kiếm lịch theo số điện thoại....."  aria-describedby="basic-addon1" >
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-auto d-flex justify-content-end">
+                                                                        <button
+                                                                                type="button"
+                                                                                class="button-header-confirm modalXacNhan"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#modalConfirm"
+                                                                        >
+                                                                            <span class="button-text-confirm">Xác Nhận</span>
+                                                                            <span class="button-icon-confirm">
                                                                                 <i class="fas fa-check fa-lg"></i>
                                                                           </span>
-                                                                </button>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
 
                                                                 <!--  -->
                                                                 <div class="modal modal-start"
@@ -525,9 +550,8 @@
                                             </div>
                                             <!--                                        paging-->
                                             <div class="row" style="display: flex; margin: 0 auto">
-                                                <div class="col-md-4"></div>
-                                                <div class="col-md-1">
-                                                    <select @change="pageSizeSelectDoiLich($event)">
+                                                <div class="col-md-6">
+                                                    <select @change="pageSizeSelectDoiLich($event)" class="form-select" style="width: 100px">
                                                         <option value="5" >5</option>
                                                         <option value="10" selected>10</option>
                                                         <option value="15">15</option>
@@ -535,7 +559,7 @@
                                                         <option value="100">100</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-6 d-flex justify-content-end">
                                                     <nav aria-label="Page navigation example">
                                                         <ul class="pagination justify-content-center">
                                                             <li class="page-item " @click="previuosDoiLich()">
@@ -910,10 +934,11 @@
                             <h5>Sự Kiện</h5>
                             <hr/>
                         </div>
-                        <div>
+                        <div class="table-container">
                             <table
                                     class="table table-bordered table-hover click-event-fullcalendar"
                                     style="color: black"
+                                    id="idTableSuKien"
                             >
                                 <thead>
                                 <tr>
@@ -1707,31 +1732,31 @@
             cell2.insertAdjacentHTML(
                 "beforeend",
                 `
-                    <div class="d-flex flex-column">
+                <div class="d-flex flex-column">
                       <button class="btn btn-outline-danger btn-sm xoa-san-button" data-bs-toggle="modal" data-bs-target="#huyLichSanBongDa" type="button" >
                         Hủy lịch
                       </button>
                       <!-- Modal huy lich-->
-                <div class="modal fade" id="huyLichSanBongDa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
-                </div>
-                <div class="modal-body">
-                Bạn có chắc chắn xóa lịch đặt này? Bạn sẽ mất tiền cọc! Bạn suy nghĩ kỹ chứ?
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-danger huyXacNhan"  data-bs-dismiss="modal">Hủy <i class="fa fa-ban" aria-hidden="true"></i></button>
-                <button type="button" class="btn btn-success" onclick="deleteLichSanBong('` + idSanCa + `')">Xác nhận và hủy lịch <i class="fa fa-check" aria-hidden="true"></i></button>
-                </div>
-                </div>
-                </div>
-                </div>
+                    <div class="modal fade" id="huyLichSanBongDa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: black; background-color: #ffff">Thông báo</h1>
+                                </div>
+                                <div class="modal-body">
+                                Bạn có chắc chắn xóa lịch đặt này? Bạn sẽ mất tiền cọc! Bạn suy nghĩ kỹ chứ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger btn-labeled huyXacNhan"  data-bs-dismiss="modal">Hủy <i class="fa fa-ban" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-success btn-labeled" onclick="deleteLichSanBong('` + idSanCa + `')">Xác nhận và hủy lịch <i class="fa fa-check" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Modal huy lich-->
-                <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button"  type="button" onclick="doiSanDetail('` + idSanCa + `')">
-                Đổi sân
-                </button>
+                    <button class="btn btn-outline-primary btn-sm mt-2 doi-san-button"  type="button" onclick="doiSanDetail('` + idSanCa + `')">
+                    Đổi sân
+                    </button>
                 </div>
                 `
                 );
