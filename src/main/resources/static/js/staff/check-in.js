@@ -105,7 +105,6 @@ function checkInLichDat(param) {
                     window.location.href = "/api/v1/staff/check-in";
                 },
                 error: function (e) {
-                    console.log(e)
                     alert("Có lỗi !!")
                 }
             })

@@ -82,7 +82,7 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "    where " +
             "        tb3.trang_thai = 0 " +
             "        and tb2.trang_thai = 0  and " +
-            "        tb1.ten_nguoi_dat LIKE ?1 " , nativeQuery = true)
+            "        tb1.ten_nguoi_dat LIKE ?1 and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d')" , nativeQuery = true)
     List<CheckInResponse> listCheckIn(String param);
 
     @Query(value = "SELECT " +
@@ -117,7 +117,7 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "            on tb5.id = tb3.id_san_bong " +
             "    where " +
             "        tb3.trang_thai = 0 " +
-            "        and tb2.trang_thai = 0  ", nativeQuery = true)
+            "        and tb2.trang_thai = 0  and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d')", nativeQuery = true)
     List<CheckInResponse> loadHoaDonCheckIn();
 
     HoaDon findHoaDonById(String idHoaDon);

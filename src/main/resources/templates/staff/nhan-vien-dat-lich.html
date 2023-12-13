@@ -776,6 +776,7 @@
                                                 >
                                                     <div>
                                                         <button
+                                                                th:onclick="|openModal()|"
                                                                 type="button"
                                                                 class="button-header"
                                                                 data-bs-toggle="modal"
@@ -885,7 +886,6 @@
                                                                                                     class=" text-center text-primary"
                                                                                                     id="id_tongTien"
                                                                                             >
-                                                                                                600000 VND
                                                                                             </h4>
                                                                                         </div>
                                                                                         <div class="col-6 col-md-6 col-sm-6">
@@ -899,15 +899,12 @@
                                                                                                     class=" text-center text-primary"
                                                                                                     id="id_tienCoc"
                                                                                             >
-                                                                                                600000 VND
                                                                                             </h4>
                                                                                         </div>
 
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div style="margin-bottom: 10px; font-family: Arial, sans-serif; color: #333; font-size: 18px; font-weight: bold;">Tổng tiền: <span style="font-size: 15px" th:id="spanTongTien" th:text="0"></span></div>
-                                                                            <div style="margin-bottom: 10px; font-family: Arial, sans-serif; color: #333; font-size: 18px; font-weight: bold;">Tiền cọc: <span style="font-size: 15px" th:id="spanTienCoc" th:text="0"></span></div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
