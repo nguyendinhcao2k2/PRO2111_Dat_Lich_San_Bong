@@ -110,8 +110,8 @@
                     <form class="row mb-3">
                         <label
                                 for="inputSearch"
-                                class="col-auto col-form-label text-center"
-                        >Tìm kiếm :
+                                class="col-auto col-form-label text-center">
+                            Tìm kiếm :
                         </label>
                         <div class="col-sm-4">
                             <div class="input-group mb-3">
@@ -141,6 +141,78 @@
                                 </button>
                             </div>
                         </div>
+
+                        <div class="col-sm-6 justify-content-end">
+                            <button
+                                    type="button"
+                                    class="button-header"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalCheckIn"
+                            >
+                                <span class="button__text">Danh Sách Đã Check In</span>
+                                <span class="button__icon">
+                                    <i class="fas fa-list fa-lg" style="color: #ffffff;"></i>                                </span>
+                            </button>
+<!--                            modal-->
+                            <div class="modal fade" id="modalCheckIn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background: #f7941e">
+                                            <h5 style="color: #FFFFFF; font-size: 25px" class="modal-title" id="exampleModalLabel">Danh Sách Đã Check In</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group mb-3">
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        placeholder="Tìm kiếm theo tên"
+                                                        aria-label="Recipient's username"
+                                                        aria-describedby="button-addon2"
+                                                />
+                                                <button
+                                                        class="btn btn-success btn-outline-success"
+                                                        type="button"
+                                                        style="
+                                                                      border-top-right-radius: 5px;
+                                                                      border-bottom-right-radius: 5px;
+                                                        "
+                                                >
+                                                    <i
+                                                            class="fas fa-search fa-lg"
+                                                            style="color: #ffffff"
+                                                    ></i>
+                                                </button>
+                                            </div>
+<!--                                            table-->
+                                            <div class="table-container">
+                                                <table class="table table-hover" id="myTableDS">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>STT</th>
+                                                        <th>Họ và Tên</th>
+                                                        <th>Số Điện Thoại</th>
+                                                        <th>Tên Sân Bóng</th>
+                                                        <th>Tên Ca</th>
+                                                        <th>Tiền Sân</th>
+                                                        <th>Ngày Đến Sân</th>
+                                                        <th>Thời Gian</th>
+                                                        <th>Thao Tác</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody >
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger btn-labeled" data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                     <div th:id="divTable" class="table-container">
                         <table class="table table-hover" th:id="idTable">
@@ -161,8 +233,9 @@
                             </tbody>
                         </table>
                     </div>
-                    <div>
-                        <a th:href="@{/api/v1/staff/view-dat-lich}"><i class="fas fa-arrow-left mx-1"></i>Đặt Lịch</a>
+                    <div class="mt-1" style="font-size: 20px">
+                        <a th:href="@{/api/v1/staff/view-dat-lich}" >
+                            <i class="fas fa-arrow-left mx-1"></i>Đặt Lịch</a>
                     </div>
                 </div>
             </div>
