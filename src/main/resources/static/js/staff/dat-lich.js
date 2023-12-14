@@ -627,7 +627,7 @@ function genDataTable(tt) {
         // Thêm hàng mới vào tbody
         $('#idTable').append(newRow);
     }
-  // setPrice(tt);
+    // setPrice(tt);
 }
 
 function setSelectedCheckBox(date) {
@@ -735,11 +735,11 @@ function datSan() {
                             localStorage.setItem("thongTin", JSON.stringify([]));
                             $('#modalInfo').modal('hide');
                             $('#idTable').empty();
-                            alert(data.content)
+                            createAndShowToast('bg-success', 'Thông báo đặt lịch', data.content);
                             reloadSanBong();
                         },
                         error: function (error) {
-                            alert(error.responseJSON.message);
+                            createAndShowToast('bg-success', 'Thông báo đặt lịch', error.responseJSON.message);
                             $('#modalInfo').modal('hide');
                         }
                     });
@@ -801,7 +801,7 @@ function openModalDanhSachCho() {
             $('#tableXacNhan').append(tr);
         },
         error: function (e) {
-            alert("Có lỗi !!")
+            createAndShowToast('bg-success', 'Thông báo đặt lịch', "Có lỗi !!");
         }
     })
     $('#modal-danh-sach-dat-san').modal('show')
@@ -816,7 +816,7 @@ function deleteHoaDon(idHoaDon) {
             openModalDanhSachCho()
         },
         error: function (e) {
-            console.log(e)
+            createAndShowToast('bg-success','Thông báo đặt lịch','Xóa thất bại');
         }
     });
 }
@@ -1107,7 +1107,7 @@ function huyLich(idSanCa) {
                 type: "DELETE",
                 contentType: "application/json",
                 success: function (data) {
-                    alert(data.content);
+                    createAndShowToast('bg-warning','Thông báo hủy lịch',data.content);
                     reloadSanBong();
                 },
                 error: function (error) {
@@ -1154,7 +1154,7 @@ function setPrice(tt) {
     tienCoc.text(formatCurrencyVND(tongt * 0.5));
 }
 
-function openModal(){
+function openModal() {
     let thongTinSanBongList = JSON.parse(localStorage.getItem("thongTin"));
     setPrice(thongTinSanBongList);
 }
