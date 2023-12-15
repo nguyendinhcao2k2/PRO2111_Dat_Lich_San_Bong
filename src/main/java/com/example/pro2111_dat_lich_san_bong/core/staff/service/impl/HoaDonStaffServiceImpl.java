@@ -73,6 +73,11 @@ public class HoaDonStaffServiceImpl implements HoaDonStaffService {
     }
 
     @Override
+    public List<CheckInResponse> showHDDaCheckIn() {
+        return hoaDonStaffRepository.showHDDaCheckIn();
+    }
+
+    @Override
     public ResponseEntity<?> checkIn(String param) {
         try {
             Optional<HoaDonSanCa> hoaDonSanCa = hoaDonSanCaStaffRepository.findById(param);

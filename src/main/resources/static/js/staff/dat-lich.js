@@ -1070,7 +1070,7 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
                                             class="dropdown-menu dropdown-menu-end"
                                         >
                                             <li>
-                                                <a href="#" class="dropdown-item">
+                                                <a href="http://localhost:8081/api/v1/staff/check-in" class="dropdown-item">
                                                     Check In
                                                 </a>
                                             </li>
