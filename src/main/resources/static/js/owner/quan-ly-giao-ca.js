@@ -10,6 +10,7 @@ $(document).ready(function () {
             type: "GET",
             url: "http://localhost:8081/api/v1/admin/giao-ca/owners",
             success: function (data) {
+                console.log(data);
                 if (data.content.data.length == 0) {
                     $(".noContent").prop("hidden", false);
                 } else {
@@ -256,6 +257,8 @@ function formatData(data) {
                 item.thoiGianReset == null ? "Null" : formatDate(item.thoiGianReset),
             tongTienMat: curenlyNumber(item.tongTienMat),
             tongTienKhac: curenlyNumber(item.tongTienKhac),
+            soDienThoaiNhanVienTrongCa: item.soDienThoaiNhanVienTrongCa,
+            soDienThoaiNhanVienCaTT: item.soDienThoaiNhanVienCaTT,
         };
     });
 }
@@ -289,8 +292,8 @@ var app = new Vue({
                 type: "GET",
                 url: "http://localhost:8081/api/v1/admin/giao-ca/by-id/" + items,
                 success: function (data) {
-                    $(".tenNVTC").val(data.content.displayNameNhanVienTrongCa);
-                    $(".tenNVCTT").val(data.content.displayNameNhanVienCaTiepTheo);
+                    $(".tenNVTC").val(data.content.displayNameNhanVienTrongCa +' - '+data.content.soDienThoaiNhanVienTrongCa);
+                    $(".tenNVCTT").val(data.content.displayNameNhanVienCaTiepTheo +' - '+data.content.soDienThoaiNhanVienCaTT);
                     $(".thoiGianNhanCaCT").val(formatDate(data.content.thoiGianNhanCa));
                     $(".thoiGianKetCaCT").val(formatDate(data.content.thoiGianKetCa));
                     $(".tienBanDauCT").val(curenlyNumber(data.content.tienBanDau));

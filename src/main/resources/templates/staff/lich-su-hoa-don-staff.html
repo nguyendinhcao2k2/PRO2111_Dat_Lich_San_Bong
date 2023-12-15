@@ -243,8 +243,11 @@
                                     </table>
                                 </button>
                             </h2>
+
                             <br>
                             <div  id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <span style="text-align: center">Danh Sách Hóa Đơn Sân Ca</span>
+                                <br>
                                 <div class="accordion-body p-1">
                                     <table
                                             class="table table-bordered table-container table-hover mt-2"
@@ -257,6 +260,8 @@
                                         <tr>
                                             <th>STT</th>
                                             <th>Ngày Đến Sân</th>
+                                            <th>Tên Sân - Ca</th>
+                                            <th>Giá Sân</th>
                                             <th>Số Lần Đổi Lịch</th>
                                             <th>Tiền Thanh Toán</th>
                                             <th>Ngày Thanh Toán</th>
@@ -269,6 +274,8 @@
                                         <tr v-for="(element,index) in hoaDon[index].hoaDonSanCaStaffList">
                                             <td>{{index +1}}</td>
                                             <td>{{formatDate(element.ngayDenSan)}}</td>
+                                            <td>{{element.tenSanBong}} - {{element.tenCa}}</td>
+                                            <td>{{currencyNumberVN(element.giaSan)}}</td>
                                             <td v-if="element.countLich === 0">Chưa Đổi Lịch Lần Nào</td>
                                             <td v-if="element.countLich === 1">Đã Đổi Lịch 1 Lần</td>
                                             <td>{{currencyNumberVN(element.tongTienHoaDonSanCa)}}</td>

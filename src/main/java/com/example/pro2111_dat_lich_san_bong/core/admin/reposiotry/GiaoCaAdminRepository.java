@@ -29,7 +29,9 @@ public interface GiaoCaAdminRepository extends GiaoCaRepository {
                             gc.tienPhatSinh,
                             gc.ghiChuPhatSinh,
                             gc.tongTienMat,
-                            gc.tongTienKhac
+                            gc.tongTienKhac,
+                            acTrongCa.soDienThoai,
+                            acTiepTheo.soDienThoai
                     ) 
                     FROM  GiaoCa gc
                             LEFT JOIN Account acTrongCa ON gc.idNhanVienTrongCa = acTrongCa.id
@@ -53,7 +55,9 @@ public interface GiaoCaAdminRepository extends GiaoCaRepository {
                             gc.tienPhatSinh,
                             gc.ghiChuPhatSinh,
                              gc.tongTienMat,
-                            gc.tongTienKhac
+                            gc.tongTienKhac,
+                             acTrongCa.soDienThoai,
+                            acTiepTheo.soDienThoai
                     ) 
                     FROM  GiaoCa gc
                             LEFT JOIN Account acTrongCa ON gc.idNhanVienTrongCa = acTrongCa.id
@@ -77,7 +81,9 @@ public interface GiaoCaAdminRepository extends GiaoCaRepository {
                             gc.tienPhatSinh,
                             gc.ghiChuPhatSinh,
                              gc.tongTienMat,
-                            gc.tongTienKhac
+                            gc.tongTienKhac,
+                             acTrongCa.soDienThoai,
+                            acTiepTheo.soDienThoai
                     ) 
                     FROM  GiaoCa gc
                             LEFT JOIN Account acTrongCa ON gc.idNhanVienTrongCa = acTrongCa.id
@@ -101,7 +107,9 @@ public interface GiaoCaAdminRepository extends GiaoCaRepository {
                             gc.tienPhatSinh,
                             gc.ghiChuPhatSinh,
                              gc.tongTienMat,
-                            gc.tongTienKhac
+                            gc.tongTienKhac,
+                             acTrongCa.soDienThoai,
+                            acTiepTheo.soDienThoai
                     ) 
                     FROM  GiaoCa gc
                             LEFT JOIN Account acTrongCa ON gc.idNhanVienTrongCa = acTrongCa.id
@@ -125,7 +133,9 @@ public interface GiaoCaAdminRepository extends GiaoCaRepository {
                             gc.tienPhatSinh,
                             gc.ghiChuPhatSinh,
                             gc.tongTienMat,
-                            gc.tongTienKhac
+                            gc.tongTienKhac,
+                             acTrongCa.soDienThoai,
+                            acTiepTheo.soDienThoai
                     ) 
                     FROM  GiaoCa gc
                             LEFT JOIN Account acTrongCa ON gc.idNhanVienTrongCa = acTrongCa.id
@@ -149,7 +159,9 @@ public interface GiaoCaAdminRepository extends GiaoCaRepository {
                             gc.tienPhatSinh,
                             gc.ghiChuPhatSinh,
                             gc.tongTienMat,
-                            gc.tongTienKhac
+                            gc.tongTienKhac,
+                             acTrongCa.soDienThoai,
+                            acTiepTheo.soDienThoai
                     ) 
                     FROM  GiaoCa gc
                             LEFT JOIN Account acTrongCa ON gc.idNhanVienTrongCa = acTrongCa.id

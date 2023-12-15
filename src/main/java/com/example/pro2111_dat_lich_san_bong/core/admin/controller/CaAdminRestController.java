@@ -102,54 +102,45 @@ public class CaAdminRestController {
         try {
             Ca caCu = caAdminService.findById(caAdminRequest.getId());
             List<Ca> caList = caAdminService.findAllListCa();
-            for (int i = 0; i < caList.size(); i++) {
-                Time thoiGianBatDauHT = caList.get(i).getThoiGianBatDau();
-                Time thoiGianKetThucHT = caList.get(i).getThoiGianKetThuc();
 
-                // neu ca moi nam trong khoang ca cu thì cho update
-                if (caAdminRequest.getThoiGianBatDau().equals(caCu.getThoiGianBatDau()) || caAdminRequest.getThoiGianBatDau().after(caCu.getThoiGianBatDau())) {
-                    if (caAdminRequest.getThoiGianKetThuc().equals(caCu.getThoiGianKetThuc()) || caAdminRequest.getThoiGianKetThuc().before(caCu.getThoiGianKetThuc())) {
-                        caAdminService.saveOrUpdate(caAdminRequest);
-                        return new BaseResponse<>(HttpStatus.OK, "Successfully");
-                    }
-                }
-                if (caAdminRequest.getThoiGianBatDau().equals(caCu.getThoiGianBatDau())) {
-                    if (caAdminRequest.getThoiGianKetThuc().after(caCu.getThoiGianKetThuc())) {
-                        if (!caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)) {
-                            if (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) &&  caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT)) {
-                                return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
-                            }
-                        }
-                    }
-                } else if (caAdminRequest.getThoiGianKetThuc().equals(caCu.getThoiGianKetThuc())) {
-                    if (caAdminRequest.getThoiGianBatDau().before(caCu.getThoiGianBatDau())) {
-                        if (!caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)) {
-                            if (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) &&  caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT)) {
-                                return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
-                            }
-                        }
-                    }
-                } else {
-                    if (caAdminRequest.getThoiGianBatDau().before(caCu.getThoiGianBatDau()) && caAdminRequest.getThoiGianKetThuc().after(caCu.getThoiGianKetThuc())) {
-                        if (!caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)) {
-                            if (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) &&  caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT)) {
-                                return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
-                            }
-                        }
-                    }
+            for (Ca ca : caList) {
+                Time thoiGianBatDauHT = ca.getThoiGianBatDau();
+                Time thoiGianKetThucHT = ca.getThoiGianKetThuc();
+
+                if ((caAdminRequest.getThoiGianBatDau().equals(caCu.getThoiGianBatDau()) || caAdminRequest.getThoiGianBatDau().after(caCu.getThoiGianBatDau()))
+                        && (caAdminRequest.getThoiGianKetThuc().equals(caCu.getThoiGianKetThuc()) || caAdminRequest.getThoiGianKetThuc().before(caCu.getThoiGianKetThuc()))) {
+                    caAdminService.saveOrUpdate(caAdminRequest);
+                    return new BaseResponse<>(HttpStatus.OK, "Thành công");
                 }
 
+                if (caAdminRequest.getThoiGianBatDau().equals(caCu.getThoiGianBatDau()) && caAdminRequest.getThoiGianKetThuc().after(caCu.getThoiGianKetThuc())
+                        && !caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)
+                        && (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || (caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) && caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT)) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT))) {
+                    return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
+                }
+
+                if (caAdminRequest.getThoiGianKetThuc().equals(caCu.getThoiGianKetThuc()) && caAdminRequest.getThoiGianBatDau().before(caCu.getThoiGianBatDau())
+                        && !caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)
+                        && (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || (caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) && caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT)) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT))) {
+                    return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
+                }
+
+                if (caAdminRequest.getThoiGianBatDau().before(caCu.getThoiGianBatDau()) && caAdminRequest.getThoiGianKetThuc().after(caCu.getThoiGianKetThuc())
+                        && !caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)
+                        && (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || (caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) && caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT)) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT))) {
+                    return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
+                }
             }
 
             caAdminService.saveOrUpdate(caAdminRequest);
-            return new BaseResponse<>(HttpStatus.OK, "Successfully");
-
+            return new BaseResponse<>(HttpStatus.OK, "Thành công");
 
         } catch (Exception e) {
             e.printStackTrace();
-            return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error");
+            return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Lỗi");
         }
     }
+
 
     @DeleteMapping("delete/{id}")
     public BaseResponse<?> deleteById(@PathVariable("id") String id) {
