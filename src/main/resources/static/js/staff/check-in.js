@@ -123,5 +123,6 @@ function formatCurrencyVND(amount) {
 
 
 function showHoaDonCheckIn(){
-    alert("Okkk");
+    debugger
+    createAndShowToast("bg-success","Thông báo","oke")
 }
