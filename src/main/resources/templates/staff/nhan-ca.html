@@ -304,7 +304,7 @@
                         >
                             <form action="/submit" method="post">
                                 <div class="header-table-giao-ca">
-                                    <h5 class="text-primary text-center">Thông Tin Nhận Ca</h5>
+                                    <h5 style=" color: #2124B1" class=" text-center">Thông Tin Nhận Ca</h5>
                                 </div>
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Tên nhân viên</label>
@@ -394,8 +394,8 @@
     >
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header border-0">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
+                <div class="modal-header border-0" style="background: #f7941e">
+                    <h1 style="color: #FFFFFF; font-size: 25px " class="modal-title fs-5" id="exampleModalLabel">Thông Báo</h1>
                     <button
                             type="button"
                             class="btn-close"
@@ -403,16 +403,19 @@
                             aria-label="Close"
                     ></button>
                 </div>
-                <div class="modal-body">Bạn có chắc chắn nhận ca làm việc này?</div>
+                <div class="modal-body">
+                    <h5 style="font-size: 19px">Bạn có chắc chắn nhận ca làm việc này?</h5>
+                </div>
                 <div class="modal-footer border-0">
                     <button
                             type="button"
-                            class="btn btn-secondary"
+                            class="btn btn-danger"
                             data-bs-dismiss="modal"
                     >
                         Thoát
                     </button>
-                    <button type="button" class="btn btn-primary xacNhanCaLam">
+                    <button                             style="background: #0d6efd"
+                                                        type="button" class="btn btn-primary xacNhanCaLam">
                         Xác nhận
                     </button>
                 </div>
