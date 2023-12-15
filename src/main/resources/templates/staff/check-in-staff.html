@@ -201,7 +201,12 @@
                                                         <th>Thao Tác</th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody th:id="idTb">
+                                                    <tbody>
+                                                        <tr>
+                                                            <div style="width: 100%"  class="alert alert-danger noContent" role="alert">
+                                                                <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
+                                                            </div>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -245,6 +250,7 @@
 </section>
 <footer th:insert="~{fragments/footer-owner-staff}"></footer>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script th:src="@{/static/js/utill/thong-bao.js}"></script>
 <script th:src="@{/static/js/staff/check-in.js}"></script>
 <!-- Add Bootstrap JS and jQuery links -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
