@@ -25,4 +25,6 @@ public class QuanLyGiaoCaResponse {
     private String ghiChuPhatSinh;
     private Double tongTienMat;
     private Double tongTienKhac;
+    private String soDienThoaiNhanVienTrongCa;
+    private String soDienThoaiNhanVienCaTT;
 }

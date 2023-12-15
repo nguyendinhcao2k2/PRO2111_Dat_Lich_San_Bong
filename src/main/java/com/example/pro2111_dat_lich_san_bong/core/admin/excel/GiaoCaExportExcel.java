@@ -76,8 +76,8 @@ public class GiaoCaExportExcel {
         for (QuanLyGiaoCaResponse items : listData) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
-            createCell(row, columnCount++, items.getDisplayNameNhanVienTrongCa(), style);
-            createCell(row, columnCount++, items.getDisplayNameNhanVienCaTiepTheo(), style);
+            createCell(row, columnCount++, items.getDisplayNameNhanVienTrongCa()+" - "+ items.getSoDienThoaiNhanVienTrongCa(), style);
+            createCell(row, columnCount++, items.getDisplayNameNhanVienCaTiepTheo()+ " - "+items.getSoDienThoaiNhanVienCaTT(), style);
             createCell(row, columnCount++, format.format(items.getThoiGianNhanCa()), style);
             createCell(row, columnCount++, format.format(items.getThoiGianKetCa()), style);
             createCell(row, columnCount++, items.getThoiGianReset() == null ? "" : format.format(items.getThoiGianReset()), style);
