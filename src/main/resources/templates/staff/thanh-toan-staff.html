@@ -401,7 +401,6 @@
                                                         name="phuongThucChuyenKhoan"
                                                         id="chuyenKhoan"
                                                         value="chuyenKhoan"
-                                                        checked
                                                         onchange="toggleInputs()"
                                                 />
                                                 <label class="form-check-label" for="chuyenKhoan">
@@ -412,6 +411,7 @@
                                                 <input
                                                         class="form-check-input"
                                                         type="radio"
+                                                        checked
                                                         name="phuongThucChuyenKhoan"
                                                         id="tienMat"
                                                         value="tienMat"
@@ -430,7 +430,7 @@
                                         <div class="col-md-8">
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" role="switch"
-                                                       id="checkInHoaDon">
+                                                       id="checkInHoaDon" checked>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -521,12 +521,12 @@
                                 <button
                                         type="submit "
                                         id="btnQuayLai"
-                                        class="m-2 btn btn-danger btn-labeled"
+                                        class="m-2 btn btn-warning btn-labeled"
                                         onclick="viewDatLich()"
                                 >
                                     Hủy
                                     <span class="btn-label">
-                                        <i class="fa fa-remove"></i>
+                                        <i class="fa-solid fa-house"></i>
                                          </span>
                                 </button>
                                 <button
@@ -1210,7 +1210,7 @@
     function calculateChange() {
         var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
 
-        if (tienKhachDua > tongTienHoaDonPhaiTra) {
+        if (tienKhachDua >= tongTienHoaDonPhaiTra) {
             var tienTraLai = tienKhachDua - tongTienHoaDonPhaiTra;
             document.getElementById('tienTraLai').value = formatCurrencyVND(tienTraLai);
         } else {

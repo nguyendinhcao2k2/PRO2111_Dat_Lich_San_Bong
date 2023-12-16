@@ -8,6 +8,7 @@ import com.example.pro2111_dat_lich_san_bong.entity.PhuPhiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiPhuPhi;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiPhuPhiHoaDon;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -30,35 +32,52 @@ public class PhuPhiHoaDonRestController {
 
     @GetMapping("/get-by-id-hoa-don/{id}")
     public ResponseEntity<List<PhuPhiHoaDonRequest>> getPhuPhiHoaDonById(@PathVariable("id") String id) {
-        System.out.println("GỌI THÀNH CÔNG");
-        List<PhuPhiHoaDonRequest> listPhuPhiHoaDonRequests = phuPhiHoaDonStaffRepository.getPhuPhiHoaDonByIdSanCa(id, TrangThaiPhuPhiHoaDon.Chua_Tra.ordinal());
-        return ResponseEntity.ok(listPhuPhiHoaDonRequests);
+        try {
+            List<PhuPhiHoaDonRequest> listPhuPhiHoaDonRequests = phuPhiHoaDonStaffRepository.getPhuPhiHoaDonByIdSanCa(id, TrangThaiPhuPhiHoaDon.Chua_Tra.ordinal());
+            return ResponseEntity.ok(listPhuPhiHoaDonRequests);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
+        }
     }
+
 
     @PostMapping("/luu-phu-phi/{id}")
     public ResponseEntity<Boolean> savePhuPhiHoaDon(@PathVariable("id") String id, @RequestBody PhuPhiHoaDonRequest phuPhiHoaDonRequest) {
-        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-        String tenPhuPhi = phuPhiHoaDonRequest.getTenPhuPhi();
-        Double giaPhuPhi = phuPhiHoaDonRequest.getGiaPhuPhi();
-        PhuPhi phuPhi = new PhuPhi();
-        phuPhi.setTenPhuPhi(tenPhuPhi);
-        phuPhi.setGiaPhuPhi(giaPhuPhi);
-        phuPhi.setTrangThai(TrangThaiPhuPhi.Co.ordinal());
-        phuPhiStaffRepository.save(phuPhi);
-        PhuPhiHoaDon phuPhiHoaDon = new PhuPhiHoaDon();
-        phuPhiHoaDon.setId(null);
-        phuPhiHoaDon.setIdHoaDonSanCa(id);
-        phuPhiHoaDon.setIdPhuPhi(phuPhi.getId());
-        phuPhiHoaDon.setThoiGianTao(currentTimestamp);
-        phuPhiHoaDon.setTrangThai(TrangThaiPhuPhiHoaDon.Chua_Tra.ordinal());
-        phuPhiHoaDonStaffRepository.save(phuPhiHoaDon);
-        return ResponseEntity.ok(true);
+        try {
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+            String tenPhuPhi = phuPhiHoaDonRequest.getTenPhuPhi();
+            Double giaPhuPhi = phuPhiHoaDonRequest.getGiaPhuPhi();
+            PhuPhi phuPhi = new PhuPhi();
+            phuPhi.setTenPhuPhi(tenPhuPhi);
+            phuPhi.setGiaPhuPhi(giaPhuPhi);
+            phuPhi.setTrangThai(TrangThaiPhuPhi.Co.ordinal());
+            phuPhiStaffRepository.save(phuPhi);
+
+            PhuPhiHoaDon phuPhiHoaDon = new PhuPhiHoaDon();
+            phuPhiHoaDon.setId(null);
+            phuPhiHoaDon.setIdHoaDonSanCa(id);
+            phuPhiHoaDon.setIdPhuPhi(phuPhi.getId());
+            phuPhiHoaDon.setThoiGianTao(currentTimestamp);
+            phuPhiHoaDon.setTrangThai(TrangThaiPhuPhiHoaDon.Chua_Tra.ordinal());
+            phuPhiHoaDonStaffRepository.save(phuPhiHoaDon);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+        }
     }
+
 
     @DeleteMapping("/xoa-phu-phi/{id}")
     public ResponseEntity<Boolean> xoaPhuPhiHoaDon(@PathVariable("id") String id) {
-        phuPhiHoaDonStaffRepository.deleteById(id);
-        System.out.println("XÓA THÀNH CÔNG: " + id);
-        return ResponseEntity.ok(true);
+        try {
+            phuPhiHoaDonStaffRepository.deleteById(id);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+        }
     }
+
 }
