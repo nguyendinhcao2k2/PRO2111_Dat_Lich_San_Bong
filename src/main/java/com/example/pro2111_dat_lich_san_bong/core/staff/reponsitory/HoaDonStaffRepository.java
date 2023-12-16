@@ -64,7 +64,8 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "        tb4.thoi_gian_ket_thuc as thoiGianKetThuc, " +
             "        tb2.ngay_den_san as ngayDenSan, " +
             "        tb1.tien_coc as tienCoc, " +
-            "        tb2.tien_san as tienSan  " +
+            "        tb2.tien_san as tienSan,  " +
+            "        tb2.thoi_giam_check_in as thoiGianCheckIn  " +
             "    FROM " +
             "        dat_lich_san_bong.hoa_don tb1 " +
             "    inner join " +
@@ -82,7 +83,7 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "    where " +
             "        tb3.trang_thai = 0 " +
             "        and tb2.trang_thai = 0  and " +
-            "        tb1.ten_nguoi_dat LIKE ?1 and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d') " , nativeQuery = true)
+            "        tb1.so_dien_thoai_nguoi_dat LIKE ?1 and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d') order by tb3.ngay_den_san asc " , nativeQuery = true)
     List<CheckInResponse> listCheckIn(String param);
 
     @Query(value = "SELECT " +
@@ -100,7 +101,8 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "        tb4.thoi_gian_ket_thuc as thoiGianKetThuc, " +
             "        tb2.ngay_den_san as ngayDenSan, " +
             "        tb1.tien_coc as tienCoc, " +
-            "        tb2.tien_san as tienSan  " +
+            "        tb2.tien_san as tienSan ," +
+            "        tb2.thoi_giam_check_in as thoiGianCheckIn " +
             "    FROM " +
             "        dat_lich_san_bong.hoa_don tb1 " +
             "    inner join " +
@@ -117,7 +119,7 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "            on tb5.id = tb3.id_san_bong " +
             "    where " +
             "        tb3.trang_thai = 0 " +
-            "        and tb2.trang_thai = 0  and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d')", nativeQuery = true)
+            "        and tb2.trang_thai = 0  and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d') order by tb3.ngay_den_san asc ", nativeQuery = true)
     List<CheckInResponse> loadHoaDonCheckIn();
 
 
@@ -136,7 +138,8 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "        tb4.thoi_gian_ket_thuc as thoiGianKetThuc, " +
             "        tb2.ngay_den_san as ngayDenSan, " +
             "        tb1.tien_coc as tienCoc, " +
-            "        tb2.tien_san as tienSan  " +
+            "        tb2.tien_san as tienSan,  " +
+            "        tb2.thoi_giam_check_in as thoiGianCheckIn " +
             "    FROM " +
             "        dat_lich_san_bong.hoa_don tb1 " +
             "    inner join " +
@@ -153,7 +156,7 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "            on tb5.id = tb3.id_san_bong " +
             "    where " +
             "        tb3.trang_thai = 1 " +
-            "        and tb2.trang_thai = 1  and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d')", nativeQuery = true)
+            "        and tb2.trang_thai = 1  and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d') order by tb3.ngay_den_san asc", nativeQuery = true)
     List<CheckInResponse> showHDDaCheckIn();
 
 
