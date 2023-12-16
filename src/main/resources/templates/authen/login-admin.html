@@ -74,10 +74,13 @@
                         <input th:name="username" value="admin1" class="form-control form-control-lg mb-3" type="text">
                         <label class="font-500 form-label">Mật Khẩu</label>
                         <input th:name="password" value="1111" class="form-control form-control-lg" type="password">
-                        <a th:href="@{/authentication/home-login}">Quay lại !</a>
                         <p></p>
                         <div th:if="${param.error}">
                             <span style="color: red">Invalid User or Password</span>
+                        </div>
+                        <div class="m-1">
+                            <a th:href="@{/authentication/home-login}">Quay lại ! - </a>
+                            <a style="text-align: center" th:href="@{/static/forgot-pass}">Quên mật khẩu!</a>
                         </div>
                         <button class="btn btn-primary btn-lg w-100 shadow-lg">Đăng Nhập</button>
                     </form>

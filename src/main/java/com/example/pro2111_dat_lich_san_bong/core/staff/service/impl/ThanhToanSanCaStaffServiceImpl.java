@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,64 +35,91 @@ public class ThanhToanSanCaStaffServiceImpl implements IThanhToanSanCaStaffServi
 
     @Override
     public List<HoaDonThanhToanRequest> getAllHoaDonSanCas() {
-        List<HoaDonThanhToanRequest> listHoaDonThanhToanRequest = hoaDonSanCaStaffRepository.findAllByTrangThai(
-                TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal(),
-                TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal()
-        );
-        processHoaDonList(listHoaDonThanhToanRequest);
+        List<HoaDonThanhToanRequest> listHoaDonThanhToanRequest = new ArrayList<>();
+
+        try {
+            listHoaDonThanhToanRequest = hoaDonSanCaStaffRepository.findAllByTrangThai(
+                    TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal(),
+                    TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal()
+            );
+            processHoaDonList(listHoaDonThanhToanRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return listHoaDonThanhToanRequest;
     }
+
 
     @Override
     public List<HoaDonThanhToanRequest> getAllHoaDonSanCaByPhone(String numberPhone) {
-        List<HoaDonThanhToanRequest> listHoaDonThanhToanRequest = hoaDonSanCaStaffRepository.findAllBySoDienThoai(numberPhone,
-                TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal(),
-                TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal());
-        processHoaDonList(listHoaDonThanhToanRequest);
+        List<HoaDonThanhToanRequest> listHoaDonThanhToanRequest = new ArrayList<>();
+        try {
+            listHoaDonThanhToanRequest = hoaDonSanCaStaffRepository.findAllBySoDienThoai(numberPhone,
+                    TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal(),
+                    TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal());
+            processHoaDonList(listHoaDonThanhToanRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return listHoaDonThanhToanRequest;
     }
 
+
     @Override
     public HoaDonThanhToanRequest getOneHoaDonThanhToan(String id) {
-        HoaDonThanhToanRequest hoaDonThanhToanRequest = hoaDonSanCaStaffRepository.findOneById(id);
-        if (hoaDonThanhToanRequest != null) {
-            hoaDonThanhToanRequest.setTienCoc(sysParamUserService.getTienCoc(hoaDonThanhToanRequest.getTongTienSanCa()));
-            if (hoaDonThanhToanRequest.getTienCocThua() == null) {
-                hoaDonThanhToanRequest.setTienCocThua(Double.valueOf(0));
+        try {
+            HoaDonThanhToanRequest hoaDonThanhToanRequest = hoaDonSanCaStaffRepository.findOneById(id);
+            if (hoaDonThanhToanRequest != null) {
+                hoaDonThanhToanRequest.setTienCoc(sysParamUserService.getTienCoc(hoaDonThanhToanRequest.getTongTienSanCa()));
+                if (hoaDonThanhToanRequest.getTienCocThua() == null) {
+                    hoaDonThanhToanRequest.setTienCocThua(Double.valueOf(0));
+                }
+                return hoaDonThanhToanRequest;
             }
-            return hoaDonThanhToanRequest;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
 
+
     private void processHoaDonThanhToanRequest(HoaDonThanhToanRequest request) {
-        Double tongTienCoc = request.getTongTienSanCa();
-        request.setTienCoc(sysParamUserService.getTienCoc(tongTienCoc));
-        if (request.getTienCocThua() == null) {
-            request.setTienCocThua(Double.valueOf(0));
+        try {
+            Double tongTienCoc = request.getTongTienSanCa();
+            request.setTienCoc(sysParamUserService.getTienCoc(tongTienCoc));
+            if (request.getTienCocThua() == null) {
+                request.setTienCocThua(Double.valueOf(0));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void saveViTienCocAndLichSu(HoaDonSanCa hoaDonSanCa) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        HoaDonThanhToanRequest hoaDonThanhToanRequest = getOneHoaDonThanhToan(hoaDonSanCa.getId());
-        if (hoaDonThanhToanRequest != null) {
-            Double tienCoc = hoaDonThanhToanRequest.getTienCoc();
-            ViTienCoc viTienCoc = viTienStaffRepository.getViTienCocByIdHoaDon(hoaDonSanCa.getIdHoaDon());
-            if (viTienCoc != null) {
-                if (viTienCoc.getSoTien() != null) {
-                    LichSuViTien lichSuViTien = new LichSuViTien();
-                    lichSuViTien.setSoTien(tienCoc);
-                    lichSuViTien.setIdViTienCoc(viTienCoc.getId());
-                    lichSuViTien.setThoiGian(currentDateTime);
-                    lichSuViTien.setLoaiBienDong(TrangThaiLoaiBienDong.TRU_TIEN);
-                    lichSuViTien.setTaiKhoanVi(viTienCoc.getId());
-                    lichSuViTien.setNguoiNhan(hoaDonSanCa.getId());
-                    lichSuViTienRepository.saveAndFlush(lichSuViTien);
-                } else {
-                    System.out.println("LỖI Ở THANH TOÁN SÂN CA SERVICE:");
+        try {
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            HoaDonThanhToanRequest hoaDonThanhToanRequest = getOneHoaDonThanhToan(hoaDonSanCa.getId());
+            if (hoaDonThanhToanRequest != null) {
+                Double tienCoc = hoaDonThanhToanRequest.getTienCoc();
+                ViTienCoc viTienCoc = viTienStaffRepository.getViTienCocByIdHoaDon(hoaDonSanCa.getIdHoaDon());
+                if (viTienCoc != null) {
+                    if (viTienCoc.getSoTien() != null) {
+                        LichSuViTien lichSuViTien = new LichSuViTien();
+                        lichSuViTien.setSoTien(tienCoc);
+                        lichSuViTien.setIdViTienCoc(viTienCoc.getId());
+                        lichSuViTien.setThoiGian(currentDateTime);
+                        lichSuViTien.setLoaiBienDong(TrangThaiLoaiBienDong.TRU_TIEN);
+                        lichSuViTien.setTaiKhoanVi(viTienCoc.getId());
+                        lichSuViTien.setNguoiNhan(hoaDonSanCa.getId());
+                        lichSuViTienRepository.saveAndFlush(lichSuViTien);
+                    } else {
+                        System.out.println("LỖI Ở THANH TOÁN SÂN CA SERVICE: Số tiền trong ví không hợp lệ");
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 }

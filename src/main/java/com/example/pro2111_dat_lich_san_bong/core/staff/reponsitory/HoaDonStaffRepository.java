@@ -169,6 +169,7 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
                     )  
                      from HoaDon hd 
                      where hd.idAccount  = :idAccount
+                      order by hd.ngayTao asc 
             """)
     Page<LichSuHoaDonStaffReponse> findAllDataHoaDonAndHoaDonSanCaUser(Pageable pageable,@Param("idAccount") String idAccount);
 
@@ -179,6 +180,7 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
                     )  
                      from HoaDon hd 
                      where hd.idAccount is null
+                     order by hd.ngayTao asc 
             """)
     Page<LichSuHoaDonStaffReponse> findAllDataHoaDonAndHoaDonSanCa(Pageable pageable);
 
@@ -193,6 +195,7 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
                         or
                         (hd.soDienThoaiNguoiDat is not null and hd.soDienThoaiNguoiDat LIKE LOWER(CONCAT('%',:soDienThoaiNguoiDat,'%') ))
                         ) 
+                      order by hd.ngayTao asc 
                          
             """)
     Page<LichSuHoaDonStaffReponse> searchLichSuHoaDon(Pageable pageable, @Param("ten") String ten,@Param("soDienThoaiNguoiDat") String soDienThoaiNguoiDat);
@@ -207,7 +210,8 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
                         (hd.tenNguoiDat is not null and hd.tenNguoiDat  LIKE LOWER(CONCAT('%',:ten,'%') ))
                         or
                         (hd.soDienThoaiNguoiDat is not null and hd.soDienThoaiNguoiDat LIKE LOWER(CONCAT('%',:soDienThoaiNguoiDat,'%') ))
-                        ) 
+                        )
+                      order by hd.ngayTao asc 
                          
             """)
     Page<LichSuHoaDonStaffReponse> searchLichSuHoaDonUser(Pageable pageable,@Param("idAccount")String idAccount, @Param("ten") String ten,@Param("soDienThoaiNguoiDat") String soDienThoaiNguoiDat);

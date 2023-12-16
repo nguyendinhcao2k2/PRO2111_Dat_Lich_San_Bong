@@ -135,31 +135,29 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
-                                                <div class="header-row-col">
-                                                    <button
-                                                            class="btn btn-success btn-outline-success"
-                                                            type="button"
-                                                            id="reload"
-                                                            onclick="reloadPage()"
-                                                            style="border-radius: 5px; margin-left: 30px;">
-                                                        <i class="fa-solid fa-arrows-rotate" style="color: #ffffff"></i>
-                                                    </button>
-                                                    <button id="selectAllCheckbox" class="btn btn-success" type="submit"
-                                                            style="border-radius: 5px; margin-left: 30px;">
-                                                        <i class="fa-regular fa-square-check"
-                                                           style="color: #ffffff"></i>
-                                                    </button>
-                                                    <button id="deselectAllCheckbox" class="btn btn-success"
-                                                            type="submit"
-                                                            style="border-radius: 5px; margin-left: 30px;">
-                                                        <i class="fa-regular fa-rectangle-xmark"
-                                                           style="color: #ffffff"></i>
-                                                    </button>
-                                                </div>
+                                                <button
+                                                        class="btn btn-success btn-outline-success"
+                                                        type="button"
+                                                        id="reload"
+                                                        onclick="reloadPage()"
+                                                        style="border-radius: 5px; margin-left: 30px;">
+                                                    <i class="fa-solid fa-arrows-rotate" style="color: #ffffff"></i>
+                                                </button>
+                                                <button id="selectAllCheckbox" class="btn btn-success" type="submit"
+                                                        style="border-radius: 5px; margin-left: 30px;">
+                                                    <i class="fa-regular fa-square-check"
+                                                       style="color: #ffffff"></i>
+                                                </button>
+                                                <button id="deselectAllCheckbox" class="btn btn-danger"
+                                                        type="submit"
+                                                        style="border-radius: 5px; margin-left: 30px;">
+                                                    <i class="fa-regular fa-rectangle-xmark"
+                                                       style="color: #ffffff"></i>
+                                                </button>
                                             </div>
                                         </div>
 
-                                        <div class="table-responsive">
+                                        <div class="table-responsive mt-3">
                                             <table
                                                     id="myTable"
                                             >
@@ -200,12 +198,12 @@
                                 <div class="col-md-12 mt-4 mb-2" id="showDataDichVuHoaDon">
                                     <div class="body-row-col">
                                         <div class="row">
-                                            <div class="col-md-6 d-flex justify-content-start">
+                                            <div class="col-md-4 d-flex justify-content-start">
                                                 <div class="header-row-col">
                                                     <h1 class="">Dịch Vụ Sử Dụng</h1>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <div class="row g-2 align-items-center">
                                                     <div class="col-md-6"></div>
                                                     <div class="col-md-5 col-sm-auto">
@@ -362,7 +360,7 @@
                                     <div class="header-border">
                                         <h1>Thông Tin Hóa Đơn</h1>
                                     </div>
-                                    <form method="GET">
+                                    <form method="GET" class="mt-3">
                                         <div class="row g-3">
                                             <div class="col-md-6">
                                                 <label for="tenKhachHang" class="form-label"
@@ -688,7 +686,6 @@
                                                                     name="phuongThucChuyenKhoan"
                                                                     id="chuyenKhoan"
                                                                     value="chuyenKhoan"
-                                                                    checked
                                                                     onchange="toggleInputs()"
                                                             />
                                                             <label class="form-check-label" for="chuyenKhoan">
@@ -697,6 +694,7 @@
                                                         </div>
                                                         <div class="form-check form-check-inline">
                                                             <input
+                                                                    checked
                                                                     class="form-check-input"
                                                                     type="radio"
                                                                     name="phuongThucChuyenKhoan"
@@ -718,7 +716,7 @@
                                                         <div class="form-check form-switch">
                                                             <input class="form-check-input" type="checkbox"
                                                                    role="switch"
-                                                                   id="checkInHoaDon">
+                                                                   id="checkInHoaDon" checked>
                                                         </div>
                                                     </div>
                                                 </fieldset>
@@ -806,12 +804,12 @@
                                         <div class="mt-2 d-grid gap-2 d-md-block d-flex justify-content-center text-center">
                                             <button
                                                     type="button "
-                                                    class="m-2 btn btn-danger btn-labeled"
+                                                    class="m-2 btn btn-warning btn-labeled"
                                                     onclick="viewDatLich()"
                                             >
                                                 Home
                                                 <span class="btn-label">
-                                        <i class="fa fa-remove"></i>
+                                                    <i class="fa-solid fa-house"></i>
                                          </span>
                                             </button>
                                             <button
@@ -981,7 +979,6 @@
                                                                     name="phuongThucChuyenKhoan2"
                                                                     id="chuyenKhoan2"
                                                                     value="chuyenKhoan2"
-                                                                    checked
                                                                     onchange="toggleInput2s()"
                                                             />
                                                             <label class="form-check-label" for="chuyenKhoan">
@@ -995,6 +992,7 @@
                                                                     name="phuongThucChuyenKhoan2"
                                                                     id="tienMat2"
                                                                     value="tienMat2"
+                                                                    checked
                                                                     onchange="toggleInput2s()"
                                                             />
                                                             <label class="form-check-label" for="tienMat2">
@@ -1490,6 +1488,7 @@
                             tongTienCoc = this.dataset.tienCoc;
                             displayDichVu(data);
                             tongTienSanCaSaveThongKe = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)));
+                            tongTienHoaDonPhaiTra = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)));
                             displayPhuPhiHoaDon(getId);
                             $('#tienSan').val(formatCurrencyVND(this.dataset.tongTienSanCa));
                             $('#tienCocSan').val(formatCurrencyVND(this.dataset.tienCoc));
@@ -1594,6 +1593,7 @@
                 function searchFunction() {
                     $('.checkbox-select').hide();
                     $('.pagination').hide();
+                    clearTienKhachDuaNhieu();
                     var searchText = document.getElementById('textTimKiem').value;
                     if (!containsOnlySpaces(searchText) && isInputNumber(searchText) && isValidVietnamesePhoneNumber(searchText)) {
                         $.ajax({
@@ -1673,6 +1673,7 @@
                                         //trạng thái và hiển thị 'true' nếu trạng thái là 1
                                         cell6.textContent = item.trangThai === 1 ? 'Đã Check In' : 'Chờ Thanh Toán';
                                         var checkboxCell = document.createElement('td');
+                                        checkboxCell.style='border: 1px solid gray';
                                         var checkboxDiv = document.createElement('div');
                                         checkboxDiv.className = 'form-check';
                                         var checkbox = document.createElement('input');
@@ -1726,6 +1727,7 @@
                                             tongTienCoc = this.dataset.tienCoc;
                                             displayDichVu(data);
                                             tongTienSanCaSaveThongKe = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)));
+                                            tongTienHoaDonPhaiTra = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)));
                                             displayPhuPhiHoaDon(getId);
                                             $('#tienSan').val(formatCurrencyVND(this.dataset.tongTienSanCa));
                                             $('#tienCocSan').val(formatCurrencyVND(this.dataset.tienCoc));
@@ -2018,6 +2020,7 @@
                             tongGiaTienPhuPhi += item.giaPhuPhi;
                         });
                         tongTienSanCaSaveThongKe = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)));
+                        tongTienHoaDonPhaiTra = (parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)));
                         $('#tienPhuPhi').val(formatCurrencyVND(tongGiaTienPhuPhi));
                         $('#tongThanhToan').text(formatCurrencyVND((parseFloat(tongTienDichVu) + parseFloat(tongTienSanCa) + parseFloat(tongGiaTienPhuPhi) - (parseFloat(tongTienCoc) + parseFloat(tongTienCocThua)))) + '.VNĐ');
                     } else {
@@ -2113,8 +2116,8 @@
                             orderInfo: soDienThoai,
                         },
                         success: function (response) {
-                            inHoaDonThanhToan(getId);
                             window.open(response);
+                            inHoaDonThanhToan(getId);
                             reloadPage();
                         },
                         error: function (error) {
@@ -2176,8 +2179,8 @@
     }
 
     function clearTienKhachDua() {
-        document.getElementById('tienKhachDua').value = "";
-        document.getElementById('tienTraLai').value = "";
+        document.getElementById('tienKhachDua').value = 0;
+        document.getElementById('tienTraLai').value = 0;
     }
 
     function formatCurrencyVND(amount, locale = 'vi-VN') {
@@ -2209,10 +2212,11 @@
 
     function calculateChange() {
         var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
-
+        console.log('TONG TIEN PHAI TRA: ' + tongTienHoaDonPhaiTra);
+        console.log('TONG TIEN KHACH DUA: ' + tienKhachDua);
+        console.log('TONG TIEN THONG KE: ' + tongTienSanCaSaveThongKe);
         if (tienKhachDua >= tongTienHoaDonPhaiTra) {
             var tienTraLai = tienKhachDua - tongTienHoaDonPhaiTra;
-
             document.getElementById('tienTraLai').value = formatCurrencyVND(tienTraLai);
         } else {
             document.getElementById('tienTraLai').value = "Chưa đủ tiền trả";
@@ -2409,8 +2413,8 @@
     }
 
     function clearTienKhachDuaNhieu() {
-        document.getElementById('tienKhachDua2').value = "";
-        document.getElementById('tienTraLai2').value = "";
+        document.getElementById('tienKhachDua2').value = 0;
+        document.getElementById('tienTraLai2').value = 0;
     }
 
     function showMessageThanhToanWarningNhieu() {

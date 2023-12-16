@@ -40,10 +40,16 @@ public class LichSuHoaDonSanCaStaffReponse {
 
     private LoaiHinhThanhToan HinhThucThanhToan;
 
+    private String tenCa;
+
+    private String tenSanBong;
+
+    private Double giaSan;
+
     private List<LichSuDichVuSuDungStaffReponse> dichVuSuDungStaffReponses;
     private List<PhuPhiHoaDonRequest> phuPhiHoaDonReponse;
 
-    public LichSuHoaDonSanCaStaffReponse(String id, LocalDate ngayDenSan, Time thoiGianCheckIn, Double tienSan, Double tongTienHoaDonSanCa, String idHoaDon, Integer trangThai, Timestamp ngayThanhToan, Integer countLich, Double tienCocThua, LoaiHinhThanhToan hinhThucThanhToan) {
+    public LichSuHoaDonSanCaStaffReponse(String id, LocalDate ngayDenSan, Time thoiGianCheckIn, Double tienSan, Double tongTienHoaDonSanCa, String idHoaDon, Integer trangThai, Timestamp ngayThanhToan, Integer countLich, Double tienCocThua, LoaiHinhThanhToan hinhThucThanhToan, String tenCa, String tenSanBong, Double giaSan) {
         this.id = id;
         this.ngayDenSan = ngayDenSan;
         this.thoiGianCheckIn = thoiGianCheckIn;
@@ -55,5 +61,8 @@ public class LichSuHoaDonSanCaStaffReponse {
         this.countLich = countLich;
         this.tienCocThua = tienCocThua;
         HinhThucThanhToan = hinhThucThanhToan;
+        this.tenCa = tenCa;
+        this.tenSanBong = tenSanBong;
+        this.giaSan = giaSan;
     }
 }
