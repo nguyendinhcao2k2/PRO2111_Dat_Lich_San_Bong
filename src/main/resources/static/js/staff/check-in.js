@@ -101,11 +101,11 @@ function checkInLichDat(param) {
                 contentType: "application/json",
                 url: apiUrl + "/check-in/" + param,
                 success: function (responseData) {
-                    createAndShowToast("bg-success","Thông báo check in",responseData.content);
+                    alert(responseData.content)
                     window.location.href = "/api/v1/staff/check-in";
                 },
                 error: function (e) {
-                    createAndShowToast('bg-danger','Thông báo check in',"Có lỗi !!")
+                    alert(e.content)
                 }
             })
         }
