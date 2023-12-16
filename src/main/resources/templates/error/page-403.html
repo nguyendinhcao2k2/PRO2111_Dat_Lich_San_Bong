@@ -17,7 +17,18 @@
         <span class="msg">can't let <span>you</span> in.</span>
         <span class="support">
       <span>unexpected?</span>
-      <a th:href="@{/authentication/home-login}">Go Home!!</a>
+            <div th:if="${session.role} == null">
+                <a th:href="@{/authentication/home-login}">Go Home!!</a>
+            </div>
+            <div th:if="${session.role} == 'ROLE_USER' ">
+                <a th:href="@{/api/v1/trang-chu}">Go Home!!</a>
+            </div>
+            <div th:if="${session.role} == 'ROLE_STAFF' ">
+                <a th:href="@{/api/v1/staff/account/display}">Go Home!!</a>
+            </div>
+            <div th:if="${session.role} == 'ROLE_ADMIN' ">
+                <a th:href="@{/api/v1/admin/manage/list-manage}">Go Home!!</a>
+            </div>
     </span>
     </div>
     <div class="lock"></div>

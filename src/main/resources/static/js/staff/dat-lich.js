@@ -1155,6 +1155,10 @@ function setPrice(tt) {
 }
 
 function openModal() {
+    $("#hoTenInput").val("");
+    $("#emailInput").val("");
+    $("#soDienThoaiInput").val("");
+    $("#ghiChuInput").val("");
     let thongTinSanBongList = JSON.parse(localStorage.getItem("thongTin"));
     setPrice(thongTinSanBongList);
 }
