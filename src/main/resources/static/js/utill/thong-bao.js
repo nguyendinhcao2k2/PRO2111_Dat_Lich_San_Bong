@@ -26,7 +26,7 @@ function createMultipleToasts(toastsArray) {
     toastsArray.forEach(
         ([headerBackgroundColor, headerText, bodyText], index) => {
             const toast = document.createElement("div");
-            toast.className = "toast";
+            toast.className = "toast mb-2";
             toast.setAttribute("role", "alert");
             toast.setAttribute("aria-live", "assertive");
             toast.setAttribute("aria-atomic", "true");
@@ -34,13 +34,13 @@ function createMultipleToasts(toastsArray) {
             // Customize the toast content as needed5
             toast.innerHTML = `
                                 <div style="border-radius:5px 5px 0px 0px" class="toast-header ${headerBackgroundColor}">
-                                  <div class="m-2">
+                                  <div class="mx-1">
                                     <i class="far fa-futbol fa-lg" style="color: #ffffff"></i>
                                   </div>
                                   <strong style="color: #ffffff; font-size: 17px" class="me-auto">${headerText}</strong>
                                   <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
-                                <div class="toast-body" style="color: black; font-size: 14px;background-color: #ffffff;border-radius:0px 0px 12px 12px">
+                                <div class="toast-body p-2" style="color: black; font-size: 14px;background-color: #ffffff;border-radius:0px 0px 12px 12px">
                                   ${bodyText}
                                 </div>
                               `;
@@ -51,8 +51,7 @@ function createMultipleToasts(toastsArray) {
             // Thêm sự kiện click cho nút đóng của mỗi toast
             const closeButton = toast.querySelector(".btn-close");
             closeButton.addEventListener("click", function () {
-                const toastInstance = bootstrap.Toast.getInstance(toast);
-                toastInstance.hide(); // Ẩn toast khi nút đóng được click
+                toastInnerContainer.hide(); // Ẩn toast khi nút đóng được click
             });
 
             // Initialize and show each toast with a delay
