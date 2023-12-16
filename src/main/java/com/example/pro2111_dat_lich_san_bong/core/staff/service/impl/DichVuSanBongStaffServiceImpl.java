@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -28,57 +29,73 @@ public class DichVuSanBongStaffServiceImpl implements IDichVuSanBongStaffService
 
     @Override
     public List<DichVuSanBongRequest> dichVuSanBongSuDungByHoaDonSanCas(String idHoaDonSanCa, int trangThai) {
-        return dichVuSanBongStaffRepository.dichVuSanBongSuDungByHoaDonSanCas(idHoaDonSanCa, trangThai);
+        try {
+            return dichVuSanBongStaffRepository.dichVuSanBongSuDungByHoaDonSanCas(idHoaDonSanCa, trangThai);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
+
 
     @Override
     public List<DichVuSanBong> findAllByIdHoaDonSanCaAndTrangThai(String idHoaDonSanCa, int trangThai) {
-        return dichVuSanBongStaffRepository.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, trangThai);
+        try {
+            return dichVuSanBongStaffRepository.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, trangThai);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
 
     @Override
     public List<DoThueNuocUongDichVuRequest> getAllDoThueNuocUongDichVuRequest(int trangThai) {
-        List<DoThue> listDoThues = doThueStaffRepository.getAllByTrangThai(trangThai);
-        List<NuocUong> listNuocUongs = nuocUongStaffRepository.getAllByTrangThai(trangThai);
-        List<DoThueNuocUongDichVuRequest> listDoThueNuocUongDichVuRequests = new ArrayList<>();
+        try {
+            List<DoThue> listDoThues = doThueStaffRepository.getAllByTrangThai(trangThai);
+            List<NuocUong> listNuocUongs = nuocUongStaffRepository.getAllByTrangThai(trangThai);
+            List<DoThueNuocUongDichVuRequest> listDoThueNuocUongDichVuRequests = new ArrayList<>();
 
-        int nuocUongTrangThai = 1;
-        int doThueTrangThai = 2;
+            int nuocUongTrangThai = 1;
+            int doThueTrangThai = 2;
 
-        for (NuocUong nuocUong : listNuocUongs) {
-            if (nuocUong.getTrangThai() == 0 && nuocUong.getSoLuong() > 0) {
-                DoThueNuocUongDichVuRequest request = new DoThueNuocUongDichVuRequest();
-                request.setId(nuocUong.getId());
-                request.setImage(nuocUong.getImage());
-                request.setTenDichVu(nuocUong.getTenNuocUong());
-                request.setSoLuong(nuocUong.getSoLuong());
-                request.setDonGia(nuocUong.getDonGia());
-                request.setTrangThai(nuocUongTrangThai);
-                listDoThueNuocUongDichVuRequests.add(request);
+            for (NuocUong nuocUong : listNuocUongs) {
+                if (nuocUong.getTrangThai() == 0 && nuocUong.getSoLuong() > 0) {
+                    DoThueNuocUongDichVuRequest request = new DoThueNuocUongDichVuRequest();
+                    request.setId(nuocUong.getId());
+                    request.setImage(nuocUong.getImage());
+                    request.setTenDichVu(nuocUong.getTenNuocUong());
+                    request.setSoLuong(nuocUong.getSoLuong());
+                    request.setDonGia(nuocUong.getDonGia());
+                    request.setTrangThai(nuocUongTrangThai);
+                    listDoThueNuocUongDichVuRequests.add(request);
+                }
             }
-        }
 
-        for (DoThue doThue : listDoThues) {
-            if (doThue.getTrangThai() == 0 && doThue.getSoLuong() > 0) {
-                DoThueNuocUongDichVuRequest request = new DoThueNuocUongDichVuRequest();
-                request.setId(doThue.getId());
-                request.setImage(doThue.getImage());
-                request.setTenDichVu(doThue.getTenDoThue());
-                request.setSoLuong(doThue.getSoLuong());
-                request.setDonGia(doThue.getDonGia());
-                request.setTrangThai(doThueTrangThai);
-                listDoThueNuocUongDichVuRequests.add(request);
+            for (DoThue doThue : listDoThues) {
+                if (doThue.getTrangThai() == 0 && doThue.getSoLuong() > 0) {
+                    DoThueNuocUongDichVuRequest request = new DoThueNuocUongDichVuRequest();
+                    request.setId(doThue.getId());
+                    request.setImage(doThue.getImage());
+                    request.setTenDichVu(doThue.getTenDoThue());
+                    request.setSoLuong(doThue.getSoLuong());
+                    request.setDonGia(doThue.getDonGia());
+                    request.setTrangThai(doThueTrangThai);
+                    listDoThueNuocUongDichVuRequests.add(request);
+                }
             }
+            return listDoThueNuocUongDichVuRequests;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
         }
-        System.out.println(listDoThueNuocUongDichVuRequests.size());
-        return listDoThueNuocUongDichVuRequests;
     }
+
 
     @Override
     public List<DichVuSanBong> findAllByLichSuSuDungDichVu(String idHoaDonSanCa) {
         try {
             return dichVuSanBongStaffRepository.findAllByLichSuSuDungDichVu(idHoaDonSanCa);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

@@ -29,14 +29,18 @@ public class InvoiceController {
 
 
     @GetMapping("/generate/{id}")
-    public ResponseEntity<byte[]> generatePdf(@PathVariable("id") String id) throws IOException {
-        HoaDonThanhToanRequest hoaDonThanhToanRequest = iThanhToanSanCaStaffService.getOneHoaDonThanhToan(id);
-        byte[] pdfBytes = invoiceService.generatePdfMotHoaDon(hoaDonThanhToanRequest);
+    public ResponseEntity<byte[]> generatePdf(@PathVariable("id") String id) {
+        try {
+            HoaDonThanhToanRequest hoaDonThanhToanRequest = iThanhToanSanCaStaffService.getOneHoaDonThanhToan(id);
+            byte[] pdfBytes = invoiceService.generatePdfMotHoaDon(hoaDonThanhToanRequest);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=hoa_don.pdf");
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=hoa_don.pdf");
-
-        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }
 
