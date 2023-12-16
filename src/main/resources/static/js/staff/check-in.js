@@ -101,11 +101,11 @@ function checkInLichDat(param) {
                 contentType: "application/json",
                 url: apiUrl + "/check-in/" + param,
                 success: function (responseData) {
-                    alert(responseData.content);
+                    createAndShowToast('bg-success','Thông báo check in',responseData.content);
                     window.location.href = "/api/v1/staff/check-in";
                 },
                 error: function (e) {
-                    alert("Có lỗi !!")
+                    createAndShowToast('bg-danger','Thông báo check in',"Có lỗi !!")
                 }
             })
         }
@@ -119,4 +119,10 @@ function formatCurrencyVND(amount) {
     });
 
     return formatter.format(amount);
+}
+
+
+function showHoaDonCheckIn(){
+    debugger
+    createAndShowToast("bg-success","Thông báo","oke")
 }

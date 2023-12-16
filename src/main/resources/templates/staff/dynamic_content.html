@@ -214,7 +214,7 @@
 
                                                             <div class="col-md-6">
                                                                 <div class="row g-2 align-items-center">
-                                                                    <div class="col-md-4">
+                                                                    <div class="col-md-5">
 
                                                                     </div>
                                                                     <div class="col-md-5">
@@ -225,7 +225,7 @@
                                                                             <input type="text" @input="timKiemLichDatTheoSDT($event)" v-model="soDienThoaiDoiLichSearch"  class="form-control" placeholder="Tìm kiếm lịch theo số điện thoại....."  aria-describedby="basic-addon1" >
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-3 col-sm-auto d-flex justify-content-end">
+                                                                    <div class="col-md-4 col-sm-auto d-flex justify-content-end">
                                                                         <button
                                                                                 type="button"
                                                                                 class="button-header-confirm modalXacNhan"
@@ -602,7 +602,7 @@
                                     class="button-header"
                                     onclick="showModalInfo()"
                             >
-                                <span class="button__text">Thông Tin</span>
+                                <span class="button__text">Điền thông Tin</span>
                                 <span class="button__icon">
                                             <i class="fas fa-info"></i>
                                         </span>
@@ -689,6 +689,21 @@
                                                                         id="id_tongTien"
                                                                 >
                                                                     600000 VND
+                                                                </h4>
+                                                            </div>
+                                                            <div class="col-6 col-md-6 col-sm-6">
+                                                                <h4
+                                                                >
+                                                                    Tham số tiền cọc:
+                                                                </h4>
+                                                            </div>
+                                                            <div class="col-6 col-md-6 col-sm-6">
+                                                                <h4
+                                                                        class=" text-center text-primary"
+                                                                        id="id_tongTien"
+                                                                        th:text="${thamSoTienCoc+'%'}"
+                                                                >
+
                                                                 </h4>
                                                             </div>
                                                             <div class="col-6 col-md-6 col-sm-6">
@@ -2988,8 +3003,8 @@
                 </tr>
                 `;
         }));
-        $('#id_tongTien').text(  formatCurrencyVND(tongTien));
-        $('#id_tienCoc').text( formatCurrencyVND(tongTien * (thamSoTienCoc / 100)));
+        $('#id_tongTien').html(formatCurrencyVND(tongTien));
+        $('#id_tienCoc').html(formatCurrencyVND(tongTien * (thamSoTienCoc / 100)));
     }
 
     function formatTime(inputTime) {

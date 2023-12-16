@@ -189,7 +189,7 @@
                                         >
                                         <select id="nhanVienNhanCaTiepTheo" class="form-select">
                                             <option v-for="items in giaoCaStaff.accountResponseList"
-                                                    v-bind:value="items.id" selected="">{{items.displayName}}
+                                                    v-bind:value="items.id" selected="">{{items.displayName}} - {{items.soDienThoai}}
                                             </option>
                                         </select>
                                     </div>
@@ -295,13 +295,13 @@
                           padding-bottom: 0;
                           margin-bottom: 10px;
                         ">Reset <span class="btn-label" style="
-                            position: relative;
-                            right: -12px;
-                            display: inline-block;
-                            padding: 6px 12px;
-                            background: rgba(0, 0, 0, 0.15);
-                            border-radius: 3px 0 0 3px;
-                          ">
+                                                position: relative;
+                                                right: -12px;
+                                                display: inline-block;
+                                                padding: 6px 12px;
+                                                background: rgba(0, 0, 0, 0.15);
+                                                border-radius: 3px 0 0 3px;
+                                              ">
                                             <i class="fa fa-refresh"></i>
 
                                                    </span>
@@ -324,8 +324,8 @@
         >
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header border-0">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
+                    <div class="modal-header border-0" style="background: #f7941e">
+                        <h1 style="color: #FFFFFF; font-size: 25px" class="modal-title fs-5" id="exampleModalLabel">Thông Báo</h1>
                         <button
                                 type="button"
                                 class="btn-close"
@@ -333,11 +333,13 @@
                                 aria-label="Close"
                         ></button>
                     </div>
-                    <div class="modal-body">Bạn có chắc chắn bàn giao ca làm việc này?</div>
+                    <div class="modal-body">
+                        <h5>Bạn có chắc chắn bàn giao ca làm việc này?</h5>
+                    </div>
                     <div class="modal-footer border-0">
                         <button
                                 type="button"
-                                class="btn btn-secondary btn-labeled"
+                                class="btn btn-danger btn-labeled"
                                 data-bs-dismiss="modal"
                         >
                             Thoát
@@ -360,8 +362,8 @@
         >
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header border-0">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nhập số tiền mặt bạn muốn rút</h1>
+                    <div class="modal-header border-0" style="background: #f7941e">
+                        <h1 style="color: #FFFFFF; font-size: 25px" class="modal-title fs-5" id="exampleModalLabel">Nhập số tiền mặt bạn muốn rút</h1>
                         <button
                                 type="button"
                                 class="btn-close"
@@ -381,7 +383,7 @@
                     <div class="modal-footer border-0">
                         <button
                                 type="button"
-                                class="btn btn-secondary btn-labeled"
+                                class="btn btn-danger btn-labeled"
                                 data-bs-dismiss="modal"
                         >
                             Thoát
@@ -397,7 +399,7 @@
     </section>
 
     <!-- Start Footer -->
-    <div th:insert="~{fragments/footer}"></div>
+    <div th:insert="~{fragments/footer-owner-staff}"></div>
     <!-- End Footer -->
 </div>
 

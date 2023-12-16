@@ -596,7 +596,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                        Thêm nhanh loại sân
+                                        Thêm Nhanh Loại Sân
                                     </h1>
                                     <button
                                             type="button"
@@ -633,7 +633,9 @@
                                             />
                                             <span class="input-group-text" id="basic-addon1">Vnd</span>
                                         </div>
-                                        Danh sách loại sân
+                                        <h5>
+                                            Danh sách loại sân
+                                        </h5>
                                         <table class="table table-bordered table-header table-container">
                                             <tr>
                                                 <th>Tên</th>
@@ -678,7 +680,7 @@
                                         >
                                             Hủy
                                         </button>
-                                        <button type="submit" class="btn btn-primary">Lưu</button>
+                                        <button type="submit" class="btn btn-primary btn-labeled">Lưu</button>
                                     </div>
                                 </form>
                             </div>
@@ -1104,7 +1106,7 @@
                                             <tr :class="items.tienPhatSinh != 0 ? 'table-warning' : ''">
                                                 <td>{{index}}</td>
                                                 <td hidden class="valueId">{{items.id}}</td>
-                                                <td>{{items.displayNameNhanVienTrongCa}}</td>
+                                                <td>{{items.displayNameNhanVienTrongCa}} - {{items.soDienThoaiNhanVienTrongCa}} </td>
                                                 <td>{{items.thoiGianNhanCa}}</td>
                                                 <td>{{items.thoiGianKetCa}}</td>
                                                 <td>

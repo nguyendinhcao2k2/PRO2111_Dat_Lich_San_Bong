@@ -36,4 +36,9 @@ public class CheckInStaffRescontroller {
     public ResponseEntity<?> checkIn(@PathVariable("param") String param) {
         return hoaDonStaffService.checkIn(param);
     }
+
+    @GetMapping("/show-hd-check-in")
+    public ResponseEntity<?> showHDDaCheckIn() {
+        return new ResponseEntity<>(hoaDonStaffService.showHDDaCheckIn(), HttpStatus.OK);
+    }
 }
