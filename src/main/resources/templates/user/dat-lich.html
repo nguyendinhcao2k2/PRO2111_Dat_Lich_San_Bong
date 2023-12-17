@@ -2368,7 +2368,7 @@
                 select: "preset-range",
                 display: "inline",
                 // firstSelectDay: 1,
-                selectSize: 14,
+                selectSize: 7,
                 min: new Date(),
             });
     });
@@ -3279,7 +3279,7 @@
                         tienCocThua: this.tienCocThua
                     }),
                     success: function (response) {
-                        window.location.reload();
+                        resetEventByIdLoaiSan(selectedValue);
                         createAndShowToast("bg-success", "Thông báo", "Thao tác thành công!");
                     },
                     error: function (error) {
@@ -3676,7 +3676,7 @@
                 if (response.statusCode === 'OK') {
                     createAndShowToast("bg-success", "Thông báo", "Thao tác đổi lịch thành công!");
                     setTimeout(function () {
-                        window.location.reload();
+                        resetEventByIdLoaiSan(selectedValue);
                     }, 1000);
                     return;
                 }
