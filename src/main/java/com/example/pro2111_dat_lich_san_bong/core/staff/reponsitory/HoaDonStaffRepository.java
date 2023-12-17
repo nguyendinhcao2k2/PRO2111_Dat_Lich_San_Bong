@@ -179,7 +179,6 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
                        hd.id,hd.ngayTao,hd.soDienThoaiNguoiDat,hd.tienCoc,hd.tongTien,hd.email,hd.tenNguoiDat,hd.trangThai
                     )  
                      from HoaDon hd 
-                     where hd.idAccount is null
                      order by hd.ngayTao asc 
             """)
     Page<LichSuHoaDonStaffReponse> findAllDataHoaDonAndHoaDonSanCa(Pageable pageable);
@@ -189,8 +188,8 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
                        hd.id,hd.ngayTao,hd.soDienThoaiNguoiDat,hd.tienCoc,hd.tongTien,hd.email,hd.tenNguoiDat,hd.trangThai
                     )  
                      from HoaDon hd 
-                     where hd.idAccount is null
-                        and (
+                     where 
+                         (
                         (hd.tenNguoiDat is not null and hd.tenNguoiDat  LIKE LOWER(CONCAT('%',:ten,'%') ))
                         or
                         (hd.soDienThoaiNguoiDat is not null and hd.soDienThoaiNguoiDat LIKE LOWER(CONCAT('%',:soDienThoaiNguoiDat,'%') ))
