@@ -1,10 +1,12 @@
 package com.example.pro2111_dat_lich_san_bong.core.utils;
 
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.LichSuSanBongAdminService;
+import com.example.pro2111_dat_lich_san_bong.core.common.session.CommonSession;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.GiaoCaResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.CaStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.SanCaStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.CheckValidCheckInService;
+import com.example.pro2111_dat_lich_san_bong.core.staff.service.HoaDonStaffService;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IGiaoCaStaffService;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IHoaDonSanCaStaffQRCodeService;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.CaUserService;
@@ -50,6 +52,12 @@ public class RestControllerScanQR {
     @Autowired
     private SYSParamUserService sysParamUserService;
 
+    @Autowired
+    private HoaDonStaffService hoaDonStaffService;
+
+    @Autowired
+    private CommonSession commonSession;
+
     @GetMapping("find-time-check-in")
     public ResponseEntity<?> findTimeCheckIn() {
         try {
@@ -94,6 +102,11 @@ public class RestControllerScanQR {
                 GiaoCaResponse giaoCaKhongHoatDong = giaoCaStaffService.findFirstByOrderByThoiGianNhanCaDesc();
                 hoaDonSanCa.setIdGiaoCa(giaoCaKhongHoatDong.getId());
             }
+
+            HoaDon hoaDon = hoaDonStaffService.getHoaDonById(hoaDonSanCa.getIdHoaDon());
+            hoaDon.setIdAccountConfirm(commonSession.getUserId());
+            hoaDonStaffService.updateHoaDon(hoaDon);
+
             hoaDonSanCaStaffQRCodeService.updateHoaDonSanCaStaffQRCode(hoaDonSanCa);
 
 

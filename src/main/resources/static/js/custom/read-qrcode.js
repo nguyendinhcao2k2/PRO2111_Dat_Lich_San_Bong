@@ -100,7 +100,9 @@ $(document).ready(() => {
                                             // $(".camera").slideUp(1000);
                                             // $(".start").show();
                                             // $(".camera-selection").slideUp(1000);
-                                            return alert("Check-in thành công!");
+                                            alert("Check-in thành công!");
+                                            window.location.reload();
+                                            return ;
                                         } else if (response.statusCode === "NOT_FOUND") {
                                             return alert("Không tìm thấy phiếu đặt!");
                                         }else if (response.statusCode === "PAYMENT_REQUIRED") {

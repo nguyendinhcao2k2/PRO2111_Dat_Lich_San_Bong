@@ -1,6 +1,7 @@
 package com.example.pro2111_dat_lich_san_bong.core.staff.service.impl;
 
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.LichSuSanBongAdminService;
+import com.example.pro2111_dat_lich_san_bong.core.common.session.CommonSession;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.CheckInResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.GiaoCaResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LichSuHoaDonStaffReponse;
@@ -62,6 +63,9 @@ public class HoaDonStaffServiceImpl implements HoaDonStaffService {
     @Autowired
     private HoaDonStaffRepository hoaDonStaffRepository;
 
+    @Autowired
+    private CommonSession commonSession;
+
     @Override
     public List<CheckInResponse> loadHoaDonCheckIn() {
         return hoaDonStaffRepository.loadHoaDonCheckIn();
@@ -111,6 +115,11 @@ public class HoaDonStaffServiceImpl implements HoaDonStaffService {
                 GiaoCaResponse giaoCaKhongHoatDong = giaoCaStaffService.findFirstByOrderByThoiGianNhanCaDesc();
                 hoaDonSanCa.get().setIdGiaoCa(giaoCaKhongHoatDong.getId());
             }
+
+            HoaDon hoaDon = hoaDonStaffRepository.findHoaDonById(hoaDonSanCa.get().getIdHoaDon());
+            hoaDon.setIdAccountConfirm(commonSession.getUserId());
+            hoaDonStaffRepository.saveAndFlush(hoaDon);
+
             hoaDonSanCaStaffQRCodeService.updateHoaDonSanCaStaffQRCode(hoaDonSanCa.get());
 
 

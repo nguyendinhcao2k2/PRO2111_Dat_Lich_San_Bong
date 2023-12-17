@@ -109,8 +109,8 @@ public class CaAdminRestController {
     @PutMapping("update")
     public BaseResponse<?> updateCa(@RequestBody CaAdminRequest caAdminRequest) {
         try {
-            Ca caCu = caAdminService.findById(caAdminRequest.getId());
             List<Ca> caList = caAdminService.findAllListCa();
+            Ca caCu = caAdminService.findById(caAdminRequest.getId());
 
             for (Ca ca : caList) {
                 Time thoiGianBatDauHT = ca.getThoiGianBatDau();
@@ -126,32 +126,36 @@ public class CaAdminRestController {
                         logger.info("********** kết thúc xóa job hủy lịch **********");
 
                         runJobHuyLichSanCa.khaiBaoInfoJob();
-
-                    }catch (Exception e){
-
+                        return new BaseResponse<>(HttpStatus.OK, "Thành công");
+                    } catch (Exception e) {
+                        return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
                     }
-                    return new BaseResponse<>(HttpStatus.OK, "Thành công");
+
+
                 }
 
-                if (caAdminRequest.getThoiGianBatDau().equals(caCu.getThoiGianBatDau()) && caAdminRequest.getThoiGianKetThuc().after(caCu.getThoiGianKetThuc())
-                        && !caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)
-                        && (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || (caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) && caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT)) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT))) {
+                // Kiểm tra nếu thời gian bắt đầu của caAdminRequest nằm trong khoảng của bất kỳ ca nào
+                if (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) && caAdminRequest.getThoiGianBatDau().before(thoiGianKetThucHT)) {
                     return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
                 }
 
-                if (caAdminRequest.getThoiGianKetThuc().equals(caCu.getThoiGianKetThuc()) && caAdminRequest.getThoiGianBatDau().before(caCu.getThoiGianBatDau())
-                        && !caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)
-                        && (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || (caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) && caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT)) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT))) {
+                // Kiểm tra nếu thời gian kết thúc của caAdminRequest nằm trong khoảng của bất kỳ ca nào
+                if (caAdminRequest.getThoiGianKetThuc().after(thoiGianBatDauHT) && caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT)) {
                     return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
                 }
 
-                if (caAdminRequest.getThoiGianBatDau().before(caCu.getThoiGianBatDau()) && caAdminRequest.getThoiGianKetThuc().after(caCu.getThoiGianKetThuc())
-                        && !caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)
-                        && (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || (caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) && caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT)) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT))) {
+                // Kiểm tra nếu thời gian kết thúc của caAdminRequest trùng với thời gian bắt đầu của một ca
+                if (caAdminRequest.getThoiGianKetThuc().equals(thoiGianBatDauHT)) {
+                    return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
+                }
+
+                // Kiểm tra nếu thời gian bắt đầu của caAdminRequest trùng với thời gian kết thúc của một ca
+                if (caAdminRequest.getThoiGianBatDau().equals(thoiGianKetThucHT)) {
                     return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
                 }
             }
 
+            // Lưu cập nhật
             caAdminService.saveOrUpdate(caAdminRequest);
 
             return new BaseResponse<>(HttpStatus.OK, "Thành công");
@@ -161,6 +165,7 @@ public class CaAdminRestController {
             return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Lỗi");
         }
     }
+
 
 
     @DeleteMapping("delete/{id}")
