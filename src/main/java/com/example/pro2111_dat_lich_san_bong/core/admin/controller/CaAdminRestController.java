@@ -212,6 +212,12 @@ public class CaAdminRestController {
                 }
             }
 
+            logger.info("********** bắt đầu xóa job hủy lịch **********");
+            runJobHuyLichSanCa.xoaJobHuyLich();
+            logger.info("********** kết thúc xóa job hủy lịch **********");
+
+            runJobHuyLichSanCa.khaiBaoInfoJob();
+
             // Lưu cập nhật
             caAdminService.saveOrUpdate(caAdminRequest);
 
