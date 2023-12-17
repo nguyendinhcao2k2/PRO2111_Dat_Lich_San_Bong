@@ -1,4 +1,4 @@
-const viewUrlApi = "http://localhost:8081/authentication/";
+const viewUrlApi = "http://localhost:8081/authentication";
 
 function signUp() {
     let accountError = $("#account_error");
@@ -67,19 +67,17 @@ function signUp() {
             password: password,
             rePassword: re_password,
         };
-
-
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: viewUrlApi + "/check-out-cart",
+            url: viewUrlApi + "/sign-up",
             data: JSON.stringify(data),
             success: function (responseData) {
-                alert(responseData)
+                console.log(responseData)
                 window.location.href = "/authentication/home-login"
             },
             error: function (e) {
-                alert(e);
+                console.log(e);
             }
         });
     }

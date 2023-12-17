@@ -2,16 +2,22 @@ package com.example.pro2111_dat_lich_san_bong.core.staff.service.impl;
 
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.DichVuSanBongRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest;
+import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.AccountStaffReponsitoty;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.PhuPhiHoaDonStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.PhuPhiStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IDichVuSanBongStaffService;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.IDoThueStaffService;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.INuocUongStaffService;
+import com.example.pro2111_dat_lich_san_bong.entity.Account;
 import com.example.pro2111_dat_lich_san_bong.entity.DoThue;
+import com.example.pro2111_dat_lich_san_bong.entity.HoaDon;
+import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
 import com.example.pro2111_dat_lich_san_bong.entity.NuocUong;
 import com.example.pro2111_dat_lich_san_bong.entity.PhuPhi;
 import com.example.pro2111_dat_lich_san_bong.entity.PhuPhiHoaDon;
 import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiDichVu;
+import com.example.pro2111_dat_lich_san_bong.repository.HoaDonRepository;
+import com.example.pro2111_dat_lich_san_bong.repository.HoaDonSanCaReponsitory;
 import com.itextpdf.kernel.colors.DeviceGray;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFont;
@@ -44,6 +50,11 @@ import java.util.Locale;
 public class InvoiceService {
     @Autowired
     private IDichVuSanBongStaffService dichVuSanBongStaffService;
+
+    @Autowired
+    private HoaDonSanCaReponsitory hoaDonSanCaReponsitory;
+    @Autowired
+    private HoaDonRepository hoaDonRepository;
     @Autowired
     private INuocUongStaffService nuocUongStaffService;
     @Autowired
@@ -52,6 +63,8 @@ public class InvoiceService {
     private PhuPhiStaffRepository phuPhiStaffRepository;
     @Autowired
     private PhuPhiHoaDonStaffRepository phuPhiHoaDonStaffRepository;
+    @Autowired
+    private AccountStaffReponsitoty accountStaffReponsitoty;
 
     public byte[] generatePdfMotHoaDon(HoaDonThanhToanRequest hoaDonThanhToanRequest) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -59,6 +72,9 @@ public class InvoiceService {
         try (PdfWriter writer = new PdfWriter(outputStream);
              PdfDocument pdf = new PdfDocument(writer);
              Document document = new Document(pdf)) {
+            HoaDonSanCa hoaDonSanCas = hoaDonSanCaReponsitory.findById(hoaDonThanhToanRequest.getId()).get();
+            HoaDon hoaDon = hoaDonRepository.findById(hoaDonSanCas.getIdHoaDon()).get();
+            Account account = accountStaffReponsitoty.findAccountById(handleNull(hoaDon.getIdAccountConfirm()));
             pdf.setDefaultPageSize(com.itextpdf.kernel.geom.PageSize.A4);
             Paragraph headerTitle = new Paragraph("SÂN BÓNG ĐỒNG ĐẾ")
                     .setFont(font)
@@ -77,17 +93,14 @@ public class InvoiceService {
 
 
             document.add(
-                    createFieldAndShiftInfo("Tên Nhân Viên : ", " " + "Nguyễn Phúc Lâm")
+                    createFieldAndShiftInfo("Tên Nhân Viên : ", " " + account.getDisplayName())
                             .setFont(font)
                             .setTextAlignment(TextAlignment.RIGHT)
             );
             Date currentDate = new Date();
 
-            // Định dạng ngày tháng năm
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-
-//
             String thoiGianBatDau = String.valueOf(hoaDonThanhToanRequest.getThoiGianBatDau());
             String thoiGianKetThuc = String.valueOf(hoaDonThanhToanRequest.getThoiGianKetThuc());
             document.add(createFieldAndShiftInfo("Thời Gian : ", dateFormat.format(currentDate))
@@ -102,12 +115,10 @@ public class InvoiceService {
                             .setFontSize(20)
                             .setBackgroundColor(new DeviceRgb(63, 169, 219))
             );
-
-//            add địa chỉ khách hàng vào address, email (hiện tại đang fix cứng)
             document.add(
                     createCustomerInfo(
                             String.valueOf(hoaDonThanhToanRequest.getTenKhachHang()),
-                            "Sân Bóng Đồng Đế", "Emai",
+                            "Sân Bóng Đồng Đế", hoaDon.getEmail(),
                             String.valueOf(hoaDonThanhToanRequest.getSoDienThoai()),
                             String.valueOf(hoaDonThanhToanRequest.getTenSanBong() + " - " + hoaDonThanhToanRequest.getTenCa()),
                             hoaDonThanhToanRequest.getTienCoc(),
@@ -180,6 +191,9 @@ public class InvoiceService {
         return customerInfo;
     }
 
+    private String handleNull(String string) {
+        return (string == "") ? "cec96064-f270-499f-9c05-13adbc0ab80a" : string;
+    }
 
     private Table createServiceUsageTable(HoaDonThanhToanRequest hoaDonThanhToanRequest, PdfFont font) {
         Table serviceTable = new Table(UnitValue.createPercentArray(new float[]{2, 1, 1, 1}));
@@ -194,29 +208,38 @@ public class InvoiceService {
         serviceTable.addHeaderCell(createHeaderCell("Giá").setFont(font));
         serviceTable.addHeaderCell(createHeaderCell("Tổng").setFont(font));
         double tongTienDichVu = 0;
-        for (DichVuSanBongRequest dichVuSanBongRequest : listDichVuSanBongRequests) {
-            tongTienDichVu += dichVuSanBongRequest.getTongTien();
-            if (dichVuSanBongRequest.getIdNuocUong() != null) {
-                NuocUong nuocUong = nuocUongStaffService.getOneNuocUong(dichVuSanBongRequest.getIdNuocUong());
-                int soLuong = Integer.valueOf(Math.toIntExact(dichVuSanBongRequest.getSoLuongNuocUong()));
-                Double donGia = nuocUong.getDonGia();
-                Double tongTien = soLuong * donGia;
-                serviceTable.addCell(createCellData(nuocUong.getTenNuocUong()).setFont(font));
-                serviceTable.addCell(createCellData(String.valueOf(soLuong)).setFont(font));
-                serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(donGia))).setFont(font));
-                serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(tongTien))).setFont(font));
+        if (listDichVuSanBongRequests.size() > 0) {
+            for (DichVuSanBongRequest dichVuSanBongRequest : listDichVuSanBongRequests) {
+                tongTienDichVu += dichVuSanBongRequest.getTongTien();
+                if (dichVuSanBongRequest.getIdNuocUong() != null) {
+                    NuocUong nuocUong = nuocUongStaffService.getOneNuocUong(dichVuSanBongRequest.getIdNuocUong());
+                    int soLuong = Integer.valueOf(Math.toIntExact(dichVuSanBongRequest.getSoLuongNuocUong()));
+                    Double donGia = nuocUong.getDonGia();
+                    Double tongTien = soLuong * donGia;
+                    serviceTable.addCell(createCellData(nuocUong.getTenNuocUong()).setFont(font));
+                    serviceTable.addCell(createCellData(String.valueOf(soLuong)).setFont(font));
+                    serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(donGia))).setFont(font));
+                    serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(tongTien))).setFont(font));
+                }
+                if (dichVuSanBongRequest.getGiaDoThue() != null) {
+                    DoThue doThue = doThueStaffService.getOneDoThue(dichVuSanBongRequest.getIdDoThue());
+                    int soLuong = Integer.valueOf(Math.toIntExact(dichVuSanBongRequest.getSoLuongDoThue()));
+                    Double donGia = doThue.getDonGia();
+                    Double tongTien = soLuong * donGia;
+                    serviceTable.addCell(createCellData(doThue.getTenDoThue()).setFont(font));
+                    serviceTable.addCell(createCellData(String.valueOf(soLuong)).setFont(font));
+                    serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(donGia))).setFont(font));
+                    serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(tongTien))).setFont(font));
+                }
             }
-            if (dichVuSanBongRequest.getGiaDoThue() != null) {
-                DoThue doThue = doThueStaffService.getOneDoThue(dichVuSanBongRequest.getIdDoThue());
-                int soLuong = Integer.valueOf(Math.toIntExact(dichVuSanBongRequest.getSoLuongDoThue()));
-                Double donGia = doThue.getDonGia();
-                Double tongTien = soLuong * donGia;
-                serviceTable.addCell(createCellData(doThue.getTenDoThue()).setFont(font));
-                serviceTable.addCell(createCellData(String.valueOf(soLuong)).setFont(font));
-                serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(donGia))).setFont(font));
-                serviceTable.addCell(createCellData(String.valueOf(currencyFormat.format(tongTien))).setFont(font));
-            }
+        } else {
+            tongTienDichVu = 0;
+            serviceTable.addCell(createCellData("CHƯA SỬ DỤNG DỊCH VỤ!.").setFont(font));
+            serviceTable.addCell(createCellData("0").setFont(font));
+            serviceTable.addCell(createCellData("0").setFont(font));
+            serviceTable.addCell(createCellData("0").setFont(font));
         }
+
         double tongTienPhuPhi = calculateTongTienPhuPhi(hoaDonThanhToanRequest.getId());
         serviceTable.addCell(createTotalCell("Tiền Dich Vụ : " + currencyFormat.format(tongTienDichVu) + " ; " + " Tiền Sân Bóng: " + currencyFormat.format(hoaDonThanhToanRequest.getTongTienSanCa()) + " ; " + " Tiền Phụ Phí: " + currencyFormat.format(tongTienPhuPhi), " ").setFont(font));
         double tongThanhToan = ((hoaDonThanhToanRequest.getTongTienSanCa() + tongTienDichVu + tongTienPhuPhi) - (hoaDonThanhToanRequest.getTienCoc() + hoaDonThanhToanRequest.getTienCocThua()));

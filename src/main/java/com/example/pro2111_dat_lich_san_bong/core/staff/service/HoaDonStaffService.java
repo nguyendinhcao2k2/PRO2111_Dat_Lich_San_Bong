@@ -16,6 +16,8 @@ public interface HoaDonStaffService {
     List<CheckInResponse> loadHoaDonCheckIn();
     List<CheckInResponse> listCheckIn(String param);
 
+    List<CheckInResponse> showHDDaCheckIn();
+
     ResponseEntity<?> checkIn(String param);
 
     HoaDon getHoaDonById(String idHoaDon);

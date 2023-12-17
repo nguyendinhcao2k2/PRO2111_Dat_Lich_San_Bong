@@ -64,7 +64,8 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "        tb4.thoi_gian_ket_thuc as thoiGianKetThuc, " +
             "        tb2.ngay_den_san as ngayDenSan, " +
             "        tb1.tien_coc as tienCoc, " +
-            "        tb2.tien_san as tienSan  " +
+            "        tb2.tien_san as tienSan,  " +
+            "        tb2.thoi_giam_check_in as thoiGianCheckIn  " +
             "    FROM " +
             "        dat_lich_san_bong.hoa_don tb1 " +
             "    inner join " +
@@ -82,7 +83,7 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "    where " +
             "        tb3.trang_thai = 0 " +
             "        and tb2.trang_thai = 0  and " +
-            "        tb1.ten_nguoi_dat LIKE ?1 and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d')" , nativeQuery = true)
+            "        tb1.so_dien_thoai_nguoi_dat LIKE ?1 and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d') order by tb3.ngay_den_san asc " , nativeQuery = true)
     List<CheckInResponse> listCheckIn(String param);
 
     @Query(value = "SELECT " +
@@ -100,7 +101,8 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "        tb4.thoi_gian_ket_thuc as thoiGianKetThuc, " +
             "        tb2.ngay_den_san as ngayDenSan, " +
             "        tb1.tien_coc as tienCoc, " +
-            "        tb2.tien_san as tienSan  " +
+            "        tb2.tien_san as tienSan ," +
+            "        tb2.thoi_giam_check_in as thoiGianCheckIn " +
             "    FROM " +
             "        dat_lich_san_bong.hoa_don tb1 " +
             "    inner join " +
@@ -117,8 +119,47 @@ public interface HoaDonStaffRepository extends JpaRepository<HoaDon, String> {
             "            on tb5.id = tb3.id_san_bong " +
             "    where " +
             "        tb3.trang_thai = 0 " +
-            "        and tb2.trang_thai = 0  and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d')", nativeQuery = true)
+            "        and tb2.trang_thai = 0  and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d') order by tb3.ngay_den_san asc ", nativeQuery = true)
     List<CheckInResponse> loadHoaDonCheckIn();
+
+
+    @Query(value = "SELECT " +
+            "        row_number() OVER() as Stt, " +
+            "        tb1.id as idHoaDon, " +
+            "        tb2.id as idHDSanCa, " +
+            "        tb3.id as idSanCa, " +
+            "        tb4.id as idCa, " +
+            "        tb5.id as idSanBong, " +
+            "        tb1.ten_nguoi_dat as hoTen, " +
+            "        tb1.so_dien_thoai_nguoi_dat as soDienThoai, " +
+            "        tb5.ten_san_bong as tenSanBong, " +
+            "        tb4.ten_ca as tenCa, " +
+            "        tb4.thoi_gian_bat_dau as thoiGianBatDau, " +
+            "        tb4.thoi_gian_ket_thuc as thoiGianKetThuc, " +
+            "        tb2.ngay_den_san as ngayDenSan, " +
+            "        tb1.tien_coc as tienCoc, " +
+            "        tb2.tien_san as tienSan,  " +
+            "        tb2.thoi_giam_check_in as thoiGianCheckIn " +
+            "    FROM " +
+            "        dat_lich_san_bong.hoa_don tb1 " +
+            "    inner join " +
+            "        dat_lich_san_bong.hoa_don_san_ca tb2 " +
+            "            on tb1.id = tb2.id_hoa_don " +
+            "    inner join " +
+            "        dat_lich_san_bong.san_ca tb3 " +
+            "            on tb2.id_san_ca = tb3.id " +
+            "    inner join " +
+            "        dat_lich_san_bong.ca tb4 " +
+            "            on tb3.id_ca = tb4.id " +
+            "    inner join " +
+            "        dat_lich_san_bong.san_bong tb5 " +
+            "            on tb5.id = tb3.id_san_bong " +
+            "    where " +
+            "        tb3.trang_thai = 1 " +
+            "        and tb2.trang_thai = 1  and DATE_FORMAT(tb3.ngay_den_san, '%Y-%m-%d') >= DATE_FORMAT(SYSDATE(), '%Y-%m-%d') order by tb3.ngay_den_san asc", nativeQuery = true)
+    List<CheckInResponse> showHDDaCheckIn();
+
+
 
     HoaDon findHoaDonById(String idHoaDon);
 

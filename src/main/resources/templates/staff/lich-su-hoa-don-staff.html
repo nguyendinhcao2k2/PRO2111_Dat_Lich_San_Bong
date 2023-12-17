@@ -125,6 +125,9 @@
         font-size: 28px;
         font-weight: bold;
     }
+    .table-hover tr:hover td{
+        color: #FFFFFF;
+    }
 </style>
 <body>
 <header th:insert="~{fragments/header-admin}"></header>
@@ -243,15 +246,14 @@
 
                             <br>
                             <div  id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <span style="text-align: center">Danh Sách Hóa Đơn Sân Ca</span>
-                                <br>
+                                <h2 style="color: black; font-size: 20px" class="text-center">Danh Sách Hóa Đơn Sân Ca</h2>
                                 <div class="accordion-body p-1">
                                     <table
                                             class="table table-bordered table-container table-hover mt-2"
                                             id="dataTable"
                                             width="100%"
                                             cellspacing="0"
-                                            style="background-color: #6caae5;text-align: center"
+                                            style="background-color: #82CAFA;text-align: center"
                                     >
                                         <thead>
                                         <tr>
