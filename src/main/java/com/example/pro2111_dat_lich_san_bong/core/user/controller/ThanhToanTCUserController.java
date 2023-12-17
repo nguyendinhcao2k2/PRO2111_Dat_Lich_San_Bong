@@ -45,6 +45,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -53,6 +54,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author thepvph20110
@@ -159,10 +161,13 @@ public class ThanhToanTCUserController extends BaseController {
         // Format lại thành chuỗi theo định dạng mong muốn
         String thoiGianGD = outputDateFormatObj.format(date);
 
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+
         Double soTienGD = Double.valueOf(totalPrice) / 100;
 
         model.addAttribute("orderId", orderInfo);
-        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("totalPrice", currencyFormat.format(Integer.valueOf(totalPrice) / 100));
         model.addAttribute("paymentTime", paymentTime);
         model.addAttribute("transactionId", transactionId);
 

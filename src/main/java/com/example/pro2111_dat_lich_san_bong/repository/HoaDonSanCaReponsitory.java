@@ -25,7 +25,6 @@ public interface HoaDonSanCaReponsitory extends JpaRepository<HoaDonSanCa, Strin
            hd_sc.ma_qr as 'maQR'
        FROM hoa_don_san_ca hd_sc
        join hoa_don hd on hd.id = hd_sc.id_hoa_don
-       join account acc on acc.id = hd.id_account
        JOIN san_ca sc ON sc.id = hd_sc.id_san_ca
        join ca c on c.id = sc.id_ca
        WHERE sc.id_ca = :idCa AND DATE(hd_sc.ngay_den_san) = CURDATE() 
