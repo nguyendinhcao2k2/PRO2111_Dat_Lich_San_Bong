@@ -43,8 +43,8 @@ public interface GiaoCaStaffReponsitory extends GiaoCaRepository {
     @Query(value = """
                     select count(hdsc.id)  as TONGSOHD  from  giao_ca gc
                                    	join hoa_don_san_ca hdsc  on gc.id  = hdsc.id_giao_ca
-                                   	and hdsc.trang_thai = :ttHDSC
-                                   	group by gc.id
+                                   	where hdsc.trang_thai = :ttHDSC
+                                   
             """, nativeQuery = true)
     Integer tongSoHoaDonChuaTT(@Param("ttHDSC") Integer trangThaiHDSC);
 
