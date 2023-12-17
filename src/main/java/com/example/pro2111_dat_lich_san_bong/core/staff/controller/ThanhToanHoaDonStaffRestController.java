@@ -247,7 +247,6 @@ public class ThanhToanHoaDonStaffRestController {
             List<String> listThanhToans = Arrays.asList(listIdHoaDonSanCa.split(","));
             if (paymentMethod.equals("tienMat2")) {
                 for (int i = 0; i < listThanhToans.size(); i++) {
-                    System.out.println(listThanhToans.get(i));
                     for (int j = 0; j < listHoaDonSanCa.size(); j++) {
                         if ((listHoaDonSanCa.get(j).getId()).equals(listThanhToans.get(i))) {
                             HoaDonSanCa hoaDonSanCa = hoaDonSanCaStaffRepository.findById(listHoaDonSanCa.get(j).getId()).get();
@@ -262,6 +261,8 @@ public class ThanhToanHoaDonStaffRestController {
                             double tongTienDichVu = handleNull(calculateTongTienDichVu(hoaDonSanCa.getId()));
                             double tongTienPhuPhi = handleNull(calculateTongTienPhuPhi(hoaDonSanCa.getId()));
                             double tongThanhToan = (tienSan + tongTienDichVu + tongTienPhuPhi) - (tienCoc + tienCocThua);
+                            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                            hoaDonSanCa.setNgayThanhToan(timestamp);
                             hoaDonSanCa.setTongTienHoaDonSanCa(tongThanhToan);
                             hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.DA_THANH_TOAN.ordinal());
                             hoaDonSanCaStaffRepository.saveAndFlush(hoaDonSanCa);

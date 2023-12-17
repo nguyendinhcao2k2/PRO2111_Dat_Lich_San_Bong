@@ -231,6 +231,7 @@ public class ThanhToanHoaDonStaffController {
                         double tongTienDichVu = handleNull(calculateTongTienDichVu(hoaDonSanCa.getId()));
                         double tongTienPhuPhi = handleNull(calculateTongTienPhuPhi(hoaDonSanCa.getId()));
                         double tongThanhToan = (tienSan + tongTienDichVu + tongTienPhuPhi) - (tienCoc + tienCocThua);
+                        hoaDonSanCa.setNgayThanhToan(timestamp);
                         hoaDonSanCa.setTongTienHoaDonSanCa(tongThanhToan);
                         hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.DA_THANH_TOAN.ordinal());
                         hoaDonSanCaStaffRepository.saveAndFlush(hoaDonSanCa);
