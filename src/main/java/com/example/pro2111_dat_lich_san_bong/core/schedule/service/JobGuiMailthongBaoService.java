@@ -6,4 +6,6 @@ package com.example.pro2111_dat_lich_san_bong.core.schedule.service;
 public interface JobGuiMailthongBaoService {
 
     void createJobSendMail(String cronExpression,String idCa);
+
+    void cancelAllScheduledJobsSendMaill();
 }

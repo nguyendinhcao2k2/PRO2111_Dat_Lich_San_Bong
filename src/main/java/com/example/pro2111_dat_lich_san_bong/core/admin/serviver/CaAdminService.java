@@ -14,7 +14,7 @@ public interface CaAdminService {
 
     Page<CaAdminReponse> findByName(int size, int page, @Param("tenCa") String tenCa);
 
-    void saveOrUpdate(CaAdminRequest caAdminRequest);
+    Ca saveOrUpdate(CaAdminRequest caAdminRequest);
 
     void saveAll(List list);
 

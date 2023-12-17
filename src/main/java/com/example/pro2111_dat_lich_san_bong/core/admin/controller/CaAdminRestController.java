@@ -8,8 +8,13 @@ import com.example.pro2111_dat_lich_san_bong.core.admin.model.response.CaAdminRe
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.CaAdminService;
 import com.example.pro2111_dat_lich_san_bong.core.common.base.PageableObject;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.runSchedule.RunJobHuyLichSanCa;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.service.JobGuiMailthongBaoService;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.service.JobHuySanCaService;
 import com.example.pro2111_dat_lich_san_bong.core.schedule.service.impl.JobHuySanCaServiceImpl;
+import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.Ca;
+import com.example.pro2111_dat_lich_san_bong.entity.SysParam;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.*;
 
 @RestController
@@ -36,6 +42,15 @@ public class CaAdminRestController {
 
     @Autowired
     private RunJobHuyLichSanCa runJobHuyLichSanCa;
+
+    @Autowired
+    private JobHuySanCaService jobHuySanCaService;
+
+    @Autowired
+    private JobGuiMailthongBaoService jobGuiMailthongBaoService;
+
+    @Autowired
+    private SYSParamUserService sysParamUserService;
 
     @GetMapping("find-all")
     public BaseResponse<?> getAllCa(@RequestParam("size") Optional<Integer> size, @RequestParam("page") Optional<Integer> page) {
@@ -79,7 +94,49 @@ public class CaAdminRestController {
             if (!check) {
                 return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
             }
-            caAdminService.saveOrUpdate(caAdminRequest);
+
+            Ca ca= caAdminService.saveOrUpdate(caAdminRequest);
+
+            try {
+                logger.info("********** bắt đầu khai báo thông tin job hủy lịch **********");
+
+                String idCa = ca.getId();
+                Time thoiGianKTCa = ca.getThoiGianKetThuc();
+                LocalTime localTime = thoiGianKTCa.toLocalTime();
+                int gio = localTime.getHour();
+                int phut = localTime.getMinute();
+                int giay = localTime.getSecond();
+                // Tạo biểu thức cron
+                String cronExpression = String.format("%d %d %d * * *", giay, phut, gio);
+                jobHuySanCaService.CreateJobHuyLichSanCa(cronExpression,idCa);
+
+                logger.info("********** kết thúc khai báo thông tin job hủy lịch **********");
+
+
+                logger.info("********** bắt đầu khai báo thông tin job gửi mail thông báo **********");
+
+                SysParam param = sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_THONG_BAO);
+                Long thoiGianGui= param.getValue() == null ||param.getValue()=="" ? 30: Long.valueOf(param.getValue());
+
+                    Time thoiGianBDCa = ca.getThoiGianBatDau();
+                    LocalTime localTimeMail = thoiGianBDCa.toLocalTime();
+
+                    // cổng thêm thời gian param gửi mail
+                    LocalTime plusTime = localTimeMail.minusMinutes(thoiGianGui);
+                    int gioMail = plusTime.getHour();
+                    int phutMail = plusTime.getMinute();
+                    int giayMail = plusTime.getSecond();
+                    // Tạo biểu thức cron
+                    String cronExpressionMail = String.format("%d %d %d * * *", giayMail, phutMail, gioMail);
+                    jobGuiMailthongBaoService.createJobSendMail(cronExpressionMail,idCa);
+
+                logger.info("********** kết thúc khai báo thông tin job gửi mail thông báo **********");
+            }catch (Exception e){
+                logger.error("----------- Lỗi khi thực hiện khai báo thông tin job hủy lịch ------------");
+                logger.error("----------- Lỗi khi thực hiện khai báo thông tin job gửi mail ------------");
+            }
+
+
             return new BaseResponse<>(HttpStatus.OK, "Successfully");
         } catch (Exception e) {
             e.printStackTrace();

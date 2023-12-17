@@ -34,13 +34,14 @@ public class SysParamAdminServiceImpl implements SysParamAdminService {
     }
 
     @Override
-    public void update(SysParamAdminUpdateRequest sysParamAdminUpdateRequest) {
+    public SysParam update(SysParamAdminUpdateRequest sysParamAdminUpdateRequest) {
         try {
             SysParam sysParam = mapper.map(sysParamAdminUpdateRequest, SysParam.class);
-            sysParamAdminReponsitory.saveAndFlush(sysParam);
+            return sysParamAdminReponsitory.saveAndFlush(sysParam);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return new SysParam();
     }
 
     @Override
