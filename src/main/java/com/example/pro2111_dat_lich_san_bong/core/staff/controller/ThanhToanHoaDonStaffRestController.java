@@ -3,25 +3,17 @@ package com.example.pro2111_dat_lich_san_bong.core.staff.controller;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.DichVuSanBongRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThanhToanRequets;
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.GiaoCaResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.DichVuSanBongStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.HoaDonSanCaStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.PhuPhiHoaDonStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.PhuPhiStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.SanCaStaffRepository;
+import com.example.pro2111_dat_lich_san_bong.core.staff.service.IGiaoCaStaffService;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.impl.ThanhToanSanCaStaffServiceImpl;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
-import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
-import com.example.pro2111_dat_lich_san_bong.entity.HinhThucThanhToan;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.PhuPhi;
-import com.example.pro2111_dat_lich_san_bong.entity.PhuPhiHoaDon;
-import com.example.pro2111_dat_lich_san_bong.entity.SanBong;
-import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.LoaiHinhThanhToan;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiDichVu;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiPhuPhiHoaDon;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
+import com.example.pro2111_dat_lich_san_bong.entity.*;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.*;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayConfig;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
@@ -79,6 +71,8 @@ public class ThanhToanHoaDonStaffRestController {
     private SanBongRepository sanBongRepository;
     @Autowired
     private PhuPhiStaffRepository phuPhiStaffRepository;
+    @Autowired
+    private IGiaoCaStaffService giaoCaStaffService;
 
     @GetMapping("/get-all-thanh-toan")
     public ResponseEntity<List<HoaDonThanhToanRequest>> getAllHoaDonThanhToans() {
@@ -114,6 +108,10 @@ public class ThanhToanHoaDonStaffRestController {
             if ("tienMat".equals(paymentMethod) && !id.isEmpty() && !id.isBlank()) {
                 HoaDonSanCa hoaDonSanCa = hoaDonSanCaStaffRepository.findById(id).orElse(null);
                 if (hoaDonSanCa != null && (hoaDonSanCa.getTrangThai() == TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal() || hoaDonSanCa.getTrangThai() == TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal())) {
+                    GiaoCaResponse giaoCa = giaoCaStaffService.findGiaoCaByTrangThai(TrangThaiGiaoCa.NHAN_CA);
+                    if(giaoCa != null){
+                        hoaDonSanCa.setIdGiaoCa(giaoCa.getId());
+                    }
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                     hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.DA_THANH_TOAN.ordinal());
                     hoaDonSanCa.setNgayThanhToan(timestamp);
@@ -253,6 +251,10 @@ public class ThanhToanHoaDonStaffRestController {
                     for (int j = 0; j < listHoaDonSanCa.size(); j++) {
                         if ((listHoaDonSanCa.get(j).getId()).equals(listThanhToans.get(i))) {
                             HoaDonSanCa hoaDonSanCa = hoaDonSanCaStaffRepository.findById(listHoaDonSanCa.get(j).getId()).get();
+                            GiaoCaResponse giaoCa = giaoCaStaffService.findGiaoCaByTrangThai(TrangThaiGiaoCa.NHAN_CA);
+                            if(giaoCa != null){
+                                hoaDonSanCa.setIdGiaoCa(giaoCa.getId());
+                            }
                             HoaDonThanhToanRequest hoaDonThanhToanRequest = thanhToanStaffService.getOneHoaDonThanhToan(listHoaDonSanCa.get(j).getId());
                             double tienSan = handleNull(hoaDonSanCa.getTienSan());
                             double tienCocThua = handleNull(hoaDonSanCa.getTienCocThua());
