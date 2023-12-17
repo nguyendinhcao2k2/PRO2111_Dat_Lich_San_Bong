@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * @author thepvph20110
@@ -26,7 +28,7 @@ import java.util.List;
 @Service
 public class JobGuiMailThongBaoServiceImpl implements JobGuiMailthongBaoService {
 
-    private static final Logger logger = LoggerFactory.getLogger(JobHuySanCaServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(JobGuiMailThongBaoServiceImpl.class);
 
     @Autowired
     private TaskScheduler taskScheduler;
@@ -39,6 +41,12 @@ public class JobGuiMailThongBaoServiceImpl implements JobGuiMailthongBaoService 
 
     @Autowired
     private SendMailUtils sendMailUtils;
+
+    private final List<ScheduledFuture<?>> scheduledFutures;
+
+    public JobGuiMailThongBaoServiceImpl() {
+        this.scheduledFutures = new ArrayList<>();
+    }
 
     @Override
     public void createJobSendMail(String cronExpression,String idCa){
@@ -75,6 +83,20 @@ public class JobGuiMailThongBaoServiceImpl implements JobGuiMailthongBaoService 
                 logger.error("---------- lỗi khi chạy job gửi mail thông báo trước thời gian bắt đầu ca --------");
             }
         };
-        taskScheduler.schedule(job,new CronTrigger(cronExpression));
+        ScheduledFuture<?> scheduledFuture = taskScheduler.schedule(job,new CronTrigger(cronExpression));
+        scheduledFutures.add(scheduledFuture);
+    }
+
+    @Override
+    public void cancelAllScheduledJobsSendMaill() {
+        try {
+            for (ScheduledFuture<?> scheduledFuture : scheduledFutures) {
+                scheduledFuture.cancel(true);
+            }
+            scheduledFutures.clear();
+            logger.info("Đã hủy tất cả các job đã lên lịch.");
+        }catch (Exception e){
+
+        }
     }
 }

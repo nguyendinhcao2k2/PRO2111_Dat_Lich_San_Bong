@@ -22,7 +22,7 @@ import java.util.List;
 @Component
 public class RunJobSendMailBeforeCa {
 
-    private static final Logger logger = LoggerFactory.getLogger(JobHuySanCaServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RunJobSendMailBeforeCa.class);
 
     @Autowired
     private JobGuiMailthongBaoService jobGuiMailthongBaoService;
@@ -59,5 +59,9 @@ public class RunJobSendMailBeforeCa {
             e.printStackTrace();
             logger.error("----------- Lỗi khi thực hiện khai báo thông tin job gửi mail thông báo ------------");
         }
+    }
+
+    public void xoaJobGuiMaill(){
+        jobGuiMailthongBaoService.cancelAllScheduledJobsSendMaill();
     }
 }
