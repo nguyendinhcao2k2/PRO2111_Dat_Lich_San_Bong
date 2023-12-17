@@ -7,10 +7,14 @@ import com.example.pro2111_dat_lich_san_bong.core.admin.model.request.CheckTimeL
 import com.example.pro2111_dat_lich_san_bong.core.admin.model.response.CaAdminReponse;
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.CaAdminService;
 import com.example.pro2111_dat_lich_san_bong.core.common.base.PageableObject;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.runSchedule.RunJobHuyLichSanCa;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.service.impl.JobHuySanCaServiceImpl;
 import com.example.pro2111_dat_lich_san_bong.entity.Ca;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -25,8 +29,13 @@ import java.util.*;
 @RequestMapping("/api/v1/admin/ca")
 public class CaAdminRestController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CaAdminRestController.class);
+
     @Autowired
     private CaAdminService caAdminService;
+
+    @Autowired
+    private RunJobHuyLichSanCa runJobHuyLichSanCa;
 
     @GetMapping("find-all")
     public BaseResponse<?> getAllCa(@RequestParam("size") Optional<Integer> size, @RequestParam("page") Optional<Integer> page) {
@@ -110,6 +119,17 @@ public class CaAdminRestController {
                 if ((caAdminRequest.getThoiGianBatDau().equals(caCu.getThoiGianBatDau()) || caAdminRequest.getThoiGianBatDau().after(caCu.getThoiGianBatDau()))
                         && (caAdminRequest.getThoiGianKetThuc().equals(caCu.getThoiGianKetThuc()) || caAdminRequest.getThoiGianKetThuc().before(caCu.getThoiGianKetThuc()))) {
                     caAdminService.saveOrUpdate(caAdminRequest);
+
+                    try {
+                        logger.info("********** bắt đầu xóa job hủy lịch **********");
+                        runJobHuyLichSanCa.xoaJobHuyLich();
+                        logger.info("********** kết thúc xóa job hủy lịch **********");
+
+                        runJobHuyLichSanCa.khaiBaoInfoJob();
+
+                    }catch (Exception e){
+
+                    }
                     return new BaseResponse<>(HttpStatus.OK, "Thành công");
                 }
 
@@ -133,6 +153,7 @@ public class CaAdminRestController {
             }
 
             caAdminService.saveOrUpdate(caAdminRequest);
+
             return new BaseResponse<>(HttpStatus.OK, "Thành công");
 
         } catch (Exception e) {

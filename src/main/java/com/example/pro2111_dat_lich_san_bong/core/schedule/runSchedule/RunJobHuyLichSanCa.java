@@ -48,4 +48,8 @@ public class RunJobHuyLichSanCa {
         }
 
     }
+
+    public void xoaJobHuyLich(){
+        jobHuySanCaService.cancelAllScheduledJobs();
+    }
 }

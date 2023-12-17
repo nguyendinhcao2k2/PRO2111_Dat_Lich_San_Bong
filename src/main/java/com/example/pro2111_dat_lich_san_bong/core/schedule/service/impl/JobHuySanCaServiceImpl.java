@@ -17,9 +17,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+import java.util.concurrent.ScheduledFuture;
 
 
 /**
@@ -40,6 +41,12 @@ public class JobHuySanCaServiceImpl implements JobHuySanCaService {
 
     @Autowired
     private HoaDonSanCaReponsitory hoaDonSanCaReponsitory;
+
+    private final List<ScheduledFuture<?>> scheduledFutures;
+
+    public JobHuySanCaServiceImpl() {
+        this.scheduledFutures = new ArrayList<>();
+    }
 
     @Override
     public void CreateJobHuyLichSanCa(String cronExpression,String idCa) {
@@ -81,6 +88,21 @@ public class JobHuySanCaServiceImpl implements JobHuySanCaService {
 
         };
 
-        taskScheduler.schedule(job, new CronTrigger(cronExpression));
+        ScheduledFuture<?> scheduledFuture = taskScheduler.schedule(job, new CronTrigger(cronExpression));
+        scheduledFutures.add(scheduledFuture);
     }
+
+    @Override
+    public void cancelAllScheduledJobs() {
+        try {
+            for (ScheduledFuture<?> scheduledFuture : scheduledFutures) {
+                scheduledFuture.cancel(true);
+            }
+            scheduledFutures.clear();
+            logger.info("Đã hủy tất cả các job đã lên lịch.");
+        }catch (Exception e){
+
+        }
+    }
+
 }
