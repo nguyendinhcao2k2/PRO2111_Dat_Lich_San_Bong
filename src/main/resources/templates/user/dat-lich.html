@@ -206,18 +206,17 @@
         }
 
         .button-boder-status{
-            border-radius: 40px;
-            width: 25px; /* Đặt chiều rộng và cao tùy ý */
-            height: 20px;
+            border-radius: 30px;
+            width: 100%; /* Đặt chiều rộng và cao tùy ý */
+            height: 27px;
             display: flex; /* Thêm display: flex */
             align-items: center; /* Thêm align-items: center */
             justify-content: center; /* Để canh icon theo chiều ngang giữa */
         }
 
         .span-text-button-status {
-            margin: 10px;
             font-size: 17px;
-            color: #171717;
+            color: #FFFFFF;
         }
     </style>
 </head>
@@ -824,112 +823,104 @@
                                 </div>
                             </div>
 <!--                        trạng thái    -->
-                            <div class="note">
-                                <div>
-                                    <h5 class="text-center">Chú Giải</h5>
-                                </div>
+
+                            <div class="note d-flex justify-content-center">
                                 <div class="row">
-                                    <div class="col-md-12 col-sm-6 col-4 mb-1" >
-                                        <div style="display: flex; align-items: center">
-                                            <button
-                                                    type="button"
-                                                    class="btn position-relative button-boder-status"
-                                                    style="background-color: #7cd28f;"
-                                            >
-                                            </button>
-                                            <span class="span-text-button-status"
-                                            >Trạng thái Đang đá</span
-                                            >
-                                        </div>
+                                    <div class="m-2">
+                                        <h5 class="text-center" style="font-weight: bold">Chú Giải Trạng Thái</h5>
                                     </div>
-                                    <div class="col-md-12 col-sm-6 col-4 mb-1" >
-                                        <div style="display: flex; align-items: center">
-                                            <button
-                                                    type="button"
-                                                    class="btn position-relative button-boder-status"
-                                                    style="background-color: #6f42c1;"
-                                            >
-                                            </button>
-                                            <span class="span-text-button-status"
-                                            >Trạng thái Chờ nhận sân</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-6 col-4 mb-1" >
-                                        <div style="display: flex; align-items: center">
-                                            <button
-                                                    type="button"
-                                                    class="btn position-relative button-boder-status"
-                                                    style="background-color: #1a73e8;"
-                                            >
-                                            </button>
-                                            <span class="span-text-button-status"
-                                            >Trạng thái Đã thanh toán</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-6 col-4 mb-1" >
-                                        <div style="display: flex; align-items: center">
-                                            <button
-                                                    type="button"
-                                                    class="btn btn-info position-relative button-boder-status"
-                                            >
-                                            </button>
-                                            <span class="span-text-button-status"
-                                            >Trạng thái Chờ thanh toán</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-6 col-4 mb-1" >
-                                        <div style="display: flex; align-items: center">
-                                            <button
-                                                    type="button"
-                                                    class="btn position-relative button-boder-status"
-                                                    style="background-color: #dc3545;"
-                                            >
-                                            </button>
-                                            <span class="span-text-button-status"
-                                            >Trạng thái Đặt nhưng không đá</span
-                                            >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-6 col-4 mb-1" >
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
                                         <div style="display: flex; align-items: center">
                                             <button
                                                     type="button"
                                                     class="btn position-relative button-boder-status"
                                                     style="background-color: #d35400;"
                                             >
+                                                <span class="span-text-button-status"
+                                                >Sau thời gian cho phép đặt</span>
                                             </button>
-                                            <span class="span-text-button-status"
-                                            >Sau thời gian cho phép đặt</span
-                                            >
                                         </div>
                                     </div>
-                                    <div class="col-md-12 col-sm-6 col-4 mb-1" >
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
                                         <div style="display: flex; align-items: center">
                                             <button
                                                     type="button"
                                                     class="btn position-relative button-boder-status"
                                                     style="background-color: #009578;"
                                             >
+                                                <span class="span-text-button-status"
+                                                >Trạng thái Mới đặt</span>
                                             </button>
-                                            <span class="span-text-button-status"
-                                            >Trạng thái Mới đặt</span
-                                            >
                                         </div>
                                     </div>
-                                    <div class="col-md-12 col-sm-6 col-4 mb-1" >
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
                                         <div style="display: flex; align-items: center">
                                             <button
                                                     type="button"
                                                     class="btn position-relative button-boder-status"
                                                     style="background-color: #fbc12d;"
                                             >
+                                                <span class="span-text-button-status"
+                                                >Sân đã được đặt hết</span>
                                             </button>
-                                            <span class="span-text-button-status"
-                                            >Sân đã được đặt hết</span
+                                        </div>
+                                    </div>
+                                    <div class="m-2">
+                                        <h5 class="text-center" style="font-weight: bold">Sau Khi Thanh Toán</h5>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn position-relative button-boder-status"
+                                                    style="background-color: #7cd28f;"
                                             >
+                                                <span class="span-text-button-status">Trạng thái Đang đá</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn position-relative button-boder-status"
+                                                    style="background-color: #6f42c1;"
+                                            >
+                                                <span class="span-text-button-status">Trạng thái Chờ nhận sân</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn position-relative button-boder-status"
+                                                    style="background-color: #1a73e8;"
+                                            >
+                                                <span class="span-text-button-status">Trạng thái Đã thanh toán</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn btn-info position-relative button-boder-status"
+                                            >
+                                                <span class="span-text-button-status">Trạng thái Chờ thanh toán</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn position-relative button-boder-status"
+                                                    style="background-color: #dc3545;"
+                                            >
+                                                <span class="span-text-button-status"
+                                                >Trạng thái Đặt nhưng không đá</span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
