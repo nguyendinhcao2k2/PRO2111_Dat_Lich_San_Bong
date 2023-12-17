@@ -213,7 +213,7 @@
                                         <h5 class="modal-title" id="exampleModalLabel">
                                             Đổi Lịch Nhanh
                                         </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        <button type="button" class="btn-close btnCloseDoiLichNhanhTong" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -3416,6 +3416,7 @@
                     }),
                     success: function (response) {
                         resetEventByIdLoaiSan(selectedValue);
+                        $(".closeModalFather").click();
                         createAndShowToast("bg-success", "Thông báo", "Thao tác thành công!");
                     },
                     error: function (error) {
@@ -3948,9 +3949,10 @@
             success: function (response) {
                 if (response.statusCode === 'OK') {
                     createAndShowToast("bg-success", "Thông báo", "Thao tác đổi lịch thành công!");
-                    setTimeout(function () {
-                        resetEventByIdLoaiSan(selectedValue);
-                    }, 1000);
+                    $(".closeModalXacNhanThongTinCon").click();
+                    $(".btnCloseDoiLichNhanhTong").click();
+                    resetEventByIdLoaiSan(selectedValue);
+                    window.location.href= "/api/v1/staff/view-dat-lich";
                     return;
                 }
                 createAndShowToast("bg-warning", "Thông báo", "Không thể thực hiện!");
