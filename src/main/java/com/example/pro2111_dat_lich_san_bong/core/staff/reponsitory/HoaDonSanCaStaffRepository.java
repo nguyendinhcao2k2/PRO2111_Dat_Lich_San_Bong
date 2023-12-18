@@ -67,7 +67,7 @@ public interface HoaDonSanCaStaffRepository extends JpaRepository<HoaDonSanCa, S
                         join SanBong sb on sc.idSanBong = sb.id
                         join LoaiSan ls on sb.idLoaiSan = ls.id
                      where hdsc.idHoaDon = :idHoaDon 
-                     order by hdsc.ngayDenSan asc 
+                     order by hdsc.ngayDenSan desc 
             """)
     List<LichSuHoaDonSanCaStaffReponse> findAllLichSuHoaDonSanCaTheoIdHD(@Param("idHoaDon") String idHoaDon);
 }
