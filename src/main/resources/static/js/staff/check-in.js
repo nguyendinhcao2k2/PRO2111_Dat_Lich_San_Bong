@@ -28,7 +28,7 @@ window.onload = function () {
                                 <td>
                                     <div class="d-flex flex-column">
                                         <button onclick="checkInLichDat('${ck.idHDSanCa}')" class="btn btn-success  btn-sm " type="button">
-                                            Check in
+                                           Thanh toán
                                         </button>
                                     </div>
                                 </td>
