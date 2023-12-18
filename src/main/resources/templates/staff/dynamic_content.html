@@ -229,7 +229,7 @@
 
                                                             <div class="col-md-6">
                                                                 <div class="row g-2 align-items-center">
-                                                                    <div class="col-md-5">
+                                                                    <div class="col-md-4">
 
                                                                     </div>
                                                                     <div class="col-md-5">
@@ -240,7 +240,7 @@
                                                                             <input type="text" @input="timKiemLichDatTheoSDT($event)" v-model="soDienThoaiDoiLichSearch"  class="form-control" placeholder="Tìm kiếm lịch theo số điện thoại....."  aria-describedby="basic-addon1" >
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-4 col-sm-auto d-flex justify-content-end">
+                                                                    <div class="col-md-3 col-sm-auto d-flex justify-content-end">
                                                                         <button
                                                                                 type="button"
                                                                                 class="button-header-confirm modalXacNhan"
@@ -997,7 +997,7 @@
                                         </div>
                                         <div
                                                 class="modal-body"
-                                                style="max-height: 300px; overflow-y: auto"
+                                                style="max-height: 500px; overflow-y: auto"
                                         >
                                             <!-- ca -->
                                             <div class="row" id="list">
@@ -4223,7 +4223,7 @@
 
     function deleteLichSanBong(id) {
         Swal.fire({
-            title: "Quý khách có chắc chắn hủy lịch này không? Nếu hủy bạn sẽ mất tiền cọc.",
+            title: "Quý khách có chắc chắn hủy lịch này không? <br><h2 style=\"color: red;\">Nếu hủy bạn sẽ mất tiền cọc.</h2>",
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Xác nhận',

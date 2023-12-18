@@ -131,7 +131,7 @@ function showHoaDonCheckIn() {
             if (responseData.length === 0) {
                 let idTable = $('#idtb');
                 idTable.empty();
-                idTable.append(`<td colspan="9" class="alert alert-danger noContent" role="alert">
+                idTable.append(`<td colspan="11" class="alert alert-danger noContent" role="alert">
                                     <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
                                </td>`);
             } else {
