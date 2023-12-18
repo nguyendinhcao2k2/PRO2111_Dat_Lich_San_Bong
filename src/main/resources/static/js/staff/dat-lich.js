@@ -1086,7 +1086,7 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
                                         >
                                             <li>
                                                 <a href="http://localhost:8081/api/v1/staff/thanh-toan/thanh-toan-hoa-don/${idHoaDonSanCa}" class="dropdown-item">
-                                                    Thanh toán
+                                                    Xem Chi Tiết
                                                 </a>
                                             </li>
                                         </ul>`
