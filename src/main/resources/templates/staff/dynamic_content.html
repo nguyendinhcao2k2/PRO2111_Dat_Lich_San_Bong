@@ -701,9 +701,9 @@
                                                             <div class="col-6 col-md-6 col-sm-6">
                                                                 <h4
                                                                         class=" text-center text-primary"
-                                                                        id="id_tongTien"
+                                                                        id="id_tongTien2"
                                                                 >
-                                                                    600000 VND
+
                                                                 </h4>
                                                             </div>
                                                             <div class="col-6 col-md-6 col-sm-6">
@@ -715,7 +715,7 @@
                                                             <div class="col-6 col-md-6 col-sm-6">
                                                                 <h4
                                                                         class=" text-center text-primary"
-                                                                        id="id_tongTien"
+
                                                                         th:text="${thamSoTienCoc+'%'}"
                                                                 >
 
@@ -730,9 +730,9 @@
                                                             <div class="col-6 col-md-6 col-sm-6">
                                                                 <h4
                                                                         class=" text-center text-primary"
-                                                                        id="id_tienCoc"
+                                                                        id="id_tienCoc2"
                                                                 >
-                                                                    600000 VND
+
                                                                 </h4>
                                                             </div>
 
@@ -2768,7 +2768,7 @@
 
             var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
 
-            var tongTienSan = chuyenTienTeSangSo($('#id_tongTien').text());
+            var tongTienSan = chuyenTienTeSangSo($('#id_tongTien2').text());
             tongTienHoaDonCoc = tongTienSan *(thamSoTienCoc / 100);
             if (tienKhachDua < tongTienHoaDonCoc) {
                 $('#tienMatError').text("Khách hàng chưa trả đủ tiền cọc");
@@ -2806,7 +2806,7 @@
         });
 
 
-        var tongTienSan = chuyenTienTeSangSo($('#id_tongTien').text());
+        var tongTienSan = chuyenTienTeSangSo($('#id_tongTien2').text());
 
         var formDatLich = {
             hoVaTen: hoVaTen,
@@ -3113,6 +3113,9 @@
             const formattedDate =
                 dateParts[1] + "-" + dateParts[0] + "-" + dateParts[2];
 
+            $('#id_tongTien2').html(formatCurrencyVND(tongTien));
+            $('#id_tienCoc2').html(formatCurrencyVND(tongTien * (thamSoTienCoc / 100)));
+
             return `
                 <tr data-id="${item.extendedProps.idSanCa}">
                 <td style="width: 270px;">${item.title + '(' + startTimeVietnam + ' - ' + endTimeVietnam + ')'}</td>
@@ -3126,8 +3129,8 @@
                 </tr>
                 `;
         }));
-        $('#id_tongTien').html(formatCurrencyVND(tongTien));
-        $('#id_tienCoc').html(formatCurrencyVND(tongTien * (thamSoTienCoc / 100)));
+
+
     }
 
     function formatTime(inputTime) {
@@ -3175,7 +3178,7 @@
 
         var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
 
-        var tongTienSan = chuyenTienTeSangSo($('#id_tongTien').text());
+        var tongTienSan = chuyenTienTeSangSo($('#id_tongTien2').text());
         tongTienHoaDonCoc = tongTienSan *(thamSoTienCoc / 100);
         if (tienKhachDua > tongTienHoaDonCoc) {
             var tienTraLai = tienKhachDua - tongTienHoaDonCoc;
