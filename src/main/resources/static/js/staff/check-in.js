@@ -28,7 +28,7 @@ window.onload = function () {
                                 <td>
                                     <div class="d-flex flex-column">
                                         <button onclick="checkInLichDat('${ck.idHDSanCa}')" class="btn btn-success  btn-sm " type="button">
-                                           Thanh toán
+                                           Check In
                                         </button>
                                     </div>
                                 </td>
@@ -152,7 +152,7 @@ function showHoaDonCheckIn() {
                                 <td>
                                     <div class="d-flex flex-column">
                                         <a href="http://localhost:8081/api/v1/staff/thanh-toan/thanh-toan-hoa-don/${ck.idHDSanCa}" class="btn btn-success  btn-sm " type="button">
-                                            Thanh toán
+                                            Xem chi tiết
                                         </a>
                                     </div>
                                 </td>
