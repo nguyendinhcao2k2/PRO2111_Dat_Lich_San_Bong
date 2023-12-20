@@ -53,16 +53,18 @@ public class CaAdminServiceImpl implements CaAdminService {
 
     @Override
     @Transactional
-    public void saveOrUpdate(CaAdminRequest caAdminRequest) {
+    public Ca saveOrUpdate(CaAdminRequest caAdminRequest) {
         try {
             if (caAdminRequest != null) {
                 Ca ca = mapper.map(caAdminRequest, Ca.class);
-                caAdminRepository.saveAndFlush(ca);
+                Ca caBefor = caAdminRepository.saveAndFlush(ca);
+                return caBefor;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return new Ca();
     }
 
     @Override

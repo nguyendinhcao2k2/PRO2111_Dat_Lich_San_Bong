@@ -7,10 +7,19 @@ import com.example.pro2111_dat_lich_san_bong.core.admin.model.request.CheckTimeL
 import com.example.pro2111_dat_lich_san_bong.core.admin.model.response.CaAdminReponse;
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.CaAdminService;
 import com.example.pro2111_dat_lich_san_bong.core.common.base.PageableObject;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.runSchedule.RunJobHuyLichSanCa;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.service.JobGuiMailthongBaoService;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.service.JobHuySanCaService;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.service.impl.JobHuySanCaServiceImpl;
+import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
 import com.example.pro2111_dat_lich_san_bong.entity.Ca;
+import com.example.pro2111_dat_lich_san_bong.entity.SysParam;
+import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -19,14 +28,29 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/admin/ca")
 public class CaAdminRestController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CaAdminRestController.class);
+
     @Autowired
     private CaAdminService caAdminService;
+
+    @Autowired
+    private RunJobHuyLichSanCa runJobHuyLichSanCa;
+
+    @Autowired
+    private JobHuySanCaService jobHuySanCaService;
+
+    @Autowired
+    private JobGuiMailthongBaoService jobGuiMailthongBaoService;
+
+    @Autowired
+    private SYSParamUserService sysParamUserService;
 
     @GetMapping("find-all")
     public BaseResponse<?> getAllCa(@RequestParam("size") Optional<Integer> size, @RequestParam("page") Optional<Integer> page) {
@@ -70,7 +94,49 @@ public class CaAdminRestController {
             if (!check) {
                 return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
             }
-            caAdminService.saveOrUpdate(caAdminRequest);
+
+            Ca ca= caAdminService.saveOrUpdate(caAdminRequest);
+
+            try {
+                logger.info("********** bắt đầu khai báo thông tin job hủy lịch **********");
+
+                String idCa = ca.getId();
+                Time thoiGianKTCa = ca.getThoiGianKetThuc();
+                LocalTime localTime = thoiGianKTCa.toLocalTime();
+                int gio = localTime.getHour();
+                int phut = localTime.getMinute();
+                int giay = localTime.getSecond();
+                // Tạo biểu thức cron
+                String cronExpression = String.format("%d %d %d * * *", giay, phut, gio);
+                jobHuySanCaService.CreateJobHuyLichSanCa(cronExpression,idCa);
+
+                logger.info("********** kết thúc khai báo thông tin job hủy lịch **********");
+
+
+                logger.info("********** bắt đầu khai báo thông tin job gửi mail thông báo **********");
+
+                SysParam param = sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_THONG_BAO);
+                Long thoiGianGui= param.getValue() == null ||param.getValue()=="" ? 30: Long.valueOf(param.getValue());
+
+                    Time thoiGianBDCa = ca.getThoiGianBatDau();
+                    LocalTime localTimeMail = thoiGianBDCa.toLocalTime();
+
+                    // cổng thêm thời gian param gửi mail
+                    LocalTime plusTime = localTimeMail.minusMinutes(thoiGianGui);
+                    int gioMail = plusTime.getHour();
+                    int phutMail = plusTime.getMinute();
+                    int giayMail = plusTime.getSecond();
+                    // Tạo biểu thức cron
+                    String cronExpressionMail = String.format("%d %d %d * * *", giayMail, phutMail, gioMail);
+                    jobGuiMailthongBaoService.createJobSendMail(cronExpressionMail,idCa);
+
+                logger.info("********** kết thúc khai báo thông tin job gửi mail thông báo **********");
+            }catch (Exception e){
+                logger.error("----------- Lỗi khi thực hiện khai báo thông tin job hủy lịch ------------");
+                logger.error("----------- Lỗi khi thực hiện khai báo thông tin job gửi mail ------------");
+            }
+
+
             return new BaseResponse<>(HttpStatus.OK, "Successfully");
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,56 +166,70 @@ public class CaAdminRestController {
     @PutMapping("update")
     public BaseResponse<?> updateCa(@RequestBody CaAdminRequest caAdminRequest) {
         try {
-            Ca caCu = caAdminService.findById(caAdminRequest.getId());
             List<Ca> caList = caAdminService.findAllListCa();
-            for (int i = 0; i < caList.size(); i++) {
-                Time thoiGianBatDauHT = caList.get(i).getThoiGianBatDau();
-                Time thoiGianKetThucHT = caList.get(i).getThoiGianKetThuc();
+            Ca caCu = caAdminService.findById(caAdminRequest.getId());
 
-                // neu ca moi nam trong khoang ca cu thì cho update
-                if (caAdminRequest.getThoiGianBatDau().equals(caCu.getThoiGianBatDau()) || caAdminRequest.getThoiGianBatDau().after(caCu.getThoiGianBatDau())) {
-                    if (caAdminRequest.getThoiGianKetThuc().equals(caCu.getThoiGianKetThuc()) || caAdminRequest.getThoiGianKetThuc().before(caCu.getThoiGianKetThuc())) {
-                        caAdminService.saveOrUpdate(caAdminRequest);
-                        return new BaseResponse<>(HttpStatus.OK, "Successfully");
+            for (Ca ca : caList) {
+                Time thoiGianBatDauHT = ca.getThoiGianBatDau();
+                Time thoiGianKetThucHT = ca.getThoiGianKetThuc();
+
+                if ((caAdminRequest.getThoiGianBatDau().equals(caCu.getThoiGianBatDau()) || caAdminRequest.getThoiGianBatDau().after(caCu.getThoiGianBatDau()))
+                        && (caAdminRequest.getThoiGianKetThuc().equals(caCu.getThoiGianKetThuc()) || caAdminRequest.getThoiGianKetThuc().before(caCu.getThoiGianKetThuc()))) {
+                    caAdminService.saveOrUpdate(caAdminRequest);
+
+                    try {
+                        logger.info("********** bắt đầu xóa job hủy lịch **********");
+                        runJobHuyLichSanCa.xoaJobHuyLich();
+                        logger.info("********** kết thúc xóa job hủy lịch **********");
+
+                        runJobHuyLichSanCa.khaiBaoInfoJob();
+                        return new BaseResponse<>(HttpStatus.OK, "Thành công");
+                    } catch (Exception e) {
+                        return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
                     }
-                }
-                if (caAdminRequest.getThoiGianBatDau().equals(caCu.getThoiGianBatDau())) {
-                    if (caAdminRequest.getThoiGianKetThuc().after(caCu.getThoiGianKetThuc())) {
-                        if (!caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)) {
-                            if (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) &&  caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT)) {
-                                return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
-                            }
-                        }
-                    }
-                } else if (caAdminRequest.getThoiGianKetThuc().equals(caCu.getThoiGianKetThuc())) {
-                    if (caAdminRequest.getThoiGianBatDau().before(caCu.getThoiGianBatDau())) {
-                        if (!caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)) {
-                            if (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) &&  caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT)) {
-                                return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
-                            }
-                        }
-                    }
-                } else {
-                    if (caAdminRequest.getThoiGianBatDau().before(caCu.getThoiGianBatDau()) && caAdminRequest.getThoiGianKetThuc().after(caCu.getThoiGianKetThuc())) {
-                        if (!caCu.getThoiGianBatDau().equals(thoiGianBatDauHT) && !caCu.getThoiGianKetThuc().equals(thoiGianKetThucHT)) {
-                            if (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) || caAdminRequest.getThoiGianBatDau().before(thoiGianBatDauHT) &&  caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT) || caAdminRequest.getThoiGianKetThuc().after(thoiGianKetThucHT)) {
-                                return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
-                            }
-                        }
-                    }
+
+
                 }
 
+                // Kiểm tra nếu thời gian bắt đầu của caAdminRequest nằm trong khoảng của bất kỳ ca nào
+                if (caAdminRequest.getThoiGianBatDau().after(thoiGianBatDauHT) && caAdminRequest.getThoiGianBatDau().before(thoiGianKetThucHT)) {
+                    return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
+                }
+
+                // Kiểm tra nếu thời gian kết thúc của caAdminRequest nằm trong khoảng của bất kỳ ca nào
+                if (caAdminRequest.getThoiGianKetThuc().after(thoiGianBatDauHT) && caAdminRequest.getThoiGianKetThuc().before(thoiGianKetThucHT)) {
+                    return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
+                }
+
+                // Kiểm tra nếu thời gian kết thúc của caAdminRequest trùng với thời gian bắt đầu của một ca
+                if (caAdminRequest.getThoiGianKetThuc().equals(thoiGianBatDauHT)) {
+                    return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
+                }
+
+                // Kiểm tra nếu thời gian bắt đầu của caAdminRequest trùng với thời gian kết thúc của một ca
+                if (caAdminRequest.getThoiGianBatDau().equals(thoiGianKetThucHT)) {
+                    return new BaseResponse<>(HttpStatus.ALREADY_REPORTED, "Ca đã tồn tại");
+                }
             }
 
-            caAdminService.saveOrUpdate(caAdminRequest);
-            return new BaseResponse<>(HttpStatus.OK, "Successfully");
+            logger.info("********** bắt đầu xóa job hủy lịch **********");
+            runJobHuyLichSanCa.xoaJobHuyLich();
+            logger.info("********** kết thúc xóa job hủy lịch **********");
 
+            runJobHuyLichSanCa.khaiBaoInfoJob();
+
+            // Lưu cập nhật
+            caAdminService.saveOrUpdate(caAdminRequest);
+
+            return new BaseResponse<>(HttpStatus.OK, "Thành công");
 
         } catch (Exception e) {
             e.printStackTrace();
-            return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error");
+            return new BaseResponse<>(HttpStatus.BAD_REQUEST, "Lỗi");
         }
     }
+
+
 
     @DeleteMapping("delete/{id}")
     public BaseResponse<?> deleteById(@PathVariable("id") String id) {

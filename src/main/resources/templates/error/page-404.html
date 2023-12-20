@@ -17,7 +17,18 @@
             <span class="text-danger">Opps!</span> Page not found.
         </p>
         <p class="lead">The page you’re looking for doesn’t exist.</p>
-        <a class="btn btn-primary" th:href="@{/authentication/home-login}">Go Home</a>
+        <div th:if="${session.role} == null">
+            <a th:href="@{/authentication/home-login}">Go Home!!</a>
+        </div>
+        <div th:if="${session.role} == 'ROLE_USER' ">
+            <a th:href="@{/api/v1/trang-chu}">Go Home!!</a>
+        </div>
+        <div th:if="${session.role} == 'ROLE_STAFF' ">
+            <a th:href="@{/api/v1/staff/account/display}">Go Home!!</a>
+        </div>
+        <div th:if="${session.role} == 'ROLE_ADMIN' ">
+            <a th:href="@{/api/v1/admin/manage/list-manage}">Go Home!!</a>
+        </div>
     </div>
 </div>
 </body>

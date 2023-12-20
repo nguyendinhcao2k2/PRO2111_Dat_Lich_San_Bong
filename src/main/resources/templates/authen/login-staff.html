@@ -72,10 +72,13 @@
                         <input th:name="username" class="form-control form-control-lg mb-3" value="nhanVien1" type="text">
                         <label class="font-500 form-label">Mật Khẩu</label>
                         <input th:name="password" class="form-control form-control-lg" type="password">
-                        <a th:href="@{/authentication/home-login}">Quay lại !</a>
                         <p style="color: red" th:text="${thongBao}"></p>
                         <div th:if="${param.error}">
                             <label style="color: red">Tài Khoản hoặc Mật Khẩu không hợp lệ</label>
+                        </div>
+                        <div class="m-1">
+                            <a th:href="@{/authentication/home-login}">Quay lại ! - </a>
+                            <a style="text-align: center" th:href="@{/static/forgot-pass}">Quên mật khẩu!</a>
                         </div>
                         <button class="btn btn-primary btn-lg w-100 shadow-lg">Đăng Nhập</button>
                     </form>

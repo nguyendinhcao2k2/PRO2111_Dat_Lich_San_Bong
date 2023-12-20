@@ -129,7 +129,7 @@
                                 />
                             </div>
                             <div class="col-md-4">
-                                <label for="thoiGianDa" class="form-label">Loại Sân: </label>
+                                <label for="thoiGianDa" class="form-label">Loại Sân </label>
                                 <input
                                         readonly
                                         type="text"
@@ -401,7 +401,6 @@
                                                         name="phuongThucChuyenKhoan"
                                                         id="chuyenKhoan"
                                                         value="chuyenKhoan"
-                                                        checked
                                                         onchange="toggleInputs()"
                                                 />
                                                 <label class="form-check-label" for="chuyenKhoan">
@@ -412,6 +411,7 @@
                                                 <input
                                                         class="form-check-input"
                                                         type="radio"
+                                                        checked
                                                         name="phuongThucChuyenKhoan"
                                                         id="tienMat"
                                                         value="tienMat"
@@ -430,7 +430,7 @@
                                         <div class="col-md-8">
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" role="switch"
-                                                       id="checkInHoaDon">
+                                                       id="checkInHoaDon" checked>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -499,7 +499,7 @@
                                                 color: rgb(215, 92, 92);
                                               "
                                     >
-                                        ((1 + 2 + 3) - (4 + 5)) :
+                                        (1 + 2 + 3) - (4 + 5) :
                                     </h3>
                                     <h1
                                             style="
@@ -521,12 +521,12 @@
                                 <button
                                         type="submit "
                                         id="btnQuayLai"
-                                        class="m-2 btn btn-danger btn-labeled"
+                                        class="m-2 btn btn-warning btn-labeled"
                                         onclick="viewDatLich()"
                                 >
-                                    Home
+                                    Hủy
                                     <span class="btn-label">
-                                        <i class="fa fa-remove"></i>
+                                        <i class="fa-solid fa-house"></i>
                                          </span>
                                 </button>
                                 <button
@@ -640,23 +640,23 @@
                                                                     </div>
                                                                     <!-- BUTTON CHECK BOX -->
                                                                     <div class="col-md-3">
-                                                                        <div
-                                                                                class="d-flex justify-content-end"
-                                                                        >
-                                                                            <button
-                                                                                    type="button"
-                                                                                    id="showCheckboxButtonList"
-                                                                                    class="button-header-check-box"
-                                                                            >
-                                                                                  <span
-                                                                                          class="button-icon-check-list"
-                                                                                  >
-                                                                                    <i
-                                                                                            class="far fa-check-square fa-lg"
-                                                                                    ></i>
-                                                                                  </span>
-                                                                            </button>
-                                                                        </div>
+<!--                                                                        <div-->
+<!--                                                                                class="d-flex justify-content-end"-->
+<!--                                                                        >-->
+<!--                                                                            <button-->
+<!--                                                                                    type="button"-->
+<!--                                                                                    id="showCheckboxButtonList"-->
+<!--                                                                                    class="button-header-check-box"-->
+<!--                                                                            >-->
+<!--                                                                                  <span-->
+<!--                                                                                          class="button-icon-check-list"-->
+<!--                                                                                  >-->
+<!--                                                                                    <i-->
+<!--                                                                                            class="far fa-check-square fa-lg"-->
+<!--                                                                                    ></i>-->
+<!--                                                                                  </span>-->
+<!--                                                                            </button>-->
+<!--                                                                        </div>-->
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1168,7 +1168,7 @@
                     $('#thongBaoPhuPhi').empty();
                     $('#tablePhuPhi').hide();
                     var htmlHoaDonPhuPhi = '<div class="alert alert-danger noContent" role="alert">';
-                    htmlHoaDonPhuPhi += '<h1 class="" style="font-size: 20px">Chưa Phát Sinh Phụ Phí!</h1>';
+                    htmlHoaDonPhuPhi += '<h1 class="" style="font-size: 20px; color: black">Chưa Phát Sinh Phụ Phí!</h1>';
                     htmlHoaDonPhuPhi += '</div>';
                     $('#thongBaoPhuPhi').append(htmlHoaDonPhuPhi);
                     var option = $('<option>', {
@@ -1210,7 +1210,7 @@
     function calculateChange() {
         var tienKhachDua = parseFloat(document.getElementById('tienKhachDua').value) || 0;
 
-        if (tienKhachDua > tongTienHoaDonPhaiTra) {
+        if (tienKhachDua >= tongTienHoaDonPhaiTra) {
             var tienTraLai = tienKhachDua - tongTienHoaDonPhaiTra;
             document.getElementById('tienTraLai').value = formatCurrencyVND(tienTraLai);
         } else {

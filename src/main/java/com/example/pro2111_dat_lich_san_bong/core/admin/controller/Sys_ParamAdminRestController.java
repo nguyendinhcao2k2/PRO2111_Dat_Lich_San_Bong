@@ -4,8 +4,13 @@ import com.example.pro2111_dat_lich_san_bong.core.admin.model.request.SysParamAd
 import com.example.pro2111_dat_lich_san_bong.core.admin.model.request.SysParamAdminUpdateRequest;
 import com.example.pro2111_dat_lich_san_bong.core.admin.model.response.SysParamAdminResponse;
 import com.example.pro2111_dat_lich_san_bong.core.admin.serviver.SysParamAdminService;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.runSchedule.RunJobSendMailBeforeCa;
+import com.example.pro2111_dat_lich_san_bong.core.schedule.service.impl.JobHuySanCaServiceImpl;
+import com.example.pro2111_dat_lich_san_bong.entity.SysParam;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
 import com.example.pro2111_dat_lich_san_bong.model.response.BaseResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +25,11 @@ public class Sys_ParamAdminRestController {
 
     @Autowired
     private SysParamAdminService sysParamAdminService;
+
+    @Autowired
+    private RunJobSendMailBeforeCa runJobSendMailBeforeCa;
+
+    private static final Logger logger = LoggerFactory.getLogger(JobHuySanCaServiceImpl.class);
 
     @GetMapping("list-code")
     public ResponseEntity<?> getListCode() {
@@ -72,7 +82,19 @@ public class Sys_ParamAdminRestController {
     @PutMapping("/update")
     public ResponseEntity<?> updateSysParam(@RequestBody SysParamAdminUpdateRequest updateRequest) {
         try {
-            sysParamAdminService.update(updateRequest);
+            SysParam param =  sysParamAdminService.update(updateRequest);
+            if(param != null && param.getCode().equals(SYSParamCodeConstant.THOI_GIAN_THONG_BAO)){
+                try {
+                    logger.info("********** bắt đầu khai xóa tất cả job guier mail thông báo **********");
+                    runJobSendMailBeforeCa.xoaJobGuiMaill();
+                    logger.info("********** hoàn thành khai xóa tất cả job guier mail thông báo **********");
+
+                    runJobSendMailBeforeCa.khaiBaoJobSendMail();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.OK, updateRequest));
         } catch (Exception e) {
             return ResponseEntity.ok(new BaseResponse<>(HttpStatus.BAD_REQUEST, "Error"));

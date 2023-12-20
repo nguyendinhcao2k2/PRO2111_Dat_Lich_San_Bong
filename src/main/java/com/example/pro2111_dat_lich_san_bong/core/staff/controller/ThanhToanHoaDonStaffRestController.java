@@ -3,25 +3,17 @@ package com.example.pro2111_dat_lich_san_bong.core.staff.controller;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.DichVuSanBongRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.HoaDonThanhToanRequest;
 import com.example.pro2111_dat_lich_san_bong.core.staff.model.request.ThanhToanRequets;
+import com.example.pro2111_dat_lich_san_bong.core.staff.model.response.GiaoCaResponse;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.DichVuSanBongStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.HoaDonSanCaStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.PhuPhiHoaDonStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.PhuPhiStaffRepository;
 import com.example.pro2111_dat_lich_san_bong.core.staff.reponsitory.SanCaStaffRepository;
+import com.example.pro2111_dat_lich_san_bong.core.staff.service.IGiaoCaStaffService;
 import com.example.pro2111_dat_lich_san_bong.core.staff.service.impl.ThanhToanSanCaStaffServiceImpl;
 import com.example.pro2111_dat_lich_san_bong.core.user.service.SYSParamUserService;
-import com.example.pro2111_dat_lich_san_bong.entity.DichVuSanBong;
-import com.example.pro2111_dat_lich_san_bong.entity.HinhThucThanhToan;
-import com.example.pro2111_dat_lich_san_bong.entity.HoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.entity.PhuPhi;
-import com.example.pro2111_dat_lich_san_bong.entity.PhuPhiHoaDon;
-import com.example.pro2111_dat_lich_san_bong.entity.SanBong;
-import com.example.pro2111_dat_lich_san_bong.entity.SanCa;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.LoaiHinhThanhToan;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiDichVu;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiHoaDonSanCa;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiPhuPhiHoaDon;
-import com.example.pro2111_dat_lich_san_bong.enumstatus.TrangThaiSanCa;
+import com.example.pro2111_dat_lich_san_bong.entity.*;
+import com.example.pro2111_dat_lich_san_bong.enumstatus.*;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayConfig;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.config.vnpay.VNPayService;
 import com.example.pro2111_dat_lich_san_bong.infrastructure.constant.SYSParamCodeConstant;
@@ -79,17 +71,31 @@ public class ThanhToanHoaDonStaffRestController {
     private SanBongRepository sanBongRepository;
     @Autowired
     private PhuPhiStaffRepository phuPhiStaffRepository;
+    @Autowired
+    private IGiaoCaStaffService giaoCaStaffService;
 
     @GetMapping("/get-all-thanh-toan")
     public ResponseEntity<List<HoaDonThanhToanRequest>> getAllHoaDonThanhToans() {
-        List<HoaDonThanhToanRequest> listHoaDonThanhToans = thanhToanStaffService.getAllHoaDonSanCas();
-        return ResponseEntity.ok(listHoaDonThanhToans);
+        try {
+            List<HoaDonThanhToanRequest> listHoaDonThanhToans = thanhToanStaffService.getAllHoaDonSanCas();
+            return ResponseEntity.ok(listHoaDonThanhToans);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @GetMapping("/thanh-toan-hoa-don/{id}")
     public ResponseEntity<HoaDonThanhToanRequest> getOneHoaDonThanhToan(@PathVariable(name = "id") String id) {
-        HoaDonThanhToanRequest hoaDonThanhToanRequests = thanhToanStaffService.getOneHoaDonThanhToan(id);
-        return ResponseEntity.ok(hoaDonThanhToanRequests);
+        try {
+            HoaDonThanhToanRequest hoaDonThanhToanRequests = thanhToanStaffService.getOneHoaDonThanhToan(id);
+            if (hoaDonThanhToanRequests != null) {
+                return ResponseEntity.ok(hoaDonThanhToanRequests);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @PostMapping("/thanh-toan-tien-mat/{id}")
@@ -98,40 +104,47 @@ public class ThanhToanHoaDonStaffRestController {
             @RequestParam String paymentMethod,
             @RequestParam Double tongTienSave
     ) {
-        if ("tienMat".equals(paymentMethod) && !id.isEmpty() && !id.isBlank()) {
-            HoaDonSanCa hoaDonSanCa = hoaDonSanCaStaffRepository.findById(id).orElse(null);
+        try {
+            if ("tienMat".equals(paymentMethod) && !id.isEmpty() && !id.isBlank()) {
+                HoaDonSanCa hoaDonSanCa = hoaDonSanCaStaffRepository.findById(id).orElse(null);
+                if (hoaDonSanCa != null && (hoaDonSanCa.getTrangThai() == TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal() || hoaDonSanCa.getTrangThai() == TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal())) {
+                    GiaoCaResponse giaoCa = giaoCaStaffService.findGiaoCaByTrangThai(TrangThaiGiaoCa.NHAN_CA);
+                    if(giaoCa != null){
+                        hoaDonSanCa.setIdGiaoCa(giaoCa.getId());
+                    }
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.DA_THANH_TOAN.ordinal());
+                    hoaDonSanCa.setNgayThanhToan(timestamp);
+                    hoaDonSanCa.setTongTienHoaDonSanCa(tongTienSave);
+                    hoaDonSanCaStaffRepository.saveAndFlush(hoaDonSanCa);
+                    SanCa sanCa = sanCaStaffRepository.findById(hoaDonSanCa.getIdSanCa()).orElse(null);
+                    if (sanCa != null) {
+                        sanCa.setTrangThai(TrangThaiSanCa.QUA_GIO_HIEN_TAI.ordinal());
+                        HinhThucThanhToan hinhThucThanhToan = new HinhThucThanhToan();
+                        hinhThucThanhToan.setLoaiHinhThanhToan(LoaiHinhThanhToan.TIEN_MAT);
+                        hinhThucThanhToan.setTrangThai(LoaiHinhThanhToan.TIEN_MAT.ordinal());
+                        hinhThucThanhToan.setIdHoaDonSanCa(hoaDonSanCa.getId());
+                        sanCaStaffRepository.saveAndFlush(sanCa);
+                        thanhToanStaffService.saveViTienCocAndLichSu(hoaDonSanCa);
+                        hinhThucThanhToanRepository.saveAndFlush(hinhThucThanhToan);
 
-            if (hoaDonSanCa != null && (hoaDonSanCa.getTrangThai() == TrangThaiHoaDonSanCa.DA_CHECK_IN.ordinal() || hoaDonSanCa.getTrangThai() == TrangThaiHoaDonSanCa.CHUA_THANH_TOAN.ordinal())) {
-                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.DA_THANH_TOAN.ordinal());
-                hoaDonSanCa.setNgayThanhToan(timestamp);
-                hoaDonSanCa.setTongTienHoaDonSanCa(tongTienSave);
-                hoaDonSanCaStaffRepository.saveAndFlush(hoaDonSanCa);
-                SanCa sanCa = sanCaStaffRepository.findById(hoaDonSanCa.getIdSanCa()).orElse(null);
-                if (sanCa != null) {
-                    sanCa.setTrangThai(TrangThaiSanCa.QUA_GIO_HIEN_TAI.ordinal());
-                    HinhThucThanhToan hinhThucThanhToan = new HinhThucThanhToan();
-                    hinhThucThanhToan.setLoaiHinhThanhToan(LoaiHinhThanhToan.TIEN_MAT);
-                    hinhThucThanhToan.setTrangThai(LoaiHinhThanhToan.TIEN_MAT.ordinal());
-                    hinhThucThanhToan.setIdHoaDonSanCa(hoaDonSanCa.getId());
-                    sanCaStaffRepository.saveAndFlush(sanCa);
-                    thanhToanStaffService.saveViTienCocAndLichSu(hoaDonSanCa);
-                    hinhThucThanhToanRepository.saveAndFlush(hinhThucThanhToan);
+                        List<PhuPhiHoaDon> listPhuPhiHoaDon = phuPhiHoaDonStaffRepository.findPhuPhiHoaDonsByIdHoaDonSanCa(hoaDonSanCa.getId());
+                        listPhuPhiHoaDon.forEach(phuPhiHoaDon -> {
+                            phuPhiHoaDon.setTrangThai(TrangThaiPhuPhiHoaDon.Da_Tra.ordinal());
+                            phuPhiHoaDonStaffRepository.saveAndFlush(phuPhiHoaDon);
+                        });
 
-                    List<PhuPhiHoaDon> listPhuPhiHoaDon = phuPhiHoaDonStaffRepository.findPhuPhiHoaDonsByIdHoaDonSanCa(hoaDonSanCa.getId());
-                    listPhuPhiHoaDon.forEach(phuPhiHoaDon -> {
-                        phuPhiHoaDon.setTrangThai(TrangThaiPhuPhiHoaDon.Da_Tra.ordinal());
-                        phuPhiHoaDonStaffRepository.saveAndFlush(phuPhiHoaDon);
-                    });
-
-                    List<DichVuSanBong> listDichVuSanBong = dichVuSanBongStaffRepository.findAllByIdHoaDonSanCaAndTrangThai(hoaDonSanCa.getId(), TrangThaiDichVu.Dang_Su_Dung.ordinal());
-                    listDichVuSanBong.forEach(dichVuSanBong -> {
-                        dichVuSanBong.setTrangThai(TrangThaiDichVu.NGUNG_Su_Dung.ordinal());
-                        dichVuSanBongStaffRepository.saveAndFlush(dichVuSanBong);
-                    });
+                        List<DichVuSanBong> listDichVuSanBong = dichVuSanBongStaffRepository.findAllByIdHoaDonSanCaAndTrangThai(hoaDonSanCa.getId(), TrangThaiDichVu.Dang_Su_Dung.ordinal());
+                        listDichVuSanBong.forEach(dichVuSanBong -> {
+                            dichVuSanBong.setTrangThai(TrangThaiDichVu.NGUNG_Su_Dung.ordinal());
+                            dichVuSanBongStaffRepository.saveAndFlush(dichVuSanBong);
+                        });
+                    }
+                    return paymentMethod;
                 }
-                return paymentMethod;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return paymentMethod;
     }
@@ -154,59 +167,72 @@ public class ThanhToanHoaDonStaffRestController {
     @PostMapping("/thanh-toan-hoa-don-nhieu")
     public ResponseEntity<ThanhToanRequets> processItems(@RequestBody List<String> selectedItems) {
         ThanhToanRequets thanhToanRequets = new ThanhToanRequets();
-
-        for (String selectedItem : selectedItems) {
-            processHoaDon(selectedItem, thanhToanRequets);
+        try {
+            for (String selectedItem : selectedItems) {
+                processHoaDon(selectedItem, thanhToanRequets);
+            }
+            return ResponseEntity.ok(thanhToanRequets);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         return ResponseEntity.ok(thanhToanRequets);
     }
 
     private void processHoaDon(String selectedItem, ThanhToanRequets thanhToanRequets) {
-        HoaDonThanhToanRequest hoaDonThanhToanRequest = thanhToanStaffService.getOneHoaDonThanhToan(selectedItem);
+        try {
+            HoaDonThanhToanRequest hoaDonThanhToanRequest = thanhToanStaffService.getOneHoaDonThanhToan(selectedItem);
 
-        thanhToanRequets.setTenKhachHang(hoaDonThanhToanRequest.getTenKhachHang());
-        thanhToanRequets.setSoDienThoai(hoaDonThanhToanRequest.getSoDienThoai());
-        thanhToanRequets.setTenSanBong(hoaDonThanhToanRequest.getTenSanBong());
-        thanhToanRequets.setTenLoaiSan(hoaDonThanhToanRequest.getTenLoaiSan());
-        thanhToanRequets.setTenCa(hoaDonThanhToanRequest.getTenCa());
-        thanhToanRequets.setThoiGianBatDau(hoaDonThanhToanRequest.getThoiGianBatDau());
-        thanhToanRequets.setThoiGianKetThuc(hoaDonThanhToanRequest.getThoiGianKetThuc());
-        thanhToanRequets.setTongTienCoc(handleNull(thanhToanRequets.getTongTienCoc()) + hoaDonThanhToanRequest.getTienCoc());
-        thanhToanRequets.setTongTienCocThua(handleNull(thanhToanRequets.getTongTienCocThua()) + hoaDonThanhToanRequest.getTienCocThua());
-        thanhToanRequets.setTongTienSanBong(handleNull(thanhToanRequets.getTongTienSanBong()) + hoaDonThanhToanRequest.getTongTienSanCa());
+            thanhToanRequets.setTenKhachHang(hoaDonThanhToanRequest.getTenKhachHang());
+            thanhToanRequets.setSoDienThoai(hoaDonThanhToanRequest.getSoDienThoai());
+            thanhToanRequets.setTenSanBong(hoaDonThanhToanRequest.getTenSanBong());
+            thanhToanRequets.setTenLoaiSan(hoaDonThanhToanRequest.getTenLoaiSan());
+            thanhToanRequets.setTenCa(hoaDonThanhToanRequest.getTenCa());
+            thanhToanRequets.setThoiGianBatDau(hoaDonThanhToanRequest.getThoiGianBatDau());
+            thanhToanRequets.setThoiGianKetThuc(hoaDonThanhToanRequest.getThoiGianKetThuc());
+            thanhToanRequets.setTongTienCoc(handleNull(thanhToanRequets.getTongTienCoc()) + hoaDonThanhToanRequest.getTienCoc());
+            thanhToanRequets.setTongTienCocThua(handleNull(thanhToanRequets.getTongTienCocThua()) + hoaDonThanhToanRequest.getTienCocThua());
+            thanhToanRequets.setTongTienSanBong(handleNull(thanhToanRequets.getTongTienSanBong()) + hoaDonThanhToanRequest.getTongTienSanCa());
 
-        double tongTienDichVu = calculateTongTienDichVu(selectedItem);
-        thanhToanRequets.setTongTienDichVu(handleNull(thanhToanRequets.getTongTienDichVu()) + tongTienDichVu);
+            double tongTienDichVu = calculateTongTienDichVu(selectedItem);
+            thanhToanRequets.setTongTienDichVu(handleNull(thanhToanRequets.getTongTienDichVu()) + tongTienDichVu);
 
-        double tongTienPhuPhi = calculateTongTienPhuPhi(selectedItem);
-        thanhToanRequets.setTongTienPhuPhi(handleNull(thanhToanRequets.getTongTienPhuPhi()) + tongTienPhuPhi);
-
+            double tongTienPhuPhi = calculateTongTienPhuPhi(selectedItem);
+            thanhToanRequets.setTongTienPhuPhi(handleNull(thanhToanRequets.getTongTienPhuPhi()) + tongTienPhuPhi);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private double calculateTongTienDichVu(String hoaDonId) {
         List<DichVuSanBongRequest> listDichVuSanBongs = dichVuSanBongStaffRepository.dichVuSanBongSuDungByHoaDonSanCas(hoaDonId, TrangThaiDichVu.Dang_Su_Dung.ordinal());
         double tongTienDichVu = 0;
-
-        if (listDichVuSanBongs != null && !listDichVuSanBongs.isEmpty()) {
-            for (DichVuSanBongRequest dichVu : listDichVuSanBongs) {
-                tongTienDichVu += dichVu.getTongTien();
+        try {
+            if (listDichVuSanBongs != null && !listDichVuSanBongs.isEmpty()) {
+                for (DichVuSanBongRequest dichVu : listDichVuSanBongs) {
+                    tongTienDichVu += dichVu.getTongTien();
+                }
             }
+            return tongTienDichVu;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         return tongTienDichVu;
     }
 
     private double calculateTongTienPhuPhi(String hoaDonId) {
         List<PhuPhiHoaDon> listPhuPhiHoaDons = phuPhiHoaDonStaffRepository.findPhuPhiHoaDonsByIdHoaDonSanCa(hoaDonId);
         double tongTienPhuPhi = 0;
-        if (listPhuPhiHoaDons != null && !listPhuPhiHoaDons.isEmpty()) {
-            for (PhuPhiHoaDon phuPhiHoaDon : listPhuPhiHoaDons) {
-                PhuPhi phuPhi = phuPhiStaffRepository.findById(phuPhiHoaDon.getIdPhuPhi()).orElse(null);
-                if (phuPhiHoaDon.getIdPhuPhi().equals(phuPhi.getId())) {
-                    tongTienPhuPhi += phuPhi.getGiaPhuPhi();
+        try {
+            if (listPhuPhiHoaDons != null && !listPhuPhiHoaDons.isEmpty()) {
+                for (PhuPhiHoaDon phuPhiHoaDon : listPhuPhiHoaDons) {
+                    PhuPhi phuPhi = phuPhiStaffRepository.findById(phuPhiHoaDon.getIdPhuPhi()).orElse(null);
+                    if (phuPhiHoaDon.getIdPhuPhi().equals(phuPhi.getId())) {
+                        tongTienPhuPhi += phuPhi.getGiaPhuPhi();
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return tongTienPhuPhi;
     }
@@ -216,70 +242,93 @@ public class ThanhToanHoaDonStaffRestController {
     public ResponseEntity<String> thanhToanTienMatNhieuHoaDon(
             @RequestParam(name = "paymentMethod") String paymentMethod,
             @RequestParam(name = "listId") String listIdHoaDonSanCa) {
-        List<HoaDonSanCa> listHoaDonSanCa = hoaDonSanCaStaffRepository.findAll();
-        List<String> listThanhToans = Arrays.asList(listIdHoaDonSanCa.split(","));
-        if (paymentMethod.equals("tienMat2")) {
-            for (int i = 0; i < listThanhToans.size(); i++) {
-                System.out.println(listThanhToans.get(i));
-                for (int j = 0; j < listHoaDonSanCa.size(); j++) {
-                    if ((listHoaDonSanCa.get(j).getId()).equals(listThanhToans.get(i))) {
-                        HoaDonSanCa hoaDonSanCa = hoaDonSanCaStaffRepository.findById(listHoaDonSanCa.get(j).getId()).get();
-                        HoaDonThanhToanRequest hoaDonThanhToanRequest = thanhToanStaffService.getOneHoaDonThanhToan(listHoaDonSanCa.get(j).getId());
-                        double tienSan = handleNull(hoaDonSanCa.getTienSan());
-                        double tienCocThua = handleNull(hoaDonSanCa.getTienCocThua());
-                        double tienCoc = handleNull(hoaDonThanhToanRequest.getTienCoc());
-                        double tongTienDichVu = handleNull(calculateTongTienDichVu(hoaDonSanCa.getId()));
-                        double tongTienPhuPhi = handleNull(calculateTongTienPhuPhi(hoaDonSanCa.getId()));
-                        double tongThanhToan = (tienSan + tongTienDichVu + tongTienPhuPhi) - (tienCoc + tienCocThua);
-                        hoaDonSanCa.setTongTienHoaDonSanCa(tongThanhToan);
-                        hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.DA_THANH_TOAN.ordinal());
-                        hoaDonSanCaStaffRepository.saveAndFlush(hoaDonSanCa);
-                        //HÌNH THỨC THANH TOÁN
-                        HinhThucThanhToan hinhThucThanhToan = new HinhThucThanhToan();
-                        hinhThucThanhToan.setLoaiHinhThanhToan(LoaiHinhThanhToan.CHUYEN_KHOAN);
-                        hinhThucThanhToan.setTrangThai(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
-                        hinhThucThanhToan.setIdHoaDonSanCa(hoaDonSanCa.getId());
-                        hinhThucThanhToanRepository.saveAndFlush(hinhThucThanhToan);
-                        SanCa sanCa = sanCaStaffRepository.findById(hoaDonSanCa.getIdSanCa()).orElse(null);
-                        if (sanCa != null) {
-                            sanCa.setTrangThai(TrangThaiSanCa.QUA_GIO_HIEN_TAI.ordinal());
-                            sanCaStaffRepository.saveAndFlush(sanCa);
-                            thanhToanStaffService.saveViTienCocAndLichSu(hoaDonSanCa);
+        try {
+            List<HoaDonSanCa> listHoaDonSanCa = hoaDonSanCaStaffRepository.findAll();
+            List<String> listThanhToans = Arrays.asList(listIdHoaDonSanCa.split(","));
+            if (paymentMethod.equals("tienMat2")) {
+                for (int i = 0; i < listThanhToans.size(); i++) {
+                    for (int j = 0; j < listHoaDonSanCa.size(); j++) {
+                        if ((listHoaDonSanCa.get(j).getId()).equals(listThanhToans.get(i))) {
+                            HoaDonSanCa hoaDonSanCa = hoaDonSanCaStaffRepository.findById(listHoaDonSanCa.get(j).getId()).get();
+                            GiaoCaResponse giaoCa = giaoCaStaffService.findGiaoCaByTrangThai(TrangThaiGiaoCa.NHAN_CA);
+                            if(giaoCa != null){
+                                hoaDonSanCa.setIdGiaoCa(giaoCa.getId());
+                            }
+                            HoaDonThanhToanRequest hoaDonThanhToanRequest = thanhToanStaffService.getOneHoaDonThanhToan(listHoaDonSanCa.get(j).getId());
+                            double tienSan = handleNull(hoaDonSanCa.getTienSan());
+                            double tienCocThua = handleNull(hoaDonSanCa.getTienCocThua());
+                            double tienCoc = handleNull(hoaDonThanhToanRequest.getTienCoc());
+                            double tongTienDichVu = handleNull(calculateTongTienDichVu(hoaDonSanCa.getId()));
+                            double tongTienPhuPhi = handleNull(calculateTongTienPhuPhi(hoaDonSanCa.getId()));
+                            double tongThanhToan = (tienSan + tongTienDichVu + tongTienPhuPhi) - (tienCoc + tienCocThua);
+                            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                            hoaDonSanCa.setNgayThanhToan(timestamp);
+                            hoaDonSanCa.setTongTienHoaDonSanCa(tongThanhToan);
+                            hoaDonSanCa.setTrangThai(TrangThaiHoaDonSanCa.DA_THANH_TOAN.ordinal());
+                            hoaDonSanCaStaffRepository.saveAndFlush(hoaDonSanCa);
+                            //HÌNH THỨC THANH TOÁN
+                            HinhThucThanhToan hinhThucThanhToan = new HinhThucThanhToan();
+                            hinhThucThanhToan.setLoaiHinhThanhToan(LoaiHinhThanhToan.CHUYEN_KHOAN);
+                            hinhThucThanhToan.setTrangThai(LoaiHinhThanhToan.CHUYEN_KHOAN.ordinal());
+                            hinhThucThanhToan.setIdHoaDonSanCa(hoaDonSanCa.getId());
                             hinhThucThanhToanRepository.saveAndFlush(hinhThucThanhToan);
-                            capNhatTrangThaiDichVu(hoaDonSanCa.getId());
-                            capNhatTrangThaiPhuPhi(hoaDonSanCa.getId());
+                            SanCa sanCa = sanCaStaffRepository.findById(hoaDonSanCa.getIdSanCa()).orElse(null);
+                            if (sanCa != null) {
+                                sanCa.setTrangThai(TrangThaiSanCa.QUA_GIO_HIEN_TAI.ordinal());
+                                sanCaStaffRepository.saveAndFlush(sanCa);
+                                thanhToanStaffService.saveViTienCocAndLichSu(hoaDonSanCa);
+                                hinhThucThanhToanRepository.saveAndFlush(hinhThucThanhToan);
+                                capNhatTrangThaiDichVu(hoaDonSanCa.getId());
+                                capNhatTrangThaiPhuPhi(hoaDonSanCa.getId());
+                            }
                         }
                     }
                 }
             }
+            return ResponseEntity.ok("Success");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return ResponseEntity.ok("Thanh Toán Tiền Mặt Nhiều Hóa Đơn");
+        return ResponseEntity.ok("Bug");
     }
 
     @PostMapping("/thanh-toan-chuyen-khoan-nhieu-hoa-don")
     public String chuyenKhoanNhieuHoaDon(@RequestParam("amount") int orderTotal, @RequestParam("orderInfo") String orderInfo, HttpServletRequest request) {
-        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        baseUrl += "/api/v1/staff/thanh-toan/chuyen-khoan-thanh-cong-nhieu-hoa-don";
-        int miuteParam = Integer.valueOf(sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_HET_GD).getValue());
-        String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl, miuteParam);
-        return vnpayUrl;
+        try {
+            String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+            baseUrl += "/api/v1/staff/thanh-toan/chuyen-khoan-thanh-cong-nhieu-hoa-don";
+            int miuteParam = Integer.valueOf(sysParamUserService.findSysParamByCode(SYSParamCodeConstant.THOI_GIAN_HET_GD).getValue());
+            String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl, miuteParam);
+            return vnpayUrl;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Bug";
+        }
     }
 
 
     private void capNhatTrangThaiDichVu(String idHoaDonSanCa) {
-        List<PhuPhiHoaDon> listPhuPhiHoaDon = phuPhiHoaDonStaffRepository.findPhuPhiHoaDonsByIdHoaDonSanCa(idHoaDonSanCa);
-        listPhuPhiHoaDon.forEach(phuPhiHoaDon -> {
-            phuPhiHoaDon.setTrangThai(TrangThaiPhuPhiHoaDon.Da_Tra.ordinal());
-            phuPhiHoaDonStaffRepository.saveAndFlush(phuPhiHoaDon);
-        });
+        try {
+            List<PhuPhiHoaDon> listPhuPhiHoaDon = phuPhiHoaDonStaffRepository.findPhuPhiHoaDonsByIdHoaDonSanCa(idHoaDonSanCa);
+            listPhuPhiHoaDon.forEach(phuPhiHoaDon -> {
+                phuPhiHoaDon.setTrangThai(TrangThaiPhuPhiHoaDon.Da_Tra.ordinal());
+                phuPhiHoaDonStaffRepository.saveAndFlush(phuPhiHoaDon);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void capNhatTrangThaiPhuPhi(String idHoaDonSanCa) {
-        List<DichVuSanBong> listDichVuSanBong = dichVuSanBongStaffRepository.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, TrangThaiDichVu.Dang_Su_Dung.ordinal());
-        listDichVuSanBong.forEach(dichVuSanBong -> {
-            dichVuSanBong.setTrangThai(TrangThaiDichVu.NGUNG_Su_Dung.ordinal());
-            dichVuSanBongStaffRepository.saveAndFlush(dichVuSanBong);
-        });
+        try {
+            List<DichVuSanBong> listDichVuSanBong = dichVuSanBongStaffRepository.findAllByIdHoaDonSanCaAndTrangThai(idHoaDonSanCa, TrangThaiDichVu.Dang_Su_Dung.ordinal());
+            listDichVuSanBong.forEach(dichVuSanBong -> {
+                dichVuSanBong.setTrangThai(TrangThaiDichVu.NGUNG_Su_Dung.ordinal());
+                dichVuSanBongStaffRepository.saveAndFlush(dichVuSanBong);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private Double handleNull(Double value) {

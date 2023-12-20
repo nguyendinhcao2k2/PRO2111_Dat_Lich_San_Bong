@@ -58,11 +58,16 @@ public interface HoaDonSanCaStaffRepository extends JpaRepository<HoaDonSanCa, S
     @Query("""
                     select  new com.example.pro2111_dat_lich_san_bong.core.staff.model.response.LichSuHoaDonSanCaStaffReponse(
                         hdsc.id,hdsc.ngayDenSan,hdsc.thoiGianCheckIn,hdsc.tienSan,hdsc.tongTienHoaDonSanCa,hdsc.idHoaDon,hdsc.trangThai,hdsc.ngayThanhToan,
-                        hdsc.countLich,hdsc.tienCocThua,httt.loaiHinhThanhToan
+                        hdsc.countLich,hdsc.tienCocThua,httt.loaiHinhThanhToan,c.tenCa,sb.tenSanBong,(ls.giaSan + c.giaCa)
                     )
                      from HoaDonSanCa hdsc
                         left outer join HinhThucThanhToan httt on hdsc.id = httt.idHoaDonSanCa
+                        join SanCa sc on hdsc.idSanCa = sc.id
+                        join Ca c on sc.idCa = c.id
+                        join SanBong sb on sc.idSanBong = sb.id
+                        join LoaiSan ls on sb.idLoaiSan = ls.id
                      where hdsc.idHoaDon = :idHoaDon 
+                     order by hdsc.ngayDenSan desc 
             """)
     List<LichSuHoaDonSanCaStaffReponse> findAllLichSuHoaDonSanCaTheoIdHD(@Param("idHoaDon") String idHoaDon);
 }

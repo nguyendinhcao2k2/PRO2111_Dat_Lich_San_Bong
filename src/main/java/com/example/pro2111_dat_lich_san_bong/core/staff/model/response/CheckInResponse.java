@@ -64,4 +64,7 @@ public interface CheckInResponse {
     @Value("#{target.idSanBong}")
     String getIdSanBong();
 
+    @Value("#{target.thoiGianCheckIn}")
+    Time getThoiGianCheckIn();
+
 }

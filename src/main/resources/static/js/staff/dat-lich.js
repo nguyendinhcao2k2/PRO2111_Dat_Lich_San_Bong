@@ -1086,7 +1086,7 @@ function setSelectBox(trangThai, idHoaDonSanCa) {
                                         >
                                             <li>
                                                 <a href="http://localhost:8081/api/v1/staff/thanh-toan/thanh-toan-hoa-don/${idHoaDonSanCa}" class="dropdown-item">
-                                                    Thanh toán
+                                                    Xem Chi Tiết
                                                 </a>
                                             </li>
                                         </ul>`
@@ -1155,6 +1155,10 @@ function setPrice(tt) {
 }
 
 function openModal() {
+    $("#hoTenInput").val("");
+    $("#emailInput").val("");
+    $("#soDienThoaiInput").val("");
+    $("#ghiChuInput").val("");
     let thongTinSanBongList = JSON.parse(localStorage.getItem("thongTin"));
     setPrice(thongTinSanBongList);
 }

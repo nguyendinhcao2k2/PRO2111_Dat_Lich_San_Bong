@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 public class RunJobHuyLichSanCa {
 
-    private static final Logger logger = LoggerFactory.getLogger(JobHuySanCaServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RunJobHuyLichSanCa.class);
 
     @Autowired
     private JobHuySanCaService jobHuySanCaService;
@@ -47,5 +47,9 @@ public class RunJobHuyLichSanCa {
             logger.error("----------- Lỗi khi thực hiện khai báo thông tin job hủy lịch ------------");
         }
 
+    }
+
+    public void xoaJobHuyLich(){
+        jobHuySanCaService.cancelAllScheduledJobs();
     }
 }

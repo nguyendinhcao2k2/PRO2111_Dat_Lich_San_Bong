@@ -188,28 +188,6 @@
                                                 />
                                             </div>
                                         </div>
-                                        <!--Trạng thái  -->
-<!--                                        <div class="col-auto">-->
-<!--                                            <label-->
-<!--                                                    for="select-trang-thai-danh-sach-cho"-->
-<!--                                                    class="col-form-label label-danh-sach"-->
-<!--                                            >Trạng thái :-->
-<!--                                            </label>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-3 col-sm-auto">-->
-<!--                                            <select-->
-<!--                                                    id="select-trang-thai-danh-sach-cho"-->
-<!--                                                    class="form-select"-->
-<!--                                            >-->
-<!--                                                <option selected value="0">Tất cả</option>-->
-<!--                                                <option value="0">Chờ Nhận Sân</option>-->
-<!--                                                <option value="1">Đã Check In</option>-->
-<!--                                                <option value="2">Chưa Thanh Toán</option>-->
-<!--                                                <option value="3">Đã Thanh Toán</option>-->
-<!--                                                <option value="4">Đã Hủy</option>-->
-<!--                                                <option value="5">Chờ Đổi Sân</option>-->
-<!--                                            </select>-->
-<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -220,19 +198,14 @@
                     <div class="alert alert-danger noContent" v-if="hoaDon.length === 0" role="alert">
                         <h1 class="" style="font-size: 20px">Không có dữ liệu</h1>
                     </div>
-                    <div v-if="hoaDon.length !== 0" class="accordion" id="accordionExample" v-for="(items,index) in hoaDon">
+                    <div v-if="hoaDon.length !== 0" class="accordion" v-for="(items, index) in hoaDon" :key="index">
                         <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button p-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                    <table
-                                            class="table border-0 mt-2"
-                                            id="dataTable"
-                                            width="100%"
-                                            cellspacing="0"
-                                    >
+                            <h2 class="accordion-header" :id="'heading' + index">
+                                <button class="accordion-button p-1" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + index" aria-expanded="false" :aria-controls="'collapse' + index">
+                                    <table class="table border-0 mt-2" id="dataTable" width="100%" cellspacing="0">
                                         <tbody>
                                         <tr>
-                                            <td><h5>STT</h5>{{index +1}}</td>
+                                            <td><h5>STT</h5>{{index + 1}}</td>
                                             <td><h5>Tên Khách Hàng</h5>{{items.tenNguoiDat}}</td>
                                             <td><h5>Số Điện Thoại</h5>{{items.soDienThoaiNguoiDat}}</td>
                                             <td><h5>Email</h5>{{items.email}}</td>
@@ -243,20 +216,18 @@
                                     </table>
                                 </button>
                             </h2>
-                            <br>
-                            <div  id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+
+                            <div :id="'collapse' + index" class="accordion-collapse collapse " :aria-labelledby="'heading' + index" data-bs-parent=".accordion">
+                                <br>
+                                <h2 style="color: black; font-size: 20px" class="text-center">Danh Sách Hóa Đơn Sân Ca</h2>
                                 <div class="accordion-body p-1">
-                                    <table
-                                            class="table table-bordered table-container table-hover mt-2"
-                                            id="dataTable"
-                                            width="100%"
-                                            cellspacing="0"
-                                            style="background-color: #82CAFA;text-align: center"
-                                    >
+                                    <table class="table table-bordered table-container table-hover mt-2" id="dataTable" width="100%" cellspacing="0" style="background-color: #6caae5;text-align: center">
                                         <thead>
                                         <tr>
                                             <th>STT</th>
                                             <th>Ngày Đến Sân</th>
+                                            <th>Tên Sân - Ca</th>
+                                            <th>Giá Sân</th>
                                             <th>Số Lần Đổi Lịch</th>
                                             <th>Tiền Thanh Toán</th>
                                             <th>Ngày Thanh Toán</th>
@@ -266,20 +237,20 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(element,index) in hoaDon[index].hoaDonSanCaStaffList">
-                                            <td>{{index +1}}</td>
+                                        <tr v-for="(element, subIndex) in items.hoaDonSanCaStaffList">
+                                            <td>{{subIndex + 1}}</td>
                                             <td>{{formatDate(element.ngayDenSan)}}</td>
+                                            <td>{{element.tenSanBong}} - {{element.tenCa}}</td>
+                                            <td>{{currencyNumberVN(element.giaSan)}}</td>
                                             <td v-if="element.countLich === 0">Chưa Đổi Lịch Lần Nào</td>
                                             <td v-if="element.countLich === 1">Đã Đổi Lịch 1 Lần</td>
                                             <td>{{currencyNumberVN(element.tongTienHoaDonSanCa)}}</td>
                                             <td v-if="element.ngayThanhToan === null">Chưa Cập Nhật</td>
                                             <td v-if="element.ngayThanhToan !== null">{{formatNgayGio(element.ngayThanhToan)}}</td>
                                             <td>{{currencyNumberVN(element.tienCocThua)}}</td>
-                                            <td >{{valueTrangThaiHoaDonSanCa(element.trangThai)}}</td>
+                                            <td>{{valueTrangThaiHoaDonSanCa(element.trangThai)}}</td>
                                             <td>
-                                                <button v-if="element.trangThai === 3" @click="findByIdHoaDonSanCa(element.id)" type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas"
-                                                        data-bs-target="#offcanvasRight"
-                                                        aria-controls="offcanvasRight">
+                                                <button v-if="element.trangThai === 3" @click="findByIdHoaDonSanCa(element.id)" type="button" class="btn btn-primary btn-labeled" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                                                     Xem chi tiết
                                                 </button>
                                             </td>

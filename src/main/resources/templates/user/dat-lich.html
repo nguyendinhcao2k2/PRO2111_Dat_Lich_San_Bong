@@ -204,6 +204,20 @@
             position: sticky;
             top: 0;
         }
+
+        .button-boder-status{
+            border-radius: 30px;
+            width: 100%; /* Đặt chiều rộng và cao tùy ý */
+            height: 27px;
+            display: flex; /* Thêm display: flex */
+            align-items: center; /* Thêm align-items: center */
+            justify-content: center; /* Để canh icon theo chiều ngang giữa */
+        }
+
+        .span-text-button-status {
+            font-size: 17px;
+            color: #FFFFFF;
+        }
     </style>
 </head>
 <body>
@@ -240,15 +254,6 @@
             </div>
         </div>
     </div>
-    <!-- Full Screen Search End -->
-
-    <!-- Service Start -->
-    <!-- <div
-             class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp mt-5"
-             data-wow-delay="0.1s"
-     >
-         <h2 class="mt-2">Liên Hệ Đặt Sân</h2>
-     </div>-->
     <!--      Start Calendar-->
     <section class="container">
         <div class="card border-0 m-0 p-1">
@@ -290,7 +295,7 @@
                                                 <h5 class="modal-title" id="exampleModalLabel">
                                                     Đổi Lịch Nhanh
                                                 </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                <button type="button" class="btn-close btnCloseDoiLichNhanhTong" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -647,7 +652,7 @@
                                             class="button-header"
                                             onclick="showModalInfo()"
                                     >
-                                        <span class="button__text">Diền thông tin</span>
+                                        <span class="button__text">Điền Thông Tin</span>
                                         <span class="button__icon">
                                             <i class="fas fa-info"></i>
                                         </span>
@@ -745,7 +750,7 @@
                                                                     <div class="col-6 col-md-6 col-sm-6">
                                                                         <h4
                                                                                 class=" text-center text-primary"
-                                                                                id="id_tongTien"
+
                                                                                 th:text="${thamSoTienCoc +'%'}"
                                                                         >
 
@@ -780,12 +785,10 @@
                                                             data-bs-dismiss="modal"
                                                     >
                                                         Đóng
-                                                        <i class="fas fa-times fa-lg"></i>
                                                     </button>
                                                     <button type="submit" class="btn btn-success btn-labeled"
                                                             onclick="xacNhanDatLich()">
-                                                        Đặt lịch và thanh toán
-                                                        <i class="fas fa-check fa-lg"></i>
+                                                        Đặt lịch và Thanh toán
                                                     </button>
                                                 </div>
                                             </div>
@@ -815,6 +818,109 @@
                                                     id="demo-single-select-date"
                                                     class="datePicker"
                                             ></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+<!--                        trạng thái    -->
+
+                            <div class="note d-flex justify-content-center">
+                                <div class="row">
+                                    <div class="m-2">
+                                        <h5 class="text-center" style="font-weight: bold">Chú Giải Trạng Thái</h5>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn position-relative button-boder-status"
+                                                    style="background-color: #d35400;"
+                                            >
+                                                <span class="span-text-button-status"
+                                                >Sau thời gian cho phép đặt</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn position-relative button-boder-status"
+                                                    style="background-color: #009578;"
+                                            >
+                                                <span class="span-text-button-status"
+                                                >Trạng thái Mới đặt</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn position-relative button-boder-status"
+                                                    style="background-color: #fbc12d;"
+                                            >
+                                                <span class="span-text-button-status"
+                                                >Sân đã được đặt hết</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="m-2">
+                                        <h5 class="text-center" style="font-weight: bold">Sau Khi Thanh Toán</h5>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn position-relative button-boder-status"
+                                                    style="background-color: #7cd28f;"
+                                            >
+                                                <span class="span-text-button-status">Trạng thái Đang đá</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn position-relative button-boder-status"
+                                                    style="background-color: #6f42c1;"
+                                            >
+                                                <span class="span-text-button-status">Trạng thái Chờ nhận sân</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn position-relative button-boder-status"
+                                                    style="background-color: #1a73e8;"
+                                            >
+                                                <span class="span-text-button-status">Trạng thái Đã thanh toán</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn btn-info position-relative button-boder-status"
+                                            >
+                                                <span class="span-text-button-status">Trạng thái Chờ thanh toán</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-6 col-4 mb-2" >
+                                        <div style="display: flex; align-items: center">
+                                            <button
+                                                    type="button"
+                                                    class="btn position-relative button-boder-status"
+                                                    style="background-color: #dc3545;"
+                                            >
+                                                <span class="span-text-button-status"
+                                                >Trạng thái Đặt nhưng không đá</span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -882,10 +988,6 @@
                                                                     id="luuCaCellDay"
                                                             >
                                                                 Lưu Ca
-                                                                <i
-                                                                        class="far fa-save fa-lg"
-                                                                        style="color: #f2f2f3"
-                                                                ></i>
                                                             </button>
                                                         </div>
                                                         <div class="p-1 bd-highlight">
@@ -895,10 +997,6 @@
                                                                     onclick="closeModal1()"
                                                             >
                                                                 Hủy
-                                                                <i
-                                                                        class="fas fa-times fa-lg"
-                                                                        style="color: #f5f5f5"
-                                                                ></i>
                                                             </button>
                                                         </div>
                                                     </div>
@@ -2270,7 +2368,7 @@
                 select: "preset-range",
                 display: "inline",
                 // firstSelectDay: 1,
-                selectSize: 14,
+                selectSize: 7,
                 min: new Date(),
             });
     });
@@ -3181,7 +3279,8 @@
                         tienCocThua: this.tienCocThua
                     }),
                     success: function (response) {
-                        window.location.reload();
+                        resetEventByIdLoaiSan(selectedValue);
+                        $(".closeModalFather").click();
                         createAndShowToast("bg-success", "Thông báo", "Thao tác thành công!");
                     },
                     error: function (error) {
@@ -3577,9 +3676,9 @@
             success: function (response) {
                 if (response.statusCode === 'OK') {
                     createAndShowToast("bg-success", "Thông báo", "Thao tác đổi lịch thành công!");
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 1000);
+                    $(".closeModalXacNhanThongTinCon").click();
+                    $(".btnCloseDoiLichNhanhTong").click();
+                    resetEventByIdLoaiSan(selectedValue);
                     return;
                 }
                 createAndShowToast("bg-warning", "Thông báo", "Không thể thực hiện!");
@@ -3849,7 +3948,7 @@
 
     function deleteLichSanBong(id) {
         Swal.fire({
-            title: "Quý khách có chắc chắn hủy lịch này không? Nếu hủy bạn sẽ mất tiền cọc.",
+            title: "Quý khách có chắc chắn hủy lịch này không? <br><span style=\"color: red;\">Nếu hủy bạn sẽ mất tiền cọc.</span>",
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Xác nhận',
